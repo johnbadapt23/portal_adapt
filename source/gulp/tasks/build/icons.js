@@ -15,7 +15,9 @@ gulp.task('build:icons', function (done) {
         }))
         .pipe(iconfont({
             fontName: 'icons',
-            appendUnicode: true,
+            // svgicons2svgfont (gulp-iconfont's underlying dependency) renamed
+            // this option; the old name now throws instead of being accepted.
+            prependUnicode: true,
             formats: ['ttf', 'eot', 'woff', 'woff2', 'svg'],
             timestamp: timestamp,
         }))
