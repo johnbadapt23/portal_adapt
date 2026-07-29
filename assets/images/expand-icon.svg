@@ -1,0 +1,9 @@
+<svg id="Expand_Icon" data-name="Expand Icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="Rectangle_1745" data-name="Rectangle 1745" width="40" height="40" fill="#f2f2f2" opacity="0.8"/>
+  <g id="Expand" transform="translate(-50.774 -50.774)">
+    <path id="Path_693" data-name="Path 693" d="M322.709,322.71H320v1.806h4.516V320h-1.807Z" transform="translate(-246.968 -246.968)" fill="#838383"/>
+    <path id="Path_694" data-name="Path 694" d="M322.71,65.807v2.709h1.806V64H320v1.807Z" transform="translate(-246.968)" fill="#838383"/>
+    <path id="Path_695" data-name="Path 695" d="M65.807,65.806h2.709V64H64v4.516h1.807Z" fill="#838383"/>
+    <path id="Path_696" data-name="Path 696" d="M65.806,322.709V320H64v4.516h4.516v-1.807Z" transform="translate(0 -246.968)" fill="#838383"/>
+  </g>
+</svg>
