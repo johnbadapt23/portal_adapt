@@ -23,6 +23,18 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
+      - name: Install native image-optimizer libs
+        # gulp-image pulls in mozjpeg/gifsicle/zopflipng/pngquant binaries
+        # (via the imagemin "*-bin" packages). Their prebuilt binaries can
+        # need system shared libs, and their from-source fallback needs
+        # standard build tooling - installing both up front avoids install
+        # failures like "libimagequant.so.0: cannot open shared object file"
+        # (see imagemin/pngquant-bin#130).
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            libimagequant0 build-essential autoconf automake libtool pkg-config
+
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
