@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var image = require('gulp-image');
+var image = require('gulp-image').default; // ESM-only package; CJS interop requires .default
 var browserSync = require("browser-sync");
 var reload = browserSync.reload;
 

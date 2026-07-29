@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var zip = require('gulp-zip');
+var zip = require('gulp-zip').default; // ESM-only package; CJS interop requires .default
 
 var path = require('../../paths.js');
 
