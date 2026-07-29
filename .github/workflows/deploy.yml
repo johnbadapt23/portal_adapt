@@ -45,7 +45,9 @@ jobs:
           username: ${{ secrets.STAGING_USERNAME }}
           server: ${{ vars.STAGING_HOST }}
           port: ${{ vars.STAGING_PORT || '22' }}
-          password: ${{ secrets.STAGING_PASS }}
+          # STAGING_PASS holds the SSH private key contents, not a password
+          # (naming is just a holdover from setup - value is a key file).
+          ssh_private_key: ${{ secrets.STAGING_PASS }}
           local_path: './deploy/*'
           remote_path: ${{ vars.STAGING_REMOTE_PATH }}
           sftp_only: true
