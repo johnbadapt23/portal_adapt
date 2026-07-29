@@ -1,0 +1,176 @@
+<?php
+/**
+ * Template Name: Research Template
+ */
+
+get_header();
+?>
+<main id="main" role="main" class="home research-flexible">
+	<section class="research-top-navigation">
+		<div class="container">
+			<span class="breadcrumb-container">
+				<a class="home-link" href="/" target="_self">Home</a>
+				<span class="divider">/</span>
+				<span class="title"><?php the_title();?></span>
+			</span>
+			<span class="title-container">
+				<h1 clas="h2-style"><?php the_title();?></h1>
+			</span>
+			<div class="navigation-container">
+				<?php if ( have_rows( 'topics_column_one', 'option' ) ) : ?>
+					<?php while ( have_rows( 'topics_column_one', 'option' ) ) : the_row(); ?>
+						<?php if ( have_rows( 'group' ) ) : ?>
+							<?php while ( have_rows( 'group' ) ) : the_row(); ?>
+								<div class="column active">
+									<span class="dropDownSection">
+										<?php $icon = get_sub_field( 'icon' ); ?>
+										<span class="columnTitle">
+											<?php if ( $icon ) { ?>
+												<img class="topic-icon" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+											<?php } ?>
+											<?php echo get_sub_field( 'title' ); ?>
+										</span>
+										<?php if ( have_rows( 'link' ) ) : ?>
+											<ul>
+												<?php while ( have_rows( 'link' ) ) : the_row(); ?>
+													<?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
+													<?php if ( $topic_link_term ): ?>
+														<li>
+															<a href="<?php echo get_term_link($topic_link_term); ?>"><?php echo $topic_link_term->name; ?></a>
+														</li>
+													<?php endif; ?>
+												<?php endwhile; ?>
+											</ul>
+										<?php else : ?>
+											<?php // no rows found ?>
+										<?php endif; ?>
+									</span>
+								</div>
+							<?php endwhile; ?>
+						<?php else : ?>
+							<?php // no rows found ?>
+						<?php endif; ?>
+					<?php endwhile; ?>
+				<?php else : ?>
+					<?php // no rows found ?>
+				<?php endif; ?>
+				<?php if ( have_rows( 'topics_column_two', 'option' ) ) : ?>
+					<?php while ( have_rows( 'topics_column_two', 'option' ) ) : the_row(); ?>
+						<?php if ( have_rows( 'group' ) ) : ?>
+							<?php while ( have_rows( 'group' ) ) : the_row(); ?>
+								<div class="column">
+									<span class="dropDownSection">
+										<?php $icon = get_sub_field( 'icon' ); ?>
+										<span class="columnTitle">
+											<?php if ( $icon ) { ?>
+												<img class="topic-icon" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+											<?php } ?>
+											<?php echo get_sub_field( 'title' ); ?>
+										</span>
+										<?php if ( have_rows( 'link' ) ) : ?>
+											<ul>
+												<?php while ( have_rows( 'link' ) ) : the_row(); ?>
+													<?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
+														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
+														<?php if ( $type_link_term ): ?>
+															<li>
+																<a href="<?php echo get_term_link($type_link_term); ?>" ><?php echo $type_link_term->name; ?></a>
+															</li>
+														<?php endif; ?>
+													<?php } else { ?>
+														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
+														<?php if ( $other_link ): ?>
+															<li>
+																<a href="<?php echo get_sub_field( 'other_link' ); ?>" ><?php echo $other_link; ?></a>
+															</li>
+														<?php endif; ?>
+													<?php } ?>
+												<?php endwhile; ?>
+											</ul>
+										<?php else : ?>
+											<?php // no rows found ?>
+										<?php endif; ?>
+									</span>
+								</div>
+							<?php endwhile; ?>
+						<?php else : ?>
+							<?php // no rows found ?>
+						<?php endif; ?>
+					<?php endwhile; ?>
+				<?php else : ?>
+					<?php // no rows found ?>
+				<?php endif; ?>
+				<?php if ( have_rows( 'topics_column_three', 'option' ) ) : ?>
+					<?php while ( have_rows( 'topics_column_three', 'option' ) ) : the_row(); ?>
+						<?php if ( have_rows( 'group' ) ) : ?>
+							<?php while ( have_rows( 'group' ) ) : the_row(); ?>
+								<div class="column watch-column" style="display: none;">
+									<span class="dropDownSection">
+										<?php $icon = get_sub_field( 'icon' ); ?>
+										<span class="columnTitle">
+											<?php if ( $icon ) { ?>
+												<img class="topic-icon" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+											<?php } ?>
+											<?php echo get_sub_field( 'title' ); ?>
+										</span>
+										<?php if ( have_rows( 'link' ) ) : ?>
+											<ul>
+												<?php while ( have_rows( 'link' ) ) : the_row(); ?>
+													<?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
+														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
+														<?php if ( $type_link_term ): ?>
+															<li>
+																<a href="<?php echo get_term_link($type_link_term); ?>" ><?php echo $type_link_term->name; ?></a>
+															</li>
+														<?php endif; ?>
+													<?php } else { ?>
+														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
+														<?php if ( $other_link ): ?>
+															<li>
+																<a href="<?php echo get_sub_field( 'other_link' ); ?>" ><?php echo $other_link; ?></a>
+															</li>
+														<?php endif; ?>
+													<?php } ?>
+												<?php endwhile; ?>
+											</ul>
+										<?php else : ?>
+											<?php // no rows found ?>
+										<?php endif; ?>
+									</span>
+								</div>
+							<?php endwhile; ?>
+						<?php else : ?>
+							<?php // no rows found ?>
+						<?php endif; ?>
+
+					<?php endwhile; ?>
+				<?php else : ?>
+					<?php // no rows found ?>
+				<?php endif; ?>
+			</div>
+		</div>
+	</section>
+	<?php if ( have_rows( 'content_blocks' ) ): ?>
+        <div class="contentBlocks">
+        	<?php while ( have_rows( 'content_blocks' ) ) : the_row(); ?>
+        		<?php if ( get_row_layout() == 'featured_slider_portal' ) : ?>
+                    <?php get_template_part( 'templates/components/_featured-slider-portal' ); ?>
+                <?php elseif ( get_row_layout() == 'featured_grid_portal' ) : ?>
+                	<?php get_template_part( 'templates/components/_featured-grid-portal' ); ?>
+				<?php elseif ( get_row_layout() == 'featured_topic' ) : ?>
+					<?php get_template_part( 'templates/components/_topic-grid-portal' ); ?>
+				<?php elseif ( get_row_layout() == 'case_study_highlight' ) : ?>
+					<?php get_template_part( 'templates/components/_case-studies-featured-article-text-portal' ); ?>
+				<?php elseif ( get_row_layout() == 'case_study_highlight_with_video' ) : ?>
+					<?php get_template_part( 'templates/components/_case-studies-featured-article-video-portal' ); ?>
+				<?php elseif ( get_row_layout() == 'expert_presentations_slider' ) : ?>
+					<?php get_template_part( 'templates/components/_event-slider-portal' ); ?>
+				<?php elseif ( get_row_layout() == 'contact_block' ) : ?>
+					<?php get_template_part( 'templates/components/_contact-block' ); ?>
+        		<?php endif; ?>
+        	<?php endwhile; ?>
+        </div>
+	<?php endif; ?>
+</main>
+
+<?php get_footer(); ?>

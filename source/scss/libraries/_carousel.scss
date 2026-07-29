@@ -1,0 +1,161 @@
+div[data-carousel] {
+	opacity: 0;
+	@include transition(all, $transition, ease);
+
+	&.active {
+		opacity: 1;
+	}
+}
+
+div.owl-nav {
+	position: absolute;
+	top: -60px !important;
+	right: 0;
+
+	button.owl-next,
+	button.owl-prev {
+		display: inline-block;
+		cursor: pointer;
+		background: 9.5px 14.7px !important;
+		width: 9.5px;
+		height: 14.7px;
+		position: relative;
+		clear: both;
+		margin: 0 0 5px 0 !important;
+
+		@include responsive(767) {
+			display: none;
+		}
+
+		span {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			color: #000 !important;
+			font-size: 0px;
+		}
+
+		&:after {
+			content: ' ';
+			font-family: $font-icon;
+			font-weight: normal;
+			font-size: 100px;
+			color: #000;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 9.5px;
+			height: 14.7px;
+			background-size: 9.5px 14.7px;
+			// @include responsive(small) {
+			// 	font-size: 28px;
+			// }
+		}
+	}
+
+	button.owl-prev {
+		float: left;
+		@include transition(all , 600ms , ease);
+		margin-left: 10px;
+
+		&:after {
+			background-image: url('../images/prev.svg');
+		}
+	}
+
+	button.owl-next {
+		float: right;
+		@include transition(all , 600ms , ease);
+		margin-right: 10px;
+
+		&:after {
+			background-image: url('../images/next.svg');
+		}
+	}
+}
+
+div.owl-nav {
+	position: absolute;
+	top: -40px;
+	right: 0;
+
+	div.owl-next,
+	div.owl-prev {
+		display: inline-block;
+		cursor: pointer;
+		background: 9.5px 14.7px !important;
+		width: 9.5px;
+		height: 14.7px;
+
+		&:after {
+			font-family: $font-icon;
+			font-weight: normal;
+			font-size: 57px;
+			color: #000;
+			// @include responsive(small) {
+			// 	font-size: 28px;
+			// }
+		}
+	}
+
+	div.owl-prev {
+		float: left;
+		@include transition(all , 600ms , ease);
+		margin-left: 10px;
+
+		&:after {
+			content: '\E008';
+			cursor: pointer;
+		}
+
+		&:hover {
+			@include transition(all , 600ms , ease);
+			margin-left: 0;
+		}
+
+		&:after {
+			content: "\E008";
+		}
+	}
+
+	div.owl-next {
+		float: right;
+		@include transition(all , 600ms , ease);
+		margin-right: 10px;
+
+		&:after {
+			content: '\E007';
+			cursor: pointer;
+		}
+
+		&:hover {
+			@include transition(all , 600ms , ease);
+			margin-right: 0;
+		}
+
+		&:after {
+			content: "\E007";
+		}
+	}
+}
+
+div.owl-dots {
+	position: absolute;
+	bottom: -30px;
+	left: 0;
+	right: 0;
+	text-align: center;
+
+	div.owl-dot {
+		display: inline-block;
+		height: 12px;
+		width: 12px;
+		border-radius: 50%;
+		margin: 0 4px;
+		background: #a3a3a3;
+
+		&.active {
+			background-color: #2a2a2a;
+		}
+	}
+}

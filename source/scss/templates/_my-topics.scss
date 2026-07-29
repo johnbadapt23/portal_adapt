@@ -1,0 +1,146 @@
+section.updateInterests {
+    float: left;
+    width: 100%;
+    padding: 80px 0px;
+
+    @include responsive(767) {
+        padding: 40px 0;
+    }
+
+    .container {
+        .introductionTextContainer {
+            width: 100%;
+            float: left;
+            border-bottom: 2px solid #000;
+            padding-bottom: 70px;
+
+            @include responsive(767) {
+                padding-bottom: 45px;
+            }
+
+            h1 {
+                width: 100%;
+                float: left;
+                text-align: left;
+                text-transform: none;
+                font-weight: bold;
+                font-family: $font-base;
+                font-size: 32px;
+
+                @include responsive(767) {
+                    font-size: 28px;
+                    line-height: 36px;
+                }
+            }
+
+            .introductionText {
+                width: 100%;
+                float: left;
+                display: block;                
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
+
+        .topicsContainer {
+            float: left;
+            width: 100%;
+            text-align: left;
+            position: relative;
+
+            #responseText {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                height: 20px;
+                width: auto;
+                text-align: right;
+            }
+
+            .formContainer {
+                width: 100%;
+                float: left;
+                max-width: 650px;
+
+                form {
+                    width: 100%;
+                    float: left;
+
+                    .topic {
+                        width: 100%;
+                        float: left;
+                        padding: 30px 0px;
+                        border-bottom: 1px solid $color-lightGrey;
+                        padding-right: 200px;
+                        position: relative;
+
+                        @include responsive(767) {
+                            padding-right: 120px;
+                        }
+
+                        .topicTitle {
+                            width: 100%;
+                            float: left;
+
+                            h3 {
+                                font-size: 20px;
+                                margin-bottom: 12px;
+
+                                @include responsive(767) {
+                                    font-size: 16px;
+                                    line-height: 22px;
+                                }
+                            }
+                        }
+
+                        .checkbox-container{
+                            position: absolute;
+                            right: 0px;
+                            bottom: 30px;
+
+                            @include responsive(767) {
+                                bottom: auto;
+                                top: 25px;
+                            }
+
+                            label {
+                                float: left;
+        						min-width: 0px;
+        						padding: 0 20px;
+        						height: 33px;
+        						line-height: 32px;
+        						text-align: center;
+        						display: block;
+        						color: #fff;
+        						border:1px solid $color-red;
+                                background-color: $color-red;
+        						border-radius:3px;
+        						cursor: pointer;
+        						font-family: $font-base;
+        						font-size: 10px;
+                                font-weight: bold;
+                                letter-spacing: 0px;
+        						text-transform: uppercase;
+        					}
+
+        					input {
+        						position:absolute;
+        						top:-20px;
+        						visibility: hidden;
+        					}
+
+        					input:checked ~ label {
+                                display: block;
+        						// background-color: $color-red;
+        						border-color: $color-darkGrey-new;
+        						color: $color-darkGrey-new;
+        						background-color: #fff;
+        					}
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

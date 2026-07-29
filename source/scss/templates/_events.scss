@@ -1,0 +1,26 @@
+main.events {
+
+    span.date{
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.blogWrapper.post-events {
+    .excerpt {
+        display: block !important;
+    }
+
+    .container #loop {
+        height: auto!important;
+    }
+
+    .layout1,
+    .layout4 {
+
+        .excerpt {
+            color: #fff !important;
+        }
+    }
+}

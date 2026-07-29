@@ -1,0 +1,52 @@
+name: Build & Deploy (SFTP)
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build theme assets
+        run: npx gulp _build
+
+      - name: Stage deployable files
+        run: |
+          mkdir -p deploy
+          rsync -av --exclude-from='.deployignore' ./ deploy/
+
+      - name: Deploy over SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        with:
+          username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_HOST }}
+          port: ${{ vars.SFTP_PORT || '22' }}
+          ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          ssh_passphrase: ${{ secrets.SFTP_PASSPHRASE }}
+          local_path: './deploy/*'
+          remote_path: ${{ vars.SFTP_REMOTE_PATH }}
+          sftp_only: true
+          sftpArgs: '-o ConnectTimeout=10'

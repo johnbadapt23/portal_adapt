@@ -1,0 +1,173 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*:focus {
+	outline-color: transparent;
+	outline-style: none;
+}
+
+::selection {
+	//background: $selection-bg;
+	color: $selection-color;
+	text-shadow: none;
+}
+
+::-webkit-selection {
+	//background: $selection-bg;
+	color: $selection-color;
+	text-shadow: none;
+}
+
+::-moz-selection {
+	//background: $selection-bg;
+	color: $selection-color;
+	text-shadow: none;
+}
+
+html {
+	font-family: $font-base;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	background:#fff;
+}
+
+body,
+html {
+	font-family: $font-base;
+	width: 100%;
+	min-height: 100%;
+	min-width: $site-min-width;
+}
+
+body.fixed,
+html.fixed {
+	overflow: hidden;
+}
+
+body {
+	overflow-x: hidden;
+	background:#000;
+
+	&.fixed {
+		overflow: hidden;
+	}
+
+	 > main,
+	 > nav,
+	 > section,
+	> footer {
+		//display: none;
+	}
+
+	&.mobileMenu {
+		&:after {
+			content: '';
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.8);
+			z-index: 10;
+		}
+	}
+}
+
+main {
+	background-color: #fff;
+	// padding-bottom:60px;
+	opacity: 1;
+	padding-top: 111px;
+	@include transition(opacity, 1s);
+
+	@include responsive(767) {
+		padding-top: 100px;
+	}
+
+	&.speaker {
+		padding-bottom: 60px;
+	}
+
+	&.active {
+		opacity: 1;
+	}
+
+	&#main.no-banner-top {
+		padding-top:150px;
+
+		@include responsive(767) {
+			padding-top: 68px;
+		}
+
+		&.remove-main {
+	        padding-top: 90px;
+
+			@include responsive(767) {
+				padding-top: 68px;
+			}
+	    }
+	}
+}
+
+section.default {
+	padding-bottom: 60px;
+}
+
+.container {
+	width: 100%;
+	max-width: 1128px;
+	min-width: $site-min-width;
+	margin: 0 auto;
+	padding: 0 $site-padding-desktop;
+	text-align: left;
+
+	&.inset {
+		max-width:640px;
+	}
+
+	@include responsive(desktop) {
+		max-width: inherit;
+		padding: 0 $site-padding-desktop;
+	}
+	@include responsive(tablet) {
+		padding: 0 $site-padding-tablet;
+		max-width: inherit;
+	}
+	@include responsive(767) {
+		padding: 0 $site-padding-mobile;
+		max-width: inherit;
+	}
+}
+
+article,
+footer,
+header,
+section {
+	position: relative;
+	width: 100%;
+}
+
+img {
+	display: inline;
+	vertical-align: middle;
+	max-width: 100%;
+	border: none;
+}
+
+a {
+	border: none;
+}

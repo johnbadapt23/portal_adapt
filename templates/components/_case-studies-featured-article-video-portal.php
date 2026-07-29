@@ -1,0 +1,36 @@
+<section class="caseStudiesFeaturedVideo portal bg-dark <?php echo get_sub_field('add_margin_bottom'); ?>">
+    <div class="container">
+        <?php $post_object = get_sub_field( 'case_study' ); ?>
+        <?php if ( $post_object ): ?>
+    		<?php $post = $post_object; ?>
+    		<?php setup_postdata( $post ); ?>
+            <div class="item">
+                <a href="<?php the_permalink(); ?>" class="title mobile"><?php the_title(); ?></a>
+                <div class="imageSizeContainer">
+                    <span class="overlayGradient"></span>
+                    <a href="<?php the_permalink(); ?>" class="postPlayBtn-">
+                        <div class="bgContainer">
+                            <?php if ( get_field( 'listing_image') ) { ?>
+                                <?php $image = get_field( 'listing_image'); ?>
+                            <?php } else { ?>
+                                <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
+                                    <?php $image = get_field( 'video_poster'); ?>
+                                <?php } else { ?>
+                                    <?php $image = get_field( 'featured_image'); ?>
+                                <?php } ?>
+                            <?php } ?>
+                            <img class="desktop" src="<?php echo $image; ?>" />
+                            <span class="watchIcon"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="textContainer">
+                    <a href="<?php the_permalink(); ?>" class="title desktop"><?php the_title(); ?></a>
+                    <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                    <a href="<?php the_permalink(); ?>" class="readMore">Watch Video</a>
+                </div>
+            </div>
+            <?php wp_reset_postdata(); ?>
+    	<?php endif; ?>
+    </div>
+</section>

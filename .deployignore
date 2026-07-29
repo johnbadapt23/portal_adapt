@@ -1,0 +1,17 @@
+# Files/folders excluded when staging the SFTP deploy in CI.
+# Everything else in the repo root ships to the server.
+.git
+.github
+.gitignore
+.deployignore
+.nvmrc
+node_modules
+source
+package.json
+package-lock.json
+gulpfile.js
+deploy
+.DS_Store
+._*
+*.log
+README.md

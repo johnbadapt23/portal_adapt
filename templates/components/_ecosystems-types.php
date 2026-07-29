@@ -1,0 +1,42 @@
+<section class="evr-stages customer-kit-types ecosystem-types" <?php if( get_sub_field( 'id' )){ ?> id="<?php echo get_sub_field( 'id' ); ?>"<?php } ?>>
+    <div class="container">
+        <div class="title-container">
+            <h2 class="evr-title"><?php echo get_sub_field( 'title' ); ?></h2>
+        </div>
+        <div class="stages-container">
+            <?php if ( have_rows( 'types' ) ) : ?>
+            <?php while ( have_rows( 'types' ) ) : the_row(); ?>
+                <?php $stage_term = get_sub_field( 'type' ); ?>
+                <?php if ( $stage_term ): ?>                    
+                    <span class="stages-item">
+                        <?php $icon = get_sub_field( 'icon' ); ?>                        
+                        <?php if ( $icon ) { ?>
+                            <span class="stages-icon-container">                                
+                                <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                            </span>
+                        <?php } ?>                                            
+                        <span class="stages-title-container">
+                            <h3><?php echo $stage_term->name; ?></h3>
+                        </span>
+                        <?php if(get_sub_field( 'sub_title' )) { ?> 
+                            <span class="stages-text-container">
+                                <span class="text-inner">
+                                    <?php echo get_sub_field( 'sub_title' ); ?>
+                                </span>
+                            </span>
+                        <?php } ?>
+                        <span class="stages-button-container">
+                            <a class="stdBtn red data-set-button" href="/ecosystem-partners/search/?partner-types[]=<?php echo $stage_term->slug;?>" target="_self">View All</a>
+                        </span>
+                    </span>
+                <?php endif; ?>
+            <?php endwhile; ?>
+        <?php else : ?>
+            <?php // no rows found ?>
+        <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+
+

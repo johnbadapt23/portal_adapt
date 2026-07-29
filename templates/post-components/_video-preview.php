@@ -1,0 +1,220 @@
+<?php global $membershipType, $advantageType; 
+$advantagePlus = "no";
+    $current_user = wp_get_current_user();
+    $member = new MeprUser($current_user->ID);
+
+    // Get the active subscriptions for this user
+    $active_subscriptions = $member->active_product_subscriptions('ids');
+
+    if (
+        current_user_can('administrator') ||
+        ( current_user_can('mepr-active') && (
+            in_array(49140, $active_subscriptions) 
+        ))
+    ) {
+        $advantagePlus = "yes";
+    }
+?>
+<section class="expertPresentationFeatured bg-black singleResearch">
+    <div class="container">  
+        <span style="display: none;">
+            <?php echo $membershipType; echo $advantageType; ?>
+        </span>
+        <div class="item">                      
+            <?php if(current_user_can('memberpress_authorized')) { ?>
+                <?php if( get_field('vimeo_code')){ ?>
+                    <a href="https://vimeo.com/<?php echo get_field('vimeo_code'); ?>" class="image popup-vimeo">
+                <?php } else { ?>
+                    <a href="" class="image postPlayBtn">
+                <?php }?>
+            <?php } else { ?>
+
+            <?php }?>
+                <span class="imageSizeContainer">
+                    <span class="overlayGradient"></span>
+                    <span class="bgContainer">
+                        <?php $image = get_field('video_poster'); ?>
+                        <img class="desktop" src="<?php echo $image; ?>" alt="" />
+                    </span>
+                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                        <span class="watchIcon"></span>
+                    <?php } else { ?>
+                        <span class="lockedwatchIcon"></span>
+                    <?php } ?>                   
+                    </span>
+            <?php if(current_user_can('memberpress_authorized')) { ?>
+                </a>
+            <?php } ?>
+            <div class="textContainer bg-secondary-black">                
+                <?php
+                $overview_text = get_sub_field( 'overview_text' );
+                ?>
+
+                <?php if ( $overview_text ) : ?>
+                    <span class="text"><?php echo wp_kses_post( $overview_text ); ?></span>
+                <?php endif; ?>
+                <?php if(current_user_can('memberpress_authorized')) { ?>
+                    <?php if ( has_term( ['sector-outlooks', 'persona-profiles' ], 'filter-types' ) && $advantageType == 'yes' ) { ?>
+                        <?php if( $advantagePlus == 'yes') { ?> 
+                            <?php $download = get_sub_field( 'download' ); ?>
+                            <?php if ( $download ) { ?>
+                                <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                            <?php } ?>
+                        <?php } else { ?> 
+                            <?php if ( has_term( ['persona-profiles' ], 'filter-types' )){ ?>
+                                    <?php $download = get_sub_field( 'download' ); ?>
+                                <?php if ( $download ) { ?>    
+                                    <a class="download button red-button disabled-button locked-request" href="#requestdownloadPersona">Request Access</a>                                       
+                                <?php } ?>
+                            <?php } else { ?> 
+                                    <?php $download = get_sub_field( 'download' ); ?>
+                                <?php if ( $download ) { ?>    
+                                    <a class="download button red-button disabled-button locked-request" href="#requestdownloadSector">Request Access</a>                                       
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } else { ?> 
+                        <?php $download = get_sub_field( 'download' ); ?>
+                        <?php if ( $download ) { ?>
+                            <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                        <?php } ?>
+                    <?php } ?>                                        
+                <?php } else { ?>
+                    <?php $download = get_sub_field( 'download' ); ?>
+                    <?php if ( $download ) { ?>  
+                        <?php $downloadButtonText = get_field('request_download_button_text'); ?>  
+                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>                                       
+                    <?php } ?>
+                <?php } ?>
+                <span class="published labelSmall text-dark-grey<?php if ( $download ) { ?><?php } else { ?> no-margin-border<?php } ?>">
+
+                    Published <?php echo get_the_date('M j, Y') ?> in
+                    
+                </span>
+                  <span class="type-topic labelSmall">
+                    <?php $topics  = [];
+
+                        // Get all topic terms once
+                        $all_topics = get_the_terms($post_id, 'topic');
+
+                        // Bail early if none
+                        if ($all_topics && !is_wp_error($all_topics)) {
+
+                            // 1. Try to get Yoast primary
+                            $primary_id = yoast_get_primary_term_id('topic');
+
+                            if ($primary_id) {
+                                $primary = get_term($primary_id, 'topic');
+
+                                if ($primary && !is_wp_error($primary)) {
+                                    $topics[] = $primary;
+                                }
+
+                                // 2. Find ONE secondary (first non-primary)
+                                foreach ($all_topics as $term) {
+                                    if ($term->term_id !== (int) $primary_id) {
+                                        $topics[] = $term;
+                                        break;
+                                    }
+                                }
+
+                            } else {
+                                // 3. No primary → just take first two
+                                $topics = array_slice($all_topics, 0, 2);
+                            }
+                        }
+
+                        // 4. Output (max 2 guaranteed)
+                        foreach ($topics as $topic) : ?>
+                            <a href="<?php echo esc_url(get_term_link($topic)); ?>" class="topic-filter red-text">
+                                <?php echo esc_html($topic->name); ?>
+                            </a>
+                        <?php endforeach; ?>
+
+                                            <?php if (yoast_get_primary_term_id('filter-types')) {
+                        $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                        $postType = get_term( $primary_term_type_id );
+                        } else {
+                            if(get_the_terms( $post->ID, 'filter-types' )){
+                                $terms = get_the_terms( $post->ID, 'filter-types' );
+                                foreach($terms as $term) {
+                                    $postType = $term;
+                                }
+                            }
+                        }?>
+                    <?php if ( !empty( $postType ) ) { ?>
+                        <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
+                        <a href="<?php echo get_term_link($postType); ?>" class="topic-filter red-text"><?php echo $postType->name; ?> </a>
+                    <?php } ?>
+                </span>
+
+
+                <?php if ( have_rows( 'contributors' ) ) : ?>
+
+    <?php
+    $contributors = get_field( 'contributors' );
+    $count = 0;
+
+    if ( is_array( $contributors ) ) {
+        foreach ( $contributors as $contributor ) {
+            if ( ! empty( $contributor['contributor_name'] ) ) {
+                $count++;
+            }
+        }
+    }
+    ?>
+
+    <span class="contributor-container">
+        <span class="contributor-title labelSmall text-dark-grey">
+            <?php echo ( $count > 1 ) ? 'Authors' : 'Author'; ?>
+        </span>
+
+        <?php while ( have_rows( 'contributors' ) ) : the_row(); ?>
+            <?php $post_object = get_sub_field( 'contributor_name' ); ?>
+            <?php if ( $post_object ) : ?>
+                <?php
+                $post = $post_object;
+                setup_postdata( $post );
+                ?>
+                <!-- <a href="<?php the_permalink(); ?>"> -->
+                    <span class="contributor labelSmall text-black">
+                        
+                            <?php the_title(); ?>
+                       
+                    </span>
+                     <!-- </a> -->
+                <?php wp_reset_postdata(); ?>
+            <?php endif; ?>
+        <?php endwhile; ?>
+    </span>
+
+<?php endif; ?>
+
+
+
+            </div>
+            <span class="share-save-container mobile">
+                <span class="saveInsight">
+                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                        <?php echo do_shortcode('[favorite_button]'); ?>
+                    <?php } ?>
+                </span>
+                 <?php if($advantagePlus = "no"){ ?>
+                    <span class="shareArticle">
+                        <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
+                            <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
+                        </a>
+                    </span>  
+                <?php } ?>                      
+            </span>
+        </div>
+    </div>   
+    <div class="videoPlayerContainer print-no">
+        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+        <div class="videoWrapper">
+            <video width="100%" id="popupVideo" controls controlsList="nodownload">
+                <source type="video/mp4" src="<?php echo get_field('featured_video_vimeo_code'); ?>" />
+            </video>
+        </div>
+    </div>
+</section>

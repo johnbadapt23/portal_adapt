@@ -1,0 +1,2497 @@
+<?php if( has_term( 'replay-post', 'replay' ) ) {  ?>
+    <?php
+    $date_string = get_field('replay_event_date');
+    $date = DateTime::createFromFormat('Ymd', $date_string);
+    ?>
+    <section class="researchArticleTextHeader replayArticleHeader">
+        <div class="container">
+            <div class="item">
+                <div class="replayArticleHeaderContainer">
+                    <div class="textContainer">
+                        <span class="topicFilter">
+                            <a href="/events/analyst-market-briefings/" class="topicFilterText">Analyst Market Briefings</a>
+                        </span>
+                        <span class="title"><?php the_title(); ?></span>
+                        <span class="dateReadTime"><?php echo $date->format('j F, Y'); ?></span>
+                        <?php
+                             $text = get_the_excerpt();
+                             $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '... More' );
+                        ?>
+                        <span class="text-dark item-excerpt excerpt-scroll-to-content"><?php echo $trimmed_content; ?></span>
+                        <span class="replay-button-container">
+                            <span class="replay-button popup-vimeo" href="https://vimeo.com/<?php echo get_field('replay_vimeo_code'); ?>">Watch Replay</span>
+                        </span>
+                    </div>
+                    <div class="imageSizeContainer">
+                        <div class="bgContainer">
+                            <?php $video_image = get_field( 'video_image' ); ?>
+                            <?php if ( $video_image ) { ?>
+                                <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_field('replay_vimeo_code'); ?>">
+                        	       <img src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                   <span class="opacity-overlay play-button-overlay"></span>
+                               </a>
+                            <?php } ?>
+                        </div>
+                        <span class="replay-button-container mobile">
+                            <span class="replay-button popup-vimeo" href="https://vimeo.com/<?php echo get_field('replay_vimeo_code'); ?>">Watch Replay</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="webinar-article bg-white">
+    	<div class="container">
+    		<div class="column webinar-column first-column">
+    			<span class="webinar-subtitle"><?php echo get_field( 'sub_title' ); ?></span>
+    			<span class="webinar-content content">
+    				<?php echo get_field( 'content' ); ?>
+    			</span>
+            </div>
+            <div class="column webinar-column second-column<?php if( get_field( 'number_of_speakers' ) == 'one') { ?> speaker-column<?php } ?>">
+                <?php if( get_field( 'number_of_speakers' ) == 'one') { ?>
+                    <?php $post_object = get_field( 'speaker' ); ?>
+                    <?php if ( $post_object ): ?>
+                        <?php $post = $post_object; ?>
+                        <?php setup_postdata( $post ); ?>
+                            <div class="speaker-container-inner  bg-lightest">
+                                <span class="webinar-subtitle speaker-subtitle">Meet the Speaker</span>
+                                <span class="speaker-image">
+                                    <img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+                                </span>
+                                <span class="description">
+                                    <span class="speaker-name"><?php echo the_title(); ?></span>
+                                    <span class="speaker-role"><?php echo get_field('speaker_description'); ?></span>
+                                </span>
+                                <div class="textBlock">
+                                    <?php
+                                         $text = get_field('speaker_details');
+                                         $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '... More' );
+                                    ?>
+                                    <span class="speaker-details-excerpt"><?php echo $trimmed_content; ?></span>
+                                    <span class="speaker-details"><?php echo get_field('speaker_details'); ?></span>
+                                </div>
+                            </div>
+                        <?php wp_reset_postdata(); ?>
+                    <?php endif; ?>
+                <?php } else { ?>
+                    <div class="column-image-container desktop">
+                        <?php $side_image = get_field( 'side_image' ); ?>
+                        <?php if ( $side_image ) { ?>
+                        	<img src="<?php echo $side_image['url']; ?>" alt="<?php echo $side_image['alt']; ?>" />
+                        <?php } ?>
+                    </div>
+                    <div class="column-image-container mobile">
+                        <?php $side_image = get_field( 'side_image' ); ?>
+                        <?php if ( $side_image ) { ?>
+                        	<img src="<?php echo $side_image['url']; ?>" alt="<?php echo $side_image['alt']; ?>" />
+                        <?php } ?>
+                    </div>
+                <?php }?>
+            </div>
+        </div>
+    </section>
+    <?php if( get_field( 'number_of_speakers' ) == 'more-than-one') { ?>
+        <section class="webinar-speaker-block bg-lightest">
+            <div class="container">
+                <?php if ( have_rows( 'webinar_speakers' ) ) : ?>
+                    <?php while ( have_rows( 'webinar_speakers' ) ) : the_row(); ?>
+                        <span class="webinar-subtitle"><?php echo get_sub_field( 'title' ); ?></span>
+                        <?php if ( have_rows( 'speaker' ) ) : ?>
+    						<div class="speaker-container flex-speaker multiple-speakers">
+    						<?php while ( have_rows( 'speaker' ) ) : the_row(); ?>
+    							<div class="speaker-column-flex one-half">
+    							<?php $post_object = get_sub_field( 'speaker' ); ?>
+    							<?php if ( $post_object ): ?>
+    								<?php $post = $post_object; ?>
+    								<?php setup_postdata( $post ); ?>
+    									<div class="speaker-container-inner">
+    										<span class="speaker-image">
+    											<img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+    										</span>
+    										<span class="description">
+    											<span class="speaker-name"><?php echo the_title(); ?></span>
+    											<span class="speaker-role"><?php echo get_field('speaker_description'); ?></span>
+    										</span>
+    										<div class="textBlock">
+                                                <?php
+                                                     $text = get_field('speaker_details');
+                                                     $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '... More' );
+                                                ?>
+                                                <span class="speaker-details-excerpt"><?php echo $trimmed_content; ?></span>
+                                                <span class="speaker-details"><?php echo get_field('speaker_details'); ?></span>
+    										</div>
+    									</div>
+    								<?php wp_reset_postdata(); ?>
+    							<?php endif; ?>
+    							</div>
+    						<?php endwhile; ?>
+    						</div>
+    					<?php else : ?>
+    						<?php // no rows found ?>
+    					<?php endif; ?>
+                    <?php endwhile; ?>
+                <?php else : ?>
+                    <?php // no rows found ?>
+                <?php endif; ?>
+            </div>
+        </section>
+    <?php } ?>
+<?php } else { ?>
+    <?php if ( has_term( 'data-insights', 'filter-types' ) && have_rows( 'preview_module' ) ) { ?>
+        <?php if ( have_rows( 'preview_module' ) ) : ?>
+           <?php while ( have_rows( 'preview_module' ) ) : the_row(); ?>
+               <section class="researchArticleTextHeader preview-module bg-white">
+                   <div class="container">
+                       <?php
+                       $allowed_host = 'research.adapt.com.au';
+                       $host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+                       if(substr($host, 0 - strlen($allowed_host)) == $allowed_host) { ?>
+                           <script>
+
+                           function goBack() {
+                               window.history.back()
+                           }
+                           </script>
+                           <a class="back-button" onclick="goBack()">Back</a>
+                       <?php } else { ?>
+                           <a class="back-button" href="<?php echo esc_url( home_url( '/' ) ); ?>/">Back</a>
+                        <?php } ?>
+                       <div class="item">
+                            <?php if(current_user_can('memberpress_authorized')) { ?>
+                                <div class="slide-preview-container">
+                                    <?php if ( have_rows( 'slider_images' ) ) : ?>
+                                        <div class="preview-main-slider">
+                                            <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
+                                                <span class="main-slide">
+                                                    <span class="bg-container">
+                                                        <?php $image = get_sub_field( 'image' ); ?>
+                                                        <?php if ( $image ) { ?>
+                                                            <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                        <?php } ?>
+                                                    </span>
+                                                </span>
+                                            <?php endwhile; ?>
+                                        </div>
+                                        <div class="preview-thumbnail-slider">
+                                            <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
+                                                <span class="thumbnail-slide">
+                                                    <span class="bg-container">
+                                                        <?php $image = get_sub_field( 'image' ); ?>
+                                                        <?php if ( $image ) { ?>
+                                                            <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                        <?php } ?>
+                                                    </span>
+                                                </span>
+                                            <?php endwhile; ?>
+                                        </div>
+                                    <?php else : ?>
+                                        <?php // no rows found ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php } else { ?> 
+                                <div class="slide-preview-container">
+                                    <div class="preview-main-slider">                                        
+                                        <?php if ( have_rows( 'slider_images' ) ) : ?>  
+                                            <?php $slideMainCounter = 1; ?>                                                  
+                                            <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
+                                                <?php if($slideMainCounter == 1){ ?>
+                                                    <span class="main-slide non-member">
+                                                        <span class="bg-container">
+                                                            <?php $image = get_sub_field( 'image' ); ?>
+                                                            <?php if ( $image ) { ?>
+                                                                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                            <?php } ?>
+                                                        </span>
+                                                    </span>
+                                                <?php } else { } ?>
+                                               <?php $slideMainCounter++;?>
+                                            <?php endwhile; ?>
+                                        <?php else : ?>
+                                            <?php // no rows found ?>
+                                        <?php endif; ?>
+                                        <?php if ( have_rows( 'members_only_blurred_slider_images', 'options' ) ) : ?>                                       
+                                            <?php while ( have_rows( 'members_only_blurred_slider_images', 'options' ) ) : the_row(); ?>
+                                                <?php if ( have_rows( 'blurred_images' ) ) : ?>                                       
+                                                    <?php while ( have_rows( 'blurred_images' ) ) : the_row(); ?>
+                                                        <span class="main-slide">
+                                                            <span class="bg-container">
+                                                                <?php $image = get_sub_field( 'image' ); ?>
+                                                                <?php if ( $image ) { ?>
+                                                                    <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                <?php } ?>
+                                                            </span>
+                                                        </span>
+                                                    <?php endwhile; ?>
+                                                <?php else : ?>
+                                                    <?php // no rows found ?>
+                                                <?php endif; ?>                                              
+                                            <?php endwhile; ?>
+                                        <?php else : ?>
+                                            <?php // no rows found ?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="preview-thumbnail-slider">
+                                        <?php if ( have_rows( 'slider_images' ) ) : ?>
+                                            <?php $slideThumbCounter = 1; ?>   
+                                            <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
+                                                 <?php if($slideThumbCounter == 1){ ?>
+                                                    <span class="thumbnail-slide">
+                                                        <span class="bg-container">
+                                                            <?php $image = get_sub_field( 'image' ); ?>
+                                                            <?php if ( $image ) { ?>
+                                                                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                            <?php } ?>
+                                                        </span>
+                                                    </span>
+                                                 <?php } else { } ?>
+                                                 <?php $slideThumbCounter++;?>
+                                            <?php endwhile; ?>
+                                        <?php else : ?>
+                                            <?php // no rows found ?>
+                                        <?php endif; ?>
+                                         <?php if ( have_rows( 'members_only_blurred_slider_images', 'options' ) ) : ?>                                       
+                                            <?php while ( have_rows( 'members_only_blurred_slider_images', 'options' ) ) : the_row(); ?>
+                                                <?php if ( have_rows( 'blurred_images' ) ) : ?>                                       
+                                                    <?php while ( have_rows( 'blurred_images' ) ) : the_row(); ?>
+                                                        <span class="thumbnail-slide">
+                                                            <span class="bg-container">
+                                                                <?php $image = get_sub_field( 'image' ); ?>
+                                                                <?php if ( $image ) { ?>
+                                                                    <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                <?php } ?>
+                                                            </span>
+                                                        </span>
+                                                    <?php endwhile; ?>
+                                                <?php else : ?>
+                                                    <?php // no rows found ?>
+                                                <?php endif; ?>                                              
+                                            <?php endwhile; ?>
+                                        <?php else : ?>
+                                            <?php // no rows found ?>
+                                        <?php endif; ?>
+                                    </div>                                   
+                                </div>
+                                <script>
+                                    jQuery(document).ready(function() {
+                                            jQuery("img").on("contextmenu", function(e) {
+                                                return false;
+                                            });
+                                    });
+                                </script>
+                            <?php } ?>
+                            <div class="textContainer">
+                                <span class="topicFilter">
+                                    <?php if (yoast_get_primary_term_id('topic')) {
+                                        $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                        $postTopic = get_term( $primary_term_topic_id );
+                                    } else {
+                                        if(get_the_terms( $post->ID, 'topic' )){
+                                            $terms = get_the_terms( $post->ID, 'topic' );
+                                            foreach($terms as $term) {
+                                                $postTopic = $term;
+                                            }
+                                        }
+                                    }?>
+
+                                    <?php if (yoast_get_primary_term_id('filter-types')) {
+                                        $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                        $postType = get_term( $primary_term_type_id );
+                                    } else {
+                                        if(get_the_terms( $post->ID, 'filter-types' )){
+                                            $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                            foreach($termsType as $type) {
+                                                $postType = $type;
+                                            }
+                                        }
+                                    }?>
+                                    <?php if($postTopic){?>
+                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                    <?php } ?>
+                                    <?php if($postType){?>
+                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                    <?php } ?>
+                                </span>
+                                <span class="title"><?php the_title(); ?></span>
+                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+                                <span class="text"><?php echo get_sub_field( 'overview_text' ); ?></span>
+                                <?php if(current_user_can('memberpress_authorized')) { ?>
+                                    <a class="scroll-to-overview" href="">Read overview</a>
+                                    <?php $download = get_sub_field( 'download' ); ?>
+                                    <?php if ( $download ) { ?>
+                                        <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <?php $download = get_sub_field( 'download' ); ?>
+                                    <?php if ( $download ) { ?>    
+                                        <a class="download button red-button disabled-button" target="_blank" href="https://adapt.com.au/services/it-research-advisory">Request a Free Trial</a>                                       
+                                    <?php } ?>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            <?php endwhile; ?>
+        <?php else : ?>
+        <?php endif; ?>
+    <?php } else { ?>
+        <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
+            <section class="expertPresentationFeatured bg-dark singleResearch">
+                <div class="container">
+                    <?php
+                    $allowed_host = 'research.adapt.com.au';
+                    $host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+                    if(substr($host, 0 - strlen($allowed_host)) == $allowed_host) { ?>
+                        <script>
+
+                        function goBack() {
+                            window.history.back()
+                        }
+                        </script>
+                        <a class="back-button" onclick="goBack()">Back</a>
+                    <?php } else { ?>
+                        <a class="back-button" href="<?php echo esc_url( home_url( '/' ) ); ?>/">Back</a>
+                    <?php } ?>
+                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                        <?php if( get_field('vimeo_code')){ ?>
+                            <a href="https://vimeo.com/<?php echo get_field('vimeo_code'); ?>" class="image popup-vimeo">
+                        <?php } else { ?>
+                            <a href="" class="image postPlayBtn">
+                        <?php }?>
+                    <?php } else { ?>
+
+                    <?php }?>
+                        <div class="imageSizeContainer">
+                            <span class="overlayGradient"></span>
+                            <div class="bgContainer">
+                                <?php $image = get_field('video_poster'); ?>
+                                <img class="desktop" src="<?php echo $image; ?>" alt="" />
+                            </div>
+                            <?php if(current_user_can('memberpress_authorized')) { ?>
+                                <span class="watchIcon"></span>
+                            <?php } ?>
+                            <span class="textContainer">
+                                <span class="title"><?php the_title(); ?></span>
+                            </span>
+                        </div>
+                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                        </a>
+                    <?php } ?>
+                    <span class="nextSection">
+                        <span class="nextSectionText"><?php if(get_field('read_summary_text')){ ?><?php echo get_field('read_summary_text');?><?php } else { ?>Read Summary<?php } ?></span>
+                    </span>
+                </div>
+                <div class="videoPlayerContainer print-no">
+                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                    <div class="videoWrapper">
+                        <video width="100%" id="popupVideo" controls controlsList="nodownload">
+                            <source type="video/mp4" src="<?php echo get_field('featured_video_vimeo_code'); ?>" />
+                        </video>
+                    </div>
+                </div>
+            </section>
+        <?php } else { ?>
+            <section class="researchArticleTextHeader bg-white">
+                <div class="container">
+                    <?php
+                    $allowed_host = 'research.adapt.com.au';
+                    $host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+                    if(substr($host, 0 - strlen($allowed_host)) == $allowed_host) { ?>
+                        <script>
+
+                        function goBack() {
+                            window.history.back()
+                        }
+                        </script>
+                        <a class="back-button" onclick="goBack()">Back</a>
+                    <?php } else { ?>
+                        <a class="back-button" href="<?php echo esc_url( home_url( '/' ) ); ?>/">Back</a>
+                    <?php } ?>
+                    <div class="item">
+                        <div class="imageSizeContainer">
+                            <div class="bgContainer">
+                                <?php if ( get_field( 'listing_image') ) { ?>
+                                    <?php $image = get_field( 'listing_image'); ?>
+                                <?php } else { ?>
+                                    <?php $image = get_field( 'featured_image'); ?>
+                                <?php } ?>
+                                <img class="desktop" src="<?php echo $image; ?>" />
+                            </div>
+                            <?php if ( get_field ( 'image_caption' )) { ?>
+                                <div class="caption"><?php echo get_field ( 'image_caption' ); ?></div>
+                            <?php } ?>
+                        </div>
+                        <div class="textContainer">
+                            <span class="topicFilter">
+                                <?php if (yoast_get_primary_term_id('topic')) {
+                                    $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                    $postTopic = get_term( $primary_term_topic_id );
+                                } else {
+                                    if(get_the_terms( $post->ID, 'topic' )){
+                                        $terms = get_the_terms( $post->ID, 'topic' );
+                                        foreach($terms as $term) {
+                                            $postTopic = $term;
+                                        }
+                                    }
+                                }?>
+
+                                <?php if (yoast_get_primary_term_id('filter-types')) {
+                                    $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                    $postType = get_term( $primary_term_type_id );
+                                } else {
+                                    if(get_the_terms( $post->ID, 'filter-types' )){
+                                        $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                        foreach($termsType as $type) {
+                                            $postType = $type;
+                                        }
+                                    }
+                                }?>
+                                <?php if($postTopic){?>
+                                    <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                <?php } ?>
+                                <?php if($postType){?>
+                                    <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                <?php } ?>
+                            </span>
+                            <span class="title"><?php the_title(); ?></span>                        
+                            <?php if (get_field('contributors')) { ?>
+                                <?php $totalCount = count(get_field('contributors')); ?>
+                            <?php } ?>
+                            <?php if ( have_rows( 'contributors' ) ) : ?>
+                                <span class="author">by
+                                    <?php $count = 0; ?>
+                                    <?php while ( have_rows( 'contributors' ) ) : the_row(); ?>
+                                        <?php $post_object = get_sub_field( 'contributor_name' ); ?>
+                                        <?php if ( $post_object ): ?>
+                                            <?php $post = $post_object; ?>
+                                            <?php setup_postdata( $post ); ?>
+                                                <span class="authorName"><?php the_title(); ?><?php if ($count == $totalCount - 1){?> <?php } else { ?><span class="comma"><?php if ($count == $totalCount - 2){?> and <?php } else { ?>, <?php } ?></span><?php } ?></span>
+                                            <?php endif; ?>
+                                        <?php wp_reset_postdata(); ?>
+                                        <?php $count++; ?>
+                                    <?php endwhile; ?>
+                                </span>
+                            <?php endif; ?>
+                            <?php if ($postType->slug == 'workshop-recordings'){ ?>
+                                <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo get_field('read_time'); ?><?php } ?></span>
+                            <?php } else { ?>
+                                <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php } ?>
+    <?php } ?>
+    <?php if ( has_term( 'data-insights', 'filter-types' ) && have_rows( 'preview_module' ) ) { ?>
+        <?php if(current_user_can('memberpress_authorized')) { ?>
+            <article class="articleWrapper bg-white">
+                <div class="container">
+                    <div class="column first">
+                        <span class="saveInsight">
+                            <?php if(current_user_can('memberpress_authorized')) { ?>
+                                <?php echo do_shortcode('[favorite_button]'); ?>
+                            <?php } ?>
+                        </span>
+                    </div>
+                    <div class="column second">
+                        <div class="article">
+                            <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
+                                <span class="topicFilter">
+                                    <?php if (yoast_get_primary_term_id('topic')) {
+                                        $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                        $postTopic = get_term( $primary_term_topic_id );
+                                    } else {
+                                        if(get_the_terms( $post->ID, 'topic' )){
+                                            $terms = get_the_terms( $post->ID, 'topic' );
+                                            foreach($terms as $term) {
+                                                $postTopic = $term;
+                                            }
+                                        }
+                                    }?>
+
+                                    <?php if (yoast_get_primary_term_id('filter-types')) {
+                                        $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                        $postType = get_term( $primary_term_type_id );
+                                    } else {
+                                        if(get_the_terms( $post->ID, 'filter-types' )){
+                                            $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                            foreach($termsType as $type) {
+                                                $postType = $type;
+                                            }
+                                        }
+                                    }?>
+                                    <?php if($postTopic){?>
+                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                    <?php } ?>
+                                    <?php if($postType){?>
+                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                    <?php } ?>
+                                </span>
+                                <h1 class="title"><?php the_title(); ?></h1>
+                                <?php if ($postType->slug == 'workshop-recordings'){ ?>
+                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo get_field('read_time'); ?><?php } ?></span>
+
+                                <?php } else { ?>
+                                    <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                <?php } ?>
+                            <?php } ?>
+                            <span class="saveInsight mobile">
+                                <?php echo do_shortcode('[favorite_button]'); ?>
+                            </span>
+                            <?php if (get_field('article_content')){ ?>
+                                <div class="article-content">
+                                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                                    <?php echo get_field('article_content'); ?>
+                                    <?php } else { ?>
+                                    <div class="content-trimmed">
+                                        <?php
+                                            echo force_balance_tags( html_entity_decode( wp_trim_words( htmlentities( wpautop( get_field( 'article_content' )) ), 100, $more ) ) );
+                                        ?>
+                                    </div>
+                                    <span class="content-trimmed-overlay"></span>
+                                    <?php } ?>
+                                    <!--  -->
+                                </div>
+                            <?php } else { ?>
+                                <?php if(current_user_can('memberpress_authorized')) { ?>
+                                <?php } else { ?>
+                                <div class="content-trimmed">
+                                    <?php
+                                    $text = get_the_excerpt();
+                                    if($text){?>
+                                        <p><?php echo $text; ?></p>
+                                        <?php
+                                    } else {
+                                    } ?>
+                                </div>
+                                <span class="content-trimmed-overlay"></span>
+                                <?php } ?>
+                            <?php } ?>
+                            <?php if(current_user_can('memberpress_authorized')) { ?>
+                                <?php if ( have_rows( 'content_blocks' ) ): ?>
+                                <?php while ( have_rows( 'content_blocks' ) ) : the_row(); ?>
+                                    <?php if ( get_row_layout() == 'article_content' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos singlePost repeatableSingle">
+                                        <div class="container">
+                                            <div class="post-inner">
+                                                <div class="fullWidth article-content">
+                                                    <div class="articleWrapper">
+                                                        <?php echo get_sub_field( 'article_content' ); ?>
+                                                        <?php if( get_sub_field( 'infogram_image' )) { ?>
+                                                            <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <?php elseif ( get_row_layout() == 'feature_image_or_infogram' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only fullImageInfogram members-logged-in">
+                                        <div class="container">
+                                                <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
+                                                    <div class="featureBlock">
+                                                        <img class="featureImage" src="<?php echo get_sub_field( 'image' ); ?>"/>
+                                                    </div>
+                                                <?php } else { ?>
+                                                    <div class="infogram-container">
+                                                        <?php echo get_sub_field( 'infogram' ); ?>
+                                                    </div>
+                                                    <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                <?php } ?>
+                                        </div>
+                                    </section>
+                                    <?php elseif ( get_row_layout() == 'image_grid_block' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only imageGridBlock standard <?php echo get_sub_field( 'background_colour' ); ?>">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+
+                                                    <?php if ( have_rows( 'item' ) ) : ?>
+                                                        <div class="gridWrapper">
+                                                            <?php while ( have_rows( 'item' ) ) : the_row(); ?>
+                                                                <div class="item">
+                                                                    <?php if ( get_sub_field( 'image') ) { ?>
+                                                                        <div class="imageContainer">
+                                                                            <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                    <hr>
+                                                                    <span class="title">
+                                                                        <?php echo get_sub_field( 'title' ); ?>
+                                                                    </span>
+                                                                    <span class="description">
+                                                                        <?php echo get_sub_field( 'description' ); ?>
+                                                                    </span>
+                                                                    <?php if ( get_sub_field( 'logo') ) { ?>
+                                                                        <div class="logoContainer">
+                                                                            <img src="<?php echo get_sub_field( 'logo' ); ?>" alt="Adapt" />
+                                                                        </div>
+                                                                    <?php } ?>
+                                                                </div>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                    <div class="buttonBlock">
+                                                        <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'logo_grid' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos logoGrid <?php echo get_sub_field( 'background_colour' ); ?>">
+                                            <div class="container">
+                                                <div class="titleBlock">
+                                                    <span class="title">
+                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                    </span>
+
+                                                    <span class="description <?php echo get_sub_field( 'top_right_text_position' ); ?>">
+                                                        <h3><?php echo get_sub_field( 'top_right_text' ); ?></h3>
+                                                    </span>
+                                                </div>
+
+                                                <?php if ( have_rows( 'logos' ) ) : ?>
+                                                    <div class="logoBlock">
+                                                        <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
+                                                            <div class="logo">
+                                                                <span class="logoContainer">
+                                                                    <div class="image" style="background-image: url(<?php echo get_sub_field( 'logo' ); ?>);">
+                                                                    </div>
+                                                                </span>
+                                                                <span class="logoTitle">
+                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                </span>
+                                                            </div>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                    <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <?php } ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'download_block_single' ) : ?>
+                                        <?php get_template_part( 'templates/components/_download-block' ); ?>
+                                    <?php elseif ( get_row_layout() == 'download_block_double' ) : ?>
+                                        <?php get_template_part( 'templates/components/_download-block-two-columns' ); ?>
+                                    <?php elseif ( get_row_layout() == 'download_block_triple' ) : ?>
+                                        <?php get_template_part( 'templates/components/_download-block-three-columns' ); ?>
+                                    <?php elseif ( get_row_layout() == 'video_grid_block_two_column' ) : ?>
+                                        <?php get_template_part( 'templates/components/_video-block-two-columns' ); ?>
+                                    <?php elseif ( get_row_layout() == 'video_grid_block_three_column' ) : ?>
+                                        <?php get_template_part( 'templates/components/_video-block-three-columns' ); ?>
+                                    <?php elseif ( get_row_layout() == 'two_column_card_block' ) : ?>
+                                        <?php get_template_part( 'templates/components/_two-column-card' ); ?>
+                                    <?php elseif ( get_row_layout() == 'speaker_block' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+
+                                                    <?php if ( have_rows( 'speakers' ) ) : ?>
+                                                        <div class="gridWrapper">
+                                                            <?php while ( have_rows( 'speakers' ) ) : the_row(); ?>
+
+                                                                <?php $post_object = get_sub_field( 'speaker' ); ?>
+                                                                <?php if ( $post_object ): ?>
+                                                                    <a href="<?php the_permalink(); ?>" class="item">
+                                                                        <?php $post = $post_object; ?>
+                                                                        <?php setup_postdata( $post ); ?>
+                                                                            <?php if ( get_field( 'speaker_image') ) { ?>
+                                                                                <div class="imageContainer">
+                                                                                    <div class="image" style="background-image: url(<?php echo get_field( 'speaker_image' ); ?>);">
+                                                                                    </div>
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                            <hr>
+                                                                            <span class="title"><?php the_title(); ?></span>
+                                                                            <span class="description">
+                                                                                <?php echo get_field( 'speaker_description' ); ?>
+                                                                            </span>
+                                                                            <?php if ( get_field( 'logo') ) { ?>
+                                                                                <div class="logoContainer">
+                                                                                    <img src="<?php echo get_field( 'logo' ); ?>" alt="Adapt" />
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                        <?php wp_reset_postdata(); ?>
+                                                                    </a>
+                                                                <?php endif; ?>
+
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                    <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                        <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
+                                                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                        </div>
+                                                    <?php endwhile; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'speaker_block_button' ) : ?>
+                                            <?php get_template_part( 'templates/components/_speaker-cta-block' ); ?>
+                                    <?php elseif ( get_row_layout() == 'two_column_text_block' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos twoColumnTextBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <div class="titleBlock">
+                                                        <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                                                        <hr>
+
+                                                    </div>
+                                                    <div class="textBlock">
+                                                        <?php echo get_sub_field( 'text_block' ); ?>
+                                                        <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                            <a class="logoBlockLink text" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'text_and_image_block' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <div class="title">
+                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                        <hr>
+                                                    </div>
+                                                    <?php if ( have_rows( 'item' ) ) : ?>
+                                                        <div class="itemsWrapper">
+                                                            <?php while ( have_rows( 'item' ) ) : the_row(); ?>
+                                                                <div class="item">
+                                                                    <?php if ( get_sub_field( 'image') ) { ?>
+                                                                        <a href="<?php echo get_sub_field('link_url'); ?>" target="<?php echo get_sub_field('link_target'); ?>" class="imageContainer">
+                                                                            <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                                            </div>
+                                                                        </a>
+                                                                    <?php } ?>
+                                                                    <span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                                                                    <span class="description">
+                                                                        <?php echo get_sub_field( 'text' ); ?>
+                                                                    </span>
+                                                                </div>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                    <div class="buttonBlock">
+                                                        <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'half_text_half_image' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                            <div class="textBlock <?php echo get_sub_field( 'image_position' ); ?>">
+                                                <div class="v-wrap">
+                                                    <div class="v-box">
+                                                        <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                                                        <hr>
+                                                        <?php if ( get_sub_field ( 'text_block' ) ) { ?>
+                                                            <span class="desktopText"><?php echo get_sub_field( 'text_block' ); ?></span>
+                                                        <?php } ?>
+                                                        <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                            <a class="logoBlockLink desktop <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="imageBlock <?php echo get_sub_field( 'image_position' ); ?>">
+                                                <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                </div>
+                                            </div>
+                                            <div class="textBlock mobile">
+                                                <div class="container">
+                                                    <div class="inner">
+                                                        <?php if ( get_sub_field ( 'text_block' ) ) { ?>
+                                                            <span class="mobileText"><?php echo get_sub_field( 'text_block' ); ?></span>
+                                                        <?php } ?>
+                                                        <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                            <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'full_width_text_block' ) : ?>
+                                        <?php get_template_part( 'templates/components/_full-width-text-block' ); ?>
+                                    <?php elseif ( get_row_layout() == 'speaker_quote_carousel' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no speakerQuoteCarousel">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <div class="titleBlock">
+                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                        <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                            <a class="logoBlockLink text" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                        <?php } ?>
+                                                    </div>
+
+                                                    <?php if ( have_rows( 'item' ) ) : ?>
+                                                        <div class="owl-carousel speaker-gallery">
+                                                            <?php while ( have_rows( 'item' ) ) : the_row(); ?>
+                                                                <div class="item">
+                                                                    <div class="imageContainer">
+                                                                        <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="textBlock">
+                                                                        <div class="v-wrap">
+                                                                            <div class="v-box">
+                                                                                <span class="quoteBlock">
+                                                                                    <?php echo get_sub_field( 'quote' ); ?>
+                                                                                </span>
+                                                                                <span class="quoteAuthor">
+                                                                                    <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                </div>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'quote_block_with_no_image' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no quoteBlockNoImage">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <?php if ( have_rows( 'quotes' ) ) : ?>
+                                                        <div class="owl-carousel quote">
+                                                            <?php while ( have_rows( 'quotes' ) ) : the_row(); ?>
+                                                                <div class="item">
+                                                                    <div class="v-wrap">
+                                                                        <div class="v-box">
+                                                                            <span class="quoteBlock">
+                                                                                <?php echo get_sub_field( 'quote' ); ?>
+                                                                            </span>
+                                                                            <span class="quoteAuthor">
+                                                                                <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                    <div class="buttonBlock">
+                                                        <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'single_level_logo_block' ) : ?>
+                                        <section id="<?php echo get_sub_field( 'id' ); ?>" class="scrollPos imageGridBlock standard logos">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <div class="titleBlock">
+                                                        <?php if ( get_sub_field ( 'block_title' ) ) { ?>
+                                                            <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                            <span class="hrWrapper">
+                                                                <hr>
+                                                            </span>
+                                                        <?php } ?>
+                                                        <?php if ( get_sub_field ( 'description' ) ) { ?>
+                                                            <h3><?php echo get_sub_field( 'description' ); ?></h3>
+                                                        <?php } ?>
+                                                    </div>
+
+                                                    <?php if ( have_rows( 'logos' ) ) : ?>
+                                                        <div class="gridWrapper">
+                                                            <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
+                                                                <div class="item">
+                                                                    <div class="imageContainer">
+                                                                        <div class="image" style="background-image: url(<?php echo get_sub_field( 'logo' ); ?>);">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php endwhile; ?>
+                                                            <div class="item">
+                                                                <div class="v-wrap">
+                                                                    <div class="v-box">
+                                                                        <span class="yourLogoHere">Your Company Here</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                    <div class="buttonBlock">
+                                                        <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'counter_block' ) : ?>
+                                        <?php get_template_part( 'templates/components/_counter-block' ); ?>
+                                    <?php elseif ( get_row_layout() == 'repeatable_counter_block' ) : ?>
+                                        <?php get_template_part( 'templates/components/_repeatable-counter-block' ); ?>
+                                    <?php elseif ( get_row_layout() == 'membership_block' ) : ?>
+                                        <?php if ( get_sub_field ( 'display_membership_block' ) == 'yes' ) { ?>
+                                            <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no pricingBlock">
+                                                <div class="container">
+                                                    <h2>Membership</h2>
+                                                    <?php if ( have_rows( 'first_pricing_block', 'option' ) ) : ?>
+                                                        <div class="pricingBlockItem first">
+                                                            <div class="innerWrapper">
+                                                                <?php while ( have_rows( 'first_pricing_block', 'option' ) ) : the_row(); ?>
+                                                                    <span class="title">
+                                                                        <?php echo get_sub_field( 'title', 'option' ); ?>
+                                                                        <span class="hrWrapper">
+                                                                            <hr>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="priceBlockWrapper">
+                                                                        <span class="priceBlock">
+                                                                            <span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <?php if ( have_rows( 'features', 'option' ) ) : ?>
+                                                                        <div class="features">
+                                                                            <?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
+                                                                                <span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+                                                                            <?php endwhile; ?>
+                                                                        </div>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                                <span class="pricingButtonWrapper">
+                                                                    <a class="small" href="<?php echo get_sub_field( 'button_link', 'option' ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                                </span>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if ( have_rows( 'featured_pricing_block', 'option' ) ) : ?>
+                                                        <div class="pricingBlockItem featured">
+
+                                                            <?php while ( have_rows( 'featured_pricing_block', 'option' ) ) : the_row(); ?>
+                                                                <div class="innerWrapper">
+                                                                    <div class="featuredWrapper">
+                                                                        <span class="title">
+                                                                            <?php echo get_sub_field( 'title', 'option' ); ?>
+                                                                            <span class="hrWrapper">
+                                                                                <hr>
+                                                                            </span>
+                                                                        </span>
+                                                                        <span class="priceBlockWrapper">
+                                                                            <span class="priceBlock">
+                                                                                <span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+                                                                            </span>
+                                                                        </span>
+                                                                        <?php if ( have_rows( 'features', 'option' ) ) : ?>
+                                                                            <div class="features">
+                                                                                <?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
+                                                                                    <span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+                                                                                <?php endwhile; ?>
+                                                                            </div>
+                                                                        <?php endif; ?>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="pricingButtonWrapper">
+                                                                    <a class="small" href="<?php echo get_sub_field( 'button_link', 'option' ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                                </span>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                    <?php if ( have_rows( 'last_pricing_block', 'option' ) ) : ?>
+                                                        <div class="pricingBlockItem last">
+                                                            <?php while ( have_rows( 'last_pricing_block', 'option' ) ) : the_row(); ?>
+                                                                <div class="innerWrapper">
+                                                                    <span class="title">
+                                                                        <?php echo get_sub_field( 'title', 'option' ); ?>
+                                                                        <span class="hrWrapper">
+                                                                            <hr>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="priceBlockWrapper">
+                                                                        <span class="priceBlock">
+                                                                            <span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <?php if ( have_rows( 'features', 'option' ) ) : ?>
+                                                                        <div class="features">
+                                                                            <?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
+                                                                                <span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+                                                                            <?php endwhile; ?>
+                                                                        </div>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                                <span class="pricingButtonWrapper">
+                                                                    <a class="small" href="<?php echo get_sub_field( 'button_link', 'option' ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                                </span>
+                                                            <?php endwhile; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </section>
+                                        <?php } ?>
+                                    <?php elseif ( get_row_layout() == 'two_column_block_with_text_and_featured_quote' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only twoColumnWithTextAndFeaturedQuote">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <div class="column first">
+                                                        <h2>
+                                                            <?php echo get_sub_field( 'title' ); ?>
+                                                        </h2>
+                                                        <div class="textBlock">
+                                                            <?php echo get_sub_field( 'text_block' ); ?>
+                                                        </div>
+                                                        <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                            <a class="logoBlockLink text" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                        <?php } ?>
+                                                    </div>
+
+                                                    <div class="column last">
+                                                        <div class="item">
+                                                            <div class="v-wrap">
+                                                                <div class="v-box">
+                                                                    <span class="quoteBlock">
+                                                                        <?php echo get_sub_field( 'quote' ); ?>
+                                                                    </span>
+                                                                    <span class="quoteAuthor">
+                                                                        <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'video_block' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no videoBlock postVideoBlock">
+                                            <div class="container">
+                                                <?php if( get_sub_field('vimeo_code_popup')){ ?>
+                                                    <a href="https://vimeo.com/<?php echo get_sub_field('vimeo_code_popup'); ?>" class="image popup-vimeo">
+                                                <?php } else { ?>
+                                                    <a href="" class="image postPlayBtn">
+                                                <?php } ?>
+                                                    <div class="imageSizeContainer">
+                                                        <span class="overlayGradient"></span>
+                                                        <div class="bgContainer">
+                                                            <img class="desktop" src="<?php echo get_sub_field('video_poster_image'); ?>" alt="" />
+                                                        </div>
+                                                        <span class="watchIcon"></span>
+                                                        <span class="textContainer">
+                                                            <span class="title"><?php the_title(); ?></span>
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="videoPlayerContainer videoBlock">
+                                                <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                                <div class="videoWrapper">
+                                                    <video width="100%" id="popupVideo" controls controlsList="nodownload">
+                                                        <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+                                                    </video>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'full_width_image_block' ) : ?>
+                                        <?php get_template_part( 'templates/components/_full-image-button-block' ); ?>
+                                    <?php elseif ( get_row_layout() == 'full_width_text_editor' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only fullWidthTextEditor<?php if ( get_sub_field( 'font') ) { ?> <?php echo get_sub_field( 'font' );?><?php } ?><?php if ( get_sub_field( 'font_colour') ) { ?> <?php echo get_sub_field( 'font_colour' ); ?><?php } ?>">
+                                            <div class="container">
+                                                <?php echo get_sub_field( 'text_editor' ); ?>
+                                                <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                    <div class="buttonBlock">
+                                                        <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php elseif ( get_row_layout() == 'form_block' ) : ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no formBlock<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?> centered<?php } ?>">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <div class="formWrapper register">
+                                                        <?php if ( get_sub_field ( 'block_title' ) ) { ?>
+                                                            <h2><?php echo get_sub_field('block_title'); ?></h2>
+                                                            <?php if ( get_sub_field ( 'embed' ) == 'embed' ) { ?>
+                                                                <hr>
+                                                            <?php } ?>
+                                                        <?php } ?>
+                                                        <?php if ( get_sub_field ( 'block_description' ) ) { ?>
+                                                            <h3><?php echo get_sub_field('block_description'); ?></h3>
+                                                        <?php } ?>
+                                                        <?php if ( get_sub_field ( 'embed' ) == 'embed' ) { ?>
+                                                            <?php echo get_sub_field('form_shortcode'); ?>
+                                                        <?php }?>
+                                                        <?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
+                                                            <a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo get_sub_field('button_text'); ?></a>
+                                                            <div class="formPopup mfp-hide" id="<?php echo get_sub_field('form_id'); ?>">
+                                                                <a class="popup-modal-dismiss"></a>
+                                                                <?php if ( get_sub_field ( 'block_title' ) ) { ?>
+                                                                    <h2><h2><?php echo get_sub_field('block_title'); ?></h2></h2>
+                                                                <?php } ?>
+                                                                <?php if ( get_sub_field ( 'block_description' ) ) { ?>
+                                                                    <h3><?php echo get_sub_field('block_description'); ?></h3>
+                                                                <?php } ?>
+                                                                    <div class="formWrapper register"><?php echo get_sub_field('form_shortcode'); ?></div>
+                                                            </div>
+                                                        <?php }?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    <?php endif; ?>
+                                <?php endwhile; ?>
+                            <?php endif; ?>
+                            <?php } else { ?>
+                            <?php } ?>
+                        </div>
+                        <?php if(current_user_can('memberpress_authorized')) { ?>
+                            <?php if ( have_rows( 'contributors' ) ) : ?>
+                                <div class="authors">
+                                    <?php while ( have_rows( 'contributors' ) ) : the_row(); ?>
+                                        <?php $post_object = get_sub_field( 'contributor_name' ); ?>
+                                        <?php if ( $post_object ): ?>
+                                            <?php $post = $post_object; ?>
+                                            <?php setup_postdata( $post ); ?>
+                                                <div class="speaker-container-inner">
+                                                    <span class="speaker-image">
+                                                        <img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+                                                    </span>
+                                                    <span class="description">
+                                                        <span class="title"><?php if(get_sub_field('contributors_pre_heading')){ ?><?php echo get_sub_field('contributors_pre_heading'); ?><?php } else { ?>Contributor<?php } ?></span>
+                                                        <span class="speaker-name"><?php echo the_title(); ?></span>
+                                                        <span class="speaker-role"><?php echo get_field('speaker_description'); ?></span>
+                                                    </span>
+                                                    <div class="textBlock">
+                                                        <?php
+                                                            $text = get_field('speaker_details');
+                                                            $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '... More' );
+                                                        ?>
+                                                        <span class="speaker-details-excerpt"><?php echo $trimmed_content; ?></span>
+                                                        <span class="speaker-details">
+                                                            <?php echo get_field('speaker_details'); ?>
+                                                            <span class="speaker-details-less">Less</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            <?php wp_reset_postdata(); ?>
+                                        <?php endif; ?>
+                                <?php endwhile; ?>
+                                </div>
+                            <?php else : ?>
+                                <?php // no rows found ?>
+                            <?php endif; ?>
+                        <?php } ?>
+                    </div>
+                    <div class="column third">
+                        <?php if ( have_rows( 'preview_module' ) ) : ?>
+                        <?php while ( have_rows( 'preview_module' ) ) : the_row(); ?>
+                            <?php if ( have_rows( 'slider_images' ) ) : ?>
+                                <?php $imageCounter = 1; ?>
+                                <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
+                                    <?php if($imageCounter == 1){
+                                        $image = get_sub_field( 'image' );
+                                    } else if ($imageCounter == 2){
+                                        $offsetimage = get_sub_field( 'image' );
+                                    }
+                                    $imageCounter++; ?>
+                                <?php endwhile; ?>
+                            <?php else : ?>
+                                <?php // no rows found ?>
+                            <?php endif; ?>
+                            <?php endwhile; ?>
+                        <?php else : ?>
+                            <?php // no rows found ?>
+                        <?php endif; ?>
+                        <?php if(current_user_can('memberpress_authorized')) { ?>
+                            <?php if (get_field( 'download' ) == 'yes'){ ?>
+                                <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
+                                    <?php $counter = 0; ?>
+                                        <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
+                                            <?php if ( $counter == 0 ) {
+                                            $members = $members . get_sub_field( 'membership_id' );
+                                            } else {
+                                            $members = $members . ',' . get_sub_field( 'membership_id' );
+                                            } ?>
+                                            <?php $counter++; ?>
+                                        <?php endwhile; ?>
+                                        <?php if(current_user_can('mepr-active','memberships:' . $members)){ ?>
+                                            <?php if ( have_rows( 'download_link' ) ) : ?>
+                                                <div class="articleShare downloadShareContainer">
+                                                    <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
+                                                        <?php if (get_sub_field( 'text' )) { ?>
+                                                            <span class="shareText download desktop"><?php echo get_sub_field( 'text' ); ?></span>
+                                                        <?php } ?>
+                                                        <?php $preview_image = get_sub_field( 'preview_image' ); ?>
+                                                        <?php if ( $preview_image ) { ?>
+                                                            <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
+                                                                <span class="bg-container">
+                                                                    <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                </span>
+                                                            </span>
+                                                        <?php } ?>
+                                                        <?php if (get_sub_field( 'text' )) { ?>
+                                                            <span class="shareText download mobile"><?php echo get_sub_field( 'text' ); ?></span>
+                                                        <?php } ?>
+                                                        <a href="<?php echo get_sub_field( 'download_url' ); ?>" target="_blank" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php else : ?>
+                                                <?php // no rows found ?>
+                                            <?php endif; ?>
+                                        <?php } ?>
+
+                                <?php else : ?>
+                                    <?php // no rows found ?>
+                                <?php endif; ?>
+                            <?php } ?>
+                            <?php if ( have_rows( 'dataset_share' ) ) { ?>
+                                <?php if ( have_rows( 'dataset_share' ) ) : ?>
+                                    <?php while ( have_rows( 'dataset_share' ) ) : the_row(); ?>
+                                        <?php $current_user = wp_get_current_user();
+                                        $first_name = $current_user->first_name;
+                                        $last_name = $current_user->last_name;
+                                        $shareTitle = get_the_title();
+                                        $sharedDescription = get_the_excerpt();
+                                        $formIntro = get_sub_field('form_introduction_title');
+                                        ?>
+                                        <div class="articleShare shareLinkContainer datasetShare">
+                                            <?php if (get_sub_field( 'text' )) { ?>
+                                                <span class="shareText share"><?php echo get_sub_field( 'text' ); ?></span>
+                                            <?php } ?>
+                                            <a href="#datasetsharepopupcontainer" class="button redOutline datasharepopup"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                            <span class="hidden-share-link" style="display: none;"><?php echo get_sub_field( 'share_download_url' ); ?></span>
+                                            <span class="hidden-share-name" style="display: none;"><?php echo $first_name; ?> <?php echo $last_name; ?></span>
+                                            <span class="hidden-share-title" style="display: none;"><?php echo $shareTitle; ?></span>
+                                            <span class="hidden-share-excerpt" style="display: none;"><?php echo $sharedDescription; ?></span>
+                                            <div style="display: none;">
+                                                <div class="webinar-register-form datasetShare" id="datasetsharepopupcontainer">
+                                                    <div class="container">
+                                                        <span class="data-column-container">
+                                                            <span class="image-column">
+                                                                <span class="content-popup-container">
+                                                                    <h2><?php echo get_sub_field( 'text' ); ?></h2>
+                                                                    <span class="slide-container">
+                                                                        <span class="image-container">
+                                                                            <span class="bg-container offset-image-container">
+                                                                                <?php if ( $offsetimage ) { ?>
+                                                                                    <img src="<?php echo $offsetimage['url']; ?>" alt="<?php echo $offsetimage['alt']; ?>" />
+                                                                                <?php } ?>
+                                                                            </span>
+                                                                            <span class="bg-container">
+                                                                                <?php if ( $image ) { ?>
+                                                                                    <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                                <?php } ?>
+                                                                            </span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="page-title"><?php the_title(); ?></span>
+                                                                </span>
+                                                            </span>
+                                                            <span class="form-column">
+                                                                <span class="form-container">
+                                                                    <h2 class="form-title"><?php echo $formIntro; ?></h2>
+                                                                    <?php echo get_field( 'post_share_form', 'option' ); ?>
+                                                                </span>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endwhile; ?>
+                                <?php else : ?>
+                                    <?php // no rows found ?>
+                                <?php endif; ?>
+                            <?php } else { ?>
+                                <?php if (get_field( 'download' ) == 'yes'){ ?>
+                                    <?php $current_user = wp_get_current_user();
+                                    $first_name = $current_user->first_name;
+                                    $last_name = $current_user->last_name;
+                                    $shareTitle = get_the_title();
+                                    $sharedDescription = get_the_excerpt();
+                                    ?>
+                                    <?php if ( have_rows( 'membership_ids_for_share', 'options' ) ) : ?>
+                                        <?php $counter = 0; ?>
+                                            <?php while ( have_rows( 'membership_ids_for_share', 'options' ) ) : the_row(); ?>
+                                                <?php if ( $counter == 0 ) {
+                                                $members = $members . get_sub_field( 'membership_id' );
+                                                } else {
+                                                $members = $members . ',' . get_sub_field( 'membership_id' );
+                                                } ?>
+                                                <?php $counter++; ?>
+                                            <?php endwhile; ?>
+                                            <?php if(current_user_can('mepr-active','memberships:' . $members)){ ?>
+                                                <?php if ( have_rows( 'share' ) ) : ?>
+                                                    <div class="articleShare shareLinkContainer">
+                                                        <?php while ( have_rows( 'share' ) ) : the_row(); ?>
+                                                            <?php if (get_sub_field( 'text' )) { ?>
+                                                                <span class="shareText share"><?php echo get_sub_field( 'text' ); ?></span>
+                                                            <?php } ?>
+                                                            <a href="#sharepopupcontainer" class="button redOutline sharepopup"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                            <span class="hidden-share-link" style="display: none;"><?php echo get_sub_field( 'share_download_url' ); ?></span>
+                                                            <span class="hidden-share-name" style="display: none;"><?php echo $first_name; ?> <?php echo $last_name; ?></span>
+                                                            <span class="hidden-share-title" style="display: none;"><?php echo $shareTitle; ?></span>
+                                                            <span class="hidden-share-excerpt" style="display: none;"><?php echo $sharedDescription; ?></span>
+                                                            <div style="display: none;">
+                                                                <div class="webinar-register-form" id="sharepopupcontainer">
+                                                                    <div class="container">
+                                                                        <span class="webinar-subtitle"><?php echo get_field( 'post_share_form_title', 'option' ); ?></span>
+                                                                        <span class="form-container"><?php echo get_field( 'post_share_form', 'option' ); ?></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php else : ?>
+                                                    <?php // no rows found ?>
+                                                <?php endif; ?>
+                                            <?php } ?>
+                                    <?php else : ?>
+                                        <?php // no rows found ?>
+                                    <?php endif; ?>
+                                <?php } ?>
+                                <div class="relatedArticles<?php if(current_user_can('memberpress_authorized')) { ?><?php } else { ?> mobile-hide<?php } ?>">
+                                    <h2 class="related">You may also like</h2>
+                                    <?php if (yoast_get_primary_term_id('topic')) {
+                                        $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                        $postTopic = get_term( $primary_term_topic_id );
+                                    } else {
+                                        if(get_the_terms( $post->ID, 'topic' )){
+                                            $terms = get_the_terms( $post->ID, 'topic' );
+                                            foreach($terms as $term) {
+                                                $postTopic = $term;
+                                            }
+                                        }
+                                    }?>
+                                    <?php $type_terms = get_field( 'you_may_also_like' ); ?>
+                                    <?php $types = array(); ?>
+                                    <?php if ( $type_terms ){ ?>
+                                        <?php foreach ( $type_terms as $type_term ): ?>
+                                            <?php $types[] =  $type_term->slug; ?>
+                                        <?php endforeach; ?>
+                                    <?php
+                                        $args = array(
+                                            'post_type'      => 'post',
+                                            'posts_per_page' => 3,
+                                            'post__not_in' => array( $post->ID ),
+                                            'tax_query'      => array(
+                                                'relation' => 'AND',
+                                                array (
+                                                    'taxonomy' => 'topic',
+                                                    'field' => 'slug',
+                                                    'terms'    => $postTopic->slug
+                                                ),
+                                                array(
+                                                    'taxonomy' => 'filter-types',
+                                                    'field'    => 'slug',
+                                                    'terms' => $types,
+                                                    'operator' => 'IN',
+                                                )
+                                            )
+                                        );?>
+                                    <?php } else {
+                                        $args = array(
+                                            'post_type'      => 'post',
+                                            'posts_per_page' => 3,
+                                            'post__not_in' => array( $post->ID ),
+                                            'tax_query'      => array(
+                                                'relation' => 'AND',
+                                                array (
+                                                    'taxonomy' => 'topic',
+                                                    'field' => 'slug',
+                                                    'terms'    => $postTopic->slug
+                                                )
+                                            )
+                                        );?>
+                                    <?php }
+
+                                        $posts = new WP_Query( $args );
+                                        if( $posts->have_posts() ): ?>
+                                            <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
+                                                <div class="item">
+                                                    <div class="textContainer">
+                                                        <span class="topicFilter">
+                                                            <?php if (yoast_get_primary_term_id('topic')) {
+                                                                $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                                                $postTopic = get_term( $primary_term_topic_id );
+                                                            } else {
+                                                                if(get_the_terms( $post->ID, 'topic' )){
+                                                                    $terms = get_the_terms( $post->ID, 'topic' );
+                                                                    foreach($terms as $term) {
+                                                                        $postTopic = $term;
+                                                                    }
+                                                                }
+                                                            }?>
+
+                                                            <?php if (yoast_get_primary_term_id('filter-types')) {
+                                                                $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                                                $postType = get_term( $primary_term_type_id );
+                                                            } else {
+                                                                if(get_the_terms( $post->ID, 'filter-types' )){
+                                                                    $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                                                    foreach($termsType as $type) {
+                                                                        $postType = $type;
+                                                                    }
+                                                                }
+                                                            }?>
+                                                            <?php if($postTopic){?>
+                                                                <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                            <?php } ?>
+                                                            <?php if($postType){?>
+                                                                <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                                            <?php } ?>
+                                                        </span>
+                                                        <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
+                                                    </div>
+                                                </div>
+                                            <?php endwhile; ?>
+                                        <?php endif;?>
+                                        <?php wp_reset_postdata(); ?>
+                                </div>
+                            <?php }?>
+                        <?php }?>
+                    </div>
+                </div>
+            </article>
+        <?php } ?>
+    <?php } else { ?>
+        <article class="articleWrapper bg-white">
+            <div class="container">
+                <div class="column first">
+                    <span class="saveInsight">
+                        <?php if(current_user_can('memberpress_authorized')) { ?>
+                            <?php echo do_shortcode('[favorite_button]'); ?>
+                        <?php } ?>
+                    </span>
+                </div>
+                <div class="column second">
+                    <div class="article">
+                        <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
+                            <span class="topicFilter">
+                                <?php if (yoast_get_primary_term_id('topic')) {
+                                    $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                    $postTopic = get_term( $primary_term_topic_id );
+                                } else {
+                                    if(get_the_terms( $post->ID, 'topic' )){
+                                        $terms = get_the_terms( $post->ID, 'topic' );
+                                        foreach($terms as $term) {
+                                            $postTopic = $term;
+                                        }
+                                    }
+                                }?>
+
+                                <?php if (yoast_get_primary_term_id('filter-types')) {
+                                    $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                    $postType = get_term( $primary_term_type_id );
+                                } else {
+                                    if(get_the_terms( $post->ID, 'filter-types' )){
+                                        $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                        foreach($termsType as $type) {
+                                            $postType = $type;
+                                        }
+                                    }
+                                }?>
+                                <?php if($postTopic){?>
+                                    <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                <?php } ?>
+                                <?php if($postType){?>
+                                    <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                <?php } ?>
+                            </span>
+                            <h1 class="title"><?php the_title(); ?></h1>
+                             <?php if ($postType->slug == 'workshop-recordings'){ ?>
+                                <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo get_field('read_time'); ?><?php } ?></span>
+
+                            <?php } else { ?>
+                                <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                            <?php } ?>
+                        <?php } ?>
+                        <span class="saveInsight mobile">
+                            <?php echo do_shortcode('[favorite_button]'); ?>
+                        </span>
+                        <?php if (get_field('article_content')){ ?>
+                            <div class="article-content">
+                                <?php if(current_user_can('memberpress_authorized')) { ?>
+                                 <?php echo get_field('article_content'); ?>
+                                <?php } else { ?>
+                                 <div class="content-trimmed">
+                                     <?php
+                                        echo force_balance_tags( html_entity_decode( wp_trim_words( htmlentities( wpautop( get_field( 'article_content' )) ), 100, $more ) ) );
+                                     ?>
+                                  </div>
+                                  <span class="content-trimmed-overlay"></span>
+                                <?php } ?>
+                                <!--  -->
+                            </div>
+                        <?php } else { ?>
+                            <?php if(current_user_can('memberpress_authorized')) { ?>
+                            <?php } else { ?>
+                             <div class="content-trimmed">
+                                 <?php
+                                $text = get_the_excerpt();
+                                if($text){?>
+                                    <p><?php echo $text; ?></p>
+                                    <?php
+                                } else {
+                                } ?>
+                              </div>
+                              <span class="content-trimmed-overlay"></span>
+                            <?php } ?>
+                        <?php } ?>
+                        <?php if(current_user_can('memberpress_authorized')) { ?>
+                            <?php if ( have_rows( 'content_blocks' ) ): ?>
+                            <?php while ( have_rows( 'content_blocks' ) ) : the_row(); ?>
+                                <?php if ( get_row_layout() == 'article_content' ) : ?>
+                                   <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos singlePost repeatableSingle">
+                                       <div class="container">
+                                           <div class="post-inner">
+                                               <div class="fullWidth article-content">
+                                                   <div class="articleWrapper">
+                                                       <?php echo get_sub_field( 'article_content' ); ?>
+                                                       <?php if( get_sub_field( 'infogram_image' )) { ?>
+                                                           <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                       <?php } ?>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </section>
+                                <?php elseif ( get_row_layout() == 'feature_image_or_infogram' ) : ?>
+                                   <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only fullImageInfogram members-logged-in">
+                                       <div class="container">
+                                            <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
+                                                <div class="featureBlock">
+                                                    <img class="featureImage" src="<?php echo get_sub_field( 'image' ); ?>"/>
+                                                </div>
+                                            <?php } else { ?>
+                                                <div class="infogram-container">
+                                                    <?php echo get_sub_field( 'infogram' ); ?>
+                                                </div>
+                                                <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                            <?php } ?>
+                                       </div>
+                                   </section>
+                                <?php elseif ( get_row_layout() == 'image_grid_block' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only imageGridBlock standard <?php echo get_sub_field( 'background_colour' ); ?>">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+
+                                    			<?php if ( have_rows( 'item' ) ) : ?>
+                                                    <div class="gridWrapper">
+                                        				<?php while ( have_rows( 'item' ) ) : the_row(); ?>
+                                                            <div class="item">
+                                                                <?php if ( get_sub_field( 'image') ) { ?>
+                                                                    <div class="imageContainer">
+                                                                        <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                                        </div>
+                                                                    </div>
+                                                                <?php } ?>
+                                                                <hr>
+                                            					<span class="title">
+                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                </span>
+                                                                <span class="description">
+                                                                    <?php echo get_sub_field( 'description' ); ?>
+                                                                </span>
+                                                                <?php if ( get_sub_field( 'logo') ) { ?>
+                                                                    <div class="logoContainer">
+                                                                        <img src="<?php echo get_sub_field( 'logo' ); ?>" alt="Adapt" />
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                        				<?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                <div class="buttonBlock">
+                                                    <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                        <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'logo_grid' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos logoGrid <?php echo get_sub_field( 'background_colour' ); ?>">
+                                		<div class="container">
+                                			<div class="titleBlock">
+                                				<span class="title">
+                                					<h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                				</span>
+
+                                				<span class="description <?php echo get_sub_field( 'top_right_text_position' ); ?>">
+                                					<h3><?php echo get_sub_field( 'top_right_text' ); ?></h3>
+                                				</span>
+                                			</div>
+
+                                			<?php if ( have_rows( 'logos' ) ) : ?>
+                                				<div class="logoBlock">
+                                					<?php while ( have_rows( 'logos' ) ) : the_row(); ?>
+                                						<div class="logo">
+                                							<span class="logoContainer">
+                                								<div class="image" style="background-image: url(<?php echo get_sub_field( 'logo' ); ?>);">
+                                								</div>
+                                							</span>
+                                							<span class="logoTitle">
+                                								<?php echo get_sub_field( 'title' ); ?>
+                                							</span>
+                                						</div>
+                                					<?php endwhile; ?>
+                                				</div>
+                                			<?php endif; ?>
+
+                                			<?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                				<a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                			<?php } ?>
+                                		</div>
+                                	</section>
+                                <?php elseif ( get_row_layout() == 'download_block_single' ) : ?>
+                                    <?php get_template_part( 'templates/components/_download-block' ); ?>
+                                <?php elseif ( get_row_layout() == 'download_block_double' ) : ?>
+                                    <?php get_template_part( 'templates/components/_download-block-two-columns' ); ?>
+                                <?php elseif ( get_row_layout() == 'download_block_triple' ) : ?>
+                                    <?php get_template_part( 'templates/components/_download-block-three-columns' ); ?>
+                                <?php elseif ( get_row_layout() == 'video_grid_block_two_column' ) : ?>
+                                    <?php get_template_part( 'templates/components/_video-block-two-columns' ); ?>
+                                <?php elseif ( get_row_layout() == 'video_grid_block_three_column' ) : ?>
+                                    <?php get_template_part( 'templates/components/_video-block-three-columns' ); ?>
+                                <?php elseif ( get_row_layout() == 'two_column_card_block' ) : ?>
+                                    <?php get_template_part( 'templates/components/_two-column-card' ); ?>
+                                <?php elseif ( get_row_layout() == 'speaker_block' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+
+                                    			<?php if ( have_rows( 'speakers' ) ) : ?>
+                                                    <div class="gridWrapper">
+                                        				<?php while ( have_rows( 'speakers' ) ) : the_row(); ?>
+
+                                                            <?php $post_object = get_sub_field( 'speaker' ); ?>
+                                        					<?php if ( $post_object ): ?>
+                                                                <a href="<?php the_permalink(); ?>" class="item">
+                                            						<?php $post = $post_object; ?>
+                                            						<?php setup_postdata( $post ); ?>
+                                                                        <?php if ( get_field( 'speaker_image') ) { ?>
+                                                                            <div class="imageContainer">
+                                                                                <div class="image" style="background-image: url(<?php echo get_field( 'speaker_image' ); ?>);">
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                        <hr>
+                                            							<span class="title"><?php the_title(); ?></span>
+                                                                        <span class="description">
+                                                                            <?php echo get_field( 'speaker_description' ); ?>
+                                                                        </span>
+                                                                        <?php if ( get_field( 'logo') ) { ?>
+                                                                            <div class="logoContainer">
+                                                                                <img src="<?php echo get_field( 'logo' ); ?>" alt="Adapt" />
+                                                                            </div>
+                                                                        <?php } ?>
+                                            						<?php wp_reset_postdata(); ?>
+                                                                </a>
+                                        					<?php endif; ?>
+
+                                        				<?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                    <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
+                                                        <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                    </div>
+                                                <?php endwhile; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'speaker_block_button' ) : ?>
+                                        <?php get_template_part( 'templates/components/_speaker-cta-block' ); ?>
+                                <?php elseif ( get_row_layout() == 'two_column_text_block' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos twoColumnTextBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <div class="titleBlock">
+                                                    <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                                                    <hr>
+
+                                                </div>
+                                                <div class="textBlock">
+                                                    <?php echo get_sub_field( 'text_block' ); ?>
+                                                    <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                        <a class="logoBlockLink text" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'text_and_image_block' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <div class="title">
+                                                    <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                    <hr>
+                                                </div>
+                                                <?php if ( have_rows( 'item' ) ) : ?>
+                                                    <div class="itemsWrapper">
+                                                        <?php while ( have_rows( 'item' ) ) : the_row(); ?>
+                                                            <div class="item">
+                                                                <?php if ( get_sub_field( 'image') ) { ?>
+                                                                    <a href="<?php echo get_sub_field('link_url'); ?>" target="<?php echo get_sub_field('link_target'); ?>" class="imageContainer">
+                                                                        <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                                        </div>
+                                                                    </a>
+                                                                <?php } ?>
+                                                                <span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                                                                <span class="description">
+                                                                    <?php echo get_sub_field( 'text' ); ?>
+                                                                </span>
+                                                            </div>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                <div class="buttonBlock">
+                                                    <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                        <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'half_text_half_image' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                        <div class="textBlock <?php echo get_sub_field( 'image_position' ); ?>">
+                                            <div class="v-wrap">
+                                                <div class="v-box">
+                                                    <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                                                    <hr>
+                                                    <?php if ( get_sub_field ( 'text_block' ) ) { ?>
+                                                        <span class="desktopText"><?php echo get_sub_field( 'text_block' ); ?></span>
+                                                    <?php } ?>
+                                                    <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                        <a class="logoBlockLink desktop <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="imageBlock <?php echo get_sub_field( 'image_position' ); ?>">
+                                            <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                            </div>
+                                        </div>
+                                        <div class="textBlock mobile">
+                                            <div class="container">
+                                                <div class="inner">
+                                                    <?php if ( get_sub_field ( 'text_block' ) ) { ?>
+                                                        <span class="mobileText"><?php echo get_sub_field( 'text_block' ); ?></span>
+                                                    <?php } ?>
+                                                    <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                        <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'full_width_text_block' ) : ?>
+                                    <?php get_template_part( 'templates/components/_full-width-text-block' ); ?>
+                                <?php elseif ( get_row_layout() == 'speaker_quote_carousel' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no speakerQuoteCarousel">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <div class="titleBlock">
+                                                    <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                    <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                        <a class="logoBlockLink text" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <?php } ?>
+                                                </div>
+
+                                                <?php if ( have_rows( 'item' ) ) : ?>
+                                                    <div class="owl-carousel speaker-gallery">
+                                                        <?php while ( have_rows( 'item' ) ) : the_row(); ?>
+                                                            <div class="item">
+                                                                <div class="imageContainer">
+                                                                    <div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="textBlock">
+                                                                    <div class="v-wrap">
+                                                                        <div class="v-box">
+                                                                            <span class="quoteBlock">
+                                                                                <?php echo get_sub_field( 'quote' ); ?>
+                                                                            </span>
+                                                                            <span class="quoteAuthor">
+                                                                                <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'quote_block_with_no_image' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no quoteBlockNoImage">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <?php if ( have_rows( 'quotes' ) ) : ?>
+                                                    <div class="owl-carousel quote">
+                                                        <?php while ( have_rows( 'quotes' ) ) : the_row(); ?>
+                                                            <div class="item">
+                                                                <div class="v-wrap">
+                                                                    <div class="v-box">
+                                                                        <span class="quoteBlock">
+                                                                            <?php echo get_sub_field( 'quote' ); ?>
+                                                                        </span>
+                                                                        <span class="quoteAuthor">
+                                                                            <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                <div class="buttonBlock">
+                                                    <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                        <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'single_level_logo_block' ) : ?>
+                                    <section id="<?php echo get_sub_field( 'id' ); ?>" class="scrollPos imageGridBlock standard logos">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <div class="titleBlock">
+                                                    <?php if ( get_sub_field ( 'block_title' ) ) { ?>
+                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                        <span class="hrWrapper">
+                                                            <hr>
+                                                        </span>
+                                                    <?php } ?>
+                                                    <?php if ( get_sub_field ( 'description' ) ) { ?>
+                                                        <h3><?php echo get_sub_field( 'description' ); ?></h3>
+                                                    <?php } ?>
+                                                </div>
+
+                                                <?php if ( have_rows( 'logos' ) ) : ?>
+                                                    <div class="gridWrapper">
+                                                        <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
+                                                            <div class="item">
+                                                                <div class="imageContainer">
+                                                                    <div class="image" style="background-image: url(<?php echo get_sub_field( 'logo' ); ?>);">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php endwhile; ?>
+                                                        <div class="item">
+                                                            <div class="v-wrap">
+                                                                <div class="v-box">
+                                                                    <span class="yourLogoHere">Your Company Here</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                <div class="buttonBlock">
+                                                    <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                        <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'counter_block' ) : ?>
+                                    <?php get_template_part( 'templates/components/_counter-block' ); ?>
+                                <?php elseif ( get_row_layout() == 'repeatable_counter_block' ) : ?>
+                                    <?php get_template_part( 'templates/components/_repeatable-counter-block' ); ?>
+                                <?php elseif ( get_row_layout() == 'membership_block' ) : ?>
+                                    <?php if ( get_sub_field ( 'display_membership_block' ) == 'yes' ) { ?>
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no pricingBlock">
+                                            <div class="container">
+                                                <h2>Membership</h2>
+                                                <?php if ( have_rows( 'first_pricing_block', 'option' ) ) : ?>
+                                                    <div class="pricingBlockItem first">
+                                                        <div class="innerWrapper">
+                                                            <?php while ( have_rows( 'first_pricing_block', 'option' ) ) : the_row(); ?>
+                                                                <span class="title">
+                                                                    <?php echo get_sub_field( 'title', 'option' ); ?>
+                                                                    <span class="hrWrapper">
+                                                                        <hr>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="priceBlockWrapper">
+                                                                    <span class="priceBlock">
+                                                                        <span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+                                                                    </span>
+                                                                </span>
+                                                                <?php if ( have_rows( 'features', 'option' ) ) : ?>
+                                                                    <div class="features">
+                                                                        <?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
+                                                                            <span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+                                                                        <?php endwhile; ?>
+                                                                    </div>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <span class="pricingButtonWrapper">
+                                                                <a class="small" href="<?php echo get_sub_field( 'button_link', 'option' ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                            </span>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <?php if ( have_rows( 'featured_pricing_block', 'option' ) ) : ?>
+                                                    <div class="pricingBlockItem featured">
+
+                                                        <?php while ( have_rows( 'featured_pricing_block', 'option' ) ) : the_row(); ?>
+                                                            <div class="innerWrapper">
+                                                                <div class="featuredWrapper">
+                                                                    <span class="title">
+                                                                        <?php echo get_sub_field( 'title', 'option' ); ?>
+                                                                        <span class="hrWrapper">
+                                                                            <hr>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="priceBlockWrapper">
+                                                                        <span class="priceBlock">
+                                                                            <span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+                                                                        </span>
+                                                                    </span>
+                                                                    <?php if ( have_rows( 'features', 'option' ) ) : ?>
+                                                                        <div class="features">
+                                                                            <?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
+                                                                                <span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+                                                                            <?php endwhile; ?>
+                                                                        </div>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            </div>
+                                                            <span class="pricingButtonWrapper">
+                                                                <a class="small" href="<?php echo get_sub_field( 'button_link', 'option' ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                            </span>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+
+                                                <?php if ( have_rows( 'last_pricing_block', 'option' ) ) : ?>
+                                                    <div class="pricingBlockItem last">
+                                                        <?php while ( have_rows( 'last_pricing_block', 'option' ) ) : the_row(); ?>
+                                                            <div class="innerWrapper">
+                                                                <span class="title">
+                                                                    <?php echo get_sub_field( 'title', 'option' ); ?>
+                                                                    <span class="hrWrapper">
+                                                                        <hr>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="priceBlockWrapper">
+                                                                    <span class="priceBlock">
+                                                                        <span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+                                                                    </span>
+                                                                </span>
+                                                                <?php if ( have_rows( 'features', 'option' ) ) : ?>
+                                                                    <div class="features">
+                                                                        <?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
+                                                                            <span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+                                                                        <?php endwhile; ?>
+                                                                    </div>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <span class="pricingButtonWrapper">
+                                                                <a class="small" href="<?php echo get_sub_field( 'button_link', 'option' ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                            </span>
+                                                        <?php endwhile; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </section>
+                                    <?php } ?>
+                                <?php elseif ( get_row_layout() == 'two_column_block_with_text_and_featured_quote' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only twoColumnWithTextAndFeaturedQuote">
+                                        <div class="container">
+                                            <div class="inner">
+                                                <div class="column first">
+                                                    <h2>
+                                                        <?php echo get_sub_field( 'title' ); ?>
+                                                    </h2>
+                                                    <div class="textBlock">
+                                                        <?php echo get_sub_field( 'text_block' ); ?>
+                                                    </div>
+                                                    <?php if ( get_sub_field ( 'link_url' ) ) { ?>
+                                                        <a class="logoBlockLink text" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <?php } ?>
+                                                </div>
+
+                                                <div class="column last">
+                                                    <div class="item">
+                                                        <div class="v-wrap">
+                                                            <div class="v-box">
+                                                                <span class="quoteBlock">
+                                                                    <?php echo get_sub_field( 'quote' ); ?>
+                                                                </span>
+                                                                <span class="quoteAuthor">
+                                                                    <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'video_block' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no videoBlock postVideoBlock">
+                                        <div class="container">
+                                            <?php if( get_sub_field('vimeo_code_popup')){ ?>
+                                                <a href="https://vimeo.com/<?php echo get_sub_field('vimeo_code_popup'); ?>" class="image popup-vimeo">
+                                            <?php } else { ?>
+                                                <a href="" class="image postPlayBtn">
+                                            <?php } ?>
+                                                <div class="imageSizeContainer">
+                                                    <span class="overlayGradient"></span>
+                                                    <div class="bgContainer">
+                                                        <img class="desktop" src="<?php echo get_sub_field('video_poster_image'); ?>" alt="" />
+                                                    </div>
+                                                    <span class="watchIcon"></span>
+                                                    <span class="textContainer">
+                                                        <span class="title"><?php the_title(); ?></span>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="videoPlayerContainer videoBlock">
+                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                            <div class="videoWrapper">
+                                                <video width="100%" id="popupVideo" controls controlsList="nodownload">
+                                                    <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+                                                </video>
+                                            </div>
+                                        </div>
+
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'full_width_image_block' ) : ?>
+                                    <?php get_template_part( 'templates/components/_full-image-button-block' ); ?>
+                                <?php elseif ( get_row_layout() == 'full_width_text_editor' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only fullWidthTextEditor<?php if ( get_sub_field( 'font') ) { ?> <?php echo get_sub_field( 'font' );?><?php } ?><?php if ( get_sub_field( 'font_colour') ) { ?> <?php echo get_sub_field( 'font_colour' ); ?><?php } ?>">
+                                        <div class="container">
+                                            <?php echo get_sub_field( 'text_editor' ); ?>
+                                            <?php if ( have_rows( 'button_block' ) ) : ?>
+                                                <div class="buttonBlock">
+                                                    <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
+                                                        <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </section>
+                                <?php elseif ( get_row_layout() == 'form_block' ) : ?>
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no formBlock<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?> centered<?php } ?>">
+                                		<div class="container">
+                                			<div class="inner">
+                                				<div class="formWrapper register">
+                                					<?php if ( get_sub_field ( 'block_title' ) ) { ?>
+                                						<h2><?php echo get_sub_field('block_title'); ?></h2>
+                                						<?php if ( get_sub_field ( 'embed' ) == 'embed' ) { ?>
+                                							<hr>
+                                						<?php } ?>
+                                					<?php } ?>
+                                					<?php if ( get_sub_field ( 'block_description' ) ) { ?>
+                                						<h3><?php echo get_sub_field('block_description'); ?></h3>
+                                					<?php } ?>
+                                					<?php if ( get_sub_field ( 'embed' ) == 'embed' ) { ?>
+                                						<?php echo get_sub_field('form_shortcode'); ?>
+                                					<?php }?>
+                                					<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
+                                						<a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo get_sub_field('button_text'); ?></a>
+                                						<div class="formPopup mfp-hide" id="<?php echo get_sub_field('form_id'); ?>">
+                                							<a class="popup-modal-dismiss"></a>
+                                							<?php if ( get_sub_field ( 'block_title' ) ) { ?>
+                                								<h2><h2><?php echo get_sub_field('block_title'); ?></h2></h2>
+                                							<?php } ?>
+                                							<?php if ( get_sub_field ( 'block_description' ) ) { ?>
+                                								<h3><?php echo get_sub_field('block_description'); ?></h3>
+                                							<?php } ?>
+                                								<div class="formWrapper register"><?php echo get_sub_field('form_shortcode'); ?></div>
+                                						</div>
+                                					<?php }?>
+                                				</div>
+                                			</div>
+                                		</div>
+                                	</section>
+                                <?php endif; ?>
+                            <?php endwhile; ?>
+                        <?php endif; ?>
+                        <?php } else { ?>
+                        <?php } ?>
+                    </div>
+                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                        <?php if ( have_rows( 'contributors' ) ) : ?>
+                            <div class="authors">
+                                <?php while ( have_rows( 'contributors' ) ) : the_row(); ?>
+                                    <?php $post_object = get_sub_field( 'contributor_name' ); ?>
+        							<?php if ( $post_object ): ?>
+        								<?php $post = $post_object; ?>
+        								<?php setup_postdata( $post ); ?>
+        									<div class="speaker-container-inner">
+        										<span class="speaker-image">
+        											<img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+        										</span>
+        										<span class="description">
+                                                    <span class="title"><?php if(get_sub_field('contributors_pre_heading')){ ?><?php echo get_sub_field('contributors_pre_heading'); ?><?php } else { ?>Contributor<?php } ?></span>
+        											<span class="speaker-name"><?php echo the_title(); ?></span>
+        											<span class="speaker-role"><?php echo get_field('speaker_description'); ?></span>
+        										</span>
+                                                <div class="textBlock">
+                                                    <?php
+                                                         $text = get_field('speaker_details');
+                                                         $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '... More' );
+                                                    ?>
+                                                    <span class="speaker-details-excerpt"><?php echo $trimmed_content; ?></span>
+                                                    <span class="speaker-details">
+                                                        <?php echo get_field('speaker_details'); ?>
+                                                        <span class="speaker-details-less">Less</span>
+                                                    </span>
+                                                </div>
+        									</div>
+        								<?php wp_reset_postdata(); ?>
+        							<?php endif; ?>
+        					<?php endwhile; ?>
+        					</div>
+        				<?php else : ?>
+        					<?php // no rows found ?>
+        				<?php endif; ?>
+                    <?php } ?>
+                </div>
+                <div class="column third">
+                    <?php if ( have_rows( 'preview_module' ) ) : ?>
+                       <?php while ( have_rows( 'preview_module' ) ) : the_row(); ?>
+                           <?php if ( have_rows( 'slider_images' ) ) : ?>
+                               <?php $imageCounter = 1; ?>
+                               <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
+                                   <?php if($imageCounter == 1){
+                                       $image = get_sub_field( 'image' );
+                                   } else if ($imageCounter == 2){
+                                       $offsetimage = get_sub_field( 'image' );
+                                   }
+                                   $imageCounter++; ?>
+                               <?php endwhile; ?>
+                           <?php else : ?>
+                               <?php // no rows found ?>
+                           <?php endif; ?>
+                        <?php endwhile; ?>
+                    <?php else : ?>
+                        <?php // no rows found ?>
+                    <?php endif; ?>
+                    <?php if(current_user_can('memberpress_authorized')) { ?>
+                        <?php if (get_field( 'download' ) == 'yes'){ ?>
+                            <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
+                                <?php $counter = 0; ?>
+                                    <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
+                                        <?php if ( $counter == 0 ) {
+                                           $members = $members . get_sub_field( 'membership_id' );
+                                        } else {
+                                           $members = $members . ',' . get_sub_field( 'membership_id' );
+                                        } ?>
+                                        <?php $counter++; ?>
+                                    <?php endwhile; ?>
+                                    <?php if(current_user_can('mepr-active','memberships:' . $members)){ ?>
+                                        <?php if ( have_rows( 'download_link' ) ) : ?>
+                                            <div class="articleShare downloadShareContainer">
+                                                <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
+                                                    <?php if (get_sub_field( 'text' )) { ?>
+                                                        <span class="shareText download desktop"><?php echo get_sub_field( 'text' ); ?></span>
+                                                    <?php } ?>
+                                                    <?php $preview_image = get_sub_field( 'preview_image' ); ?>
+                                                    <?php if ( $preview_image ) { ?>
+                                                        <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
+                                                            <span class="bg-container">
+                                                                <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                            </span>
+                                                        </span>
+                                                    <?php } ?>
+                                                    <?php if (get_sub_field( 'text' )) { ?>
+                                                        <span class="shareText download mobile"><?php echo get_sub_field( 'text' ); ?></span>
+                                                    <?php } ?>
+                                                    <a href="<?php echo get_sub_field( 'download_url' ); ?>" target="_blank" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <?php endwhile; ?>
+                                            </div>
+                                        <?php else : ?>
+                                            <?php // no rows found ?>
+                                        <?php endif; ?>
+                                     <?php } ?>
+                             <?php else : ?>
+                                 <?php // no rows found ?>
+                             <?php endif; ?>
+                         <?php } ?>
+                        <?php if ( have_rows( 'dataset_share' ) ) { ?>
+                            <?php if ( have_rows( 'dataset_share' ) ) : ?>
+                                <?php while ( have_rows( 'dataset_share' ) ) : the_row(); ?>
+                                    <?php $current_user = wp_get_current_user();
+                                    $first_name = $current_user->first_name;
+                                    $last_name = $current_user->last_name;
+                                    $shareTitle = get_the_title();
+                                    $sharedDescription = get_the_excerpt();
+                                    $formIntro = get_sub_field('form_introduction_title');
+                                    ?>
+                                    <div class="articleShare shareLinkContainer datasetShare">
+                                        <?php if (get_sub_field( 'text' )) { ?>
+                                            <span class="shareText share"><?php echo get_sub_field( 'text' ); ?></span>
+                                        <?php } ?>
+                                        <a href="#datasetsharepopupcontainer" class="button redOutline datasharepopup"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                        <span class="hidden-share-link" style="display: none;"><?php echo get_sub_field( 'share_download_url' ); ?></span>
+                                        <span class="hidden-share-name" style="display: none;"><?php echo $first_name; ?> <?php echo $last_name; ?></span>
+                                        <span class="hidden-share-title" style="display: none;"><?php echo $shareTitle; ?></span>
+                                        <span class="hidden-share-excerpt" style="display: none;"><?php echo $sharedDescription; ?></span>
+                                        <div style="display: none;">
+                                            <div class="webinar-register-form datasetShare" id="datasetsharepopupcontainer">
+                                                <div class="container">
+                                                    <span class="data-column-container">
+                                                        <span class="image-column">
+                                                            <span class="content-popup-container">
+                                                                <h2><?php echo get_sub_field( 'text' ); ?></h2>
+                                                                <span class="slide-container">
+                                                                    <span class="image-container">
+                                                                        <span class="bg-container offset-image-container">
+                                                                            <?php if ( $offsetimage ) { ?>
+                                                                                <img src="<?php echo $offsetimage['url']; ?>" alt="<?php echo $offsetimage['alt']; ?>" />
+                                                                            <?php } ?>
+                                                                        </span>
+                                                                        <span class="bg-container">
+                                                                            <?php if ( $image ) { ?>
+                                                                                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                            <?php } ?>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="page-title"><?php the_title(); ?></span>
+                                                            </span>
+                                                        </span>
+                                                        <span class="form-column">
+                                                            <span class="form-container">
+                                                                <h2 class="form-title"><?php echo $formIntro; ?></h2>
+                                                                <?php echo get_field( 'post_share_form', 'option' ); ?>
+                                                            </span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endwhile; ?>
+                            <?php else : ?>
+                                <?php // no rows found ?>
+                            <?php endif; ?>
+                        <?php } else { ?>
+                            <?php if (get_field( 'download' ) == 'yes'){ ?>
+                                <?php $current_user = wp_get_current_user();
+                                $first_name = $current_user->first_name;
+                                $last_name = $current_user->last_name;
+                                $shareTitle = get_the_title();
+                                $sharedDescription = get_the_excerpt();
+                                ?>
+                                <?php if ( have_rows( 'membership_ids_for_share', 'options' ) ) : ?>
+                                    <?php $counter = 0; ?>
+                                        <?php while ( have_rows( 'membership_ids_for_share', 'options' ) ) : the_row(); ?>
+                                            <?php if ( $counter == 0 ) {
+                                               $members = $members . get_sub_field( 'membership_id' );
+                                            } else {
+                                               $members = $members . ',' . get_sub_field( 'membership_id' );
+                                            } ?>
+                                            <?php $counter++; ?>
+                                        <?php endwhile; ?>
+                                        <?php if(current_user_can('mepr-active','memberships:' . $members)){ ?>
+                                            <?php if ( have_rows( 'share' ) ) : ?>
+                                                <div class="articleShare shareLinkContainer">
+                                                    <?php while ( have_rows( 'share' ) ) : the_row(); ?>
+                                                        <?php if (get_sub_field( 'text' )) { ?>
+                                                            <span class="shareText share"><?php echo get_sub_field( 'text' ); ?></span>
+                                                        <?php } ?>
+                                                        <a href="#sharepopupcontainer" class="button redOutline sharepopup"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                        <span class="hidden-share-link" style="display: none;"><?php echo get_sub_field( 'share_download_url' ); ?></span>
+                                                        <span class="hidden-share-name" style="display: none;"><?php echo $first_name; ?> <?php echo $last_name; ?></span>
+                                                        <span class="hidden-share-title" style="display: none;"><?php echo $shareTitle; ?></span>
+                                                        <span class="hidden-share-excerpt" style="display: none;"><?php echo $sharedDescription; ?></span>
+                                                        <div style="display: none;">
+                                                            <div class="webinar-register-form" id="sharepopupcontainer">
+                                                                <div class="container">
+                                                                    <span class="webinar-subtitle"><?php echo get_field( 'post_share_form_title', 'option' ); ?></span>
+                                                                    <span class="form-container"><?php echo get_field( 'post_share_form', 'option' ); ?></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php endwhile; ?>
+                                                </div>
+                                            <?php else : ?>
+                                                <?php // no rows found ?>
+                                            <?php endif; ?>
+                                         <?php } ?>
+                                 <?php else : ?>
+                                     <?php // no rows found ?>
+                                 <?php endif; ?>
+                            <?php } ?>
+                            <div class="relatedArticles<?php if(current_user_can('memberpress_authorized')) { ?><?php } else { ?> mobile-hide<?php } ?>">
+                                <h2 class="related">You may also like</h2>
+                                <?php if (yoast_get_primary_term_id('topic')) {
+                                    $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                    $postTopic = get_term( $primary_term_topic_id );
+                                } else {
+                                    if(get_the_terms( $post->ID, 'topic' )){
+                                        $terms = get_the_terms( $post->ID, 'topic' );
+                                        foreach($terms as $term) {
+                                            $postTopic = $term;
+                                        }
+                                    }
+                                }?>
+                                <?php $type_terms = get_field( 'you_may_also_like' ); ?>
+                                <?php $types = array(); ?>
+                                <?php if ( $type_terms ){ ?>
+                                	<?php foreach ( $type_terms as $type_term ): ?>
+                                		<?php $types[] =  $type_term->slug; ?>
+                                	<?php endforeach; ?>
+                                <?php
+                                    $args = array(
+                                        'post_type'      => 'post',
+                                        'posts_per_page' => 3,
+                                        'post__not_in' => array( $post->ID ),
+                                        'tax_query'      => array(
+                                            'relation' => 'AND',
+                                            array (
+                                                'taxonomy' => 'topic',
+                                                'field' => 'slug',
+                                                'terms'    => $postTopic->slug
+                                            ),
+                                            array(
+                                                'taxonomy' => 'filter-types',
+                                                'field'    => 'slug',
+                                                'terms' => $types,
+                                                'operator' => 'IN',
+                                            )
+                                        )
+                                    );?>
+                                <?php } else {
+                                    $args = array(
+                                        'post_type'      => 'post',
+                                        'posts_per_page' => 3,
+                                        'post__not_in' => array( $post->ID ),
+                                        'tax_query'      => array(
+                                            'relation' => 'AND',
+                                            array (
+                                                'taxonomy' => 'topic',
+                                                'field' => 'slug',
+                                                'terms'    => $postTopic->slug
+                                            )
+                                        )
+                                    );?>
+                                <?php }
+
+                                    $posts = new WP_Query( $args );
+                                    if( $posts->have_posts() ): ?>
+                                        <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
+                                            <div class="item">
+                                                <div class="textContainer">
+                                                    <span class="topicFilter">
+                                                        <?php if (yoast_get_primary_term_id('topic')) {
+                                                            $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                                            $postTopic = get_term( $primary_term_topic_id );
+                                                        } else {
+                                                            if(get_the_terms( $post->ID, 'topic' )){
+                                                                $terms = get_the_terms( $post->ID, 'topic' );
+                                                                foreach($terms as $term) {
+                                                                    $postTopic = $term;
+                                                                }
+                                                            }
+                                                        }?>
+
+                                                        <?php if (yoast_get_primary_term_id('filter-types')) {
+                                                            $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                                            $postType = get_term( $primary_term_type_id );
+                                                        } else {
+                                                            if(get_the_terms( $post->ID, 'filter-types' )){
+                                                                $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                                                foreach($termsType as $type) {
+                                                                    $postType = $type;
+                                                                }
+                                                            }
+                                                        }?>
+                                                        <?php if($postTopic){?>
+                                                            <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <?php } ?>
+                                                        <?php if($postType){?>
+                                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                                        <?php } ?>
+                                                    </span>
+                                                    <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
+                                                </div>
+                                            </div>
+                                        <?php endwhile; ?>
+                                    <?php endif;?>
+                                    <?php wp_reset_postdata(); ?>
+                            </div>
+                        <?php }?>
+                    <?php }?>
+                </div>
+            </div>
+        </article>
+    <?php } ?>
+
+    <?php if(current_user_can('memberpress_authorized')) { ?>
+        <?php if( has_term( 'expert-presentations', 'filter-types' ) ) {  ?>
+            <?php get_template_part( 'templates/components/_keep-watching-slider-portal' ); ?>
+        <?php } else if( has_term( 'community-interviews', 'filter-types' )) { ?>
+            <?php get_template_part( 'templates/components/_keep-watching-slider-portal' ); ?>
+        <?php } else if( has_term( 'customer', 'filter-types' )) { ?>
+            <?php get_template_part( 'templates/components/_keep-watching-slider-portal' ); ?>
+        <?php } else if( has_term( 'workshop-recordings', 'filter-types' )) { ?>
+            <?php if( has_term( 'replay-post', 'replay' ) ) {  ?>
+            <?php } else { ?>
+                <?php get_template_part( 'templates/components/_keep-watching-slider-portal' ); ?>
+             <?php }?>
+        <?php } else if( has_term( 'data-insights', 'filter-types' )) { ?>
+            <?php if ( have_rows( 'dataset_share' ) ) { ?>
+                <?php get_template_part( 'templates/components/_related-articles-portal-data-insights' ); ?>
+            <?php } else { ?>
+                <?php get_template_part( 'templates/components/_related-articles-portal' ); ?>
+            <?php }?>
+        <?php } else { ?>
+            <?php get_template_part( 'templates/components/_related-articles-portal' ); ?>
+        <?php }?>
+    <?php } ?>
+<?php } ?>
+<?php if(current_user_can('memberpress_authorized')) { ?>
+<?php } else {?>
+    <?php get_template_part( 'templates/components/_locked-content' ); ?>
+<?php } ?>

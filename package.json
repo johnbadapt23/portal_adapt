@@ -1,0 +1,55 @@
+{
+  "name": "henry-jons",
+  "version": "1.1.0",
+  "author": "Mark Perry",
+  "main": "index.php",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dotdevv/henry-jones.git",
+    "private": true
+  },
+  "bugs": {
+    "url": "https://github.com/dotdevv/henry-jones/issues"
+  },
+  "homepage": "https://github.com/dotdevv/henry-jones",
+  "dependencies": {
+    "flexslider": "^2.6.2",
+    "hover.css": "^2.3.2",
+    "isotope-layout": "^3.0.6",
+    "jquery-match-height": "^0.7.2",
+    "jquery.localscroll": "^2.0.0",
+    "jquery.scrollto": "^2.1.3",
+    "js-cookie": "^3.0.8",
+    "magnific-popup": "^1.2.0",
+    "mediaelement": "^7.1.0",
+    "owl.carousel": "^2.3.4",
+    "perfect-scrollbar": "^1.5.6",
+    "select2": "^4.1.0",
+    "slick-carousel": "^1.8.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.4",
+    "fancy-log": "^2.0.0",
+    "gulp": "^5.0.1",
+    "gulp-autoprefixer": "^10.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect-php": "^1.0.3",
+    "gulp-deploy-git": "^0.5.3",
+    "gulp-file-include": "^2.3.0",
+    "gulp-fontgen": "^0.2.5",
+    "gulp-iconfont": "^12.0.0",
+    "gulp-iconfont-css": "^3.0.0",
+    "gulp-image": "^6.3.1",
+    "gulp-real-favicon": "^0.3.2",
+    "gulp-rename": "^2.1.0",
+    "gulp-sass": "^6.0.1",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-zip": "^6.1.0",
+    "require-dir": "^1.2.0",
+    "sass": "^1.102.0",
+    "vinyl-ftp": "^0.6.1"
+  }
+}

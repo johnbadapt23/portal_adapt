@@ -1,0 +1,146 @@
+// SLIDER > ARROWS
+$slider-arrow-icon-left: '\E002';
+$slider-arrow-icon-right: '\E001';
+$slider-arrow-margin: 60px;
+$slider-arrow-font-size: 55px;
+$slider-arrow-color: #000;
+
+// SLIDER > PAGING
+$slider-paging-margin: 40px;
+$slider-paging-width: 15px;
+$slider-paging-height: $slider-paging-width;
+$slider-paging-color: #fff;
+$slider-paging-icon: '\E00D';
+$slider-paging-icon-active: '\E00C';
+$slider-paging-font-size: 12px;
+
+// SLIDER > CLOSE
+$slider-close-icon: '\E00B';
+$slider-close-top: 0px;
+$slider-close-right: 0px;
+$slider-close-left: 0px;
+$slider-close-font-size: 11px;
+$slider-close-color: #fff;
+
+
+div.flexslider {
+	border: none;
+	border-radius: 0;
+	opacity: 0;
+	margin: 0;
+
+	@include transition(all, $transition, ease);
+
+    &.active {
+        opacity: 1;
+    }
+}
+
+ul.flex-direction-nav {
+    position: absolute;
+    top: 49%;
+    left: $slider-arrow-margin;
+    right: $slider-arrow-margin;
+	z-index: 98;
+
+    li {
+        display: inline-block;
+
+		a {
+			border: none;
+			background: none;
+			opacity: 1 !important;
+			text-align: center !important;
+			cursor: pointer;
+			opacity: 0.8;
+			width: auto;
+			height: auto;
+
+			&:before {
+				display: block;
+			    font-family: 'icons';
+				font-weight: normal;
+				font-size: $slider-arrow-font-size;
+				color: $slider-arrow-color;
+				width: $slider-arrow-font-size;
+				height: $slider-arrow-font-size;
+				text-shadow: none;
+
+				@include responsive(small) {
+					font-size: 35px;
+				}
+			}
+
+			&:hover {
+				opacity: 1;
+			}
+		}
+    }
+
+    li.flex-nav-prev {
+        float: left;
+		display: none;
+
+		a {
+			left: 0 !important;
+
+			&:before {
+				content: $slider-arrow-icon-left;
+			}
+		}
+    }
+
+    li.flex-nav-next {
+        float: right;
+
+		a {
+			right: 0 !important;
+
+			&:before {
+				content: $slider-arrow-icon-right;
+				text-align: right !important;
+			}
+		}
+    }
+}
+
+ol.flex-control-paging {
+    position: absolute;
+	display: inline-block;
+    bottom: 150px;
+	height:6px;
+	text-align: center;
+	z-index: 98;
+
+	@include responsive (767) {
+		bottom: 26%;
+	}
+
+    li {
+        display: inline-block;
+		margin: 0 5px 0 5px;
+		height: 6px;
+		width: 6px;
+
+		a {
+			position: relative;
+			display: block;
+			height: 6px;
+			width: 6px;
+			border: none;
+			box-shadow: none;
+			text-indent: -9999px;
+			text-align: center;
+			color: #a3a3a3;
+			background-color: #a3a3a3;
+
+			&.flex-active {
+				background-color: $color-body;
+			}
+
+			&:hover {
+				background-color: $color-body;
+			}
+		}
+    }
+}

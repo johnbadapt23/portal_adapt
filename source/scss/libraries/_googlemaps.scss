@@ -1,0 +1,47 @@
+a[href^="https://maps.google.com/maps"],
+a[href^="http://maps.google.com/maps"]{display:none !important}
+
+.gm-style-cc {
+    display:none;
+}
+.gmnoprint a, .gmnoprint span {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+
+.gm-style-iw {
+	padding: 10px;
+
+	h3 {
+		font-size: 19px;
+		margin-bottom: 10px;
+
+		span {
+			display: block;
+			padding-top: 10px;
+			font-size: 14px;
+			font-family: $font-main;
+		}
+	}
+
+	p {
+		font-size: 14px;
+		margin-bottom: 10px;
+		line-height: 1.3;
+
+		a {
+			font-weight: bold;
+			font-style: normal;
+			color: $color-body;
+
+			&:before {
+				content: '\E003';
+				font-family: $font-icon;
+				font-size: 4px;
+				padding-right: 4px;
+			}
+		}
+	}
+}
