@@ -12,6 +12,7 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: Staging
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,12 +42,12 @@ jobs:
       - name: Deploy over SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          username: ${{ secrets.SFTP_USERNAME }}
-          server: ${{ secrets.SFTP_HOST }}
-          port: ${{ vars.SFTP_PORT || '22' }}
-          ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-          ssh_passphrase: ${{ secrets.SFTP_PASSPHRASE }}
+          username: ${{ secrets.STAGING_USERNAME }}
+          server: ${{ vars.STAGING_HOST }}
+          port: ${{ vars.STAGING_PORT || '22' }}
+          ssh_private_key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
+          ssh_passphrase: ${{ secrets.STAGING_SSH_PASSPHRASE }}
           local_path: './deploy/*'
-          remote_path: ${{ vars.SFTP_REMOTE_PATH }}
+          remote_path: ${{ vars.STAGING_REMOTE_PATH }}
           sftp_only: true
           sftpArgs: '-o ConnectTimeout=10'
