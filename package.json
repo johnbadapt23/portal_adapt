@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/dotdevv/henry-jones",
   "dependencies": {
-    "flexslider": "^2.6.2",
+    "flexslider": "^2.7.2",
     "hover.css": "^2.3.2",
     "isotope-layout": "^3.0.6",
     "jquery-match-height": "^0.7.2",
