@@ -6,7 +6,15 @@ var reload = browserSync.reload;
 var path = require('../../paths.js');
 
 gulp.task('build:images', function () {
-    return gulp.src(path.src.images)
+    // encoding: false is required for any binary file (images, fonts, zips,
+    // etc.) read through gulp.src(). Its default (encoding: 'utf8') decodes
+    // file bytes as UTF-8 text and re-encodes them - lossless for text
+    // source, but it corrupts arbitrary binary content: a 256-byte PNG in
+    // this repo came out as 419 bytes with a different hash after a bare
+    // gulp.src() read it, before any plugin even touched it. That's what
+    // was actually breaking gifsicle on loading.gif ("file not in GIF
+    // format") - the file gifsicle received was never valid to begin with.
+    return gulp.src(path.src.images, { encoding: false })
         .pipe(image({
           // pngquant's prebuilt binary depends on libimagequant.so at runtime,
           // which isn't present on GitHub-hosted runners, and its from-source

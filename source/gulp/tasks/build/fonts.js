@@ -26,7 +26,7 @@ gulp.task('build:fonts', function (done) {
     if (!hasFontsToConvert()) {
         return done();
     }
-    return gulp.src(path.src.fonts)
+    return gulp.src(path.src.fonts, { encoding: false }) // .ttf/.otf are binary
         .pipe(fontgen({
             dest: path.build.fonts,
             css_fontpath: '../fonts/'
