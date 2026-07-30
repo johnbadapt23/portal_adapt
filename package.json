@@ -1,18 +1,18 @@
 {
-  "name": "henry-jons",
+  "name": "portal-adapt",
   "version": "1.1.0",
   "author": "Mark Perry",
   "main": "index.php",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dotdevv/henry-jones.git",
+    "url": "git+https://github.com/johnbadapt23/portal_adapt.git",
     "private": true
   },
   "bugs": {
-    "url": "https://github.com/dotdevv/henry-jones/issues"
+    "url": "https://github.com/johnbadapt23/portal_adapt/issues"
   },
-  "homepage": "https://github.com/dotdevv/henry-jones",
+  "homepage": "https://github.com/johnbadapt23/portal_adapt",
   "dependencies": {
     "flexslider": "^2.7.2",
     "hover.css": "^2.3.2",

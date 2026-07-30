@@ -100,7 +100,7 @@ module.exports = {
     deploy: {
         files: '**/*',
         folder: './',
-        archive: 'henry-jones.zip',
-        repository: 'https://github.com/dotdevv/adapt.git'
+        archive: 'portal-adapt.zip',
+        repository: 'https://github.com/johnbadapt23/portal_adapt.git'
     }
 };

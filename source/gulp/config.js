@@ -6,6 +6,6 @@ module.exports = {
         url:    'http://adapt.local',
         open:   true,
         tunnel: false,
-        log:    'ADAPT'
+        log:    'Portal ADAPT'
     }
 };
