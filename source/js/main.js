@@ -2218,9 +2218,11 @@ $('.post-filtering-module').each(function(){
     // INITIAL LOAD
     // ===============================
     // loadPosts(1, false);
-    // buildActiveFilterPills();
+	loader.hide();
+    buildActiveFilterPills();
+	loader.hide();
     // loadFeaturedPostsIfNeeded();
-    updateURL(false);
+    // updateURL(false);
 
     // ===============================
     // CLICK HANDLERS
@@ -2281,10 +2283,17 @@ $('.post-filtering-module').each(function(){
 
     loadMoreBtn.on('click', function(e){
         e.preventDefault();
-        if (postsPage < postsMaxPages) {
-            postsPage++;
-            loadPosts(postsPage, true);
-        }
+		if( !postsPage ){
+			postsPage = 1;
+		}
+
+		postsPage++;
+		loadPosts(postsPage, true);
+
+        // if (postsPage < postsMaxPages) {
+        //     postsPage++;
+        //     loadPosts(postsPage, true);
+        // }
     });
 
     resetBtn.on('click', function(e){
@@ -2463,7 +2472,7 @@ $(document).on('click', function(e) {
             });
             pillsWrap.append(pill);
         }
-
+		console.log('hasPills => ', hasPills);
         pillsWrap.toggle(hasPills);
     }
 
@@ -2523,7 +2532,8 @@ $(document).on('click', function(e) {
     // Initial Load
     // ===============================
     // loadPartners(1, false);
-    buildActiveFilterPills();
+    // buildActiveFilterPills();
+	loader.hide();
 
     // ===============================
     // Filter buttons
@@ -2565,10 +2575,17 @@ $(document).on('click', function(e) {
     // ===============================
     loadMoreBtn.on('click', function(e) {
         e.preventDefault();
-        if (partnersPage < partnersMaxPages) {
-            partnersPage++;
-            loadPartners(partnersPage, true);
-        }
+		if( !partnersPage ){
+			partnersPage = 1;
+		}
+
+		partnersPage++;
+		loadPartners(partnersPage, true);
+
+        // if (partnersPage < partnersMaxPages) {
+        //     partnersPage++;
+        //     loadPartners(partnersPage, true);
+        // }
     });
 
     // ===============================
