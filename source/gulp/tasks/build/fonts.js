@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var fs = require('fs');
-var fontgen = require("gulp-fontgen");
 var browserSync = require("browser-sync");
 var reload = browserSync.reload;
 
@@ -26,6 +25,16 @@ gulp.task('build:fonts', function (done) {
     if (!hasFontsToConvert()) {
         return done();
     }
+    // Required lazily, only when there's actually something to convert:
+    // gulp-fontgen shells out to the system `fontforge` binary as soon as
+    // it's require()'d (not just when the task runs), and gulpfile.js's
+    // requireDir loads every task file up front regardless of which gulp
+    // task you invoke. Requiring it unconditionally at module scope means
+    // every CI run - even ones that never touch fonts - needs fontforge
+    // installed just to satisfy an import-time check. Gating the require
+    // behind hasFontsToConvert() means CI only needs fontforge once real
+    // .ttf/.otf files show up in source/fonts/.
+    var fontgen = require("gulp-fontgen");
     return gulp.src(path.src.fonts, { encoding: false }) // .ttf/.otf are binary
         .pipe(fontgen({
             dest: path.build.fonts,

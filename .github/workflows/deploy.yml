@@ -27,13 +27,30 @@ jobs:
         # gulp-image pulls in mozjpeg/gifsicle/zopflipng/pngquant binaries
         # (via the imagemin "*-bin" packages) that need system shared libs
         # or build tooling as a fallback (see imagemin/pngquant-bin#130).
-        # gulp-fontgen shells out to the system `fontforge` binary.
+        # fontforge is intentionally NOT installed here: gulp-fontgen only
+        # gets require()'d (and only then does its own fontforge check) once
+        # source/fonts/*.ttf|*.otf actually exist - see source/gulp/tasks/
+        # build/fonts.js. Add it back to this list if that ever changes.
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends \
-            libimagequant0 build-essential autoconf automake libtool pkg-config fontforge
+            libimagequant0 build-essential autoconf automake libtool pkg-config
+
+      - name: Cache node_modules
+        # actions/setup-node's cache:npm only caches the ~/.npm registry
+        # tarball cache, which doesn't help gulp-image's imagemin "*-bin"
+        # deps - their postinstall scripts fetch prebuilt binaries straight
+        # from GitHub releases (a different source, so it re-downloads
+        # every run regardless). Caching node_modules itself skips the
+        # whole install + postinstall step on a lockfile-unchanged run.
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         run: npm ci --no-audit --no-fund
 
       - name: Build theme assets
