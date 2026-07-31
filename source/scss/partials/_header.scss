@@ -593,7 +593,7 @@ header {
 			a {
 				float: left;
 				width: 100px;
-				margin-right: 0px;
+				margin-right: 21px;
 
 				@include responsive(767) {
 					float: none;

@@ -166,6 +166,7 @@ img {
 	vertical-align: middle;
 	max-width: 100%;
 	border: none;
+	height: auto; // covers "body img"; header .top span.logo img is a subset of this
 }
 
 a {

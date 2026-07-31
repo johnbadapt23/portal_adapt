@@ -222,10 +222,23 @@ section.webinar-article {
             display: flex;
             gap: 60px;
             flex-direction: row-reverse;
-            width: 100%;            
+            width: 100%;
+
+            @include responsive(tablet) {
+                flex-direction: column;
+                gap: 0;
+            }
         }
 
         .column {
+            &.first-column,
+            &.second-column {
+                @include responsive(tablet) {
+                    width: 100%;
+                    height: auto !important;
+                }
+            }
+
             &.first-column {
                 width: calc(100% - 400px);                
 
