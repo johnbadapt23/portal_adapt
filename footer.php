@@ -24,7 +24,7 @@ document.addEventListener('click', function (e) {
     // if (target) target.click();
 
   if (document.body.classList.contains('portal-home-2')) {
-    const target = document.querySelector('#cgptcb-embed-chat-box-container');
+    const target = document.querySelector('#customgpt-chat-1');
     if (!target) return;
 
     const header = document.querySelector('header');
