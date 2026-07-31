@@ -2217,9 +2217,9 @@ $('.post-filtering-module').each(function(){
     // ===============================
     // INITIAL LOAD
     // ===============================
-    loadPosts(1, false);
-    buildActiveFilterPills();
-    loadFeaturedPostsIfNeeded();
+    // loadPosts(1, false);
+    // buildActiveFilterPills();
+    // loadFeaturedPostsIfNeeded();
     updateURL(false);
 
     // ===============================
@@ -2522,7 +2522,7 @@ $(document).on('click', function(e) {
     // ===============================
     // Initial Load
     // ===============================
-    loadPartners(1, false);
+    // loadPartners(1, false);
     buildActiveFilterPills();
 
     // ===============================
