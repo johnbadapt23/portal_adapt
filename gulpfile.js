@@ -1,6 +1,16 @@
 // SETTINGS
 var fs = require('fs');
-var requireDir = require('require-dir')('./source/gulp/tasks', { recurse: true });
+var path_ = require('path');
+var requireDir = require('require-dir')('./source/gulp/tasks', {
+    recurse: true,
+    // Skips macOS AppleDouble shadow files (._*) and other dotfiles that can
+    // end up in this tree (e.g. from zip/network-share copies). These are
+    // gitignored so CI never hits this, but a local checkout can still have
+    // them on disk and require-dir's default readdir has no such filter.
+    filter: function (fullPath) {
+        return path_.basename(fullPath).charAt(0) !== '.';
+    }
+});
 var settings = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 var config = require('./source/gulp/config.js');
 var path = require('./source/gulp/paths.js');
