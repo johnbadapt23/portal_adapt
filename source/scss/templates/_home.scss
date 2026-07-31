@@ -843,6 +843,13 @@ section.advantage-two-column-accordion{
                                 float: left;
                                 width: 100%;
                                 color: rgba(0,0,0,0.87);
+
+                                .link-container {
+                                    float: left;
+                                    width: 100%;
+                                    margin-top: 8px;
+                                    text-align: left;
+                                }
                             }
                         }
 
@@ -889,6 +896,8 @@ section.advantage-two-column-accordion{
                 .link-column {
                     .accordion-container {
                         .accordion-item {
+                            border-color: #222222;
+                            
                             .question {
                                 color: #9A9A9A;
 

@@ -332,7 +332,7 @@ section.speaker-module {
 
                     
 
-                    &.delivery-partners {
+                    &.marketplace {
                         a.slide-out-bio {
                             .image-container {
                                 padding-top: 100%;
@@ -696,6 +696,63 @@ section.partners-content-module {
                         float: left;
                         width: 100%;
                         margin-bottom: 4px;
+                    }
+                }
+
+                .linkedIn {
+                    display: block;
+                    width: 25px;
+                    height: 25px;
+                    float: left;
+                    position: relative;
+
+                    &:after {
+                        content: ' ';
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        width: 25px;
+                        height: 25px;
+                        background-image: url('../images/linkedin-black.svg');
+                        background-size: 25px 25px;
+                        z-index: 9;
+                        opacity: 1;
+                        @include transition();
+                    }
+
+                    &:hover {
+                        &:after {
+                            opacity: 0.5;
+                        }
+                    }
+                }
+
+                .logoWrapper {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 48px;
+
+                    .logoContainer {
+                        float: left;
+                        width: 100px;
+                        position: relative;
+                        padding-top: 8.5%;
+                        margin-bottom: 20px;
+
+                        &:last-child {
+                            margin-bottom: 0px;
+                        }
+
+                        .logo {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                            left: 0;
+                            background-size: contain;
+                            background-position: center left;
+                            background-repeat: no-repeat;
+                        }
                     }
                 }
             }

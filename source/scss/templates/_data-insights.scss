@@ -61,6 +61,38 @@ section.researchArticleTextHeader.preview-module {
                 			object-position: center;
                         }
                     }
+
+                    .advantage-overlay {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+
+                        // Background image
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            background-image: url('../images/adv-plus-lock.svg');
+                            background-size: 178px 156px;
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            z-index: 2;
+                        }
+
+                        // Gradient + blur overlay
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, #000 100%);
+                            backdrop-filter: blur(6px);
+                            -webkit-backdrop-filter: blur(6px);
+                            z-index: 1;
+                        }
+                    }
                 }
             }
 
@@ -75,6 +107,10 @@ section.researchArticleTextHeader.preview-module {
 
                 .slick-list {
                     padding:0 15% 0 0;
+                }
+
+                .slick-slide:only-child {
+                    display: none;
                 }
 
                 .thumbnail-slide {
@@ -390,22 +426,6 @@ section.researchArticleTextHeader.preview-module {
     }
 }
 
-// Related articles
-
-section.topicGrid.portal.data-insights-related {
-    .container {
-        @include responsive(767) {
-            padding: 0 0 0 20px;
-        }
-        .blockTitle {
-            border-top: 2px solid #000;
-
-            h2 {
-                color: #000;
-            }
-        }
-    }
-}
 
 // Data and Insights Listing Page
 
@@ -1379,222 +1399,6 @@ section.topicBanner.sectorBanner {
             .persona-description {
                 max-width: 100%;
                 font-weight: 700;
-            }
-        }
-    }
-}
-
-section.topicGrid.portal.sector-grid {
-    .container {
-        .blockTitle {
-            border-top: none;
-            padding-top: 0px;
-            margin-bottom: 20px;
-
-            @include responsive(767) {
-                margin-bottom: 40px;
-            }
-
-            h2 {
-                float: left;
-                width: calc(100% - 100px)!important;
-
-                @include responsive(767) {
-                    width: 100%!important;
-                    margin-bottom: 20px;
-                }
-            }
-
-            a.viewAll {
-                float: right;
-                margin-right: 20px;
-                margin-bottom: 0px;
-                margin-top: 15px;
-
-                @include responsive(767) {
-                    float: left;
-                    margin-top: 0;
-                    top: auto;
-                    right: auto;
-                }
-            }
-        }
-
-        .gridWrapper {
-            .item {
-                -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.15);
-                -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.15);
-                box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.15);
-
-                .imageSizeContainer {
-                    padding-top: 57%;
-                    height: auto;
-
-                    .bgContainer {
-                         .hover-container {
-                             position: absolute;
-                             top: 0;
-                             right: 0;
-                             bottom: 0;
-                             left: 0;
-                             opacity: 0;
-                             visibility: hidden;
-                             background-color: rgba(0,0,0,0.4);
-                             @include transition();
-
-                             .slide-counter {
-                                 color: #fff;
-                                 position: absolute;
-                                 bottom:10px;
-                                 left: 16px;
-                                 padding: 4px;
-                                 border-radius: 4px;
-                                 background-color: #000;
-                                 font-size: 8px;
-                                 font-weight: bold;
-                                 font-family: Helvetica,Arial,sans-serif;
-                             }
-
-                             &:after {
-                                 content: '';
-                                 width: 35px;
-                                 height: 35px;
-                                 background-color: $color-red;
-                                 background-image: url('../images/download-white-new.svg');
-                                 background-size: 16px 11px;
-                                 background-position: center;
-                                 background-repeat: no-repeat;
-                                 display: block;
-                                 bottom: 0;
-                                 right: 0;
-                                 position: absolute;
-                             }
-                         }
-                    }
-
-                    &:hover {
-                        .bgContainer {
-                            .hover-container {
-                                opacity: 1;
-                                visibility: visible;
-                            }
-                        }
-                    }
-                }
-
-                .textContainer {
-                    padding: 30px 35px 100px;
-
-                    @media only screen and (max-width: 1199px) {
-                        padding: 25px 20px 100px;
-                    }
-
-                    .topicFilter {
-                        position: relative;
-                        float: left;
-                        width: 100%;
-                        top: auto;
-                        left: auto;
-                        margin-bottom: 15px;
-                        height: auto;
-
-                        a.topicFilterText {
-                            color: $color-red;
-                        }
-                    }
-
-                    .excerpt {
-                        color: #838383;
-                        font-size: 14px;
-                        line-height: 22px;
-                    }
-
-                    .button.data-set-button {
-                        position: absolute;
-                        bottom: 30px;
-                        left: 35px;
-                        padding: 0 25px;
-
-                        @media only screen and (max-width: 1199px) {
-                            left: 20px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-section.topicGrid.portal.list-style-list {
-    padding: 50px 0;
-
-    @include responsive(767) {
-        padding: 35px 0;
-    }
-
-    .container {
-        .gridWrapper.listWrapper.list {
-            .list-view {
-                width: 100%!important;
-                float: left;
-                position: relative;
-                margin-bottom: 50px;
-                height: auto!important;
-                padding-bottom: 50px;
-                margin-left: 0px!important;
-                border-bottom: 1px solid #f2f2f2;
-
-                &:nth-last-child(2) {
-                    border-bottom: none;
-                }
-
-                a.imageSizeContainer {
-                    float: left;
-                    width: 260px;
-                    height: 147px;
-                    padding-top: 0;
-
-                    @include responsive(767) {
-                        float: right;
-                        width: 100px;
-                        height: 65px;
-                    }
-                }
-
-                .textContainer {
-                    float: left;
-                    width: calc(100% - 260px);
-                    padding-top: 0px;
-                    padding-bottom: 0px;
-                    padding-left: 30px;
-
-                    @include responsive(767) {
-                        width: calc(100% - 100px);
-                        padding-right: 15px;
-                        padding-left: 0px;
-                    }
-
-                    .topicFilter {
-                        position: relative;
-                        top: auto;
-                        left: auto;
-                        float: left;
-                        margin-bottom: 15px;
-                    }
-
-                    .title {
-                        @include responsive(767) {
-                            font-size: 14px;
-                            line-height: 20px;
-                        }
-                    }
-
-                    .excerpt {
-                        @include responsive(767) {
-                            display: none;
-                        }
-                    }
-                }
             }
         }
     }

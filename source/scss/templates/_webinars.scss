@@ -215,9 +215,20 @@ section.webinarBanner {
 }
 
 section.webinar-article {
+    padding: 60px 0;
+    
     .container {
+        .column-container {
+            display: flex;
+            gap: 60px;
+            flex-direction: row-reverse;
+            width: 100%;            
+        }
+
         .column {
             &.first-column {
+                width: calc(100% - 400px);                
+
                 @include responsive(767) {
                     padding-top: 35px;
                 }
@@ -275,6 +286,8 @@ section.webinar-article {
             }
 
             &.second-column {
+                width: 400px;
+                padding-left: 0px;
 
                 &.speaker-column {
                     padding-left: 0px;

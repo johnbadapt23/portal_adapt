@@ -78,42 +78,43 @@ footer {
         float: left;
         width: 100%;
         padding: 65px 0 80px;
+        display: flex;
+        gap: 20px;
 
         @include responsive(767) {
             padding: 47px 0 0px;
+            flex-wrap: wrap;
+            gap: 0;
         }
 
         .column {
-            float:left;
-
-            &:first-child {
-                width: 21%;
-                padding-right: 7%;
-            }
-
-            &:nth-child(2) {
-                width: 20%;
-                padding-right: 7%;
-            }
-
-            &:nth-child(3) {
-                width: 19%;
-                padding-right: 7%;
-            }
-
-            &:nth-child(4) {
-                width: 14%;
-                padding-right: 7%;
-            }
-
-            &:nth-child(5) {
-                width: 14%;
-                padding-right: 3%;
-            }
+            flex: 1; // all columns equal width
+            min-width: 0;
 
             &:last-child {
-                width: 12%;
+                flex: 0 0 120px; // fixed width
+                padding-right: 0;
+            }
 
+            @include responsive(767) {
+                margin-bottom: 55px;
+        
+                &:nth-child(odd) {
+                    flex: 0 0 60%;
+                }
+        
+                &:nth-child(even) {
+                    flex: 0 0 40%;
+                }
+        
+                &:nth-child(2n+1) {
+                    clear: none; // not needed in flex
+                }
+            }
+        
+            
+
+            &:last-child {
                 span.social {
 
                     &.desktop {
@@ -159,42 +160,20 @@ footer {
                         }
                     }
                 }
-            }
-
-            &:nth-child(odd) {
-                @include responsive(767) {
-                    float: left;
-                    width: 60%;
-                    margin-bottom: 55px;
-                }
-            }
-
-            &:nth-child(even) {
-                @include responsive(767) {
-                    float: right;
-                    width: 40%;
-                    margin-bottom: 55px;
-                }
-            }
-
-            &:nth-child(2n+1) {
-                @include responsive(767) {
-                    clear: left;
-                }
-            }
+            }            
         }
 
         .title {
             float: left;
             width: 100%;
             font-family: $font-base;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 12px;
             line-height: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.012em;
-            color: $color-darkGrey-new;
-            margin-bottom: 19px;
+            letter-spacing: 0.01em;
+            color: #838383;
+            margin-bottom: 18px;
         }
 
         ul.footerLinks {
@@ -208,7 +187,7 @@ footer {
                 width: 100%;
                 margin-bottom: 2px;
 
-                a {
+                a, span.footerLink {
                     font-family: $font-base;
                     font-weight: normal;
                     color: #fff;

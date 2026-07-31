@@ -4268,89 +4268,6 @@ div.asl_w .mCustomScrollBox .mCSBap_scrollTools {
 
 // EVR styling
 
-section.topicGrid.evr-grid {
-    .container {
-        .blockTitle {
-            width: 100%;            
-
-            h2 {
-                img {                    
-                    margin-right: 9px;
-                    float: left;
-                    margin-top: 1px;
-                }
-            }
-
-            p {
-                font-size: 14px;
-                line-height: 24px;                
-                width: 100%;
-                display: block;
-                max-width: 760px;
-
-                @include responsive(767) {
-                    float: left;
-                    width: 100%;
-                }
-            }
-        }
-    }
-}
-
-section.caseStudiesFeaturedText.evr-featured.portal {
-    .container {
-        .item {
-            float: left;
-            width: 100%;
-            background-color: #fafafa;
-            padding: 50px;
-            display: flex;
-            align-items: center;
-
-            @include responsive(1023) {
-                padding: 20px;
-            }
-
-            @include responsive(767) {
-                display: block;
-            }
-
-            .textContainer {
-                width: 50%;
-                float: left;
-                padding: 0px;
-                padding-right: 85px;
-                height: auto;
-
-                @include responsive(1023) {
-                    padding-right: 40px;
-                }                
-
-                .topicFilterText {
-                    color: $color-red;
-                }
-
-                @include responsive(767) {
-                    width: 100%;
-                    padding-right: 0px;
-                }
-            }
-
-            .imageSizeContainer {
-                width: 50%;
-                float: left;
-                height: auto;
-                padding-top: 45%;
-
-                @include responsive(767) {
-                    width: 100%;
-                    padding-top: 100%;
-                    margin-top: 30px;
-                }
-            }
-        }
-    }
-}
 
 section.topicBanner .imageSizeContainer .title-filter-container {
     float: left;
@@ -4956,15 +4873,7 @@ section.tnc-featured-post {
 section.featured-module {
     float: left;
     width: 100%;
-    padding: 100px 0 100px;
-
-    &.resources-featured {
-        padding-top: 80px;
-
-        @include responsive(1023) {
-            padding-top: 32px;
-        }
-    }
+    padding: 88px 0 88px;
 
     @include responsive(767) {
         padding: 40px 0 40px;
