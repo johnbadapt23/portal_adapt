@@ -169,3 +169,23 @@ html .cgptcb-body .cgptcb-chat-box-toggle {
 	stroke: #fff;
 	stroke-width: 1px;
 }
+
+// Header toggle button that opens the widget (found alongside the rest of
+// this widget's CSS in style.css, but wasn't part of the original request -
+// migrating it here too since it's un-styled without it and clearly
+// belongs with the rest of the CustomGPT widget rules.
+span.customgpt-toggle {
+	position: relative;
+	float: left;
+	height: 34px;
+	margin-top: -7px;
+	margin-right: 20px;
+	background-color: #000;
+	transition: all .3s ease;
+	display: flex;
+	align-items: center;
+	color: #fff;
+	gap: 5px;
+	font-size: 14px;
+	cursor: pointer;
+}
