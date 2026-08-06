@@ -2,6 +2,18 @@
 
 	$(document).ready(function (){
 
+		// Accessibility: slick.js generates prev/next <button> arrows with no
+		// accessible name, and a role="tablist" dots container whose <li>
+		// children have no role="tab" (both fail axe checks). Bind before any
+		// .slick() init below so this fires on every slider's 'init' event,
+		// current and future, without having to touch each individual
+		// .slick({...}) call.
+		$(document).on('init', '.slick-slider', function() {
+			$(this).find('.slick-prev').attr('aria-label', 'Previous slide');
+			$(this).find('.slick-next').attr('aria-label', 'Next slide');
+			$(this).find('.slick-dots > li').attr('role', 'tab');
+		});
+
 		// STANDARD
 		@@include('includes/_maps.js')
 

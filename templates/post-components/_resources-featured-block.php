@@ -424,7 +424,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h4 class="title text-black labelMedium"><?php the_title(); ?></h4></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -560,7 +560,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h4 class="title text-black labelMedium"><?php the_title(); ?></h4></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -692,7 +692,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h4 class="title text-black labelMedium"><?php the_title(); ?></h4></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -816,7 +816,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h4 class="title text-black labelMedium"><?php the_title(); ?></h4></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
