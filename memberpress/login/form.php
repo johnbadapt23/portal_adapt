@@ -37,12 +37,12 @@
           <label for="pwd"><?php _ex('Password', 'ui', 'memberpress'); ?></label>
           <?php /* <span class="cc-error"><?php _ex('Password Required', 'ui', 'memberpress'); ?></span> */ ?>
         </div>
-        <img class="show-password show" src="<?php echo get_template_directory_uri(); ?>/assets/images/show-password.svg"/>
-        <img class="show-password hide" src="<?php echo get_template_directory_uri(); ?>/assets/images/hide-password.svg"/>
+        <img class="show-password show" src="<?php echo get_template_directory_uri(); ?>/assets/images/show-password.svg" width="20" height="20" alt="Show password"/>
+        <img class="show-password hide" src="<?php echo get_template_directory_uri(); ?>/assets/images/hide-password.svg" width="20" height="20" alt="Hide password"/>
       </div>
       <?php MeprHooks::do_action('mepr-login-form-before-submit'); ?>
       <div class="checkbox-container">
-        <label class="checkbox-label"> <?php _ex('Remember Me', 'ui', 'memberpress'); ?></label>
+        <label class="checkbox-label" for="rememberme"> <?php _ex('Remember Me', 'ui', 'memberpress'); ?></label>
         <input name="rememberme" type="checkbox" id="rememberme" value="forever"<?php checked(isset($_REQUEST['rememberme'])); ?> />
         <span class="checkmark"></span>
       </div>

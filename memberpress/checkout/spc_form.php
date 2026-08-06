@@ -96,8 +96,8 @@
             <label for="mepr_user_password<?php echo $unique_suffix; ?>"><?php _ex('Password:*', 'ui', 'memberpress'); ?></label>
             <span class="cc-error"><?php _ex('Invalid Password', 'ui', 'memberpress'); ?></span>
           </div>
-          <img class="show-password show" src="<?php echo get_template_directory_uri(); ?>/assets/images/show-password.svg"/>
-          <img class="show-password hide" src="<?php echo get_template_directory_uri(); ?>/assets/images/hide-password.svg"/>
+          <img class="show-password show" src="<?php echo get_template_directory_uri(); ?>/assets/images/show-password.svg" width="20" height="20" alt="Show password"/>
+          <img class="show-password hide" src="<?php echo get_template_directory_uri(); ?>/assets/images/hide-password.svg" width="20" height="20" alt="Hide password"/>
         </div>
         <div class="mp-form-row mepr_password_confirm">
           <input type="password" name="mepr_user_password_confirm" placeholder="Confirm Password" id="mepr_user_password_confirm<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-password-confirm" value="<?php echo (isset($mepr_user_password_confirm))?esc_attr(stripslashes($mepr_user_password_confirm)):''; ?>" required />
@@ -105,8 +105,8 @@
             <label for="mepr_user_password_confirm<?php echo $unique_suffix; ?>"><?php _ex('Password Confirmation:*', 'ui', 'memberpress'); ?></label>
             <span class="cc-error"><?php _ex('Password Confirmation Doesn\'t Match', 'ui', 'memberpress'); ?></span>
           </div>
-          <img class="show-password show" src="<?php echo get_template_directory_uri(); ?>/assets/images/show-password.svg"/>
-          <img class="show-password hide" src="<?php echo get_template_directory_uri(); ?>/assets/images/hide-password.svg"/>
+          <img class="show-password show" src="<?php echo get_template_directory_uri(); ?>/assets/images/show-password.svg" width="20" height="20" alt="Show password"/>
+          <img class="show-password hide" src="<?php echo get_template_directory_uri(); ?>/assets/images/hide-password.svg" width="20" height="20" alt="Hide password"/>
         </div>
         <?php MeprHooks::do_action('mepr-after-password-fields'); //Deprecated ?>
         <?php MeprHooks::do_action('mepr-checkout-after-password-fields', $product->ID); ?>

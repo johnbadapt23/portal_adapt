@@ -14,7 +14,7 @@ get_header();
 			<div class="login-header-logo">
 				<?php $header_logo = get_field( 'registration_header_logo', 'option' ); ?>
 				<?php if ( $header_logo ) { ?>
-					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, array( 'alt' => $header_logo['alt'] ) ); ?>
+					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, array( 'alt' => $header_logo['alt'], 'width' => '360', 'height' => '20' ) ); ?>
 				<?php } ?>
 			</div>
 		</div>
