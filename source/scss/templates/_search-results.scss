@@ -161,7 +161,7 @@ section.search-filter-container {
                 right: 150px;
                 top: 22px;
                 cursor: pointer;
-                @include transition();
+                @include transition(opacity);
 
                 @include responsive(767) {
                     right: 15px;

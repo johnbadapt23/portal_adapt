@@ -2692,7 +2692,7 @@ body.dashboard {
             box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
             // min-height: 480px;
             transform: scale(1);
-            @include transition();
+            @include transition(transform);
             background-color: #fff;
 
             &:hover {

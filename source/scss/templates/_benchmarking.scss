@@ -2590,7 +2590,7 @@ section.company-slider {
                 height: 30px;
                 top: auto;
                 bottom: -60px;
-                @include transition(all, 300ms, ease);
+                @include transition(opacity, 300ms, ease);
 
                 @media (max-width: 767px) {
                     bottom: -80px;
@@ -5358,7 +5358,7 @@ section.full-suite-slider-module {
                     height: 30px;
                     top: auto;
                     bottom: -16px;
-                    @include transition(all, 300ms, ease);
+                    @include transition(opacity, 300ms, ease);
 
                     &:before {
                         display: none;

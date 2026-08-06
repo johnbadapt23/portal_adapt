@@ -1792,7 +1792,7 @@ main.page.active {
 		}
 
 		a.clear-search {
-			@include transition();
+			@include transition(opacity);
 
 			img {
 				vertical-align: inherit;

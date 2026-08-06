@@ -4592,7 +4592,7 @@ section.highlight-post {
             background: 0 0;
             width: 23px;
             height: 23px;
-            @include transition(all, 300ms, ease);
+            @include transition(opacity, 300ms, ease);
 
             @include responsive(767) {
                 display: none !important;

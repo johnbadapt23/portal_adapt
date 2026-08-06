@@ -95,7 +95,7 @@ body.template-insights {
                 text-transform: uppercase;
                 line-height: 50px;
                 margin-bottom: 10px;
-                @include transition();
+                @include transition(opacity);
 
                 &:hover {
                     opacity: 0.8;
@@ -112,7 +112,7 @@ body.template-insights {
                 text-transform: uppercase;
                 line-height: 50px;
                 margin-bottom: 10px;
-                @include transition();
+                @include transition(opacity);
 
                 &:hover {
                     opacity: 0.8;
