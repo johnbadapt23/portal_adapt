@@ -6,7 +6,10 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
 ?>
 
 <?php if( $is_agent_tester ) : ?>
-<script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'98865', p_key:'f12d51cc482847f28a6333cf7f6a5c9d' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script> 
+<script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+<script>
+	window.__cgptConfig = { p_id: '98865', p_key: 'f12d51cc482847f28a6333cf7f6a5c9d' };
+</script>
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'98043', p_key:'8c7e9ac540d9dd825d6cf4eab0ade038' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
 <?php else : ?>
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'97474', p_key:'b53f0fe49da7c1843edb69e542282c3d' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
@@ -14,29 +17,64 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
 
 
 <script>
-document.addEventListener('click', function (e) {
-    const toggle = e.target.closest('.customgpt-toggle');
-    if (!toggle) return;
+(function() {
+    var cgptInitStarted = false;
 
-    e.preventDefault();
+    // CustomGPT.init() fires several admin-ajax proxy calls (project info,
+    // settings, conversation create) that each take multiple seconds. It used
+    // to run unconditionally on window load for every page view; now it only
+    // runs the first time the user actually opens the chat toggle.
+    function ensureCustomGptInit(onReady) {
+        if (typeof CustomGPT === 'undefined' || !window.__cgptConfig) {
+            onReady();
+            return;
+        }
 
-    // const target = document.querySelector('#cgptcb-chat-circle');
-    // if (target) target.click();
+        if (cgptInitStarted) {
+            onReady();
+            return;
+        }
 
-  if (document.body.classList.contains('portal-home-2')) {
-    const target = document.querySelector('#customgpt-chat-1');
-    if (!target) return;
+        cgptInitStarted = true;
+        CustomGPT.init(window.__cgptConfig);
 
-    const header = document.querySelector('header');
-    const offset = header ? header.offsetHeight + 20 : 100;
-    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        var attempts = 0;
+        var maxAttempts = 50; // ~15s at 300ms
+        var poll = setInterval(function() {
+            attempts++;
+            var ready = document.querySelector('#cgptcb-chat-circle') || document.querySelector('#customgpt-chat-1');
+            if (ready || attempts >= maxAttempts) {
+                clearInterval(poll);
+                onReady();
+            }
+        }, 300);
+    }
 
-    window.scrollTo({ top: y, behavior: 'smooth' });
-  } else {
-    const target = document.querySelector('#cgptcb-chat-circle');
-    if (target) target.click();
-  }
-});
+    function openCustomGptWidget() {
+        if (document.body.classList.contains('portal-home-2')) {
+            const target = document.querySelector('#customgpt-chat-1');
+            if (!target) return;
+
+            const header = document.querySelector('header');
+            const offset = header ? header.offsetHeight + 20 : 100;
+            const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        } else {
+            const target = document.querySelector('#cgptcb-chat-circle');
+            if (target) target.click();
+        }
+    }
+
+    document.addEventListener('click', function (e) {
+        const toggle = e.target.closest('.customgpt-toggle');
+        if (!toggle) return;
+
+        e.preventDefault();
+
+        ensureCustomGptInit(openCustomGptWidget);
+    });
+})();
 (function($) {
     var added = false;
 
