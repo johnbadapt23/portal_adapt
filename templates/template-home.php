@@ -35,7 +35,17 @@ get_header();
 						<?php if( $slide['dark_overlay'] == 'yes') { ?>
 							<span class="dark-overlay"></span>
 						<?php } ?>
-						<img src="<?php echo $slide['image']; ?>" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" alt="Adapt - <?php echo the_title(); ?>" />
+						<?php
+					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
+					if ( $slide_image_attach_id ) {
+						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, array(
+							'alt'   => 'Adapt - ' . get_the_title(),
+							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
+						) );
+					} else {
+						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+					}
+				?>
 						<div class="container">
 							<div class="content <?php echo $slide['text_layout']; ?>">
 								<?php if($slide['title']) { ?>

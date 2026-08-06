@@ -36,7 +36,14 @@ get_header();
                         <span class="overlayGradient"></span>
                         <div class="bgContainer">
                             <?php $image = get_field('video_thumbnail'); ?>
-                            <img class="desktop" src="<?php echo $image; ?>" alt="" />
+                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                         </div>
                         <span class="watchIcon"></span>
                     </div>

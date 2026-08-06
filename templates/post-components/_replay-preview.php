@@ -19,7 +19,14 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                     <span class="bgContainer">
                     <?php $video_image = get_field( 'video_image' ); ?>
                     <?php if ( $video_image ) { ?>
-                        <img src="<?php echo $video_image; ?>" alt="" />                        
+                        <?php
+								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								if ( $video_image_attach_id ) {
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+								}
+							?>                        
                     <?php } ?>
                     </span>
                     <?php if(current_user_can('memberpress_authorized')) { ?>

@@ -86,7 +86,14 @@ $sector = $_GET['sector'];
 	                                            <?php } ?>
 	                                        <span>
 	                                    <?php else : ?>
-	                                        <img class="desktop" src="<?php echo $image; ?>" />
+	                                        <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 	                                        <span class="hover-container">
 
 	                                        <span>
@@ -240,7 +247,14 @@ $sector = $_GET['sector'];
 										                                <?php } ?>
 																		<span class="bg-container">
 																			<?php if (  $image ) { ?>
-																				<img src="<?php echo  $image; ?>"/>
+																				<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																			<?php } ?>
 																		</span>
 													                <?php endif; ?>
@@ -373,7 +387,14 @@ $sector = $_GET['sector'];
 											 <?php } ?>
 										 <span>
 									 <?php else : ?>
-										 <img class="desktop" src="<?php echo $image; ?>" />
+										 <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 										 <span class="hover-container">
 
 										 <span>

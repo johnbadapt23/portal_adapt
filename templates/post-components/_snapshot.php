@@ -49,7 +49,14 @@
                         ?>
                             <div class="snapshot-popup-slide">
                                 <figure>
-                                    <img src="<?php echo $url; ?>">
+                                    <?php
+								$url_attach_id = attachment_url_to_postid( $url );
+								if ( $url_attach_id ) {
+									echo wp_get_attachment_image( $url_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $url ) . '" loading="lazy" alt="" />';
+								}
+							?>
 
                                     <figcaption class="snapshot-actions">
                                         <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode($url); ?>"

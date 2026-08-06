@@ -296,7 +296,14 @@ if ($filterPresentationType == 'events') {
                                             <?php } ?>
                                         <span>
                                     <?php else : ?>
-                                        <img class="desktop" src="<?php echo $image; ?>" />
+                                        <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                         <span class="hover-container">
                                         <span>
                                     <?php endif; ?>
@@ -434,7 +441,14 @@ if ($filterPresentationType == 'events') {
 										                                <?php } ?>
 																		<span class="bg-container">
 																			<?php if (  $image ) { ?>
-																				<img src="<?php echo  $image; ?>"/>
+																				<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																			<?php } ?>
 																		</span>
 													                <?php endif; ?>
@@ -880,7 +894,14 @@ if ($filterPresentationType == 'events') {
                                     <div class="bgContainer">
                                         <?php if ( get_field( 'listing_image') ) { ?>
                                             <?php $image = get_field( 'listing_image'); ?>
-                                             <img class="desktop" src="<?php echo $image; ?>" />
+                                             <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                         <?php } elseif ( get_field( 'video_image' )){  ?>
                                             <?php $video_image = get_field( 'video_image' ); ?>
                                             <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -890,7 +911,14 @@ if ($filterPresentationType == 'events') {
                                             <?php } else { ?>
                                                 <?php $image = get_field( 'featured_image'); ?>
                                             <?php } ?>
-                                            <img class="desktop" src="<?php echo $image; ?>" />
+                                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                         <?php } ?>
                                     </div>
                                 </a>
@@ -961,7 +989,14 @@ if ($filterPresentationType == 'events') {
                                         <div class="bgContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
                                                 <?php $image = get_field( 'listing_image'); ?>
-                                                 <img class="desktop" src="<?php echo $image; ?>" />
+                                                 <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                             <?php } elseif ( get_field( 'video_image' )){  ?>
                                                 <?php $video_image = get_field( 'video_image' ); ?>
                                                 <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -971,7 +1006,14 @@ if ($filterPresentationType == 'events') {
                                                 <?php } else { ?>
                                                     <?php $image = get_field( 'featured_image'); ?>
                                                 <?php } ?>
-                                                <img class="desktop" src="<?php echo $image; ?>" />
+                                                <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                             <?php } ?>
                                             <span class="watchIcon"></span>
                                         </div>
@@ -1044,7 +1086,14 @@ if ($filterPresentationType == 'events') {
                                                         <div class="bgContainer">
                                                             <?php if ( get_field( 'listing_image') ) { ?>
                                                                 <?php $image = get_field( 'listing_image'); ?>
-                                                                 <img class="desktop" src="<?php echo $image; ?>" />
+                                                                 <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                             <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                 <?php $video_image = get_field( 'video_image' ); ?>
                                                                 <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1054,7 +1103,14 @@ if ($filterPresentationType == 'events') {
                                                                 <?php } else { ?>
                                                                     <?php $image = get_field( 'featured_image'); ?>
                                                                 <?php } ?>
-                                                                <img class="desktop" src="<?php echo $image; ?>" />
+                                                                <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                             <?php } ?>
                                                         </div>
                                                     </a>
@@ -1117,7 +1173,14 @@ if ($filterPresentationType == 'events') {
                                              <div class="bgContainer">
                                                  <?php if ( get_field( 'listing_image') ) { ?>
                                                      <?php $image = get_field( 'listing_image'); ?>
-                                                      <img class="desktop" src="<?php echo $image; ?>" />
+                                                      <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                  <?php } elseif ( get_field( 'video_image' )){  ?>
                                                      <?php $video_image = get_field( 'video_image' ); ?>
                                                      <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1127,7 +1190,14 @@ if ($filterPresentationType == 'events') {
                                                      <?php } else { ?>
                                                          <?php $image = get_field( 'featured_image'); ?>
                                                      <?php } ?>
-                                                     <img class="desktop" src="<?php echo $image; ?>" />
+                                                     <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                  <?php } ?>
                                              </div>
                                          </a>
@@ -1212,7 +1282,14 @@ if ($filterPresentationType == 'events') {
                                                             <div class="bgContainer">
                                                                 <?php if ( get_field( 'listing_image') ) { ?>
                                                                     <?php $image = get_field( 'listing_image'); ?>
-                                                                     <img class="desktop" src="<?php echo $image; ?>" />
+                                                                     <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                     <?php $video_image = get_field( 'video_image' ); ?>
                                                                     <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1222,7 +1299,14 @@ if ($filterPresentationType == 'events') {
                                                                     <?php } else { ?>
                                                                         <?php $image = get_field( 'featured_image'); ?>
                                                                     <?php } ?>
-                                                                    <img class="desktop" src="<?php echo $image; ?>" />
+                                                                    <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } ?>
                                                             </div>
                                                         </a>
@@ -1326,7 +1410,14 @@ if ($filterPresentationType == 'events') {
                                                                     <div class="bgContainer">
                                                                         <?php if ( get_field( 'listing_image') ) { ?>
                                                                             <?php $image = get_field( 'listing_image'); ?>
-                                                                             <img class="desktop" src="<?php echo $image; ?>" />
+                                                                             <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                         <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                             <?php $video_image = get_field( 'video_image' ); ?>
                                                                             <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1336,7 +1427,14 @@ if ($filterPresentationType == 'events') {
                                                                             <?php } else { ?>
                                                                                 <?php $image = get_field( 'featured_image'); ?>
                                                                             <?php } ?>
-                                                                            <img class="desktop" src="<?php echo $image; ?>" />
+                                                                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                         <?php } ?>
                                                                     </div>
                                                                     <span class="watchIcon"></span>
@@ -1396,7 +1494,14 @@ if ($filterPresentationType == 'events') {
                                                             <div class="bgContainer">
                                                                 <?php if ( get_field( 'listing_image') ) { ?>
                                                                     <?php $image = get_field( 'listing_image'); ?>
-                                                                     <img class="desktop" src="<?php echo $image; ?>" />
+                                                                     <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                     <?php $video_image = get_field( 'video_image' ); ?>
                                                                     <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1406,7 +1511,14 @@ if ($filterPresentationType == 'events') {
                                                                     <?php } else { ?>
                                                                         <?php $image = get_field( 'featured_image'); ?>
                                                                     <?php } ?>
-                                                                    <img class="desktop" src="<?php echo $image; ?>" />
+                                                                    <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } ?>
                                                                 <span class="watchIcon"></span>
                                                             </div>
@@ -1453,7 +1565,14 @@ if ($filterPresentationType == 'events') {
                                                             <a href="<?php the_permalink(); ?>" target="_self" class="bgContainer">
                                                                 <?php if ( get_field( 'listing_image') ) { ?>
                                                                     <?php $image = get_field( 'listing_image'); ?>
-                                                                     <img class="desktop" src="<?php echo $image; ?>" />
+                                                                     <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                     <?php $video_image = get_field( 'video_image' ); ?>
                                                                     <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1463,7 +1582,14 @@ if ($filterPresentationType == 'events') {
                                                                     <?php } else { ?>
                                                                         <?php $image = get_field( 'featured_image'); ?>
                                                                     <?php } ?>
-                                                                    <img class="desktop" src="<?php echo $image; ?>" />
+                                                                    <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } ?>
                                                             </a>
                                                             <span class="watchIcon"></span>
@@ -1552,7 +1678,14 @@ if ($filterPresentationType == 'events') {
                                                                     <div class="bgContainer">
                                                                         <?php if ( get_field( 'listing_image') ) { ?>
                                                                             <?php $image = get_field( 'listing_image'); ?>
-                                                                             <img class="desktop" src="<?php echo $image; ?>" />
+                                                                             <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                         <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                             <?php $video_image = get_field( 'video_image' ); ?>
                                                                             <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1562,7 +1695,14 @@ if ($filterPresentationType == 'events') {
                                                                             <?php } else { ?>
                                                                                 <?php $image = get_field( 'featured_image'); ?>
                                                                             <?php } ?>
-                                                                            <img class="desktop" src="<?php echo $image; ?>" />
+                                                                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                         <?php } ?>
                                                                     </div>
                                                                     <span class="watchIcon"></span>
@@ -1622,7 +1762,14 @@ if ($filterPresentationType == 'events') {
                                                             <div class="bgContainer">
                                                                 <?php if ( get_field( 'listing_image') ) { ?>
                                                                     <?php $image = get_field( 'listing_image'); ?>
-                                                                     <img class="desktop" src="<?php echo $image; ?>" />
+                                                                     <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } elseif ( get_field( 'video_image' )){  ?>
                                                                     <?php $video_image = get_field( 'video_image' ); ?>
                                                                     <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -1632,7 +1779,14 @@ if ($filterPresentationType == 'events') {
                                                                     <?php } else { ?>
                                                                         <?php $image = get_field( 'featured_image'); ?>
                                                                     <?php } ?>
-                                                                    <img class="desktop" src="<?php echo $image; ?>" />
+                                                                    <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                                 <?php } ?>
                                                                 <span class="watchIcon"></span>
                                                             </div>

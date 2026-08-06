@@ -95,7 +95,14 @@
                                             <span class="image-container">
                                                 <span class="bg-container">
                                                     <?php $team_member_image = get_field( 'speaker_image' ); ?>
-                                                    <img src="<?php echo $team_member_image; ?>" alt="<?php the_title(); ?>" />
+                                                    <?php
+									$team_member_image_attach_id = attachment_url_to_postid( $team_member_image );
+									if ( $team_member_image_attach_id ) {
+										echo wp_get_attachment_image( $team_member_image_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+									} else {
+										echo '<img src="' . esc_url( $team_member_image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									}
+								?>
                                                 </span>
                                                 <span class="text-container mobile-hide">
                                                     <h5><?php the_title(); ?></h5>
@@ -116,7 +123,14 @@
                                                     <span class="image-container">
                                                         <span class="bg-container">
                                                             <?php $team_member_image = get_field( 'speaker_image' ); ?>
-                                                            <img src="<?php echo $team_member_image; ?>" alt="<?php the_title(); ?>" />
+                                                            <?php
+									$team_member_image_attach_id = attachment_url_to_postid( $team_member_image );
+									if ( $team_member_image_attach_id ) {
+										echo wp_get_attachment_image( $team_member_image_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+									} else {
+										echo '<img src="' . esc_url( $team_member_image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									}
+								?>
                                                         </span>
                                                         <span class="border-offset"></span>
                                                     </span>

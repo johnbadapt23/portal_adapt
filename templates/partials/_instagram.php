@@ -15,7 +15,14 @@
         		?>
         		<li>
         			<a href="<?php echo $link; ?>" target="_blank">
-                        <img src="<?php echo $img; ?>">
+                        <?php
+								$img_attach_id = attachment_url_to_postid( $img );
+								if ( $img_attach_id ) {
+									echo wp_get_attachment_image( $img_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $img ) . '" loading="lazy" alt="" />';
+								}
+							?>
                     </a>
         		</li>
         		<?php } } ?>

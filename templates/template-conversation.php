@@ -45,17 +45,38 @@ get_header();
 												<div class="bg-container">
 													<?php if ( get_field( 'listing_image') ) { ?>
 														<?php $image = get_field( 'listing_image'); ?>
-															<img class="desktop" src="<?php echo $image; ?>" />
+															<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 													<?php } elseif ( get_field( 'video_image' )){ ?>
 														<?php $video_image = get_field( 'video_image' ); ?>
-														<img class="desktop" src="<?php echo $video_image; ?>"/>
+														<?php
+								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								if ( $video_image_attach_id ) {
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 													<?php } else { ?>
 														<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
 															<?php $image = get_field( 'video_poster'); ?>
 														<?php } else { ?>
 															<?php $image = get_field( 'featured_image'); ?>
 														<?php } ?>
-														<img class="desktop" src="<?php echo $image; ?>" />
+														<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 													<?php } ?>
 												</div>										
 											</span>
@@ -136,7 +157,14 @@ get_header();
 																				<span class="bg-container">
 																					<?php $video_poster_image = get_field( 'video_poster' ); ?>
 																					<?php if ( $video_poster_image ) { ?>
-																						<img src="<?php echo $video_poster_image; ?>" />
+																						<?php
+								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								if ( $video_poster_image_attach_id ) {
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																					<?php } ?>
 																					<?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
 																						<span class="opacity-overlay"></span>
@@ -155,7 +183,14 @@ get_header();
 																				<span class="bg-container">
 																					<?php $featured_image = get_field( 'featured_image' ); ?>
 																					<?php if ( $featured_image ) { ?>
-																						<img src="<?php echo $featured_image; ?>"/>
+																						<?php
+								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								if ( $featured_image_attach_id ) {
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																					<?php } ?>
 																				</span>
 																			</a>
@@ -255,17 +290,38 @@ get_header();
 															<div class="bg-container">
 																<?php if ( get_field( 'listing_image') ) { ?>
 																	<?php $image = get_field( 'listing_image'); ?>
-																		<img class="desktop" src="<?php echo $image; ?>" />
+																		<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																<?php } elseif ( get_field( 'video_image' )){ ?>
 																	<?php $video_image = get_field( 'video_image' ); ?>
-																	<img class="desktop" src="<?php echo $video_image; ?>"/>
+																	<?php
+								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								if ( $video_image_attach_id ) {
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																<?php } else { ?>
 																	<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
 																		<?php $image = get_field( 'video_poster'); ?>
 																	<?php } else { ?>
 																		<?php $image = get_field( 'featured_image'); ?>
 																	<?php } ?>
-																	<img class="desktop" src="<?php echo $image; ?>" />
+																	<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																<?php } ?>
 															</div>										
 														</span>
@@ -336,7 +392,14 @@ get_header();
 																	<span class="bg-container">
 																		<?php $video_poster_image = get_field( 'video_poster' ); ?>
 																		<?php if ( $video_poster_image ) { ?>
-																			<img src="<?php echo $video_poster_image; ?>" />
+																			<?php
+								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								if ( $video_poster_image_attach_id ) {
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																		<?php } ?>
 																		<?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
 																			<span class="opacity-overlay"></span>
@@ -355,7 +418,14 @@ get_header();
 																	<span class="bg-container">
 																		<?php $featured_image = get_field( 'featured_image' ); ?>
 																		<?php if ( $featured_image ) { ?>
-																			<img src="<?php echo $featured_image; ?>" />
+																			<?php
+								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								if ( $featured_image_attach_id ) {
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 																		<?php } ?>
 																	</span>
 																</a>
@@ -448,17 +518,38 @@ get_header();
 											<div class="bgContainer">
 												<?php if ( get_field( 'listing_image') ) { ?>
 													<?php $image = get_field( 'listing_image'); ?>
-														<img class="desktop" src="<?php echo $image; ?>" />
+														<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 												<?php } elseif ( get_field( 'video_image' )){ ?>
 													<?php $video_image = get_field( 'video_image' ); ?>
-													<img class="desktop" src="<?php echo $video_image; ?>"/>
+													<?php
+								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								if ( $video_image_attach_id ) {
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 												<?php } else { ?>
 													<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
 														<?php $image = get_field( 'video_poster'); ?>
 													<?php } else { ?>
 														<?php $image = get_field( 'featured_image'); ?>
 													<?php } ?>
-													<img class="desktop" src="<?php echo $image; ?>" />
+													<?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
 												<?php } ?>
 											</div>
 										</a>

@@ -447,7 +447,14 @@
                                                         <?php $speaker_image = get_field('speaker_image'); ?>
                                                         <span class="bg-container<?php if (!$speaker_image) { ?> no-background<?php } ?>">
                                                             <?php if ($speaker_image) { ?>
-                                                                <img src="<?php echo $speaker_image; ?>"/>                                                                                                                          
+                                                                <?php
+								$speaker_image_attach_id = attachment_url_to_postid( $speaker_image );
+								if ( $speaker_image_attach_id ) {
+									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" alt="" />';
+								}
+							?>                                                                                                                          
                                                             <?php } ?>
                                                         </span>
                                                         <span class="border-offset"></span>                                                                                                               
@@ -464,7 +471,14 @@
                                                     <span class="image-container">
                                                         <span class="bg-container">
                                                             <?php if ($speaker_image) { ?>
-                                                                <img src="<?php echo $speaker_image; ?>" alt="<?php the_title(); ?>" />
+                                                                <?php
+									$speaker_image_attach_id = attachment_url_to_postid( $speaker_image );
+									if ( $speaker_image_attach_id ) {
+										echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+									} else {
+										echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									}
+								?>
                                                             <?php } ?>
                                                         </span>
                                                         <span class="border-offset"></span>
@@ -481,7 +495,14 @@
                                                     <?php $company_logo = get_field('company_logo'); ?>
                                                     <?php if ($company_logo) { ?>
                                                         <span class="company-logo">
-                                                            <img src="<?php echo $company_logo; ?>" />
+                                                            <?php
+								$company_logo_attach_id = attachment_url_to_postid( $company_logo );
+								if ( $company_logo_attach_id ) {
+									echo wp_get_attachment_image( $company_logo_attach_id, 'full', false, array( 'alt' => '' ) );
+								} else {
+									echo '<img src="' . esc_url( $company_logo ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>

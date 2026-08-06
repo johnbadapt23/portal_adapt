@@ -68,7 +68,14 @@ if($keyword != '') {
                                     <div class="bgContainer">
                                         <?php if ( get_field( 'listing_image') ) { ?>
                                             <?php $image = get_field( 'listing_image'); ?>
-                                                <img class="desktop" src="<?php echo $image; ?>" />
+                                                <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                         <?php } elseif ( get_field( 'video_image' )){ ?>
                                             <?php $video_image = get_field( 'video_image' ); ?>
                                             <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -78,7 +85,14 @@ if($keyword != '') {
                                             <?php } else { ?>
                                                 <?php $image = get_field( 'featured_image'); ?>
                                             <?php } ?>
-                                            <img class="desktop" src="<?php echo $image; ?>" />
+                                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                         <?php } ?>
                                     </div>
                                 </div>                                    
@@ -160,7 +174,14 @@ if($keyword != '') {
                                         <div class="bgContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
                                                 <?php $image = get_field( 'listing_image'); ?>
-                                                    <img class="desktop" src="<?php echo $image; ?>" />
+                                                    <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                             <?php } elseif ( get_field( 'video_image' )){ ?>
                                                 <?php $video_image = get_field( 'video_image' ); ?>
                                                 <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -170,7 +191,14 @@ if($keyword != '') {
                                                 <?php } else { ?>
                                                     <?php $image = get_field( 'featured_image'); ?>
                                                 <?php } ?>
-                                                <img class="desktop" src="<?php echo $image; ?>" />
+                                                <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                             <?php } ?>
                                         </div>
                                     </div>                                    
@@ -260,7 +288,14 @@ if($keyword != '') {
                             <div class="bgContainer">
                                 <?php if ( get_field( 'listing_image') ) { ?>
                                     <?php $image = get_field( 'listing_image'); ?>
-                                        <img class="desktop" src="<?php echo $image; ?>" />
+                                        <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                 <?php } elseif ( get_field( 'video_image' )){ ?>
                                     <?php $video_image = get_field( 'video_image' ); ?>
                                     <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
@@ -270,7 +305,14 @@ if($keyword != '') {
                                     <?php } else { ?>
                                         <?php $image = get_field( 'featured_image'); ?>
                                     <?php } ?>
-                                    <img class="desktop" src="<?php echo $image; ?>" />
+                                    <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
                                 <?php } ?>
                             </div>
                         </a>

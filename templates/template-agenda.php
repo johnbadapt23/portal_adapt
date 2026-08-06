@@ -19,14 +19,34 @@ get_header();
     					<?php if( $slide['dark_overlay'] == 'yes') { ?>
     						<span class="dark-overlay"></span>
     					<?php } ?>
-    					<img src="<?php echo $slide['image']; ?>" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" alt="Adapt - <?php echo the_title(); ?>" />
+    					<?php
+					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
+					if ( $slide_image_attach_id ) {
+						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, array(
+							'alt'   => 'Adapt - ' . get_the_title(),
+							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
+						) );
+					} else {
+						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+					}
+				?>
     					<div class="container">
     						<div class="content">
     							<?php if($slide['inset_image']) { ?>
     								<div class="insetImage">
     									<div class="image" style="background-image:url(<?php echo $slide['inset_image']; ?>);">
     									</div>
-    									<img src="<?php echo $slide['inset_image']; ?>" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" alt="Adapt - <?php echo the_title(); ?>" />
+    									<?php
+					$slide_inset_image_attach_id = attachment_url_to_postid( $slide['inset_image'] );
+					if ( $slide_inset_image_attach_id ) {
+						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, array(
+							'alt'   => 'Adapt - ' . get_the_title(),
+							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
+						) );
+					} else {
+						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+					}
+				?>
     								</div>
     							<?php } ?>
     							<?php if($slide['title']) { ?>
