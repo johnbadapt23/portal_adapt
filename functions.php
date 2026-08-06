@@ -1768,6 +1768,10 @@ add_filter( 'rocket_delay_js_exclusions', function( $exclusions ) {
 
 add_action( 'after_setup_theme', function() {
     add_image_size( 'article-card', 360, 200, true );
+    // Featured/hero article slot (span.video-container) - live Lighthouse audit
+    // showed these rendered at ~529x299, but the templates were requesting
+    // 'full' size, downloading originals up to 2560px wide for a ~530px slot.
+    add_image_size( 'article-hero', 530, 300, true );
 } );
 
 
