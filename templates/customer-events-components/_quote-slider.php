@@ -56,7 +56,7 @@
 							<div class="thumbnail-container">
 								<?php $logo = get_sub_field( 'logo' ); ?>
 								<?php if ( $logo ) { ?>
-									<img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+									<?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
 								<?php } ?>
 							</div>
 						</div>

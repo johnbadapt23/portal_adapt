@@ -244,7 +244,7 @@
                                                         <?php $icon = get_sub_field( 'icon' ); ?>
                 										<span class="columnTitle">
                                                             <?php if ( $icon ) { ?>
-                                            					<img class="topic-icon" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                            					<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                             				<?php } ?>
                                                             <?php the_sub_field( 'title' ); ?>
                                                         </span>
@@ -282,7 +282,7 @@
                                                         <?php $icon = get_sub_field( 'icon' ); ?>
                 										<span class="columnTitle">
                                                             <?php if ( $icon ) { ?>
-                                            					<img class="topic-icon" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                            					<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                             				<?php } ?>
                                                             <?php the_sub_field( 'title' ); ?>
                                                         </span>
@@ -327,7 +327,7 @@
                                                         <?php $icon = get_sub_field( 'icon' ); ?>
                 										<span class="columnTitle">
                                                             <?php if ( $icon ) { ?>
-                                            					<img class="topic-icon" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                            					<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                             				<?php } ?>
                                                             <?php the_sub_field( 'title' ); ?>
                                                         </span>

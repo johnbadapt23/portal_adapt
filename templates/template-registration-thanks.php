@@ -19,7 +19,7 @@ $first_name = $user_info->first_name;
 			<div class="login-header-logo">
 				<?php $header_logo = get_field( 'registration_header_logo', 'option' ); ?>
 				<?php if ( $header_logo ) { ?>
-					<img src="<?php echo $header_logo['url']; ?>" alt="<?php echo $header_logo['alt']; ?>" />
+					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, array( 'alt' => $header_logo['alt'] ) ); ?>
 				<?php } ?>
 			</div>
 		</div>

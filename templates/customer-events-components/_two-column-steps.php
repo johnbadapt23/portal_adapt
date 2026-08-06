@@ -26,7 +26,7 @@
                                 <div class="bg-container contained">
                                     <?php $image = get_sub_field( 'image' ); ?>
                                     <?php if ( $image ) { ?>
-                                        <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                             <span class="mobile-image-container">
                                 <?php $image = get_sub_field( 'image' ); ?>
                                 <?php if ( $image ) { ?>
-                                    <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                 <?php } ?>
                             </span>
                             <p class="p-medium <?php echo $textSecondary; ?>"><?php echo get_sub_field( 'text' ); ?></p>                            

@@ -56,7 +56,7 @@
             <div class="column image-column">
                 <?php $image = get_sub_field( 'image' ); ?>
                 <?php if ( $image ) { ?>
-                    <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                 <?php } ?>
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <span class="button-container desktop">

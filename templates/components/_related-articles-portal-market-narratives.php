@@ -44,7 +44,7 @@
                                            <?php // no rows found ?>
                                        <?php endif; ?>
                                     <?php endwhile; ?>
-                                    <img class="desktop slide-preview" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop slide-preview' ) ); ?>
                                 <?php else : ?>
                                     <?php if ( get_field( 'listing_image') ) { ?>
                                         <?php $image = get_field( 'listing_image'); ?>

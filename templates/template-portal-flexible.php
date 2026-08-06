@@ -52,7 +52,7 @@ get_header();
 																 <img class="desktop" src="<?php echo $image; ?>" />
 															<?php } elseif ( get_field( 'video_image' )){  ?>
 																<?php $video_image = get_field( 'video_image' ); ?>
-																<img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+																<?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
 															<?php } else { ?>
 																<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
 																	<?php $image = get_field( 'video_poster'); ?>
@@ -109,7 +109,7 @@ get_header();
 							        <div class="imageSizeContainer">
 							            <div class="bgContainer">
 							    			<?php $banner_image =  get_sub_field( 'background_image' ); ?>
-							                <img class="desktop" src="<?php echo $banner_image['url']; ?>" alt="<?php echo $banner_image['alt']; ?>" />
+							                <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
 							            </div>
 							            <div class="container">
 							                <h1><?php echo get_sub_field( 'title' ); ?></h1>
@@ -153,7 +153,7 @@ get_header();
  		                                                                    <img class="desktop" src="<?php echo $image; ?>" />
  		                                                               <?php } elseif ( get_field( 'video_image' )){  ?>
  		                                                                   <?php $video_image = get_field( 'video_image' ); ?>
- 		                                                                   <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+ 		                                                                   <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
  		                                                               <?php } else { ?>
  		                                                                   <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
  		                                                                       <?php $image = get_field( 'video_poster'); ?>
@@ -231,13 +231,13 @@ get_header();
 								            		<?php $image = get_sub_field( 'image' ); ?>
 								                    <div class="main-image-container">
 								                		<?php if ( $image ) { ?>
-								                			<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+								                			<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
 								                		<?php } ?>
 								                    </div>
 								                    <span class="overlay-image-container">
 								                        <?php $overlay_image = get_sub_field( 'overlay_image' ); ?>
 								            			<?php if ( $overlay_image ) { ?>
-								            				<img src="<?php echo $overlay_image['url']; ?>" alt="<?php echo $overlay_image['alt']; ?>" />
+								            				<?php echo wp_get_attachment_image( $overlay_image['ID'], 'full', false, array( 'alt' => $overlay_image['alt'] ) ); ?>
 								            			<?php } ?>
 								                    </span>
 								                </div>

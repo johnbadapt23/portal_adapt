@@ -188,7 +188,7 @@ $keyword = $_GET['searchWords'];
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <img class="desktop" src="<?php echo $image['url']; ?>" />
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
@@ -399,14 +399,14 @@ $keyword = $_GET['searchWords'];
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <img src="<?php echo $offsetimage['url']; ?>" alt="<?php echo $offsetimage['alt']; ?>" />
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<img src="<?php echo  $imageSlideOne['url']; ?>"/>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -558,7 +558,7 @@ $keyword = $_GET['searchWords'];
 												<?php // no rows found ?>
 											<?php endif; ?>
 										 <?php endwhile; ?>
-										 <img class="desktop" src="<?php echo $image['url']; ?>" />
+										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>

@@ -227,7 +227,7 @@
                             <span class="image-container">
                                 <span class="bg-container">
                                     <?php if ( $members_only_image_mobile ) { ?>
-                                    	<img src="<?php echo $members_only_image_mobile['url']; ?>" alt="<?php echo $members_only_image_mobile['alt']; ?>" />
+                                    	<?php echo wp_get_attachment_image( $members_only_image_mobile['ID'], 'full', false, array( 'alt' => $members_only_image_mobile['alt'] ) ); ?>
                                     <?php } ?>
                                 </span>
                             </span>
@@ -246,7 +246,7 @@
                         <span class="image-container">
                             <span class="bg-container">
                                 <?php if ( $members_only_image ) { ?>
-                                	<img src="<?php echo $members_only_image['url']; ?>" alt="<?php echo $members_only_image['alt']; ?>" />
+                                	<?php echo wp_get_attachment_image( $members_only_image['ID'], 'full', false, array( 'alt' => $members_only_image['alt'] ) ); ?>
                                 <?php } ?>
                             </span>
                         </span>

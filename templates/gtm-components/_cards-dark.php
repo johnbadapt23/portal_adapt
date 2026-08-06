@@ -13,13 +13,13 @@
 								<span class="bg-container first-bg">
 									<?php $icon = get_sub_field( 'icon' ); ?>
 									<?php if ( $icon ) { ?>
-										<img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+										<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
 									<?php } ?>
 								</span>
 								<span class="bg-container hover-bg">
 									<?php $hover_icon = get_sub_field( 'hover_icon' ); ?>
 									<?php if ( $hover_icon ) { ?>
-										<img src="<?php echo $hover_icon['url']; ?>" alt="<?php echo $hover_icon['alt']; ?>" />
+										<?php echo wp_get_attachment_image( $hover_icon['ID'], 'full', false, array( 'alt' => $hover_icon['alt'] ) ); ?>
 									<?php } ?>
 								</span>
 							</span>
@@ -55,7 +55,7 @@
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<?php if ( $icon ) { ?>
 											<span class="icon-container">												
-												<img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
 											</span>
 										<?php } ?>
 										<span class="labelLarge primary-white"><?php echo get_sub_field( 'title' ); ?></span>
@@ -90,7 +90,7 @@
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<?php if ( $icon ) { ?>
 											<span class="icon-container">												
-												<img src="<?php echo esc_url( $icon['url'] ); ?>" alt="<?php echo esc_attr( $icon['alt'] ); ?>" />
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
 											</span>
 										<?php } ?>
 										<span class="labelMedium primary-white"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>

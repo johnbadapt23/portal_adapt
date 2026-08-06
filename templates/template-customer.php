@@ -90,7 +90,7 @@ get_header();
 										<span class="icon-container">
 											<?php $listing_icon = get_field( 'listing_icon' ); ?>
 											<?php if ( $listing_icon ) { ?>
-												<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+												<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 											<?php } ?>
 										</span>
 										<span class="excerpt-container">
@@ -112,7 +112,7 @@ get_header();
 											<span class="icon-container">
 												<?php $listing_icon = get_field( 'listing_icon' ); ?>
 												<?php if ( $listing_icon ) { ?>
-													<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+													<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 												<?php } ?>
 											</span>
 											<span class="excerpt-container">
@@ -131,7 +131,7 @@ get_header();
 														<span class="icon-container">
 															<?php $listing_icon = get_field( 'listing_icon' ); ?>
 															<?php if ( $listing_icon ) { ?>
-																<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+																<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 															<?php } ?>
 														</span>
 														<span class="excerpt-container">
@@ -186,7 +186,7 @@ get_header();
 									<span class="icon-container">
 										<?php $listing_icon = get_field( 'listing_icon' ); ?>
 										<?php if ( $listing_icon ) { ?>
-											<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+											<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 										<?php } ?>
 									</span>
 									<span class="excerpt-container">

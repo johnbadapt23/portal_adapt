@@ -13,11 +13,11 @@
                                 <span class="logo-container-inner">
                                     <?php $logo_white = get_sub_field( 'logo_white' ); ?>
                                     <?php if ( $logo_white ) { ?>
-                                        <img class="logo-white" src="<?php echo $logo_white['url']; ?>" alt="<?php echo $logo_white['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $logo_white['ID'], 'full', false, array( 'alt' => $logo_white['alt'], 'class' => 'logo-white' ) ); ?>
                                     <?php } ?>
                                     <?php $logo_dark = get_sub_field( 'logo_dark' ); ?>
                                     <?php if ( $logo_dark ) { ?>
-                                        <img class="logo-dark" src="<?php echo $logo_dark['url']; ?>" alt="<?php echo $logo_dark['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $logo_dark['ID'], 'full', false, array( 'alt' => $logo_dark['alt'], 'class' => 'logo-dark' ) ); ?>
                                     <?php } ?>
                                 </span>
                             </span>

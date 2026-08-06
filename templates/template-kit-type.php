@@ -38,7 +38,7 @@
                             <div class="bg-container">
                                 <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                 <?php if ( $poster_image ) { ?>
-                                    <img src="<?php echo $poster_image['url']; ?>" alt="<?php echo $poster_image['alt']; ?>" />
+                                    <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
                                 <?php } ?>                                                                
                                 <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                     <span class="opacity-overlay"></span>
@@ -106,7 +106,7 @@
 										<span class="icon-container">
 											<?php $listing_icon = get_field( 'listing_icon' ); ?>
 											<?php if ( $listing_icon ) { ?>
-												<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+												<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 											<?php } ?>
 										</span>
 										<span class="excerpt-container">
@@ -128,7 +128,7 @@
 											<span class="icon-container">
 												<?php $listing_icon = get_field( 'listing_icon' ); ?>
 												<?php if ( $listing_icon ) { ?>
-													<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+													<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 												<?php } ?>
 											</span>
 											<span class="excerpt-container">
@@ -147,7 +147,7 @@
 														<span class="icon-container">
 															<?php $listing_icon = get_field( 'listing_icon' ); ?>
 															<?php if ( $listing_icon ) { ?>
-																<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+																<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 															<?php } ?>
 														</span>
 														<span class="excerpt-container">
@@ -210,7 +210,7 @@
                                     <span class="icon-container">
                                         <?php $listing_icon = get_field( 'listing_icon' ); ?>
                                         <?php if ( $listing_icon ) { ?>
-                                            <img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
                                         <?php } ?>
                                     </span>
                                     <span class="excerpt-container">

@@ -17,8 +17,7 @@
                             <a href="#"
                                class="snapshot-popup-trigger"
                                data-index="<?php echo esc_attr($i); ?>">
-                                <img src="<?php echo esc_url($image['url']); ?>"
-                                     alt="<?php echo esc_attr($image['alt']); ?>">
+                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                             </a>
                         </div>
                     <?php

@@ -12,7 +12,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 	<div class="imageSizeContainer">
 		<div class="bgContainer">
 			<?php $banner_image = get_field( 'webinar_banner_image', 'option' ); ?>
-			<img class="desktop" src="<?php echo $banner_image['url']; ?>" alt="<?php echo $banner_image['alt']; ?>" />
+			<?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
 		</div>
 		<div class="container">
 			<div class="column webinar-column first-column">
@@ -250,13 +250,13 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 						<?php $image = get_sub_field( 'image' ); ?>
 						<div class="overlay-image-container desktop">
 			    			<?php if ( $image ) { ?>
-			    				<img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+			    				<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
 			    			<?php } ?>
 						</div>
 						<?php $mobileImage = get_sub_field( 'mobile_image' ); ?>
 						<div class="overlay-image-container mobile">
 			    			<?php if ( $mobileImage ) { ?>
-			    				<img src="<?php echo $mobileImage['url']; ?>" alt="<?php echo $mobileImage['alt']; ?>" />
+			    				<?php echo wp_get_attachment_image( $mobileImage['ID'], 'full', false, array( 'alt' => $mobileImage['alt'] ) ); ?>
 			    			<?php } ?>
 						</div>
 					</div>

@@ -71,7 +71,7 @@ if($keyword != '') {
                                                 <img class="desktop" src="<?php echo $image; ?>" />
                                         <?php } elseif ( get_field( 'video_image' )){ ?>
                                             <?php $video_image = get_field( 'video_image' ); ?>
-                                            <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                         <?php } else { ?>
                                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                 <?php $image = get_field( 'video_poster'); ?>
@@ -163,7 +163,7 @@ if($keyword != '') {
                                                     <img class="desktop" src="<?php echo $image; ?>" />
                                             <?php } elseif ( get_field( 'video_image' )){ ?>
                                                 <?php $video_image = get_field( 'video_image' ); ?>
-                                                <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                     <?php $image = get_field( 'video_poster'); ?>
@@ -263,7 +263,7 @@ if($keyword != '') {
                                         <img class="desktop" src="<?php echo $image; ?>" />
                                 <?php } elseif ( get_field( 'video_image' )){ ?>
                                     <?php $video_image = get_field( 'video_image' ); ?>
-                                    <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                    <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                 <?php } else { ?>
                                     <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                         <?php $image = get_field( 'video_poster'); ?>

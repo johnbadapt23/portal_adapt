@@ -25,7 +25,7 @@ if ( 0 == $current_user->ID ) {
         <div class="bgContainer">
             <?php $image = get_sub_field( 'image' ); ?>
 			<?php if ( $image ) { ?>
-				<img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+				<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
 			<?php } ?>
         </div>
     </div>

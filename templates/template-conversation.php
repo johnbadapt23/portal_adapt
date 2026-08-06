@@ -556,7 +556,7 @@ get_header();
 										<div class="bg-container">
 											<?php $image = get_sub_field( 'image' ); ?>
 											<?php if ( $image ) { ?>
-												<img src="<?php echo $image['url']; ?>" />
+												<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '' ) ); ?>
 											<?php } ?>
 										</div>
 									</div>

@@ -464,7 +464,7 @@ if (
                     <div class="column-image-container desktop">
                         <?php $side_image = get_field( 'side_image' ); ?>
                         <?php if ( $side_image ) { ?>
-                        	<img src="<?php echo $side_image['url']; ?>" alt="<?php echo $side_image['alt']; ?>" />
+                        	<?php echo wp_get_attachment_image( $side_image['ID'], 'full', false, array( 'alt' => $side_image['alt'] ) ); ?>
                         <?php } ?>
                     </div>
                 <?php }?>
@@ -1445,7 +1445,7 @@ if (
                                                             <?php if ( $preview_image ) { ?>
                                                                 <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
                                                                     <span class="bg-container">
-                                                                        <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
                                                                     </span>
                                                                 </span>
                                                             <?php } ?>
@@ -1470,7 +1470,7 @@ if (
                                                         <?php if ( $preview_image ) { ?>
                                                             <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
                                                                 <span class="bg-container">
-                                                                    <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                    <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
                                                                 </span>
                                                             </span>
                                                         <?php } ?>
@@ -1836,7 +1836,7 @@ if (
                                         <?php $image = get_sub_field( 'image' ); ?>                                
                                         <?php if ( $image ) { ?>
                                             <div class="preview-image-container">
-                                                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                             </div>
                                         <?php } ?>
                                         <?php if ( have_rows( 'cta' ) ) : ?>
@@ -1848,7 +1848,7 @@ if (
                                                                 <span class="bg-container">
                                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                                     <?php if ( $image ) { ?>
-                                                                        <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                                                     <?php } ?>
                                                                 </span>
                                                             </span>                                                    
@@ -1861,7 +1861,7 @@ if (
                                                                     <span class="bg-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                 </span>                                                    
@@ -2695,7 +2695,7 @@ if (
                                                                 <?php if ( $preview_image ) { ?>
                                                                     <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
                                                                         <span class="bg-container">
-                                                                            <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                            <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
                                                                         </span>
                                                                     </span>
                                                                 <?php } ?>
@@ -2738,7 +2738,7 @@ if (
                                                             <?php if ( $preview_image ) { ?>
                                                                 <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
                                                                     <span class="bg-container">
-                                                                        <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
                                                                     </span>
                                                                 </span>
                                                             <?php } ?>
@@ -3104,7 +3104,7 @@ if (
                                         <?php $image = get_sub_field( 'image' ); ?>                                
                                         <?php if ( $image ) { ?>
                                             <div class="preview-image-container">
-                                                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                             </div>
                                         <?php } ?>
                                         <?php if ( have_rows( 'cta' ) ) : ?>
@@ -3116,7 +3116,7 @@ if (
                                                                 <span class="bg-container">
                                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                                     <?php if ( $image ) { ?>
-                                                                        <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                                                     <?php } ?>
                                                                 </span>
                                                             </span>                                                    
@@ -3129,7 +3129,7 @@ if (
                                                                     <span class="bg-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                 </span>                                                    
@@ -3965,7 +3965,7 @@ if (
                                                                 <?php if ( $preview_image ) { ?>
                                                                     <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
                                                                         <span class="bg-container">
-                                                                            <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                            <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
                                                                         </span>
                                                                     </span>
                                                                 <?php } ?>
@@ -4008,7 +4008,7 @@ if (
                                                             <?php if ( $preview_image ) { ?>
                                                                 <span class="download-image-container <?php echo get_sub_field( 'image_orientation' ); ?>">
                                                                     <span class="bg-container">
-                                                                        <img src="<?php echo $preview_image['url']; ?>" alt="<?php echo $preview_image['alt']; ?>" />
+                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
                                                                     </span>
                                                                 </span>
                                                             <?php } ?>

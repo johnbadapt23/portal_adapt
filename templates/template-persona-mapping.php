@@ -53,14 +53,14 @@ $post_types = array ();
                                                                         <span class="bg-container offset-image-container">
                                                                         <?php $offsetimage = get_sub_field( 'image'); ?>
                                                                         <?php if ( $offsetimage ) { ?>
-                                                                            <img src="<?php echo $offsetimage['url']; ?>" alt="<?php echo $offsetimage['alt']; ?>" />
+                                                                            <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <?php } else if ($imageCounter == 1){ ?>
                                                                         <span class="bg-container">
                                                                         <?php $imageSlideOne = get_sub_field( 'image'); ?>
                                                                         <?php if (  $imageSlideOne ) { ?>
-                                                                            <img src="<?php echo  $imageSlideOne['url']; ?>"/>
+                                                                            <?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <?php } $imageCounter++; ?>
@@ -179,7 +179,7 @@ $post_types = array ();
                                                             <img class="desktop" src="<?php echo $image; ?>" />
                                                     <?php } elseif ( get_field( 'video_image' )){  ?>
                                                         <?php $video_image = get_field( 'video_image' ); ?>
-                                                        <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                                     <?php } else { ?>
                                                         <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                             <?php $image = get_field( 'video_poster'); ?>
@@ -427,7 +427,7 @@ $post_types = array ();
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <img class="desktop" src="<?php echo $image['url']; ?>" />
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
                                     <?php else : ?>
                                         <img class="desktop" src="<?php echo $image; ?>" />
                                     <?php endif; ?>

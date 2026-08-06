@@ -46,7 +46,7 @@
                                 <div class="bg-container">
                                     <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                     <?php if ( $poster_image ) { ?>
-                                        <img src="<?php echo $poster_image['url']; ?>" alt="<?php echo $poster_image['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
                                     <?php } ?>                                                                
                                     <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                         <span class="opacity-overlay"></span>
@@ -60,7 +60,7 @@
                                     <div class="bg-container">
                                         <?php $head_shot = get_sub_field( 'head_shot' ); ?>
                                         <?php if ( $head_shot ) { ?>
-                                            <img src="<?php echo $head_shot['url']; ?>" alt="<?php echo $head_shot['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                                     <div class="column main-column">
                                         <?php if ( $listing_icon ) { ?>
                                             <span class="logo-container">
-                                                <img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
                                             </span>
                                         <?php } ?>
                                         <span class="title text-black overview-title"><?php echo get_sub_field( 'title' ); ?></span>
@@ -262,7 +262,7 @@
                                             <div class="bg-container">
                                                 <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                                 <?php if ( $poster_image ) { ?>
-                                                    <img src="<?php echo $poster_image['url']; ?>" alt="<?php echo $poster_image['alt']; ?>" />
+                                                    <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
                                                 <?php } ?>                                                                
                                                 <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                     <span class="opacity-overlay"></span>
@@ -299,7 +299,7 @@
                                                 <span class="image-video-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                                     <?php } ?>
                                                     <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                         <span class="opacity-overlay"></span>
@@ -384,7 +384,7 @@
                                                                         <span class="bg-container">
                                                                             <?php $image = get_sub_field( 'image' ); ?>
                                                                             <?php if ( $image ) { ?>
-                                                                                <img src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
                                                                             <?php } ?>
                                                                         </span>
                                                                          <?php if( get_sub_field( 'vimeo_id' )) { ?>

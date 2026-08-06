@@ -68,7 +68,7 @@
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <img class="desktop" src="<?php echo $image['url']; ?>" />
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
                                         <span class="hover-container">
                                             <?php if ($imageCounter) { ?>
                                                 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>

@@ -72,8 +72,8 @@
 											<span class="image-container">
 												<?php $image = get_field( 'listing_image' ); ?>
 												<?php if ($image) : ?>
-													<span class="bg-container">														
-														<img class="article-image" src="<?php echo $image['url']; ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">														
+													<span class="bg-container">
+														<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ) ); ?>
 													</span>
 												<?php endif; ?>
 											</span>
@@ -149,8 +149,8 @@
 												<span class="image-container">
 													<?php $image = get_field( 'listing_image' ); ?>
 													<?php if ($image) : ?>
-														<span class="bg-container">														
-															<img class="article-image" src="<?php echo $image['url']; ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">														
+														<span class="bg-container">
+															<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ) ); ?>
 														</span>
 													<?php endif; ?>
 												</span>

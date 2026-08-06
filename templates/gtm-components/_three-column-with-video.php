@@ -23,7 +23,7 @@
                     <div class="image-container">
                         <div class="bg-container">
                             <?php $image = get_sub_field('poster_image'); ?>
-                            <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                             <?php if( get_sub_field( 'vimeo_code' )) { ?>                                
                                 <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
                             <?php } ?>
@@ -39,7 +39,7 @@
                         <span class="icon-container">
                             <?php $icon = get_sub_field( 'icon' ); ?>
                             <?php if ( $icon ) { ?>
-                                <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                             <?php } ?>
                         </span>
                         <span class="text-container">

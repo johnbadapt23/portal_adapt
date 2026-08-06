@@ -187,14 +187,14 @@ if (isset($_GET['partner-search'])) {
 										<?php $listing_icon = get_field('listing_icon'); ?>
 										<?php if ( $listing_icon ) { ?>
 											<span class="logo-container">
-												<img src="<?php echo $listing_icon['url']; ?>" alt="<?php echo $listing_icon['alt']; ?>" />
+												<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
 											</span>
 										<?php } ?>
 									<?php } else { ?>
 										<?php $listing_avatar = get_field('listing_avatar'); ?>
 										<?php if ( $listing_avatar ) { ?>
 											<span class="avatar-container logo-container">
-												<img src="<?php echo $listing_avatar['url']; ?>" alt="<?php echo $listing_avatar['alt']; ?>" />
+												<?php echo wp_get_attachment_image( $listing_avatar['ID'], 'full', false, array( 'alt' => $listing_avatar['alt'] ) ); ?>
 											</span>
 										<?php } ?>
 									<?php }	?>

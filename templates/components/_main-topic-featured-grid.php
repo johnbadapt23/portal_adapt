@@ -9,7 +9,7 @@
                     <span class="overlayGradient"></span>
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                 </a>
                 <div class="textContainer">
@@ -25,7 +25,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                 </a>
                 <div class="textContainer">

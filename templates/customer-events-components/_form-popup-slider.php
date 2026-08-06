@@ -33,7 +33,7 @@
                                     <span class="logo-container" <?php if($dataForm){ ?> data-fc-open="<?php echo $dataForm; ?>"<?php } ?>>
                                          <?php $title_logo = get_sub_field( 'title_logo' ); ?>
                                         <?php if ( $title_logo ) { ?>
-                                            <img src="<?php echo $title_logo['url']; ?>" alt="<?php echo $title_logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $title_logo['ID'], 'full', false, array( 'alt' => $title_logo['alt'] ) ); ?>
                                         <?php } ?>
                                     </span>
                                     <span class="arrow-container" <?php if($dataForm){ ?> data-fc-open="<?php echo $dataForm; ?>"<?php } ?>></span>
@@ -42,21 +42,27 @@
                                     <span class="bg-container-outer" <?php if($dataForm){ ?> data-fc-open="<?php echo $dataForm; ?>"<?php } ?>>
                                         <span class="slide-bg-container">
                                             <?php $image_one = get_sub_field( 'image_one' ); ?>
-                                            <?php if ( $image_one ) { ?>
-                                                <img src="<?php echo $image_one['url']; ?>" alt="<?php echo $image_one['alt']; ?>" <?php if($dataForm){ ?> data-fc-open="<?php echo $dataForm; ?>"<?php } ?>/>
-                                            <?php } ?>
+                                            <?php if ( $image_one ) {
+                                                $image_one_attrs = array( 'alt' => $image_one['alt'] );
+                                                if ( $dataForm ) { $image_one_attrs['data-fc-open'] = $dataForm; }
+                                                echo wp_get_attachment_image( $image_one['ID'], 'full', false, $image_one_attrs );
+                                            } ?>
                                         </span>
                                         <span class="slide-bg-container">
                                             <?php $image_two = get_sub_field( 'image_two' ); ?>
-                                            <?php if ( $image_two ) { ?>
-                                                <img src="<?php echo $image_two['url']; ?>" alt="<?php echo $image_two['alt']; ?>" <?php if($dataForm){ ?> data-fc-open="<?php echo $dataForm; ?>"<?php } ?>/>
-                                            <?php } ?>
+                                            <?php if ( $image_two ) {
+                                                $image_two_attrs = array( 'alt' => $image_two['alt'] );
+                                                if ( $dataForm ) { $image_two_attrs['data-fc-open'] = $dataForm; }
+                                                echo wp_get_attachment_image( $image_two['ID'], 'full', false, $image_two_attrs );
+                                            } ?>
                                         </span>
                                         <span class="slide-bg-container">
                                             <?php $image_three = get_sub_field( 'image_three' ); ?>
-                                            <?php if ( $image_three ) { ?>
-                                                <img src="<?php echo $image_three['url']; ?>" alt="<?php echo $image_three['alt']; ?>" <?php if($dataForm){ ?> data-fc-open="<?php echo $dataForm; ?>"<?php } ?>/>
-                                            <?php } ?>   
+                                            <?php if ( $image_three ) {
+                                                $image_three_attrs = array( 'alt' => $image_three['alt'] );
+                                                if ( $dataForm ) { $image_three_attrs['data-fc-open'] = $dataForm; }
+                                                echo wp_get_attachment_image( $image_three['ID'], 'full', false, $image_three_attrs );
+                                            } ?>
                                         </span>
                                     </span>
                                 </span>                                                            

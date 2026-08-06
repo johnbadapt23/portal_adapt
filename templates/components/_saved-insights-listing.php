@@ -9,7 +9,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -27,7 +27,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -45,7 +45,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -63,7 +63,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -81,7 +81,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -99,7 +99,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -117,7 +117,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />
@@ -135,7 +135,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <img class="desktop" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
                     </div>
                     <span class="removePost">
                         <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" alt="Remove Post" />

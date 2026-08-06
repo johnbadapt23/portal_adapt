@@ -115,7 +115,7 @@ if ( $loop->have_posts() ) :
         <?php foreach($terms as $term) { ?>
             <span class="other-stage-items other-items"><a href="<?php echo get_term_link($term); ?>" target="_self">
             <?php $icon = get_field( 'icon', $term ); ?>
-            <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" width="24"/><?php echo $term->name; ?> 
+            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $term->name; ?> 
             </a></span>
         <?php } 
         ?>
@@ -128,7 +128,7 @@ if ( $loop->have_posts() ) :
     <div class="imageSizeContainer">
         <div class="bgContainer">
             <?php $banner_image = get_field( 'banner_image', $q ); ?>
-            <img class="desktop" src="<?php echo $banner_image['url']; ?>" alt="<?php echo $banner_image['alt']; ?>" />
+            <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
         </div>
         <div class="container">
             <span class="bannerBreadcrumbs">
@@ -207,10 +207,10 @@ if ( $loop->have_posts() ) :
                         <?php if ($filterType != '') { ?>
                             <?php $term = get_term_by('slug', $filterType, 'fundamentals-lever'); ?>
                             <?php $icon = get_field( 'icon', $term ); ?>
-                            <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" width="24"/><?php echo $term->name; ?>                                
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $term->name; ?>                                
                         <?php } else { ?>
                             <?php $icon = get_field( 'icon', $q ); ?>
-                            <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" width="24"/><?php echo $q->name; ?>
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $q->name; ?>
                         <?php } ?>
                     <?php } ?>
                 </h2>
@@ -309,7 +309,7 @@ if ( $loop->have_posts() ) :
                                             <img class="desktop" src="<?php echo $image; ?>" />
                                     <?php } elseif ( get_field( 'video_image' )){  ?>
                                         <?php $video_image = get_field( 'video_image' ); ?>
-                                        <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                     <?php } else { ?>
                                         <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                             <?php $image = get_field( 'video_poster'); ?>
@@ -375,7 +375,7 @@ if ( $loop->have_posts() ) :
                     <div class="container">
                         <div class="blockTitle">
                             <?php $icon = get_field( 'icon', $topic_term); ?>
-                            <h2><img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" width="24"/><?php echo get_sub_field( 'title' ); ?></h2>
+                            <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo get_sub_field( 'title' ); ?></h2>
                             <p><?php echo $topic_term->description; ?></p>
                             <a href="<?php echo get_term_link($topic_term); ?>" class="viewAll">View All</a>
                         </div>
@@ -413,7 +413,7 @@ if ( $loop->have_posts() ) :
                                                             <img class="desktop" src="<?php echo $image; ?>" />
                                                     <?php } elseif ( get_field( 'video_image' )){  ?>
                                                         <?php $video_image = get_field( 'video_image' ); ?>
-                                                        <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                                     <?php } else { ?>
                                                         <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                             <?php $image = get_field( 'video_poster'); ?>
@@ -518,7 +518,7 @@ if ( $loop->have_posts() ) :
                                             <img class="desktop" src="<?php echo $image; ?>" />
                                         <?php } elseif ( get_field( 'video_image' )){  ?>
                                             <?php $video_image = get_field( 'video_image' ); ?>
-                                            <img class="desktop" src="<?php echo $video_image['url']; ?>" alt="<?php echo $video_image['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
                                         <?php } else { ?>
                                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                 <?php $image = get_field( 'video_poster'); ?>

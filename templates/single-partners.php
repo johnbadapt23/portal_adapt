@@ -35,7 +35,7 @@ endif;
                                         <div class="bg-container">
                                             <?php $head_shot = get_sub_field( 'poster_image' ); ?>
                                             <?php if ( $head_shot ) { ?>
-                                                <img src="<?php echo $head_shot['url']; ?>" alt="<?php echo $head_shot['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
                                             <?php } else if($listing_icon) { ?>
                                                 <img src="<?php echo $listing_icon; ?>" alt="<?php echo get_sub_field( 'title' ); ?>" />
                                             <?php } ?>
@@ -48,7 +48,7 @@ endif;
                                         <div class="bg-container">
                                             <?php $head_shot = get_sub_field( 'head_shot' ); ?>
                                             <?php if ( $head_shot ) { ?>
-                                                <img src="<?php echo $head_shot['url']; ?>" alt="<?php echo $head_shot['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
                                             <?php } else if($listing_avatar) { ?>
                                                 <img src="<?php echo $listing_avatar; ?>" alt="<?php echo get_sub_field( 'title' ); ?>" />
                                             <?php } ?>
@@ -310,7 +310,7 @@ endif;
                                                     <div class="bg-container">
                                                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                                         <?php if ( $poster_image ) { ?>
-                                                            <img src="<?php echo $poster_image['url']; ?>" alt="<?php echo $poster_image['alt']; ?>" />
+                                                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
                                                         <?php } ?>                                                                
                                                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                             <span class="opacity-overlay"></span>
@@ -386,7 +386,7 @@ endif;
                                                         <span class="logo-container">
                                                             <?php $logo = get_sub_field( 'logo' ); ?>
                                                             <?php if ( $logo ) { ?>
-                                                                <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                                                <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">

@@ -6,13 +6,13 @@
                 <span class="icon-container">
                     <?php $icon = get_sub_field( 'icon' ); ?>
                     <?php if ( $icon ) { ?>
-                        <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                     <?php } ?>
                 </span>
                 <span class="headerLarge bold-black secondary-dark"><?php echo get_sub_field( 'quote' ); ?></span>
                 <?php $graphic = get_sub_field( 'graphic' ); ?>
                 <?php if ( $graphic ) { ?>
-                    <img class="mobile-image" src="<?php echo $graphic['url']; ?>" alt="<?php echo $graphic['alt']; ?>" />
+                    <?php echo wp_get_attachment_image( $graphic['ID'], 'full', false, array( 'alt' => $graphic['alt'], 'class' => 'mobile-image' ) ); ?>
                 <?php } ?>
                 <span class="name-role">
                     <span class="labelXL text-black"><?php echo get_sub_field( 'name' ); ?></span>
@@ -43,7 +43,7 @@
                 <?php } else { ?>
                     <?php $graphic = get_sub_field( 'graphic' ); ?>
                     <?php if ( $graphic ) { ?>
-                        <img class="desktop-image" src="<?php echo $graphic['url']; ?>" alt="<?php echo $graphic['alt']; ?>" />
+                        <?php echo wp_get_attachment_image( $graphic['ID'], 'full', false, array( 'alt' => $graphic['alt'], 'class' => 'desktop-image' ) ); ?>
                     <?php } ?>
                 <?php } ?>
             </div>

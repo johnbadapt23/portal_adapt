@@ -14,7 +14,7 @@
                             <span class="column">    
                                 <?php if ( $icon ) { ?>
                                     <span class="icon">
-                                        <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                     </span>
                                 <?php } ?>
                                 <span class="title label-XL text-white">
@@ -31,7 +31,7 @@
                             <span class="column title-column">    
                                 <?php if ( $icon ) { ?>
                                     <span class="icon">
-                                        <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                     </span>
                                 <?php } ?>
                                 <span class="title label-XL text-white">
@@ -53,7 +53,7 @@
                             <span class="column title-column">    
                                 <?php if ( $icon ) { ?>
                                     <span class="icon">
-                                        <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                     </span>
                                 <?php } ?>
                                 <span class="title label-XL text-white">

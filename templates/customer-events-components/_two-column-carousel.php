@@ -54,7 +54,7 @@
                                     <span class="image-container">
                                         <span class="bg-container">
                                             <?php $logo = $logo_up1['logo']; ?>
-                                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -66,7 +66,7 @@
                                     <span class="image-container">
                                         <span class="bg-container">
                                             <?php $logo = $logo_up1['logo']; ?>
-                                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -82,7 +82,7 @@
                                     <span class="image-container">
                                         <span class="bg-container">
                                             <?php $logo = $logo_down['logo']; ?>
-                                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -94,7 +94,7 @@
                                     <span class="image-container">
                                         <span class="bg-container">
                                             <?php $logo = $logo_down['logo']; ?>
-                                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -110,7 +110,7 @@
                                     <span class="image-container">
                                         <span class="bg-container">
                                             <?php $logo = $logo_up2['logo']; ?>
-                                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -122,7 +122,7 @@
                                     <span class="image-container">
                                         <span class="bg-container">
                                             <?php $logo = $logo_up2['logo']; ?>
-                                            <img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
                                         </span>
                                     </span>
                                 </span>

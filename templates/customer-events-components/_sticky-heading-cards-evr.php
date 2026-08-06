@@ -26,7 +26,7 @@
                                         <div class="bg-container contained">
                                             <?php $image = get_sub_field( 'image' ); ?>
                                             <?php if ( $image ) { ?>
-                                                <img class="desktop-image" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop-image' ) ); ?>
                                             <?php } ?>                                           
                                         </div>
                                     </div>
@@ -39,7 +39,7 @@
                                     <span class="mobile-image-container">
                                         <?php $image = get_sub_field( 'image' ); ?>
                                         <?php if ( $image ) { ?>
-                                            <img class="desktop-image" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop-image' ) ); ?>
                                         <?php } ?>
                                     </span>
                                     <span class="card-text p-medium text-secondary text-grey"><?php echo get_sub_field( 'text' ); ?></span>

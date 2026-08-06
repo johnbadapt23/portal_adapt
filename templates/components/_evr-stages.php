@@ -11,7 +11,7 @@
                     <span class="stages-item">                       
                         <span class="stages-icon-container">
                                 <?php $icon = get_field( 'icon', $stage_term ); ?>
-                            <img src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" width="24"/> 
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?> 
                         </span>
                         <span class="stages-title-container">
                             <h3><?php echo $stage_term->name; ?></h3>

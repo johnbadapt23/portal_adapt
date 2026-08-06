@@ -50,7 +50,7 @@ get_header();
 										<span class="persona-image-container">
 											<?php $persona_icon = get_field( 'persona_icon', $persona_term ); ?>
 											<?php if ( $persona_icon ) { ?>
-												<img src="<?php echo $persona_icon['url']; ?>" alt="<?php echo $persona_icon['alt']; ?>" />
+												<?php echo wp_get_attachment_image( $persona_icon['ID'], 'full', false, array( 'alt' => $persona_icon['alt'] ) ); ?>
 											<?php } ?>
 										</span>
 									</span>
@@ -100,7 +100,7 @@ get_header();
 											   <?php // no rows found ?>
 										   <?php endif; ?>
 										<?php endwhile; ?>
-										<img class="desktop" src="<?php echo $image['url']; ?>" />
+										<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 									<?php else : ?>
 										<img class="desktop" src="<?php echo $image; ?>" />
 									<?php endif; ?>
@@ -211,7 +211,7 @@ get_header();
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <img class="desktop" src="<?php echo $image['url']; ?>" />
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
                                     <?php else : ?>
                                         <img class="desktop" src="<?php echo $image; ?>" />
                                     <?php endif; ?>

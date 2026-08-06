@@ -14,13 +14,13 @@
                                             <span class="bg-container">
                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                 <?php if ( $icon ) { ?>
-                                                    <img class="image" src="<?php echo $icon['url']; ?>" alt="<?php echo $icon['alt']; ?>" />
+                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'image' ) ); ?>
                                                 <?php } ?>
                                             </span>
                                             <span class="hover-container">
                                                 <?php $hover_icon = get_sub_field( 'hover_icon' ); ?>
                                                 <?php if ( $hover_icon ) { ?>
-                            						<img class="hover-image" src="<?php echo $hover_icon['url']; ?>" alt="<?php echo $hover_icon['alt']; ?>" />
+                            						<?php echo wp_get_attachment_image( $hover_icon['ID'], 'full', false, array( 'alt' => $hover_icon['alt'], 'class' => 'hover-image' ) ); ?>
                             					<?php } ?>
                                             </span>
                                         </span>

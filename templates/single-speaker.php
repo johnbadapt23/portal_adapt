@@ -11,7 +11,7 @@
                                     <div class="bg-container">
                                         <?php $head_shot = get_sub_field( 'head_shot' ); ?>
                                         <?php if ( $head_shot ) { ?>
-                                            <img src="<?php echo $head_shot['url']; ?>" alt="<?php echo $head_shot['alt']; ?>" />
+                                            <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@ endif;
                                                 <div class="bg-container">
                                                     <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                                     <?php if ( $poster_image ) { ?>
-                                                        <img src="<?php echo $poster_image['url']; ?>" alt="<?php echo $poster_image['alt']; ?>" />
+                                                        <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
                                                     <?php } ?>                                                                
                                                     <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                         <span class="opacity-overlay"></span>
