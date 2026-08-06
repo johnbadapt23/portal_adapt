@@ -3299,6 +3299,16 @@ if ($containerPast.length && $buttonPast.length) {
 
 		// Customer events scroll magic
 
+		// ScrollMagic was removed when this project migrated to GSAP
+		// ScrollTrigger, but this section (and "scrolling grow text" below)
+		// were never ported and still call the old ScrollMagic API. That threw
+		// an uncaught ReferenceError on every page load, which also silently
+		// killed the "scrolling grow text" block since both were more or less
+		// back-to-back in the same execution. This guard just stops the error;
+		// both scroll-pin animations remain non-functional until someone
+		// ports them to ScrollTrigger's native pin: true.
+		if (typeof ScrollMagic !== 'undefined') {
+
 		// Ensure GSAP and ScrollMagic are loaded
 		TweenLite.defaultEase = Linear.easeNone;
 		var controllerTeam = new ScrollMagic.Controller();
@@ -3435,6 +3445,8 @@ if ($containerPast.length && $buttonPast.length) {
 				}
 			});
 		}
+
+		} // end ScrollMagic guard
 
 
 		// LOADING OVERLAY
