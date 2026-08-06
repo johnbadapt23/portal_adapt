@@ -4,7 +4,7 @@
 <section class="search-filter-container bg-lightest">
     <div class="container">
         <span class="search">
-            <span class="search-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-page-search-icon.svg"/ width="20"></span>
+            <span class="search-icon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-page-search-icon.svg" width="20" height="20" loading="lazy" alt="Search" /></span>
             <form action="/" method="get">
                 <input class="searchInput" type="text" name="s" id="search" <?php if($keyword != ''){ ?> placeholder="Search. . ." value="<?php the_search_query(); ?>" <?php } else { ?> placeholder="Search. . ." value=""<?php } ?>/>
                 <input class="searchButton stdBtn red" type="submit" value="search" alt="Search"/>

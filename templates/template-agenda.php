@@ -63,7 +63,7 @@ get_header();
     								<span class="videoLink">
     									<a href="#" class="playBtn">
     										<span class="icon">
-    											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" alt="Play Icon" width="51" />
+    											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
     										</span>
     										<span class="text">
     											<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo $slide['video'][0]['video_button_text']; ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -79,7 +79,7 @@ get_header();
     			<?php foreach($bannerSlides as $slide) { ?>
     				<?php if($slide['video']) { ?>
     					<div class="videoPlayerContainer">
-    						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" alt="close" /></span>
+    						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="close" /></span>
     						<div class="videoWrapper">
     							<video width="100%" id="popupVideo" controls controlsList="nodownload">
     								<source type="video/mp4" src="<?php echo $slide['video'][0]['vimeo_code']; ?>" />
@@ -127,8 +127,8 @@ get_header();
     	<div class="container">
             <div class="inner">
         		<div class="share">
-        			<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" alt="Share via Email" /><span>Email</span></a>
-                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title();?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" alt="Share on LinkedIn" /><span>Share</span></a>
+        			<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
+                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title();?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
         		</div>
             </div>
     	</div>

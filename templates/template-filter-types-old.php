@@ -543,9 +543,9 @@ if ($filterPresentationType == 'events') {
                         </span>
                         <span class="filtersButtonMobile">
                             <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'workshop-recordings'){ ?>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters-white.svg" alt="Filters" />
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters-white.svg" width="14" height="14" loading="lazy" alt="Filters" />
                             <?php } else { ?>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" alt="Filters" />
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />
                             <?php } ?>
                             <span class="filterButtonText">Filters</span>
                         </span>
@@ -711,7 +711,7 @@ if ($filterPresentationType == 'events') {
                 <div class="blockTitle">
                     <h2>
                         <?php if($keyword != '') { ?>
-                            Search Results for <span class="search-word"><?php echo $keyword; ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/reset-search.svg" width="15"/></a></span>
+                            Search Results for <span class="search-word"><?php echo $keyword; ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/reset-search.svg" width="15" height="15" loading="lazy" alt="Reset search" /></a></span>
                         <?php } else { ?>
                             <?php if ($filterTopic != '') { ?>
                                 <?php $term = get_term_by('slug', $filterTopic, 'topic'); ?>
@@ -737,11 +737,11 @@ if ($filterPresentationType == 'events') {
                     </h2>
                     <div class="gridView">
                         <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'workshop-recordings'){ ?>
-                            <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view-white.svg" alt="Grid View" /></span>
-                            <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view-white.svg" alt="List View" /></span>
+                            <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view-white.svg" width="5" height="4" loading="lazy" alt="Grid View" /></span>
+                            <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view-white.svg" width="5" height="4" loading="lazy" alt="List View" /></span>
                         <?php } else { ?>
-                            <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view.svg" alt="Grid View" /></span>
-                            <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view.svg" alt="List View" /></span>
+                            <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view.svg" width="5" height="4" loading="lazy" alt="Grid View" /></span>
+                            <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view.svg" width="5" height="4" loading="lazy" alt="List View" /></span>
                         <?php }?>
                     </div>
                 </div>
@@ -1020,7 +1020,7 @@ if ($filterPresentationType == 'events') {
                                     </a>
                                 </div>
                                 <div class="videoPlayerContainer">
-                                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                     <div class="videoWrapper">
                                         <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                             <source type="video/mp4" src="<?php echo get_field('featured_video_vimeo_code'); ?>" />
@@ -1524,7 +1524,7 @@ if ($filterPresentationType == 'events') {
                                                             </div>
                                                         </a>
                                                         <div class="videoPlayerContainer">
-                                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                                             <div class="videoWrapper">
                                                                 <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                                                     <source type="video/mp4" src="<?php echo get_field('featured_video_vimeo_code'); ?>" />
@@ -1792,7 +1792,7 @@ if ($filterPresentationType == 'events') {
                                                             </div>
                                                         </a>
                                                         <div class="videoPlayerContainer">
-                                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                                             <div class="videoWrapper">
                                                                 <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                                                     <source type="video/mp4" src="<?php echo get_field('featured_video_vimeo_code'); ?>" />

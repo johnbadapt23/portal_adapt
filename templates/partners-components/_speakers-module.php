@@ -181,7 +181,7 @@ if ($partner_type_id) {
                     </div>                   
                 </div>
                 <div class="ajax-loader">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" alt="Loading..." />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
                 </div>
                 <div class="speakers" id="partners-container">
                     <!-- AJAX results will render here -->

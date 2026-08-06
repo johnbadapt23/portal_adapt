@@ -1333,7 +1333,7 @@ if (
                         </span>
                     </div>
                     <div class="videoPlayerContainer print-no">
-                        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                         <div class="videoWrapper">
                             <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                 <source type="video/mp4" src="<?php echo get_field('featured_video_vimeo_code'); ?>" />
@@ -2122,7 +2122,7 @@ if (
                                             </a>
                                         </div>
                                         <div class="videoPlayerContainer videoBlock">
-                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                            <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                             <div class="videoWrapper">
                                                 <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                                     <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
@@ -3295,7 +3295,7 @@ if (
                                                 </a>
                                             </div>
                                             <div class="videoPlayerContainer videoBlock">
-                                                <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                                <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                                 <div class="videoWrapper">
                                                     <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                                         <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
@@ -4546,7 +4546,7 @@ if (
                                                 </a>
                                             </div>
                                             <div class="videoPlayerContainer videoBlock">
-                                                <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                                                <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                                 <div class="videoWrapper">
                                                     <video width="100%" id="popupVideo" controls controlsList="nodownload">
                                                         <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />

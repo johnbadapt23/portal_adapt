@@ -5,12 +5,12 @@
             <span class="social mobile">
                 <?php if(get_field('linkedin_url','options')) { ?>
                     <a href="<?php the_field('linkedin_url','options') ?>" target="_blank">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin.svg" width="33" alt="LinkedIn" />
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin.svg" width="33" height="33" loading="lazy" alt="LinkedIn" />
                     </a>
                 <?php } ?>
                 <?php if(get_field('youtube_url','options')) { ?>
                     <a href="<?php the_field('youtube_url','options') ?>" target="_blank">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube.svg" alt="YouTube" width="33" />
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube.svg" width="33" height="33" loading="lazy" alt="YouTube" />
                     </a>
                 <?php } ?>
             </span>
@@ -38,12 +38,12 @@
                     <span class="social desktop">
                         <?php if(get_field('linkedin_url','options')) { ?>
                             <a href="<?php the_field('linkedin_url','options') ?>" target="_blank">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin.svg" alt="LinkedIn" width="25" />
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin.svg" width="25" height="25" loading="lazy" alt="LinkedIn" />
                             </a>
                         <?php } ?>
                         <?php if(get_field('youtube_url','options')) { ?>
                             <a href="<?php the_field('youtube_url','options') ?>" target="_blank">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube.svg" alt="YouTube" width="25" />
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube.svg" width="25" height="25" loading="lazy" alt="YouTube" />
                             </a>
                         <?php } ?>
                     </span>

@@ -388,7 +388,7 @@ endif;
                                 <?php if (count($resources_array) > $per_page): ?>
                                     <a class="resources-load-more std-button red-button small-button">Load More</a>
                                     <div class="ajax-loader" style="display: none;">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" alt="Loading..." />
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
                                     </div>
                                 <?php endif; ?>
                             </div>

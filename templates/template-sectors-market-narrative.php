@@ -38,7 +38,7 @@ $keyword = $_GET['searchWords'];
                             </span>
                         </span> 
 						<span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" alt="Filters" />                            
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />                            
 							<span class="filterButtonText">Filter</span>
 						</span>
 						<span class="dropDowns">
@@ -294,7 +294,7 @@ $keyword = $_GET['searchWords'];
 						</span>
 					</span>                     
 					<span class="filtersButtonMobile">                            
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" alt="Filters" />                            
+						<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />                            
 						<span class="filterButtonText">Filter</span>
 					</span>
 					<span class="dropDowns">

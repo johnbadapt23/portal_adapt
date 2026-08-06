@@ -102,15 +102,15 @@
 		<div class="container">
 			<span class="logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-mobile.svg" alt="Adapt" />
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo-mobile.svg" width="26" height="46" loading="lazy" alt="Adapt" />
 				</a>
 				<a class="randalogo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img src="<?php echo get_template_directory_uri(); ?>/assets/images/randa-logo.svg" alt="Research & Advisory" />
+					<img src="<?php echo get_template_directory_uri(); ?>/assets/images/randa-logo.svg" width="239" height="13" loading="lazy" alt="Research & Advisory" />
 				</a>
 			</span>
 			<span class="headerTopRight">
                 <span class="search">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg"/></span>
+                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="Search" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search" placeholder="Search..." value="" />
 					</form>
@@ -486,11 +486,11 @@
                     </svg>
                 </span>
                 <span class="search mobile">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg"/></span>
+                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="Search" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search" placeholder="Search..." value="" />
 					</form>
-                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg"/></span>
+                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" alt="Close search" /></span>
 				</span>
             <?php } ?>
 

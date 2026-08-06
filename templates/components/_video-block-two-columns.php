@@ -17,7 +17,7 @@
                                     <a href="#" class="playBtnGrid">
                                 <?php } ?>                                
                                     <span class="icon">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" alt="Play Icon" width="51" />
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
                                     </span>
                                     <span class="text">
                                         <span><?php echo get_sub_field( 'button_text' ); ?></span>
@@ -44,7 +44,7 @@
         <?php $counter = 0; ?>
             <?php while ( have_rows( 'video_columns' ) ) : the_row(); ?>
                 <div class="videoPlayerContainerGrid">
-                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" alt="Close" width="25"/></span>
+                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                     <div class="videoWrapper">
                         <video width="100%" id="popupVideo" controls controlsList="nodownload">
                             <source type="video/mp4" src="<?php echo get_sub_field( 'vimeo_code' ); ?>" />

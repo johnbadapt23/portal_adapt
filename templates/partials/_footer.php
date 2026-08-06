@@ -193,7 +193,7 @@
                                 	</g>
                                 </g>
                                 </svg>
-                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-nocircle.svg" alt="LinkedIn" width="14" /> -->
+                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-nocircle.svg" width="14" height="14" loading="lazy" alt="LinkedIn" /> -->
                             </a>
                         <?php } ?>
                         <?php if(get_field('youtube_url','options')) { ?>
@@ -209,7 +209,7 @@
                                 		C6.2-1,6.3-0.9,6.1-0.8C6.2-0.8,6.2-0.8,6.1-0.8z"/>
                                 </g>
                                 </svg>
-                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube-nocircle.svg" alt="YouTube" width="16" /> -->
+                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube-nocircle.svg" width="16" height="11" loading="lazy" alt="YouTube" /> -->
                             </a>
                         <?php } ?>
                     </span>
@@ -288,7 +288,7 @@
                                 </span>
                             </span>
                         </div>
-                        <img class="absolute-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/A.svg" alt="Adapt" width="14"/>
+                        <img class="absolute-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/A.svg" width="14" height="24" loading="lazy" alt="Adapt" />
                     </div>
                 </div>
             </div>

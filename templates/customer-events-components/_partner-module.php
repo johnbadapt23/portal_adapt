@@ -119,7 +119,7 @@
                                                     </span>
                                                     <span class="text">
                                                         <h2><?php the_title(); ?></h2>                                                    
-                                                        <a class="website" href="<?php echo get_field('website_url'); ?>" target="_blank"><img class="linkedin-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/website.svg" width="28" /></a>
+                                                        <a class="website" href="<?php echo get_field('website_url'); ?>" target="_blank"><img class="linkedin-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/website.svg" width="28" loading="lazy" alt="Website" /></a>
                                                     </span>
                                                 </span>
                                                 <span class="bio-bottom">

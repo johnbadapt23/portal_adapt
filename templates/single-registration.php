@@ -36,7 +36,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				<span class="register-container">
 					<span class="sticky-container">
 						<span class="upper-container">
-							<img class="calendar-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/calendar.svg"/ width="26">
+							<img class="calendar-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/calendar.svg" width="26" height="26" loading="lazy" alt="Calendar" />
 							<span class="date-title small-text-grey">Date</span>
 							<span class="date text-black"><?php echo $date->format('l, j F, Y'); ?></span>
 							<span class="time-title small-text-grey">Time</span>

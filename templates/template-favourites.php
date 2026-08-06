@@ -138,7 +138,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
         <div class="whats-new-container-outer">
             <div class="whats-new-filter-inner">
                 <div class="ajax-loader" style="display: none;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" alt="Loading..." />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40"
                      id="posts-container">

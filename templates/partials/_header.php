@@ -80,7 +80,7 @@ if (user_can($current_user, 'administrator')) {
                     <!-- <span>Ask AI</span> -->
                 </span>
                 <span class="search">
-                    <span class="search-toggle"><img alt="search icon" width="16" height="16" src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg"/></span>
+                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="search icon" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search" placeholder="Search..." value="" />
 					</form>
@@ -1344,11 +1344,11 @@ if (user_can($current_user, 'administrator')) {
                     </svg>
                 </span>
                 <span class="search mobile">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg"/></span>
+                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="Search" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search" placeholder="Search..." value="" />
 					</form>
-                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg"/></span>
+                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" alt="Close search" /></span>
 				</span>
             <?php } ?>
 
@@ -1374,8 +1374,8 @@ if (user_can($current_user, 'administrator')) {
 		                            <input type="text" value="<?php echo the_permalink(); ?>" id="postLink" style="display: none;">
 		                            <a onclick="copyJobLink()">
 										<span class="image-icon-container">
-		                                    <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link.svg" width="24px"/>
-		                                    <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link-hover.svg" width="24px"/>
+		                                    <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link.svg" width="33" height="32" loading="lazy" alt="Copy link" />
+		                                    <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link-hover.svg" width="24" height="24" loading="lazy" alt="Copy link" />
 											<span class="job-link-text"></span>
 										</span>
 		                            </a>
@@ -1398,24 +1398,24 @@ if (user_can($current_user, 'administrator')) {
 								<span class="share-linked-in share">
 									<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title(); ?>&summary=<?php the_excerpt(); ?>" target="_blank">
 										<span class="image-icon-container">
-	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" alt="Share on LinkedIn" width="24px"/>
-											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/linked-in-hover.svg" alt="Share on LinkedIn" width="24px"/>
+	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" />
+											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/linked-in-hover.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" />
 										</span>
 									</a>
 								</span>
 								<span class="share-twitter share">
 									<a class="twitterShare" href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&title=<?php the_title(); ?>&text=<?php the_excerpt(); ?>" target="_blank">
 										<span class="image-icon-container">
-	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-black.svg" alt="Tweet" width="24px"/>
-											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-hover.svg" alt="Tweet" width="24px"/>
+	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-black.svg" width="24" height="24" loading="lazy" alt="Tweet" />
+											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-hover.svg" width="24" height="24" loading="lazy" alt="Tweet" />
 										</span>
 									</a>
 								</span>
 								<span class="share-email share">
 									<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
 										<span class="image-icon-container">
-                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/job-email.svg" alt="Share via Email" width="24px"/>
-                                        <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/email-red-hover.svg" width="24px"/>
+                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/job-email.svg" width="32" height="32" loading="lazy" alt="Share via Email" />
+                                        <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/email-red-hover.svg" width="24" height="24" loading="lazy" alt="Email" />
 									</a>
 								</span>
 							</span>
