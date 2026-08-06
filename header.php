@@ -51,7 +51,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <?php
 
 // Only run for logged-in active members
-if (!(is_user_logged_in() || (function_exists('adapt_content_unlocked') && adapt_content_unlocked())) || !current_user_can('mepr-active')) return;
+if ( (is_user_logged_in() || (function_exists('adapt_content_unlocked') && adapt_content_unlocked())) && current_user_can('mepr-active') ) :
 
 // Get current user info
 $user_info = wp_get_current_user();
@@ -172,6 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('scroll', initGoNativeTags, { once: true });
 });
 </script>
+
+<?php endif; ?>
 
 </head>
 <?php $q = get_queried_object(); ?>
