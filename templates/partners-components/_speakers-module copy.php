@@ -178,7 +178,15 @@
                                                             }
 
                                                             if ($image_url) : ?>
-                                                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php the_title(); ?>" />
+                                                                <?php
+					$inline_img_170_src = $image_url;
+					$inline_img_170_attach_id = $inline_img_170_src ? attachment_url_to_postid( $inline_img_170_src ) : 0;
+					if ( $inline_img_170_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_170_attach_id, 'full', false, array( 'alt' => '<?php the_title(); ?>' ) );
+					} elseif ( $inline_img_170_src ) {
+						echo '<img src="' . esc_url( $inline_img_170_src ) . '" loading="lazy" alt="' . esc_attr( '<?php the_title(); ?>' ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>
                                                     </span>
                                                     <span class="text-container mobile-hide">
@@ -208,7 +216,15 @@
                                                         }
 
                                                         if ($image_url) : ?>
-                                                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php the_title(); ?>" />
+                                                            <?php
+					$inline_img_171_src = $image_url;
+					$inline_img_171_attach_id = $inline_img_171_src ? attachment_url_to_postid( $inline_img_171_src ) : 0;
+					if ( $inline_img_171_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_171_attach_id, 'full', false, array( 'alt' => '<?php the_title(); ?>' ) );
+					} elseif ( $inline_img_171_src ) {
+						echo '<img src="' . esc_url( $inline_img_171_src ) . '" loading="lazy" alt="' . esc_attr( '<?php the_title(); ?>' ) . '" />';
+					}
+				?>
                                                         <?php endif; ?>
                                                     </span>
                                                     <span class="text-container mobile-hide">

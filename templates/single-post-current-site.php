@@ -57,7 +57,15 @@
                             <div class="speaker-container-inner  bg-lightest">
                                 <span class="webinar-subtitle speaker-subtitle">Meet the Speaker</span>
                                 <span class="speaker-image">
-                                    <img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+                                    <?php
+					$inline_img_47_src = get_field( 'speaker_image' );
+					$inline_img_47_attach_id = $inline_img_47_src ? attachment_url_to_postid( $inline_img_47_src ) : 0;
+					if ( $inline_img_47_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_47_attach_id, 'full', false, array( 'alt' => the_title() ) );
+					} elseif ( $inline_img_47_src ) {
+						echo '<img src="' . esc_url( $inline_img_47_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+					}
+				?>
                                 </span>
                                 <span class="description">
                                     <span class="speaker-name"><?php echo the_title(); ?></span>
@@ -107,7 +115,15 @@
     								<?php setup_postdata( $post ); ?>
     									<div class="speaker-container-inner">
     										<span class="speaker-image">
-    											<img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+    											<?php
+					$inline_img_48_src = get_field( 'speaker_image' );
+					$inline_img_48_attach_id = $inline_img_48_src ? attachment_url_to_postid( $inline_img_48_src ) : 0;
+					if ( $inline_img_48_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_48_attach_id, 'full', false, array( 'alt' => the_title() ) );
+					} elseif ( $inline_img_48_src ) {
+						echo '<img src="' . esc_url( $inline_img_48_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+					}
+				?>
     										</span>
     										<span class="description">
     											<span class="speaker-name"><?php echo the_title(); ?></span>
@@ -593,7 +609,15 @@
                                                     <div class="articleWrapper">
                                                         <?php echo get_sub_field( 'article_content' ); ?>
                                                         <?php if( get_sub_field( 'infogram_image' )) { ?>
-                                                            <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                            <?php
+					$inline_img_49_src = get_sub_field( 'infogram_image' );
+					$inline_img_49_attach_id = $inline_img_49_src ? attachment_url_to_postid( $inline_img_49_src ) : 0;
+					if ( $inline_img_49_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_49_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+					} elseif ( $inline_img_49_src ) {
+						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_49_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -605,13 +629,29 @@
                                         <div class="container">
                                                 <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
                                                     <div class="featureBlock">
-                                                        <img class="featureImage" src="<?php echo get_sub_field( 'image' ); ?>"/>
+                                                        <?php
+					$inline_img_50_src = get_sub_field( 'image' );
+					$inline_img_50_attach_id = $inline_img_50_src ? attachment_url_to_postid( $inline_img_50_src ) : 0;
+					if ( $inline_img_50_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_50_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+					} elseif ( $inline_img_50_src ) {
+						echo '<img class="featureImage" src="' . esc_url( $inline_img_50_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                     </div>
                                                 <?php } else { ?>
                                                     <div class="infogram-container">
                                                         <?php echo get_sub_field( 'infogram' ); ?>
                                                     </div>
-                                                    <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                    <?php
+					$inline_img_51_src = get_sub_field( 'infogram_image' );
+					$inline_img_51_attach_id = $inline_img_51_src ? attachment_url_to_postid( $inline_img_51_src ) : 0;
+					if ( $inline_img_51_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_51_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+					} elseif ( $inline_img_51_src ) {
+						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_51_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                 <?php } ?>
                                         </div>
                                     </section>
@@ -640,7 +680,15 @@
                                                                     </span>
                                                                     <?php if ( get_sub_field( 'logo') ) { ?>
                                                                         <div class="logoContainer">
-                                                                            <img src="<?php echo get_sub_field( 'logo' ); ?>" alt="Adapt" />
+                                                                            <?php
+					$inline_img_52_src = get_sub_field( 'logo' );
+					$inline_img_52_attach_id = $inline_img_52_src ? attachment_url_to_postid( $inline_img_52_src ) : 0;
+					if ( $inline_img_52_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_52_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_52_src ) {
+						echo '<img src="' . esc_url( $inline_img_52_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                                         </div>
                                                                     <?php } ?>
                                                                 </div>
@@ -731,7 +779,15 @@
                                                                             </span>
                                                                             <?php if ( get_field( 'logo') ) { ?>
                                                                                 <div class="logoContainer">
-                                                                                    <img src="<?php echo get_field( 'logo' ); ?>" alt="Adapt" />
+                                                                                    <?php
+					$inline_img_53_src = get_field( 'logo' );
+					$inline_img_53_attach_id = $inline_img_53_src ? attachment_url_to_postid( $inline_img_53_src ) : 0;
+					if ( $inline_img_53_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_53_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_53_src ) {
+						echo '<img src="' . esc_url( $inline_img_53_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                                                 </div>
                                                                             <?php } ?>
                                                                         <?php wp_reset_postdata(); ?>
@@ -1106,7 +1162,15 @@
                                                     <div class="imageSizeContainer">
                                                         <span class="overlayGradient"></span>
                                                         <div class="bgContainer">
-                                                            <img class="desktop" src="<?php echo get_sub_field('video_poster_image'); ?>" alt="" />
+                                                            <?php
+					$inline_img_54_src = get_sub_field( 'video_poster_image' );
+					$inline_img_54_attach_id = $inline_img_54_src ? attachment_url_to_postid( $inline_img_54_src ) : 0;
+					if ( $inline_img_54_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_54_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+					} elseif ( $inline_img_54_src ) {
+						echo '<img class="desktop" src="' . esc_url( $inline_img_54_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                         </div>
                                                         <span class="watchIcon"></span>
                                                         <span class="textContainer">
@@ -1190,7 +1254,15 @@
                                             <?php setup_postdata( $post ); ?>
                                                 <div class="speaker-container-inner">
                                                     <span class="speaker-image">
-                                                        <img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+                                                        <?php
+					$inline_img_55_src = get_field( 'speaker_image' );
+					$inline_img_55_attach_id = $inline_img_55_src ? attachment_url_to_postid( $inline_img_55_src ) : 0;
+					if ( $inline_img_55_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_55_attach_id, 'full', false, array( 'alt' => the_title() ) );
+					} elseif ( $inline_img_55_src ) {
+						echo '<img src="' . esc_url( $inline_img_55_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+					}
+				?>
                                                     </span>
                                                     <span class="description">
                                                         <span class="title"><?php if(get_sub_field('contributors_pre_heading')){ ?><?php echo get_sub_field('contributors_pre_heading'); ?><?php } else { ?>Contributor<?php } ?></span>
@@ -1585,7 +1657,15 @@
                                                    <div class="articleWrapper">
                                                        <?php echo get_sub_field( 'article_content' ); ?>
                                                        <?php if( get_sub_field( 'infogram_image' )) { ?>
-                                                           <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                           <?php
+					$inline_img_56_src = get_sub_field( 'infogram_image' );
+					$inline_img_56_attach_id = $inline_img_56_src ? attachment_url_to_postid( $inline_img_56_src ) : 0;
+					if ( $inline_img_56_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_56_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+					} elseif ( $inline_img_56_src ) {
+						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_56_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                        <?php } ?>
                                                    </div>
                                                </div>
@@ -1597,13 +1677,29 @@
                                        <div class="container">
                                             <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
                                                 <div class="featureBlock">
-                                                    <img class="featureImage" src="<?php echo get_sub_field( 'image' ); ?>"/>
+                                                    <?php
+					$inline_img_57_src = get_sub_field( 'image' );
+					$inline_img_57_attach_id = $inline_img_57_src ? attachment_url_to_postid( $inline_img_57_src ) : 0;
+					if ( $inline_img_57_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_57_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+					} elseif ( $inline_img_57_src ) {
+						echo '<img class="featureImage" src="' . esc_url( $inline_img_57_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                 </div>
                                             <?php } else { ?>
                                                 <div class="infogram-container">
                                                     <?php echo get_sub_field( 'infogram' ); ?>
                                                 </div>
-                                                <img class="delete-no" style="display: none;" src="<?php echo get_sub_field( 'infogram_image' ); ?>"/>
+                                                <?php
+					$inline_img_58_src = get_sub_field( 'infogram_image' );
+					$inline_img_58_attach_id = $inline_img_58_src ? attachment_url_to_postid( $inline_img_58_src ) : 0;
+					if ( $inline_img_58_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_58_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+					} elseif ( $inline_img_58_src ) {
+						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_58_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                             <?php } ?>
                                        </div>
                                    </section>
@@ -1632,7 +1728,15 @@
                                                                 </span>
                                                                 <?php if ( get_sub_field( 'logo') ) { ?>
                                                                     <div class="logoContainer">
-                                                                        <img src="<?php echo get_sub_field( 'logo' ); ?>" alt="Adapt" />
+                                                                        <?php
+					$inline_img_59_src = get_sub_field( 'logo' );
+					$inline_img_59_attach_id = $inline_img_59_src ? attachment_url_to_postid( $inline_img_59_src ) : 0;
+					if ( $inline_img_59_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_59_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_59_src ) {
+						echo '<img src="' . esc_url( $inline_img_59_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                                     </div>
                                                                 <?php } ?>
                                                             </div>
@@ -1723,7 +1827,15 @@
                                                                         </span>
                                                                         <?php if ( get_field( 'logo') ) { ?>
                                                                             <div class="logoContainer">
-                                                                                <img src="<?php echo get_field( 'logo' ); ?>" alt="Adapt" />
+                                                                                <?php
+					$inline_img_60_src = get_field( 'logo' );
+					$inline_img_60_attach_id = $inline_img_60_src ? attachment_url_to_postid( $inline_img_60_src ) : 0;
+					if ( $inline_img_60_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_60_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_60_src ) {
+						echo '<img src="' . esc_url( $inline_img_60_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                                             </div>
                                                                         <?php } ?>
                                             						<?php wp_reset_postdata(); ?>
@@ -2098,7 +2210,15 @@
                                                 <div class="imageSizeContainer">
                                                     <span class="overlayGradient"></span>
                                                     <div class="bgContainer">
-                                                        <img class="desktop" src="<?php echo get_sub_field('video_poster_image'); ?>" alt="" />
+                                                        <?php
+					$inline_img_61_src = get_sub_field( 'video_poster_image' );
+					$inline_img_61_attach_id = $inline_img_61_src ? attachment_url_to_postid( $inline_img_61_src ) : 0;
+					if ( $inline_img_61_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_61_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+					} elseif ( $inline_img_61_src ) {
+						echo '<img class="desktop" src="' . esc_url( $inline_img_61_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                                                     </div>
                                                     <span class="watchIcon"></span>
                                                     <span class="textContainer">
@@ -2182,7 +2302,15 @@
         								<?php setup_postdata( $post ); ?>
         									<div class="speaker-container-inner">
         										<span class="speaker-image">
-        											<img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+        											<?php
+					$inline_img_62_src = get_field( 'speaker_image' );
+					$inline_img_62_attach_id = $inline_img_62_src ? attachment_url_to_postid( $inline_img_62_src ) : 0;
+					if ( $inline_img_62_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_62_attach_id, 'full', false, array( 'alt' => the_title() ) );
+					} elseif ( $inline_img_62_src ) {
+						echo '<img src="' . esc_url( $inline_img_62_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+					}
+				?>
         										</span>
         										<span class="description">
                                                     <span class="title"><?php if(get_sub_field('contributors_pre_heading')){ ?><?php echo get_sub_field('contributors_pre_heading'); ?><?php } else { ?>Contributor<?php } ?></span>

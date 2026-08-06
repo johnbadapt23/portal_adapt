@@ -93,7 +93,15 @@ get_header();
 					<div class="container">
 						 <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
 							 <div class="featureBlock">
-								 <img class="featureImage" src="<?php the_sub_field( 'image' ); ?>"/>
+								 <?php
+					$inline_img_141_src = get_sub_field( 'image' );
+					$inline_img_141_attach_id = $inline_img_141_src ? attachment_url_to_postid( $inline_img_141_src ) : 0;
+					if ( $inline_img_141_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_141_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+					} elseif ( $inline_img_141_src ) {
+						echo '<img class="featureImage" src="' . esc_url( $inline_img_141_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
 							 </div>
 						 <?php } else { ?>
 							 <div class="infogram-container">
@@ -596,7 +604,15 @@ get_header();
 													</span>
 													<?php if ( get_field( 'logo') ) { ?>
 														<div class="logoContainer">
-															<img src="<?php the_field( 'logo' ); ?>" alt="Adapt" />
+															<?php
+					$inline_img_142_src = get_field( 'logo' );
+					$inline_img_142_attach_id = $inline_img_142_src ? attachment_url_to_postid( $inline_img_142_src ) : 0;
+					if ( $inline_img_142_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_142_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_142_src ) {
+						echo '<img src="' . esc_url( $inline_img_142_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
 														</div>
 													<?php } ?>
 												</a>
@@ -725,7 +741,15 @@ get_header();
 											</span>
 											<?php if ( get_sub_field( 'logo') ) { ?>
 												<div class="logoContainer">
-													<img src="<?php the_sub_field( 'logo' ); ?>" alt="Adapt" />
+													<?php
+					$inline_img_143_src = get_sub_field( 'logo' );
+					$inline_img_143_attach_id = $inline_img_143_src ? attachment_url_to_postid( $inline_img_143_src ) : 0;
+					if ( $inline_img_143_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_143_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_143_src ) {
+						echo '<img src="' . esc_url( $inline_img_143_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
 												</div>
 											<?php } ?>
 										</div>

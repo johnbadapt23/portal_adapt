@@ -33,7 +33,15 @@
                         if (!$image) continue;
                     ?>
                         <div class="snapshot-thumb">
-                            <img src="<?php echo esc_url($image['sizes']['medium']); ?>">
+                            <?php
+					$inline_img_194_src = $image['sizes']['medium'];
+					$inline_img_194_attach_id = $inline_img_194_src ? attachment_url_to_postid( $inline_img_194_src ) : 0;
+					if ( $inline_img_194_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_194_attach_id, 'full', false, array( 'alt' => '' ) );
+					} elseif ( $inline_img_194_src ) {
+						echo '<img src="' . esc_url( $inline_img_194_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                         </div>
                     <?php endwhile; ?>
                 </div>

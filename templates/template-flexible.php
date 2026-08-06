@@ -14,7 +14,7 @@ get_header();
             <script type="text/javascript">
         document.location.href="/";
     </script>
-<?php } ?>
+<?php } } ?>
 <main id="main" role="main" class="home<?php if ( get_field ( 'banner_image' ) ) { ?><?php } else{ ?> no-banner-top<?php } ?><?php if(get_field( 'remove_main_menu' )){ ?> <?php echo get_field( 'remove_main_menu' ); ?><?php } ?>">
 	<span class="main-opacity-overlay"></span>
 	<h1 class="pageTitleLine"><?php echo the_title(); ?></h1>
@@ -113,7 +113,15 @@ get_header();
 					<div class="container">
 						 <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
 							 <div class="featureBlock">
-								 <img class="featureImage" src="<?php echo get_sub_field( 'image' ); ?>"/>
+								 <?php
+					$inline_img_144_src = get_sub_field( 'image' );
+					$inline_img_144_attach_id = $inline_img_144_src ? attachment_url_to_postid( $inline_img_144_src ) : 0;
+					if ( $inline_img_144_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_144_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+					} elseif ( $inline_img_144_src ) {
+						echo '<img class="featureImage" src="' . esc_url( $inline_img_144_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
 							 </div>
 						 <?php } else { ?>
 							 <div class="infogram-container">
@@ -648,7 +656,15 @@ get_header();
 													</span>
 													<?php if ( get_field( 'logo') ) { ?>
 														<div class="logoContainer">
-															<img src="<?php echo get_field( 'logo' ); ?>" alt="Adapt" />
+															<?php
+					$inline_img_145_src = get_field( 'logo' );
+					$inline_img_145_attach_id = $inline_img_145_src ? attachment_url_to_postid( $inline_img_145_src ) : 0;
+					if ( $inline_img_145_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_145_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_145_src ) {
+						echo '<img src="' . esc_url( $inline_img_145_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
 														</div>
 													<?php } ?>
 												</a>
@@ -777,7 +793,15 @@ get_header();
 											</span>
 											<?php if ( get_sub_field( 'logo') ) { ?>
 												<div class="logoContainer">
-													<img src="<?php echo get_sub_field( 'logo' ); ?>" alt="Adapt" />
+													<?php
+					$inline_img_146_src = get_sub_field( 'logo' );
+					$inline_img_146_attach_id = $inline_img_146_src ? attachment_url_to_postid( $inline_img_146_src ) : 0;
+					if ( $inline_img_146_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_146_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_146_src ) {
+						echo '<img src="' . esc_url( $inline_img_146_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
 												</div>
 											<?php } ?>
 										</div>

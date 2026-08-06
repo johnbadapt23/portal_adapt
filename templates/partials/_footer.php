@@ -8,7 +8,15 @@
             <span class="top">
                 <span class="logo">
             		<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-            			<img src="<?php echo get_field('logo','options'); ?>" width="<?php echo get_field('logo_width','options'); ?>" alt="Adapt" />
+            			<?php
+					$inline_img_157_src = get_field( 'logo','options' );
+					$inline_img_157_attach_id = $inline_img_157_src ? attachment_url_to_postid( $inline_img_157_src ) : 0;
+					if ( $inline_img_157_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_157_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+					} elseif ( $inline_img_157_src ) {
+						echo '<img src="' . esc_url( $inline_img_157_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
             		</a>
             	</span>                
             </span>

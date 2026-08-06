@@ -113,7 +113,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     <span class="video-container">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_172_src = $image;
+					$inline_img_172_attach_id = $inline_img_172_src ? attachment_url_to_postid( $inline_img_172_src ) : 0;
+					if ( $inline_img_172_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_172_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_172_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_172_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>
                                                             <span class="video-button"></span>
                                                         </span>
@@ -124,7 +132,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     <a href="<?php the_permalink(); ?>">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_173_src = $image;
+					$inline_img_173_attach_id = $inline_img_173_src ? attachment_url_to_postid( $inline_img_173_src ) : 0;
+					if ( $inline_img_173_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_173_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_173_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_173_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>
                                                         </span>
                                                     </a>
@@ -221,7 +237,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         <span class="video-container">
                                                             <span class="bg-container">
                                                                 <?php if ($image) : ?>  
-                                                                    <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                    <?php
+					$inline_img_174_src = $image;
+					$inline_img_174_attach_id = $inline_img_174_src ? attachment_url_to_postid( $inline_img_174_src ) : 0;
+					if ( $inline_img_174_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_174_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_174_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_174_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                                 <?php endif; ?>
                                                                 <span class="video-button"></span>
                                                             </span>
@@ -232,7 +256,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="bg-container">
                                                                 <?php if ($image) : ?>  
-                                                                    <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                    <?php
+					$inline_img_175_src = $image;
+					$inline_img_175_attach_id = $inline_img_175_src ? attachment_url_to_postid( $inline_img_175_src ) : 0;
+					if ( $inline_img_175_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_175_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_175_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_175_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                                 <?php endif; ?>
                                                             </span>
                                                         </a>
@@ -350,7 +382,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     <span class="video-container">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_176_src = $image;
+					$inline_img_176_attach_id = $inline_img_176_src ? attachment_url_to_postid( $inline_img_176_src ) : 0;
+					if ( $inline_img_176_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_176_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_176_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_176_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>                                                           
                                                             <span class="video-button">
                                                             </span>                                                            
@@ -362,7 +402,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                      <a href="<?php the_permalink(); ?>">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_177_src = $image;
+					$inline_img_177_attach_id = $inline_img_177_src ? attachment_url_to_postid( $inline_img_177_src ) : 0;
+					if ( $inline_img_177_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_177_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_177_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_177_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>
                                                         </span>
                                                     </a>
@@ -471,7 +519,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     <span class="video-container">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_178_src = $image;
+					$inline_img_178_attach_id = $inline_img_178_src ? attachment_url_to_postid( $inline_img_178_src ) : 0;
+					if ( $inline_img_178_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_178_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_178_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_178_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>                                                           
                                                             <span class="video-button">
                                                             </span>                                                            
@@ -483,7 +539,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                      <a href="<?php the_permalink(); ?>">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_179_src = $image;
+					$inline_img_179_attach_id = $inline_img_179_src ? attachment_url_to_postid( $inline_img_179_src ) : 0;
+					if ( $inline_img_179_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_179_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_179_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_179_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>
                                                         </span>
                                                     </a>
@@ -578,7 +642,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     <span class="video-container">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_180_src = $image;
+					$inline_img_180_attach_id = $inline_img_180_src ? attachment_url_to_postid( $inline_img_180_src ) : 0;
+					if ( $inline_img_180_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_180_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_180_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_180_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>                                                           
                                                             <span class="video-button">
                                                             </span>                                                            
@@ -590,7 +662,15 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                      <a href="<?php the_permalink(); ?>">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
-                                                                <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                                                                <?php
+					$inline_img_181_src = $image;
+					$inline_img_181_attach_id = $inline_img_181_src ? attachment_url_to_postid( $inline_img_181_src ) : 0;
+					if ( $inline_img_181_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_181_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_181_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_181_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                                                             <?php endif; ?>
                                                         </span>
                                                     </a>

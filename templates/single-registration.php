@@ -216,7 +216,15 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 								<?php setup_postdata( $post ); ?>
 									<div class="speaker-container-inner">
 										<span class="speaker-image">
-											<img src="<?php echo get_field('speaker_image'); ?>" alt="<?php echo the_title(); ?>"/>
+											<?php
+					$inline_img_136_src = get_field( 'speaker_image' );
+					$inline_img_136_attach_id = $inline_img_136_src ? attachment_url_to_postid( $inline_img_136_src ) : 0;
+					if ( $inline_img_136_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, array( 'alt' => the_title() ) );
+					} elseif ( $inline_img_136_src ) {
+						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+					}
+				?>
 										</span>
 										<span class="description">
 											<span class="speaker-name"><?php echo the_title(); ?></span>

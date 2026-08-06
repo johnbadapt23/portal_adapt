@@ -376,7 +376,15 @@ get_header();
 </main>
 
 <section class="printContainer">
-    <div class="imageHeader"><img src="<?php echo get_field( 'print_header' ); ?>" alt="Adapt - <?php echo the_title(); ?>"/></div>
+    <div class="imageHeader"><?php
+					$inline_img_137_src = get_field( 'print_header' );
+					$inline_img_137_attach_id = $inline_img_137_src ? attachment_url_to_postid( $inline_img_137_src ) : 0;
+					if ( $inline_img_137_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, array( 'alt' => 'Adapt - <?php echo the_title(); ?>' ) );
+					} elseif ( $inline_img_137_src ) {
+						echo '<img src="' . esc_url( $inline_img_137_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt - <?php echo the_title(); ?>' ) . '" />';
+					}
+				?></div>
     <div class="content">
     <?php if ( have_rows( 'day' ) ) : $counter = 1; ?>
 
@@ -409,7 +417,15 @@ get_header();
                                                 <?php if ( have_rows( 'logos' ) ) : ?>
                                                     <div class="logoWrapperPrint">
                                                         <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
-                                                            <img src="<?php echo get_sub_field('logo'); ?>" width="100" alt="Adapt" />
+                                                            <?php
+					$inline_img_138_src = get_sub_field( 'logo' );
+					$inline_img_138_attach_id = $inline_img_138_src ? attachment_url_to_postid( $inline_img_138_src ) : 0;
+					if ( $inline_img_138_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_138_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
+					} elseif ( $inline_img_138_src ) {
+						echo '<img src="' . esc_url( $inline_img_138_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -502,7 +518,15 @@ get_header();
                                                                 <?php if ( have_rows( 'logos' ) ) : ?>
                                                                     <div class="logoWrapperPrint">
                                                                         <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
-                                                                            <img src="<?php echo get_sub_field('logo'); ?>" width="100" alt="Adapt" />
+                                                                            <?php
+					$inline_img_139_src = get_sub_field( 'logo' );
+					$inline_img_139_attach_id = $inline_img_139_src ? attachment_url_to_postid( $inline_img_139_src ) : 0;
+					if ( $inline_img_139_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_139_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
+					} elseif ( $inline_img_139_src ) {
+						echo '<img src="' . esc_url( $inline_img_139_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                                         <?php endwhile; ?>
                                                                     </div>
                                                                 <?php endif; ?>
@@ -541,7 +565,15 @@ get_header();
                                                                 <?php if ( have_rows( 'logos_track_two' ) ) : ?>
                                                                     <div class="logoWrapperPrint">
                                                                         <?php while ( have_rows( 'logos_track_two' ) ) : the_row(); ?>
-                                                                            <img src="<?php echo get_sub_field('logo'); ?>" width="100" alt="Adapt" />
+                                                                            <?php
+					$inline_img_140_src = get_sub_field( 'logo' );
+					$inline_img_140_attach_id = $inline_img_140_src ? attachment_url_to_postid( $inline_img_140_src ) : 0;
+					if ( $inline_img_140_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_140_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
+					} elseif ( $inline_img_140_src ) {
+						echo '<img src="' . esc_url( $inline_img_140_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+					}
+				?>
                                                                         <?php endwhile; ?>
                                                                     </div>
                                                                 <?php endif; ?>

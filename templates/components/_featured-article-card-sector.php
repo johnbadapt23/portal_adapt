@@ -96,7 +96,15 @@
                     ?>
                     <?php if ($image) : ?>
                         <span class="bg-container">
-                            <img class="article-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>">
+                            <?php
+					$inline_img_152_src = $image;
+					$inline_img_152_attach_id = $inline_img_152_src ? attachment_url_to_postid( $inline_img_152_src ) : 0;
+					if ( $inline_img_152_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_152_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+					} elseif ( $inline_img_152_src ) {
+						echo '<img class="article-image" src="' . esc_url( $inline_img_152_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                             <?php if($video == 'yes'){ ?>
                                 <span class="video-icon"></span>
                             <?php } ?>

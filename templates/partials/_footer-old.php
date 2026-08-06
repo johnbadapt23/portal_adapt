@@ -22,7 +22,15 @@
                 </div>
                 <div class="column">
                     <span class="logo">
-                        <img src="<?php the_field('footer_logo','options'); ?>" width="<?php the_field('footer_logo_width','options'); ?>" />
+                        <?php
+					$inline_img_156_src = get_field( 'footer_logo','options' );
+					$inline_img_156_attach_id = $inline_img_156_src ? attachment_url_to_postid( $inline_img_156_src ) : 0;
+					if ( $inline_img_156_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_156_attach_id, 'full', false, array( 'alt' => '' ) );
+					} elseif ( $inline_img_156_src ) {
+						echo '<img src="' . esc_url( $inline_img_156_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
                     </span>
                     <span class="form">
                         <?php the_field('subscribe_form','options'); ?>

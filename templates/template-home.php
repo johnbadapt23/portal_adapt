@@ -190,7 +190,15 @@ get_header();
 					<div class="container">
 						 <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
 							 <div class="featureBlock">
-								 <img class="featureImage" src="<?php echo get_sub_field( 'image' ); ?>"/>
+								 <?php
+					$inline_img_148_src = get_sub_field( 'image' );
+					$inline_img_148_attach_id = $inline_img_148_src ? attachment_url_to_postid( $inline_img_148_src ) : 0;
+					if ( $inline_img_148_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_148_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+					} elseif ( $inline_img_148_src ) {
+						echo '<img class="featureImage" src="' . esc_url( $inline_img_148_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+					}
+				?>
 							 </div>
 						 <?php } else { ?>
 							 <div class="infogram-container">

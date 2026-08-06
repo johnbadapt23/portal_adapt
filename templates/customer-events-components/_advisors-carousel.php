@@ -89,7 +89,15 @@
                         <div class="speaker-item column">
                             <span class="image-container">
                                 <span class="bg-container">
-                                    <img src="<?php echo esc_url($team_member_image); ?>" alt="<?php echo esc_attr(get_the_title($post)); ?>" />
+                                    <?php
+					$inline_img_154_src = $team_member_image;
+					$inline_img_154_attach_id = $inline_img_154_src ? attachment_url_to_postid( $inline_img_154_src ) : 0;
+					if ( $inline_img_154_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_154_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post)) ) );
+					} elseif ( $inline_img_154_src ) {
+						echo '<img src="' . esc_url( $inline_img_154_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post)) ) . '" />';
+					}
+				?>
                                 </span>
                                 <span class="text-container">
                                     <h5><?php echo get_the_title($post); ?></h5>

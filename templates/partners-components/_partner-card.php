@@ -35,7 +35,15 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
                     $img = get_field('listing_avatar', $post_id);
                     $url = is_array($img) ? $img['url'] : (is_int($img) ? wp_get_attachment_image_url($img, 'full') : $img);
                     if ($url): ?>
-                        <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>" />
+                        <?php
+					$inline_img_168_src = $url;
+					$inline_img_168_attach_id = $inline_img_168_src ? attachment_url_to_postid( $inline_img_168_src ) : 0;
+					if ( $inline_img_168_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_168_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)) ) );
+					} elseif ( $inline_img_168_src ) {
+						echo '<img src="' . esc_url( $inline_img_168_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                     <?php endif; ?>
                 </span>
 
@@ -60,7 +68,15 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
                     $img = get_field('listing_icon', $post_id);
                     $url = is_array($img) ? $img['url'] : (is_int($img) ? wp_get_attachment_image_url($img, 'full') : $img);
                     if ($url): ?>
-                        <img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr(get_the_title($post_id)); ?>" />
+                        <?php
+					$inline_img_169_src = $url;
+					$inline_img_169_attach_id = $inline_img_169_src ? attachment_url_to_postid( $inline_img_169_src ) : 0;
+					if ( $inline_img_169_attach_id ) {
+						echo wp_get_attachment_image( $inline_img_169_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)) ) );
+					} elseif ( $inline_img_169_src ) {
+						echo '<img src="' . esc_url( $inline_img_169_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+					}
+				?>
                     <?php endif; ?>
                 </span>
                 <span class="text-container mobile-hide">
