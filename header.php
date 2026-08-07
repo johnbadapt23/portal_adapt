@@ -34,6 +34,13 @@
     // alone - load both rather than assume exclusivity. ?>
     <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/core.min.css?ver=<?php echo $css_ver; ?>">
     <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/tpl-events.min.css?ver=<?php echo $css_ver; ?>">
+<?php elseif ( is_page_template( 'templates/template-flexible.php' ) ) : ?>
+    <?php // See source/scss/main-tpl-flexible.scss for the verification -
+    // this is a subset of core.min.css (flexible/portal-modules/post/
+    // post-new/single-events/single-post only), confirmed to cover every
+    // class this template and its component partials actually use. Loaded
+    // INSTEAD OF core.min.css, not alongside it. ?>
+    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/tpl-flexible.min.css?ver=<?php echo $css_ver; ?>">
 <?php else : ?>
     <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/core.min.css?ver=<?php echo $css_ver; ?>">
 <?php endif; ?>

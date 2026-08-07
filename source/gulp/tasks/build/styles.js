@@ -27,11 +27,17 @@ var error = require('../../error.js');
 //   tpl-events.min.css   - templates/template-events.php (and, loaded
 //                          alongside core.min.css, template-events-portal.php
 //                          - see main-tpl-events.scss).
+//   tpl-flexible.min.css - templates/template-flexible.php only (see
+//                          main-tpl-flexible.scss - unlike agenda/events this
+//                          one keeps its source files in main-core.scss too,
+//                          since they're shared with other templates; it's
+//                          a verified-safe subset, not an exclusive file).
 //
 // Extending this list means adding a new main-tpl-*.scss entry point,
-// excluding the matching templates/_*.scss file from main-core.scss, and
-// wiring up the conditional enqueue in header.php - see the notes in
-// main-core.scss before doing that for a new template.
+// excluding the matching templates/_*.scss file from main-core.scss (only if
+// truly exclusive - see main-tpl-flexible.scss for the alternative when it
+// isn't), and wiring up the conditional enqueue in header.php - see the
+// notes in main-core.scss before doing that for a new template.
 
 function compileBundle(src, outputName) {
     return gulp.src(src)
@@ -77,9 +83,14 @@ function buildEventsStyles() {
     return compileBundle('source/scss/main-tpl-events.scss', 'tpl-events.min.css');
 }
 
+function buildFlexibleStyles() {
+    return compileBundle('source/scss/main-tpl-flexible.scss', 'tpl-flexible.min.css');
+}
+
 gulp.task('build:styles', gulp.parallel(
     buildGlobalStyles,
     buildCoreStyles,
     buildAgendaStyles,
-    buildEventsStyles
+    buildEventsStyles,
+    buildFlexibleStyles
 ));

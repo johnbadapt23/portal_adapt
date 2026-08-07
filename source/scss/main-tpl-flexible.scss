@@ -1,0 +1,53 @@
+// Exclusive bundle for templates/template-flexible.php.
+//
+// Unlike tpl-agenda/tpl-events, this one is NOT "one file with zero
+// cross-references" - _flexible.scss's classes are genuinely shared with
+// template-portal-flexible.php, template-home.php, single-post.php and
+// single-event.php (confirmed via cross-reference grep), so _flexible.scss
+// stays in main-core.scss too and this bundle duplicates it at compile time.
+// That's fine: this bundle is only loaded INSTEAD OF core.min.css for
+// template-flexible.php pages, never alongside it, so the duplication never
+// ships twice to a browser.
+//
+// What this bundle actually verifies is narrower and is what matters for
+// safety: does template-flexible.php (36 get_row_layout() branches, all
+// rendered inline) plus its 18 get_template_part()/locate_template() component
+// dependencies (templates/components/_fixed-menu-block, _download-block(-two
+// /-three-columns), _video-block(-two/-three-columns), _two-column-card,
+// _embed-block, _full-width-text-block, _full-width-text-editor,
+// _speaker-cta-block, _video-block, _full-image-button-block,
+// _related-articles-grid-block, _related-articles-taxonomies(-grid),
+// _counter-block, _repeatable-counter-block, plus _locked-content pulled in
+// by two of those) use ANY class defined in the templates/*.scss files this
+// bundle leaves out?
+//
+// Checked every top-level selector in _account, _advantage-styling,
+// _announcements, _benchmarking (262K, the biggest), _contact, _data-insights,
+// _default, _home, _kits (101K), _login, _my-topics, _partners,
+// _search-results, _single-speaker, _thank-you, _webinars against every class
+// literal in the files above. Two candidate matches turned up
+// (`section.two-column` in _benchmarking vs. `<div class="column
+// two-column">` in _download/_video-block-two-columns.php; `section.register`
+// in _login vs. `<div class="formWrapper register">` in template-flexible.php)
+// and both are false positives once tag specificity is accounted for -
+// `section.xxx` only matches a <section> element with that class, not a
+// <div>, so neither rule can ever apply to these divs. No other matches
+// found - all 16 files above are confirmed safe to leave out of this bundle.
+//
+// templates/_flexible, _portal-modules, _post, _post-new, _single-events and
+// _single-post ARE kept below - real cross-references confirmed classes like
+// relatedArticles, gridModule, two-column-card (post/post-new), speakerBlock
+// (single-post), fixed-menu/fullWidthTextEditor (single-events) are used by
+// template-flexible.php's own components. Not attempting per-selector
+// extraction from those five (large, pooled across many templates) - keeping
+// them whole here is the safe tradeoff; still ~50% smaller than core.min.css.
+@import 'global/_mixins';
+@import 'global/_variables';
+@import 'global/_typography-vars';
+
+@import 'templates/_flexible';
+@import 'templates/_portal-modules';
+@import 'templates/_post';
+@import 'templates/_post-new';
+@import 'templates/_single-events';
+@import 'templates/_single-post';
