@@ -6,6 +6,12 @@
 get_header();
 ?>
 
+<!-- The only <h1> this page previously had came from the CustomGPT chat
+widget below ("ADAPT IntelligenceBETA"), which describes the chat widget,
+not this page. Screen readers and search engines had no heading that
+actually identifies the page. Visually hidden so the design is unaffected. -->
+<h1 class="sr-only"><?php echo esc_html( get_the_title() ?: 'Portal Home' ); ?></h1>
+
 <style>
 .cgptcb-chat-bubble, .cgptcb-tooltip{
 	display: none !important;

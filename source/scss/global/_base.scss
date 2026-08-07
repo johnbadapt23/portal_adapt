@@ -11,9 +11,20 @@
 	box-sizing: border-box;
 }
 
-*:focus {
+// Suppress the focus ring for mouse/touch interaction only - :focus-visible
+// still gets it below. The previous blanket `*:focus { outline: none; }`
+// removed focus indicators sitewide with no replacement, which fails WCAG
+// 2.4.7 (Focus Visible) for every keyboard user on every link, button, and
+// interactive element that doesn't have its own custom :focus style (only a
+// handful of form inputs do - see global/_forms.scss).
+*:focus:not(:focus-visible) {
 	outline-color: transparent;
 	outline-style: none;
+}
+
+*:focus-visible {
+	outline: 2px solid $color-red;
+	outline-offset: 2px;
 }
 
 ::selection {
@@ -26,6 +37,23 @@
 	//background: $selection-bg;
 	color: $selection-color;
 	text-shadow: none;
+}
+
+// Visually hides content while keeping it in the accessibility tree - for
+// page headings and similar content that needs to exist for screen readers
+// and SEO but isn't part of the visual design. Standard clip-based pattern
+// (matches WordPress core's own .screen-reader-text), not display:none,
+// which would remove it from the accessibility tree entirely.
+.sr-only {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }
 
 ::-moz-selection {

@@ -20,11 +20,21 @@
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js" defer></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
-<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-    <meta property="og:image" content="<?php echo get_field( 'video_poster' ); ?>" />
-<?php } else { ?>
-    <meta property="og:image" content="<?php echo get_field( 'featured_image' ); ?>" />
-<?php } ?>
+<?php
+    // Falls back to the site icon when a page has no featured_image/video_poster
+    // ACF field set (e.g. the homepage) - previously this echoed an empty
+    // content="" attribute, which most social platforms treat as a broken
+    // image rather than "no image", instead of falling back to their own
+    // default. The site icon is a poor substitute for a real 1200x630 social
+    // share image though - worth having the content team upload a proper one.
+    $og_image = ( get_field( 'featured_image_or_video' ) == 'video' )
+        ? get_field( 'video_poster' )
+        : get_field( 'featured_image' );
+    if ( ! $og_image ) {
+        $og_image = get_template_directory_uri() . '/assets/images/apple-touch-icon.png';
+    }
+    ?>
+    <meta property="og:image" content="<?php echo esc_url( $og_image ); ?>" />
 
 <?php get_template_part( 'templates/partials/_icons' ); ?>
 <?php wp_head(); ?>
