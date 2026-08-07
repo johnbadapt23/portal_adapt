@@ -970,7 +970,15 @@ function adapt_enqueue_template_styles() {
         adapt_asset_version( '/assets/fonts/skelet-icons-master/style.css' )
     );
 }
-add_action( 'wp_enqueue_scripts', 'adapt_enqueue_template_styles' );
+// Priority 1 (not the default 10): this needs to enqueue - and therefore
+// print - before other plugins' wp_enqueue_scripts callbacks (MemberPress,
+// Wordfence, jQuery UI, etc. all register their own stylesheets at the
+// default priority, and plugins load before the theme, so at equal
+// priority they'd win the queue and print first). When these bundles were
+// raw <link> tags hardcoded early in header.php - before wp_head() ran at
+// all - they always won that race unconditionally; this restores the same
+// effective ordering now that they're proper enqueues.
+add_action( 'wp_enqueue_scripts', 'adapt_enqueue_template_styles', 1 );
 
 // Ajax filtering for various post types
 // Enqueue scripts

@@ -68,14 +68,19 @@ get_header();
                     }
 
                     $loop = new WP_Query( $args );
+                    // locate_template() does a filesystem file_exists() check
+                    // per call (across every registered theme in the stack) -
+                    // resolving it once outside the loop instead of once per
+                    // event avoids repeating that lookup on every iteration.
+                    $event_card_template = locate_template( '/templates/components/_event-card.php' );
                     if ( $loop->have_posts() ) :
                     while ( $loop->have_posts() ) : $loop->the_post();
                 ?>
-                    <?php 
+                    <?php
                         $post_id   = get_the_ID();
                         $post_slug = get_post_field('post_name', $post_id);
                         $extra_classes = 'dark-theme';
-                        include locate_template('/templates/components/_event-card.php');
+                        include $event_card_template;
                     ?>
                     <?php $counter++; ?>
                 <?php endwhile; else : ?>
