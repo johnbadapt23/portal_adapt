@@ -100,7 +100,17 @@ jobs:
           sync: ${{ github.event.inputs.sync || 'delta' }}
           # Dev-only tracked files that should never reach the live server.
           # .git*, .git/, .github/ are already excluded by the action itself.
-          sync-delta-excludes: |
+          #
+          # This MUST be a folded scalar (>-), not a literal one (|). The
+          # action's composite script substitutes ${{ inputs.sync-delta-excludes }}
+          # as raw text into the middle of a single `git diff ... -- <pathspecs>`
+          # command line, before bash ever parses it - a literal block scalar
+          # keeps real newlines, which land in the script as actual line
+          # breaks and split that one command into several, the next of which
+          # (":!/whatever") bash then tries to execute as a program and fails
+          # with "No such file or directory". Folded style turns each line
+          # break into a single space instead, keeping it all one command.
+          sync-delta-excludes: >-
             :!/README.md
             :!/gulpfile.js
             :!/package.json
