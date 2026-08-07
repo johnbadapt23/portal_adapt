@@ -858,6 +858,120 @@ function sync_post_to_contributor_resources($post_id, $post, $update) {
 }
 
 
+/**
+ * Cache-busting version string for a theme asset.
+ *
+ * Uses the file's own last-modified time so the query string changes
+ * automatically whenever a built asset changes, instead of relying on
+ * someone remembering to bump a hardcoded version number on every deploy.
+ * Falls back to the theme's declared version if the file can't be found
+ * (e.g. running before the first `gulp _build`).
+ *
+ * @param string $relative_path Path relative to the theme root, e.g. '/assets/css/global.min.css'.
+ * @return string
+ */
+function adapt_asset_version( $relative_path ) {
+    $file = get_template_directory() . $relative_path;
+    return file_exists( $file ) ? (string) filemtime( $file ) : wp_get_theme()->get( 'Version' );
+}
+
+/**
+ * Enqueue the theme's CSS bundles, one per page template.
+ *
+ * The compiled stylesheet is split into several bundles instead of one
+ * monolithic file, so each page template only downloads the CSS it
+ * actually uses:
+ *
+ * - global.min.css   Vendor libraries + base/forms/sections/print +
+ *                     header/footer partials. Loaded on every page.
+ * - core.min.css      Default bundle - every templates/**\/*.scss file
+ *                     except the ones split out below. Loaded for any
+ *                     template not explicitly special-cased.
+ * - tpl-agenda.min.css   Exclusive to templates/template-agenda.php -
+ *                        verified zero cross-references from any other
+ *                        template (see source/scss/main-tpl-agenda.scss).
+ * - tpl-events.min.css   Exclusive to templates/template-events.php. Also
+ *                        loaded ALONGSIDE core.min.css (not instead of it)
+ *                        for templates/template-events-portal.php, which
+ *                        shares events.php's wrapper classes but also pulls
+ *                        in components/_event-card.php - see
+ *                        source/scss/main-tpl-events.scss.
+ * - tpl-flexible.min.css Loaded INSTEAD OF core.min.css for
+ *                        templates/template-flexible.php - a verified-safe
+ *                        subset of core.min.css's source files, not an
+ *                        exclusive file (its classes are still shared with
+ *                        other templates, which keep loading core.min.css
+ *                        unchanged) - see source/scss/main-tpl-flexible.scss.
+ *
+ * Extending this list means adding a new main-tpl-*.scss entry point
+ * (compiled via source/gulp/tasks/build/styles.js) and a matching branch
+ * below - see source/scss/main-core.scss for the verification a new split
+ * needs before it's safe to exclude from core.min.css.
+ */
+function adapt_enqueue_template_styles() {
+    $theme_uri = get_template_directory_uri();
+
+    wp_enqueue_style(
+        'adapt-global',
+        $theme_uri . '/assets/css/global.min.css',
+        array(),
+        adapt_asset_version( '/assets/css/global.min.css' )
+    );
+
+    if ( is_page_template( 'templates/template-agenda.php' ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-agenda',
+            $theme_uri . '/assets/css/tpl-agenda.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-agenda.min.css' )
+        );
+    } elseif ( is_page_template( 'templates/template-events.php' ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-events',
+            $theme_uri . '/assets/css/tpl-events.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-events.min.css' )
+        );
+    } elseif ( is_page_template( 'templates/template-events-portal.php' ) ) {
+        wp_enqueue_style(
+            'adapt-core',
+            $theme_uri . '/assets/css/core.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/core.min.css' )
+        );
+        wp_enqueue_style(
+            'adapt-tpl-events',
+            $theme_uri . '/assets/css/tpl-events.min.css',
+            array( 'adapt-core' ),
+            adapt_asset_version( '/assets/css/tpl-events.min.css' )
+        );
+    } elseif ( is_page_template( 'templates/template-flexible.php' ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-flexible',
+            $theme_uri . '/assets/css/tpl-flexible.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-flexible.min.css' )
+        );
+    } else {
+        wp_enqueue_style(
+            'adapt-core',
+            $theme_uri . '/assets/css/core.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/core.min.css' )
+        );
+    }
+
+    // Icon font - was a bare <link> in header.php, moved here for the same
+    // reason as the bundles above: one place to find/edit all theme CSS.
+    wp_enqueue_style(
+        'adapt-skelet-icons',
+        $theme_uri . '/assets/fonts/skelet-icons-master/style.css',
+        array(),
+        adapt_asset_version( '/assets/fonts/skelet-icons-master/style.css' )
+    );
+}
+add_action( 'wp_enqueue_scripts', 'adapt_enqueue_template_styles' );
+
 // Ajax filtering for various post types
 // Enqueue scripts
 function my_enqueue_scripts() {

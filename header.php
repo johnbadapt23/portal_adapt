@@ -9,42 +9,11 @@
 <title><?php wp_title(); ?></title>
 
 <?php
-    // CSS: global.min.css (base styles, forms, vendor libraries,
-    // header/footer partials) loads on every page. Everything that used to
-    // be bundled into one main.min.css combining every template's styles is
-    // now split - most templates get core.min.css (the same combined styles
-    // as before, minus the templates verified safe to split out below), and
-    // the templates below get their own small exclusive bundle instead, so
-    // that page only downloads the CSS it actually needs. See
-    // source/scss/main-core.scss for which templates have been verified
-    // safe to exclude from core.min.css and why - extending this list means
-    // adding a new main-tpl-*.scss entry (source/gulp/tasks/build/styles.js)
-    // and a new branch here.
-    $css_ver = '4.0.0';
-    $theme_uri = get_template_directory_uri();
+    // Theme CSS (global/core/tpl-* bundles + the icon font stylesheet) is
+    // registered via wp_enqueue_style() - see adapt_enqueue_template_styles()
+    // in functions.php for the per-template bundle logic. wp_head() below
+    // is what actually prints those <link> tags.
 ?>
-<link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/global.min.css?ver=<?php echo $css_ver; ?>">
-<?php if ( is_page_template( 'templates/template-agenda.php' ) ) : ?>
-    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/tpl-agenda.min.css?ver=<?php echo $css_ver; ?>">
-<?php elseif ( is_page_template( 'templates/template-events.php' ) ) : ?>
-    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/tpl-events.min.css?ver=<?php echo $css_ver; ?>">
-<?php elseif ( is_page_template( 'templates/template-events-portal.php' ) ) : ?>
-    <?php // Shares template-events.php's wrapper classes and also pulls in
-    // components/_event-card.php, which isn't covered by tpl-events.min.css
-    // alone - load both rather than assume exclusivity. ?>
-    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/core.min.css?ver=<?php echo $css_ver; ?>">
-    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/tpl-events.min.css?ver=<?php echo $css_ver; ?>">
-<?php elseif ( is_page_template( 'templates/template-flexible.php' ) ) : ?>
-    <?php // See source/scss/main-tpl-flexible.scss for the verification -
-    // this is a subset of core.min.css (flexible/portal-modules/post/
-    // post-new/single-events/single-post only), confirmed to cover every
-    // class this template and its component partials actually use. Loaded
-    // INSTEAD OF core.min.css, not alongside it. ?>
-    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/tpl-flexible.min.css?ver=<?php echo $css_ver; ?>">
-<?php else : ?>
-    <link rel="stylesheet" href="<?php echo $theme_uri; ?>/assets/css/core.min.css?ver=<?php echo $css_ver; ?>">
-<?php endif; ?>
-<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/fonts/skelet-icons-master/style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/assets/images/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon-16x16.png">
