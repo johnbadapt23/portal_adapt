@@ -74,6 +74,38 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
 
         ensureCustomGptInit(openCustomGptWidget);
     });
+
+    // The embedded #customgpt-chat-1 panel (portal-home-2 only) renders its
+    // own "ADAPT Intelligence" heading as an <h1> once the widget script
+    // loads - that's a second h1 on a page that already has its own (see
+    // template-portal-flexible.php's sr-only h1), which is confusing for
+    // anyone navigating by heading. Can't edit the widget's own markup, so
+    // once its heading shows up, override its accessible level to 2 without
+    // touching the tag/classes/visual styling - role="heading" + aria-level
+    // is exactly what ARIA provides for this. MutationObserver instead of a
+    // poll since there's no fixed "ready" signal for when the widget renders
+    // this specific element (unlike ensureCustomGptInit's chat-circle check).
+    if (document.body.classList.contains('portal-home-2')) {
+        var demoteHeroTitle = function() {
+            var heroTitle = document.querySelector('h1.cgpt-hero-title');
+            if (heroTitle) {
+                heroTitle.setAttribute('role', 'heading');
+                heroTitle.setAttribute('aria-level', '2');
+                return true;
+            }
+            return false;
+        };
+        if (!demoteHeroTitle()) {
+            var heroObserver = new MutationObserver(function() {
+                if (demoteHeroTitle()) heroObserver.disconnect();
+            });
+            heroObserver.observe(document.body, { childList: true, subtree: true });
+            // Give up after ~15s so this observer doesn't run forever if the
+            // widget never renders this element (e.g. blocked, or the
+            // agent_tester-only gate in the PHP above means it never loads).
+            setTimeout(function() { heroObserver.disconnect(); }, 15000);
+        }
+    }
 })();
 (function($) {
     var added = false;
