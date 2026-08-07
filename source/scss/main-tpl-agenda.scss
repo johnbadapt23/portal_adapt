@@ -1,0 +1,11 @@
+// Exclusive bundle for templates/template-agenda.php. Verified _agenda.scss
+// has no dependents outside that one template (no get_template_part calls
+// in template-agenda.php, and none of _agenda.scss's selectors are
+// referenced by any other template/component .php file) - see
+// main-core.scss for the full rationale. Only needs _mixins/_variables in
+// scope to resolve $color-red etc. at compile time; the actual base/reset
+// CSS lives in main-global.scss, which is always loaded alongside this one.
+@import 'global/_mixins';
+@import 'global/_variables';
+
+@import 'templates/_agenda';

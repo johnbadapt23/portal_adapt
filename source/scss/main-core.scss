@@ -1,0 +1,50 @@
+// Default bundle for every page template EXCEPT the ones that have been
+// verified safe to split out into their own exclusive bundle (see
+// main-tpl-agenda.scss / main-tpl-events.scss and header.php's enqueue
+// logic). This is intentionally everything templates/**/*.scss would have
+// pulled in before the split, MINUS _agenda.scss and _events.scss, so every
+// template not explicitly special-cased keeps getting exactly the CSS it
+// already relies on today - zero behaviour change for those pages.
+//
+// _agenda.scss and _events.scss were verified (grepped for cross-usage of
+// their selectors across every template/component .php file) to be truly
+// exclusive to templates/template-agenda.php and templates/template-events.php
+// respectively, with no shared component partials pulling in their classes
+// elsewhere - safe to omit here. Every other templates/*.scss file is either
+// known to be shared across multiple templates via reusable component
+// partials (get_template_part), or hasn't been verified exclusive yet, so
+// it stays in this default/core bundle rather than risk a page silently
+// losing styles it needs. See the CSS-split follow-up notes in README.md
+// for the templates still worth investigating.
+@import 'global/_mixins';
+@import 'global/_variables';
+// Some of these files reference $p-font-size / $h3-font-size / etc, which
+// live in global/_typography-vars.scss (split out of global/_styles.scss
+// specifically so it can be imported here for compile-time variable
+// resolution without re-emitting _styles.scss's actual h1-h6/paragraph CSS
+// rules - those are already covered by global.min.css, always loaded
+// alongside this bundle).
+@import 'global/_typography-vars';
+
+@import 'templates/_account';
+@import 'templates/_advantage-styling';
+@import 'templates/_announcements';
+@import 'templates/_benchmarking';
+@import 'templates/_contact';
+@import 'templates/_data-insights';
+@import 'templates/_default';
+@import 'templates/_flexible';
+@import 'templates/_home';
+@import 'templates/_kits';
+@import 'templates/_login';
+@import 'templates/_my-topics';
+@import 'templates/_partners';
+@import 'templates/_portal-modules';
+@import 'templates/_post';
+@import 'templates/_post-new';
+@import 'templates/_search-results';
+@import 'templates/_single-events';
+@import 'templates/_single-post';
+@import 'templates/_single-speaker';
+@import 'templates/_thank-you';
+@import 'templates/_webinars';

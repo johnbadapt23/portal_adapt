@@ -1,0 +1,15 @@
+// Exclusive bundle for templates/template-events.php. Verified _events.scss
+// has no dependents outside that template (no get_template_part calls in
+// template-events.php, and _events.scss references zero $variables/mixins
+// of its own) - see main-core.scss for the full rationale.
+//
+// templates/template-events-portal.php shares this template's "events" /
+// "post-events" wrapper classes AND additionally pulls in
+// templates/components/_event-card.php via locate_template(), which isn't
+// covered by this small file - header.php loads this bundle *alongside*
+// main-core.min.css for that template rather than instead of it, so it
+// isn't safe to assume this bundle alone covers events-portal.
+@import 'global/_mixins';
+@import 'global/_variables';
+
+@import 'templates/_events';

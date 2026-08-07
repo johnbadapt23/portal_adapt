@@ -26,7 +26,13 @@ module.exports = {
             'source/js/main.js'
         ],
 
-        styles: [
+        // Vendor CSS, concatenated into global.min.css alongside
+        // main-global.scss's compiled output (source/gulp/tasks/build/styles.js) -
+        // these aren't split per-template, so they stay in the
+        // always-loaded bundle. main.scss (the old single-bundle entry
+        // point) is superseded by main-global.scss / main-core.scss /
+        // main-tpl-*.scss - see the comments at the top of styles.js.
+        vendorStyles: [
             'node_modules/perfect-scrollbar/css/perfect-scrollbar.css',
             'node_modules/owl.carousel/dist/assets/owl.carousel.css',
             'node_modules/magnific-popup/dist/magnific-popup.css',
@@ -35,8 +41,7 @@ module.exports = {
             'node_modules/mediaelement/build/mediaelementplayer.min.css',
             'node_modules/mediaelement/build/mediaelementplayer-legacy.min.css',
             'node_modules/hover.css/css/hover-min.css',
-            'node_modules/select2/dist/css/select2.css',
-            'source/scss/main.scss'
+            'node_modules/select2/dist/css/select2.css'
         ],
         images: [
             'source/images/**/*.jpg',

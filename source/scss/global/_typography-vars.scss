@@ -1,0 +1,67 @@
+// Paragraph/heading $variables, split out of global/_styles.scss so they
+// can be imported at compile time (to resolve things like $p-font-size or
+// $h3-font-size referenced from template partials) without also re-emitting
+// _styles.scss's actual CSS output - see source/scss/main-core.scss, which
+// needs these variables but must not duplicate the h1-h6/paragraph rules
+// that main-global.scss's compiled output already covers on every page.
+// _styles.scss itself imports this file first so its own rules still
+// resolve exactly as before.
+$text-transform: uppercase; // PARAGRAPH
+$p-font-size: 16px;
+$p-margin: 20px;
+$p-font-weight: normal;
+$p-strong-font-weight: bold;
+$p-line-height: 1.75; // PARAGRAPH > LINK
+$p-link-font-weight: normal;
+$p-link-color: $color-body;
+$p-link-decoration: none; // PARAGRAPH > LINK > HOVER
+$p-link-hover-font-weight: normal;
+$p-link-hover-color: $color-body;
+$p-link-hover-decoration: underline; // HEADINGS
+$heading-text-align: left;
+$heading-spacing: 0;
+$heading-transform: none; // HEADINGS > H1
+$heading-color: #000000;
+$h1-font: $font-base;
+$h1-font-weight: 400;
+$h1-font-size: 56px;
+$h1-margin: 20px;
+$h1-spacing: 0px;
+$h1-transform: none;
+$h1-line-height: 60px; // HEADINGS > H2
+$h2-font: $font-base;
+$h2-font-weight: 400;
+$h2-font-size: 48px;
+$h2-margin: 20px;
+$h2-spacing: -0.03em;
+$h2-transform: none;
+$h2-line-height: 1.125; // HEADINGS > H3
+$h3-font: $font-base;
+$h3-font-weight: 400;
+$h3-font-size: 32px;
+$h3-margin: 20px;
+$h3-spacing: 0px;
+$h3-transform: none;
+$h3-line-height: 1.18; // HEADINGS > H4
+$h4-font: $font-alt;
+$h4-font-weight: 400;
+$h4-font-size: 28px;
+$h4-margin: 20px;
+$h4-spacing: 0px;
+$h4-transform: none;
+$h4-line-height: 1.28;
+$h4-line-height: 26px; // HEADINGS > H5
+$h5-font: $font-alt;
+$h5-font-weight: normal;
+$h5-font-size: 28px;
+$h5-margin: 20px;
+$h5-spacing: 0;
+$h5-transform: none;
+$h5-line-height: 36px;
+$h6-font: $font-base;
+$h6-font-weight: 700;
+$h6-font-size: 14px;
+$h6-margin: 20px;
+$h6-spacing: 0;
+$h6-transform: none;
+$h6-line-height: 26px;

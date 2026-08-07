@@ -1,0 +1,22 @@
+// Always-loaded bundle: base styles, forms, layout sections, print styles,
+// third-party libraries, and the header/footer/site-wide partials. Every
+// page needs this regardless of which template is active.
+//
+// Deliberately does NOT import templates/**/*.scss - those are
+// template-specific and loaded conditionally per page (see header.php and
+// the sibling main-core.scss / main-tpl-*.scss entry points). This split
+// exists so a page only downloads the CSS it actually needs instead of the
+// combined styles for every template on the site.
+@import 'global/_mixins';
+@import 'global/_variables';
+@import 'global/_fonts';
+@import 'global/_icons';
+@import 'global/_base';
+@import 'global/_styles';
+@import 'global/_forms';
+@import 'global/_sections';
+@import 'global/_print';
+
+@import "libraries/**/*.scss";
+
+@import "partials/**/*.scss";

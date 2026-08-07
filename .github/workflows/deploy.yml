@@ -75,14 +75,17 @@ jobs:
         # which only means anything against an actual git working tree.
         #
         # IMPORTANT: that git-diff approach can't see changes made by the
-        # build step above - assets/css/main.min.css and assets/js/main.min.js
-        # are committed files, but the build regenerates them in the runner's
-        # working directory without re-committing. A commit that only touches
-        # source/scss/*.scss would show main.min.css as unchanged in git diff
-        # even though the freshly-built file on disk is genuinely different,
-        # so it would silently NOT get re-uploaded. sync-delta-includes below
-        # exists specifically for this - it force-includes those two files
-        # in every deploy regardless of what git diff reports.
+        # build step above - assets/css/{global,core,tpl-agenda,tpl-events}.min.css
+        # and assets/js/main.min.js are committed files, but the build
+        # regenerates them in the runner's working directory without
+        # re-committing. A commit that only touches source/scss/*.scss would
+        # show them as unchanged in git diff even though the freshly-built
+        # files on disk are genuinely different, so they'd silently NOT get
+        # re-uploaded. sync-delta-includes below exists specifically for
+        # this - it force-includes all of them in every deploy regardless of
+        # what git diff reports. (CSS used to be one main.min.css bundle;
+        # it's now split per-template so a page only loads what it needs -
+        # see header.php and source/scss/main-core.scss.)
         uses: milanmk/actions-file-deployer@master
         with:
           remote-protocol: sftp
@@ -137,7 +140,7 @@ jobs:
             :!/assets/js/modernizr-2.7.1.min.js
             :!/assets/watch-icon-grey.svg
             :!/assets/js/bkup
-          sync-delta-includes: assets/css/main.min.css,assets/js/main.min.js
+          sync-delta-includes: assets/css/global.min.css,assets/css/core.min.css,assets/css/tpl-agenda.min.css,assets/css/tpl-events.min.css,assets/js/main.min.js
           # Mirrors of the excludes above, in lftp's own syntax, for when
           # sync=full - full sync mirrors the actual working directory
           # (everything the build step produced, node_modules included),
