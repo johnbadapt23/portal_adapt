@@ -859,6 +859,41 @@ function sync_post_to_contributor_resources($post_id, $post, $update) {
 
 
 /**
+ * Cached wrapper around attachment_url_to_postid().
+ *
+ * Core's attachment_url_to_postid() runs a DB query every time it's called
+ * (it tries the URL as-is, then strips any -WIDTHxHEIGHT size suffix and
+ * tries again) - fine for a single call, but templates that loop over a
+ * list of posts and resolve each one's image URL to an attachment ID (e.g.
+ * templates/components/_event-card.php) end up running it once per item on
+ * every single page load, for a URL->ID mapping that essentially never
+ * changes once the image is uploaded. Wrapping it in a transient turns
+ * every load after the first into a cache read instead of a query - uses
+ * the object cache automatically if one is configured (Redis/Memcached),
+ * otherwise falls back to a wp_options row, either way cheaper than
+ * re-running the lookup.
+ *
+ * @param string $url Attachment URL, as stored in an ACF image/URL field.
+ * @return int Attachment post ID, or 0 if it couldn't be resolved (matches
+ *             attachment_url_to_postid()'s own return value on failure).
+ */
+function adapt_attachment_url_to_postid( $url ) {
+    if ( empty( $url ) ) {
+        return 0;
+    }
+    $cache_key = 'adapt_a2pid_' . md5( $url );
+    $cached    = get_transient( $cache_key );
+    if ( false !== $cached ) {
+        return (int) $cached;
+    }
+    $attachment_id = attachment_url_to_postid( $url );
+    // Cache misses (0) are cached too, at a shorter TTL - otherwise an
+    // external/broken image URL would hit the DB on every single load.
+    set_transient( $cache_key, $attachment_id, $attachment_id ? WEEK_IN_SECONDS : HOUR_IN_SECONDS );
+    return $attachment_id;
+}
+
+/**
  * Cache-busting version string for a theme asset.
  *
  * Uses the file's own last-modified time so the query string changes

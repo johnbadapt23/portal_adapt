@@ -30,6 +30,11 @@ get_header();
                 <?php
 
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+                    // no_found_rows: this loop never paginates (posts_per_page
+                    // is -1 and nothing here reads $loop->max_num_pages or
+                    // found_posts), so the SQL_CALC_FOUND_ROWS query
+                    // WP_Query runs by default to support pagination is pure
+                    // overhead on every load - skip it.
                     if($keyword != '') {
                         $args = array(
                             'post_type' => 'event',
@@ -38,6 +43,7 @@ get_header();
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
+                            'no_found_rows' => true,
                             'tax_query' => array(
                                 'relation' => 'AND',
                                 array (
@@ -55,6 +61,7 @@ get_header();
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
+                            'no_found_rows' => true,
                             'tax_query' => array(
                                 'relation' => 'AND',
                                 array (

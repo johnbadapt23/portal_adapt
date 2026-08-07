@@ -9,7 +9,7 @@
                 <span class="bg-container">
                     <?php
 					$inline_img_151_src = get_field( 'listing_page_grid_image' );
-					$inline_img_151_attach_id = $inline_img_151_src ? attachment_url_to_postid( $inline_img_151_src ) : 0;
+					$inline_img_151_attach_id = $inline_img_151_src ? adapt_attachment_url_to_postid( $inline_img_151_src ) : 0;
 					// Only the first card in the events-portal grid should be
 					// fetchpriority=high/eager and excluded from lazy-load -
 					// it's the one that renders above the fold as the page's
