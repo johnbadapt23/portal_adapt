@@ -103,7 +103,7 @@ endif;
                         <?php if ( have_rows( 'about_advisor' ) ) : ?>
                             <div class="switch-content about about-advisor<?php if ($contentCounter == 1){?> active<?php } ?>" id="aboutAdvisor">
                                 <?php while ( have_rows( 'about_advisor' ) ) : the_row(); ?>
-                                    <h3 class="title overview-title"><?php echo get_sub_field( 'title' ); ?></h3>
+                                    <h2 class="title overview-title"><?php echo get_sub_field( 'title' ); ?></h2>
                                     <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                         <div class="advisor-video">
                                             <div class="image-container video-container">                            

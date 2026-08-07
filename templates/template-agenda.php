@@ -396,7 +396,7 @@ get_header();
                     <h2><?php echo get_sub_field( 'title' ); ?></h2>
 
 
-                    <h4><?php echo get_sub_field( 'day' ); ?> <?php echo get_sub_field( 'date' ); ?></h4>
+                    <h3><?php echo get_sub_field( 'day' ); ?> <?php echo get_sub_field( 'date' ); ?></h3>
 
                 </div>
 

@@ -54,7 +54,7 @@ get_header();
 									<?php } ?>
 								</div>
 								<div class="information-container">
-									<h3 class="title"><?php echo get_sub_field( 'title' ); ?></h3>
+									<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
 									<span class="text"><?php echo get_sub_field( 'text' ); ?></span>
 									<span class="button-container">
 										<?php if ( have_rows( 'button' ) ) : ?>
@@ -112,7 +112,7 @@ get_header();
 									<?php } ?>
 								</div>
 								<div class="information-container">
-									<h3 class="title"><?php echo get_sub_field( 'title' ); ?></h3>
+									<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
 									<span class="text"><?php echo get_sub_field( 'text' ); ?></span>
 									<span class="button-container">
 										<?php if ( have_rows( 'button' ) ) : ?>

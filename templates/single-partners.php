@@ -268,7 +268,7 @@ endif;
                             <?php if ( have_rows( 'about_company' ) ) : ?>
                                 <div class="switch-content about about-company<?php if ($contentCounter == 1){?> active<?php } ?>" id="aboutCompany">
                                     <?php while ( have_rows( 'about_company' ) ) : the_row(); ?>
-                                        <h3 class="h3 title overview-title"><?php echo get_sub_field( 'title' ); ?></h3>
+                                        <h2 class="h3 title overview-title"><?php echo get_sub_field( 'title' ); ?></h2>
                                         <div class="text description-container text-regular">
                                             <?php echo get_sub_field( 'descriptions' ); ?>
                                         </div>                                            

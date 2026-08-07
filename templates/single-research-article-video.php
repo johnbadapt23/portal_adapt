@@ -38,10 +38,10 @@ get_header();
                         “Digital is about customer intimacy and global scale.”
                     </span>
                     <div class="articleWrapper">
-                        <h3 class="articleSubTitle">Keynote Focus</h3>
+                        <h2 class="h3 articleSubTitle">Keynote Focus</h2>
                         <p>The intersect of “technology” and “digital” presents a significant opportunity for a mainstream technology executive and their team. After establishing the foundation to realise the digital potential, every CIO should lead from the front to execute on their strategy. Learn how to grasp the opportunity that lies ahead for technology teams as “technology” and “digital” intersect with globally experienced IT veteran David Banger.</p>
                         <p>This also relates to one of ADAPT’s 12 Core Competencies, Empowering Workforce, which discusses this topic at length.</p>
-                        <h3 class="articleSubTitle">Key Findings</h3>
+                        <h2 class="h3 articleSubTitle">Key Findings</h2>
                         <p><strong>Identify task value</strong></p>
                         <p>Identify task value Tasks we carry out today must be focused on directly achieving business outcomes for the business. Although a single job description can encompass a multitude of activities, the business should encourage employees to individually analyse their work, simplify and standardise repetitive tasks. Tasks that drive business outcomes should be incentivised.</p>
                         <p><strong>Diversity for innovation</strong></p>
@@ -51,7 +51,7 @@ get_header();
                         <p>
                             <img src="" />
                         </p>
-                        <h4>Key advice</h4>
+                        <h3>Key advice</h3>
                         <ul>
                             <li>Simplify and standardise BAU tasks, and incentivise work that adds value to the business.</li>
                             <li>Enable flexible working to encourage diversity of thought.</li>

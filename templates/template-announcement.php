@@ -143,7 +143,7 @@ if (user_can($current_user, 'administrator')) {
                    <span class="post-item">
                        <span class="item-top">
                            <span class="date"><?php echo get_the_date('F j, Y'); ?></span>
-                           <h3 class="h3-style"><?php the_title();?></h3>
+                           <h2 class="h3 h3-style"><?php the_title();?></h2>
                        </span>
                        <span class="small-text">
                            <?php

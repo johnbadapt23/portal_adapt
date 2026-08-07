@@ -242,7 +242,7 @@ get_header();
 																				<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 																			<?php } ?>
 																		</span>
-																		<a href="<?php the_permalink(); ?>" class="title text-black"><h4 class="title text-black labelLarge"><?php the_title(); ?></h4></a>
+																		<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php the_title(); ?></h2></a>
 																	</div>
 																</div>
 															</div>
@@ -477,7 +477,7 @@ get_header();
 																	<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 																<?php } ?>
 															</span>
-															<a href="<?php the_permalink(); ?>" class="title text-black"><h4 class="title text-black labelLarge"><?php the_title(); ?></h4></a>
+															<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php the_title(); ?></h2></a>
 														</div>
 													</div>
 												</div>
@@ -629,7 +629,7 @@ get_header();
 						<div class="container">
 							<div class="column-container">
 								<div class="column text-column one-half">
-									<h5 class="<?php echo $textcolour; ?> cta-title"><?php echo get_sub_field( 'title' ); ?></h5>
+									<h3 class="<?php echo $textcolour; ?> cta-title"><?php echo get_sub_field( 'title' ); ?></h3>
 									<span class="text labelLarge <?php echo $textcolour; ?>"><?php echo get_sub_field( 'text' ); ?></span>
 									<?php if ( have_rows( 'link' ) ) : ?>
 										<?php while ( have_rows( 'link' ) ) : the_row(); ?>

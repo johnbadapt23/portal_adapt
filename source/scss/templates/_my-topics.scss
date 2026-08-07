@@ -82,7 +82,10 @@ section.updateInterests {
                             width: 100%;
                             float: left;
 
-                            h3 {
+                            // Was h3 - promoted to h2 to close a heading-hierarchy
+                            // gap (this is the first heading after the page h1,
+                            // template-interests.php). Selector renamed to match.
+                            h2 {
                                 font-size: 20px;
                                 margin-bottom: 12px;
 

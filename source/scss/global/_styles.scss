@@ -517,6 +517,27 @@ h3 p {
 	}
 }
 
+// Utility for headings that must carry a semantically-correct level (no
+// skipped levels in the document outline - see heading hierarchy pass) but
+// need to keep looking like an h3 visually, e.g. a small "no results found"
+// status message promoted from h3 to h2 so it isn't a skip after a page h1.
+// Mirrors the bare h3 rule above exactly, so applying it changes nothing
+// visually regardless of the element's actual tag.
+.h3 {
+	font-family: $font-base;
+	font-weight: $h3-font-weight !important;
+	font-size: $h3-font-size;
+	margin: 0 0 $h3-margin;
+	letter-spacing: $h3-spacing;
+	line-height: $h3-line-height;
+	color: $heading-color;
+
+	@media (max-width: 640px) {
+		font-size: 20px;
+		line-height: 26px;
+	}
+}
+
 h4 {
 	font-family: $font-base;
 	font-weight: $h4-font-weight;

@@ -9,7 +9,7 @@
             <span class="title-container-inner"> 
                 <h2 class=" black-text bold-red"><?php echo get_sub_field( 'title' ); ?></h2>
                 <?php if (get_sub_field( 'text' )) { ?> 
-                    <h5 class="black-text"><?php echo get_sub_field( 'text' ); ?>  </h5>
+                    <h3 class="black-text"><?php echo get_sub_field( 'text' ); ?>  </h3>
                 <?php } ?>
             </span>        
         </div>
@@ -91,7 +91,7 @@
 								?>
                                                 </span>
                                                 <span class="text-container mobile-hide">
-                                                    <h5 class="labelMedium"><?php the_title(); ?></h5>                                                    
+                                                    <h4 class="labelMedium"><?php the_title(); ?></h4>                                                    
                                                 </span>
                                             </span>  
                                             <span class="text-container desktop-hide">

@@ -9,7 +9,7 @@
             <span class="title-container-inner"> 
                 <h2 class="h1-style black-text bold-red"><?php echo get_sub_field( 'title' ); ?></h2>
                 <?php if (get_sub_field( 'text' )) { ?> 
-                    <h5 class="black-text"><?php echo get_sub_field( 'text' ); ?>  </h5>
+                    <h3 class="black-text"><?php echo get_sub_field( 'text' ); ?>  </h3>
                 <?php } ?>
             </span>        
         </div>
@@ -105,7 +105,7 @@
 								?>
                                                 </span>
                                                 <span class="text-container mobile-hide">
-                                                    <h5><?php the_title(); ?></h5>
+                                                    <h4><?php the_title(); ?></h4>
                                                     <span class="label-Xsmall white-text"><?php echo get_field('speaker_description'); ?></span>
                                                     <span class="learn-more text-link red-underline-link red-text">Learn More</span>
                                                 </span>

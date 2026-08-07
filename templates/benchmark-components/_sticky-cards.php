@@ -40,7 +40,7 @@
                     <?php while ( have_rows( 'sticky_content' ) ) : the_row(); ?>
                         <div class="text-block-wrapper">
                             <div class="text-block">
-                                <h4 class="header-medium"><?php echo get_sub_field( 'title' ); ?></h4>
+                                <h3 class="header-medium"><?php echo get_sub_field( 'title' ); ?></h3>
                                 <p class="p-large text-dark-grey"><?php the_sub_field( 'text' ); ?></p>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                     <div class="mobile-column">
                         <div class="text-block-wrapper">
                             <div class="text-block">
-                                <h4 class="header-medium"><?php echo get_sub_field( 'title' ); ?></h4>
+                                <h3 class="header-medium"><?php echo get_sub_field( 'title' ); ?></h3>
                                 <p class="p-medium text-dark-grey"><?php the_sub_field( 'text' ); ?></p>
                             </div>
                         </div>

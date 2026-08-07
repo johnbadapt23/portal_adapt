@@ -20,7 +20,7 @@
 									</span>
 								</span>
 							</div>
-							<h4 class="black-text"><?php echo get_sub_field( 'title' ); ?></h4>
+							<h3 class="black-text"><?php echo get_sub_field( 'title' ); ?></h3>
 							<span class="content-container-bottom">
 								<span class="card-text"><?php echo get_sub_field( 'text' ); ?></span>
 							</span>

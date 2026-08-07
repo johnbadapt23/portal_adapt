@@ -503,7 +503,7 @@ $post_types = array ();
                     <?php } ?>
 
                 <?php endwhile; else : ?>
-                	<h3><?php esc_html_e( 'Sorry, no results found.' ); ?></h3>
+                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
                 <?php endif; ?>
                 <?php wp_pagenavi( array( 'query' => $posts ) ); ?>
                 <?php wp_reset_query();?>

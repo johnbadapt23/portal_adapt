@@ -1170,7 +1170,7 @@ $filterBy = array();
 
             <?php endwhile; ?>
             <?php else : ?>
-                    <h3><?php esc_html_e( 'Sorry, no results found.' ); ?></h3>
+                    <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
                 <?php endif; ?>
                 <?php wp_pagenavi( array( 'query' => $loop ) ); ?>
                 <?php wp_reset_query(); ?>
