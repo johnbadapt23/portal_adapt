@@ -3,7 +3,16 @@ name: Build & Deploy (SFTP)
 on:
   push:
     branches: [dev]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      sync:
+        description: 'File synchronization'
+        required: true
+        default: 'delta'
+        type: choice
+        options:
+          - delta
+          - full
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -16,6 +25,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # Delta sync diffs against the previous commit, so it needs full
+          # history, not the default shallow clone.
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v6
@@ -56,21 +69,95 @@ jobs:
       - name: Build theme assets
         run: npx gulp _build
 
-      - name: Stage deployable files
-        run: |
-          mkdir -p deploy
-          rsync -av --exclude-from='.deployignore' ./ deploy/
-
       - name: Deploy over SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+        # Deploys straight from the repo root (not a staged copy) because
+        # delta sync's change detection is `git diff <prev commit>..<head>`,
+        # which only means anything against an actual git working tree.
+        #
+        # IMPORTANT: that git-diff approach can't see changes made by the
+        # build step above - assets/css/main.min.css and assets/js/main.min.js
+        # are committed files, but the build regenerates them in the runner's
+        # working directory without re-committing. A commit that only touches
+        # source/scss/*.scss would show main.min.css as unchanged in git diff
+        # even though the freshly-built file on disk is genuinely different,
+        # so it would silently NOT get re-uploaded. sync-delta-includes below
+        # exists specifically for this - it force-includes those two files
+        # in every deploy regardless of what git diff reports.
+        uses: milanmk/actions-file-deployer@master
         with:
-          username: ${{ secrets.STAGING_USERNAME }}
-          server: ${{ vars.STAGING_HOST }}
-          port: ${{ vars.STAGING_PORT || '22' }}
+          remote-protocol: sftp
+          remote-host: ${{ vars.STAGING_HOST }}
+          remote-port: ${{ vars.STAGING_PORT || '22' }}
+          remote-user: ${{ secrets.STAGING_USERNAME }}
           # STAGING_PASS holds the SSH private key contents, not a password
           # (naming is just a holdover from setup - value is a key file).
-          ssh_private_key: ${{ secrets.STAGING_PASS }}
-          local_path: './deploy/*'
-          remote_path: ${{ vars.STAGING_REMOTE_PATH }}
-          sftp_only: true
-          sftpArgs: '-o ConnectTimeout=10'
+          ssh-private-key: ${{ secrets.STAGING_PASS }}
+          remote-path: ${{ vars.STAGING_REMOTE_PATH }}
+          local-path: .
+          # workflow_dispatch can override to 'full' (e.g. for the first run
+          # after this change, or to recover if delta ever drifts). Ordinary
+          # pushes to dev always use delta.
+          sync: ${{ github.event.inputs.sync || 'delta' }}
+          # Dev-only tracked files that should never reach the live server.
+          # .git*, .git/, .github/ are already excluded by the action itself.
+          sync-delta-excludes: |
+            :!/README.md
+            :!/gulpfile.js
+            :!/package.json
+            :!/package-lock.json
+            :!/.nvmrc
+            :!/source
+            :!/nov-functions.php
+            :!/nov-header.php
+            :!/oct-25-functions.php
+            :!/oct-25-header.php
+            :!/old-functions.php
+            :!/one-signal-header.php
+            :!/sept-functions.php
+            :!/june-footer.php
+            :!/header-stage.php
+            :!/assets/css/march-24-main.min.css
+            :!/assets/css/oct-23-main.min.css
+            :!/assets/js/main-bk.min.js
+            :!/assets/js/nov-main.min.js
+            :!/assets/js/sept-24-main.min.js
+            :!/assets/css/save-pdf.css
+            :!/assets/js/ajax-functions.js
+            :!/assets/js/jquery.customSelect.js
+            :!/assets/js/modernizr-2.7.1.min.js
+            :!/assets/watch-icon-grey.svg
+            :!/assets/js/bkup
+          sync-delta-includes: assets/css/main.min.css,assets/js/main.min.js
+          # Mirrors of the excludes above, in lftp's own syntax, for when
+          # sync=full - full sync mirrors the actual working directory
+          # (everything the build step produced, node_modules included),
+          # it isn't scoped to git-tracked files the way delta is.
+          ftp-mirror-options: >-
+            --exclude-glob=node_modules/
+            --exclude-glob=source/
+            --exclude-glob=README.md
+            --exclude-glob=gulpfile.js
+            --exclude-glob=package.json
+            --exclude-glob=package-lock.json
+            --exclude-glob=.nvmrc
+            --exclude-glob=nov-functions.php
+            --exclude-glob=nov-header.php
+            --exclude-glob=oct-25-functions.php
+            --exclude-glob=oct-25-header.php
+            --exclude-glob=old-functions.php
+            --exclude-glob=one-signal-header.php
+            --exclude-glob=sept-functions.php
+            --exclude-glob=june-footer.php
+            --exclude-glob=header-stage.php
+            --exclude-glob=assets/css/march-24-main.min.css
+            --exclude-glob=assets/css/oct-23-main.min.css
+            --exclude-glob=assets/js/main-bk.min.js
+            --exclude-glob=assets/js/nov-main.min.js
+            --exclude-glob=assets/js/sept-24-main.min.js
+            --exclude-glob=assets/css/save-pdf.css
+            --exclude-glob=assets/js/ajax-functions.js
+            --exclude-glob=assets/js/jquery.customSelect.js
+            --exclude-glob=assets/js/modernizr-2.7.1.min.js
+            --exclude-glob=assets/watch-icon-grey.svg
+            --exclude-glob=assets/js/bkup/
+          artifacts: true

@@ -52,7 +52,7 @@ assets/                                                         → build OUTPUT
 .github/workflows/deploy.yml                                    → CI build + SFTP deploy
 ```
 
-A few root PHP files (`nov-functions.php`, `oct-25-header.php`, `old-functions.php`, `one-signal-header.php`, `sept-functions.php`, `june-footer.php`, `header-stage.php`, `nov-header.php`, `oct-25-functions.php`) are dated snapshots left over from past edits — WordPress doesn't load any of them (only `functions.php`/`header.php`/`footer.php` are active). They're kept in git history for reference but excluded from deploy (see `.deployignore`).
+A few root PHP files (`nov-functions.php`, `oct-25-header.php`, `old-functions.php`, `one-signal-header.php`, `sept-functions.php`, `june-footer.php`, `header-stage.php`, `nov-header.php`, `oct-25-functions.php`) are dated snapshots left over from past edits — WordPress doesn't load any of them (only `functions.php`/`header.php`/`footer.php` are active). They're kept in git history for reference but excluded from deploy (see the exclude lists in `.github/workflows/deploy.yml`).
 
 ### About `assets/`
 
@@ -62,9 +62,14 @@ A few root PHP files (`nov-functions.php`, `oct-25-header.php`, `old-functions.p
 
 `.github/workflows/deploy.yml` runs on every push to **`dev`** (or manually via the Actions tab → "Run workflow"):
 
-1. Checks out the repo, installs Node deps, runs `npx gulp _build`
-2. Stages a clean copy of the repo into `deploy/`, excluding anything in `.deployignore` (dev tooling, `source/`, `node_modules`, `package*.json`, `gulpfile.js`, and a handful of confirmed-unused files — see that file for the full, commented list)
-3. Uploads `deploy/*` to the server over SFTP using `wlixcc/SFTP-Deploy-Action`
+1. Checks out the repo with full history (`fetch-depth: 0` — required for delta sync), installs Node deps, runs `npx gulp _build`
+2. Deploys straight from the repo root over SFTP using [`milanmk/actions-file-deployer`](https://github.com/milanmk/actions-file-deployer), with **delta sync**: it diffs `git diff <previous commit>..<head>` and only uploads/deletes what actually changed, instead of re-uploading the whole theme every run
+
+Delta sync is git-diff based, which has one important consequence: it can't see changes the build step makes to files that aren't re-committed. `assets/css/main.min.css` and `assets/js/main.min.js` are committed files, but CI regenerates them fresh in the runner's working directory without committing the rebuild back — so a commit that only touches `source/scss/*.scss` would show those two files as "unchanged" in git diff even though the freshly-built content on disk is genuinely different. `sync-delta-includes` in the workflow force-includes both of them in every deploy regardless of git diff, specifically to cover this gap.
+
+Dev-only tracked files (`source/`, `gulpfile.js`, `package*.json`, `.nvmrc`, `README.md`, and the confirmed-dead files listed above) are filtered out via `sync-delta-excludes` (git pathspec syntax) for delta runs, and `ftp-mirror-options` (lftp exclude-glob syntax) for full runs — the same list has to exist in both places since the two sync modes use different underlying mechanisms.
+
+Manually running the workflow via the Actions tab lets you choose `sync: full` instead of the default `delta` — useful for the first run after this pipeline changes, or to recover if delta ever drifts from the server's actual state. Full sync mirrors the whole working directory and won't delete anything on the remote that isn't also on the runner.
 
 `main` is not wired to anything — merge `dev` → `main` whenever you want a release checkpoint, it won't trigger a deploy on its own.
 
