@@ -20,6 +20,14 @@ get_header();
             <div class="events-column-container three-column-container gap-16-40">
                 <?php $counter = -1; ?>
                 <?php
+                    // Read by templates/components/_event-card.php: only the
+                    // first card in this grid (the one rendered above the
+                    // fold, at the top of this section) gets
+                    // fetchpriority=high/eager and skips lazy-load - it's
+                    // this page's LCP element.
+                    $hero_fetchpriority_used = false;
+                ?>
+                <?php
 
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
                     if($keyword != '') {

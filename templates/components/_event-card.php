@@ -10,13 +10,30 @@
                     <?php
 					$inline_img_151_src = get_field( 'listing_page_grid_image' );
 					$inline_img_151_attach_id = $inline_img_151_src ? attachment_url_to_postid( $inline_img_151_src ) : 0;
+					// Only the first card in the events-portal grid should be
+					// fetchpriority=high/eager and excluded from lazy-load -
+					// it's the one that renders above the fold as the page's
+					// LCP element. $hero_fetchpriority_used is set by
+					// template-events-portal.php before this loop starts;
+					// isset() guards this component being included from
+					// somewhere that doesn't declare it.
+					$inline_img_151_attrs = array( 'alt' => esc_attr( get_the_title() ) );
+					if ( empty( $hero_fetchpriority_used ) ) {
+						$inline_img_151_attrs['class'] = 'skip-lazy';
+						$inline_img_151_attrs['fetchpriority'] = 'high';
+						$inline_img_151_attrs['loading'] = 'eager';
+						$hero_fetchpriority_used = true;
+					}
 					if ( $inline_img_151_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_151_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
+						echo wp_get_attachment_image( $inline_img_151_attach_id, 'full', false, $inline_img_151_attrs );
 					} elseif ( $inline_img_151_src ) {
-						echo '<img src="' . esc_url( $inline_img_151_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+						$fallback_loading = isset( $inline_img_151_attrs['loading'] ) ? $inline_img_151_attrs['loading'] : 'lazy';
+						$fallback_class = isset( $inline_img_151_attrs['class'] ) ? ' class="' . esc_attr( $inline_img_151_attrs['class'] ) . '"' : '';
+						$fallback_fetchpriority = isset( $inline_img_151_attrs['fetchpriority'] ) ? ' fetchpriority="' . esc_attr( $inline_img_151_attrs['fetchpriority'] ) . '"' : '';
+						echo '<img' . $fallback_class . ' src="' . esc_url( $inline_img_151_src ) . '" loading="' . esc_attr( $fallback_loading ) . '"' . $fallback_fetchpriority . ' alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
-                </span>                
+                </span>
             </span>
             <span class="events-text">
                 <span class="labelXLarge"><?php echo the_title(); ?></span>
