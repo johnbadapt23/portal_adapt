@@ -22,9 +22,9 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                         <?php
 								$video_image_attach_id = attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
-									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
 								} else {
-									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>                        
                     <?php } ?>

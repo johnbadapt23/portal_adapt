@@ -58,9 +58,9 @@ actually identifies the page. Visually hidden so the design is unaffected. -->
 																 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
 															<?php } elseif ( get_field( 'video_image' )){  ?>
@@ -75,9 +75,9 @@ actually identifies the page. Visually hidden so the design is unaffected. -->
 																<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
 															<?php } ?>
@@ -173,9 +173,9 @@ actually identifies the page. Visually hidden so the design is unaffected. -->
  		                                                                    <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
  		                                                               <?php } elseif ( get_field( 'video_image' )){  ?>
@@ -190,9 +190,9 @@ actually identifies the page. Visually hidden so the design is unaffected. -->
  		                                                                   <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
  		                                                               <?php } ?>

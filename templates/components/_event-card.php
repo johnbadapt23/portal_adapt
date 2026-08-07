@@ -11,9 +11,9 @@
 					$inline_img_151_src = get_field( 'listing_page_grid_image' );
 					$inline_img_151_attach_id = $inline_img_151_src ? attachment_url_to_postid( $inline_img_151_src ) : 0;
 					if ( $inline_img_151_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_151_attach_id, 'full', false, array( 'alt' => '' ) );
+						echo wp_get_attachment_image( $inline_img_151_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
 					} elseif ( $inline_img_151_src ) {
-						echo '<img src="' . esc_url( $inline_img_151_src ) . '" loading="lazy" alt="' . esc_attr( '' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_151_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
                 </span>                
