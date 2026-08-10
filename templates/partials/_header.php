@@ -410,7 +410,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_159_src = $image;
 					$inline_img_159_attach_id = $inline_img_159_src ? attachment_url_to_postid( $inline_img_159_src ) : 0;
 					if ( $inline_img_159_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_159_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_159_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_159_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_159_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -609,7 +609,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_160_src = $image;
 					$inline_img_160_attach_id = $inline_img_160_src ? attachment_url_to_postid( $inline_img_160_src ) : 0;
 					if ( $inline_img_160_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_160_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_160_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_160_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_160_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -799,7 +799,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_161_src = $image;
 					$inline_img_161_attach_id = $inline_img_161_src ? attachment_url_to_postid( $inline_img_161_src ) : 0;
 					if ( $inline_img_161_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_161_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_161_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_161_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_161_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -987,7 +987,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_162_src = $image;
 					$inline_img_162_attach_id = $inline_img_162_src ? attachment_url_to_postid( $inline_img_162_src ) : 0;
 					if ( $inline_img_162_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_162_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_162_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_162_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_162_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -1601,7 +1601,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_163_src = $image;
 					$inline_img_163_attach_id = $inline_img_163_src ? attachment_url_to_postid( $inline_img_163_src ) : 0;
 					if ( $inline_img_163_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_163_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_163_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_163_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_163_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -1937,7 +1937,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_164_src = $image;
 					$inline_img_164_attach_id = $inline_img_164_src ? attachment_url_to_postid( $inline_img_164_src ) : 0;
 					if ( $inline_img_164_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_164_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_164_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_164_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_164_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -2123,7 +2123,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_165_src = $image;
 					$inline_img_165_attach_id = $inline_img_165_src ? attachment_url_to_postid( $inline_img_165_src ) : 0;
 					if ( $inline_img_165_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_165_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_165_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_165_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_165_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -2307,7 +2307,7 @@ if (user_can($current_user, 'administrator')) {
 					$inline_img_166_src = $image;
 					$inline_img_166_attach_id = $inline_img_166_src ? attachment_url_to_postid( $inline_img_166_src ) : 0;
 					if ( $inline_img_166_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_166_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_166_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_166_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_166_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
