@@ -937,6 +937,10 @@ function adapt_asset_version( $relative_path ) {
  *                        exclusive file (its classes are still shared with
  *                        other templates, which keep loading core.min.css
  *                        unchanged) - see source/scss/main-tpl-flexible.scss.
+ * - tpl-home.min.css     Loaded INSTEAD OF core.min.css for
+ *                        templates/template-home.php (the homepage) - same
+ *                        verified-safe-subset shape as tpl-flexible.min.css,
+ *                        see source/scss/main-tpl-home.scss.
  *
  * Extending this list means adding a new main-tpl-*.scss entry point
  * (compiled via source/gulp/tasks/build/styles.js) and a matching branch
@@ -986,6 +990,13 @@ function adapt_enqueue_template_styles() {
             $theme_uri . '/assets/css/tpl-flexible.min.css',
             array( 'adapt-global' ),
             adapt_asset_version( '/assets/css/tpl-flexible.min.css' )
+        );
+    } elseif ( is_page_template( 'templates/template-home.php' ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-home',
+            $theme_uri . '/assets/css/tpl-home.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-home.min.css' )
         );
     } else {
         wp_enqueue_style(

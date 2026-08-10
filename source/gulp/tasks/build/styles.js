@@ -12,10 +12,10 @@ var error = require('../../error.js');
 
 // The build used to compile everything (vendor libraries + every
 // templates/**/*.scss file) into a single main.min.css, loaded on every
-// page regardless of which template was active. header.php now enqueues
-// bundles conditionally based on the current page template (see its
-// wp_enqueue_style calls), so the build compiles one bundle per entry
-// point instead of concatenating them all together:
+// page regardless of which template was active. adapt_enqueue_template_styles()
+// in functions.php now enqueues bundles conditionally based on the current
+// page template, so the build compiles one bundle per entry point instead
+// of concatenating them all together:
 //
 //   global.min.css      - vendor libraries + base/forms/sections/print +
 //                          header/footer partials. Always loaded.
@@ -32,12 +32,16 @@ var error = require('../../error.js');
 //                          one keeps its source files in main-core.scss too,
 //                          since they're shared with other templates; it's
 //                          a verified-safe subset, not an exclusive file).
+//   tpl-home.min.css     - templates/template-home.php (the homepage) only -
+//                          same verified-safe-subset shape as tpl-flexible,
+//                          see main-tpl-home.scss.
 //
 // Extending this list means adding a new main-tpl-*.scss entry point,
 // excluding the matching templates/_*.scss file from main-core.scss (only if
 // truly exclusive - see main-tpl-flexible.scss for the alternative when it
-// isn't), and wiring up the conditional enqueue in header.php - see the
-// notes in main-core.scss before doing that for a new template.
+// isn't), and wiring up the conditional enqueue in
+// adapt_enqueue_template_styles() in functions.php - see the notes in
+// main-core.scss before doing that for a new template.
 
 function compileBundle(src, outputName) {
     return gulp.src(src)
@@ -87,10 +91,15 @@ function buildFlexibleStyles() {
     return compileBundle('source/scss/main-tpl-flexible.scss', 'tpl-flexible.min.css');
 }
 
+function buildHomeStyles() {
+    return compileBundle('source/scss/main-tpl-home.scss', 'tpl-home.min.css');
+}
+
 gulp.task('build:styles', gulp.parallel(
     buildGlobalStyles,
     buildCoreStyles,
     buildAgendaStyles,
     buildEventsStyles,
-    buildFlexibleStyles
+    buildFlexibleStyles,
+    buildHomeStyles
 ));

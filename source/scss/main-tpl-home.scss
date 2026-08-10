@@ -1,0 +1,47 @@
+// Exclusive bundle for templates/template-home.php (the homepage).
+//
+// Same shape as main-tpl-flexible.scss: this is a verified-safe SUBSET of
+// core.min.css's source files, not a set of files exclusive to this
+// template. _home.scss, _flexible.scss and the shared component/pooled
+// files below all still stay in main-core.scss too, since other templates
+// (single-post.php, single-event.php, template-flexible.php,
+// template-portal-flexible.php) genuinely need them - this bundle is only
+// loaded INSTEAD OF core.min.css for template-home.php pages, never
+// alongside it.
+//
+// Checked every top-level selector in the same 15 files verified safe for
+// template-flexible.php (_account, _advantage-styling, _announcements,
+// _benchmarking, _contact, _data-insights, _default, _kits, _login,
+// _my-topics, _partners, _search-results, _single-speaker, _thank-you,
+// _webinars) against every class literal in template-home.php and its 14
+// get_template_part()/locate_template() component dependencies
+// (_download-block(-two/-three-columns), _video-block-two/-three-columns,
+// _two-column-card, _counter-block, _repeatable-counter-block,
+// _related-articles-grid-block, _full-width-text-block, _speaker-cta-block,
+// _related-articles-taxonomies(-grid), _full-image-button-block, plus
+// _locked-content pulled in by two of those) - same two false positives as
+// flexible (`section.two-column` vs a `<div class="column two-column">`;
+// `section.register` vs template-home.php's own `<div class="formWrapper
+// register">` HubSpot form wrapper), no other matches. All 15 files
+// confirmed safe to leave out of this bundle.
+//
+// Unlike template-flexible.php, home.php's own flexible-content system
+// (29 layouts) directly uses several of _flexible.scss's layout classes
+// inline (banner, halfHalfBlock, speakerQuoteCarousel, quoteBlockNoImage),
+// and its component dependencies have real, specific (not generic/
+// false-positive) cross-references into all five of _single-events,
+// _portal-modules, _post, _post-new and _single-post (imageGridBlock,
+// videoPlayerContainer, registrationOverlay, relatedArticlesCarousel,
+// singlePost, textImageBlock, fullImageInfogram, twoColumnCard, and more) -
+// so all five stay in, same as template-flexible.php's bundle.
+@import 'global/_mixins';
+@import 'global/_variables';
+@import 'global/_typography-vars';
+
+@import 'templates/_home';
+@import 'templates/_flexible';
+@import 'templates/_portal-modules';
+@import 'templates/_post';
+@import 'templates/_post-new';
+@import 'templates/_single-events';
+@import 'templates/_single-post';
