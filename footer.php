@@ -9,6 +9,9 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
 <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
 <script>
 	window.__cgptConfig = { p_id: '98865', p_key: 'f12d51cc482847f28a6333cf7f6a5c9d' };
+    <?php if( !is_front_page() ) : ?>
+    CustomGPT.init(window.__cgptConfig);
+    <?php endif; ?>
 </script>
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'98043', p_key:'8c7e9ac540d9dd825d6cf4eab0ade038' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'97474', p_key:'b53f0fe49da7c1843edb69e542282c3d' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
