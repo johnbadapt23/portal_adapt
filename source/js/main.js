@@ -18,21 +18,7 @@
 		@@include('includes/_maps.js')
 
 		resize();
-		// matchHeightInit() forces a synchronous layout read (getBoundingClientRect)
-		// across ~25 selector groups sitewide to find/equalize tallest siblings -
-		// real, measurable main-thread cost during the exact window the browser is
-		// also trying to paint the LCP candidate (confirmed via a Lighthouse trace
-		// showing a 2.36s LCP render delay on the homepage, driven by main-thread
-		// contention). Deferring it to an idle slot doesn't change what it does or
-		// when visually-mismatched siblings get equalized in practice (that already
-		// only happens after document ready today, same flash either way) - it just
-		// stops it from competing for main-thread time during initial paint.
-		// requestIdleCallback isn't in Safari < 16.4, hence the timeout fallback.
-		if ('requestIdleCallback' in window) {
-			requestIdleCallback(matchHeightInit, { timeout: 1000 });
-		} else {
-			setTimeout(matchHeightInit, 0);
-		}
+		matchHeightInit();
 		select2();
 		outsideContainer();
 		scrollMobile();
