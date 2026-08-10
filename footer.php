@@ -5,7 +5,15 @@ $user = wp_get_current_user();
 $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || current_user_can('administrator');
 ?>
 
-<?php if( $is_agent_tester ) : ?>
+<?php
+// The front page (portal-home-2) has its own separate, always-eager
+// embedded AI panel (.cgpt-hero-card / #customgpt-chat-1, rendered
+// automatically by chat.js itself once window.__cgptConfig is set - see
+// the accessibility fixes for it further down this file). CustomGPT is
+// intentionally left off the front page entirely: no chat.js, no header
+// toggle button (see templates/partials/_header.php's matching
+// is_front_page() check), nothing.
+if( $is_agent_tester && ! is_front_page() ) : ?>
 <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
 <script>
 	window.__cgptConfig = { p_id: '98865', p_key: 'f12d51cc482847f28a6333cf7f6a5c9d' };
@@ -17,9 +25,12 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
     var cgptInitStarted = false;
 
     // CustomGPT.init() fires several admin-ajax proxy calls (project info,
-    // settings, conversation create) that each take multiple seconds. It used
-    // to run unconditionally on window load for every page view; now it only
-    // runs the first time the user actually opens the chat toggle.
+    // settings, conversation create) that each take multiple seconds, so
+    // this runs it once per page load rather than more than once - but it
+    // runs eagerly (window load), not gated behind the header toggle click,
+    // so the widget is ready immediately. cgptInitStarted makes this safe
+    // to also call from the click handler below without double-initing if
+    // the eager call already ran (or is still in flight).
     function ensureCustomGptInit(onReady) {
         if (typeof CustomGPT === 'undefined' || !window.__cgptConfig) {
             onReady();
@@ -44,6 +55,13 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
                 onReady();
             }
         }, 300);
+    }
+
+    function noop() {}
+    if (document.readyState === 'complete') {
+        ensureCustomGptInit(noop);
+    } else {
+        window.addEventListener('load', function () { ensureCustomGptInit(noop); });
     }
 
     function openCustomGptWidget() {

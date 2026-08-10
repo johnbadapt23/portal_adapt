@@ -78,7 +78,14 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
 				</a>
 			</span>
 			<span class="headerTopRight">
-                <?php if( $is_agent_tester ) : ?>
+                <?php
+                // The front page has its own separate, always-visible
+                // embedded AI panel (.cgpt-hero-card) - see footer.php's
+                // matching is_front_page() check. This header toggle button
+                // would be dead weight there (its click handler lives in
+                // footer.php's CustomGPT script, which doesn't load on the
+                // front page at all), so hide it there too.
+                if( $is_agent_tester && ! is_front_page() ) : ?>
                 <span class="customgpt-toggle">
                     <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M25.5042 22.3373C25.5051 22.4946 25.4573 22.6483 25.3673 22.7773C25.2773 22.9064 25.1496 23.0043 25.0016 23.0577L22.5138 23.9768L21.5974 26.4661C21.5431 26.6135 21.4449 26.7407 21.3161 26.8305C21.1872 26.9204 21.0339 26.9686 20.8768 26.9686C20.7197 26.9686 20.5664 26.9204 20.4375 26.8305C20.3087 26.7407 20.2105 26.6135 20.1562 26.4661L19.234 23.9768L16.7443 23.0606C16.5969 23.0064 16.4696 22.9082 16.3798 22.7794C16.2899 22.6506 16.2417 22.4973 16.2417 22.3402C16.2417 22.1831 16.2899 22.0298 16.3798 21.901C16.4696 21.7722 16.5969 21.674 16.7443 21.6198L19.234 20.6978L20.1504 18.2086C20.2047 18.0612 20.3029 17.9339 20.4317 17.8441C20.5606 17.7542 20.7139 17.7061 20.871 17.7061C21.0281 17.7061 21.1814 17.7542 21.3103 17.8441C21.4391 17.9339 21.5373 18.0612 21.5916 18.2086L22.5138 20.6978L25.0035 21.614C25.1516 21.6679 25.2793 21.7664 25.369 21.896C25.4586 22.0256 25.5059 22.1798 25.5042 22.3373Z" fill="#E7534F"/>
