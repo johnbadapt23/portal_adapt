@@ -1,7 +1,9 @@
 // Default bundle for every page template EXCEPT the ones that have been
 // verified safe to split out into their own exclusive bundle (see
-// main-tpl-agenda.scss / main-tpl-events.scss and header.php's enqueue
-// logic). This is intentionally everything templates/**/*.scss would have
+// main-tpl-agenda.scss / main-tpl-events.scss / main-tpl-flexible.scss /
+// main-tpl-home.scss / main-tpl-portal-flexible.scss and
+// adapt_enqueue_template_styles() in functions.php). This is intentionally
+// everything templates/**/*.scss would have
 // pulled in before the split, MINUS _agenda.scss and _events.scss, so every
 // template not explicitly special-cased keeps getting exactly the CSS it
 // already relies on today - zero behaviour change for those pages.

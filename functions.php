@@ -938,9 +938,17 @@ function adapt_asset_version( $relative_path ) {
  *                        other templates, which keep loading core.min.css
  *                        unchanged) - see source/scss/main-tpl-flexible.scss.
  * - tpl-home.min.css     Loaded INSTEAD OF core.min.css for
- *                        templates/template-home.php (the homepage) - same
+ *                        templates/template-home.php - same
  *                        verified-safe-subset shape as tpl-flexible.min.css,
- *                        see source/scss/main-tpl-home.scss.
+ *                        see source/scss/main-tpl-home.scss. NOT the real
+ *                        homepage despite the name - see below.
+ * - tpl-portal-flexible.min.css Loaded INSTEAD OF core.min.css for
+ *                        templates/template-portal-flexible.php - this IS
+ *                        the real homepage template (confirmed live via
+ *                        body class template-portal-flexible on the
+ *                        front page for logged-in advantage/professional/
+ *                        free-trial members). Same verified-safe-subset
+ *                        shape, see source/scss/main-tpl-portal-flexible.scss.
  *
  * Extending this list means adding a new main-tpl-*.scss entry point
  * (compiled via source/gulp/tasks/build/styles.js) and a matching branch
@@ -997,6 +1005,13 @@ function adapt_enqueue_template_styles() {
             $theme_uri . '/assets/css/tpl-home.min.css',
             array( 'adapt-global' ),
             adapt_asset_version( '/assets/css/tpl-home.min.css' )
+        );
+    } elseif ( is_page_template( 'templates/template-portal-flexible.php' ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-portal-flexible',
+            $theme_uri . '/assets/css/tpl-portal-flexible.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-portal-flexible.min.css' )
         );
     } else {
         wp_enqueue_style(

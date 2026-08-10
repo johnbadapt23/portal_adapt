@@ -32,9 +32,16 @@ var error = require('../../error.js');
 //                          one keeps its source files in main-core.scss too,
 //                          since they're shared with other templates; it's
 //                          a verified-safe subset, not an exclusive file).
-//   tpl-home.min.css     - templates/template-home.php (the homepage) only -
-//                          same verified-safe-subset shape as tpl-flexible,
-//                          see main-tpl-home.scss.
+//   tpl-home.min.css     - templates/template-home.php only - same
+//                          verified-safe-subset shape as tpl-flexible, see
+//                          main-tpl-home.scss. NOTE: this is NOT the real
+//                          homepage template despite the name - see
+//                          tpl-portal-flexible.min.css below.
+//   tpl-portal-flexible.min.css - templates/template-portal-flexible.php -
+//                          this IS the real homepage template (confirmed
+//                          live via body class template-portal-flexible).
+//                          Same verified-safe-subset shape, see
+//                          main-tpl-portal-flexible.scss.
 //
 // Extending this list means adding a new main-tpl-*.scss entry point,
 // excluding the matching templates/_*.scss file from main-core.scss (only if
@@ -95,11 +102,16 @@ function buildHomeStyles() {
     return compileBundle('source/scss/main-tpl-home.scss', 'tpl-home.min.css');
 }
 
+function buildPortalFlexibleStyles() {
+    return compileBundle('source/scss/main-tpl-portal-flexible.scss', 'tpl-portal-flexible.min.css');
+}
+
 gulp.task('build:styles', gulp.parallel(
     buildGlobalStyles,
     buildCoreStyles,
     buildAgendaStyles,
     buildEventsStyles,
     buildFlexibleStyles,
-    buildHomeStyles
+    buildHomeStyles,
+    buildPortalFlexibleStyles
 ));
