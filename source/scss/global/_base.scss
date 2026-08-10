@@ -27,21 +27,42 @@
 	outline-offset: 2px;
 }
 
-// CLS fix: slick-carousel's own base CSS (node_modules/slick-carousel,
-// compiled in via source/gulp/paths.js) sets .slick-slide { display: none }
-// and only flips it to display: block once .slick-initialized is added by
-// slick.js - see matchHeightInit()'s many .slick({...}) calls in
-// source/js/main.js, all of which run on document ready, not before. Until
-// then every carousel on the page renders at ~0 height, so slick.js
-// initializing snaps each one from 0 to its real height, shoving everything
-// below it down - a large, well-documented Slick layout shift. Confirmed
-// live via Lighthouse: the two carousels stacked as the first two sections
-// of the authenticated homepage (template-portal-flexible.php) accounted
-// for nearly the entire 0.2 CLS score between them. Keeping the first slide
-// visible before init means the carousel already occupies its real height,
-// so there's nothing left to snap into once slick.js runs.
-.slick-slider:not(.slick-initialized) .slick-slide:first-child {
-	display: block;
+// CLS fix, take 2. The first attempt here targeted .slick-slide /
+// .slick-initialized, on the theory that slick-carousel's own CSS hides
+// slides until slick.js adds .slick-initialized. That theory was wrong:
+// confirmed via the raw server-rendered HTML (fetched directly, before any
+// JS runs) that it contains zero occurrences of "slick" anywhere at all -
+// slick.js adds slick-slide AND slick-initialized together, in the same
+// operation, so there's never a moment where one exists without the other.
+// The rule below was inert; removed.
+//
+// The real mechanism: each carousel's RAW pre-slick markup is just its
+// slide items in their own theme-specific class (not slick's), laid out
+// with plain float:left/width:100% (or, in the .slider case, no explicit
+// layout rule at all - a bare stacked <div> per item). With no carousel
+// styling applied yet, every slide renders at full height, stacked
+// vertically - e.g. 3 slides worth of image+text each - and THAT collapses
+// down once slick.js wraps them into a single-slide-height track. Confirmed
+// live via Lighthouse: the homepage's first two sections
+// (.resources-featured-slider, .slideContainer .slider) accounted for
+// nearly the entire CLS score between them, and confirmed the fix target is
+// right by checking the actual raw HTML for both (no "slick" anywhere,
+// each slide item a direct child of its slider wrapper, matching
+// :first-child correctly).
+//
+// Same "hide everything but the first slide until initialized" strategy as
+// before, just keyed off the actual pre-init class names this time. Add a
+// line here for any other homepage (or sitewide) carousel found to have
+// the same raw-markup-stacks-before-slick-collapses-it problem - check the
+// raw HTML first via a fetch(), not the live already-initialized DOM. Scope
+// each one to its own wrapper/item class pair; a single generic .slick-*
+// rule can't work here as explained above.
+.resources-featured-slider:not(.slick-initialized) .resources-featured-slide:not(:first-child) {
+	display: none;
+}
+
+.slideContainer .slider:not(.slick-initialized) .slider-item:not(:first-child) {
+	display: none;
 }
 
 ::selection {
