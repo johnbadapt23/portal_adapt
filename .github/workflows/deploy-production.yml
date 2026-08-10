@@ -1,0 +1,183 @@
+name: Build & Deploy (SFTP) - Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      sync:
+        description: 'File synchronization'
+        required: true
+        default: 'delta'
+        type: choice
+        options:
+          - delta
+          - full
+
+concurrency:
+  group: deploy-production-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # Separate "Production" GitHub Environment with its own credentials -
+    # none of the Staging secrets/vars are reused. Add these under repo
+    # Settings -> Environments -> Production before this workflow's first
+    # run: vars PRODUCTION_HOST, PRODUCTION_PORT (optional, defaults to 22),
+    # PRODUCTION_REMOTE_PATH; secrets PRODUCTION_USERNAME, PRODUCTION_PASS
+    # (the SSH private key contents, same as STAGING_PASS's naming holdover
+    # for deploy.yml - it's a key, not a password).
+    environment: Production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # Delta sync diffs against the previous commit, so it needs full
+          # history, not the default shallow clone.
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install native build tool dependencies
+        # gulp-image pulls in mozjpeg/gifsicle/zopflipng/pngquant binaries
+        # (via the imagemin "*-bin" packages) that need system shared libs
+        # or build tooling as a fallback (see imagemin/pngquant-bin#130).
+        # fontforge is intentionally NOT installed here: gulp-fontgen only
+        # gets require()'d (and only then does its own fontforge check) once
+        # source/fonts/*.ttf|*.otf actually exist - see source/gulp/tasks/
+        # build/fonts.js. Add it back to this list if that ever changes.
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            libimagequant0 build-essential autoconf automake libtool pkg-config
+
+      - name: Cache node_modules
+        # actions/setup-node's cache:npm only caches the ~/.npm registry
+        # tarball cache, which doesn't help gulp-image's imagemin "*-bin"
+        # deps - their postinstall scripts fetch prebuilt binaries straight
+        # from GitHub releases (a different source, so it re-downloads
+        # every run regardless). Caching node_modules itself skips the
+        # whole install + postinstall step on a lockfile-unchanged run.
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci --no-audit --no-fund
+
+      - name: Build theme assets
+        run: npx gulp _build
+
+      - name: Deploy over SFTP
+        # Deploys straight from the repo root (not a staged copy) because
+        # delta sync's change detection is `git diff <prev commit>..<head>`,
+        # which only means anything against an actual git working tree.
+        #
+        # IMPORTANT: that git-diff approach can't see changes made by the
+        # build step above - assets/css/{global,core,tpl-agenda,tpl-events,tpl-flexible,tpl-home}.min.css
+        # and assets/js/main.min.js are committed files, but the build
+        # regenerates them in the runner's working directory without
+        # re-committing. A commit that only touches source/scss/*.scss would
+        # show them as unchanged in git diff even though the freshly-built
+        # files on disk are genuinely different, so they'd silently NOT get
+        # re-uploaded. sync-delta-includes below exists specifically for
+        # this - it force-includes all of them in every deploy regardless of
+        # what git diff reports. (CSS used to be one main.min.css bundle;
+        # it's now split per-template so a page only loads what it needs -
+        # see header.php and source/scss/main-core.scss.)
+        uses: milanmk/actions-file-deployer@master
+        with:
+          remote-protocol: sftp
+          remote-host: ${{ vars.PRODUCTION_HOST }}
+          remote-port: ${{ vars.PRODUCTION_PORT || '22' }}
+          remote-user: ${{ secrets.PRODUCTION_USERNAME }}
+          # PRODUCTION_PASS holds the SSH private key contents, not a
+          # password (mirrors STAGING_PASS's naming in deploy.yml).
+          ssh-private-key: ${{ secrets.PRODUCTION_PASS }}
+          remote-path: ${{ vars.PRODUCTION_REMOTE_PATH }}
+          local-path: .
+          # workflow_dispatch can override to 'full' (e.g. for the first run
+          # after this change, or to recover if delta ever drifts). Ordinary
+          # pushes to main always use delta.
+          sync: ${{ github.event.inputs.sync || 'delta' }}
+          # Dev-only tracked files that should never reach the live server.
+          # .git*, .git/, .github/ are already excluded by the action itself.
+          #
+          # This MUST be a folded scalar (>-), not a literal one (|). The
+          # action's composite script substitutes ${{ inputs.sync-delta-excludes }}
+          # as raw text into the middle of a single `git diff ... -- <pathspecs>`
+          # command line, before bash ever parses it - a literal block scalar
+          # keeps real newlines, which land in the script as actual line
+          # breaks and split that one command into several, the next of which
+          # (":!/whatever") bash then tries to execute as a program and fails
+          # with "No such file or directory". Folded style turns each line
+          # break into a single space instead, keeping it all one command.
+          sync-delta-excludes: >-
+            :!/README.md
+            :!/gulpfile.js
+            :!/package.json
+            :!/package-lock.json
+            :!/.nvmrc
+            :!/source
+            :!/nov-functions.php
+            :!/nov-header.php
+            :!/oct-25-functions.php
+            :!/oct-25-header.php
+            :!/old-functions.php
+            :!/one-signal-header.php
+            :!/sept-functions.php
+            :!/june-footer.php
+            :!/header-stage.php
+            :!/assets/css/march-24-main.min.css
+            :!/assets/css/oct-23-main.min.css
+            :!/assets/js/main-bk.min.js
+            :!/assets/js/nov-main.min.js
+            :!/assets/js/sept-24-main.min.js
+            :!/assets/css/save-pdf.css
+            :!/assets/js/ajax-functions.js
+            :!/assets/js/jquery.customSelect.js
+            :!/assets/js/modernizr-2.7.1.min.js
+            :!/assets/watch-icon-grey.svg
+            :!/assets/js/bkup
+          sync-delta-includes: assets/css/global.min.css,assets/css/core.min.css,assets/css/tpl-agenda.min.css,assets/css/tpl-events.min.css,assets/css/tpl-flexible.min.css,assets/css/tpl-home.min.css,assets/js/main.min.js
+          # Mirrors of the excludes above, in lftp's own syntax, for when
+          # sync=full - full sync mirrors the actual working directory
+          # (everything the build step produced, node_modules included),
+          # it isn't scoped to git-tracked files the way delta is.
+          ftp-mirror-options: >-
+            --exclude-glob=node_modules/
+            --exclude-glob=source/
+            --exclude-glob=README.md
+            --exclude-glob=gulpfile.js
+            --exclude-glob=package.json
+            --exclude-glob=package-lock.json
+            --exclude-glob=.nvmrc
+            --exclude-glob=nov-functions.php
+            --exclude-glob=nov-header.php
+            --exclude-glob=oct-25-functions.php
+            --exclude-glob=oct-25-header.php
+            --exclude-glob=old-functions.php
+            --exclude-glob=one-signal-header.php
+            --exclude-glob=sept-functions.php
+            --exclude-glob=june-footer.php
+            --exclude-glob=header-stage.php
+            --exclude-glob=assets/css/march-24-main.min.css
+            --exclude-glob=assets/css/oct-23-main.min.css
+            --exclude-glob=assets/js/main-bk.min.js
+            --exclude-glob=assets/js/nov-main.min.js
+            --exclude-glob=assets/js/sept-24-main.min.js
+            --exclude-glob=assets/css/save-pdf.css
+            --exclude-glob=assets/js/ajax-functions.js
+            --exclude-glob=assets/js/jquery.customSelect.js
+            --exclude-glob=assets/js/modernizr-2.7.1.min.js
+            --exclude-glob=assets/watch-icon-grey.svg
+            --exclude-glob=assets/js/bkup/
+          artifacts: true
