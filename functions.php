@@ -1064,11 +1064,29 @@ function my_enqueue_scripts() {
     );
 
     // Main JS
+    //
+    // The version query string used to be hardcoded (?vers=2.0.0, with $ver
+    // passed as null below it so WP wouldn't add its own) - meaning every
+    // rebuild of this file kept shipping under the exact same URL forever.
+    // Found this live: after deploying a real fix to this file, fetch()ing
+    // the URL directly returned the new code (cache: 'no-store' bypasses the
+    // browser's cache), but the code jQuery had ACTUALLY loaded and bound on
+    // a normal page load - checked via $._data(document, 'events').init[0]
+    // .handler.toString() - was still the old, pre-fix version. Cache-
+    // Control on this file is max-age=31536000 (1 year), so any browser that
+    // had ever loaded main.min.js?vers=2.0.0 before kept serving that exact
+    // cached copy for a year, never re-checking the server, no matter how
+    // many times the underlying file changed - a plausible contributor to
+    // more than one "already fixed but still showing broken" report earlier
+    // in this project. adapt_asset_version() (already used for every CSS
+    // bundle) generates a version string from the file's own mtime, so the
+    // URL itself changes on every rebuild instead of relying on someone
+    // remembering to bump ?vers= by hand.
     wp_enqueue_script(
         'main-js',
-        get_template_directory_uri() . '/assets/js/main.min.js?vers=2.0.0',
+        get_template_directory_uri() . '/assets/js/main.min.js',
         array('jquery'),
-        null,
+        adapt_asset_version( '/assets/js/main.min.js' ),
         true
     );
 
