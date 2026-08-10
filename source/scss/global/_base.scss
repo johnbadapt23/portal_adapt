@@ -27,6 +27,23 @@
 	outline-offset: 2px;
 }
 
+// CLS fix: slick-carousel's own base CSS (node_modules/slick-carousel,
+// compiled in via source/gulp/paths.js) sets .slick-slide { display: none }
+// and only flips it to display: block once .slick-initialized is added by
+// slick.js - see matchHeightInit()'s many .slick({...}) calls in
+// source/js/main.js, all of which run on document ready, not before. Until
+// then every carousel on the page renders at ~0 height, so slick.js
+// initializing snaps each one from 0 to its real height, shoving everything
+// below it down - a large, well-documented Slick layout shift. Confirmed
+// live via Lighthouse: the two carousels stacked as the first two sections
+// of the authenticated homepage (template-portal-flexible.php) accounted
+// for nearly the entire 0.2 CLS score between them. Keeping the first slide
+// visible before init means the carousel already occupies its real height,
+// so there's nothing left to snap into once slick.js runs.
+.slick-slider:not(.slick-initialized) .slick-slide:first-child {
+	display: block;
+}
+
 ::selection {
 	//background: $selection-bg;
 	color: $selection-color;
