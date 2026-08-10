@@ -82,7 +82,7 @@ if (user_can($current_user, 'administrator')) {
                 <span class="search">
                     <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="search icon" /></span>
 					<form action="/" method="get">
-						<input class="searchInput" type="text" name="s" id="search" placeholder="Search..." value="" />
+						<input class="searchInput" type="text" name="s" id="search" aria-label="Search" placeholder="Search..." value="" />
 					</form>
 				</span>
 				<span class="notifications">
@@ -1346,7 +1346,7 @@ if (user_can($current_user, 'administrator')) {
                 <span class="search mobile">
                     <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="Search" /></span>
 					<form action="/" method="get">
-						<input class="searchInput" type="text" name="s" id="search" placeholder="Search..." value="" />
+						<input class="searchInput" type="text" name="s" id="search-mobile" aria-label="Search" placeholder="Search..." value="" />
 					</form>
                     <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" alt="Close search" /></span>
 				</span>

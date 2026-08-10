@@ -106,6 +106,46 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
             setTimeout(function() { heroObserver.disconnect(); }, 15000);
         }
     }
+
+    // Accessibility: the widget's chat card (.cgpt-hero-card, confirmed via
+    // DOM inspection - a React island with no id/name/data-* hooks on either
+    // field) renders a <textarea> (inside .cgpt-input-row) and a separate
+    // file-upload <input> (a sibling section of the same card, not inside
+    // the input row) with no accessible name, both flagged by Lighthouse's
+    // "form elements do not have associated labels" check. Can't edit the
+    // widget's own markup, so patch the fields once they exist, same
+    // MutationObserver approach as demoteHeroTitle above. Not gated to a
+    // body class - the card can render wherever the widget's chat UI opens,
+    // not just portal-home-2.
+    var labelCgptInputs = function() {
+        var card = document.querySelector('.cgpt-hero-card');
+        if (!card) return false;
+        var textarea = card.querySelector('textarea');
+        var fileInput = card.querySelector('input[type="file"]');
+        var done = true;
+        if (textarea) {
+            if (!textarea.getAttribute('aria-label')) {
+                textarea.setAttribute('aria-label', textarea.placeholder || 'Ask a question');
+            }
+        } else {
+            done = false;
+        }
+        if (fileInput) {
+            if (!fileInput.getAttribute('aria-label')) {
+                fileInput.setAttribute('aria-label', 'Attach a file');
+            }
+        } else {
+            done = false;
+        }
+        return done;
+    };
+    if (!labelCgptInputs()) {
+        var inputObserver = new MutationObserver(function() {
+            if (labelCgptInputs()) inputObserver.disconnect();
+        });
+        inputObserver.observe(document.body, { childList: true, subtree: true });
+        setTimeout(function() { inputObserver.disconnect(); }, 15000);
+    }
 })();
 (function($) {
     var added = false;
