@@ -22,19 +22,29 @@
 		// $dots, set in slick.js's buildOut()), and the 'init' event's second
 		// argument is that instance - use that instead of DOM traversal.
 		//
-		// The dots role also needs a setTimeout(0): slick's own initADA()
-		// (slick.js's built-in accessibility handling, runs whenever
-		// options.accessibility isn't explicitly false - true here since none
-		// of this site's .slick({...}) calls set it) runs synchronously right
-		// after the 'init' event finishes firing, and unconditionally sets
+		// The dots role also needs to survive slick's own initADA() (slick.js's
+		// built-in accessibility handling, runs whenever options.accessibility
+		// isn't explicitly false - true here since none of this site's
+		// .slick({...}) calls set it), which runs synchronously right after
+		// the 'init' event finishes firing and unconditionally sets
 		// role="presentation" on every dot <li> as part of its own (different)
-		// tablist pattern - so setting role="tab" here during the 'init'
-		// handler itself gets immediately overwritten the instant this handler
-		// returns. Deferring to the next tick runs after initADA has already
-		// finished, so it sticks. Verified live on all 5 of this site's
-		// carousels (including resources-featured-slider's custom customPaging,
-		// which renders a plain <a> slick's own initADA can't label since it
-		// only looks for a nested <button>).
+		// tablist pattern - so a plain assignment inside this handler gets
+		// immediately overwritten the instant it returns.
+		//
+		// A one-time setTimeout(0) (run after initADA finishes) fixed 4 of
+		// this site's 5 carousels, verified live - but resources-featured-
+		// slider (the one with fade: true + autoplay + a custom customPaging)
+		// kept reverting back to role="presentation" sometime after that,
+		// confirmed live by re-checking several seconds later. Couldn't
+		// pin down a single slick.js call path that explains it (checked
+		// checkResponsive/refresh - not it, this carousel has no responsive
+		// breakpoints configured; updateDots - only ever toggles
+		// slick-active, never touches role), so rather than chase slick's
+		// internals further for one edge case, made the fix self-healing
+		// instead: a MutationObserver watching for the role attribute
+		// drifting away from "tab" and putting it straight back, which
+		// verified live to survive multiple autoplay cycles regardless of
+		// whatever is resetting it.
 		$(document).on('init', '.slick-slider', function(event, slick) {
 			if (!slick) return;
 
@@ -45,9 +55,19 @@
 				slick.$nextArrow.attr('aria-label', 'Next slide');
 			}
 			if (slick.$dots && slick.$dots.length) {
-				setTimeout(function () {
-					slick.$dots.find('> li').attr('role', 'tab');
-				}, 0);
+				var applyDotTabRoles = function () {
+					slick.$dots.find('> li').each(function () {
+						if (this.getAttribute('role') !== 'tab') {
+							this.setAttribute('role', 'tab');
+						}
+					});
+				};
+				setTimeout(applyDotTabRoles, 0);
+				new MutationObserver(applyDotTabRoles).observe(slick.$dots[0], {
+					attributes: true,
+					attributeFilter: ['role'],
+					subtree: true
+				});
 			}
 		});
 
