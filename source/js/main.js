@@ -8,10 +8,47 @@
 		// .slick() init below so this fires on every slider's 'init' event,
 		// current and future, without having to touch each individual
 		// .slick({...}) call.
-		$(document).on('init', '.slick-slider', function() {
-			$(this).find('.slick-prev').attr('aria-label', 'Previous slide');
-			$(this).find('.slick-next').attr('aria-label', 'Next slide');
-			$(this).find('.slick-dots > li').attr('role', 'tab');
+		//
+		// This previously used $(this).find(...) to locate the arrows/dots,
+		// which silently did nothing on every carousel on this site: all of
+		// them pass appendArrows/appendDots, which move slick's generated
+		// markup OUT of the .slick-slider element entirely (into a sibling
+		// container elsewhere in the DOM, per each carousel's own layout) -
+		// confirmed live, 0 of the arrow/dot elements are actually descendants
+		// of .slick-slider. Verified by manually re-triggering 'init' on a
+		// live slider and checking $(this).find('.slick-prev').length: 0.
+		// slick's own instance keeps direct references to these elements
+		// regardless of where they were appended (this.$prevArrow/$nextArrow/
+		// $dots, set in slick.js's buildOut()), and the 'init' event's second
+		// argument is that instance - use that instead of DOM traversal.
+		//
+		// The dots role also needs a setTimeout(0): slick's own initADA()
+		// (slick.js's built-in accessibility handling, runs whenever
+		// options.accessibility isn't explicitly false - true here since none
+		// of this site's .slick({...}) calls set it) runs synchronously right
+		// after the 'init' event finishes firing, and unconditionally sets
+		// role="presentation" on every dot <li> as part of its own (different)
+		// tablist pattern - so setting role="tab" here during the 'init'
+		// handler itself gets immediately overwritten the instant this handler
+		// returns. Deferring to the next tick runs after initADA has already
+		// finished, so it sticks. Verified live on all 5 of this site's
+		// carousels (including resources-featured-slider's custom customPaging,
+		// which renders a plain <a> slick's own initADA can't label since it
+		// only looks for a nested <button>).
+		$(document).on('init', '.slick-slider', function(event, slick) {
+			if (!slick) return;
+
+			if (slick.$prevArrow && slick.$prevArrow.length) {
+				slick.$prevArrow.attr('aria-label', 'Previous slide');
+			}
+			if (slick.$nextArrow && slick.$nextArrow.length) {
+				slick.$nextArrow.attr('aria-label', 'Next slide');
+			}
+			if (slick.$dots && slick.$dots.length) {
+				setTimeout(function () {
+					slick.$dots.find('> li').attr('role', 'tab');
+				}, 0);
+			}
 		});
 
 		// STANDARD
