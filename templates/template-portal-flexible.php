@@ -29,7 +29,16 @@ actually identifies the page. Visually hidden so the design is unaffected. -->
 
 
 
-<?= do_shortcode('[customgpt_chat mode="embedded"]'); ?>
+<?php
+$user = wp_get_current_user();
+$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || current_user_can('administrator');
+
+if( $is_agent_tester ){
+	echo do_shortcode('[customgpt_chat mode="embedded"]');
+}
+
+
+?>
 <!-- <script src="https://cdn.customgpt.ai/js/embed.js" defer div_id="customgpt_chat" p_id="98043" p_key="8c7e9ac540d9dd825d6cf4eab0ade038"></script>  -->
 <!-- <script src="https://cdn.customgpt.ai/js/embed.js" defer div_id="customgpt_chat" p_id="98865" p_key="f12d51cc482847f28a6333cf7f6a5c9d"></script>  -->
 
