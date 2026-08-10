@@ -21,8 +21,17 @@
 <link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#000000">
 <meta name="theme-color" content="#000000">
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js" defer></script>
+<?php
+    // Pinned to the exact versions @latest currently resolves to (checked
+    // 2026-08-10) instead of @latest itself - @latest is a moving target on
+    // unpkg: it can silently start serving a different (possibly breaking)
+    // version with no warning, and CDNs generally cache pinned-version URLs
+    // far more aggressively/for longer than @latest ones, since a pinned
+    // URL's content can never change. Bump these deliberately when there's
+    // a reason to, rather than automatically on every visitor.
+?>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" defer></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-interactivity@1.6.2/dist/lottie-interactivity.min.js" defer></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
 <?php
     // Falls back to the site icon when a page has no featured_image/video_poster
