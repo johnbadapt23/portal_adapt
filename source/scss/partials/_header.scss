@@ -1040,7 +1040,12 @@ header {
 								width:6.5px;
 								height: 4.5px;
 								transform: rotate(0deg);
-								@include transition();
+								// Only ever animates the rotate on .active below -
+								// narrowed from transition:all (which forces the
+								// browser to watch every property, including
+								// non-composited ones, even though only transform
+								// ever actually changes here) to just transform.
+								@include transition(transform);
 							}
 						}
 					}
@@ -1063,7 +1068,9 @@ header {
 						line-height: 52px;
 						font-size: 14px;
 						color: #000 !important;
-						@include transition();
+						// Only ever animates color on :hover below - narrowed from
+						// transition:all for the same reason as above.
+						@include transition(color);
 
 						@include responsive(1023) {
 							font-size: 11px;
