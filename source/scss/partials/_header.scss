@@ -2562,6 +2562,7 @@ nav.mobileMenu.active {
 
 		@include responsive(767) {
 			top: -1px;
+			line-height: 1;
 		}
 
 		&:hover {
