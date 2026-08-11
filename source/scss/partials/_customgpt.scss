@@ -188,4 +188,24 @@ span.customgpt-toggle {
 	gap: 5px;
 	font-size: 14px;
 	cursor: pointer;
+
+	&.desktop{
+		display: flex;
+	}
+
+	&.mobile{
+		display: none;
+	}
+
+	@include responsive(767){
+		float: right;
+		
+		&.desktop{
+			display: none;
+		}
+
+		&.mobile{
+			display: flex;
+		}
+	}
 }
