@@ -199,7 +199,8 @@ span.customgpt-toggle {
 
 	@include responsive(767){
 		float: right;
-		
+		margin-top: 7px;
+
 		&.desktop{
 			display: none;
 		}
