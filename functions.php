@@ -938,9 +938,17 @@ function adapt_asset_version( $relative_path ) {
  *                        other templates, which keep loading core.min.css
  *                        unchanged) - see source/scss/main-tpl-flexible.scss.
  * - tpl-home.min.css     Loaded INSTEAD OF core.min.css for
- *                        templates/template-home.php (the homepage) - same
+ *                        templates/template-home.php - same
  *                        verified-safe-subset shape as tpl-flexible.min.css,
- *                        see source/scss/main-tpl-home.scss.
+ *                        see source/scss/main-tpl-home.scss. NOT the real
+ *                        homepage despite the name - see below.
+ * - tpl-portal-flexible.min.css Loaded INSTEAD OF core.min.css for
+ *                        templates/template-portal-flexible.php - this IS
+ *                        the real homepage template (confirmed live via
+ *                        body class template-portal-flexible on the
+ *                        front page for logged-in advantage/professional/
+ *                        free-trial members). Same verified-safe-subset
+ *                        shape, see source/scss/main-tpl-portal-flexible.scss.
  *
  * Extending this list means adding a new main-tpl-*.scss entry point
  * (compiled via source/gulp/tasks/build/styles.js) and a matching branch
@@ -998,6 +1006,13 @@ function adapt_enqueue_template_styles() {
             array( 'adapt-global' ),
             adapt_asset_version( '/assets/css/tpl-home.min.css' )
         );
+    } elseif ( is_page_template( 'templates/template-portal-flexible.php' ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-portal-flexible',
+            $theme_uri . '/assets/css/tpl-portal-flexible.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-portal-flexible.min.css' )
+        );
     } else {
         wp_enqueue_style(
             'adapt-core',
@@ -1049,11 +1064,29 @@ function my_enqueue_scripts() {
     );
 
     // Main JS
+    //
+    // The version query string used to be hardcoded (?vers=2.0.0, with $ver
+    // passed as null below it so WP wouldn't add its own) - meaning every
+    // rebuild of this file kept shipping under the exact same URL forever.
+    // Found this live: after deploying a real fix to this file, fetch()ing
+    // the URL directly returned the new code (cache: 'no-store' bypasses the
+    // browser's cache), but the code jQuery had ACTUALLY loaded and bound on
+    // a normal page load - checked via $._data(document, 'events').init[0]
+    // .handler.toString() - was still the old, pre-fix version. Cache-
+    // Control on this file is max-age=31536000 (1 year), so any browser that
+    // had ever loaded main.min.js?vers=2.0.0 before kept serving that exact
+    // cached copy for a year, never re-checking the server, no matter how
+    // many times the underlying file changed - a plausible contributor to
+    // more than one "already fixed but still showing broken" report earlier
+    // in this project. adapt_asset_version() (already used for every CSS
+    // bundle) generates a version string from the file's own mtime, so the
+    // URL itself changes on every rebuild instead of relying on someone
+    // remembering to bump ?vers= by hand.
     wp_enqueue_script(
         'main-js',
-        get_template_directory_uri() . '/assets/js/main.min.js?vers=2.0.0',
+        get_template_directory_uri() . '/assets/js/main.min.js',
         array('jquery'),
-        null,
+        adapt_asset_version( '/assets/js/main.min.js' ),
         true
     );
 

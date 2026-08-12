@@ -1,0 +1,67 @@
+// Exclusive bundle for templates/template-portal-flexible.php - the template
+// actually assigned to the site's static front page (confirmed live via
+// bodyClasses: "page portal-home-2 template-portal-flexible" on the real
+// homepage for logged-in advantage/professional members - NOT
+// templates/template-home.php, despite that file's name). template-home.php
+// appears to be an older/unused homepage variant that just happens to still
+// exist in the codebase; main-tpl-home.scss's bundle is left as-is in case
+// something still points at it, but it was never actually covering the real
+// homepage's CSS - this bundle is what does that.
+//
+// template-portal-flexible.php has three membershipType branches, all
+// rendered from the SAME template file (so a single is_page_template() check
+// covers all three):
+//   - 'free-trial': inline banner/cta_block/featured_grid_module/
+//     featured_presentation sections (classes: topicBanner, resources-cta-block,
+//     expertPresentationFeatured.trial-featured, portal.topicGrid.trial-grid)
+//   - 'advantage': get_template_part() calls to _resources-featured-block,
+//     _keynote-slider, _post-slider, _events-slider, _two-column-accordion
+//   - everything else (it-pro/professional, the final else branch - also
+//     catches 'default'/'kyc' if they ever reach this template): same first
+//     three components plus _advisors-carousel and _benchmark-two-column
+//     instead of _two-column-accordion
+//
+// Verification: extracted every class="" literal from template-portal-flexible.php
+// itself plus its 7 get_template_part() component dependencies, then grepped
+// each one against the 15 templates/*.scss files this bundle leaves out
+// (_account, _advantage-styling, _announcements, _benchmarking, _contact,
+// _data-insights, _default, _kits, _login, _my-topics, _partners,
+// _search-results, _single-speaker, _thank-you, _webinars). Real matches
+// turned up in _data-insights (topicBanner variants, bgContainer,
+// textContainer, topicFilter*), _advantage-styling (cta-content,
+// button-container, text-column, image-column), _benchmarking/_kits/
+// _thank-you/_webinars (one-half, std-button, image-column, text-column) -
+// every one of them is scoped under a DIFFERENT parent selector than the
+// markup this template actually produces (e.g. _advantage-styling.scss's
+// .button-container lives under its own .cta-content-container structure,
+// never under .resources-cta-block; _flexible.scss's own
+// "section.resources-cta-block .container .cta-content" - kept below via
+// _flexible - is what actually styles this template's CTA block). No
+// selector in the 15 excluded files can apply to this template's real DOM.
+// `.topicGrid` (free-trial's "portal topicGrid trial-grid" section) has zero
+// matching SCSS anywhere in the codebase, excluded file or not - it's
+// unstyled today regardless of this split.
+//
+// The seven component files' own styling all resolves within the six files
+// kept below - .advisors-carousel/.upcoming-events-slider-section/
+// .benchmark-two-column/.advantage-two-column-accordion in _home.scss (the
+// file actually written for these components, despite its name);
+// .resources-featured-slider/.resources-featured-slide/.keynote-slider/
+// .post-slider/.slideContainer in _post.scss, _post-new.scss and
+// _portal-modules.scss; .resources-cta-block/base .topicBanner/
+// .trial-featured in _flexible.scss and _portal-modules.scss;
+// .expertPresentationFeatured base styling in _post-new.scss/_single-post.scss.
+// Same six-file set as main-tpl-home.scss for that reason - not a
+// coincidence, template-home.php and template-portal-flexible.php were
+// evidently built from the same component library.
+@import 'global/_mixins';
+@import 'global/_variables';
+@import 'global/_typography-vars';
+
+@import 'templates/_home';
+@import 'templates/_flexible';
+@import 'templates/_portal-modules';
+@import 'templates/_post';
+@import 'templates/_post-new';
+@import 'templates/_single-events';
+@import 'templates/_single-post';

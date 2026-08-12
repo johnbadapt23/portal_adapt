@@ -116,7 +116,16 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
             // Give up after ~15s so this observer doesn't run forever if the
             // widget never renders this element (e.g. blocked, or the
             // agent_tester-only gate in the PHP above means it never loads).
-            setTimeout(function() { heroObserver.disconnect(); }, 15000);
+            // 45s, not 15: on the front page this hero card is rendered by
+            // the [customgpt_chat mode="embedded"] shortcode's own widget
+            // bundle (customgpt-widget.b16.min.js + vendors.b16.min.js),
+            // which chains several admin-ajax.php calls - measured live via
+            // the Network dependency tree, one alone took 6530ms, three
+            // chained. 15s wasn't enough to catch the front page's card
+            // before this observer gave up, which is why labelCgptInputs
+            // below (same class of fix, same real cause) was never actually
+            // applying there despite being wired up correctly.
+            setTimeout(function() { heroObserver.disconnect(); }, 45000);
         }
     }
 
@@ -157,7 +166,9 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
             if (labelCgptInputs()) inputObserver.disconnect();
         });
         inputObserver.observe(document.body, { childList: true, subtree: true });
-        setTimeout(function() { inputObserver.disconnect(); }, 15000);
+        // See the matching comment on heroObserver's timeout above - same
+        // widget, same slow-render cause, same 45s fix.
+        setTimeout(function() { inputObserver.disconnect(); }, 45000);
     }
 })();
 (function($) {

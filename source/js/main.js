@@ -8,10 +8,67 @@
 		// .slick() init below so this fires on every slider's 'init' event,
 		// current and future, without having to touch each individual
 		// .slick({...}) call.
-		$(document).on('init', '.slick-slider', function() {
-			$(this).find('.slick-prev').attr('aria-label', 'Previous slide');
-			$(this).find('.slick-next').attr('aria-label', 'Next slide');
-			$(this).find('.slick-dots > li').attr('role', 'tab');
+		//
+		// This previously used $(this).find(...) to locate the arrows/dots,
+		// which silently did nothing on every carousel on this site: all of
+		// them pass appendArrows/appendDots, which move slick's generated
+		// markup OUT of the .slick-slider element entirely (into a sibling
+		// container elsewhere in the DOM, per each carousel's own layout) -
+		// confirmed live, 0 of the arrow/dot elements are actually descendants
+		// of .slick-slider. Verified by manually re-triggering 'init' on a
+		// live slider and checking $(this).find('.slick-prev').length: 0.
+		// slick's own instance keeps direct references to these elements
+		// regardless of where they were appended (this.$prevArrow/$nextArrow/
+		// $dots, set in slick.js's buildOut()), and the 'init' event's second
+		// argument is that instance - use that instead of DOM traversal.
+		//
+		// The dots role also needs to survive slick's own initADA() (slick.js's
+		// built-in accessibility handling, runs whenever options.accessibility
+		// isn't explicitly false - true here since none of this site's
+		// .slick({...}) calls set it), which runs synchronously right after
+		// the 'init' event finishes firing and unconditionally sets
+		// role="presentation" on every dot <li> as part of its own (different)
+		// tablist pattern - so a plain assignment inside this handler gets
+		// immediately overwritten the instant it returns.
+		//
+		// A one-time setTimeout(0) (run after initADA finishes) fixed 4 of
+		// this site's 5 carousels, verified live - but resources-featured-
+		// slider (the one with fade: true + autoplay + a custom customPaging)
+		// kept reverting back to role="presentation" sometime after that,
+		// confirmed live by re-checking several seconds later. Couldn't
+		// pin down a single slick.js call path that explains it (checked
+		// checkResponsive/refresh - not it, this carousel has no responsive
+		// breakpoints configured; updateDots - only ever toggles
+		// slick-active, never touches role), so rather than chase slick's
+		// internals further for one edge case, made the fix self-healing
+		// instead: a MutationObserver watching for the role attribute
+		// drifting away from "tab" and putting it straight back, which
+		// verified live to survive multiple autoplay cycles regardless of
+		// whatever is resetting it.
+		$(document).on('init', '.slick-slider', function(event, slick) {
+			if (!slick) return;
+
+			if (slick.$prevArrow && slick.$prevArrow.length) {
+				slick.$prevArrow.attr('aria-label', 'Previous slide');
+			}
+			if (slick.$nextArrow && slick.$nextArrow.length) {
+				slick.$nextArrow.attr('aria-label', 'Next slide');
+			}
+			if (slick.$dots && slick.$dots.length) {
+				var applyDotTabRoles = function () {
+					slick.$dots.find('> li').each(function () {
+						if (this.getAttribute('role') !== 'tab') {
+							this.setAttribute('role', 'tab');
+						}
+					});
+				};
+				setTimeout(applyDotTabRoles, 0);
+				new MutationObserver(applyDotTabRoles).observe(slick.$dots[0], {
+					attributes: true,
+					attributeFilter: ['role'],
+					subtree: true
+				});
+			}
 		});
 
 		// STANDARD
