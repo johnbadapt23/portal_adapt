@@ -1,0 +1,72 @@
+// Once-per-user welcome popup - see includes/_welcome-popup.php for the
+// render/dismiss logic. Markup is only ever output when there's actually
+// something to show (PHP-gated), so this stays dormant CSS on every other
+// page load - no JS-driven show/hide class needed on the wrapper itself.
+.welcomePopup {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+
+	&-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.7);
+	}
+
+	&-box {
+		position: relative;
+		z-index: 1;
+		background: #fff;
+		width: 100%;
+		max-width: 440px;
+		padding: 48px 40px 40px;
+		border-radius: 4px;
+		text-align: left;
+
+		h2 {
+			margin-bottom: 16px;
+			padding-right: 24px;
+		}
+
+		p {
+			margin-bottom: 24px;
+			color: #5f5f5f;
+			font-size: 16px;
+			line-height: 26px;
+
+			&:last-of-type {
+				margin-bottom: 32px;
+			}
+		}
+	}
+
+	&-close {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		background: transparent;
+		font-size: 24px;
+		line-height: 1;
+		cursor: pointer;
+		color: #5f5f5f;
+		@include transition(color, 200ms);
+
+		&:hover {
+			color: $color-red;
+		}
+	}
+
+	&-ok {
+		display: inline-block;
+	}
+}

@@ -10,6 +10,7 @@ require('includes/_shortcodes.php');
 require('includes/_functions.php');
 require('includes/_customisations.php');
 require('includes/_instagram.php');
+require('includes/_welcome-popup.php');
 
 function cc_mime_types($mimes) {
   $mimes['json'] = 'text/plain';
