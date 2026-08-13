@@ -87,6 +87,16 @@ add_action( 'acf/init', function() {
 				'rows'              => 4,
 				'conditional_logic' => $shown_if_enabled,
 			),
+			array(
+				'key'               => 'field_adapt_welcome_popup_force_redisplay',
+				'label'             => 'Show again to everyone',
+				'name'              => 'welcome_popup_force_redisplay',
+				'type'              => 'true_false',
+				'instructions'      => 'Normally this popup only shows once per user, ever - dismissing it (X, "Got it", clicking outside, or Escape) marks it seen for good. Turn this ON to bring it back for everyone who already dismissed it, without losing that history: their old dismissal stays recorded, it is just ignored while this is ON. Turn it back OFF once you are done and the once-per-user behavior resumes from wherever each user\'s dismissal record already stands (including any new dismissals made while this was ON).',
+				'default_value'     => 0,
+				'ui'                => 1,
+				'conditional_logic' => $shown_if_enabled,
+			),
 		),
 		'location' => array(
 			array(
@@ -114,6 +124,14 @@ add_action( 'acf/init', function() {
  * normal, it's just ignored for this role - so the moment an admin account
  * ever gets demoted from administrator, the last dismissal (if any) applies
  * immediately rather than needing a separate cleanup step.
+ *
+ * "Show again to everyone" (welcome_popup_force_redisplay) does the same
+ * thing but for every logged-in user, not just admins - an admin-controlled
+ * override for bringing the popup back for people who already dismissed it,
+ * without bulk-deleting their seen user meta. Non-destructive: existing
+ * dismissal records are left alone and simply ignored while this is ON, so
+ * turning it back OFF resumes the once-per-user behavior exactly where each
+ * user's own dismissal history already stands.
  */
 function adapt_should_show_welcome_popup() {
 	if ( ! is_user_logged_in() ) {
@@ -122,7 +140,8 @@ function adapt_should_show_welcome_popup() {
 	if ( ! get_field( 'welcome_popup_enabled', 'option' ) ) {
 		return false;
 	}
-	if ( ! current_user_can( 'administrator' ) && get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
+	$bypass_seen_check = get_field( 'welcome_popup_force_redisplay', 'option' ) || current_user_can( 'administrator' );
+	if ( ! $bypass_seen_check && get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
 		return false;
 	}
 	$target  = get_field( 'welcome_popup_target_selector', 'option' );
