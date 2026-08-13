@@ -11,6 +11,7 @@ require('includes/_functions.php');
 require('includes/_customisations.php');
 require('includes/_instagram.php');
 require('includes/_welcome-popup.php');
+require('includes/_feedback-survey.php');
 
 function cc_mime_types($mimes) {
   $mimes['json'] = 'text/plain';
