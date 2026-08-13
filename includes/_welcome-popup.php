@@ -13,6 +13,22 @@
  */
 
 /**
+ * WP Rocket's Delay JS Execution defers <script> tags (inline ones included)
+ * until the first user interaction (click/scroll/keydown/touch) - great for
+ * performance scores, but it means this popup's own inline script wouldn't
+ * run until the visitor interacted with the page, well after "as soon as
+ * possible after login" stops being true. Same rocket_delay_js_exclusions
+ * filter already used in functions.php for the homepage's core scripts,
+ * matched against a string unique to this inline script (its container id)
+ * so only this one is exempted, sitewide - the popup can appear on any page
+ * a logged-in user lands on first, not just the homepage.
+ */
+add_filter( 'rocket_delay_js_exclusions', function( $exclusions ) {
+	$exclusions[] = 'adapt-welcome-popup';
+	return $exclusions;
+} );
+
+/**
  * Register the "Welcome Popup" field group on the existing ACF options page.
  * Local field group (defined in code, not exported/imported via the ACF UI),
  * same pattern as acf_add_options_page() itself in includes/_setup.php - it
