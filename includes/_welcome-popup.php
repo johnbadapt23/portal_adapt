@@ -215,7 +215,28 @@ add_action( 'wp_footer', function() {
 
 		function reposition() {
 			if (!currentTarget) return;
+
+			// Some widgets (e.g. CustomGPT) re-render their own DOM on
+			// resize rather than just resizing the existing node - that can
+			// leave currentTarget pointing at a now-detached element, whose
+			// getBoundingClientRect() comes back all zeros and collapses
+			// the highlight down to just its own padding (0 + pad*2 =
+			// 16px). Re-resolve against the live selector whenever the
+			// cached reference has fallen out of the document.
+			if (!document.body.contains(currentTarget)) {
+				var stillThere = document.querySelector(targetSelector);
+				if (!stillThere) return;
+				currentTarget = stillThere;
+			}
+
 			var rect = currentTarget.getBoundingClientRect();
+
+			// A momentarily 0-size rect (mid-reflow, or the widget briefly
+			// hiding itself while it re-renders) would otherwise still
+			// collapse the highlight the same way - skip this update and
+			// leave the highlight where it last was instead.
+			if (rect.width === 0 && rect.height === 0) return;
+
 			var pad = 8;
 
 			highlight.style.top    = (rect.top - pad) + 'px';
