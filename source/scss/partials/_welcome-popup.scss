@@ -1,0 +1,154 @@
+// Once-per-user welcome spotlight - see includes/_welcome-popup.php for the
+// render/dismiss/positioning logic. Markup is only ever output when there's
+// actually something to show (PHP-gated), so this stays dormant CSS on every
+// other page load. Positioning (top/left/width/height on -highlight and
+// -tooltip, arrow left offset) is set inline via JS against the live target
+// element's getBoundingClientRect() - deliberately not attempted in CSS
+// alone, since the target can be anywhere on the page.
+// #adapt-welcome-popup carries role="dialog" for accessibility, but there's
+// a pre-existing global [role=dialog] { background-color: var(--background)
+// !important; } rule elsewhere in the site's CSS meant for other dialogs. It
+// painted this element's full-viewport fixed wrapper solid white, which sat
+// behind the highlight/tooltip and blocked the real page from showing
+// through the "cutout" - the spotlighted area rendered as a plain white box
+// with nothing in it instead of revealing the target underneath. Overridden
+// here with ID specificity (beats the bare attribute selector) so only this
+// component opts back out of it.
+#adapt-welcome-popup[role="dialog"] {
+	background-color: transparent !important;
+}
+
+.welcomeSpotlight {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+
+	&-overlay {
+		position: fixed;
+		inset: 0;
+		cursor: pointer;
+	}
+
+	// The "spotlight" effect is this box's own shadow, not the overlay above
+	// - a small transparent box positioned exactly over the target, with a
+	// huge box-shadow spread that darkens the rest of the viewport around it
+	// without darkening the box's own area. Standard lightweight technique,
+	// no clip-path/SVG mask needed. pointer-events: none so it's purely
+	// visual - clicks in that screen region still reach -overlay underneath.
+	&-highlight {
+		position: fixed;
+		border-radius: 8px;
+		box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+		pointer-events: none;
+		transition: top 250ms ease, left 250ms ease, width 250ms ease, height 250ms ease;
+	}
+
+	&-tooltip {
+		position: fixed;
+		width: 100%;
+		max-width: 340px;
+		background: #fff;
+		border-radius: 8px;
+		padding: 24px;
+		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+		text-align: left;
+
+		h2 {
+			font-size: 18px;
+			line-height: 1.3;
+			margin-bottom: 8px;
+			padding-right: 20px;
+		}
+
+		p {
+			font-size: 14px;
+			line-height: 22px;
+			color: #5f5f5f;
+			margin-bottom: 20px;
+		}
+
+		// Which edge the arrow sits flush against depends on which side of
+		// the target the tooltip landed on (set via JS as a class on this
+		// same element) - left offset is set via JS to point at the target's
+		// horizontal center regardless.
+		&.is-below .welcomeSpotlight-arrow {
+			top: -6px;
+			box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.04);
+		}
+
+		&.is-above .welcomeSpotlight-arrow {
+			bottom: -6px;
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.04);
+		}
+	}
+
+	&-arrow {
+		position: absolute;
+		width: 14px;
+		height: 14px;
+		background: #fff;
+		transform: rotate(45deg);
+	}
+
+	&-close {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		width: 28px;
+		height: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: none;
+		border-radius: 50%;
+		background: transparent;
+		font-size: 22px;
+		line-height: 1;
+		cursor: pointer;
+		color: #5f5f5f;
+		@include transition(color, 200ms);
+
+		&:hover {
+			color: $color-red;
+		}
+
+		// The site's global *:focus-visible rule (global/_base.scss) draws a
+		// 2px red outline with a 2px offset. A softer box-shadow ring was
+		// tried here instead of removing focus indication outright, but it
+		// still read as an unwanted circle around the button - removed per
+		// explicit request. No visible focus indicator on this button now;
+		// !important since this needs to beat the global rule under any
+		// future specificity/order changes there.
+		&:focus,
+		&:focus-visible {
+			outline: none !important;
+			box-shadow: none !important;
+		}
+	}
+
+	&-ok {
+		display: inline-block;
+	}
+
+	// Fallback for agent_tester/admin previews when there's no target on
+	// this page/session to spotlight (see includes/_welcome-popup.php) -
+	// plain centered dialog instead of a highlight + pointer arrow. The
+	// dimming normally comes from -highlight's own box-shadow, which isn't
+	// present here, so -overlay gets a real background instead.
+	&.is-centered {
+		.welcomeSpotlight-overlay {
+			background: rgba(0, 0, 0, 0.7);
+		}
+
+		.welcomeSpotlight-highlight,
+		.welcomeSpotlight-arrow {
+			display: none;
+		}
+
+		.welcomeSpotlight-tooltip {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
