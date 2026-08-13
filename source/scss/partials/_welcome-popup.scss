@@ -5,6 +5,19 @@
 // -tooltip, arrow left offset) is set inline via JS against the live target
 // element's getBoundingClientRect() - deliberately not attempted in CSS
 // alone, since the target can be anywhere on the page.
+// #adapt-welcome-popup carries role="dialog" for accessibility, but there's
+// a pre-existing global [role=dialog] { background-color: var(--background)
+// !important; } rule elsewhere in the site's CSS meant for other dialogs. It
+// painted this element's full-viewport fixed wrapper solid white, which sat
+// behind the highlight/tooltip and blocked the real page from showing
+// through the "cutout" - the spotlighted area rendered as a plain white box
+// with nothing in it instead of revealing the target underneath. Overridden
+// here with ID specificity (beats the bare attribute selector) so only this
+// component opts back out of it.
+#adapt-welcome-popup[role="dialog"] {
+	background-color: transparent !important;
+}
+
 .welcomeSpotlight {
 	position: fixed;
 	inset: 0;
