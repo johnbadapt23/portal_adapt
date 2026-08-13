@@ -113,15 +113,16 @@
 		}
 
 		// The site's global *:focus-visible rule (global/_base.scss) draws a
-		// 2px red outline with a 2px offset - on a small square icon button
-		// in a corner that reads as an odd floating box rather than a focus
-		// ring. Swapped for a softer ring that hugs the button's own (now
-		// circular) shape instead of removing focus indication outright,
-		// since this button is still keyboard-reachable and needs a visible
-		// focus state for that.
+		// 2px red outline with a 2px offset. A softer box-shadow ring was
+		// tried here instead of removing focus indication outright, but it
+		// still read as an unwanted circle around the button - removed per
+		// explicit request. No visible focus indicator on this button now;
+		// !important since this needs to beat the global rule under any
+		// future specificity/order changes there.
+		&:focus,
 		&:focus-visible {
-			outline: none;
-			box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+			outline: none !important;
+			box-shadow: none !important;
 		}
 	}
 
