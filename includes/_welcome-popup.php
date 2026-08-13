@@ -106,6 +106,14 @@ add_action( 'acf/init', function() {
  * show, a target selector is set, and this user hasn't dismissed it before.
  * Doesn't (can't) check whether the target element actually exists on this
  * page - that's a runtime DOM question, handled in JS below.
+ *
+ * Administrators are exempt from the "already dismissed" check specifically
+ * (debugging/QA convenience, requested explicitly) - the popup keeps showing
+ * for them every qualifying page load regardless of past dismissals. Their
+ * dismiss clicks still fire the same AJAX call and set the seen meta as
+ * normal, it's just ignored for this role - so the moment an admin account
+ * ever gets demoted from administrator, the last dismissal (if any) applies
+ * immediately rather than needing a separate cleanup step.
  */
 function adapt_should_show_welcome_popup() {
 	if ( ! is_user_logged_in() ) {
@@ -114,7 +122,7 @@ function adapt_should_show_welcome_popup() {
 	if ( ! get_field( 'welcome_popup_enabled', 'option' ) ) {
 		return false;
 	}
-	if ( get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
+	if ( ! current_user_can( 'administrator' ) && get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
 		return false;
 	}
 	$target  = get_field( 'welcome_popup_target_selector', 'option' );
