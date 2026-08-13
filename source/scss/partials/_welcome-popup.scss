@@ -100,6 +100,7 @@
 		align-items: center;
 		justify-content: center;
 		border: none;
+		border-radius: 50%;
 		background: transparent;
 		font-size: 22px;
 		line-height: 1;
@@ -109,6 +110,18 @@
 
 		&:hover {
 			color: $color-red;
+		}
+
+		// The site's global *:focus-visible rule (global/_base.scss) draws a
+		// 2px red outline with a 2px offset - on a small square icon button
+		// in a corner that reads as an odd floating box rather than a focus
+		// ring. Swapped for a softer ring that hugs the button's own (now
+		// circular) shape instead of removing focus indication outright,
+		// since this button is still keyboard-reachable and needs a visible
+		// focus state for that.
+		&:focus-visible {
+			outline: none;
+			box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
 		}
 	}
 
