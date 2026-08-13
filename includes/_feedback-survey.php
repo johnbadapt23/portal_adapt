@@ -121,14 +121,17 @@ add_action( 'acf/init', function() {
 /**
  * Whether the current request should even attempt to render the survey:
  * logged in, feature enabled, Contact Form 7 is actually active, a form ID
- * is configured, today is on/after the configured start date, and this user
- * hasn't dismissed it before (unless exempted - see below).
+ * is configured, today is on/after the configured start date, this user has
+ * already dismissed the welcome popup (i.e. actually encountered the AI
+ * Assistant box, not just logged in), and this user hasn't dismissed the
+ * survey itself before (unless exempted - see below).
  *
- * Administrators always see it regardless of past dismissals (debugging/QA
- * convenience, same exemption already used for the welcome popup). The
- * "Show again to everyone" field does the same for every logged-in user -
- * an admin-controlled, non-destructive override for bringing the survey
- * back without bulk-deleting seen user meta.
+ * Administrators always see it regardless of the welcome-popup-seen
+ * requirement or past survey dismissals (debugging/QA convenience, same
+ * exemption already used for the welcome popup). The "Show again to
+ * everyone" field does the same for the survey's own seen check, for every
+ * logged-in user - an admin-controlled, non-destructive override for
+ * bringing the survey back without bulk-deleting seen user meta.
  */
 function adapt_should_show_feedback_survey() {
 	if ( ! is_user_logged_in() ) {
@@ -146,6 +149,16 @@ function adapt_should_show_feedback_survey() {
 	}
 	$start_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string.
 	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
+		return false;
+	}
+	// Only ask people who actually closed the welcome popup - i.e. actually
+	// encountered the AI Assistant box it points at - not everyone who is
+	// merely logged in. Uses the same adapt_welcome_popup_seen meta the
+	// welcome popup already sets on dismissal (see includes/_welcome-popup.php),
+	// rather than a second flag, so this stays accurate even if that popup
+	// gets disabled or re-enabled later - it directly reflects what actually
+	// happened, not a separate tracked copy of it.
+	if ( ! current_user_can( 'administrator' ) && ! get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
 		return false;
 	}
 	$bypass_seen_check = get_field( 'feedback_survey_force_redisplay', 'option' ) || current_user_can( 'administrator' );
