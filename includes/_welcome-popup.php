@@ -136,7 +136,7 @@ add_action( 'wp_footer', function() {
 			<?php if ( $message ) : ?>
 				<p><?php echo nl2br( esc_html( $message ) ); ?></p>
 			<?php endif; ?>
-			<button type="button" class="welcomeSpotlight-ok std-button">Got it</button>
+			<button type="button" class="welcomeSpotlight-ok std-button red-button">Got it</button>
 		</div>
 	</div>
 	<script>
