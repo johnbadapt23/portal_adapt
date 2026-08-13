@@ -123,6 +123,18 @@ add_action( 'wp_footer', function() {
 	$heading = get_field( 'welcome_popup_heading', 'option' );
 	$message = get_field( 'welcome_popup_message', 'option' );
 	$nonce   = wp_create_nonce( 'adapt_welcome_popup' );
+
+	// Same role check already used in footer.php / _header.php /
+	// template-portal-flexible.php to gate the CustomGPT widget itself -
+	// while that widget is agent_tester/admin only, the target element this
+	// popup spotlights by default never exists for anyone else. Regular
+	// users still only see the popup if their page's target element is
+	// actually found (existing behavior below); agent_tester/admin users
+	// are shown it regardless of whether a target is found on this
+	// particular page, since for them it's a test of the popup itself, not
+	// a claim that the target renders here.
+	$user            = wp_get_current_user();
+	$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || current_user_can( 'administrator' );
 	?>
 	<div id="adapt-welcome-popup" class="welcomeSpotlight" style="display:none;" role="dialog" aria-modal="true" <?php echo $heading ? 'aria-labelledby="adapt-welcome-popup-heading"' : ''; ?>>
 		<div class="welcomeSpotlight-overlay"></div>
@@ -145,6 +157,7 @@ add_action( 'wp_footer', function() {
 		if (!popup) return;
 
 		var targetSelector = <?php echo wp_json_encode( $target ); ?>;
+		var isAgentTester  = <?php echo wp_json_encode( $is_agent_tester ); ?>;
 		var overlay   = popup.querySelector('.welcomeSpotlight-overlay');
 		var highlight = popup.querySelector('.welcomeSpotlight-highlight');
 		var tooltip   = popup.querySelector('.welcomeSpotlight-tooltip');
@@ -220,7 +233,14 @@ add_action( 'wp_footer', function() {
 			settled = true;
 			currentTarget = target;
 
-			target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			// No target (agent_tester/admin preview on a page/session where
+			// the target never rendered): show as a plain centered dialog
+			// instead of a spotlight - there's nothing to point at.
+			popup.classList.toggle('is-centered', !target);
+
+			if (target) {
+				target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			}
 
 			// Let the scroll settle before measuring/positioning - matches
 			// the smooth-scroll duration closely enough for this purpose.
@@ -229,7 +249,7 @@ add_action( 'wp_footer', function() {
 				reposition();
 				document.body.classList.add('fixed');
 				if (closeBtn) closeBtn.focus();
-			}, 400);
+			}, target ? 400 : 0);
 
 			window.addEventListener('resize', reposition);
 			window.addEventListener('scroll', reposition);
@@ -252,6 +272,12 @@ add_action( 'wp_footer', function() {
 		if (existing) {
 			showFor(existing);
 		} else {
+			// Same wait-for-it approach for everyone, including agent
+			// testers/admins - the CustomGPT widget this defaults to has
+			// been measured taking several seconds to render (chained
+			// admin-ajax.php calls, see footer.php's labelCgptInputs
+			// comment for the same timing story), so it's worth waiting
+			// for the real spotlight rather than assuming it's missing.
 			var observer = new MutationObserver(function() {
 				var found = document.querySelector(targetSelector);
 				if (found) {
@@ -260,13 +286,18 @@ add_action( 'wp_footer', function() {
 				}
 			});
 			observer.observe(document.body, { childList: true, subtree: true });
-			// The CustomGPT widget this defaults to has been measured taking
-			// several seconds to render (chained admin-ajax.php calls) - see
-			// footer.php's labelCgptInputs comment for the same timing story.
-			// 45s matches that same allowance.
 			setTimeout(function() {
 				observer.disconnect();
-				giveUp();
+				if (isAgentTester) {
+					// Agent testers/admins still get shown the popup even
+					// if the target never turned up on this page/session -
+					// falls back to a centered dialog with no spotlight,
+					// since for them it's a preview of the popup itself,
+					// not a claim that the target renders here.
+					showFor(null);
+				} else {
+					giveUp();
+				}
 			}, 45000);
 		}
 	})();

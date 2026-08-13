@@ -115,4 +115,26 @@
 	&-ok {
 		display: inline-block;
 	}
+
+	// Fallback for agent_tester/admin previews when there's no target on
+	// this page/session to spotlight (see includes/_welcome-popup.php) -
+	// plain centered dialog instead of a highlight + pointer arrow. The
+	// dimming normally comes from -highlight's own box-shadow, which isn't
+	// present here, so -overlay gets a real background instead.
+	&.is-centered {
+		.welcomeSpotlight-overlay {
+			background: rgba(0, 0, 0, 0.7);
+		}
+
+		.welcomeSpotlight-highlight,
+		.welcomeSpotlight-arrow {
+			display: none;
+		}
+
+		.welcomeSpotlight-tooltip {
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
 }
