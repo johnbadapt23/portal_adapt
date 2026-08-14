@@ -29,8 +29,21 @@ if (user_can($current_user, 'administrator')) {
 } 
 
 $user = wp_get_current_user();
-$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || current_user_can('administrator');
+$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
 
+
+$superAdminView = false;
+
+if (current_user_can('administrator')) {
+    // Admin can access all memberships, so we directly check if the user has any of the membership IDs
+    if (in_array(9811, $subscription_ids) ) {
+        $membershipType = 'it-pro';
+    } elseif (in_array(41272, $subscription_ids) ) {
+        $membershipType = 'advantage';
+    } elseif( empty($subscription_ids) ) {
+        $superAdminView = true; // ONLY ENABLE IT IF THE ADMIN HAS NO ACTIVE SUBSCRIPTION.
+    }
+} 
 
 ?>
 <span style="display: none;">
@@ -222,7 +235,7 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
 
 	<div class="bottom">
 		<div class="container">
-			<span class="desktopNav">
+			<span class="desktopNav <?= $membershipType; ?> <?= $superAdminView ? 'is_admin': 'is_not'; ?>">
                 <?php if ($membershipType == 'tnc' || $membership == 'kyc') { ?>
                     <ul>
                         <?php if ($membership == 'kyc') { ?>
@@ -448,7 +461,7 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
                                 </div>
                             </li>
                         <?php } ?>
-                        <?php if ($membershipType == 'advantage' || current_user_can('administrator')) { ?>
+                        <?php if ($membershipType == 'advantage' || $superAdminView) { ?>
                             <li class="dropdown topics-menu">
                                 <a>Research</a>
                                 <div class="megaMenu topicsMenu" id="topics">
@@ -1091,7 +1104,7 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || cur
                                 </div>
                             </li>
                         <?php } ?>
-                        <?php if ($membershipType == 'it-pro' || current_user_can('administrator')) { ?>
+                        <?php if ($membershipType == 'it-pro'  || $superAdminView) { ?>
                             <?php if ( have_rows( 'community_insights_menu', 'option' ) ) : ?>
                             <li class="dropdown events-menu">
                                 <a>Community Insights</a>
