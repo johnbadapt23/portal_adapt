@@ -2,7 +2,7 @@
 <?php wp_footer(); ?>
 <?php
 $user = wp_get_current_user();
-$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ) || current_user_can('administrator');
+$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
 ?>
 
 <?php if( $is_agent_tester ) : ?>
