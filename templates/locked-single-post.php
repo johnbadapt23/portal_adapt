@@ -61,9 +61,9 @@
 					$inline_img_1_src = get_field( 'speaker_image' );
 					$inline_img_1_attach_id = $inline_img_1_src ? attachment_url_to_postid( $inline_img_1_src ) : 0;
 					if ( $inline_img_1_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_1_attach_id, 'full', false, array( 'alt' => the_title() ) );
+						echo wp_get_attachment_image( $inline_img_1_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_1_src ) {
-						echo '<img src="' . esc_url( $inline_img_1_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_1_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
                                 </span>
@@ -119,9 +119,9 @@
 					$inline_img_2_src = get_field( 'speaker_image' );
 					$inline_img_2_attach_id = $inline_img_2_src ? attachment_url_to_postid( $inline_img_2_src ) : 0;
 					if ( $inline_img_2_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_2_attach_id, 'full', false, array( 'alt' => the_title() ) );
+						echo wp_get_attachment_image( $inline_img_2_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_2_src ) {
-						echo '<img src="' . esc_url( $inline_img_2_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_2_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
     										</span>
@@ -1258,9 +1258,9 @@
 					$inline_img_9_src = get_field( 'speaker_image' );
 					$inline_img_9_attach_id = $inline_img_9_src ? attachment_url_to_postid( $inline_img_9_src ) : 0;
 					if ( $inline_img_9_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_9_attach_id, 'full', false, array( 'alt' => the_title() ) );
+						echo wp_get_attachment_image( $inline_img_9_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_9_src ) {
-						echo '<img src="' . esc_url( $inline_img_9_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_9_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
         										</span>
@@ -2306,9 +2306,9 @@
 					$inline_img_16_src = get_field( 'speaker_image' );
 					$inline_img_16_attach_id = $inline_img_16_src ? attachment_url_to_postid( $inline_img_16_src ) : 0;
 					if ( $inline_img_16_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_16_attach_id, 'full', false, array( 'alt' => the_title() ) );
+						echo wp_get_attachment_image( $inline_img_16_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_16_src ) {
-						echo '<img src="' . esc_url( $inline_img_16_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_16_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
         										</span>
