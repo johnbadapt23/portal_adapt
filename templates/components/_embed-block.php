@@ -12,8 +12,12 @@
         // print_r($user_corporate);
         global $wpdb;
 
-          $q = "SELECT COUNT(*) FROM {$wpdb->prefix}mepr_corporate_accounts WHERE user_id = {$user_info->ID}";
-          $count = $wpdb->get_var($q);
+          $count = $wpdb->get_var(
+              $wpdb->prepare(
+                  "SELECT COUNT(*) FROM {$wpdb->prefix}mepr_corporate_accounts WHERE user_id = %d",
+                  $user_info->ID
+              )
+          );
 
 
 

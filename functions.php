@@ -302,10 +302,29 @@ function ajaxtest_function() {
         // Ensure a valid user
         if ($user_id && class_exists('MeprUser')) {
             $member = new MeprUser($user_id);
+
+            // $_POST['mepr_interests'] was being stored completely raw - it's
+            // consumed in header.php as an associative array keyed by topic
+            // term slug with the literal string 'on' as each value (a plain
+            // checkbox-name-array submission: mepr_interests[slug]=on), so
+            // sanitize to exactly that shape instead of trusting whatever
+            // was posted. Anything not matching that pattern is dropped
+            // rather than stored.
+            $raw_interests = wp_unslash($_POST['mepr_interests']);
+            $interests = array();
+            if (is_array($raw_interests)) {
+                foreach ($raw_interests as $slug => $value) {
+                    $slug = sanitize_title($slug);
+                    if ($slug && $value === 'on') {
+                        $interests[$slug] = 'on';
+                    }
+                }
+            }
+
             // Check if the user is active and not subscribed to membership 9811
             if (user_can($user_id, 'mepr-active') && !$member->is_already_subscribed_to(9811)) {
                 // Update the user meta
-                update_user_meta($user_id, 'mepr_interests', $_POST['mepr_interests']);
+                update_user_meta($user_id, 'mepr_interests', $interests);
 
                 // Trigger the profile update action
                 // do_action('profile_update', $user_id, $member);
@@ -315,7 +334,7 @@ function ajaxtest_function() {
                 wp_send_json_success();
             } else {
                 // Only update the meta if the user is subscribed to 9811 or inactive
-                update_user_meta($user_id, 'mepr_interests', $_POST['mepr_interests']);
+                update_user_meta($user_id, 'mepr_interests', $interests);
                 wp_send_json_success('Meta updated, profile not updated');
             }
         } else {
