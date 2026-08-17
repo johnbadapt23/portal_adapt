@@ -1105,12 +1105,18 @@ section.blogWrapper {
     padding: 20px 0 94px;
 
     .grid {
-        float: left;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: start;
+        gap: 16px;
         width: 100%;
+
+        @include responsive(767) {
+            grid-template-columns: 1fr;
+        }
 
         .postLink {
             position: relative;
-            float: left;
             box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
             border-radius: 3px;
             min-height: 390px;
@@ -1278,14 +1284,11 @@ section.blogWrapper {
 
             &.layout-1,
             &.layout6,
-            &.layout8,
-             {
-                width: calc(66.64% - 6px);
-                float: left;
-                margin-left: 0;
+            &.layout8 {
+                grid-column: span 2;
 
                 @include responsive(767) {
-                    width: 100%;
+                    grid-column: span 1;
                 }
 
                 .linkWrapper {
@@ -1347,13 +1350,7 @@ section.blogWrapper {
             &.layout0,
             &.layout9 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
-                float: right;
                 background-color: #000;
-
-                @include responsive(767) {
-                    width: 100%;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1428,14 +1425,8 @@ section.blogWrapper {
             &.layout10,
             &.layout15 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
                 background-color: $color-red;
                 padding-top: 0px;
-                margin-left: 0;
-
-                @include responsive(767) {
-                    width: 100%;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1529,15 +1520,8 @@ section.blogWrapper {
             &.layout14,
             &.layout16 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
                 background-color: #fff;
                 padding-top: 0px;
-                margin-left: 16px;
-
-                @include responsive(767) {
-                    width: 100%;
-                    margin-left: 0;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1632,15 +1616,8 @@ section.blogWrapper {
             &.layout12,
             &.layout17 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
                 background-color: $color-red;
                 padding-top: 0px;
-                margin-left: 16px;
-
-                @include responsive(767) {
-                    width: 100%;
-                    margin-left: 0px;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1727,12 +1704,10 @@ section.blogWrapper {
             &.layout4,
             &.layout13,
             &.layout18 {
-                width: calc(66.64% - 6px);
-                float: left;
-                margin-left: 0;
+                grid-column: span 2;
 
                 @include responsive(767) {
-                    width: 100%;
+                    grid-column: span 1;
                 }
 
                 .linkWrapper {
@@ -2254,9 +2229,7 @@ span#pagination {
 section.blogWrapper {
     .container {
         #loop {
-            float: left;
             width: 100%;
-            @include clear;
 
             &.results-grid {
                 padding-top: 0px;
