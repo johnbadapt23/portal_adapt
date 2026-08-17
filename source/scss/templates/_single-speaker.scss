@@ -228,3 +228,28 @@ section.speakerProfile {
         }
     }
 }
+
+// Single-speaker profile page (section.speakerProfile) float -> flex/grid
+// cleanup, safe pass: pure single-column float:left;width:100% wrappers
+// within the left (image/quote) and right (bio) columns. Cross-checked
+// against real compiled CSS output. Deferred real pairs: .speakerLeft/
+// .speakerRight 50/50 split columns, .logoContainer fixed-size logo grid.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.speakerProfile .speakerLeft .imageContainer {
+	float: none;
+}
+body.dev-preview section.speakerProfile .speakerLeft .textBlock {
+	float: none;
+}
+body.dev-preview section.speakerProfile .speakerLeft .textBlock .quoteBlock {
+	float: none;
+}
+body.dev-preview section.speakerProfile .speakerLeft .textBlock .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.speakerProfile .speakerRight .logoWrapper {
+	float: none;
+}
+body.dev-preview section.speakerProfile .speakerRight .textBlock {
+	float: none;
+}
