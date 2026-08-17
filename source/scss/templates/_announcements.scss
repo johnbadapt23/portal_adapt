@@ -145,3 +145,43 @@ section.announcementsContainer {
         }
     }
 }
+
+// Announcements listing page (section.announcementsContainer) float ->
+// flex/grid cleanup, safe pass: pure single-column float:left;width:100%
+// wrappers throughout the intro block and post-item cards. Cross-checked
+// against real compiled CSS output. Deferred: .read-more inline link
+// (width:auto).
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.announcementsContainer {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .introductionTextContainer {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .introductionTextContainer h1 {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .introductionTextContainer .introductionText {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top span.date {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top h3 {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.small-text {
+	float: none;
+}
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.author {
+	float: none;
+}
