@@ -1186,3 +1186,85 @@ main.login section.login .container .login-form-container .form .mp_wrapper form
         display: block!important;
     }
 }
+
+// Login/register page sections (main.login, section.register,
+// .template-register) float -> flex/grid cleanup, safe pass: pure
+// single-column float:left;width:100% wrappers (MemberPress/Gravity Forms
+// form rows, containers, checkboxes). Cross-checked against real compiled
+// CSS output. Deliberately excluded: body.memberpressproduct .mp-form-submit
+// - this selector is declared in templates/_account.scss, not this file;
+// left for a dedicated _account.scss pass. Deferred real pairs:
+// mepr_price_cell_label/mepr_price_cell inline row, login-header-left/logo
+// mobile row, mepr_password/mepr_password_confirm 50/50 split fields.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview main.login section.login {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .button-container {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form span.section-details {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form span.section-details h4.form-title {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form span.section-details p {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper .gform_body {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper .gf_progressbar_wrapper {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper form .ginput_container_password span.ginput_left,
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper form .ginput_container_password span.ginput_right {
+	float: none;
+}
+body.dev-preview main.login section.login .container .introduction-text,
+body.dev-preview main.login section.login .container h2 {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form-title {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form .mp_wrapper:first-child {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form .mp_wrapper {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form .mp_wrapper form {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form .mp_wrapper form .checkbox-container {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .form .mepr-login-actions {
+	float: none;
+}
+body.dev-preview main.login section.login .container .login-form-container .get-in-touch {
+	float: none;
+}
+body.dev-preview section.register {
+	float: none;
+}
+body.dev-preview .template-register .mp_wrapper {
+	float: none;
+}
+body.dev-preview .template-register .mp_wrapper form {
+	float: none;
+}
+body.dev-preview .template-register .mp_wrapper form .checkbox-container {
+	float: none;
+}
