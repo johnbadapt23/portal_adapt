@@ -7892,6 +7892,88 @@ body.dev-preview section.conversation-cta {
     }
 }
 
+// Dev-preview: float -> modern layout for .article (member content preview
+// lock, both the .preview-cta-container and .blurred-image-cta-container
+// variants). .preview-cta-inner is already display:flex, so
+// .preview-cta-image.mobile/.preview-cta-image-column/.preview-cta-content's
+// float was already inert (flex items ignore float per spec) there - this
+// just removes the now-misleading declarations. Both .button-container
+// instances get a real display:flex since their a.stdBtn buttons are a
+// genuine side-by-side row, not the width:100% single-column pattern used
+// everywhere else here. Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
+body.dev-preview .article {
+    .preview-image-container {
+        float: none;
+
+        img {
+            float: none;
+        }
+    }
+
+    .preview-cta-container {
+        .preview-cta-inner {
+            float: none;
+
+            .preview-cta-image.mobile {
+                float: none;
+            }
+
+            .preview-cta-image-column {
+                float: none;
+            }
+
+            .preview-cta-content {
+                float: none;
+
+                .title {
+                    float: none;
+                }
+
+                .text {
+                    float: none;
+                }
+
+                .button-container {
+                    float: none;
+                    display: flex;
+                    align-items: center;
+
+                    a.stdBtn {
+                        float: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .blurred-image-cta-container {
+        float: none;
+
+        .global-preview-cta-container {
+            float: none;
+
+            .preview-cta-content {
+                float: none;
+
+                .title p {
+                    float: none;
+                }
+
+                .button-container {
+                    float: none;
+                    display: flex;
+                    align-items: center;
+
+                    a.stdBtn {
+                        float: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
 // non member form popup
 
 .mfp-wrap.form-container-preview {
