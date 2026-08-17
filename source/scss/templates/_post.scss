@@ -7988,6 +7988,161 @@ body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form
     float: none;
 }
 
+// Remaining float -> flex/grid cleanup pass: formPopup modal, pagination
+// wrapper, EVR topic-banner dropdown row, EVR video intro links row, EVR
+// fundamentals/stages components, and the "next conversation" featured post.
+// All confirmed live against real template/component markup (single-post,
+// single-event, template-home, template-flexible, single-kyc, and the
+// components/_main-topic-banner, _evr-video, _evr-fundamentals, _evr-stages,
+// template-tnc PHP files). Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
+body.dev-preview {
+    .formPopup {
+        float: none;
+
+        .formWrapper {
+            float: none;
+        }
+    }
+
+    .pagWrapper {
+        float: none;
+    }
+
+    section.topicBanner .imageSizeContainer .title-filter-container {
+        float: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        h1 {
+            float: none;
+        }
+
+        .dropdown-button {
+            float: none;
+        }
+    }
+
+    section.two-column-services.landing-video-intro .container .landing-video-intro-columns {
+        float: none;
+
+        .column {
+            float: none;
+
+            &.text-column {
+                .bannerBreadcrumbs {
+                    float: none;
+                }
+
+                .title {
+                    float: none;
+                }
+
+                .text {
+                    float: none;
+                }
+
+                .links-container {
+                    float: none;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+
+                    .button {
+                        float: none;
+                    }
+
+                    .text-link {
+                        float: none;
+                    }
+                }
+            }
+
+            &.video-column .video-container {
+                float: none;
+            }
+        }
+    }
+
+    section.evr-fundamentals,
+    section.evr-stages {
+        float: none;
+
+        .container {
+            .title-container {
+                float: none;
+            }
+
+            .fundamentals-container {
+                float: none;
+
+                .fundamentals-row-one,
+                .fundamentals-row-two {
+                    float: none;
+                }
+            }
+
+            .stages-container {
+                float: none;
+
+                .stages-item {
+                    float: none;
+
+                    .stages-icon-container {
+                        float: none;
+
+                        img {
+                            float: none;
+                            display: block;
+                        }
+                    }
+
+                    .stages-title-container {
+                        float: none;
+
+                        h3 {
+                            float: none;
+                        }
+                    }
+
+                    .stages-text {
+                        float: none;
+
+                        p {
+                            float: none;
+                        }
+                    }
+
+                    .stages-button-container .button {
+                        float: none;
+                    }
+                }
+            }
+        }
+    }
+
+    section.tnc-featured-post {
+        float: none;
+
+        .container .item {
+            float: none;
+
+            .imageSizeContainer {
+                float: none;
+            }
+
+            .item-content-container {
+                float: none;
+
+                .topic-filter {
+                    float: none;
+                }
+            }
+        }
+    }
+}
+
 .mfp-wrap.form-container-preview {
     .mfp-content {
         background-color: #fff;
