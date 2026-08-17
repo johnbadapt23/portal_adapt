@@ -522,36 +522,3 @@ body.account .select2-container--default.select2-container--open .select2-select
 .mepr-states-text {
     display: none !important;
 }
-
-// Account/membership pages (body.memberpressproduct, .mp_wrapper) float ->
-// flex/grid cleanup, safe pass: pure single-column float:left;width:100%
-// wrappers within MemberPress form rows. Cross-checked against real
-// compiled CSS output. Note: .mp_wrapper .mp-form-row span.select2 is
-// genuinely declared with float in this file - global/_styles.scss also
-// declares the same selector text but without a float property there, so
-// this is not a duplicate override. Deferred real pairs: mepr_price_cell
-// label/value inline row, .mp_wrapper sidebar-nav/content 2-col split,
-// mepr_first_name/mepr_last_name and mepr-address-country/state 50/50
-// field splits, mepr-manage_sub_accounts-wrapper layout.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview.memberpressproduct .mp-form-submit {
-	float: none;
-}
-body.dev-preview .mp_wrapper:first-child span.mepr-nav-item {
-	float: none;
-}
-body.dev-preview .mp_wrapper .mp-form-row span.select2 {
-	float: none;
-}
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests {
-	float: none;
-}
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mp-form-label {
-	float: none;
-}
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field {
-	float: none;
-}
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field span.mepr-checkboxes-field-row label {
-	float: none;
-}

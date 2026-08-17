@@ -136,16 +136,6 @@ function custom_body_classs($classes) {
 		}
     }
 
-	// Dev-only CSS preview toggle: visiting with ?dev=true adds a body
-	// class that lets WIP modernization CSS (float -> flex/grid, etc.)
-	// override the default rules via a higher-specificity body.dev-preview
-	// selector, without changing what regular staging visitors/other devs
-	// see. Query-string only, no cookie/session - purely a CSS hook, not a
-	// feature flag with real functionality behind it.
-	if ( isset( $_GET['dev'] ) && sanitize_text_field( wp_unslash( $_GET['dev'] ) ) === 'true' ) {
-		array_push( $classes, 'dev-preview' );
-	}
-
     return $classes;
 }
 
