@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // theme_widgets
 function theme_widgets() {
 	// register_sidebar( array(

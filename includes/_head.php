@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // theme_scripts
 function theme_scripts() {
     // if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {

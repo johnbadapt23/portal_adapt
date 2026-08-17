@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
 /**
  * Welcome popup - a spotlight/tour-style tooltip that highlights a specific
  * element on the page (by default, the homepage's ADAPT Intelligence /

@@ -24,7 +24,7 @@
                     <span class="categories">
                         <?php
                         $term_m = 'category';
-                        $filterCat = $_GET['categories'];
+                        $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : array();
                         ?>
                         <?php
                         $terms = get_terms( $term_m, array(
@@ -53,7 +53,7 @@
             <?php $counter = -1; ?>
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-                <?php if ( get_field ( 'member_content' ) == yes ) { ?>
+                <?php if ( get_field ( 'member_content' ) == 'yes' ) { ?>
                     <?php if(current_user_can('mepr-active','membership:26')) { ?>
                         <span class="postLink layout<?php echo $counter; ?>">
 
@@ -223,7 +223,7 @@
 
         <?php if(paginate_links()) { ?>
             <span class="pagWrapper">
-                <span id="pagination" class="button-container"><?php next_posts_link( 'See More', $loop->max_num_pages ); ?></span>
+                <span id="pagination" class="button-container"><?php next_posts_link( 'See More' ); ?></span>
             </span>
         <?php } ?>
 

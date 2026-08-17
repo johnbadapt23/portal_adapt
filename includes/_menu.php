@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // theme_menus
 function theme_menus() {
     register_nav_menus(array(

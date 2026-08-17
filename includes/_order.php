@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // population order form
 add_filter( 'gform_pre_render_2', 'custom_populate_orderform' );
 add_filter( 'gform_pre_validation_2', 'custom_populate_orderform' );

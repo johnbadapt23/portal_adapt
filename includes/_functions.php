@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 //current url
 function current_url() {
 	$url = 'http://'; //( 'on' == $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
@@ -39,7 +43,13 @@ function is_paginated() {
 
 // create slug
 function slugify ($string) {
-    $string = utf8_encode($string);
+    // utf8_encode() is deprecated as of PHP 8.2 - mb_convert_encoding() with
+    // the same ISO-8859-1 -> UTF-8 direction is the direct replacement.
+    // Also guard against null (e.g. an empty ACF field passed straight in)
+    // since PHP 8.1+ deprecates passing null to a non-nullable string param,
+    // which both this and iconv() have.
+    $string = (string) $string;
+    $string = mb_convert_encoding($string, 'UTF-8', 'ISO-8859-1');
     $string = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
     $string = preg_replace('/[^a-z0-9- ]/i', '', $string);
     $string = str_replace(' ', '-', $string);
