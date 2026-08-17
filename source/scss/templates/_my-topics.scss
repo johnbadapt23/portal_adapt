@@ -147,3 +147,37 @@ section.updateInterests {
         }
     }
 }
+
+// My-topics / update-interests page (section.updateInterests) float ->
+// flex/grid cleanup, safe pass: pure single-column float:left;width:100%
+// wrappers throughout the intro block and topic-form rows. Cross-checked
+// against real compiled CSS output. Deferred: .checkbox-container label
+// (inline toggle button, sits inside an absolutely-positioned container).
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.updateInterests {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .introductionTextContainer {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .introductionTextContainer h1 {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .introductionTextContainer .introductionText {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .topicsContainer {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .topicsContainer .formContainer {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .topicsContainer .formContainer form {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic {
+	float: none;
+}
+body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic .topicTitle {
+	float: none;
+}
