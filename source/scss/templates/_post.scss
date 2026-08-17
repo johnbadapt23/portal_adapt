@@ -6471,6 +6471,34 @@ body.dev-preview section.featured-module {
     }
 }
 
+// Dev-preview: float -> modern layout for section.filter-listing. Only the
+// unambiguous width:100% wrappers are converted here - the
+// .market-trend-reports-container-side-bar/.item.market-trend-reports and
+// .peer-insights-full-container/.peer-insights-item grids use
+// nth-child(3n+1)/nth-child(2n+1) clear:left float-grid tricks (the same
+// pattern that originally broke the insights grid earlier in this
+// project), and .subscribe-sidebar-form's float:right context isn't fully
+// clear from this file alone. Those need a dedicated, careful pass rather
+// than a mechanical float:none swap. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.filter-listing {
+    float: none;
+
+    .container {
+        .grid-wrapper {
+            float: none;
+
+            .peer-insights-container-side-bar {
+                float: none;
+            }
+
+            .peer-insights-full-container {
+                float: none;
+            }
+        }
+    }
+}
+
 section.filter-listing {
     float: left;
     width: 100%;
