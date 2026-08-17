@@ -869,11 +869,17 @@
 			$('.formContainer form .categories').addClass('active');
 		});
 
-		// Kits Isotope Filtering 
+		// Kits Isotope Filtering
 
 		// init Isotope
         // Initialize Isotope
-		var grids = document.querySelectorAll('.grid'); // Use querySelectorAll to get all grid elements
+		// Scoped to .kits-listing.grid (template-kit-type.php / template-customer.php)
+		// - a bare .grid selector also matched section.blogWrapper .container
+		// #loop.grid on the insights/blog archive, which has no .kit-item
+		// children. Isotope would still take over that container, lay out
+		// zero items, and force it to height: 0px via inline style, an
+		// inline override no stylesheet clearfix can win against.
+		var grids = document.querySelectorAll('.kits-listing.grid');
 		var isos = [];
 
 		grids.forEach(function(grid) {
