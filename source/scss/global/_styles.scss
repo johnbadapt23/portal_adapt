@@ -3541,3 +3541,116 @@ span.std-button-span {
 .secondary-dark {
 	color: #5f5f5f;
 }
+
+// Sitewide base styles (global/_styles.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section {
+	float: none;
+	display: block;
+}
+body.dev-preview hr {
+	float: none;
+	display: block;
+}
+body.dev-preview body main {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper .mp-form-row {
+	float: none;
+	display: block;
+}
+body.dev-preview .inner {
+	float: none;
+	display: block;
+}
+body.dev-preview .fullWidth {
+	float: none;
+	display: block;
+}
+body.dev-preview .buttonBlock {
+	float: none;
+	display: block;
+}
+body.dev-preview .labelXXLarge {
+	float: none;
+	display: block;
+}
+body.dev-preview .labelXL {
+	float: none;
+	display: block;
+}
+body.dev-preview .labelLarge {
+	float: none;
+	display: block;
+}
+body.dev-preview a.label-XXLarge {
+	float: none;
+	display: block;
+}
+body.dev-preview .labelMedium {
+	float: none;
+	display: block;
+}
+body.dev-preview .labelSmall {
+	float: none;
+	display: block;
+}
+body.dev-preview .text-small {
+	float: none;
+	display: block;
+}
+body.dev-preview .labelXSmall {
+	float: none;
+	display: block;
+}
+body.dev-preview .topic-filter .labelXXsmall {
+	float: none;
+	display: block;
+}
+body.dev-preview .mfp-members .mfp-content .members-popup-inner {
+	float: none;
+	display: block;
+}
+body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content h3 {
+	float: none;
+	display: block;
+}
+body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content p {
+	float: none;
+	display: block;
+}
+body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content span.already {
+	float: none;
+	display: block;
+}
+body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content .image-content-mobile {
+	float: none;
+}
+body.dev-preview .video-container {
+	float: none;
+	display: block;
+}
+body.dev-preview .image-container {
+	float: none;
+	display: block;
+}
+body.dev-preview li.nf-previous-item {
+	float: none;
+	display: block;
+}
+body.dev-preview li.nf-next-item {
+	float: none;
+	display: block;
+}
