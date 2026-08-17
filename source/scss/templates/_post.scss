@@ -6471,22 +6471,36 @@ body.dev-preview section.featured-module {
     }
 }
 
-// Dev-preview: float -> modern layout for section.filter-listing. Only the
-// unambiguous width:100% wrappers are converted here - the
-// .market-trend-reports-container-side-bar/.item.market-trend-reports and
-// .peer-insights-full-container/.peer-insights-item grids use
-// nth-child(3n+1)/nth-child(2n+1) clear:left float-grid tricks (the same
-// pattern that originally broke the insights grid earlier in this
-// project), and .subscribe-sidebar-form's float:right context isn't fully
-// clear from this file alone. Those need a dedicated, careful pass rather
-// than a mechanical float:none swap. Gated behind body.dev-preview
-// (?dev=true), see includes/_customisations.php.
+// Dev-preview: float -> modern layout for section.filter-listing,
+// including the market-trend-reports/peer-insights card grids that use
+// nth-child(3n+1)/nth-child(2n+1)/nth-child(3n) + clear:left/margin-zeroing
+// float-grid tricks (the same pattern that originally broke the insights
+// grid earlier in this project). .grid-wrapper becomes the flex row for
+// its direct children (.market-trend-reports-container-side-bar +
+// .market-trend-reports-sidebar sit side by side there; the width:100%
+// items - .peer-insights-container-side-bar, .peer-insights-full-container,
+// .market-trend-reports-container-full-width - each force their own row,
+// same as elsewhere in this file). column-gap replaces the old
+// margin-left/margin-right + nth-child-zeroing gap technique; verified the
+// widths already account for exactly that gap (e.g. 3 x (33.33% - 21.34px)
+// + 2 x 32px column-gap = 100%). .peer-insights-item's real float/width
+// comes from a more specific .grid-wrapper .item.one-third rule further
+// down this file (not the generic .one-third utility - that one loses the
+// specificity fight), which has the exact same margin-right:32px +
+// nth-child(3n)/nth-child(3n+1) gap pattern as the market-trend-reports
+// grids, so it gets the same column-gap treatment. Left
+// .subscribe-sidebar-form's float:right alone in both places it appears -
+// neither has a clearly paired sibling in this file to verify the
+// replacement against. Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
 body.dev-preview section.filter-listing {
     float: none;
 
     .container {
         .grid-wrapper {
             float: none;
+            display: flex;
+            flex-wrap: wrap;
 
             .peer-insights-container-side-bar {
                 float: none;
@@ -6494,6 +6508,80 @@ body.dev-preview section.filter-listing {
 
             .peer-insights-full-container {
                 float: none;
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 32px;
+            }
+
+            .item.one-third {
+                float: none;
+                margin-right: 0;
+
+                @media (max-width: 1023px) {
+                    margin-right: 0;
+                }
+
+                &.peer-insights-item {
+                    .imageSizeContainer {
+                        float: none;
+                    }
+
+                    .item-content-container {
+                        float: none;
+
+                        .topic-filter {
+                            float: none;
+                        }
+                    }
+                }
+            }
+
+            .market-trend-reports-container-side-bar {
+                float: none;
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 32px;
+
+                @include responsive(767) {
+                    float: none;
+                }
+
+                .item.market-trend-reports {
+                    float: none;
+                    margin-left: 0;
+
+                    @include responsive(1023) {
+                        width: 100%;
+                    }
+
+                    .item-content-container {
+                        float: none;
+                    }
+                }
+            }
+
+            .market-trend-reports-sidebar {
+                float: none;
+            }
+
+            .market-trend-reports-container-full-width {
+                float: none;
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 32px;
+
+                .item.market-trend-reports {
+                    float: none;
+                    margin-right: 0;
+
+                    @include responsive(1023) {
+                        width: 100%;
+                    }
+
+                    .item-content-container {
+                        float: none;
+                    }
+                }
             }
         }
     }
