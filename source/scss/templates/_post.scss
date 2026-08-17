@@ -2180,6 +2180,77 @@ span#pagination {
     }
 }
 
+.postHeader .filter .categories {
+    float: left;
+    width: 100%;
+
+    .insightsFilter {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        span.categories {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .checkboxButton {
+            display: inline-block;
+            margin: 0 10px 10px 0;
+
+            label {
+                position: relative;
+                display: block;
+                min-width: 0;
+                padding: 0 18px;
+                height: 35px;
+                line-height: 33px;
+                text-align: center;
+                border: 1px solid #000;
+                border-radius: 4px;
+                cursor: pointer;
+                font-family: $font-main;
+                font-size: 13px;
+                color: #000;
+                text-transform: uppercase;
+                box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
+                @include transition(all);
+
+                &:has(input:checked) {
+                    border-color: $color-red;
+                    color: $color-red;
+                }
+            }
+
+            input[type="checkbox"] {
+                position: absolute;
+                top: -20px;
+                visibility: hidden;
+            }
+        }
+
+        input.filterButton {
+            display: inline-block;
+            margin-bottom: 10px;
+            background-color: $color-red;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            height: 35px;
+            padding: 0 30px;
+            font-family: $font-main;
+            font-size: 13px;
+            text-transform: uppercase;
+            cursor: pointer;
+            @include transition(opacity);
+
+            &:hover {
+                opacity: 0.85;
+            }
+        }
+    }
+}
+
 section.blogWrapper {
     .container {
         #loop {

@@ -365,6 +365,32 @@ function remove_already_displayed_posts($query) {
  $query->set('post__not_in', $displayed_posts);
 }
 
+// Wire up the category checkbox filter on the insights/blog archive
+// (templates/template-post.php submits ?categories[]=slug via GET but
+// nothing was applying it to the main query, so the filter never did
+// anything).
+add_action( 'pre_get_posts', 'adapt_filter_insights_by_category' );
+function adapt_filter_insights_by_category( $query ) {
+    if ( is_admin() || ! $query->is_main_query() || ! $query->is_home() ) {
+        return;
+    }
+    if ( empty( $_GET['categories'] ) ) {
+        return;
+    }
+    $categories = array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) );
+    $categories = array_filter( $categories );
+    if ( empty( $categories ) ) {
+        return;
+    }
+    $query->set( 'tax_query', array(
+        array(
+            'taxonomy' => 'category',
+            'field'    => 'slug',
+            'terms'    => $categories,
+        ),
+    ) );
+}
+
 /**
  * Adapted MemberPress / User Activity Tracking
  * Optimized for CPU, transients, and safe array handling

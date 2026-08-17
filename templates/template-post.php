@@ -223,7 +223,7 @@
 
         <?php if(paginate_links()) { ?>
             <span class="pagWrapper">
-                <span id="pagination" class="button-container"><?php next_posts_link( 'See More', $loop->max_num_pages ); ?></span>
+                <span id="pagination" class="button-container"><?php next_posts_link( 'See More' ); ?></span>
             </span>
         <?php } ?>
 
