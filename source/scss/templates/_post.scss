@@ -2185,6 +2185,7 @@ section.blogWrapper {
         #loop {
             float: left;
             width: 100%;
+            @include clear;
 
             &.results-grid {
                 padding-top: 0px;
