@@ -926,3 +926,87 @@ section.partners-content-module {
     }
 }
 
+// Partners page sections (partners-title-module, speaker-module,
+// advisors-introduction.new-partners-introduction) float -> flex/grid
+// cleanup, safe pass: pure single-column float:left;width:100% wrappers,
+// plus rows already spec-inert (display:flex on the element itself, its
+// immediate parent being display:flex, or position:absolute). Cross-
+// checked against real compiled CSS output. Deliberately excluded: every
+// selector under section.partners-content-module - this exact selector
+// (including all its .partners-content-container/.column-container-inner
+// sub-structure) is also independently declared in templates/_kits.scss
+// and already fully gated there; not re-processed here to avoid
+// duplicate override rules. Deferred real pairs: speaker-module mobile-
+// trigger/text-link, advisors-introduction mobile-title-container.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.partners-title-module {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container .expertise-title {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container form {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speaker-filter-inner {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelMedium,
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelXSmall {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .page-navi-container {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container .image-container {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .logo-container {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner h1 {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .subtitle {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .text {
+	float: none;
+}
+
