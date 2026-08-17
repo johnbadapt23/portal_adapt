@@ -185,3 +185,15 @@ body.dev-preview section.announcementsContainer .container .announcements-loop a
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.author {
 	float: none;
 }
+
+// .read-more real-pair follow-up: it's a single width:auto shrink-to-fit
+// link sandwiched between full-width block siblings (item-top, small-text
+// above; author below), used only so the text doesn't stretch full-width
+// and so the absolutely-positioned :after arrow has an inline anchor point.
+// display:inline-block reproduces that shrink-to-fit, own-line-start
+// behaviour without float, and keeps the position:relative anchor for the
+// arrow icon intact. Cross-checked against real compiled CSS output.
+body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .read-more {
+	float: none;
+	display: inline-block;
+}
