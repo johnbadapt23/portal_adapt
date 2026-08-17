@@ -525,3 +525,62 @@ footer {
         }
     }
 }
+
+// Sitewide footer (footer, cookie-notice, mobile-app-download popup) float ->
+// flex/grid cleanup, safe pass: pure single-column float:left;width:100%
+// wrappers, plus rows already spec-inert (display:flex on the element
+// itself or its immediate parent). Cross-checked against real compiled CSS
+// output. Deliberately excluded: footer .form .nf-response-msg - this
+// selector is declared in global/_forms.scss (a different source file that
+// also compiles into global.min.css), not in this file; left for a
+// dedicated _forms.scss pass. Deferred real pairs: footer .top logo/
+// randalogo row, footer .middle last-column social icons, footer .base
+// .left/.right copyright+legal-links split and span/ul inline row,
+// #cookie-notice .cn-button, mobile-app-download-container one-half 50/50
+// split and form-button.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview footer {
+	float: none;
+}
+body.dev-preview footer .top {
+	float: none;
+}
+body.dev-preview footer .middle {
+	float: none;
+}
+body.dev-preview footer .middle .title {
+	float: none;
+}
+body.dev-preview footer .middle ul.footerLinks {
+	float: none;
+}
+body.dev-preview footer .middle ul.footerLinks li {
+	float: none;
+}
+body.dev-preview footer .middle span.social.mobile {
+	float: none;
+}
+body.dev-preview footer .base {
+	float: none;
+}
+body.dev-preview #cn-notice-text {
+	float: none;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer {
+	float: none;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container {
+	float: none;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title {
+	float: none;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title p {
+	float: none;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-text {
+	float: none;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .button-form-container {
+	float: none;
+}
