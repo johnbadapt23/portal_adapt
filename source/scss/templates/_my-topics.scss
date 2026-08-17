@@ -181,3 +181,15 @@ body.dev-preview section.updateInterests .container .topicsContainer .formContai
 body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic .topicTitle {
 	float: none;
 }
+
+// .checkbox-container label real-pair follow-up: label is the sole in-flow
+// child of an absolutely-positioned, auto-width container (input is itself
+// position:absolute, out of flow). float:left was only there to shrink-wrap
+// the label to its content instead of stretching to fill the container's
+// block width (label has display:block with no explicit width).
+// display:inline-block reproduces that shrink-to-fit sizing without float.
+// Cross-checked against real compiled CSS output.
+body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic .checkbox-container label {
+	float: none;
+	display: inline-block;
+}
