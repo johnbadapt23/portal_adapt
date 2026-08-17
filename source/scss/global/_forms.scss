@@ -942,3 +942,45 @@ footer {
 // 	    width: 1px!important;
 // 	}
 // }
+
+// Global forms (Ninja Forms field wrappers, formPopup/formWrapper.register)
+// float -> flex/grid cleanup, safe pass: pure single-column
+// float:left;width:100% wrappers, plus .field-wrap h2:after which is
+// already position:absolute (float already spec-inert). Cross-checked
+// against real compiled CSS output. Note: footer .form .nf-response-msg
+// and .formPopup .nf-response-msg are genuinely declared in this file (not
+// duplicates of partials/_footer.scss's bare footer selector or
+// templates/_post.scss's bare .formPopup selector, which don't declare
+// this sub-selector). Deferred real pairs: file_upload-wrap/list-radio-wrap
+// nf-field-description inline note, nf-fu-fileinput-button inline button,
+// formWrapper.register label/checkbox rows and listcheckbox-container list
+// items.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview .nf-field-container {
+	float: none;
+}
+body.dev-preview .nf-form-cont {
+	float: none;
+}
+body.dev-preview .nf-fu-progress {
+	float: none;
+}
+body.dev-preview .files_uploaded {
+	float: none;
+}
+body.dev-preview .field-wrap h2:after {
+	float: none;
+}
+body.dev-preview .field-wrap input[type=button],
+body.dev-preview .field-wrap input[type=submit] {
+	float: none;
+}
+body.dev-preview footer .form .nf-response-msg {
+	float: none;
+}
+body.dev-preview .formPopup .nf-response-msg {
+	float: none;
+}
+body.dev-preview .formWrapper.register .email-wrap {
+	float: none;
+}
