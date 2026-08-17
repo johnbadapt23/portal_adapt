@@ -522,3 +522,45 @@ body.account .select2-container--default.select2-container--open .select2-select
 .mepr-states-text {
     display: none !important;
 }
+
+
+// Account page (templates/_account.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview.memberpressproduct .mp-form-submit {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper:first-child span.mepr-nav-item {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper .mp-form-row span.select2 {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mp-form-label {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field {
+	float: none;
+	display: block;
+}
+body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field span.mepr-checkboxes-field-row label {
+	float: none;
+}
