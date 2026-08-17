@@ -220,9 +220,9 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					$inline_img_136_src = get_field( 'speaker_image' );
 					$inline_img_136_attach_id = $inline_img_136_src ? attachment_url_to_postid( $inline_img_136_src ) : 0;
 					if ( $inline_img_136_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, array( 'alt' => the_title() ) );
+						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_136_src ) {
-						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" alt="' . esc_attr( the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
 										</span>
