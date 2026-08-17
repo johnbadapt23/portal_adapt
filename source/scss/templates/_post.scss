@@ -6247,6 +6247,135 @@ section.featured-module {
     }
 }
 
+// Dev-preview: float -> modern layout for section.featured-module,
+// including the .resources-featured / .filter-featured-post variant
+// (template-conversation.php's "featured" content row, e.g.
+// <section class="resources-featured featured-module filter-featured-post">).
+// .container's .title-container/.one-half children and
+// .resources-side-posts-inner's image+text row are real side-by-side
+// floats (not the width:100% single-column idiom), so they get actual
+// flex treatment. Doesn't yet cover the peer-insights-featured/
+// best-practices-featured/market-trends-featured/featured-home variants of
+// this same component - only the two named on the resources-featured page.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.featured-module {
+    float: none;
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .title-container {
+            float: none;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+
+            .introduction-column {
+                float: none;
+
+                h2, p {
+                    float: none;
+                }
+            }
+
+            .link-container {
+                float: none;
+            }
+        }
+
+        .one-half {
+            float: none;
+
+            &.side-bar-column {
+                .recent-sidebar {
+                    .resources-side-posts {
+                        float: none;
+
+                        .resources-side-posts-inner {
+                            float: none;
+                            display: flex;
+                            align-items: flex-start;
+
+                            .image-container,
+                            .video-container {
+                                float: none;
+                            }
+
+                            .post-content-container {
+                                float: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.filter-featured-post {
+        .insights-featured-column {
+            .item-content-container {
+                float: none;
+
+                .topic-filter {
+                    float: none;
+                }
+            }
+        }
+
+        .side-bar-column {
+            .recent-sidebar {
+                .topic-filter {
+                    float: none;
+                }
+            }
+        }
+    }
+
+    &.resources-featured {
+        .container {
+            .slider-column {
+                .resources-featured-slider {
+                    .resources-featured-slide {
+                        float: none;
+
+                        .resources-slide-inner {
+                            float: none;
+
+                            .post-content-container {
+                                float: none;
+
+                                .title {
+                                    float: none;
+                                }
+                            }
+                        }
+                    }
+
+                    ul.slick-dots {
+                        float: none;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+
+                        li {
+                            float: none;
+
+                            a {
+                                float: none;
+                            }
+                        }
+                    }
+                }
+
+                .paging-counter {
+                    float: none;
+                }
+            }
+        }
+    }
+}
+
 section.filter-listing {
     float: left;
     width: 100%;
