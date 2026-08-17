@@ -4114,6 +4114,46 @@ section.twoColumnCard {
     }
 }
 
+// Dev-preview: float -> modern layout for the two-column-card homepage
+// block (section.twoColumnCard, used by the two_column_card_block content
+// block). .cardContainer .twoColumnCard used the classic float
+// two-up-grid-via-nth-child-margins pattern; flexbox + gap reproduces the
+// same width:calc(50% - 8px) cards without the odd/even margin overrides.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.twoColumnCard {
+    float: none;
+
+    .container {
+        .cardContainer {
+            float: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 40px;
+
+            .twoColumnCard {
+                float: none;
+                width: calc(50% - 8px);
+                margin: 0 0 16px;
+
+                @include responsive(767) {
+                    width: 100%;
+                    margin: 0 0 16px;
+                }
+
+                .imageContainer {
+                    float: none;
+                }
+
+                .textContainer {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
 .formWrapper.cardFormWrapper {
 
 	.email-container {
