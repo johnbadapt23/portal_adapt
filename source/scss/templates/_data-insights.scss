@@ -1656,3 +1656,309 @@ section.persona-filtering {
         }
     }
 }
+
+// Data-insights/sector/persona template float -> flex/grid cleanup, safe
+// pass: pure single-column float:left;width:100% wrappers, plus floats
+// already spec-inert (position:absolute/fixed, the element itself
+// display:flex, or its immediate parent being display:flex). Every
+// selector below was cross-checked against the real compiled CSS output.
+// Genuine side-by-side layouts (the data-links 3-col grid, the explore-
+// section persona-button 4-col grid, the persona-featured-article's fixed-
+// width text column) are deliberately left for a dedicated pass. Gated
+// behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container h2 {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container .slide-container {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container .slide-container .image-container {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container .page-title {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hbspt-form {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hs-form {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hbspt-form div.actions {
+	float: none;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hs-form div.actions {
+	float: none;
+}
+body.dev-preview section.data-links {
+	float: none;
+}
+body.dev-preview section.data-links .container .breadcrumb-container {
+	float: none;
+}
+body.dev-preview section.data-links .container .title-container {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container .data-link .slide-container {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container .data-link .slide-container .image-container {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container .title {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container .text {
+	float: none;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container .button-container {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-article-slider {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column .v-wrap .v-box {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column .slide-image-container {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column .slide-image-container .image-container {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .topicFilter {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .title {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .dateReadTime {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .excerpt {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data ul.slick-dots {
+	float: none;
+}
+body.dev-preview section.featured-article-slider-data.technology-trends-slider .data-slide {
+	float: none;
+}
+body.dev-preview section.explore-section .container .button-container {
+	float: none;
+}
+body.dev-preview section.explore-section .container .button-container .sector-button {
+	float: none;
+}
+body.dev-preview section.explore-section .container .persona-button-container {
+	float: none;
+}
+body.dev-preview section.explore-section .container .persona-button-container a.persona-button .persona-button-inner {
+	float: none;
+}
+body.dev-preview section.explore-section .container .persona-button-container a.persona-button .persona-text-container .persona-name {
+	float: none;
+}
+body.dev-preview section.explore-section .container .persona-button-container a.persona-button .persona-text-container .persona-full-name {
+	float: none;
+}
+body.dev-preview section.persona-featured-article {
+	float: none;
+}
+body.dev-preview section.persona-featured-article .container .featured-article {
+	float: none;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .topicFilter {
+	float: none;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .title {
+	float: none;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .dateReadTime {
+	float: none;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .excerpt {
+	float: none;
+}
+body.dev-preview section.persona-filtering .container .filter-link-container {
+	float: none;
+}
+body.dev-preview section.persona-filtering .container .filter-link-container a.persona-filter-link {
+	float: none;
+}
+
+// Supplementary display:block fixes for templates/_data-insights.scss's dev-preview block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container h2 {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container .slide-container {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container .slide-container .image-container {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .image-column .content-popup-container .page-title {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hbspt-form {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hs-form {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hbspt-form div.actions {
+	display: block;
+}
+body.dev-preview .mfp-datasharepopup .mfp-content .webinar-register-form.datasetShare .container .data-column-container .form-column .form-container .hs-form div.actions {
+	display: block;
+}
+body.dev-preview section.data-links {
+	display: block;
+}
+body.dev-preview section.data-links .container .breadcrumb-container {
+	display: block;
+}
+body.dev-preview section.data-links .container .title-container {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container .data-link .slide-container {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container .data-link .slide-container .image-container {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container .title {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container .text {
+	display: block;
+}
+body.dev-preview section.data-links .container .links-container .data-link .information-container .button-container {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-article-slider {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column .v-wrap .v-box {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column .slide-image-container {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .image-column .slide-image-container .image-container {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .topicFilter {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .title {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .dateReadTime {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data .data-slide .slide-container .textContainer .excerpt {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data ul.slick-dots {
+	display: block;
+}
+body.dev-preview section.featured-article-slider-data.technology-trends-slider .data-slide {
+	display: block;
+}
+body.dev-preview section.explore-section .container .button-container .sector-button {
+	display: block;
+}
+body.dev-preview section.explore-section .container .persona-button-container {
+	display: block;
+}
+body.dev-preview section.explore-section .container .persona-button-container a.persona-button .persona-text-container .persona-name {
+	display: block;
+}
+body.dev-preview section.explore-section .container .persona-button-container a.persona-button .persona-text-container .persona-full-name {
+	display: block;
+}
+body.dev-preview section.persona-featured-article {
+	display: block;
+}
+body.dev-preview section.persona-featured-article .container .featured-article {
+	display: block;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .topicFilter {
+	display: block;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .title {
+	display: block;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .dateReadTime {
+	display: block;
+}
+body.dev-preview section.persona-featured-article .container .featured-article .textContainer .excerpt {
+	display: block;
+}
+body.dev-preview section.persona-filtering .container .filter-link-container a.persona-filter-link {
+	display: block;
+}
