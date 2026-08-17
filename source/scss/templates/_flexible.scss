@@ -3087,3 +3087,191 @@ section.resources-cta-block {
         }
     }
 }
+
+// Flexible-content template blocks (banner, related-articles, two-column
+// text, half-half, speaker quote carousel, pricing, download/video grid,
+// resources-cta) float -> flex/grid cleanup, safe pass: pure single-column
+// float:left;width:100% wrappers, plus floats already spec-inert
+// (position:absolute/fixed, the element itself display:flex, or its
+// immediate parent being display:flex). Every selector below was
+// cross-checked against the real compiled CSS output. Genuine
+// side-by-side layouts (relatedArticlesThreeColumn/twoColumnWithText's
+// 3-col grids, twoColumnTextBlock and halfHalfBlock's paired columns, the
+// speaker gallery image+text split, relatedSpeakerArticles' 4-col grid,
+// pricingBlock's 3-col layout, and resources-cta-block's image+text split)
+// are deliberately left for a dedicated pass. Gated behind
+// body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.banner .imageContainer {
+	float: none;
+}
+body.dev-preview section.banner .imageContainer .image .container h1 {
+	float: none;
+}
+body.dev-preview section.banner .imageContainer .image .container h2 {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle a {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
+	float: none;
+}
+body.dev-preview section.twoColumnTextBlock .titleBlock h2 {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock.mobile {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock h2 {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock span.desktopText {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock span.mobileText {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock span p {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .titleBlock {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .titleBlock .text {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage div.owl-dots {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage .item {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage .item .quoteBlock {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage .item .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item {
+	float: none;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
+	float: none;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.fullWidthTextEditor {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .titleBlock {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .articles {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .articles a.item .postDetails {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .articles a.item .postTitle {
+	float: none;
+}
+body.dev-preview section.flexible-banner.banner {
+	float: none;
+}
+body.dev-preview section.formBlock {
+	float: none;
+}
+body.dev-preview section.formBlock .formWrapper {
+	float: none;
+}
+body.dev-preview section.formBlock.centered .formWrapper h3 {
+	float: none;
+}
+body.dev-preview section.pricingBlock {
+	float: none;
+}
+body.dev-preview section.pricingBlock h2 {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .innerWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .title {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .hrWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .priceBlockWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .features {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .features .feature {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
+	float: none;
+}
+body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper {
+	float: none;
+}
+body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper form {
+	float: none;
+}
+body.dev-preview section.resources-cta-block {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .cta-title {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .text {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .button-container {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
+	float: none;
+}
+body.dev-preview section.banner .videoLink {
+	float: none;
+}
