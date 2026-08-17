@@ -2947,4 +2947,327 @@ header.scrolled {
 .menu-overlay.active {
 	opacity: 1;
 	pointer-events: auto;
+}// Header float -> flex/grid cleanup, safe first pass only: pure
+// single-column float:left;width:100% wrappers, plus floats that are
+// already spec-inert (position:fixed/absolute, or the element itself is
+// display:flex) so removing them is a zero-risk no-op. Every selector
+// below was cross-checked against the actual compiled CSS output (not
+// hand-traced from the nested SCSS) to avoid selector-path mistakes in
+// this file's unusually deep mega-menu/mobile-menu nesting. Genuine
+// side-by-side float pairs - the logo + icon toolbar row, the main
+// desktop nav row, the user avatar+name stack, the mega menu's
+// multi-column grid, icon+text link rows, half-links/event-link 2-col
+// grids, and the share icon row - are deliberately left untouched here
+// for individual dedicated passes with live dev=true browser
+// verification, since header renders on every page and drives real
+// interactive dropdown/mobile-menu behavior. Gated behind
+// body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview header .user .megaMenu {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuInfo {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuTop {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuBottom {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuLogout {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuTop a {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuTop span.no-link {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuBottom a {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuBottom span.no-link {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuLogout a {
+	float: none;
+}
+body.dev-preview header .user .megaMenu .userMenuLogout span.no-link {
+	float: none;
+}
+body.dev-preview header .top {
+	float: none;
+}
+body.dev-preview header .bottom {
+	float: none;
+}
+body.dev-preview header .bottom span.desktopNav {
+	float: none;
+}
+body.dev-preview header .megaMenu {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul li {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul li a {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul li a .link-text .link-title {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul li a .link-text .link-text-text {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul .events-calendar {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul .events-calendar .events-calendar-container {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul .events-calendar .events-calendar-container .link-text-container .link-title {
+	float: none;
+}
+body.dev-preview header .megaMenu.eventsMenu ul .events-calendar .events-calendar-container .link-text-container .link-container {
+	float: none;
+}
+body.dev-preview header .megaMenu .mobile-menu-title {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .dropDownSection {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .dropDownSection .columnTitle {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .dropDownSection ul {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .dropDownSection ul li {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .dropDownSection ul li a {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-link {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-link .title {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-link .text {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-link .link {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-link .half-links {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-featured-post {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-featured-post .image-container {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .menu-featured-post .text-container {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .event-link span.eventLink {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .imageContainer {
+	float: none;
+}
+body.dev-preview header .megaMenu .column .text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .mobileMenuItems {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li a {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .sub-menu-inner {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .sub-menu-inner {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection .columnTitle {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection .columnTitle {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection ul {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection ul {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection ul li {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection ul li {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection ul li a {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection ul li a {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-link {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-link {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-link .title {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-link .title {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-link .text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-link .text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-link .link {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-link .link {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-link .half-links {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-link .half-links {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-featured-post {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-featured-post {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-featured-post .text-container {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .menu-featured-post .text-container {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .event-link span.eventLink {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .event-link span.eventLink {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .imageContainer {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .imageContainer {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events .events-calendar {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu .events-calendar {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events .events-calendar .events-calendar-container {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu .events-calendar .events-calendar-container {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events .events-calendar .events-calendar-container .link-text-container .link-title {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu .events-calendar .events-calendar-container .link-text-container .link-title {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events .events-calendar .events-calendar-container .link-text-container .link-container {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu .events-calendar .events-calendar-container .link-text-container .link-container {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events .link-text .link-title {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu .link-text .link-title {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.events .link-text .link-text-text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop ul li.with-sub-menu .link-text .link-text-text {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop span.log-out-link {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop span.log-out-link a {
+	float: none;
+}
+body.dev-preview nav.mobileMenu .menuTop span.social {
+	float: none;
+}
+body.dev-preview .buttonWrapper {
+	float: none;
+}
+body.dev-preview .buttonWrapper a.nav .menu {
+	float: none;
+}
+body.dev-preview .loginFormPopup {
+	float: none;
+}
+body.dev-preview .loginFormPopup .loginFormContainer {
+	float: none;
+}
+body.dev-preview .single-post-sticky {
+	float: none;
+}
+body.dev-preview .single-post-sticky .container .title-container {
+	float: none;
+}
+body.dev-preview .single-post-sticky .container .title-container .labelSmall {
+	float: none;
+}
+body.dev-preview .single-post-sticky .container .right-container {
+	float: none;
 }
