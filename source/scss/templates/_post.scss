@@ -3891,9 +3891,16 @@ body.template-insights {
 }
 
 // New stylings for insights page intro
+// NOTE: this block reuses the bare .postHeader/.headerWrapper/h1/.subTitle
+// selectors from the block near the top of this file. Because it comes
+// later in the cascade with equal specificity, it wins per-property over
+// that earlier block for postHeader/headerWrapper/h1/.subTitle - the
+// width:33.33% three-column values up top never actually render; this is
+// the block that governs the real on-page layout for those elements. Only
+// .memberLogin, .filter and .categories are untouched here and still come
+// from the earlier block.
 
 .postHeader {
-    float: left;
     width: 100%;
     text-align: center;
 
@@ -3907,7 +3914,6 @@ body.template-insights {
         text-align: center;
 
         h1 {
-            float: left;
             width: 100%;
             text-align: center;
             margin-bottom: 20px;
@@ -3929,7 +3935,6 @@ body.template-insights {
         }
 
         .subTitle {
-            float: left;
             width: 100%;
             font-family: $font-base;
             font-size: 16px;
