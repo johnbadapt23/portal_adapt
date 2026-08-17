@@ -6374,6 +6374,101 @@ body.dev-preview section.featured-module {
             }
         }
     }
+
+    // The remaining section.featured-module variants (not present on the
+    // resources-featured page, but converted for consistency since
+    // .container above is already flex - these only need their own
+    // float:none, the row layout is inherited).
+    &.peer-insights-featured {
+        .container {
+            .slide-column {
+                float: none;
+
+                .peer-featured-slider,
+                .expert-featured-slider {
+                    .peer-slide,
+                    .expert-slide {
+                        float: none;
+
+                        .peer-slide-inner {
+                            float: none;
+
+                            .post-content-container {
+                                float: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .next-slide-container {
+                float: none;
+
+                .post-content-container {
+                    float: none;
+                }
+            }
+        }
+    }
+
+    &.market-trends-featured {
+        .container {
+            .sidebar {
+                float: none;
+                margin-left: auto;
+
+                @include responsive(767) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    // .post-list-container isn't nested under .container, so it needs its
+    // own flex row (the base .container flex treatment above doesn't reach it).
+    &.featured-home {
+        .post-list-container {
+            float: none;
+            display: flex;
+            flex-wrap: wrap;
+
+            .first-post-column {
+                .resources-featured-slide {
+                    float: none;
+
+                    .resources-slide-inner {
+                        float: none;
+
+                        .post-content-container {
+                            float: none;
+
+                            .title {
+                                float: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .side-bar-column {
+                .recent-sidebar {
+                    .resources-side-posts {
+                        float: none;
+
+                        .resources-side-posts-inner {
+                            float: none;
+                            display: flex;
+                            align-items: flex-start;
+
+                            .post-content-container {
+                                float: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 section.filter-listing {
