@@ -1650,3 +1650,109 @@ section.expertPresentationFeatured {
         }
     }
 }
+
+// Single-post template (body.post/section.singlePost, image grid, text-
+// image, related-articles carousel, tags, registration overlay,
+// expertPresentationFeatured) float -> flex/grid cleanup, safe pass: pure
+// single-column float:left;width:100% wrappers, plus floats already
+// spec-inert (position:absolute/fixed, the element itself display:flex, or
+// its immediate parent being display:flex). Selectors already gated by
+// earlier work in this file were excluded. Every selector below was
+// cross-checked against the real compiled CSS output. Genuine side-by-side
+// layouts - the author byline row (avatar+name+logo), the share icon row,
+// the postDetails meta row, and the textImageBlock item grid - are
+// deliberately left for a dedicated pass. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.singlePost {
+	float: none;
+}
+body.dev-preview section.singlePost .featureBlock {
+	float: none;
+}
+body.dev-preview section.singlePost .postDetails {
+	float: none;
+}
+body.dev-preview section.singlePost .postDetails span.topics-container {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left h1 {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .author {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .author .label {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .podcastPlayer {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .podcastPlayer .audioWrapper {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .right .share {
+	float: none;
+}
+body.dev-preview .sideArticles {
+	float: none;
+}
+body.dev-preview .sideArticles h2 {
+	float: none;
+}
+body.dev-preview .sideArticles .relatedArticle {
+	float: none;
+}
+body.dev-preview .sideArticles .relatedArticle a {
+	float: none;
+}
+body.dev-preview .imageGridBlock {
+	float: none;
+}
+body.dev-preview .imageGridBlock h2 {
+	float: none;
+}
+body.dev-preview section.textImageBlock {
+	float: none;
+}
+body.dev-preview section.textImageBlock .title h2 {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .title {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .description {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .logoContainer {
+	float: none;
+}
+body.dev-preview .tags {
+	float: none;
+}
+body.dev-preview section.singlePost.locked span.excerpt {
+	float: none;
+}
+body.dev-preview .registrationOverlay {
+	float: none;
+}
+body.dev-preview .registrationOverlay .titleBlock p {
+	float: none;
+}
+body.dev-preview .registrationOverlay .titleBlock span.already {
+	float: none;
+}
+body.dev-preview section.singlePost.repeatableSingle {
+	float: none;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
+	float: none;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
+	float: none;
+}
