@@ -817,5 +817,74 @@ section.two-column-services.landing-video-intro {
     }
 }
 
+// Thank-you page sections (thank-you-pink-introduction, article-container-
+// three-post, topic-filter, thank-you-featured, next-steps-block partners-
+// cards-module, two-column-thank-you-module) float -> flex/grid cleanup,
+// safe pass: pure single-column float:left;width:100% wrappers, plus the
+// column-container row which is already display:flex. Cross-checked against
+// real compiled CSS output. Deliberately excluded: every selector under
+// section.two-column-services.landing-video-intro - this exact selector is
+// also independently declared in templates/_post.scss and already fully
+// gated there; not re-processed here to avoid duplicate override rules.
+// Deferred real pairs: article-container-three-post .item 3-col grid,
+// articles-featured.featured-module one-half 50/50 split, thank-you-featured
+// h3 inline heading, next-steps-block counter-circle-outer fixed-size icon,
+// two-column-thank-you-module image-column/text-list-column 50/50 split.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.thank-you-pink-introduction {
+	float: none;
+}
+body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .animation-icon-container {
+	float: none;
+}
+body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .title-container h1 {
+	float: none;
+}
+body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .title-container .text {
+	float: none;
+}
+body.dev-preview .article-container-three-post {
+	float: none;
+}
+body.dev-preview .article-container-three-post .container .grid-wrapper {
+	float: none;
+}
+body.dev-preview .topic-filter {
+	float: none;
+}
+body.dev-preview section.thank-you-featured .container .thank-you-post-introduction-container {
+	float: none;
+}
+body.dev-preview section.next-steps-block.partners-cards-module .card-container .card .content-container .counter-title-container {
+	float: none;
+}
+body.dev-preview section.next-steps-block.partners-cards-module .card-container .card .content-container h4 {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column.image-column img {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column h2 {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .text {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container .list-item {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container .button-container {
+	float: none;
+}
+
 // TNC registration
 
