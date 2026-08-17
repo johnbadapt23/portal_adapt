@@ -758,6 +758,51 @@ section.imageGridBlock.speakerBlock {
     }
 }
 
+// Dev-preview: float -> modern layout for .imageGridBlock .gridWrapper
+// (used by section.imageGridBlock.speakerBlock, the speaker_cta_block
+// content block, among other imageGridBlock variants). The 4-up grid used
+// float + margin-left:109px + nth-child(4n+1)/nth-child(2n+1) reset
+// tricks; column-gap on a wrapping flex row reproduces the same
+// calc(24.7% - 81.75px) item widths without the nth-child math. Row
+// spacing still comes from each item's own margin-bottom, unchanged.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview .imageGridBlock .gridWrapper {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0;
+    column-gap: 109px;
+
+    @include responsive(1023) {
+        column-gap: 50px;
+    }
+
+    @include responsive(767) {
+        column-gap: 10px;
+    }
+
+    .item {
+        float: none;
+        width: calc(24.7% - 81.75px);
+        margin-left: 0;
+
+        @include responsive(1023) {
+            width: calc(24.7% - 37.5px);
+        }
+
+        @include responsive(767) {
+            width: calc(50% - 5px);
+        }
+
+        .title,
+        .description,
+        .logoContainer,
+        .button {
+            float: none;
+        }
+    }
+}
+
 
 
 section.textImageBlock {
@@ -1091,6 +1136,77 @@ section.textImageBlock {
                     margin-bottom: 0px;
                 }
             }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for the homepage related-articles
+// carousel (owl-carousel powered .articlesCarousel/.articlesCarouselTaxonomies).
+// Only active behind ?dev=true (see custom_body_classs in
+// includes/_customisations.php) so this doesn't change what other devs/
+// staging visitors see by default until reviewed. The float:left;width:100%
+// pattern throughout the block above is the usual "force full-width block"
+// idiom with no real side-by-side layout need, except .postDetails .info's
+// topic/date/readTime spans which float side-by-side and get display:flex
+// here instead so they keep sitting in a row.
+body.dev-preview .relatedArticlesCarousel {
+    float: none;
+
+    h2 {
+        float: none;
+    }
+
+    .articlesCarousel,
+    .articlesCarouselTaxonomies {
+        float: none;
+
+        .relatedArticle {
+            float: none;
+            display: block;
+
+            .imageContainer {
+                float: none;
+            }
+
+            .postDetails {
+                float: none;
+                display: block;
+
+                .info {
+                    float: none;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                }
+
+                span {
+                    float: none;
+                }
+
+                .articleLink {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+body.dev-preview section.fullImageInfogram {
+    float: none;
+
+    .container {
+        .featureBlock {
+            float: none;
+
+            .featureImage {
+                float: none;
+                display: block;
+            }
+        }
+
+        .infogram-container {
+            float: none;
         }
     }
 }
@@ -1533,4 +1649,250 @@ section.expertPresentationFeatured {
             }
         }
     }
+}
+
+// Single-post template (body.post/section.singlePost, image grid, text-
+// image, related-articles carousel, tags, registration overlay,
+// expertPresentationFeatured) float -> flex/grid cleanup, safe pass: pure
+// single-column float:left;width:100% wrappers, plus floats already
+// spec-inert (position:absolute/fixed, the element itself display:flex, or
+// its immediate parent being display:flex). Selectors already gated by
+// earlier work in this file were excluded. Every selector below was
+// cross-checked against the real compiled CSS output. Genuine side-by-side
+// layouts - the author byline row (avatar+name+logo), the share icon row,
+// the postDetails meta row, and the textImageBlock item grid - are
+// deliberately left for a dedicated pass. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.singlePost {
+	float: none;
+}
+body.dev-preview section.singlePost .featureBlock {
+	float: none;
+}
+body.dev-preview section.singlePost .postDetails {
+	float: none;
+}
+body.dev-preview section.singlePost .postDetails span.topics-container {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left h1 {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .author {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .author .label {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .podcastPlayer {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .left .podcastPlayer .audioWrapper {
+	float: none;
+}
+body.dev-preview section.singlePost .fullWidth .right .share {
+	float: none;
+}
+body.dev-preview .sideArticles {
+	float: none;
+}
+body.dev-preview .sideArticles h2 {
+	float: none;
+}
+body.dev-preview .sideArticles .relatedArticle {
+	float: none;
+}
+body.dev-preview .sideArticles .relatedArticle a {
+	float: none;
+}
+body.dev-preview .imageGridBlock {
+	float: none;
+}
+body.dev-preview .imageGridBlock h2 {
+	float: none;
+}
+body.dev-preview section.textImageBlock {
+	float: none;
+}
+body.dev-preview section.textImageBlock .title h2 {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .title {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .description {
+	float: none;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .logoContainer {
+	float: none;
+}
+body.dev-preview .tags {
+	float: none;
+}
+body.dev-preview section.singlePost.locked span.excerpt {
+	float: none;
+}
+body.dev-preview .registrationOverlay {
+	float: none;
+}
+body.dev-preview .registrationOverlay .titleBlock p {
+	float: none;
+}
+body.dev-preview .registrationOverlay .titleBlock span.already {
+	float: none;
+}
+body.dev-preview section.singlePost.repeatableSingle {
+	float: none;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
+	float: none;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
+	float: none;
+}
+
+// Supplementary display:block fixes for templates/_single-post.scss's dev-preview block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body.dev-preview .imageGridBlock .gridWrapper .item .title {
+	display: block;
+}
+body.dev-preview .imageGridBlock .gridWrapper .item .description {
+	display: block;
+}
+body.dev-preview .imageGridBlock .gridWrapper .item .logoContainer {
+	display: block;
+}
+body.dev-preview .imageGridBlock .gridWrapper .item .button {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel h2 {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarousel {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarousel .relatedArticle .imageContainer {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle .imageContainer {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarousel .relatedArticle .postDetails span {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle .postDetails span {
+	display: block;
+}
+body.dev-preview section.fullImageInfogram {
+	display: block;
+}
+body.dev-preview section.fullImageInfogram .container .featureBlock {
+	display: block;
+}
+body.dev-preview section.fullImageInfogram .container .infogram-container {
+	display: block;
+}
+body.dev-preview section.singlePost {
+	display: block;
+}
+body.dev-preview section.singlePost .featureBlock {
+	display: block;
+}
+body.dev-preview section.singlePost .postDetails {
+	display: block;
+}
+body.dev-preview section.singlePost .postDetails span.topics-container {
+	display: block;
+}
+body.dev-preview section.singlePost .fullWidth .left {
+	display: block;
+}
+body.dev-preview section.singlePost .fullWidth .left h1 {
+	display: block;
+}
+body.dev-preview section.singlePost .fullWidth .left .author {
+	display: block;
+}
+body.dev-preview section.singlePost .fullWidth .left .author .label {
+	display: block;
+}
+body.dev-preview section.singlePost .fullWidth .left .podcastPlayer {
+	display: block;
+}
+body.dev-preview section.singlePost .fullWidth .right .share {
+	display: block;
+}
+body.dev-preview .sideArticles h2 {
+	display: block;
+}
+body.dev-preview .sideArticles .relatedArticle {
+	display: block;
+}
+body.dev-preview .sideArticles .relatedArticle a {
+	display: block;
+}
+body.dev-preview .imageGridBlock {
+	display: block;
+}
+body.dev-preview .imageGridBlock h2 {
+	display: block;
+}
+body.dev-preview section.textImageBlock {
+	display: block;
+}
+body.dev-preview section.textImageBlock .title h2 {
+	display: block;
+}
+body.dev-preview section.textImageBlock .itemsWrapper {
+	display: block;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .title {
+	display: block;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .description {
+	display: block;
+}
+body.dev-preview section.textImageBlock .itemsWrapper .item .logoContainer {
+	display: block;
+}
+body.dev-preview section.singlePost.locked span.excerpt {
+	display: block;
+}
+body.dev-preview .registrationOverlay {
+	display: block;
+}
+body.dev-preview .registrationOverlay .titleBlock p {
+	display: block;
+}
+body.dev-preview .registrationOverlay .titleBlock span.already {
+	display: block;
+}
+body.dev-preview section.singlePost.repeatableSingle {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
+	display: block;
+}
+body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
+	display: block;
 }
