@@ -7426,6 +7426,46 @@ section.filter-title-block {
     }
 }
 
+// Dev-preview: float -> modern layout for the second section.filter-title-block
+// (the topic-button-container/filter-button variant used by
+// template-conversation.php's intro block; the FIRST filter-title-block
+// definition above it, with .sidebar-container/.media-enquiries-container,
+// has no matching markup anywhere in templates/ - confirmed dead CSS, not
+// converted). All width:100% single-column floats here; a.filter-button's
+// float:left is already inert today since its parent .topic-button-container
+// is already display:flex (flex items ignore float per spec), this just
+// removes the now-misleading declaration. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.filter-title-block {
+    float: none;
+
+    .container {
+        .title-container {
+            float: none;
+
+            h1 {
+                float: none;
+            }
+
+            p.type-description {
+                float: none;
+            }
+        }
+
+        .topic-button-container-outer {
+            float: none;
+
+            .topic-button-container {
+                float: none;
+
+                a.filter-button {
+                    float: none;
+                }
+            }
+        }
+    }
+}
+
 section.conversation-cta {
     float: left;
     width: 100%;
@@ -7489,7 +7529,7 @@ section.conversation-cta {
                     }                
                 }
 
-                &.image-column {      
+                &.image-column {
                     .image-container {
                         float: left;
                         height: 100%;
@@ -7501,6 +7541,55 @@ section.conversation-cta {
                                 object-position: bottom center;
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for section.conversation-cta.
+// .column-container and .button-container are already display:flex, so
+// .column/.pre-button-text/.cta-button's float:left is already inert
+// today (flex items ignore float per spec) - this just removes the
+// now-misleading declarations. The rest is the usual width:100%
+// single-column idiom. Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
+body.dev-preview section.conversation-cta {
+    float: none;
+
+    .container {
+        .column-container {
+            float: none;
+
+            .column {
+                float: none;
+
+                &.text-column {
+                    h5 {
+                        float: none;
+                    }
+
+                    span.text {
+                        float: none;
+                    }
+
+                    .button-container {
+                        float: none;
+
+                        .pre-button-text {
+                            float: none;
+                        }
+
+                        .cta-button {
+                            float: none;
+                        }
+                    }
+                }
+
+                &.image-column {
+                    .image-container {
+                        float: none;
                     }
                 }
             }
