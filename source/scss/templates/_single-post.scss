@@ -1095,6 +1095,77 @@ section.textImageBlock {
     }
 }
 
+// Dev-preview: float -> modern layout for the homepage related-articles
+// carousel (owl-carousel powered .articlesCarousel/.articlesCarouselTaxonomies).
+// Only active behind ?dev=true (see custom_body_classs in
+// includes/_customisations.php) so this doesn't change what other devs/
+// staging visitors see by default until reviewed. The float:left;width:100%
+// pattern throughout the block above is the usual "force full-width block"
+// idiom with no real side-by-side layout need, except .postDetails .info's
+// topic/date/readTime spans which float side-by-side and get display:flex
+// here instead so they keep sitting in a row.
+body.dev-preview .relatedArticlesCarousel {
+    float: none;
+
+    h2 {
+        float: none;
+    }
+
+    .articlesCarousel,
+    .articlesCarouselTaxonomies {
+        float: none;
+
+        .relatedArticle {
+            float: none;
+            display: block;
+
+            .imageContainer {
+                float: none;
+            }
+
+            .postDetails {
+                float: none;
+                display: block;
+
+                .info {
+                    float: none;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                }
+
+                span {
+                    float: none;
+                }
+
+                .articleLink {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+body.dev-preview section.fullImageInfogram {
+    float: none;
+
+    .container {
+        .featureBlock {
+            float: none;
+
+            .featureImage {
+                float: none;
+                display: block;
+            }
+        }
+
+        .infogram-container {
+            float: none;
+        }
+    }
+}
+
 section.relatedArticlesCarousel {
     .container {
         .buttonBlock.centre {
