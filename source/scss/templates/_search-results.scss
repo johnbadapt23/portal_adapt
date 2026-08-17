@@ -315,3 +315,19 @@ html.no-touch {
         }
     }
 }
+
+// Search results page (section.search-filter-container) float ->
+// flex/grid cleanup, safe pass: pure single-column float:left;width:100%
+// wrappers (search bar, search form, article-filtering-container).
+// Cross-checked against real compiled CSS output. Deferred real pairs:
+// searchInput/searchButton inline row, article-filter-item inline tab row.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.search-filter-container .container .search {
+	float: none;
+}
+body.dev-preview section.search-filter-container .container .search form {
+	float: none;
+}
+body.dev-preview section.search-filter-container .container .article-filtering-container {
+	float: none;
+}
