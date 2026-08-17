@@ -596,6 +596,30 @@ section.fullWidthTextBlock {
     }
 }
 
+// Dev-preview: float -> modern layout for section.fullWidthTextBlock
+// (full_width_text_block content block). All width:100% single-column,
+// same idiom as elsewhere - .hrWrapper is a span so it needs display:block
+// once float is removed. Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
+body.dev-preview section.fullWidthTextBlock {
+    .titleBlock {
+        float: none;
+
+        .hrWrapper {
+            float: none;
+            display: block;
+        }
+    }
+
+    .textBlockWrapper {
+        float: none;
+
+        .buttonWrapper {
+            float: none;
+        }
+    }
+}
+
 .speakerQuoteCarousel {
     padding: 116px 0;
 
@@ -1399,6 +1423,62 @@ section.flexible-banner.banner {
     }
 }
 
+// Dev-preview: float -> modern layout for section.videoBlock /
+// section.flexible-banner.banner (shared with the full_image_button_block
+// content block, among others). .content is already position:absolute so
+// its own float never mattered; span.title/.text/.buttonBlock/.videoLink
+// are the usual width:100% single-column idiom needing display:block since
+// they're spans. .videoLink a's icon+text row is a real side-by-side
+// float, so it gets display:flex instead. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.videoBlock,
+body.dev-preview section.flexible-banner.banner {
+    .content {
+        .column.text {
+            @include responsive(767) {
+                span.text {
+                    float: none;
+                    display: block;
+                }
+            }
+
+            @media (max-width: 640px) {
+                span.text {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+
+        span.title,
+        span.text,
+        span.buttonBlock {
+            float: none;
+            display: block;
+        }
+
+        span.videoLink {
+            float: none;
+            display: block;
+
+            a {
+                float: none;
+                display: flex;
+                align-items: center;
+
+                > span {
+                    float: none;
+                    width: auto;
+
+                    &:last-child span {
+                        float: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
 section.formBlock {
     float: left;
     width: 100%;
@@ -2104,6 +2184,69 @@ section.download-block {
     }
 }
 
+// Dev-preview: float -> modern layout for the homepage download block
+// (single/two-column/three-column variants, section.download-block).
+// .container holds the width:100% single-column fields (title, listing
+// text) as siblings of the .two-column/.three-column cards - making
+// .container a wrapping flex row works for both, since 100%-wide items
+// naturally force a line break same as their old floats did. column-gap
+// replaces the old margin:0 9px + :first-of-type/:last-child override
+// pattern for the card-to-card gap; row spacing still comes from each
+// item's own margin-bottom, same as before. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php. The download popup
+// modal (.mfp-wrap.download-container) isn't covered by this pass.
+body.dev-preview section.download-block .container {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0;
+    column-gap: 18px;
+
+    .download-block-title,
+    .listing-title,
+    .listing-details,
+    .download-image-container {
+        float: none;
+    }
+
+    .listing-details {
+        p, a {
+            float: none;
+        }
+    }
+
+    .two-column {
+        float: none;
+        width: calc(50% - 9px);
+        margin: 0;
+
+        @media (max-width: 767px) {
+            float: none;
+            width: 100%;
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    .three-column {
+        float: none;
+        width: calc(33.333% - 12px);
+        margin: 0;
+
+        @media (max-width: 767px) {
+            float: none;
+            width: 100%;
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
 
 .mfp-wrap.download-container {
     .mfp-content {
@@ -2299,6 +2442,83 @@ section.download-block {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for the download-block popup modal
+// (.mfp-wrap.download-container, the Magnific Popup lightbox opened by
+// each download card). .preview-container (float:left, calc(100% - 215px))
+// + .download-container (float:right, 215px fixed sidebar) is a real
+// two-column layout, not the usual width:100% pattern, so it gets actual
+// flex-basis values instead of a flat float removal. Everything else here
+// is the familiar width:100% single-column idiom. Gated behind
+// body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    .preview-container {
+        float: none;
+        flex: 1 1 auto;
+        width: auto;
+
+        @media (max-width: 1023px) {
+            flex-basis: 100%;
+        }
+
+        .download-image-container {
+            float: none;
+        }
+
+        .description-container {
+            float: none;
+
+            .listing-title,
+            .listing-details {
+                float: none;
+            }
+
+            .listing-details {
+                p, a {
+                    float: none;
+                }
+            }
+        }
+    }
+
+    .download-container {
+        float: none;
+        flex: 0 0 215px;
+        width: 215px;
+
+        @media (max-width: 1023px) {
+            flex-basis: 100%;
+            width: 100%;
+        }
+
+        .download-title {
+            float: none;
+        }
+
+        .downloads {
+            float: none;
+        }
+    }
+
+    .description-container {
+        float: none;
+
+        .listing-title,
+        .listing-details {
+            float: none;
+        }
+
+        .listing-details {
+            p, a {
+                float: none;
             }
         }
     }
@@ -2584,6 +2804,85 @@ section.video-grid-block {
     }
 }
 
+// Dev-preview: float -> modern layout for the homepage video grid block
+// (section.video-grid-block). Unlike download-block, the .two-column/
+// .three-column cards sit inside their own .video-grid-block-container
+// wrapper div (not direct siblings of .video-block-title), so that
+// wrapper - not .container - is what becomes the flex row here.
+// column-gap replaces the old margin:0 9px + :first-of-type/:last-child
+// pattern. The play-icon + text row inside .videoLink a was a real
+// side-by-side float (not a width:100% single column), so it gets
+// display:flex instead of a flat removal. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.video-grid-block .container {
+    .video-block-title,
+    .listing-title {
+        float: none;
+    }
+
+    .listing-details {
+        float: none;
+
+        p, a {
+            float: none;
+        }
+    }
+
+    .video-grid-block-container {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 0;
+        column-gap: 18px;
+    }
+
+    .video-image-container {
+        float: none;
+
+        span.videoLink a {
+            float: none;
+            display: flex;
+            align-items: center;
+
+            > span {
+                float: none;
+                width: auto;
+            }
+        }
+    }
+
+    .two-column {
+        float: none;
+        width: calc(50% - 9px);
+        margin: 0;
+
+        @media (max-width: 767px) {
+            float: none;
+            width: 100%;
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    .three-column {
+        float: none;
+        width: calc(33.333% - 12px);
+        margin: 0;
+
+        @media (max-width: 767px) {
+            float: none;
+            width: 100%;
+            margin: 0 0 20px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
 
 header.header.remove-main {
     .desktopNav {
@@ -2787,4 +3086,455 @@ section.resources-cta-block {
             }
         }
     }
+}
+
+// Flexible-content template blocks (banner, related-articles, two-column
+// text, half-half, speaker quote carousel, pricing, download/video grid,
+// resources-cta) float -> flex/grid cleanup, safe pass: pure single-column
+// float:left;width:100% wrappers, plus floats already spec-inert
+// (position:absolute/fixed, the element itself display:flex, or its
+// immediate parent being display:flex). Every selector below was
+// cross-checked against the real compiled CSS output. Genuine
+// side-by-side layouts (relatedArticlesThreeColumn/twoColumnWithText's
+// 3-col grids, twoColumnTextBlock and halfHalfBlock's paired columns, the
+// speaker gallery image+text split, relatedSpeakerArticles' 4-col grid,
+// pricingBlock's 3-col layout, and resources-cta-block's image+text split)
+// are deliberately left for a dedicated pass. Gated behind
+// body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.banner .imageContainer {
+	float: none;
+}
+body.dev-preview section.banner .imageContainer .image .container h1 {
+	float: none;
+}
+body.dev-preview section.banner .imageContainer .image .container h2 {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle a {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
+	float: none;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
+	float: none;
+}
+body.dev-preview section.twoColumnTextBlock .titleBlock h2 {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock.mobile {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock h2 {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock span.desktopText {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock span.mobileText {
+	float: none;
+}
+body.dev-preview section.halfHalfBlock .textBlock span p {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .titleBlock {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .titleBlock .text {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
+	float: none;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage div.owl-dots {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage .item {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage .item .quoteBlock {
+	float: none;
+}
+body.dev-preview section.quoteBlockNoImage .item .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item {
+	float: none;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
+	float: none;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
+	float: none;
+}
+body.dev-preview section.fullWidthTextEditor {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .titleBlock {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .articles {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .articles a.item .postDetails {
+	float: none;
+}
+body.dev-preview section.relatedSpeakerArticles .articles a.item .postTitle {
+	float: none;
+}
+body.dev-preview section.flexible-banner.banner {
+	float: none;
+}
+body.dev-preview section.formBlock {
+	float: none;
+}
+body.dev-preview section.formBlock .formWrapper {
+	float: none;
+}
+body.dev-preview section.formBlock.centered .formWrapper h3 {
+	float: none;
+}
+body.dev-preview section.pricingBlock {
+	float: none;
+}
+body.dev-preview section.pricingBlock h2 {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .innerWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .title {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .hrWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .priceBlockWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .features {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .features .feature {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
+	float: none;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
+	float: none;
+}
+body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper {
+	float: none;
+}
+body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper form {
+	float: none;
+}
+body.dev-preview section.resources-cta-block {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .cta-title {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .text {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .button-container {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
+	float: none;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
+	float: none;
+}
+body.dev-preview section.banner .videoLink {
+	float: none;
+}
+
+// Supplementary display:block fixes for templates/_flexible.scss's dev-preview block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body.dev-preview section.fullWidthTextBlock .titleBlock {
+	display: block;
+}
+body.dev-preview section.fullWidthTextBlock .textBlockWrapper {
+	display: block;
+}
+body.dev-preview section.videoBlock .content span.videoLink a > span:last-child span {
+	display: block;
+}
+body.dev-preview section.flexible-banner.banner .content span.videoLink a > span:last-child span {
+	display: block;
+}
+body.dev-preview section.download-block .container .download-block-title {
+	display: block;
+}
+body.dev-preview section.download-block .container .listing-title {
+	display: block;
+}
+body.dev-preview section.download-block .container .listing-details {
+	display: block;
+}
+body.dev-preview section.download-block .container .download-image-container {
+	display: block;
+}
+body.dev-preview section.download-block .container .listing-details p {
+	display: block;
+}
+body.dev-preview section.download-block .container .listing-details a {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .download-image-container {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details p {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details a {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .download-container .download-title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .download-container .downloads {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details p {
+	display: block;
+}
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details a {
+	display: block;
+}
+body.dev-preview section.video-grid-block .container .video-block-title {
+	display: block;
+}
+body.dev-preview section.video-grid-block .container .listing-title {
+	display: block;
+}
+body.dev-preview section.video-grid-block .container .listing-details {
+	display: block;
+}
+body.dev-preview section.video-grid-block .container .listing-details p {
+	display: block;
+}
+body.dev-preview section.video-grid-block .container .listing-details a {
+	display: block;
+}
+body.dev-preview section.video-grid-block .container .video-image-container {
+	display: block;
+}
+body.dev-preview section.banner .imageContainer {
+	display: block;
+}
+body.dev-preview section.banner .imageContainer .image .container h1 {
+	display: block;
+}
+body.dev-preview section.banner .imageContainer .image .container h2 {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle a {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
+	display: block;
+}
+body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
+	display: block;
+}
+body.dev-preview section.twoColumnTextBlock .titleBlock h2 {
+	display: block;
+}
+body.dev-preview section.halfHalfBlock .textBlock h2 {
+	display: block;
+}
+body.dev-preview section.halfHalfBlock .textBlock span p {
+	display: block;
+}
+body.dev-preview .speakerQuoteCarousel .titleBlock {
+	display: block;
+}
+body.dev-preview .speakerQuoteCarousel .titleBlock .text {
+	display: block;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery {
+	display: block;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
+	display: block;
+}
+body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
+	display: block;
+}
+body.dev-preview section.quoteBlockNoImage div.owl-dots {
+	display: block;
+}
+body.dev-preview section.quoteBlockNoImage .item {
+	display: block;
+}
+body.dev-preview section.quoteBlockNoImage .item .quoteBlock {
+	display: block;
+}
+body.dev-preview section.quoteBlockNoImage .item .quoteAuthor {
+	display: block;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item {
+	display: block;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
+	display: block;
+}
+body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
+	display: block;
+}
+body.dev-preview section.fullWidthTextEditor {
+	display: block;
+}
+body.dev-preview section.relatedSpeakerArticles .titleBlock {
+	display: block;
+}
+body.dev-preview section.relatedSpeakerArticles .articles {
+	display: block;
+}
+body.dev-preview section.relatedSpeakerArticles .articles a.item .postDetails {
+	display: block;
+}
+body.dev-preview section.relatedSpeakerArticles .articles a.item .postTitle {
+	display: block;
+}
+body.dev-preview section.flexible-banner.banner {
+	display: block;
+}
+body.dev-preview section.formBlock {
+	display: block;
+}
+body.dev-preview section.formBlock .formWrapper {
+	display: block;
+}
+body.dev-preview section.formBlock.centered .formWrapper h3 {
+	display: block;
+}
+body.dev-preview section.pricingBlock {
+	display: block;
+}
+body.dev-preview section.pricingBlock h2 {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .innerWrapper {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .title {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .hrWrapper {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .priceBlockWrapper {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .features {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .features .feature {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
+	display: block;
+}
+body.dev-preview section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
+	display: block;
+}
+body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper {
+	display: block;
+}
+body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper form {
+	display: block;
+}
+body.dev-preview section.resources-cta-block {
+	display: block;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .cta-title {
+	display: block;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .text {
+	display: block;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .button-container {
+	display: block;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
+	display: block;
+}
+body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
+	display: block;
+}
+body.dev-preview section.banner .videoLink {
+	display: block;
 }
