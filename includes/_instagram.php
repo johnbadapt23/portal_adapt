@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // instagram feed
 class Instagram {
     public static $result;
@@ -41,7 +45,13 @@ class Instagram {
             self::$result = self::fetch("https://filters.rocks/embed/" . self::$filter . ".json");
 
             self::$result = json_decode(self::$result);
-            self::$results = self::$result->feed->approved_images;
+            // fetch()/json_decode() can both come back empty (curl failure,
+            // timeout, or a non-JSON error response) - on PHP 8+, reading a
+            // property off null is a fatal Error rather than a warning, so
+            // guard before dereferencing ->feed->approved_images.
+            self::$results = ( is_object( self::$result ) && isset( self::$result->feed->approved_images ) )
+                ? self::$result->feed->approved_images
+                : array();
         } else {
             if (self::$tag) {
                 self::$result = self::fetch("https://api.instagram.com/v1/tags/" . self::$tag . "/media/recent?count=" . self::$count . "&access_token=" . self::$access_token);
@@ -50,7 +60,12 @@ class Instagram {
             }
 
             self::$result = json_decode(self::$result);
-            self::$results = self::$result->data;
+            // Same fatal-on-null risk as above - api.instagram.com's legacy
+            // endpoint used here has actually been retired for years, so in
+            // practice this branch almost always returns nothing usable.
+            self::$results = ( is_object( self::$result ) && isset( self::$result->data ) )
+                ? self::$result->data
+                : array();
         }
 
     }

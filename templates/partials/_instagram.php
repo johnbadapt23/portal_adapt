@@ -8,7 +8,7 @@
                     //https://instagram.com/oauth/authorize/?client_id=a923810abd4a4472919a791e0f73bd3e&redirect_uri=http://localhost:4100&response_type=token
         			$Instagram = new Instagram(get_field('instagram_api', 'options'), get_field('instagram_photos', 'options'), 'standard_resolution');
                     if(isset($Instagram)) {
-        			foreach ($Instagram::$result->data as $photo) {
+        			foreach ($Instagram::$results as $photo) {
         			    $img = $photo->images->{$Instagram::$display_size};
         			    $img = $img->url;
         			    $link = $photo->link;
