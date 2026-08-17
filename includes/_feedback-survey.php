@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
 /**
  * Feedback survey - a Contact Form 7 form (built and edited entirely in
  * wp-admin > Contact > Contact Forms, whatever questions are wanted - not

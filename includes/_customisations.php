@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // theme_pagination
 function custom_theme_pagination() {
 	$prev_arrow = is_rtl() ? '&gt;' : '&lt;';
