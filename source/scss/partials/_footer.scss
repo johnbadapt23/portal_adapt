@@ -346,6 +346,107 @@ footer {
     }
 }
 
+// Sitewide footer (footer, cookie-notice, mobile-app-download popup) float ->
+// flex/grid cleanup, safe pass: pure single-column float:left;width:100%
+// wrappers, plus rows already spec-inert (display:flex on the element
+// itself or its immediate parent). Cross-checked against real compiled CSS
+// output AND against the real markup in templates/partials/_footer.php.
+//
+// Redone after a live regression: footer, .top, .base, and .middle .title
+// are rendered as <span> elements (see _footer.php), which default to
+// display:inline. float:left was the ONLY thing making them block-level
+// before; a bare float:none reverts them to inline, so they stop reserving
+// full-width vertical space and everything below collapses upward - this
+// is what broke the footer layout last time. Every span-tag selector below
+// now pairs float:none with an explicit display:block. footer itself is a
+// <footer> tag (block by default) so it doesn't need this. .middle already
+// has its own display:flex in the un-gated base rule (used for its .column
+// children), which already blockifies it, so it's left as float:none only,
+// matching the original safe-pass classification. .middle span.social.mobile
+// is display:none by default and only display:block at the existing (un-
+// gated) 767 breakpoint, so it's also safe as float:none only. ul.footerLinks
+// and its li are block-level tags natively, no display needed.
+//
+// #cn-notice-text is a <span> per the Cookie Notice plugin's standard
+// output template (not present in this theme's own PHP, so not directly
+// verifiable in this codebase, but confirmed against the plugin's known
+// markup) - given display:block.
+//
+// .mobile-app-download-container's popup content (.popup-block-outer,
+// .popup-container, .popup-title, .popup-text, .button-form-container)
+// could not be located in any theme PHP file (likely built by an ACF
+// flexible-content block or a plugin, not statically present) - tag
+// unverified, so display:block is added defensively to all of them. This
+// is always safe: harmless/redundant if the real tag is already
+// block-level (div), and corrective if it turns out to be inline.
+// .popup-title p is a real <p> tag (block by default), included for
+// consistency though not strictly required.
+//
+// Deliberately excluded: footer .form .nf-response-msg - this selector is
+// declared in global/_forms.scss (a different source file that also
+// compiles into global.min.css), not in this file; left for a dedicated
+// _forms.scss pass. Deferred real pairs: footer .top logo/randalogo row,
+// footer .middle last-column social icons, footer .base .left/.right
+// copyright+legal-links split and span/ul inline row, #cookie-notice
+// .cn-button, mobile-app-download-container one-half 50/50 split and
+// form-button.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview footer {
+	float: none;
+}
+body.dev-preview footer .top {
+	float: none;
+	display: block;
+}
+body.dev-preview footer .middle {
+	float: none;
+}
+body.dev-preview footer .middle .title {
+	float: none;
+	display: block;
+}
+body.dev-preview footer .middle ul.footerLinks {
+	float: none;
+}
+body.dev-preview footer .middle ul.footerLinks li {
+	float: none;
+}
+body.dev-preview footer .middle span.social.mobile {
+	float: none;
+}
+body.dev-preview footer .base {
+	float: none;
+	display: block;
+}
+body.dev-preview #cn-notice-text {
+	float: none;
+	display: block;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer {
+	float: none;
+	display: block;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container {
+	float: none;
+	display: block;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title {
+	float: none;
+	display: block;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title p {
+	float: none;
+	display: block;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-text {
+	float: none;
+	display: block;
+}
+body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .button-form-container {
+	float: none;
+	display: block;
+}
+
 #cookie-notice {
     min-width: auto!important;
     left: 10px!important;
