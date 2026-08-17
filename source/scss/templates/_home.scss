@@ -923,11 +923,184 @@ section.advantage-two-column-accordion{
                                 }
 
                             }
-                            
+
                         }
                     }
                 }
             }
         }
     }
+}
+
+// Homepage sections (advisors-carousel, upcoming-events-slider-section,
+// benchmark-two-column, advantage-two-column-accordion) float -> flex/grid
+// cleanup, safe pass: pure single-column float:left;width:100% wrappers,
+// plus rows already spec-inert (display:flex on the element itself, its
+// immediate parent being display:flex, or position:absolute). Cross-checked
+// against real compiled CSS output. Deferred real pairs: advisors-carousel
+// mobile button-container flex-column override, upcoming-events-slider
+// negative-margin/overflow carousel track.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.advisors-carousel {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .container .title-text-container h2 {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .container .title-text-container .text {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
+	float: none;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
+	float: none;
+}
+body.dev-preview section.upcoming-events-slider-section {
+	float: none;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column h2 {
+	float: none;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column .text-regular {
+	float: none;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column .button-container {
+	float: none;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .slider-column .event-slider-control-container {
+	float: none;
+}
+body.dev-preview section.benchmark-two-column {
+	float: none;
+}
+body.dev-preview section.benchmark-two-column .container .column-container {
+	float: none;
+}
+body.dev-preview section.benchmark-two-column .container .column-container .link-column .labelXXsmall {
+	float: none;
+}
+body.dev-preview section.benchmark-two-column .container .column-container .link-column .headerXsmall {
+	float: none;
+}
+body.dev-preview section.benchmark-two-column .container .column-container .link-column .link-container {
+	float: none;
+}
+body.dev-preview section.benchmark-two-column .container .column-container .link-column .link-container .link-inner-container {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .labelXXsmall {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .headerXsmall {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .question {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer .answer-inner {
+	float: none;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer .answer-inner .link-container {
+	float: none;
+}
+// Supplementary display:block fixes for templates/_home.scss's dev-preview block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body.dev-preview section.advisors-carousel {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .container .title-text-container h2 {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .container .title-text-container .text {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
+	display: block;
+}
+body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
+	display: block;
+}
+body.dev-preview section.upcoming-events-slider-section {
+	display: block;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column h2 {
+	display: block;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column .text-regular {
+	display: block;
+}
+body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .slider-column .event-slider-control-container {
+	display: block;
+}
+body.dev-preview section.benchmark-two-column {
+	display: block;
+}
+body.dev-preview section.benchmark-two-column .container .column-container .link-column .labelXXsmall {
+	display: block;
+}
+body.dev-preview section.benchmark-two-column .container .column-container .link-column .headerXsmall {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .labelXXsmall {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .headerXsmall {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .question {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer .answer-inner {
+	display: block;
+}
+body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer .answer-inner .link-container {
+	display: block;
 }
