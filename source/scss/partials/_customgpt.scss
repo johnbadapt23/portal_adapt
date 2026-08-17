@@ -210,3 +210,13 @@ span.customgpt-toggle {
 		}
 	}
 }
+
+// CustomGPT header toggle button float -> flex/grid cleanup, safe pass:
+// span.customgpt-toggle's own float is already spec-inert since it also
+// sets display:flex on itself. Cross-checked against real compiled CSS
+// output. The @media (max-width:767px) float:right variant is left as-is
+// (responsive override, out of scope for this pass).
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview span.customgpt-toggle {
+	float: none;
+}

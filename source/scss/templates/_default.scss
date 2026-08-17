@@ -20,3 +20,17 @@ section.default {
         margin-top: 30px;
     }
 }
+
+// Default/fallback template (section.default) float -> flex/grid cleanup,
+// safe pass: pure single-column float:left;width:100% wrappers. Note:
+// section.default is also declared in templates/_flexible.scss and
+// global/_base.scss, but neither declares these sub-selectors (label,
+// register-button-container), so no duplicate override risk. Cross-checked
+// against real compiled CSS output.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.default .container label {
+	float: none;
+}
+body.dev-preview section.default .register-button-container {
+	float: none;
+}
