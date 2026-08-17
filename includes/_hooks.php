@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Direct access not allowed.
+}
+
 // actions
 add_action('after_setup_theme', 	'theme_setup' );
 add_action('init', 					'theme_scripts');
