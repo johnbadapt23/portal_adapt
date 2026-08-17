@@ -596,6 +596,30 @@ section.fullWidthTextBlock {
     }
 }
 
+// Dev-preview: float -> modern layout for section.fullWidthTextBlock
+// (full_width_text_block content block). All width:100% single-column,
+// same idiom as elsewhere - .hrWrapper is a span so it needs display:block
+// once float is removed. Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
+body.dev-preview section.fullWidthTextBlock {
+    .titleBlock {
+        float: none;
+
+        .hrWrapper {
+            float: none;
+            display: block;
+        }
+    }
+
+    .textBlockWrapper {
+        float: none;
+
+        .buttonWrapper {
+            float: none;
+        }
+    }
+}
+
 .speakerQuoteCarousel {
     padding: 116px 0;
 
@@ -1392,6 +1416,62 @@ section.flexible-banner.banner {
                                 font-family: $font-main;
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for section.videoBlock /
+// section.flexible-banner.banner (shared with the full_image_button_block
+// content block, among others). .content is already position:absolute so
+// its own float never mattered; span.title/.text/.buttonBlock/.videoLink
+// are the usual width:100% single-column idiom needing display:block since
+// they're spans. .videoLink a's icon+text row is a real side-by-side
+// float, so it gets display:flex instead. Gated behind body.dev-preview
+// (?dev=true), see includes/_customisations.php.
+body.dev-preview section.videoBlock,
+body.dev-preview section.flexible-banner.banner {
+    .content {
+        .column.text {
+            @include responsive(767) {
+                span.text {
+                    float: none;
+                    display: block;
+                }
+            }
+
+            @media (max-width: 640px) {
+                span.text {
+                    float: none;
+                    display: block;
+                }
+            }
+        }
+
+        span.title,
+        span.text,
+        span.buttonBlock {
+            float: none;
+            display: block;
+        }
+
+        span.videoLink {
+            float: none;
+            display: block;
+
+            a {
+                float: none;
+                display: flex;
+                align-items: center;
+
+                > span {
+                    float: none;
+                    width: auto;
+
+                    &:last-child span {
+                        float: none;
                     }
                 }
             }
@@ -2362,6 +2442,83 @@ body.dev-preview section.download-block .container {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for the download-block popup modal
+// (.mfp-wrap.download-container, the Magnific Popup lightbox opened by
+// each download card). .preview-container (float:left, calc(100% - 215px))
+// + .download-container (float:right, 215px fixed sidebar) is a real
+// two-column layout, not the usual width:100% pattern, so it gets actual
+// flex-basis values instead of a flat float removal. Everything else here
+// is the familiar width:100% single-column idiom. Gated behind
+// body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+
+    .preview-container {
+        float: none;
+        flex: 1 1 auto;
+        width: auto;
+
+        @media (max-width: 1023px) {
+            flex-basis: 100%;
+        }
+
+        .download-image-container {
+            float: none;
+        }
+
+        .description-container {
+            float: none;
+
+            .listing-title,
+            .listing-details {
+                float: none;
+            }
+
+            .listing-details {
+                p, a {
+                    float: none;
+                }
+            }
+        }
+    }
+
+    .download-container {
+        float: none;
+        flex: 0 0 215px;
+        width: 215px;
+
+        @media (max-width: 1023px) {
+            flex-basis: 100%;
+            width: 100%;
+        }
+
+        .download-title {
+            float: none;
+        }
+
+        .downloads {
+            float: none;
+        }
+    }
+
+    .description-container {
+        float: none;
+
+        .listing-title,
+        .listing-details {
+            float: none;
+        }
+
+        .listing-details {
+            p, a {
+                float: none;
             }
         }
     }

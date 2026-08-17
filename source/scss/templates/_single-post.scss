@@ -758,6 +758,51 @@ section.imageGridBlock.speakerBlock {
     }
 }
 
+// Dev-preview: float -> modern layout for .imageGridBlock .gridWrapper
+// (used by section.imageGridBlock.speakerBlock, the speaker_cta_block
+// content block, among other imageGridBlock variants). The 4-up grid used
+// float + margin-left:109px + nth-child(4n+1)/nth-child(2n+1) reset
+// tricks; column-gap on a wrapping flex row reproduces the same
+// calc(24.7% - 81.75px) item widths without the nth-child math. Row
+// spacing still comes from each item's own margin-bottom, unchanged.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview .imageGridBlock .gridWrapper {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0;
+    column-gap: 109px;
+
+    @include responsive(1023) {
+        column-gap: 50px;
+    }
+
+    @include responsive(767) {
+        column-gap: 10px;
+    }
+
+    .item {
+        float: none;
+        width: calc(24.7% - 81.75px);
+        margin-left: 0;
+
+        @include responsive(1023) {
+            width: calc(24.7% - 37.5px);
+        }
+
+        @include responsive(767) {
+            width: calc(50% - 5px);
+        }
+
+        .title,
+        .description,
+        .logoContainer,
+        .button {
+            float: none;
+        }
+    }
+}
+
 
 
 section.textImageBlock {
