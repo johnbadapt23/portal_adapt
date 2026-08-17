@@ -926,3 +926,103 @@ section.partners-content-module {
     }
 }
 
+
+
+// Partners title/speaker/advisors-introduction sections (templates/_partners.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.partners-title-module {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container .expertise-title {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container form {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speaker-filter-inner {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers {
+	float: none;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelMedium,
+body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelXSmall {
+	float: none;
+	display: block;
+}
+body.dev-preview section.speaker-module .container .speakers-container-outer .page-navi-container {
+	float: none;
+	display: block;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container {
+	float: none;
+	display: block;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container .image-container {
+	float: none;
+	display: block;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .logo-container {
+	float: none;
+	display: block;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner {
+	float: none;
+	display: block;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner h1 {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .subtitle {
+	float: none;
+}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .text {
+	float: none;
+	display: block;
+}
