@@ -7976,6 +7976,18 @@ body.dev-preview .article {
 
 // non member form popup
 
+// Dev-preview: only .preview-cta-form's own float:left;width:100% is
+// converted here - the rest of this block styles a HubSpot-generated form
+// (.hbspt-form/.hs-form) with !important overrides targeting HubSpot's own
+// injected markup/CSS, similar caution to leaving vendor library CSS
+// (FlexSlider etc.) alone elsewhere in this project. Not confident a
+// mechanical float removal there wouldn't fight with styles HubSpot
+// applies at runtime. Gated behind body.dev-preview (?dev=true), see
+// includes/_customisations.php.
+body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
+    float: none;
+}
+
 .mfp-wrap.form-container-preview {
     .mfp-content {
         background-color: #fff;
