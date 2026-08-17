@@ -819,3 +819,89 @@ section.two-column-services.landing-video-intro {
 
 // TNC registration
 
+
+
+// Thank-you page sections (templates/_thank-you.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.thank-you-pink-introduction {
+	float: none;
+	display: block;
+}
+body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .animation-icon-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .title-container h1 {
+	float: none;
+	display: block;
+}
+body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .title-container .text {
+	float: none;
+	display: block;
+}
+body.dev-preview .article-container-three-post {
+	float: none;
+	display: block;
+}
+body.dev-preview .article-container-three-post .container .grid-wrapper {
+	float: none;
+	display: block;
+}
+body.dev-preview .topic-filter {
+	float: none;
+	display: block;
+}
+body.dev-preview section.thank-you-featured .container .thank-you-post-introduction-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.next-steps-block.partners-cards-module .card-container .card .content-container .counter-title-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.next-steps-block.partners-cards-module .card-container .card .content-container h4 {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container {
+	float: none;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column.image-column img {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column h2 {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .text {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container .list-item {
+	float: none;
+	display: block;
+}
+body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container .button-container {
+	float: none;
+	display: block;
+}
