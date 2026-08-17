@@ -978,3 +978,158 @@ section.research-top-navigation {
         }
     }
 }
+
+
+// Advantage/research-portal landing sections (templates/_advantage-styling.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
+body.dev-preview section.advantage-home-introduction {
+	float: none;
+	display: block;
+}
+body.dev-preview section.advantage-home-introduction .container .introduction-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner {
+	float: none;
+	display: block;
+}
+body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .icon-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .link-title {
+	float: none;
+	display: block;
+}
+body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .text {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta .container .cta-content-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta .container .cta-content-container .column.image-column img {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container h2 {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container .text {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container .button-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-chat {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-chat .container .inner .chat-image-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-chat .container .inner h2 {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-chat .container .inner .text {
+	float: none;
+	display: block;
+}
+body.dev-preview section.home-chat .container .inner .button-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .breadcrumb-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .title-container {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .navigation-container {
+	float: none;
+}
+body.dev-preview section.research-top-navigation .container .column .dropDownSection {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .dropDownSection .columnTitle {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .dropDownSection ul {
+	float: none;
+}
+body.dev-preview section.research-top-navigation .container .column .dropDownSection ul li {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .dropDownSection ul li a {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .menu-link {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .menu-link .title {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .menu-link .text {
+	float: none;
+}
+body.dev-preview section.research-top-navigation .container .column .menu-link .link {
+	float: none;
+}
+body.dev-preview section.research-top-navigation .container .column .menu-link .half-links {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .event-link span.eventLink {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .imageContainer {
+	float: none;
+	display: block;
+}
+body.dev-preview section.research-top-navigation .container .column .text {
+	float: none;
+	display: block;
+}
