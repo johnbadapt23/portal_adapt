@@ -162,48 +162,60 @@ section.announcementsContainer {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.announcementsContainer {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .introductionTextContainer {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .introductionTextContainer h1 {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .introductionTextContainer .introductionText {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top span.date {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top h3 {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.small-text {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.author {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .read-more {
 	float: none;
+	clear: both;
 	display: inline-block;
 }

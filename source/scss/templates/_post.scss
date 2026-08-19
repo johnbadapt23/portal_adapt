@@ -7494,11 +7494,12 @@ section.conversation-cta {
 // same width:calc(50% - 8px) cards without the odd/even margin overrides.
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.twoColumnCard {
-    float: none;
+    float: none;clear:both;
 
     .container {
         .cardContainer {
             float: none;
+            clear: both;
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
@@ -7506,6 +7507,7 @@ body.dev-preview section.twoColumnCard {
 
             .twoColumnCard {
                 float: none;
+                clear: both;
                 width: calc(50% - 8px);
                 margin: 0 0 16px;
 
@@ -7516,10 +7518,12 @@ body.dev-preview section.twoColumnCard {
 
                 .imageContainer {
                     float: none;
+                    clear: both;
                 }
 
                 .textContainer {
                     float: none;
+                    clear: both;
                     display: block;
                 }
             }
@@ -9632,7 +9636,7 @@ section.featured-module {
 // this same component - only the two named on the resources-featured page.
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.featured-module {
-    float: none;
+    float: none;clear:both;
 
     .container {
         display: flex;
@@ -9640,43 +9644,49 @@ body.dev-preview section.featured-module {
 
         .title-container {
             float: none;
+            clear: both;
             width: 100%;
             display: flex;
             flex-wrap: wrap;
 
             .introduction-column {
-                float: none;
+                float: none;clear:both;
 
                 h2, p {
                     float: none;
+                    clear: both;
                 }
             }
 
             .link-container {
                 float: none;
+                clear: both;
             }
         }
 
         .one-half {
-            float: none;
+            float: none;clear:both;
 
             &.side-bar-column {
                 .recent-sidebar {
                     .resources-side-posts {
-                        float: none;
+                        float: none;clear:both;
 
                         .resources-side-posts-inner {
                             float: none;
+                            clear: both;
                             display: flex;
                             align-items: flex-start;
 
                             .image-container,
                             .video-container {
                                 float: none;
+                                clear: both;
                             }
 
                             .post-content-container {
                                 float: none;
+                                clear: both;
                             }
                         }
                     }
@@ -9688,10 +9698,11 @@ body.dev-preview section.featured-module {
     &.filter-featured-post {
         .insights-featured-column {
             .item-content-container {
-                float: none;
+                float: none;clear:both;
 
                 .topic-filter {
                     float: none;
+                    clear: both;
                 }
             }
         }
@@ -9700,6 +9711,7 @@ body.dev-preview section.featured-module {
             .recent-sidebar {
                 .topic-filter {
                     float: none;
+                    clear: both;
                 }
             }
         }
@@ -9710,16 +9722,17 @@ body.dev-preview section.featured-module {
             .slider-column {
                 .resources-featured-slider {
                     .resources-featured-slide {
-                        float: none;
+                        float: none;clear:both;
 
                         .resources-slide-inner {
-                            float: none;
+                            float: none;clear:both;
 
                             .post-content-container {
-                                float: none;
+                                float: none;clear:both;
 
                                 .title {
                                     float: none;
+                                    clear: both;
                                 }
                             }
                         }
@@ -9727,15 +9740,17 @@ body.dev-preview section.featured-module {
 
                     ul.slick-dots {
                         float: none;
+                        clear: both;
                         display: flex;
                         flex-wrap: wrap;
                         align-items: center;
 
                         li {
-                            float: none;
+                            float: none;clear:both;
 
                             a {
                                 float: none;
+                                clear: both;
                             }
                         }
                     }
@@ -9743,6 +9758,7 @@ body.dev-preview section.featured-module {
 
                 .paging-counter {
                     float: none;
+                    clear: both;
                 }
             }
         }
@@ -9755,19 +9771,20 @@ body.dev-preview section.featured-module {
     &.peer-insights-featured {
         .container {
             .slide-column {
-                float: none;
+                float: none;clear:both;
 
                 .peer-featured-slider,
                 .expert-featured-slider {
                     .peer-slide,
                     .expert-slide {
-                        float: none;
+                        float: none;clear:both;
 
                         .peer-slide-inner {
-                            float: none;
+                            float: none;clear:both;
 
                             .post-content-container {
                                 float: none;
+                                clear: both;
                             }
                         }
                     }
@@ -9775,10 +9792,11 @@ body.dev-preview section.featured-module {
             }
 
             .next-slide-container {
-                float: none;
+                float: none;clear:both;
 
                 .post-content-container {
                     float: none;
+                    clear: both;
                 }
             }
         }
@@ -9788,6 +9806,7 @@ body.dev-preview section.featured-module {
         .container {
             .sidebar {
                 float: none;
+                clear: both;
                 margin-left: auto;
 
                 @include responsive(767) {
@@ -9802,21 +9821,23 @@ body.dev-preview section.featured-module {
     &.featured-home {
         .post-list-container {
             float: none;
+            clear: both;
             display: flex;
             flex-wrap: wrap;
 
             .first-post-column {
                 .resources-featured-slide {
-                    float: none;
+                    float: none;clear:both;
 
                     .resources-slide-inner {
-                        float: none;
+                        float: none;clear:both;
 
                         .post-content-container {
-                            float: none;
+                            float: none;clear:both;
 
                             .title {
                                 float: none;
+                                clear: both;
                             }
                         }
                     }
@@ -9826,15 +9847,17 @@ body.dev-preview section.featured-module {
             .side-bar-column {
                 .recent-sidebar {
                     .resources-side-posts {
-                        float: none;
+                        float: none;clear:both;
 
                         .resources-side-posts-inner {
                             float: none;
+                            clear: both;
                             display: flex;
                             align-items: flex-start;
 
                             .post-content-container {
                                 float: none;
+                                clear: both;
                             }
                         }
                     }
@@ -9867,20 +9890,23 @@ body.dev-preview section.featured-module {
 // replacement against. Gated behind body.dev-preview (?dev=true), see
 // includes/_customisations.php.
 body.dev-preview section.filter-listing {
-    float: none;
+    float: none;clear:both;
 
     .container {
         .grid-wrapper {
             float: none;
+            clear: both;
             display: flex;
             flex-wrap: wrap;
 
             .peer-insights-container-side-bar {
                 float: none;
+                clear: both;
             }
 
             .peer-insights-full-container {
                 float: none;
+                clear: both;
                 display: flex;
                 flex-wrap: wrap;
                 column-gap: 32px;
@@ -9888,6 +9914,7 @@ body.dev-preview section.filter-listing {
 
             .item.one-third {
                 float: none;
+                clear: both;
                 margin-right: 0;
 
                 @media (max-width: 1023px) {
@@ -9897,13 +9924,15 @@ body.dev-preview section.filter-listing {
                 &.peer-insights-item {
                     .imageSizeContainer {
                         float: none;
+                        clear: both;
                     }
 
                     .item-content-container {
-                        float: none;
+                        float: none;clear:both;
 
                         .topic-filter {
                             float: none;
+                            clear: both;
                         }
                     }
                 }
@@ -9911,16 +9940,19 @@ body.dev-preview section.filter-listing {
 
             .market-trend-reports-container-side-bar {
                 float: none;
+                clear: both;
                 display: flex;
                 flex-wrap: wrap;
                 column-gap: 32px;
 
                 @include responsive(767) {
                     float: none;
+                    clear: both;
                 }
 
                 .item.market-trend-reports {
                     float: none;
+                    clear: both;
                     margin-left: 0;
 
                     @include responsive(1023) {
@@ -9929,22 +9961,26 @@ body.dev-preview section.filter-listing {
 
                     .item-content-container {
                         float: none;
+                        clear: both;
                     }
                 }
             }
 
             .market-trend-reports-sidebar {
                 float: none;
+                clear: both;
             }
 
             .market-trend-reports-container-full-width {
                 float: none;
+                clear: both;
                 display: flex;
                 flex-wrap: wrap;
                 column-gap: 32px;
 
                 .item.market-trend-reports {
                     float: none;
+                    clear: both;
                     margin-right: 0;
 
                     @include responsive(1023) {
@@ -9953,6 +9989,7 @@ body.dev-preview section.filter-listing {
 
                     .item-content-container {
                         float: none;
+                        clear: both;
                     }
                 }
             }
@@ -10810,29 +10847,32 @@ section.filter-title-block {
 // removes the now-misleading declaration. Gated behind body.dev-preview
 // (?dev=true), see includes/_customisations.php.
 body.dev-preview section.filter-title-block {
-    float: none;
+    float: none;clear:both;
 
     .container {
         .title-container {
-            float: none;
+            float: none;clear:both;
 
             h1 {
                 float: none;
+                clear: both;
             }
 
             p.type-description {
                 float: none;
+                clear: both;
             }
         }
 
         .topic-button-container-outer {
-            float: none;
+            float: none;clear:both;
 
             .topic-button-container {
-                float: none;
+                float: none;clear:both;
 
                 a.filter-button {
                     float: none;
+                    clear: both;
                 }
             }
         }
@@ -10929,33 +10969,37 @@ section.conversation-cta {
 // single-column idiom. Gated behind body.dev-preview (?dev=true), see
 // includes/_customisations.php.
 body.dev-preview section.conversation-cta {
-    float: none;
+    float: none;clear:both;
 
     .container {
         .column-container {
-            float: none;
+            float: none;clear:both;
 
             .column {
-                float: none;
+                float: none;clear:both;
 
                 &.text-column {
                     h5 {
                         float: none;
+                        clear: both;
                     }
 
                     span.text {
                         float: none;
+                        clear: both;
                     }
 
                     .button-container {
-                        float: none;
+                        float: none;clear:both;
 
                         .pre-button-text {
                             float: none;
+                            clear: both;
                         }
 
                         .cta-button {
                             float: none;
+                            clear: both;
                         }
                     }
                 }
@@ -10963,6 +11007,7 @@ body.dev-preview section.conversation-cta {
                 &.image-column {
                     .image-container {
                         float: none;
+                        clear: both;
                     }
                 }
             }
@@ -11277,43 +11322,50 @@ body.dev-preview section.conversation-cta {
 // includes/_customisations.php.
 body.dev-preview .article {
     .preview-image-container {
-        float: none;
+        float: none;clear:both;
 
         img {
             float: none;
+            clear: both;
         }
     }
 
     .preview-cta-container {
         .preview-cta-inner {
-            float: none;
+            float: none;clear:both;
 
             .preview-cta-image.mobile {
                 float: none;
+                clear: both;
             }
 
             .preview-cta-image-column {
                 float: none;
+                clear: both;
             }
 
             .preview-cta-content {
-                float: none;
+                float: none;clear:both;
 
                 .title {
                     float: none;
+                    clear: both;
                 }
 
                 .text {
                     float: none;
+                    clear: both;
                 }
 
                 .button-container {
                     float: none;
+                    clear: both;
                     display: flex;
                     align-items: center;
 
                     a.stdBtn {
                         float: none;
+                        clear: both;
                     }
                 }
             }
@@ -11321,25 +11373,28 @@ body.dev-preview .article {
     }
 
     .blurred-image-cta-container {
-        float: none;
+        float: none;clear:both;
 
         .global-preview-cta-container {
-            float: none;
+            float: none;clear:both;
 
             .preview-cta-content {
-                float: none;
+                float: none;clear:both;
 
                 .title p {
                     float: none;
+                    clear: both;
                 }
 
                 .button-container {
                     float: none;
+                    clear: both;
                     display: flex;
                     align-items: center;
 
                     a.stdBtn {
                         float: none;
+                        clear: both;
                     }
                 }
             }
@@ -11359,6 +11414,7 @@ body.dev-preview .article {
 // includes/_customisations.php.
 body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
     float: none;
+    clear: both;
 }
 
 // Remaining float -> flex/grid cleanup pass: formPopup modal, pagination
@@ -11371,124 +11427,142 @@ body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form
 // includes/_customisations.php.
 body.dev-preview {
     .formPopup {
-        float: none;
+        float: none;clear:both;
 
         .formWrapper {
             float: none;
+            clear: both;
         }
     }
 
     .pagWrapper {
         float: none;
+        clear: both;
     }
 
     section.topicBanner .imageSizeContainer .title-filter-container {
         float: none;
+        clear: both;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
 
         h1 {
             float: none;
+            clear: both;
         }
 
         .dropdown-button {
             float: none;
+            clear: both;
         }
     }
 
     section.two-column-services.landing-video-intro .container .landing-video-intro-columns {
-        float: none;
+        float: none;clear:both;
 
         .column {
-            float: none;
+            float: none;clear:both;
 
             &.text-column {
                 .bannerBreadcrumbs {
                     float: none;
+                    clear: both;
                 }
 
                 .title {
                     float: none;
+                    clear: both;
                 }
 
                 .text {
                     float: none;
+                    clear: both;
                 }
 
                 .links-container {
                     float: none;
+                    clear: both;
                     display: flex;
                     flex-wrap: wrap;
                     align-items: center;
 
                     .button {
                         float: none;
+                        clear: both;
                     }
 
                     .text-link {
                         float: none;
+                        clear: both;
                     }
                 }
             }
 
             &.video-column .video-container {
                 float: none;
+                clear: both;
             }
         }
     }
 
     section.evr-fundamentals,
     section.evr-stages {
-        float: none;
+        float: none;clear:both;
 
         .container {
             .title-container {
                 float: none;
+                clear: both;
             }
 
             .fundamentals-container {
-                float: none;
+                float: none;clear:both;
 
                 .fundamentals-row-one,
                 .fundamentals-row-two {
                     float: none;
+                    clear: both;
                 }
             }
 
             .stages-container {
-                float: none;
+                float: none;clear:both;
 
                 .stages-item {
-                    float: none;
+                    float: none;clear:both;
 
                     .stages-icon-container {
-                        float: none;
+                        float: none;clear:both;
 
                         img {
                             float: none;
+                            clear: both;
                             display: block;
                         }
                     }
 
                     .stages-title-container {
-                        float: none;
+                        float: none;clear:both;
 
                         h3 {
                             float: none;
+                            clear: both;
                         }
                     }
 
                     .stages-text {
-                        float: none;
+                        float: none;clear:both;
 
                         p {
                             float: none;
+                            clear: both;
                         }
                     }
 
                     .stages-button-container .button {
                         float: none;
+                        clear: both;
                     }
                 }
             }
@@ -11496,20 +11570,22 @@ body.dev-preview {
     }
 
     section.tnc-featured-post {
-        float: none;
+        float: none;clear:both;
 
         .container .item {
-            float: none;
+            float: none;clear:both;
 
             .imageSizeContainer {
                 float: none;
+                clear: both;
             }
 
             .item-content-container {
-                float: none;
+                float: none;clear:both;
 
                 .topic-filter {
                     float: none;
+                    clear: both;
                 }
             }
         }

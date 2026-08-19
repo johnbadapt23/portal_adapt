@@ -226,4 +226,5 @@ span.customgpt-toggle {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview span.customgpt-toggle {
 	float: none;
+	clear: both;
 }

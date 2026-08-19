@@ -778,51 +778,67 @@ section.eventShare {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.navigation {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.navigation ul {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.navigation .container .fixedButtonWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.centerModeCarousel .titleBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.centerModeCarousel .titleBlock .title {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.centerModeCarousel .center {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.agendaHighlightsBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.agendaHighlightsBlock .agendaBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.agendaHighlightsBlock .agendaBlock .item {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.agendaHighlightsBlock .seeMore {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.imageGridBlock.logos .titleBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.imageGridBlock.logos .logoGroup {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.imageGridBlock.logos .logoGroup .title {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.imageGridBlock.logos .item:last-child .yourLogoHere {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.eventShare {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.eventShare .container .share {
 	float: none;
+	clear: both;
 }
 
 // Supplementary display:block fixes for templates/_single-events.scss's dev-preview block

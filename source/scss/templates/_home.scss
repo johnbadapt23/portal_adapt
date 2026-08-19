@@ -943,90 +943,119 @@ section.advantage-two-column-accordion{
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.advisors-carousel {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .container .title-text-container h2 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .container .title-text-container .text {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advisors-carousel .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.upcoming-events-slider-section {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column h2 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column .text-regular {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .column.title-column .button-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.upcoming-events-slider-section .container .title-slider-container .slider-column .event-slider-control-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.benchmark-two-column {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.benchmark-two-column .container .column-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.benchmark-two-column .container .column-container .link-column .labelXXsmall {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.benchmark-two-column .container .column-container .link-column .headerXsmall {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.benchmark-two-column .container .column-container .link-column .link-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.benchmark-two-column .container .column-container .link-column .link-container .link-inner-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .labelXXsmall {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .headerXsmall {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .question {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer .answer-inner {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.advantage-two-column-accordion .container .column-container .link-column .accordion-container .accordion-item .answer .answer-inner .link-container {
 	float: none;
+	clear: both;
 }
 // Supplementary display:block fixes for templates/_home.scss's dev-preview block
 // above: same bug as every other file in this pass (a bare float:none

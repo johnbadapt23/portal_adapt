@@ -37,9 +37,11 @@ section.default {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.default .container label {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.default .register-button-container {
 	float: none;
+	clear: both;
 	display: block;
 }

@@ -245,25 +245,31 @@ section.speakerProfile {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.speakerProfile .speakerLeft .imageContainer {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.speakerProfile .speakerLeft .textBlock {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.speakerProfile .speakerLeft .textBlock .quoteBlock {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.speakerProfile .speakerLeft .textBlock .quoteAuthor {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.speakerProfile .speakerRight .logoWrapper {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.speakerProfile .speakerRight .textBlock {
 	float: none;
+	clear: both;
 	display: block;
 }

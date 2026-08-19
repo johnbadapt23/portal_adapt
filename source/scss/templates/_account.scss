@@ -539,28 +539,35 @@ body.account .select2-container--default.select2-container--open .select2-select
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview.memberpressproduct .mp-form-submit {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper:first-child span.mepr-nav-item {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper .mp-form-row span.select2 {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mp-form-label {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field span.mepr-checkboxes-field-row label {
 	float: none;
+	clear: both;
 }

@@ -332,13 +332,16 @@ html.no-touch {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.search-filter-container .container .search {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.search-filter-container .container .search form {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview section.search-filter-container .container .article-filtering-container {
 	float: none;
+	clear: both;
 	display: block;
 }

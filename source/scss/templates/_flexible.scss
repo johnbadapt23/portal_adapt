@@ -603,19 +603,21 @@ section.fullWidthTextBlock {
 // includes/_customisations.php.
 body.dev-preview section.fullWidthTextBlock {
     .titleBlock {
-        float: none;
+        float: none;clear:both;
 
         .hrWrapper {
             float: none;
+            clear: both;
             display: block;
         }
     }
 
     .textBlockWrapper {
-        float: none;
+        float: none;clear:both;
 
         .buttonWrapper {
             float: none;
+            clear: both;
         }
     }
 }
@@ -1438,6 +1440,7 @@ body.dev-preview section.flexible-banner.banner {
             @include responsive(767) {
                 span.text {
                     float: none;
+                    clear: both;
                     display: block;
                 }
             }
@@ -1445,6 +1448,7 @@ body.dev-preview section.flexible-banner.banner {
             @media (max-width: 640px) {
                 span.text {
                     float: none;
+                    clear: both;
                     display: block;
                 }
             }
@@ -1454,24 +1458,29 @@ body.dev-preview section.flexible-banner.banner {
         span.text,
         span.buttonBlock {
             float: none;
+            clear: both;
             display: block;
         }
 
         span.videoLink {
             float: none;
+            clear: both;
             display: block;
 
             a {
                 float: none;
+                clear: both;
                 display: flex;
                 align-items: center;
 
                 > span {
                     float: none;
+                    clear: both;
                     width: auto;
 
                     &:last-child span {
                         float: none;
+                        clear: both;
                     }
                 }
             }
@@ -2206,21 +2215,25 @@ body.dev-preview section.download-block .container {
     .listing-details,
     .download-image-container {
         float: none;
+        clear: both;
     }
 
     .listing-details {
         p, a {
             float: none;
+            clear: both;
         }
     }
 
     .two-column {
         float: none;
+        clear: both;
         width: calc(50% - 9px);
         margin: 0;
 
         @media (max-width: 767px) {
             float: none;
+            clear: both;
             width: 100%;
             margin: 0 0 20px;
 
@@ -2232,11 +2245,13 @@ body.dev-preview section.download-block .container {
 
     .three-column {
         float: none;
+        clear: both;
         width: calc(33.333% - 12px);
         margin: 0;
 
         @media (max-width: 767px) {
             float: none;
+            clear: both;
             width: 100%;
             margin: 0 0 20px;
 
@@ -2457,11 +2472,13 @@ body.dev-preview section.download-block .container {
 // body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container {
     float: none;
+    clear: both;
     display: flex;
     flex-wrap: wrap;
 
     .preview-container {
         float: none;
+        clear: both;
         flex: 1 1 auto;
         width: auto;
 
@@ -2471,19 +2488,22 @@ body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .conta
 
         .download-image-container {
             float: none;
+            clear: both;
         }
 
         .description-container {
-            float: none;
+            float: none;clear:both;
 
             .listing-title,
             .listing-details {
                 float: none;
+                clear: both;
             }
 
             .listing-details {
                 p, a {
                     float: none;
+                    clear: both;
                 }
             }
         }
@@ -2491,6 +2511,7 @@ body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .conta
 
     .download-container {
         float: none;
+        clear: both;
         flex: 0 0 215px;
         width: 215px;
 
@@ -2501,24 +2522,28 @@ body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .conta
 
         .download-title {
             float: none;
+            clear: both;
         }
 
         .downloads {
             float: none;
+            clear: both;
         }
     }
 
     .description-container {
-        float: none;
+        float: none;clear:both;
 
         .listing-title,
         .listing-details {
             float: none;
+            clear: both;
         }
 
         .listing-details {
             p, a {
                 float: none;
+                clear: both;
             }
         }
     }
@@ -2818,13 +2843,15 @@ body.dev-preview section.video-grid-block .container {
     .video-block-title,
     .listing-title {
         float: none;
+        clear: both;
     }
 
     .listing-details {
-        float: none;
+        float: none;clear:both;
 
         p, a {
             float: none;
+            clear: both;
         }
     }
 
@@ -2836,15 +2863,17 @@ body.dev-preview section.video-grid-block .container {
     }
 
     .video-image-container {
-        float: none;
+        float: none;clear:both;
 
         span.videoLink a {
             float: none;
+            clear: both;
             display: flex;
             align-items: center;
 
             > span {
                 float: none;
+                clear: both;
                 width: auto;
             }
         }
@@ -2852,11 +2881,13 @@ body.dev-preview section.video-grid-block .container {
 
     .two-column {
         float: none;
+        clear: both;
         width: calc(50% - 9px);
         margin: 0;
 
         @media (max-width: 767px) {
             float: none;
+            clear: both;
             width: 100%;
             margin: 0 0 20px;
 
@@ -2868,11 +2899,13 @@ body.dev-preview section.video-grid-block .container {
 
     .three-column {
         float: none;
+        clear: both;
         width: calc(33.333% - 12px);
         margin: 0;
 
         @media (max-width: 767px) {
             float: none;
+            clear: both;
             width: 100%;
             margin: 0 0 20px;
 
@@ -3103,177 +3136,235 @@ section.resources-cta-block {
 // body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section.banner .imageContainer {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.banner .imageContainer .image .container h1 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.banner .imageContainer .image .container h2 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle a {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.twoColumnTextBlock .titleBlock h2 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.halfHalfBlock .textBlock.mobile {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.halfHalfBlock .textBlock h2 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.halfHalfBlock .textBlock span.desktopText {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.halfHalfBlock .textBlock span.mobileText {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.halfHalfBlock .textBlock span p {
 	float: none;
+	clear: both;
 }
 body.dev-preview .speakerQuoteCarousel .titleBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview .speakerQuoteCarousel .titleBlock .text {
 	float: none;
+	clear: both;
 }
 body.dev-preview .speakerQuoteCarousel .speaker-gallery {
 	float: none;
+	clear: both;
 }
 body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.quoteBlockNoImage div.owl-dots {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.quoteBlockNoImage .item {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.quoteBlockNoImage .item .quoteBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.quoteBlockNoImage .item .quoteAuthor {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.fullWidthTextEditor {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedSpeakerArticles .titleBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedSpeakerArticles .articles {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedSpeakerArticles .articles a.item .postDetails {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.relatedSpeakerArticles .articles a.item .postTitle {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.flexible-banner.banner {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.formBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.formBlock .formWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.formBlock.centered .formWrapper h3 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock h2 {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .innerWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .title {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .hrWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .priceBlockWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .features {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .features .feature {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper form {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.resources-cta-block {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .cta-title {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .text {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .button-container {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
 	float: none;
+	clear: both;
 }
 body.dev-preview section.banner .videoLink {
 	float: none;
+	clear: both;
 }
 
 // Supplementary display:block fixes for templates/_flexible.scss's dev-preview block

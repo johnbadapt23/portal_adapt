@@ -3557,86 +3557,107 @@ span.std-button-span {
 // Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
 body.dev-preview section {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview hr {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview body main {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mp_wrapper .mp-form-row {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .inner {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .fullWidth {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .buttonBlock {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .labelXXLarge {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .labelXL {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .labelLarge {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview a.label-XXLarge {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .labelMedium {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .labelSmall {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .text-small {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .labelXSmall {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .topic-filter .labelXXsmall {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mfp-members .mfp-content .members-popup-inner {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content h3 {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content p {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content span.already {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content .image-content-mobile {
 	float: none;
+	clear: both;
 }
 // .video-container / .image-container: NOT converted here. Both are
 // generic, widely-reused class names (50+ template files: article cards,
@@ -3654,9 +3675,11 @@ body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-c
 // everywhere else, so it's intentionally left out of the safe pass.
 body.dev-preview li.nf-previous-item {
 	float: none;
+	clear: both;
 	display: block;
 }
 body.dev-preview li.nf-next-item {
 	float: none;
+	clear: both;
 	display: block;
 }
