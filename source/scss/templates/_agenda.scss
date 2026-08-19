@@ -1331,3 +1331,20 @@ body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPr
 body.dev-preview section.printContainer .wrapperPrint .rightColumn .detail {
 	display: block;
 }
+
+// Additional safe-pass candidates found in a later sweep: the double
+// (two-track) agenda block's own .detailWrap and .hidden .detail wrappers
+// - both are float:right;width:100% single-column rows (their children
+// .title/.description are already gated above), same div-class pattern
+// as the other .detailWrap/.detail selectors already converted in this
+// file, so display:block is corrective here too.
+body.dev-preview div.agendaBlock.double .item .wrapper .detailWrap {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview div.agendaBlock.double .item .hidden .detail {
+	float: none;
+	clear: both;
+	display: block;
+}

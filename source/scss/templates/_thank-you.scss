@@ -923,3 +923,36 @@ body.dev-preview section.two-column-thank-you-module .container .column-containe
 	clear: both;
 	display: block;
 }
+
+// Additional safe-pass candidates found in a later sweep: interior
+// elements of the landing-video-intro component's .text-column and
+// .links-container/.buttons-container. The outer .landing-video-intro-columns
+// is already display:flex and .column is its flex item (untouched here,
+// still float:left;width:100% only at the 767 mobile fallback) - these
+// selectors are normal-flow descendants WITHIN that flex item, so
+// converting them doesn't affect the flex row itself.
+body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .text-content-inner {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .pre-title {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title p {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .links-container {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .buttons-container {
+	float: none;
+	clear: both;
+	display: block;
+}

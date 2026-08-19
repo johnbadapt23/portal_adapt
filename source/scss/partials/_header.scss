@@ -3460,3 +3460,36 @@ body.dev-preview .single-post-sticky .container .right-container {
 	float: none;
 	clear: both;
 }
+
+// Additional safe-pass candidates found in a later sweep. header itself
+// is position:fixed, which already computes float to none per spec
+// regardless of the float:left declared alongside it - this override is
+// a no-op today, included only for consistency/documentation. The four
+// icon <img> tags (notifications/saved/help/help.mobile) each fill a
+// small fixed-size icon container at width:100%;height:100% - not part
+// of the icon row's own horizontal layout (that row - .headerTopRight
+// and the icon containers themselves - keeps its float, untouched here).
+body.dev-preview header {
+	float: none;
+	clear: both;
+}
+body.dev-preview header .help.mobile img {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview header .top .headerTopRight .notifications img {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview header .top .headerTopRight .saved img {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview header .top .headerTopRight .help img {
+	float: none;
+	clear: both;
+	display: block;
+}

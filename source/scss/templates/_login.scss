@@ -1318,3 +1318,22 @@ body.dev-preview .template-register .mp_wrapper form .checkbox-container {
 	clear: both;
 	display: block;
 }
+
+// Additional safe-pass candidates found in a later sweep (pure
+// float:left;width:100% single-column wrappers not covered by the
+// original pass above). Same verification rule: display:block added
+// unless the un-gated base rule already declares its own display.
+// .ginput_left is Gravity Forms plugin markup (not in this theme's own
+// PHP) - it's a standard GF <span> wrapper per the plugin's known output,
+// so display:block is corrective here, not just defensive.
+// .introduction-text is a real <div> per templates/template-portal-login.php.
+body.dev-preview main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper form .ginput_container_password span.ginput_left {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview main.login section.login .container .introduction-text {
+	float: none;
+	clear: both;
+	display: block;
+}

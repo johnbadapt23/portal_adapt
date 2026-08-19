@@ -571,3 +571,26 @@ body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-f
 	float: none;
 	clear: both;
 }
+
+// Additional safe-pass candidates found in a later sweep. Both are the
+// sub-accounts management rows inside .mepr-manage_sub_accounts-wrapper
+// (a real, still-floated left/right layout, not touched here) - within
+// it, both :first-child and :nth-child(2) are already width:100% at the
+// base (non-responsive) level, stacking vertically, so converting them
+// doesn't affect the parent's real-pair layout. .mp_wrapper is a
+// MemberPress plugin div (confirmed elsewhere in this file/login.scss),
+// so display:block is correct, not just defensive. Skipped from this
+// sweep: the bare .mp_wrapper .mp-form-row label - it has a LATER
+// "width: auto !important" in the same rule that overrides the earlier
+// width:100% (a floating-label positioning pattern, top/left offsets),
+// so it isn't actually the simple full-width case it first looked like.
+body.dev-preview .mepr-manage_sub_accounts-wrapper .mp_wrapper:first-child {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .mepr-manage_sub_accounts-wrapper .mp_wrapper:nth-child(2) {
+	float: none;
+	clear: both;
+	display: block;
+}
