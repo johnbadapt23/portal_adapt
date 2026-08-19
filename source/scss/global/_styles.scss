@@ -3638,14 +3638,20 @@ body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-c
 body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content .image-content-mobile {
 	float: none;
 }
-body.dev-preview .video-container {
-	float: none;
-	display: block;
-}
-body.dev-preview .image-container {
-	float: none;
-	display: block;
-}
+// .video-container / .image-container: NOT converted here. Both are
+// generic, widely-reused class names (50+ template files: article cards,
+// event cards, video blocks, download blocks, etc.), each with its own
+// local float/position/display rules for its specific context (some
+// position:absolute + aspect-ratio, some float:left + padding-top,
+// some conditionally display:none). A single blanket
+// body.dev-preview .image-container/.video-container rule is specific
+// enough (0,2,1) to beat many of those local, more narrowly-scoped rules,
+// which broke unrelated components sitewide (images collapsing to their
+// background color) when this was tried. The one place that legitimately
+// needed this (homepage advisors-carousel) already has its own fully
+// -scoped selector in templates/_home.scss handling it correctly on its
+// own - this generic fallback was redundant there and dangerous
+// everywhere else, so it's intentionally left out of the safe pass.
 body.dev-preview li.nf-previous-item {
 	float: none;
 	display: block;
