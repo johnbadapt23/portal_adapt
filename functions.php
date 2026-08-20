@@ -1284,6 +1284,38 @@ function adapt_main_slide_image_attrs( $alt ) {
 }
 
 /**
+ * True the first time it's called in a request, false every time after.
+ *
+ * Several homepage components (_article-card.php, _highlights-featured-
+ * block.php, _resources-featured-block.php, the events-portal card grid)
+ * each independently mark their own first image fetchpriority=high as
+ * the page's LCP candidate. That works fine when a component only
+ * appears once, but _highlights-featured-block.php and
+ * _resources-featured-block.php are both ACF flexible-content modules
+ * that get included more than once on the same page (see
+ * template-highlights.php and template-portal-flexible.php, each of
+ * which calls get_template_part() on the same block twice) - each
+ * inclusion reset its own local "have I used the priority hint yet"
+ * flag, so the page ended up with two or more images marked
+ * fetchpriority=high instead of one, diluting the hint. Use this shared,
+ * request-scoped flag instead so only the single image that actually
+ * renders first on the page gets it, no matter which component or how
+ * many times it's included.
+ *
+ * @return bool
+ */
+function adapt_is_first_hero_image() {
+    static $used = false;
+
+    if ( $used ) {
+        return false;
+    }
+
+    $used = true;
+    return true;
+}
+
+/**
  * Load a small set of known interaction-only plugin stylesheets
  * non-render-blocking, using the standard media="print" + onload swap
  * trick (falls back to a <noscript> stylesheet for no-JS visitors).

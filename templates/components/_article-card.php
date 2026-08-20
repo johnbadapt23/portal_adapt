@@ -223,7 +223,13 @@ $filtered_topic = $filtered_topic ?? null;
                             $attachment_id = attachment_url_to_postid( $image );
 
                             if ( $attachment_id ) {
-                                if( $articleCounter == 1 ){
+                                // adapt_is_first_hero_image() is shared across every
+                                // homepage component (highlights/resources featured
+                                // blocks, this card grid) so only the single image
+                                // that actually renders first on the page gets the
+                                // fetchpriority hint, instead of each component
+                                // independently marking its own first card.
+                                if( adapt_is_first_hero_image() ){
                                     echo wp_get_attachment_image(
                                         $attachment_id,
                                         'article-card',
