@@ -36,6 +36,26 @@ body.memberpressproduct {
     }
 }
 
+// Sidebar (My Details/Subscriptions/Logout) + form content used to sit
+// side by side via float:left/float:right on the two .mp_wrapper siblings
+// below. Scoped with :has() to only the .container that actually holds
+// this exact two-.mp_wrapper structure, so it can't affect any other
+// section.default .container elsewhere on the site.
+section.default .container:has(> .mp_wrapper:nth-child(2)) {
+    display: flex;
+    align-items: flex-start;
+    gap: 135px;
+
+    @include responsive(1023) {
+        gap: 75px;
+    }
+
+    @include responsive(767) {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
 .mp_wrapper {
 
     &.forgot-password {
@@ -46,21 +66,15 @@ body.memberpressproduct {
 
     &:first-child {
         position: relative;
-        float: left;
         width: 150px;
-        margin-right: 135px;
-
-        @include responsive(1023) {
-            margin-right: 75px;
-        }
+        flex-shrink: 0;
 
         @include responsive(767) {
             width: 100%;
-            margin: 0 0 40px 0;
         }
 
         span.mepr-nav-item {
-            float: left;
+            display: block;
             width: 100%;
             margin-bottom: 33px;
 
@@ -87,31 +101,40 @@ body.memberpressproduct {
 
     &:nth-child(2) {
         position: relative;
-        float: right;
-        width: calc(100% - 285px);
+        flex: 1;
+        min-width: 0;
         text-align: center;
-
-        @include responsive(1023) {
-            width: calc(100% - 225px);
-        }
 
         @include responsive(767) {
             width: 100%;
         }
 
         form {
-            text-align: center;
+            text-align: left;
         }
     }
 
-   
+    // The account form is a 2-column grid instead of float:left/float:right
+    // pairs - every .mp-form-row spans both columns (full width) by
+    // default (see grid-column below); the paired rows further down opt
+    // into a single column each so consecutive pairs land side by side via
+    // grid auto-placement.
+    .mepr-account-form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 16px;
+
+        @include responsive(767) {
+            grid-template-columns: 1fr;
+        }
+    }
 
     .mp-form-row {
+        grid-column: 1 / -1;
 
         label {
             color: $color-darkGrey-new !important;
-            float: left;
-            width: 100%;
+            display: inline-block;
             margin-bottom: 8px;
             font-size: 12px;
             font-family: $font-base !important;
@@ -140,7 +163,7 @@ body.memberpressproduct {
         }
 
         span.select2 {
-            float: left;
+            display: block;
             position: relative;
             background: none;
             border-radius: 4px;
@@ -250,40 +273,29 @@ body.memberpressproduct {
         }
     }
 
-    .mp-form-row.mepr_first_name {
-        float: left;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
-    }
-
-    .mp-form-row.mepr_last_name {
-        float: right;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
-    }
-
-    .mp-form-row.mepr_mepr-address-country {
-        float: left;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
-    }
-
+    // These four are the real two-up pairs (First Name/Last Name,
+    // Country/State) - grid-column: span 1 lands each one in a single
+    // track of the 2-column grid above, so consecutive pairs sit side by
+    // side via grid auto-placement instead of float:left/float:right.
+    .mp-form-row.mepr_first_name,
+    .mp-form-row.mepr_last_name,
+    .mp-form-row.mepr_mepr-address-country,
     .mp-form-row.mepr_mepr-address-state {
-        float: right;
-        width: calc(50% - 8px)!important;
+        grid-column: span 1;
+    }
 
-        @include responsive(767) {
-            width: 100% !important;
-        }
+    // global/_styles.scss still carries an older, un-migrated duplicate of
+    // this pairing (.mp_wrapper .mp-form-row.mepr_mepr-address-country /
+    // -state { width: 50% !important; }, left over from the float-based
+    // 2-column layout, compiled into global.min.css) that also matches
+    // here and, being 50% of this item's own grid cell rather than of the
+    // whole grid, shrank each field to a quarter of the row. width:100%
+    // !important on the exact same selector/specificity here wins via
+    // source order (this file compiles after global.min.css loads) and
+    // makes each field fill its assigned grid cell properly.
+    .mp-form-row.mepr_mepr-address-country,
+    .mp-form-row.mepr_mepr-address-state {
+        width: 100% !important;
     }
 
     #mepr-account-welcome-message {
@@ -291,12 +303,7 @@ body.memberpressproduct {
     }
 
     .mp-form-row.mepr_mepr_interests {
-        float: left;
-        width: 100% !important;
-
         .mp-form-label {
-            float: left;
-            width: 100%;
 
             label {
                 color: #000 !important;
@@ -305,30 +312,31 @@ body.memberpressproduct {
             }
         }
 
+        // !important is required on display/width - MemberPress's own
+        // plugin stylesheet (theme.css, loaded separately from this
+        // theme's compiled bundles) ships
+        // .mepr-radios-field, .mepr-checkboxes-field { display: inline-block !important; width: 250px !important; }
+        // which otherwise wins over any non-important rule here regardless
+        // of selector specificity, both collapsing the flex row and
+        // capping it to a 250px-wide box the pills can't wrap inside.
         .mepr-checkboxes-field {
-            float: left !important;
+            display: flex !important;
+            flex-wrap: wrap;
             width: 100% !important;
+            gap: 20px 16px;
             padding-top: 30px;
 
             span.mepr-checkboxes-field-row {
-                float: left;
                 text-align: center;
                 width: auto;
-                margin: 0 16px 0 0!important;
-                height: 33px;
-                margin-bottom: 20px !important;
                 height: 47px;
 
                 @include responsive(1023) {
                     width: 48%;
-                    margin: 0px !important;
-                    margin-bottom: 20px !important;
                 }
 
                 @include responsive(640) {
                     width: 100%;
-                    margin: 0px !important;
-                    margin-bottom: 20px !important;
                 }
 
                 input {
@@ -361,7 +369,6 @@ body.memberpressproduct {
                 }
 
                 label {
-                    float: left;
                     min-width: 0px;
                     padding: 0 14px;
                     height: 47px;
@@ -393,19 +400,21 @@ body.memberpressproduct {
     }
 
     .mepr-account-change-password {
-        float: none;
         display: inline-block;
         border: 1px solid $color-darkGrey-new !important;
         color: $color-darkGrey-new;
         height: 42px !important;
         border-radius: 4px;
+        width: 180px;
+        text-align: center;
 
         a {
+            display: block;
             line-height: 42px !important;
             font-family: $font-base;
             font-weight: 700;
             font-size: 10px;
-            padding: 0 35px;
+            padding: 0;
             text-transform: uppercase;
             color: $color-darkGrey-new;
         }
@@ -421,13 +430,28 @@ body.memberpressproduct {
         font-family: $font-base;
         font-weight: 700;
         background-color: $color-red;
-        padding: 0 35px;
+        padding: 0;
+        width: 180px;
+        text-align: center;
 
         &:hover {
             border: 1px solid $color-red !important;
             color: #fff;
             background-color: $color-red;
         }
+    }
+
+    // Save Profile + Change Password sit side by side, balanced (same
+    // width/height). The submit input lives outside the <form> now (see
+    // memberpress/account/home.php - it uses the form="mepr_account_form"
+    // attribute to stay wired up to the account form) so both controls can
+    // share one flex row.
+    .mepr-account-actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
     }
 }
 
@@ -521,4 +545,97 @@ body.account .select2-container--default.select2-container--open .select2-select
 
 .mepr-states-text {
     display: none !important;
+}
+
+
+// Account page (templates/_account.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body.memberpressproduct .mp-form-submit {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper:first-child span.mepr-nav-item {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper .mp-form-row span.select2 {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper .mp-form-row.mepr_mepr_interests {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper .mp-form-row.mepr_mepr_interests .mp-form-label {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field span.mepr-checkboxes-field-row label {
+	float: none;
+	clear: both;
+}
+
+// Additional safe-pass candidates found in a later sweep. Both are the
+// sub-accounts management rows inside .mepr-manage_sub_accounts-wrapper
+// (a real, still-floated left/right layout, not touched here) - within
+// it, both :first-child and :nth-child(2) are already width:100% at the
+// base (non-responsive) level, stacking vertically, so converting them
+// doesn't affect the parent's real-pair layout. .mp_wrapper is a
+// MemberPress plugin div (confirmed elsewhere in this file/login.scss),
+// so display:block is correct, not just defensive. Skipped from this
+// sweep: the bare .mp_wrapper .mp-form-row label - it has a LATER
+// "width: auto !important" in the same rule that overrides the earlier
+// width:100% (a floating-label positioning pattern, top/left offsets),
+// so it isn't actually the simple full-width case it first looked like.
+body .mepr-manage_sub_accounts-wrapper .mp_wrapper:first-child {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mepr-manage_sub_accounts-wrapper .mp_wrapper:nth-child(2) {
+	float: none;
+	clear: both;
+	display: block;
+}
+
+// The account form's "floating label" positioning (display:inline-block;
+// width:auto; position:relative; top/left offset - the label caption
+// cutout look on each input's top border, see .mp_wrapper .mp-form-row
+// label above) lives inside section.default .container on /settings.
+// templates/_default.scss's blanket safe-pass rule (body section.default
+// .container label - float:none;clear:both;display:block) has higher
+// specificity than the plain .mp_wrapper .mp-form-row label rule above and
+// was silently winning, which collapsed the label back to an inline
+// element subject to the parent's text-align:center - every label
+// rendered shifted right/off instead of anchored at the input's top-left
+// corner. Re-asserted here at matching specificity, with no float
+// involved. !important is required because MemberPress's own plugin
+// stylesheet (wp-content/plugins/memberpress/css/ui/theme.css, loaded
+// separately from this theme's compiled bundles) ships
+// .mp_wrapper .mp-form-row label { display: inline !important; } -
+// !important always wins over specificity, so a plain (non-important)
+// display here can't beat it no matter how specific the selector is.
+body section.default .container .mp_wrapper .mp-form-row label {
+	display: inline-block !important;
 }

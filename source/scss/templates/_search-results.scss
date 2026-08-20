@@ -315,3 +315,33 @@ html.no-touch {
         }
     }
 }
+
+
+// Search results page (templates/_search-results.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.search-filter-container .container .search {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.search-filter-container .container .search form {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.search-filter-container .container .article-filtering-container {
+	float: none;
+	clear: both;
+	display: block;
+}

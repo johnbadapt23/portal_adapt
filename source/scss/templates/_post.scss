@@ -9,15 +9,15 @@ body.template-insights {
 }
 
 .postHeader {
-    float: left;
     width: 100%;
 
     .headerWrapper {
-        float: left;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
         width: 100%;
 
         h1 {
-            float: left;
             width: 33.33%;
             padding-right: 35px;
 
@@ -29,7 +29,6 @@ body.template-insights {
         }
 
         .subTitle {
-            float: left;
             width: 33.33%;
             font-family: $font-base;
             font-size: 16px;
@@ -46,8 +45,9 @@ body.template-insights {
 
         .memberLogin {
             position: relative;
-            float: right;
+            margin-left: auto;
             width: 225px;
+            flex-shrink: 0;
             height: 154px;
             border-radius: 3px;
             box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
@@ -70,7 +70,7 @@ body.template-insights {
             }
 
             .title {
-                float: left;
+                display: block;
                 width: 100%;
                 text-align: center;
                 font-family: $font-main;
@@ -88,7 +88,7 @@ body.template-insights {
             a.button {
                 background-color: #f2f2f2;
                 color: #000;
-                float: left;
+                display: block;
                 width: 100%;
                 height: 50px;
                 border-radius: 3px;
@@ -105,7 +105,7 @@ body.template-insights {
             span.log-out-link a {
                 background-color: #f2f2f2;
                 color: #000;
-                float: left;
+                display: block;
                 width: 100%;
                 height: 50px;
                 border-radius: 3px;
@@ -129,7 +129,6 @@ body.template-insights {
     }
 
     .filter {
-        float: left;
         width: 100%;
         margin: 58px 0 0px;
         position: relative;
@@ -1105,12 +1104,18 @@ section.blogWrapper {
     padding: 20px 0 94px;
 
     .grid {
-        float: left;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: start;
+        gap: 16px;
         width: 100%;
+
+        @include responsive(767) {
+            grid-template-columns: 1fr;
+        }
 
         .postLink {
             position: relative;
-            float: left;
             box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
             border-radius: 3px;
             min-height: 390px;
@@ -1278,14 +1283,11 @@ section.blogWrapper {
 
             &.layout-1,
             &.layout6,
-            &.layout8,
-             {
-                width: calc(66.64% - 6px);
-                float: left;
-                margin-left: 0;
+            &.layout8 {
+                grid-column: span 2;
 
                 @include responsive(767) {
-                    width: 100%;
+                    grid-column: span 1;
                 }
 
                 .linkWrapper {
@@ -1347,13 +1349,7 @@ section.blogWrapper {
             &.layout0,
             &.layout9 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
-                float: right;
                 background-color: #000;
-
-                @include responsive(767) {
-                    width: 100%;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1428,14 +1424,8 @@ section.blogWrapper {
             &.layout10,
             &.layout15 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
                 background-color: $color-red;
                 padding-top: 0px;
-                margin-left: 0;
-
-                @include responsive(767) {
-                    width: 100%;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1529,15 +1519,8 @@ section.blogWrapper {
             &.layout14,
             &.layout16 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
                 background-color: #fff;
                 padding-top: 0px;
-                margin-left: 16px;
-
-                @include responsive(767) {
-                    width: 100%;
-                    margin-left: 0;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1632,15 +1615,8 @@ section.blogWrapper {
             &.layout12,
             &.layout17 {
                 position: relative;
-                width: calc(33.33% - 10.66px);
                 background-color: $color-red;
                 padding-top: 0px;
-                margin-left: 16px;
-
-                @include responsive(767) {
-                    width: 100%;
-                    margin-left: 0px;
-                }
 
                 .iconWrapper {
                     position: absolute;
@@ -1727,12 +1703,10 @@ section.blogWrapper {
             &.layout4,
             &.layout13,
             &.layout18 {
-                width: calc(66.64% - 6px);
-                float: left;
-                margin-left: 0;
+                grid-column: span 2;
 
                 @include responsive(767) {
-                    width: 100%;
+                    grid-column: span 1;
                 }
 
                 .linkWrapper {
@@ -2181,7 +2155,6 @@ span#pagination {
 }
 
 .postHeader .filter .categories {
-    float: left;
     width: 100%;
 
     .insightsFilter {
@@ -2254,9 +2227,7 @@ span#pagination {
 section.blogWrapper {
     .container {
         #loop {
-            float: left;
             width: 100%;
-            @include clear;
 
             &.results-grid {
                 padding-top: 0px;
@@ -3920,9 +3891,16 @@ body.template-insights {
 }
 
 // New stylings for insights page intro
+// NOTE: this block reuses the bare .postHeader/.headerWrapper/h1/.subTitle
+// selectors from the block near the top of this file. Because it comes
+// later in the cascade with equal specificity, it wins per-property over
+// that earlier block for postHeader/headerWrapper/h1/.subTitle - the
+// width:33.33% three-column values up top never actually render; this is
+// the block that governs the real on-page layout for those elements. Only
+// .memberLogin, .filter and .categories are untouched here and still come
+// from the earlier block.
 
 .postHeader {
-    float: left;
     width: 100%;
     text-align: center;
 
@@ -3936,7 +3914,6 @@ body.template-insights {
         text-align: center;
 
         h1 {
-            float: left;
             width: 100%;
             text-align: center;
             margin-bottom: 20px;
@@ -3958,7 +3935,6 @@ body.template-insights {
         }
 
         .subTitle {
-            float: left;
             width: 100%;
             font-family: $font-base;
             font-size: 16px;
@@ -7509,4 +7485,5024 @@ section.conversation-cta {
             }
         }
     }
+}
+
+// Dev-preview: float -> modern layout for the two-column-card homepage
+// block (section.twoColumnCard, used by the two_column_card_block content
+// block). .cardContainer .twoColumnCard used the classic float
+// two-up-grid-via-nth-child-margins pattern; flexbox + gap reproduces the
+// same width:calc(50% - 8px) cards without the odd/even margin overrides.
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.twoColumnCard {
+    float: none;clear:both;
+
+    .container {
+        .cardContainer {
+            float: none;
+            clear: both;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 40px;
+
+            .twoColumnCard {
+                float: none;
+                clear: both;
+                width: calc(50% - 8px);
+                margin: 0 0 16px;
+
+                @include responsive(767) {
+                    width: 100%;
+                    margin: 0 0 16px;
+                }
+
+                .imageContainer {
+                    float: none;
+                    clear: both;
+                }
+
+                .textContainer {
+                    float: none;
+                    clear: both;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.formWrapper.cardFormWrapper {
+
+	.email-container {
+		width: 100% !important;
+	}
+	.email-wrap {
+		float: left;
+		width: 100% !important;
+	}
+
+	@include responsive(640) {
+		.file_upload-container {
+			margin-top: 20px !important;
+		}
+	}
+
+	input {
+		height: 50px;
+		border-radius: 3px;
+		box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
+		border: none;
+		padding-left: 22px;
+		color: #000;
+		font-size: 12px;
+		font-family: $font-base;
+		-webkit-appearance:none;
+	}
+
+	textarea {
+		border-radius: 3px;
+	    box-shadow: 2px 3px 9px 0 rgba(0,0,0,.1);
+		border: none;
+		padding: 18px 22px;
+		font-size: 12px;
+		font-family: $font-base;
+	}
+
+    input[type="checkbox"] {
+		box-shadow: none !important;
+	}
+
+	.company,
+	.phone,
+	.job-title {
+		width: 100%;
+	}
+
+	.nf-field-label label {
+		font-size: 14px;
+		font-family: $font-base !important;
+		line-height: 1.2;
+		color: #000 !important;
+		float: left;
+		text-align: left;
+		font-weight: normal !important;
+	}
+
+	.field-wrap-checkbox-wrap {
+		float: left;
+		margin-top: 10px;
+
+		div.nf-field-element {
+			width: auto !important;
+		}
+	}
+
+	.listcheckbox-container {
+		width: 100%;
+		margin-bottom: 0px;
+
+		ul {
+			width: 100%;
+			text-align: center;
+
+			li {
+				float: left;
+				line-height: 20px;
+
+				@include responsive(767) {
+					width: 100%;
+				}
+
+				input {
+					float: left;
+					line-height: 20px;
+					height: 20px;
+					margin: 0;
+				}
+
+				label {
+					position: relative;
+					float: left;
+					color: #000;
+					line-height: 20px;
+					height: 20px;
+					bottom: 1px;
+					margin-left: 15px;
+
+					@media (max-width: 768px) {
+						margin-left: 8px;
+					}
+
+					@include responsive(767) {
+						margin-left: 0;
+					}
+				}
+			}
+		}
+
+		&.checkboxButtons {
+			padding-top: 20px;
+
+			ul {
+				text-align: left;
+				margin-top: 5px!important;
+
+				li {
+					label {
+						float: left;
+						min-width: 0px;
+						padding: 0 10px;
+						height: 35px;
+						line-height: 33px;
+						text-align: center;
+						display: block;
+						color: #000;
+						border:1px solid #000;
+						border-radius:4px;
+						cursor: pointer;
+						font-family: $font-main;
+						font-size: 13px;
+						box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
+						text-transform: uppercase;
+					}
+
+					input {
+						position:absolute;
+						top:-20px;
+						visibility: hidden;
+					}
+
+					input:checked + label {
+						// background-color: $color-red;
+						border-color: $color-red;
+						color: $color-red;
+						box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
+					}
+
+					&:first-child {
+						label {
+							margin-left: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.checkbox-container {
+		width: 100%;
+	}
+
+	.checkbox-container.label-right {
+		.nf-field-element {
+			width: auto!important;
+		}
+	}
+
+    .submit-container {
+		width: 100%;
+		text-align: center;
+
+		input {
+			color: #fff !important;
+			display: inline-block;
+			float: none;
+			padding: 0 58px !important;
+			height: 50px !important;
+			width: auto !important;
+			background-color: $color-red !important;
+
+			@include responsive(767) {
+				width:100% !important;
+			}
+		}
+	}
+}
+
+// Ajax search results container
+
+div.asl_w .mCSBap_inside>.mCSBap_container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-right: 0!important;
+}
+
+div.asl_w .mCustomScrollBox .mCSBap_scrollTools {
+    display: none!important;
+}
+
+// EVR styling
+
+
+section.topicBanner .imageSizeContainer .title-filter-container {
+    float: left;
+    width: 100%;
+
+    @include responsive(767) {
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        float: left;
+        width: auto;
+        margin-right: 40px;
+
+        @include responsive(767) {
+            width: 100%;
+            margin-right: 0px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .dropdown-button {
+        float: left;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        padding: 8px 12px;
+        padding-right: 30px;
+        position: relative;
+        margin-top: 2px;
+        font-size: 14px;
+        line-height: 1;
+        cursor: pointer;
+        color: #fff;
+
+        &:after {
+            content: '';
+            position: absolute;
+            background-image: url('../images/arrow-down-white.svg');
+            display: block;
+            right: 12px;
+            top: 8px;
+            height: 14px;
+            width: 8px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+}
+
+.other-dropdown {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background-color: #fff;
+    padding: 164px 0 30px;
+    text-align: center;
+    @include transition(all, 500ms, ease);
+
+    &.active {
+        top: 0;
+    }
+
+    .close-dropdown {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        cursor: pointer;
+        background-image: url();
+        width: 25px;
+        height: 25px;
+        background-image: url('../images/close-grey.svg');
+        background-size: 25px 25px;
+        background-repeat: no-repeat;
+    }
+
+    .container {
+        text-align: center;
+
+        span.other-items {
+            display: inline-block;
+            padding: 0 45px;
+            margin-bottom: 40px;
+
+            @include responsive(767) {
+                padding: 0 20px;
+            }
+
+            img {
+                width: 24px;
+                margin-right: 8px;
+                margin-bottom: 3px;
+            }
+
+            a {
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 24px;
+                color: #000;
+                @include transition();
+                
+                &:hover {
+                    color: $color-red;
+                }
+            }
+        }
+    }
+
+
+}
+
+section.two-column-services.landing-video-intro {
+    padding: 80px 0;
+    position: relative;
+
+    @media (max-width:1023px) {
+        height: auto;
+        min-height: auto;
+    }
+
+    @media (max-width:767px) {
+        padding: 24px 0 40px;
+    }
+
+    .container {
+        position: relative;
+        height: 100%;
+
+        @media (max-width:767px) {
+            padding: 0 20px;
+        }
+
+        .landing-video-intro-columns {
+            float: left;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            @media (max-width:767px) {
+                display: block;
+                float: left;
+            }
+
+            .column {
+                width: 50%;
+                float: left; 
+                @media (max-width:767px) {
+                    width: 100%;
+                    float: left;
+                }
+
+                &.text-column {
+                    padding-right: 140px;
+
+                    @media (max-width:1200px) {
+                        padding-right: 40px;
+                    }
+
+                    @media (max-width:767px) {
+                        padding-right: 0px;
+                        margin-bottom: 16px;
+                    }
+
+                    .bannerBreadcrumbs {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 30px;
+
+                        @include responsive(767) {
+                            margin-bottom: 28px;
+                        }
+
+                        a,
+                        span {
+                            display: inline-block;
+                            font-family: $font-base;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 18px;
+                            color: #838383;
+
+                            @include responsive(767) {
+                                font-size: 12px;
+                                line-height: 16px;
+                            }
+                        }
+
+                        span.divider {
+                            margin: 0 5px;
+                        }
+                    }
+
+                    .title {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 16px;
+                        font-size: 32px;
+                        text-transform: none;
+                        line-height: 38px;
+                        font-weight: 700;
+                    }
+
+                    .text {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 20px;
+                        font-size: 14px;
+                        line-height: 24px;
+                    }
+                }
+
+                .links-container {
+                    float: left;
+                    width: 100%;
+
+
+                    @media (max-width:767px) {
+                        &.desktop {
+                            display: none;
+                        }
+
+                        &.mobile {
+                            display: block;
+                        }
+                    }
+
+                    .button {
+                        float: left;
+
+                        @media (max-width:767px) {
+                            width: 100%;
+                            margin-bottom: 20px;
+                        }
+                    }
+
+                    .text-link {
+                        float: left;
+                        margin-left: 32px;
+                        margin-top: 8px;
+                        font-size: 10px;
+                        color: #000;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        line-height: 24px;
+                        padding-left: 30px;
+                        position: relative;
+
+                        &:before {
+                            content: '';
+                            width: 24px;
+                            height: 24px;
+                            background-image: url('../images/watch-video.svg');
+                            background-size: contain;
+                            background-position: center;
+                            background-repeat: repeat;
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            display: block;
+                        }
+                    }
+                }
+
+                &.video-column {
+                    .video-container {
+                        float: left;
+                        padding-top: 56.25%;
+                        position: relative;
+
+                        .frame {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            right: -12px;
+                            top: -12px;
+                            border: 1px solid #9a9a9a;
+
+                            @media (max-width:767px) {
+                                right: -6px;
+                                top: -6px;
+                            }
+                        }
+
+                        .bg-container {
+                            z-index: 1;
+
+                            .opacity-overlay {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: rgba(18, 18, 18, 0.2);
+                                mix-blend-mode: multiply;
+                                @include transition(all, 300ms, ease);
+                            }
+
+                            .popup-vimeo {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-image: url('../images/careers-video-button.svg');
+                                background-size: 72px 72px;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                cursor: pointer;
+                            }
+                        }
+
+                        &:hover {
+                            .opacity-overlay {
+                                opacity: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+section.evr-fundamentals,
+section.evr-stages {
+    float: left;
+    width: 100%;
+    padding: 65px 0;
+
+    .container {
+        .title-container {
+            float: left;
+            width: 100%;
+            margin-bottom: 30px;
+
+            h2 {
+                font-size: 24px;
+                line-height: 29px;
+                color: #000;
+                text-transform: none;
+                margin-bottom: 0px;
+            }
+        }
+
+        .fundamentals-container {
+            float: left;
+            width: 100%;
+            margin-top: 30px;
+
+            .fundamentals-row-one,
+            .fundamentals-row-two {
+                float: left;                
+                width: calc(100% + 48px);
+                margin-left: -24px;
+                position: relative;
+
+                @media (max-width:767px) {
+                    width: calc(100% + 24px);
+                    margin-left: -12px;
+                }
+
+                span.other-items {
+                    display: inline-block;
+                    padding: 0 24px;
+                    margin-bottom: 24px; 
+                    
+                    @media (max-width:767px) {
+                        padding: 0 12px;
+                    }
+            
+                    img {
+                        width: 24px;
+                        margin-right: 8px;
+                        margin-bottom: 3px;
+                    }
+            
+                    a {
+                        font-size: 18px;
+                        font-weight: 700;
+                        line-height: 24px;
+                        color: #000;
+                        @include transition();
+
+                        &:hover {
+                            color: $color-red;
+                        }
+
+                        @media (max-width:767px) {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+
+            .fundamentals-row-one {                
+                margin-bottom: 24px;
+
+                &:after {
+                    content: '';
+                    background-color: #e1e1e1;
+                    width: calc(100% - 48px);
+                    left: 24px;
+                    bottom: 0px;
+                    height: 1px;
+                    display: block;
+                    position: absolute;
+
+                    @media (max-width:767px) {
+                        width: calc(100% + 24px);
+                        left: 12px;
+                    }
+                }
+            }
+        }        
+        .stages-container {
+            float: left;
+            width: 100%;
+            display: flex;
+            gap: 18px;
+
+            @include responsive(767) {
+                display: block;
+                gap: 0;
+            }
+
+            .stages-item {
+                width: calc(33.3% - 12px);
+                float: left;
+                padding: 40px 32px;
+                position: relative;
+                padding-bottom: 82px;
+                border-radius: 4px;
+                background-color: #fafafa;
+
+                @include responsive(767) {
+                    width: 100%;
+                    margin-bottom: 20px;
+                    padding: 20px 32px;
+                }
+
+                .stages-icon-container {
+                    float: left;
+                    width: 100%;
+                    height: 42px;
+                    margin-bottom: 16px;
+
+                    img {
+                        float: left;
+                        width: 42px;
+                    }
+                }
+
+                .stages-title-container {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 16px;
+
+                    h3 {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 0px;
+                        font-size: 18px;
+                        font-weight: 700;
+                    }
+                }
+
+                .stages-text {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 40px;
+
+                    p {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 0px;
+                        font-size: 14px;
+                        line-height: 24px;
+                    }
+                }
+
+                .stages-button-container {
+                    position: absolute;
+                    bottom: 40px;
+                    left: 32px;
+                    width: calc(100% - 64px);
+
+                    .button {
+                        float: left;
+                    }
+                }
+            }
+        }
+    }
+
+    &.evr-stages {
+        .container {
+            .stages-container {
+                .stages-item {
+                    width: calc(50% - 9px);
+                    
+                    @include responsive(767) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+// Next Conversation
+
+section.tnc-featured-post {
+    float: left;
+    width: 100%;
+
+    .container {
+        .item {
+            float: left;
+            width: 100%;
+
+            .imageSizeContainer {
+                    float: left;
+                    width: 100%;
+                    padding-top: 56.25%;
+                    margin-bottom: 20px;
+                    border: 1px solid transparent;
+            
+                    .opacity-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-color: rgba(0, 0, 0, 0.2);
+                    }
+            
+                    .video-play-time {
+                        padding: 0px 8px;
+                        border-radius: 24px;
+                        background-color: rgba(18, 18, 18, 0.8);
+                        position: absolute;
+                        top: 16px;
+                        right: 16px;
+                        color: #fff;
+                        font-size: 12px;
+                        line-height: 26px;
+                        z-index: 1;
+                    }
+            
+                    .video-button {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-image: url('../images/video-play.svg');
+                        background-size: 38px 38px;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    }
+            }
+        
+            .item-content-container {
+                float: left;
+                width: 100%;
+        
+                .topic-filter {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 8px;
+        
+                    a {
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+        
+            &:hover {
+        
+                .imageSizeContainer {
+                    border: 1px solid $color-dark-grey;
+                    border-radius: 4px;
+        
+                    .opacity-overlay {
+                        opacity: 0;
+                    }
+                }
+        
+                .title {
+                    text-decoration: underline;
+                }
+            }                
+        }
+    }
+}
+
+// Featured modules
+
+section.featured-module {
+    float: left;
+    width: 100%;
+    padding: 88px 0 88px;
+
+    @include responsive(767) {
+        padding: 40px 0 40px;
+    }
+
+    &.filter-featured-post {
+        padding-top: 0;
+
+        .insights-featured-column {
+            width: 57.3% !important;
+
+            .video-container,
+            .image-container {
+                padding-top: 56.25%;
+                margin-bottom: 30px;
+                border: 1px solid transparent;
+
+                .opacity-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: #000000;
+                    opacity: 0.2;
+                    border-radius: 4px;
+                }
+
+                .video-play-time {
+                    padding: 0px 8px;
+                    border-radius: 24px;
+                    background-color: rgba(18, 18, 18, 0.8);
+                    position: absolute;
+                    top: 16px;
+                    right: 16px;
+                    color: #fff;
+                    font-size: 12px;
+                    line-height: 26px;
+                    z-index: 1;
+                }
+
+                .video-button {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-image: url('../images/video-play.svg');
+                    background-size: 38px 38px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                }
+            }
+
+            &:hover {
+
+                .image-container,
+                .video-container {
+                    border: 1px solid $color-dark-grey;
+                    border-radius: 4px;
+
+                    .opacity-overlay {
+                        opacity: 0;
+                    }
+                }
+
+                .title {
+                    text-decoration: underline;
+                }
+            }
+
+            .item-content-container {
+                float: left;
+                width: 100%;
+
+                .topic-filter {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 8px;
+
+                    a {
+                        margin-bottom: 0px;
+                    }
+                }
+            }
+        }
+
+        .side-bar-column {
+            width: 42.7% !important;
+            padding-right: 0 !important;
+
+            .recent-sidebar {
+
+                .resources-side-posts {
+                    border-bottom: 1px solid $color-dark-grey !important;
+
+                    &:first-child {
+                        padding-top: 0 !important;
+                    }
+
+                    &:last-child {
+                        border-bottom: none !important;
+                    }
+
+                    h4 {
+                        text-transform: none;
+                    }
+                }
+
+                .topic-filter {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 8px;
+
+                    a {
+                        margin-bottom: 0px;
+                    }
+                }                
+            }
+        }
+    }
+
+    .container {
+        .title-container {
+            float: left;
+            width: 100%;
+            margin-bottom: 60px;
+
+            &.mobile {
+                display: none;
+            }
+
+            @include responsive(767) {
+                &.mobile {
+                    display: block;
+                }
+
+                &.desktop {
+                    display: none;
+                }
+            }
+
+            .introduction-column {
+                float: left;
+                width: 66.66%;
+                padding-right: 11%;
+
+                @include responsive(767) {
+                    width: 100%;
+                    padding-right: 0px;
+                }
+
+                h2,
+                p {
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 0;
+                }
+
+                @include responsive(767) {
+                    h2 {
+                        margin-bottom: 8px;
+                    }
+                }
+
+                p {
+                    color: $color-dark-grey;
+                    font-size: 20px;
+
+                    @include responsive(767) {
+                        font-size: 16px;
+                        line-height: 28px;
+                    }
+                }
+            }
+
+            .link-container {
+                position: relative;
+                float: left;
+                width: 33.34%;
+                text-align: right;
+
+                @include responsive(767) {
+                    width: 100%;
+                    text-align: left;
+                    margin-top: 32px;
+                }
+
+                a {
+                    font-size: 18px;
+                    line-height: 22px;
+                    position: absolute;
+                    bottom: 5px;
+                    right: 27px;
+
+                    &:before {
+                        content: '';
+                        width: 100%;
+                        height: 1px;
+                        background-color: $color-red;
+                        position: absolute;
+                        left: 0;
+                        bottom: -2px;
+                        opacity: 1;
+                        visibility: visible;
+                        @include transition();
+                    }
+
+                    &:after {
+                        content: '';
+                        width: 13px;
+                        height: 13px;
+                        background-size: 13px 13px;
+                        position: absolute;
+                        top: 5px;
+                        right: -28px;
+                        background-image: url(../images/arrow-forward-red.svg);
+                    }
+
+                    @include responsive(767) {
+                        position: relative;
+                        text-align: left;
+                        bottom: auto;
+                        right: auto;
+                        font-size: 16px;
+                        line-height: 20px;
+
+                        &:after {
+                            top: 3px;
+                        }
+                    }
+
+                    &:hover {
+                        &:before {
+                            width: 0;
+                            opacity: 0;
+                            visibility: hidden;
+                            @include transition();
+                        }
+                    }
+                }
+            }
+        }
+
+        .one-half {
+            float: left;
+
+            @include responsive(767) {
+                width: 100% !important;
+            }
+
+            &:first-child {
+                width: 48.77%;
+
+                @include responsive(767) {
+                    margin-bottom: 32px;
+                }
+            }
+
+            &:last-child {
+                width: 51.23%;
+            }
+
+            &.side-bar-column {
+                .recent-sidebar {
+                    .resources-side-posts {
+                        float: left;
+                        width: 100%;
+                        padding: 24px 0;
+                        border-bottom: 1px solid $color-light-grey;
+
+                        &:last-child {
+                            border-bottom: none;
+                            padding-bottom: 0;
+                        }
+
+                        .resources-side-posts-inner {
+                            float: left;
+                            width: 100%;
+                            cursor: pointer;
+
+                            .image-container,
+                            .video-container {
+                                float: left;
+                                width: 32.7%;
+                                padding-top: 22.8%;
+                                border-radius: 4px;
+                                overflow: hidden;
+                                margin-right: 18px;
+                                position: relative;
+                                overflow: hidden;
+                                border: 1px solid transparent;
+
+                                @include responsive(767) {
+                                    width: 35.8%;
+                                    padding-top: 25%;
+                                }
+
+                                .bg-container {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    overflow: hidden;
+
+                                    img,
+                                    picture {
+                                        display: block;
+                                        position: relative;
+                                        width: 100%;
+                                        height: 100%;
+                                        object-fit: cover;
+                                        object-position: center;
+                                    }
+
+                                    &.contained-image {
+
+                                        img,
+                                        picture {
+                                            object-fit: contain;
+                                            object-position: center;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .post-content-container {
+                                float: left;
+                                width: calc(67.3% - 18px);
+
+                                @include responsive(767) {
+                                    width: calc(64.2% - 18px);
+                                }
+
+                                h4 {
+                                    margin-bottom: 0;
+                                }
+                            }
+
+                            &:hover {
+
+                                .image-container,
+                                .video-container {
+                                    border: 1px solid $color-dark-grey;
+                                    border-radius: 4px;
+
+                                    .opacity-overlay {
+                                        opacity: 0;
+                                    }
+                                }
+
+                                .title {
+                                    h4 {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .two-thirds {
+            float: left;
+            width: 66.66%;
+        }
+
+        .one-third {
+            float: left;
+            width: 33.34%;
+        }
+
+        .grid-wrapper {
+            float: left;
+            width: calc(100% - 301px);
+            padding-right: 11%;
+
+            @include responsive(767) {
+                width: 100%;
+                padding-right: 0;
+                float: right;
+            }
+
+            .item {
+
+                &.market-trend-reports {
+                    float: left;
+                    width: calc(50% - 16px);
+                    margin-left: 32px;
+                    padding: 40px 0;
+                    border-bottom: 1px solid $color-light-grey;
+                    cursor: pointer;
+
+                    @include responsive(1023) {
+                        width: 100%;
+                        margin-left: 0;
+                    }
+
+                    &:nth-child(2n+1) {
+                        margin-left: 0;
+                    }
+
+                    &:nth-child(1),
+                    &:nth-child(2) {
+                        .image-container {
+                            padding-top: 56.25%;
+                            border: 1px solid transparent;
+                            margin-bottom: 24px;
+                            display: block;
+
+                            .bg-container {
+                                opacity: 1;
+                                visibility: visible;
+                                z-index: 1;
+                                border-radius: 4px;
+                                overflow: hidden;
+                            }
+
+                            .bg-container-hover {
+                                opacity: 0;
+                                visibility: hidden;
+                                z-index: 2;
+                                border-radius: 4px;
+                                overflow: hidden;
+                                @include transition();
+                            }
+                        }
+                    }
+
+                    &:nth-child(2n+1) {
+                        clear: left;
+                    }
+
+                    &:nth-last-child(-n+2) {
+                        border-bottom: none;
+
+                        @include responsive(1023) {
+                            border-bottom: 1px solid $color-light-grey;
+                        }
+                    }
+
+                    &:nth-child(n+2) {
+
+                        .title {
+                            @include responsive(1023) {
+                                font-size: 18px;
+                                line-height: 22px;
+                            }
+                        }
+
+                        @include responsive(1023) {
+                            border-bottom: 1px solid $color-light-grey;
+                        }
+                    }
+
+                    &:last-child {
+                        @include responsive(1023) {
+                            border-bottom: none;
+                        }
+                    }
+
+                    @include responsive(1023) {
+                        &:nth-child(2) {
+                            padding: 40px 0;
+
+                            .image-container {
+                                display: none;
+                            }
+                        }
+
+                        &:nth-child(4) {
+
+                            .image-container {
+                                padding-top: 56.25%;
+                                border: 1px solid transparent;
+                                margin-bottom: 24px;
+                                display: block;
+
+                                .bg-container {
+                                    opacity: 1;
+                                    visibility: visible;
+                                    z-index: 1;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                }
+
+                                .bg-container-hover {
+                                    opacity: 0;
+                                    visibility: hidden;
+                                    z-index: 2;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                    @include transition();
+                                }
+                            }
+                        }
+                    }
+
+                    .image-container {
+                        display: none;
+                    }
+
+                    .item-content-container {
+                        float: left;
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        .image-container {
+                            border: 1px solid $color-dark-grey;
+                            border-radius: 4px;
+
+                            .bg-container-hover {
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
+
+                        .item-content-container {
+                            .title {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+
+                    @include responsive(1023) {
+                        &:nth-child(2) {
+                            padding: 40px 0;
+
+                            .image-container {
+                                display: none;
+                            }
+                        }
+
+                        &:nth-child(4) {
+
+
+                            .image-container {
+                                padding-top: 56.25%;
+                                border: 1px solid transparent;
+                                margin-bottom: 24px;
+                                display: block;
+
+                                .bg-container {
+                                    opacity: 1;
+                                    visibility: visible;
+                                    z-index: 1;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                }
+
+                                .bg-container-hover {
+                                    opacity: 0;
+                                    visibility: hidden;
+                                    z-index: 2;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                    @include transition();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.one-third {
+                    float: left;
+                    width: calc(33.33% - 21.34px);
+                    margin-right: 32px;
+                    margin-bottom: 50px;
+
+                    @media (max-width: 1023px) {
+                        width: calc(33.33% - 10.66px);
+                        margin-right: 16px;
+                    }
+
+                    @media (max-width: 767px) {
+                        width: 100%;
+                        margin-right: 0px;
+
+                    }
+
+                    &:nth-child(3n) {
+                        margin-right: 0px;
+                    }
+
+                    &.peer-insights-item {
+                        .video-container {
+                            float: left;
+                            width: 100%;
+                            padding-top: 56.25%;
+                            margin-bottom: 20px;
+                            border: 1px solid transparent;
+
+                            .opacity-overlay {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: rgba(0, 0, 0, 0.2);
+                            }
+
+                            .video-play-time {
+                                padding: 0px 8px;
+                                border-radius: 24px;
+                                background-color: rgba(18, 18, 18, 0.8);
+                                position: absolute;
+                                top: 16px;
+                                right: 16px;
+                                color: #fff;
+                                font-size: 12px;
+                                line-height: 26px;
+                                z-index: 1;
+                            }
+
+                            .video-button {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-image: url('../images/video-play.svg');
+                                background-size: 38px 38px;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        .item-content-container {
+                            float: left;
+                            width: 100%;
+
+                            .topic-filter {
+                                float: left;
+                                width: 100%;
+                                margin-bottom: 8px;
+
+                                a {
+                                    margin-bottom: 0px;
+                                }
+                            }
+                        }
+
+                        &:hover {
+
+                            .image-container,
+                            .video-container {
+                                border: 1px solid $color-dark-grey;
+                                border-radius: 4px;
+
+                                .opacity-overlay {
+                                    opacity: 0;
+                                }
+                            }
+
+                            .title {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+
+                    &.best-practice-item {
+                        .image-container {
+                            float: left;
+                            width: 100%;
+                            padding-top: 110%;
+                            margin-bottom: 20px;
+                            border: 1px solid transparent;
+                            border-radius: 4px;
+                            @include transition();
+
+                            &:hover {
+                                border-color: #000;
+                            }
+
+                            .bg-container {
+                                border-radius: 4px;
+                            }
+                        }
+
+                        .content-container-absolute {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            padding: 48px;
+
+                            @media (max-width: 1200px) {
+                                padding: 32px;
+                            }
+
+                            @media (max-width: 1023px) {
+                                padding: 24px;
+                            }
+
+                            @media (max-width: 767px) {
+                                padding: 32px;
+                            }
+
+                            .topic-filter {
+                                float: left;
+                                width: 100%;
+                                margin-bottom: 8px;
+
+                                a {
+                                    margin-bottom: 0px;
+                                }
+                            }
+
+                            a.label-XXLarge {
+                                @media (max-width: 1023px) {
+                                    font-size: 18px;
+                                    line-height: 22px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.resources-featured {
+        .container {
+            .slider-column {
+                .resources-featured-slider {
+                    .resources-featured-slide {
+                        float: left;
+                        width: 100%;
+                        cursor: pointer;
+
+                        .resources-slide-inner {
+                            float: left;
+                            width: 100%;
+
+                            .video-container,
+                            .image-container {
+                                padding-top: 56.25%;
+                                margin-bottom: 32px;
+                                border: 1px solid transparent;
+                                border-radius: 4px;
+                                overflow: hidden;
+
+                                @include responsive(767) {
+                                    margin-bottom: 25px;
+                                }
+
+                                &:hover {
+                                    .overlay-opacity {
+                                        opacity: 0;
+                                    }
+                                }
+                            }
+
+                            .post-content-container {
+                                float: left;
+                                width: 100%;
+                                padding-right: 60px;
+
+                                @include responsive(767) {
+                                    padding-right: 0;
+                                }
+
+                                .title {
+                                    float: left;
+                                    width: 100%;
+                                    margin-bottom: 20px;
+                                }
+                            }
+                        }
+
+                        &:hover {
+
+                            .video-container,
+                            .image-container {
+                                border: 1px solid $color-dark-grey;
+                                border-radius: 4px;
+                            }
+
+                            .bg-container {
+                                border-radius: 4px;
+                                overflow: hidden;
+                            }
+
+                            .post-content-container {
+                                .title {
+                                    h2 {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    ul.slick-dots {
+                        float: left;
+                        width: 100%;
+                        text-align: left;
+                        padding: 0px;
+                        list-style: none;
+
+                        li {
+                            float: left;
+                            width: auto;
+                            margin-left: 0px;
+                            margin-right: 0px;
+
+                            a {
+                                color: $color-medium-grey;
+                                font-family: $font-base;
+                                font-weight: 500;
+                                font-size: 14px;
+                                position: relative;
+                                padding-right: 12px;
+                                float: left;
+                                line-height: 17px;
+                                @include transition(all, 300ms, ease);
+
+                                &:after {
+                                    content: '';
+                                    width: 0px;
+                                    height: 1px;
+                                    background-color: #000;
+                                    display: block;
+                                    position: absolute;
+                                    top: 8px;
+                                    right: 12px;
+                                    @include transition(all, 300ms, ease);
+                                }
+                            }
+
+                            &.slick-active {
+                                a {
+                                    color: #000;
+                                    font-family: $font-base;
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    padding-right: 52px;
+
+                                    &:after {
+                                        width: 28px;
+                                        @include transition(all, 300ms, ease);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .paging-counter {
+                    float: left;
+                    width: 100%;
+                }
+            }
+
+            .side-bar-column {
+                padding: 0 0 0 11%;
+
+                @include responsive(767) {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    &.peer-insights-featured {
+        @include responsive(767) {
+            padding: 80px 0 80px;
+        }
+
+        .container {
+            @include responsive(767) {
+                padding-right: 0;
+                padding-left: 0px;
+            }
+
+            .title-container {
+                @include responsive(767) {
+                    padding-right: 20px;
+                    padding-left: 20px;
+                }
+
+                p {
+                    color: $color-medium-grey;
+                }
+            }
+
+            .slide-column {
+                padding-right: 150px;
+                width: 68.85%;
+
+                @include responsive(767) {
+                    width: 100%;
+                    padding-right: 0;
+                }
+
+                .peer-featured-slider,
+                .expert-featured-slider {
+
+                    button.slick-arrow {
+                        width: 28px;
+                        height: 28px;
+
+                        &.slick-prev {
+                            left: auto;
+                            right: -123px;
+
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                background-image: url(../images/arrow-left-circle-outline.svg);
+                                background-size: 28px 28px;
+                                width: 28px;
+                                height: 28px;
+                                top: 0;
+                                left: 0;
+                            }
+                        }
+
+                        &.slick-next {
+                            right: -160px;
+
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                background-size: 28px 28px;
+                                background-image: url(../images/arrow-right-circle-outline.svg);
+                                width: 28px;
+                                height: 28px;
+                                top: 0;
+                                left: 0;
+                            }
+                        }
+                    }
+
+                    @include responsive(767) {
+                        .slick-list {
+                            padding: 0 45px 0 0 !important;
+                        }
+                    }
+
+                    .peer-slide,
+                    .expert-slide {
+                        float: left;
+                        width: 100%;
+
+                        @include responsive(767) {
+                            margin-right: 0px;
+                            margin-left: 16px;
+                        }
+
+                        .peer-slide-inner {
+                            float: left;
+                            width: 100%;
+
+                            .video-container,
+                            .image-container {
+                                padding-top: 56.25%;
+                                margin-bottom: 30px;
+                                border-radius: 4px;
+                                border: 1px solid transparent;
+
+                                .opacity-overlay {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background: #000000;
+                                    opacity: 0.2;
+                                    border-radius: 4px;
+                                    @include transition();
+                                }
+
+                                .video-play-time {
+                                    padding: 0px 8px;
+                                    border-radius: 24px;
+                                    background-color: rgba(18, 18, 18, 0.8);
+                                    position: absolute;
+                                    top: 16px;
+                                    right: 16px;
+                                    color: #fff;
+                                    font-size: 12px;
+                                    line-height: 26px;
+                                    z-index: 1;
+                                }
+
+                                .video-button {
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background-image: url('../images/video-play.svg');
+                                    background-size: 38px 38px;
+                                    background-position: center;
+                                    background-repeat: no-repeat;
+                                }
+                            }
+
+                            .post-content-container {
+                                float: left;
+                                width: 100%;
+                                padding-right: 60px;
+                            }
+
+                            .title {
+                                @include responsive(767) {
+                                    font-size: 20px;
+                                    line-height: 24.42px
+                                }
+                            }
+
+                            &:hover {
+                                .opacity-overlay {
+                                    opacity: 0;
+                                }
+
+                                .title {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .next-slide-container {
+                padding-left: 103px;
+                width: 31.15%;
+                padding-top: 110px;
+
+                @include responsive(1023) {
+                    padding-left: 50px;
+                    padding-top: 50px;
+                }
+
+                @include responsive(767) {
+                    display: none;
+                }
+
+                .video-container,
+                .image-container {
+                    padding-top: 56.25%;
+                    margin-bottom: 30px;
+                    border: 1px solid transparent;
+
+                    .opacity-overlay {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: #000000;
+                        opacity: 0.2;
+                        border-radius: 4px;
+                    }
+
+                    .video-play-time {
+                        padding: 0px 8px;
+                        border-radius: 24px;
+                        background-color: rgba(18, 18, 18, 0.8);
+                        position: absolute;
+                        top: 16px;
+                        right: 16px;
+                        color: #fff;
+                        font-size: 12px;
+                        line-height: 26px;
+                        z-index: 1;
+                    }
+
+                    .video-button {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background-image: url('../images/video-play.svg');
+                        background-size: 38px 38px;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                .post-content-container {
+                    float: left;
+                    width: 100%;
+
+                    .label-XXLarge {
+                        font-size: 20px;
+                        line-height: 24px;
+                    }
+                }
+
+                &:hover {
+                    .opacity-overlay {
+                        opacity: 0;
+                    }
+
+                    .title {
+                        text-decoration: underline;
+                    }
+                }
+
+                .label-XXLarge {
+                    font-size: 20px;
+                    line-height: 24px;
+                }
+            }
+        }
+    }
+
+    &.best-practices-featured {
+
+        .post-container {
+            width: 100%;
+            padding-right: 0;
+        }
+    }
+
+    &.market-trends-featured {
+        .container {
+            .sidebar {
+                float: right;
+
+                @include responsive(767) {
+                    float: left;
+                    margin-bottom: 80px;
+                }
+            }
+        }
+    }
+
+    &.featured-home {
+        .post-list-container {
+            float: left;
+            width: 100%;
+
+            .first-post-column {
+                width: 57%;
+
+                .resources-featured-slide {
+                    float: left;
+                    width: 100%;
+                    cursor: pointer;
+
+                    .resources-slide-inner {
+                        float: left;
+                        width: 100%;
+
+                        .video-container,
+                        .image-container {
+                            padding-top: 56.25%;
+                            margin-bottom: 32px;
+                            border: 1px solid transparent;
+                            border-radius: 4px;
+                            overflow: hidden;
+
+                            @include responsive(767) {
+                                margin-bottom: 25px;
+                            }
+                        }
+
+                        .post-content-container {
+                            float: left;
+                            width: 100%;
+                            padding-right: 60px;
+
+                            @include responsive(767) {
+                                padding-right: 0;
+                            }
+
+                            .title {
+                                float: left;
+                                width: 100%;
+                                margin-bottom: 20px;
+                            }
+                        }
+                    }
+
+                    &:hover {
+
+                        .video-container,
+                        .image-container {
+                            border: 1px solid $color-dark-grey;
+                            border-radius: 4px;
+                        }
+
+                        .bg-container {
+                            border-radius: 4px;
+                            overflow: hidden;
+                        }
+
+                        .post-content-container {
+                            .title {
+                                h2 {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            .side-bar-column {
+                width: 43%;
+                padding-right: 0px;
+
+                .recent-sidebar {
+                    .resources-side-posts {
+                        float: left;
+                        width: 100%;
+                        padding: 24px 0;
+                        border-bottom: 1px solid $color-light-grey;
+
+                        &:first-child {
+                            padding-top: 0px;
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                            padding-bottom: 0;
+                        }
+
+                        .resources-side-posts-inner {
+                            float: left;
+                            width: 100%;
+                            cursor: pointer;
+
+                            .image-container,
+                            .video-container {
+                                width: 32.7%;
+                                padding-top: 22.8%;
+                                border-radius: 4px;
+                                overflow: hidden;
+                                margin-right: 18px;
+                                overflow: hidden;
+                                border: 1px solid transparent;
+
+                                @include responsive(767) {
+                                    width: 35.8%;
+                                    padding-top: 25%;
+                                }
+                            }
+
+                            .post-content-container {
+                                float: left;
+                                width: calc(67.3% - 18px);
+
+                                @include responsive(767) {
+                                    width: calc(64.2% - 18px);
+                                }
+
+                                h4 {
+                                    margin-bottom: 0;
+                                }
+                            }
+
+                            &:hover {
+
+                                .image-container,
+                                .video-container {
+                                    border: 1px solid $color-dark-grey;
+                                    border-radius: 4px;
+
+                                }
+
+                                .title {
+                                    h4 {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for section.featured-module,
+// including the .resources-featured / .filter-featured-post variant
+// (template-conversation.php's "featured" content row, e.g.
+// <section class="resources-featured featured-module filter-featured-post">).
+// .container's .title-container/.one-half children and
+// .resources-side-posts-inner's image+text row are real side-by-side
+// floats (not the width:100% single-column idiom), so they get actual
+// flex treatment. Doesn't yet cover the peer-insights-featured/
+// best-practices-featured/market-trends-featured/featured-home variants of
+// this same component - only the two named on the resources-featured page.
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.featured-module {
+    float: none;clear:both;
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+
+        .title-container {
+            float: none;
+            clear: both;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+
+            .introduction-column {
+                float: none;clear:both;
+
+                h2, p {
+                    float: none;
+                    clear: both;
+                }
+            }
+
+            .link-container {
+                float: none;
+                clear: both;
+            }
+        }
+
+        .one-half {
+            float: none;clear:both;
+
+            &.side-bar-column {
+                .recent-sidebar {
+                    .resources-side-posts {
+                        float: none;clear:both;
+
+                        .resources-side-posts-inner {
+                            float: none;
+                            clear: both;
+                            display: flex;
+                            align-items: flex-start;
+
+                            .image-container,
+                            .video-container {
+                                float: none;
+                                clear: both;
+                            }
+
+                            .post-content-container {
+                                float: none;
+                                clear: both;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.filter-featured-post {
+        .insights-featured-column {
+            .item-content-container {
+                float: none;clear:both;
+
+                .topic-filter {
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+
+        .side-bar-column {
+            .recent-sidebar {
+                .topic-filter {
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+    }
+
+    &.resources-featured {
+        .container {
+            .slider-column {
+                .resources-featured-slider {
+                    .resources-featured-slide {
+                        float: none;clear:both;
+
+                        .resources-slide-inner {
+                            float: none;clear:both;
+
+                            .post-content-container {
+                                float: none;clear:both;
+
+                                .title {
+                                    float: none;
+                                    clear: both;
+                                }
+                            }
+                        }
+                    }
+
+                    ul.slick-dots {
+                        float: none;
+                        clear: both;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+
+                        li {
+                            float: none;clear:both;
+
+                            a {
+                                float: none;
+                                clear: both;
+                            }
+                        }
+                    }
+                }
+
+                .paging-counter {
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+    }
+
+    // The remaining section.featured-module variants (not present on the
+    // resources-featured page, but converted for consistency since
+    // .container above is already flex - these only need their own
+    // float:none, the row layout is inherited).
+    &.peer-insights-featured {
+        .container {
+            .slide-column {
+                float: none;clear:both;
+
+                .peer-featured-slider,
+                .expert-featured-slider {
+                    .peer-slide,
+                    .expert-slide {
+                        float: none;clear:both;
+
+                        .peer-slide-inner {
+                            float: none;clear:both;
+
+                            .post-content-container {
+                                float: none;
+                                clear: both;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .next-slide-container {
+                float: none;clear:both;
+
+                .post-content-container {
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+    }
+
+    &.market-trends-featured {
+        .container {
+            .sidebar {
+                float: none;
+                clear: both;
+                margin-left: auto;
+
+                @include responsive(767) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    // .post-list-container isn't nested under .container, so it needs its
+    // own flex row (the base .container flex treatment above doesn't reach it).
+    &.featured-home {
+        .post-list-container {
+            float: none;
+            clear: both;
+            display: flex;
+            flex-wrap: wrap;
+
+            .first-post-column {
+                .resources-featured-slide {
+                    float: none;clear:both;
+
+                    .resources-slide-inner {
+                        float: none;clear:both;
+
+                        .post-content-container {
+                            float: none;clear:both;
+
+                            .title {
+                                float: none;
+                                clear: both;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .side-bar-column {
+                .recent-sidebar {
+                    .resources-side-posts {
+                        float: none;clear:both;
+
+                        .resources-side-posts-inner {
+                            float: none;
+                            clear: both;
+                            display: flex;
+                            align-items: flex-start;
+
+                            .post-content-container {
+                                float: none;
+                                clear: both;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for section.filter-listing,
+// including the market-trend-reports/peer-insights card grids that use
+// nth-child(3n+1)/nth-child(2n+1)/nth-child(3n) + clear:left/margin-zeroing
+// float-grid tricks (the same pattern that originally broke the insights
+// grid earlier in this project). .grid-wrapper becomes the flex row for
+// its direct children (.market-trend-reports-container-side-bar +
+// .market-trend-reports-sidebar sit side by side there; the width:100%
+// items - .peer-insights-container-side-bar, .peer-insights-full-container,
+// .market-trend-reports-container-full-width - each force their own row,
+// same as elsewhere in this file). column-gap replaces the old
+// margin-left/margin-right + nth-child-zeroing gap technique; verified the
+// widths already account for exactly that gap (e.g. 3 x (33.33% - 21.34px)
+// + 2 x 32px column-gap = 100%). .peer-insights-item's real float/width
+// comes from a more specific .grid-wrapper .item.one-third rule further
+// down this file (not the generic .one-third utility - that one loses the
+// specificity fight), which has the exact same margin-right:32px +
+// nth-child(3n)/nth-child(3n+1) gap pattern as the market-trend-reports
+// grids, so it gets the same column-gap treatment. Left
+// .subscribe-sidebar-form's float:right alone in both places it appears -
+// neither has a clearly paired sibling in this file to verify the
+// replacement against. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.filter-listing {
+    float: none;clear:both;
+
+    .container {
+        .grid-wrapper {
+            float: none;
+            clear: both;
+            display: flex;
+            flex-wrap: wrap;
+
+            .peer-insights-container-side-bar {
+                float: none;
+                clear: both;
+            }
+
+            .peer-insights-full-container {
+                float: none;
+                clear: both;
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 32px;
+            }
+
+            .item.one-third {
+                float: none;
+                clear: both;
+                margin-right: 0;
+
+                @media (max-width: 1023px) {
+                    margin-right: 0;
+                }
+
+                &.peer-insights-item {
+                    .imageSizeContainer {
+                        float: none;
+                        clear: both;
+                    }
+
+                    .item-content-container {
+                        float: none;clear:both;
+
+                        .topic-filter {
+                            float: none;
+                            clear: both;
+                        }
+                    }
+                }
+            }
+
+            .market-trend-reports-container-side-bar {
+                float: none;
+                clear: both;
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 32px;
+
+                @include responsive(767) {
+                    float: none;
+                    clear: both;
+                }
+
+                .item.market-trend-reports {
+                    float: none;
+                    clear: both;
+                    margin-left: 0;
+
+                    @include responsive(1023) {
+                        width: 100%;
+                    }
+
+                    .item-content-container {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+
+            .market-trend-reports-sidebar {
+                float: none;
+                clear: both;
+            }
+
+            .market-trend-reports-container-full-width {
+                float: none;
+                clear: both;
+                display: flex;
+                flex-wrap: wrap;
+                column-gap: 32px;
+
+                .item.market-trend-reports {
+                    float: none;
+                    clear: both;
+                    margin-right: 0;
+
+                    @include responsive(1023) {
+                        width: 100%;
+                    }
+
+                    .item-content-container {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+        }
+    }
+}
+
+section.filter-listing {
+    float: left;
+    width: 100%;
+
+    &.conversation-listing {
+        padding-bottom: 80px;
+    }
+
+    .container {
+        .grid-wrapper {
+            float: left;
+            width: 100%;
+
+            // Peer Insights
+
+            .peer-insights-container-side-bar {
+                float: left;
+                width: 100%;
+                margin-bottom: 88px;
+
+                @media (max-width: 767px) {
+                    margin-bottom: 40px;
+                }
+
+                .sidebar {
+                    .subscribe-sidebar-form {
+                        float: right;
+
+                        @media (max-width: 1023px) {
+                            width: calc(33.33% - 10.66px);
+                            margin-right: 0px;
+                        }
+
+                        @media (max-width: 767px) {
+                            width: 100%;
+                            float: left;
+                            max-width: 350px;
+                            margin-right: 0px;
+                        }
+                    }
+                }
+            }
+
+            .peer-insights-full-container {
+                float: left;
+                width: 100%;
+
+                .peer-insights-item {
+                    margin: 99px 0;
+
+                    @media (max-width: 1023px) {
+                        margin: 40px 0;
+                    }
+
+                    &:nth-child(3n+1) {
+                        clear: left;
+                    }
+
+
+                    &:hover {
+
+                        .image-container,
+                        .video-container {
+                            border: 1px solid $color-dark-grey;
+                            border-radius: 4px;
+
+                            .opacity-overlay {
+                                opacity: 0;
+                            }
+                        }
+
+                        .title {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            // Market trend styling
+
+            .market-trend-reports-container-side-bar {
+                float: left;
+                width: calc(66.67% - 10.67px);
+                padding-right: 0;
+
+                @include responsive(1023) {
+                    float: left;
+                    width: calc(100% - 301px);
+                    padding-right: 11%;
+                }
+
+                @include responsive(767) {
+                    width: 100%;
+                    padding-right: 0;
+                    float: right;
+                }
+
+                .item {
+                    &.market-trend-reports {
+                        float: left;
+                        width: calc(50% - 16px);
+                        margin-left: 32px;
+                        padding: 40px 0;
+                        border-bottom: 1px solid $color-light-grey;
+                        cursor: pointer;
+
+                        @include responsive(1023) {
+                            width: 100%;
+                            margin-left: 0;
+                        }
+
+                        &:nth-child(2n+1) {
+                            margin-left: 0;
+                        }
+
+                        &:nth-child(1),
+                        &:nth-child(2) {
+                            padding: 0 0 40px;
+
+                            .image-container {
+                                padding-top: 56.25%;
+                                border: 1px solid transparent;
+                                margin-bottom: 24px;
+                                display: block;
+
+                                .bg-container {
+                                    opacity: 1;
+                                    visibility: visible;
+                                    z-index: 1;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                }
+
+                                .bg-container-hover {
+                                    opacity: 0;
+                                    visibility: hidden;
+                                    z-index: 2;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                    @include transition();
+                                }
+                            }
+                        }
+
+                        &:nth-child(2n+1) {
+                            clear: left;
+                        }
+
+                        &:nth-last-child(-n+2) {
+                            border-bottom: none;
+
+                            @include responsive(1023) {
+                                border-bottom: 1px solid $color-light-grey;
+                            }
+                        }
+
+                        &:nth-child(n+2) {
+
+                            .title {
+                                @include responsive(1023) {
+                                    font-size: 18px;
+                                    line-height: 22px;
+                                }
+                            }
+
+                            @include responsive(1023) {
+                                border-bottom: 1px solid $color-light-grey;
+                            }
+                        }
+
+                        &:last-child {
+                            @include responsive(1023) {
+                                border-bottom: none;
+                            }
+                        }
+
+                        @include responsive(1023) {
+                            &:nth-child(2) {
+                                padding: 40px 0;
+
+                                .image-container {
+                                    display: none;
+                                }
+                            }
+
+                            &:nth-child(4) {
+
+
+                                .image-container {
+                                    padding-top: 56.25%;
+                                    border: 1px solid transparent;
+                                    margin-bottom: 24px;
+                                    display: block;
+
+                                    .bg-container {
+                                        opacity: 1;
+                                        visibility: visible;
+                                        z-index: 1;
+                                        border-radius: 4px;
+                                        overflow: hidden;
+                                    }
+
+                                    .bg-container-hover {
+                                        opacity: 0;
+                                        visibility: hidden;
+                                        z-index: 2;
+                                        border-radius: 4px;
+                                        overflow: hidden;
+                                        @include transition();
+                                    }
+                                }
+                            }
+                        }
+
+                        .image-container {
+                            display: none;
+                        }
+
+                        .item-content-container {
+                            float: left;
+                            width: 100%;
+                        }
+
+                        &:hover {
+                            .image-container {
+                                border: 1px solid $color-dark-grey;
+                                border-radius: 4px;
+
+                                .bg-container-hover {
+                                    opacity: 1;
+                                    visibility: visible;
+                                }
+                            }
+
+                            .item-content-container {
+                                .title {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .market-trend-reports-sidebar {
+                float: left;
+                width: calc(33.33% + 10.67px);
+
+                @include responsive(1023) {
+                    width: auto;
+                }
+
+                .subscribe-sidebar-form {
+                    float: right;
+                }
+            }
+
+            .market-trend-reports-container-full-width {
+                float: left;
+                width: 100%;
+
+                .item {
+                    &.market-trend-reports {
+                        float: left;
+                        width: calc(33.33% - 21.34px);
+                        margin-right: 32px;
+                        padding: 40px 0;
+                        border-bottom: 1px solid $color-light-grey;
+                        cursor: pointer;
+
+                        &:nth-child(3n) {
+                            margin-right: 0px;
+                        }
+
+                        @include responsive(1023) {
+                            width: 100%;
+                            margin-right: 0;
+                        }
+
+                        &:nth-child(1),
+                        &:nth-child(2),
+                        &:nth-child(3) {
+                            .image-container {
+                                padding-top: 56.25%;
+                                border: 1px solid transparent;
+                                margin-bottom: 24px;
+                                display: block;
+
+                                .bg-container {
+                                    opacity: 1;
+                                    visibility: visible;
+                                    z-index: 1;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                }
+
+                                .bg-container-hover {
+                                    opacity: 0;
+                                    visibility: hidden;
+                                    z-index: 2;
+                                    border-radius: 4px;
+                                    overflow: hidden;
+                                    @include transition();
+                                }
+                            }
+                        }
+
+                        &:nth-child(3n+1) {
+                            clear: left;
+                        }
+
+                        &:nth-last-child(-n+3) {
+                            border-bottom: none;
+
+                            @include responsive(1023) {
+                                border-bottom: 1px solid $color-light-grey;
+                            }
+                        }
+
+                        &:nth-child(n+3) {
+
+                            .title {
+                                @include responsive(1023) {
+                                    font-size: 18px;
+                                    line-height: 22px;
+                                }
+                            }
+
+                            @include responsive(1023) {
+                                border-bottom: 1px solid $color-light-grey;
+                            }
+                        }
+
+                        &:last-child {
+                            @include responsive(1023) {
+                                border-bottom: none;
+                            }
+                        }
+
+                        @include responsive(1023) {
+
+                            &:nth-child(2),
+                            &:nth-child(3) {
+                                padding: 40px 0;
+
+                                .image-container {
+                                    display: none;
+                                }
+                            }
+
+                            &:nth-child(4),
+                            &:nth-child(7) {
+
+                                .image-container {
+                                    padding-top: 56.25%;
+                                    border: 1px solid transparent;
+                                    margin-bottom: 24px;
+                                    display: block;
+
+                                    .bg-container {
+                                        opacity: 1;
+                                        visibility: visible;
+                                        z-index: 1;
+                                        border-radius: 4px;
+                                        overflow: hidden;
+                                    }
+
+                                    .bg-container-hover {
+                                        opacity: 0;
+                                        visibility: hidden;
+                                        z-index: 2;
+                                        border-radius: 4px;
+                                        overflow: hidden;
+                                        @include transition();
+                                    }
+                                }
+                            }
+                        }
+
+                        .image-container {
+                            display: none;
+                        }
+
+                        .item-content-container {
+                            float: left;
+                            width: 100%;
+                        }
+
+                        &:hover {
+                            .image-container {
+                                border: 1px solid $color-dark-grey;
+                                border-radius: 4px;
+
+                                .bg-container-hover {
+                                    opacity: 1;
+                                    visibility: visible;
+                                }
+                            }
+
+                            .item-content-container {
+                                .title {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .item {
+                &.one-third {
+                    float: left;
+                    width: calc(33.33% - 21.34px);
+                    margin-right: 32px;
+                    margin-bottom: 50px;
+
+                    @media (max-width: 1023px) {
+                        width: calc(33.33% - 10.66px);
+                        margin-right: 16px;
+                    }
+
+                    @media (max-width: 767px) {
+                        width: 100%;
+                        margin-right: 0px;
+
+                    }
+
+                    &:nth-child(3n) {
+                        margin-right: 0px;
+                    }
+
+                    &:nth-child(3n+1) {
+                        clear: left;
+                    }
+
+                    &.peer-insights-item {
+                        .imageSizeContainer {
+                            float: left;
+                            width: 100%;
+                            padding-top: 56.25%;
+                            margin-bottom: 20px;
+                            border: 1px solid transparent;
+
+                            .opacity-overlay {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-color: rgba(0, 0, 0, 0.2);
+                            }
+
+                            .video-play-time {
+                                padding: 0px 8px;
+                                border-radius: 24px;
+                                background-color: rgba(18, 18, 18, 0.8);
+                                position: absolute;
+                                top: 16px;
+                                right: 16px;
+                                color: #fff;
+                                font-size: 12px;
+                                line-height: 26px;
+                                z-index: 1;
+                            }
+
+                            .video-button {
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                right: 0;
+                                bottom: 0;
+                                background-image: url('../images/video-play.svg');
+                                background-size: 38px 38px;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                            }
+                        }
+
+                        .item-content-container {
+                            float: left;
+                            width: 100%;
+
+                            .topic-filter {
+                                float: left;
+                                width: 100%;
+                                margin-bottom: 8px;
+
+                                a {
+                                    margin-bottom: 0px;
+                                }
+                            }
+                        }
+
+                        &:hover {
+
+                            .imageSizeContainer {
+                                border: 1px solid $color-dark-grey;
+                                border-radius: 4px;
+
+                                .opacity-overlay {
+                                    opacity: 0;
+                                }
+                            }
+
+                            .title {
+                                text-decoration: underline;
+                            }
+                        }
+                    }
+                }               
+            }
+        }
+
+        .wp-pagenavi {
+
+            span,
+            a {
+                width: 24px;
+                height: 24px;
+                line-height: 24px !important;
+            }
+
+            span.current {
+                color: $color-red !important;
+                border: 1px solid $color-red !important;
+                border-radius: 4px;
+            }
+
+            a.page.larger,
+            a.page.smaller,
+            a.page-numbers,
+            span.extend {
+                color: #000;
+            }
+
+            span.extend {
+                font-weight: 700;
+            }
+
+            a.previouspostslink,
+            a.prev {
+                background-image: url('../images/chevron-left-red.svg');
+                width: 6.62px;
+                height: 10px;
+                background-size: 6.62px 10px;
+                background-repeat: no-repeat;
+                top: 2px;
+                margin: 0px;
+                padding: 0px !important;
+            }
+
+            a.nextpostslink,
+            a.next {
+                background-image: url('../images/chevron-right-red.svg');
+                width: 6.62px;
+                height: 10px;
+                background-size: 6.62px 10px;
+                background-repeat: no-repeat;
+                top: 2px;
+                margin: 0px;
+                padding: 0px !important;
+            }
+
+            a.first,
+            a.last {
+                background-size: 10px 10px;
+                top: -5px;
+            }
+
+            a.first {
+                background-image: url('../images/pagination-red-first.svg');
+            }
+
+            a.last {
+                background-image: url('../images/pagination-red-last.svg');
+            }
+        }
+    }
+}
+
+section.filter-title-block {
+    float: left;
+    width: 100%;
+    padding: 80px 0 0;
+    margin-bottom: 0px;
+
+    @include responsive(1023) {
+        padding: 56px 0 0px;
+        margin-bottom: 40px;
+    }
+
+    .container {
+        .title-container {
+            float: left;
+            width: 100%;
+            max-width: 860px;
+            margin-bottom: 50px;
+
+            h1 {
+                float: left;
+                width: 100%;
+                font-weight: 700;
+                font-size: 34px;
+                line-height: 40px;
+                margin-bottom: 15px;
+                text-transform: none;
+
+                @include responsive(767) {
+                    font-size: 32px;
+                    line-height: 38px;
+                }
+            }
+
+            span.type-description {
+                float: left;
+                width: 100%;
+                color: $color-dark-grey;
+                font-size: 20px;
+                line-height: 28px;
+
+                @include responsive(767) {
+                    font-size: 16px;
+                    line-height: 28px;
+                }
+
+                p {
+                    color: $color-dark-grey;
+                    font-size: 20px;
+                    line-height: 28px;
+
+                    @include responsive(767) {
+                        font-size: 16px;
+                        line-height: 28px;
+                    }
+                }
+
+                &.media-description {
+                    color: #fff;
+
+                    p {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+
+        .sidebar-container {
+            width: 370px;
+            padding-left: 30px;
+            float: right;
+
+            @include responsive(767) {
+                display: none;
+            }
+
+            @media (max-width: 767px) {
+                width: 100%;
+                float: left;
+                padding-left: 0px;
+                max-width: 370px;
+                margin-top: 42px;
+            }
+
+            .media-enquiries-container {
+                float: left;
+                width: 100%;
+                border: 1px solid #fff;
+                border-top-left-radius: 36px;
+                padding: 32px;
+
+                .media-contact-title {
+                    float: left;
+                    width: 100%;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #fff;
+                    margin-bottom: 6px;
+                }
+            }
+
+        }
+
+        .media-contact {
+            float: left;
+            width: 100%;
+        }
+
+        .press-listing-container {
+            float: left;
+            width: 100%;
+        }
+    }
+}
+
+section.filter-title-block {
+    float: left;
+    width: 100%;
+    padding: 80px 0;
+
+    @include responsive(1023) {
+        padding: 56px 0 40px;
+    }
+
+    .container {
+
+        .title-container {
+            float: left;
+            width: 100%;
+            // max-width: 860px;
+            margin-bottom: 50px;
+
+            @include responsive(767) {
+                margin-bottom: 32px;
+            }
+
+            h1 {
+                float: left;
+                width: 100%;
+                margin-bottom: 8px;
+
+                @include responsive(767) {
+                    font-size: 32px;
+                    line-height: 38px;
+                }
+            }
+
+            p.type-description {
+                float: left;
+                width: 100%;
+                margin-bottom: 0px;
+                font-size: 20px;
+                color: #5f5f5f;
+
+                @include responsive(767) {
+                    font-size: 16px;
+                    line-height: 28px;
+                }
+            }
+        }
+
+        .topic-button-container-outer {
+            float: left;
+            width: 100%;
+            position: relative;
+
+            @include responsive(767) {
+                width: calc(100% + 40px);
+                margin-left: -20px;
+            }
+
+            .topic-button-container {
+                float: left;
+                width: 100%;
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                position: relative;
+                padding-bottom: 10px;
+                padding-right: 60px;
+
+                @include responsive(767) {
+                    padding-left: 20px;
+                }
+
+                a.filter-button {
+                    float: left;
+                    margin-right: 15px;
+                    padding: 8px 18px;
+                    font-size: 18px;
+                    line-height: 28px;
+                    border-radius: 16px;
+                    font-family: $font-base;
+                    font-weight: 400;
+                    background-color: $color-background-light-grey;
+                    border: 1px solid $color-background-light-grey;
+                    color: $color-dark-grey;
+                    flex: 0 0 auto;
+                    @include transition();
+
+                    &:hover {
+                        background-color: #E4E4E4;
+                    }
+
+                    &.selected {
+                        background-color: $color-red !important;
+                        color: #fff;
+                        border-color: $color-red;
+                    }
+
+                    &.peer-insights {
+                        background-color: transparent;
+                        color: $color-medium-grey;
+                        border: 1px solid $color-dark-grey;
+
+                        &:hover {
+                            color: #eaeaea;
+                        }
+
+                        &.selected {
+                            background-color: $color-red !important;
+                            color: #fff !important;
+                            border-color: $color-red;
+                        }
+                    }
+                }
+
+                >.ps__scrollbar-x-rail {
+                    height: 5px;
+                    background: transparent;
+
+                    .ps__scrollbar-x {
+                        height: 5px !important;
+                        border-radius: 5px;
+                    }
+
+                    &:hover {
+                        .ps__scrollbar-x {
+                            height: 5px;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+
+            &:after {
+                content: '';
+                background: linear-gradient(-90deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+                width: 60px;
+                height: 46px;
+                display: block;
+                position: absolute;
+                right: 0px;
+                top: 0;
+                z-index: 1;
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for the second section.filter-title-block
+// (the topic-button-container/filter-button variant used by
+// template-conversation.php's intro block; the FIRST filter-title-block
+// definition above it, with .sidebar-container/.media-enquiries-container,
+// has no matching markup anywhere in templates/ - confirmed dead CSS, not
+// converted). All width:100% single-column floats here; a.filter-button's
+// float:left is already inert today since its parent .topic-button-container
+// is already display:flex (flex items ignore float per spec), this just
+// removes the now-misleading declaration. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.filter-title-block {
+    float: none;clear:both;
+
+    .container {
+        .title-container {
+            float: none;clear:both;
+
+            h1 {
+                float: none;
+                clear: both;
+            }
+
+            p.type-description {
+                float: none;
+                clear: both;
+            }
+        }
+
+        .topic-button-container-outer {
+            float: none;clear:both;
+
+            .topic-button-container {
+                float: none;clear:both;
+
+                a.filter-button {
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+    }
+}
+
+section.conversation-cta {
+    float: left;
+    width: 100%;
+    padding: 40px 0 0;
+    margin-bottom: 40px;
+
+    .container {
+        .column-container {
+            float: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .column {
+                width: 50%;
+                float: left;
+
+                &.text-column {
+                    padding-bottom: 40px;
+
+                    h5 {
+                        float: left;
+                        width: 100%;
+
+                        p {
+                            margin-bottom: 0px;
+
+                            strong {
+                                font-weight: normal;
+                                color: $color-red;
+                            }
+                        }
+                    }
+
+                    span.text {
+                        float: left;
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+
+                    .button-container {
+                        float: left;
+                        width: 100%;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;                        
+
+                        .pre-button-text {
+                            float: left;
+                            width: auto;
+                            max-width: 50%;
+                            margin-right: 20px;
+                            align-self: center;
+                            font-weight: bold;
+                        }
+
+                        .cta-button {
+                            float: left; 
+                            margin-left: 0;                               
+                        }
+                    }                
+                }
+
+                &.image-column {
+                    .image-container {
+                        float: left;
+                        height: 100%;
+                        padding-top: 56.25%;
+
+                        .bg-container {
+                            img {
+                                object-fit: contain;
+                                object-position: bottom center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for section.conversation-cta.
+// .column-container and .button-container are already display:flex, so
+// .column/.pre-button-text/.cta-button's float:left is already inert
+// today (flex items ignore float per spec) - this just removes the
+// now-misleading declarations. The rest is the usual width:100%
+// single-column idiom. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.conversation-cta {
+    float: none;clear:both;
+
+    .container {
+        .column-container {
+            float: none;clear:both;
+
+            .column {
+                float: none;clear:both;
+
+                &.text-column {
+                    h5 {
+                        float: none;
+                        clear: both;
+                    }
+
+                    span.text {
+                        float: none;
+                        clear: both;
+                    }
+
+                    .button-container {
+                        float: none;clear:both;
+
+                        .pre-button-text {
+                            float: none;
+                            clear: both;
+                        }
+
+                        .cta-button {
+                            float: none;
+                            clear: both;
+                        }
+                    }
+                }
+
+                &.image-column {
+                    .image-container {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Members content preview updates
+
+.article {
+    .preview-image-container {
+        float: left;
+        width: 100%;
+        padding: 40px 0;
+
+        img {
+            float: left;
+            width: 100%;
+        }
+    }
+
+    .preview-cta-container {
+        float: left;
+        width: 100%;
+        padding: 40px;
+        position: relative;
+        padding-bottom: 80px;
+
+        @media (max-width: 1023px) {
+            padding: 20px;
+            padding-bottom: 60px;
+            margin-top: 20px;
+        }
+
+        .preview-cta-inner {
+            float: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            @media (max-width: 1023px) {
+                flex-direction: column-reverse;
+                align-items: initial;
+                text-align: left;
+            }
+
+            .preview-cta-image.mobile {
+                display: none;
+
+                @media (max-width: 1023px) {
+                    display: block;
+                    float: left;
+                    margin-bottom: 20px;
+                    width: 100%;
+
+                    .image-container {
+                        height: 100%;
+                        padding-top: 60%;                                    
+                
+                        .bg-container {
+                            img {
+                                object-fit: contain;
+                                object-position: center;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .preview-cta-image-column {
+                float: left;
+                width: 150px;  
+                
+                @media (max-width: 1023px) {
+                    margin-bottom: 20px;
+                    width: 100%;
+                    display: none;
+                }
+
+                .image-container {
+                    height: 100%;
+                    padding-top: 140%;
+
+                    @media (max-width: 1023px) {
+                        padding-top: 60%;
+                    }
+
+                    .bg-container {
+                        img {
+                            object-fit: contain;
+                            object-position: center;
+                        }
+                    }
+                }
+            }
+
+            .preview-cta-content {
+                float: left;
+                width: calc(100% - 150px);
+                padding-left: 40px;
+
+                @media (max-width: 1023px) {
+                    padding-left: 0px;
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+
+                .title {
+                    float: left;
+                    width: 100%;
+                    font-weight: 700;
+                    text-transform: none;
+                    color: #000;
+                    font-size: 28px;
+                    line-height: 32px;
+                    margin-bottom: 20px;  
+                    max-width: 275px;   
+                    
+                    @media (max-width: 1023px) {
+                        font-size: 22px;
+                        line-height: 24px;
+                    }
+                }
+
+                .text {
+                    float: left;
+                    width: 100%;
+                    color: #000;
+                    font-size: 18px;
+                    line-height: 24px;
+                    font-weight: normal;
+                    margin-bottom: 20px;
+
+                    @media (max-width: 1023px) {
+                        font-size: 16px;
+                        line-height: 20px;
+                    }
+                }
+
+                .button-container {
+                    float: left;
+                    width: 100%;
+
+                    a.stdBtn {
+                        float: left;
+                        width: auto;
+                        padding: 0 20px;
+                        margin-bottom: 8px;
+
+                        &:first-child {
+                            margin-right:8px;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        .preview-cta-bottom-module {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 40px;
+            background-color: $color-red;
+            color: #fff;
+
+            @media (max-width: 1023px) {
+                padding: 10px 20px;
+                font-size: 12px;
+                line-height: 16px;
+            }
+
+            a {
+                color: #fff;
+                margin-left: 4px;
+                text-decoration: underline;
+
+                @media (max-width: 1023px) {
+                    font-size: 12px;
+                    line-height: 16px;
+                }
+            }
+
+        }
+    }
+
+    .blurred-image-cta-container {
+        float: left;
+        width: 100%;
+        position: relative;
+        padding: 200px 0 150px;
+        margin-top: 40px;
+
+        @media (max-width: 1023px) {
+            padding: 100px 0 100px;
+        }
+
+        .blur-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: blur(5px);
+            color: #000;
+        }
+
+        .global-preview-cta-container {
+            float: left;
+            width: 100%;
+            position: relative;
+            padding: 40px;
+            padding-bottom: 80px;
+            background-size: cover;
+            background-position: center bottom;
+
+            @media (max-width: 1023px) {
+                padding: 20px;
+                padding-bottom: 60px;
+            }
+
+            .preview-cta-content {
+                float: left;
+                width: 100%;
+                padding: 60px 0;
+
+                @media (max-width: 1023px) {
+                    padding: 40px 0;
+                }
+
+                .title p {
+                    float: left;
+                    width: 100%;
+                    font-weight: 700;
+                    text-transform: none;
+                    color: #fff;
+                    font-size: 28px;
+                    line-height: 32px;
+                    margin-bottom: 30px;
+                    max-width: 320px;
+
+                    @media (max-width: 1023px) {
+                        font-size: 22px;
+                        line-height: 24px;
+                    }
+            
+                    strong {
+                        font-weight: 700;
+                        color: $color-red;
+                    }
+                }
+            
+                .button-container {
+                    float: left;
+                    width: 100%;
+            
+                    a.stdBtn {
+                        float: left;
+                        width: auto;
+                        padding: 0 20px;
+                        margin-bottom: 8px;
+            
+                        &:first-child {
+                            margin-right: 8px;
+                        }
+                    }
+                }
+            }
+
+        
+            .preview-cta-bottom-module {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 10px 40px;
+                background-color: $color-red;
+                color: #fff;
+
+                @media (max-width: 1023px) {
+                    padding: 10px 20px;
+                    font-size: 12px;
+                    line-height: 16px;
+                }
+
+                a {
+                    color: #fff;
+                    margin-left: 4px;
+                    text-decoration: underline;
+
+                    @media (max-width: 1023px) {
+                        font-size: 12px;
+                        line-height: 16px;
+                    }
+                }
+
+            }
+        }
+    }
+}
+
+// Dev-preview: float -> modern layout for .article (member content preview
+// lock, both the .preview-cta-container and .blurred-image-cta-container
+// variants). .preview-cta-inner is already display:flex, so
+// .preview-cta-image.mobile/.preview-cta-image-column/.preview-cta-content's
+// float was already inert (flex items ignore float per spec) there - this
+// just removes the now-misleading declarations. Both .button-container
+// instances get a real display:flex since their a.stdBtn buttons are a
+// genuine side-by-side row, not the width:100% single-column pattern used
+// everywhere else here. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .article {
+    .preview-image-container {
+        float: none;clear:both;
+
+        img {
+            float: none;
+            clear: both;
+        }
+    }
+
+    .preview-cta-container {
+        .preview-cta-inner {
+            float: none;clear:both;
+
+            .preview-cta-image.mobile {
+                float: none;
+                clear: both;
+            }
+
+            .preview-cta-image-column {
+                float: none;
+                clear: both;
+            }
+
+            .preview-cta-content {
+                float: none;clear:both;
+
+                .title {
+                    float: none;
+                    clear: both;
+                }
+
+                .text {
+                    float: none;
+                    clear: both;
+                }
+
+                .button-container {
+                    float: none;
+                    clear: both;
+                    display: flex;
+                    align-items: center;
+
+                    a.stdBtn {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+        }
+    }
+
+    .blurred-image-cta-container {
+        float: none;clear:both;
+
+        .global-preview-cta-container {
+            float: none;clear:both;
+
+            .preview-cta-content {
+                float: none;clear:both;
+
+                .title p {
+                    float: none;
+                    clear: both;
+                }
+
+                .button-container {
+                    float: none;
+                    clear: both;
+                    display: flex;
+                    align-items: center;
+
+                    a.stdBtn {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// non member form popup
+
+// Dev-preview: only .preview-cta-form's own float:left;width:100% is
+// converted here - the rest of this block styles a HubSpot-generated form
+// (.hbspt-form/.hs-form) with !important overrides targeting HubSpot's own
+// injected markup/CSS, similar caution to leaving vendor library CSS
+// (FlexSlider etc.) alone elsewhere in this project. Not confident a
+// mechanical float removal there wouldn't fight with styles HubSpot
+// applies at runtime. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
+    float: none;
+    clear: both;
+}
+
+// Remaining float -> flex/grid cleanup pass: formPopup modal, pagination
+// wrapper, EVR topic-banner dropdown row, EVR video intro links row, EVR
+// fundamentals/stages components, and the "next conversation" featured post.
+// All confirmed live against real template/component markup (single-post,
+// single-event, template-home, template-flexible, single-kyc, and the
+// components/_main-topic-banner, _evr-video, _evr-fundamentals, _evr-stages,
+// template-tnc PHP files). Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body {
+    .formPopup {
+        float: none;clear:both;
+
+        .formWrapper {
+            float: none;
+            clear: both;
+        }
+    }
+
+    .pagWrapper {
+        float: none;
+        clear: both;
+    }
+
+    section.topicBanner .imageSizeContainer .title-filter-container {
+        float: none;
+        clear: both;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        h1 {
+            float: none;
+            clear: both;
+        }
+
+        .dropdown-button {
+            float: none;
+            clear: both;
+        }
+    }
+
+    section.two-column-services.landing-video-intro .container .landing-video-intro-columns {
+        float: none;clear:both;
+
+        .column {
+            float: none;clear:both;
+
+            &.text-column {
+                .bannerBreadcrumbs {
+                    float: none;
+                    clear: both;
+                }
+
+                .title {
+                    float: none;
+                    clear: both;
+                }
+
+                .text {
+                    float: none;
+                    clear: both;
+                }
+
+                .links-container {
+                    float: none;
+                    clear: both;
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+
+                    .button {
+                        float: none;
+                        clear: both;
+                    }
+
+                    .text-link {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+
+            &.video-column .video-container {
+                float: none;
+                clear: both;
+            }
+        }
+    }
+
+    section.evr-fundamentals,
+    section.evr-stages {
+        float: none;clear:both;
+
+        .container {
+            .title-container {
+                float: none;
+                clear: both;
+            }
+
+            .fundamentals-container {
+                float: none;clear:both;
+
+                .fundamentals-row-one,
+                .fundamentals-row-two {
+                    float: none;
+                    clear: both;
+                }
+            }
+
+            .stages-container {
+                float: none;clear:both;
+
+                .stages-item {
+                    float: none;clear:both;
+
+                    .stages-icon-container {
+                        float: none;clear:both;
+
+                        img {
+                            float: none;
+                            clear: both;
+                            display: block;
+                        }
+                    }
+
+                    .stages-title-container {
+                        float: none;clear:both;
+
+                        h3 {
+                            float: none;
+                            clear: both;
+                        }
+                    }
+
+                    .stages-text {
+                        float: none;clear:both;
+
+                        p {
+                            float: none;
+                            clear: both;
+                        }
+                    }
+
+                    .stages-button-container .button {
+                        float: none;
+                        clear: both;
+                    }
+                }
+            }
+        }
+    }
+
+    section.tnc-featured-post {
+        float: none;clear:both;
+
+        .container .item {
+            float: none;clear:both;
+
+            .imageSizeContainer {
+                float: none;
+                clear: both;
+            }
+
+            .item-content-container {
+                float: none;clear:both;
+
+                .topic-filter {
+                    float: none;
+                    clear: both;
+                }
+            }
+        }
+    }
+}
+
+// postHeader .filter safe-pass additions (flat, matching the convention
+// already used below for the display:block supplements): these are new
+// full-width wrapper/content selectors found in this pass, verified against
+// real source context to be single-column content (search bar, filter
+// form panels, topic/radio-slide row wrappers, mobile stacked checkbox
+// list) as opposed to the many side-by-side/pill-row float layouts in the
+// same area (.checkboxButton pills, .sortContainer split, .viewContainer
+// icons, .radioSlide tiles themselves) which were deliberately left alone.
+//
+// .checkboxButton pill-wrap redesign: this is a real layout change, not
+// a mechanical float:none pass, so it's called out separately here.
+// span.categories/types/duration/events each render a row of
+// .checkboxButton pills that wraps onto multiple lines via
+// float:left + margin - the same wrapping behavior flex-wrap gives for
+// free, without needing the parent's overflow:auto clearfix hack.
+// Confirmed this exact pattern (flex-wrap parent + .checkboxButton
+// without float) already ships live elsewhere in this same file, for
+// the same .checkboxButton component, at
+// .postHeader .filter .categories .insightsFilter (line ~2160) - so the
+// checkbox/label/input markup is already proven compatible with this
+// layout method. Each span's own overflow (categories: hidden, for its
+// collapse/expand max-height animation; duration/events: visible;
+// types: default auto) and its .title/.more absolutely-positioned
+// labels are untouched - position:absolute children are excluded from
+// flex layout, and float still governs each span's own outer
+// left/right position in the two-column split above it (an element can
+// be floated AND be a flex container for its own children at the same
+// time). .radioSlideContainer's .radioSlide tiles are a Slick JS
+// carousel, not a simple wrapping row, so it's deliberately NOT touched
+// here - that would be a real UX decision (keep as a horizontal
+// scroller vs. redesign to a wrapped grid), not a like-for-like
+// modernization.
+body .postHeader .filter .formContainer form span.categories,
+body .postHeader .filter .formContainer form span.types,
+body .postHeader .filter .formContainer form span.duration,
+body .postHeader .filter .formContainer form span.events {
+	display: flex;
+	flex-wrap: wrap;
+}
+body .postHeader .filter .formContainer form span.categories .checkboxButton,
+body .postHeader .filter .formContainer form span.types .checkboxButton,
+body .postHeader .filter .formContainer form span.duration .checkboxButton,
+body .postHeader .filter .formContainer form span.events .checkboxButton {
+	float: none;
+}
+body .postHeader .filter .search form {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .search form input.searchInput {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form .search {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form .search input.searchInput {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form span.topics {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form span.topics span.title {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
+	float: none;
+	clear: both;
+}
+body .postHeader .filter .formContainer form span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container {
+	float: none;
+	clear: both;
+}
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
+	float: none;
+	clear: both;
+}
+body.template-events .postHeader .filter .formContainer form {
+	float: none;
+	clear: both;
+}
+body.template-events .postHeader .filter .formContainer form span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .viewContainer.mobile {
+	float: none;
+	clear: both;
+}
+
+// section.blogWrapper grid + list-view safe-pass additions: the shared
+// per-card content (.postDetails/.blogText/.articleLink/.excerpt base
+// rule, .formTrigger CTA card, results-count line, and the list-view row
+// layout) plus each layoutN variant's single full-width wrapper
+// (.linkWrapper for the side-by-side image+text layouts, .blogText for
+// the stacked image-on-top layouts - verified per layout, they are never
+// both candidates in the same layout). The postLink.layoutN cards
+// themselves and any interior element under 100% width (image columns,
+// side-by-side text panels) were left untouched.
+body section.blogWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout6 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout8 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout0 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout9 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout1 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout10 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout15 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout2 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout5 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout11 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout14 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout16 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout3 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout7 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout12 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout17 .blogText {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout4 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout13 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink.layout18 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink .blogText .postDetails .info {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink .blogText .articleLink {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .grid .postLink .blogText .excerpt {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .formTrigger {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .formTrigger .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container #loop.results-grid .results span {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
+	float: none;
+	clear: both;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
+	float: none;
+	clear: both;
+}
+
+// .article .preview-cta-container: the only remaining ungated piece of
+// this module - its descendants (.preview-cta-inner and everything under
+// it) were already converted in an earlier pass, this just catches the
+// outer wrapper itself. section.filter-title-block's other 5 candidates
+// found in this pass (.title-container span.type-description,
+// .sidebar-container .media-enquiries-container/.media-contact-title,
+// .media-contact, .press-listing-container) all belong to the FIRST
+// section.filter-title-block definition, already documented above (see
+// the comment above the existing body section.filter-title-block
+// block) as confirmed dead CSS with no matching markup anywhere in
+// templates/ - left unconverted to match that existing decision.
+body .article .preview-cta-container {
+	float: none;
+	clear: both;
+}
+
+// Supplementary display:block fixes for templates/_post.scss's nested
+// body block above: same bug as every other file in this pass
+// (a bare float:none silently reverts inline-default tags like span/a to
+// display:inline once float stops blockifying them). Rather than rewrite the
+// nested structure above (this file predates the flat-selector convention),
+// these are appended as matching flat selectors that add ONLY the missing
+// display:block - later same-specificity rules win per-property in CSS, so
+// this cleanly adds display:block without touching float:none or anything
+// else already set above. Every selector was checked against the real
+// compiled default (un-gated) CSS to confirm display truly wasn't already
+// declared there.
+body section.twoColumnCard {
+	display: block;
+}
+body section.twoColumnCard .container .cardContainer .twoColumnCard .imageContainer {
+	display: block;
+}
+body section.featured-module {
+	display: block;
+}
+body section.featured-module .container .title-container .introduction-column {
+	display: block;
+}
+body section.featured-module .container .title-container .introduction-column h2 {
+	display: block;
+}
+body section.featured-module .container .title-container .introduction-column p {
+	display: block;
+}
+body section.featured-module .container .title-container .link-container {
+	display: block;
+}
+body section.featured-module .container .one-half {
+	display: block;
+}
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts {
+	display: block;
+}
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .image-container {
+	display: block;
+}
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .video-container {
+	display: block;
+}
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.filter-featured-post .insights-featured-column .item-content-container {
+	display: block;
+}
+body section.featured-module.filter-featured-post .insights-featured-column .item-content-container .topic-filter {
+	display: block;
+}
+body section.featured-module.filter-featured-post .side-bar-column .recent-sidebar .topic-filter {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container .title {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots li {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots li a {
+	display: block;
+}
+body section.featured-module.resources-featured .container .slider-column .paging-counter {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.peer-insights-featured .container .next-slide-container .post-content-container {
+	display: block;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide {
+	display: block;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner {
+	display: block;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container {
+	display: block;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container .title {
+	display: block;
+}
+body section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts {
+	display: block;
+}
+body section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .post-content-container {
+	display: block;
+}
+body section.filter-listing {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .peer-insights-container-side-bar {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .imageSizeContainer {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container .topic-filter {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .market-trend-reports-container-side-bar {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .market-trend-reports-container-side-bar .item.market-trend-reports .item-content-container {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .market-trend-reports-sidebar {
+	display: block;
+}
+body section.filter-listing .container .grid-wrapper .market-trend-reports-container-full-width .item.market-trend-reports .item-content-container {
+	display: block;
+}
+body section.filter-title-block {
+	display: block;
+}
+body section.filter-title-block .container .title-container {
+	display: block;
+}
+body section.filter-title-block .container .title-container h1 {
+	display: block;
+}
+body section.filter-title-block .container .title-container p.type-description {
+	display: block;
+}
+body section.filter-title-block .container .topic-button-container-outer {
+	display: block;
+}
+body section.filter-title-block .container .topic-button-container-outer .topic-button-container a.filter-button {
+	display: block;
+}
+body section.conversation-cta {
+	display: block;
+}
+body section.conversation-cta .container .column-container .column {
+	display: block;
+}
+body section.conversation-cta .container .column-container .column.text-column h5 {
+	display: block;
+}
+body section.conversation-cta .container .column-container .column.text-column span.text {
+	display: block;
+}
+body section.conversation-cta .container .column-container .column.text-column .button-container .pre-button-text {
+	display: block;
+}
+body section.conversation-cta .container .column-container .column.text-column .button-container .cta-button {
+	display: block;
+}
+body section.conversation-cta .container .column-container .column.image-column .image-container {
+	display: block;
+}
+body .article .preview-image-container {
+	display: block;
+}
+body .article .preview-image-container img {
+	display: block;
+}
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content {
+	display: block;
+}
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content .title {
+	display: block;
+}
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content .text {
+	display: block;
+}
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content .button-container a.stdBtn {
+	display: block;
+}
+body .article .blurred-image-cta-container {
+	display: block;
+}
+body .article .blurred-image-cta-container .global-preview-cta-container {
+	display: block;
+}
+body .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content {
+	display: block;
+}
+body .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content .title p {
+	display: block;
+}
+body .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content .button-container a.stdBtn {
+	display: block;
+}
+body .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
+	display: block;
+}
+body .formPopup {
+	display: block;
+}
+body .formPopup .formWrapper {
+	display: block;
+}
+body .pagWrapper {
+	display: block;
+}
+body section.topicBanner .imageSizeContainer .title-filter-container h1 {
+	display: block;
+}
+body section.topicBanner .imageSizeContainer .title-filter-container .dropdown-button {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .bannerBreadcrumbs {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .text {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .links-container .button {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .links-container .text-link {
+	display: block;
+}
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.video-column .video-container {
+	display: block;
+}
+body section.evr-fundamentals {
+	display: block;
+}
+body section.evr-stages {
+	display: block;
+}
+body section.evr-fundamentals .container .title-container {
+	display: block;
+}
+body section.evr-stages .container .title-container {
+	display: block;
+}
+body section.evr-fundamentals .container .fundamentals-container {
+	display: block;
+}
+body section.evr-stages .container .fundamentals-container {
+	display: block;
+}
+body section.evr-fundamentals .container .fundamentals-container .fundamentals-row-one {
+	display: block;
+}
+body section.evr-fundamentals .container .fundamentals-container .fundamentals-row-two {
+	display: block;
+}
+body section.evr-stages .container .fundamentals-container .fundamentals-row-one {
+	display: block;
+}
+body section.evr-stages .container .fundamentals-container .fundamentals-row-two {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item .stages-icon-container {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item .stages-icon-container {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item .stages-title-container {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item .stages-title-container {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item .stages-title-container h3 {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item .stages-title-container h3 {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item .stages-text {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item .stages-text {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item .stages-text p {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item .stages-text p {
+	display: block;
+}
+body section.evr-fundamentals .container .stages-container .stages-item .stages-button-container .button {
+	display: block;
+}
+body section.evr-stages .container .stages-container .stages-item .stages-button-container .button {
+	display: block;
+}
+body section.tnc-featured-post {
+	display: block;
+}
+body section.tnc-featured-post .container .item {
+	display: block;
+}
+body section.tnc-featured-post .container .item .imageSizeContainer {
+	display: block;
+}
+body section.tnc-featured-post .container .item .item-content-container {
+	display: block;
+}
+body section.tnc-featured-post .container .item .item-content-container .topic-filter {
+	display: block;
+}
+body .postHeader .filter .search form {
+	display: block;
+}
+body .postHeader .filter .search form input.searchInput {
+	display: block;
+}
+body .postHeader .filter .formContainer {
+	display: block;
+}
+body .postHeader .filter .formContainer form {
+	display: block;
+}
+body .postHeader .filter .formContainer form .search {
+	display: block;
+}
+body .postHeader .filter .formContainer form .search input.searchInput {
+	display: block;
+}
+body .postHeader .filter .formContainer form span.topics {
+	display: block;
+}
+body .postHeader .filter .formContainer form span.topics span.title {
+	display: block;
+}
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
+	display: block;
+}
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
+	display: block;
+}
+body .postHeader .filter .formContainer form span.submitContainer {
+	display: block;
+}
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container {
+	display: block;
+}
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
+	display: block;
+}
+body.template-events .postHeader .filter .formContainer form {
+	display: block;
+}
+body.template-events .postHeader .filter .formContainer form span.submitContainer {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
+	display: block;
+}
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+	display: block;
+}
+body.template-insights .postHeader .viewContainer.mobile {
+	display: block;
+}
+body section.blogWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout6 .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout8 .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout0 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout9 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout1 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout10 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout15 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout2 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout5 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout11 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout14 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout16 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout3 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout7 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout12 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout17 .blogText {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout4 .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout13 .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink.layout18 .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .grid .postLink .blogText .postDetails .info {
+	display: block;
+}
+body section.blogWrapper .grid .postLink .blogText .articleLink {
+	display: block;
+}
+body section.blogWrapper .grid .postLink .blogText .excerpt {
+	display: block;
+}
+body section.blogWrapper .formTrigger {
+	display: block;
+}
+body section.blogWrapper .formTrigger .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .container #loop.results-grid .results span {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
+	display: block;
+}
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
+	display: block;
+}
+body .article .preview-cta-container {
+	display: block;
 }

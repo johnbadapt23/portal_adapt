@@ -4938,3 +4938,1028 @@ body.edge-presentations {
         }
     }
 }
+// Whats-new/post-filters/article/featured-persona/keynote/portal-slider
+// template float -> flex/grid cleanup, safe pass: pure single-column
+// float:left;width:100% wrappers, plus floats already spec-inert
+// (position:absolute/fixed, the element itself display:flex, or its
+// immediate parent being display:flex). Every selector below was
+// cross-checked against the real compiled CSS output. section.featured-module
+// here is a separate redeclaration of the same component already given a
+// careful dedicated real-pair conversion in _post.scss - left untouched in
+// this file for now rather than duplicating that work blind. Other genuine
+// multi-column/real-pair layouts (articleWrapper's two-column body+sidebar,
+// the post-title-block heading+meta row, the keynote-slider and
+// portal-post-slider negative-margin bleed carousels) are also deliberately
+// left for a dedicated pass. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.featured-module {
+	float: none;
+	clear: both;
+}
+body section.featured-module.filter-featured-post .insights-featured-column .item-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.filter-featured-post .insights-featured-column .item-content-container .topic-filter {
+	float: none;
+	clear: both;
+}
+body section.featured-module.filter-featured-post .side-bar-column .recent-sidebar .topic-filter {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .title-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .title-container .introduction-column h2 {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .title-container .introduction-column p {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .grid-wrapper .item.market-trend-reports .item-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.peer-insights-item .video-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container .topic-filter {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.best-practice-item .image-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.best-practice-item .content-container-absolute .topic-filter {
+	float: none;
+	clear: both;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide {
+	float: none;
+	clear: both;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container .title {
+	float: none;
+	clear: both;
+}
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots {
+	float: none;
+	clear: both;
+}
+body section.featured-module.resources-featured .container .slider-column .paging-counter {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.peer-insights-featured .container .next-slide-container .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container .title {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts {
+	float: none;
+	clear: both;
+}
+body section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner {
+	float: none;
+	clear: both;
+}
+body section.title-banner {
+	float: none;
+	clear: both;
+}
+body section.title-banner h1 {
+	float: none;
+	clear: both;
+}
+body section.title-banner p {
+	float: none;
+	clear: both;
+}
+body section.post-events {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filter-container-inner {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper .mobile-filter-accordion .mobile-filter-content {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper .filter-dropdown {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper .filter-dropdown .dropdown-list a {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper a.research-link {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper .mobile-filter-accordion {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper .mobile-filter-accordion .mobile-filter-content .filter-dropdown .dropdown-title {
+	float: none;
+	clear: both;
+}
+body .filter-container-outer .filters-wrapper .mobile-filter-accordion .mobile-filter-content .mobile-reset-button {
+	float: none;
+	clear: both;
+}
+body .whats-new-container-outer {
+	float: none;
+	clear: both;
+}
+body .sort-pills-container {
+	float: none;
+	clear: both;
+}
+body .sort-dropdown .filter-dropdown {
+	float: none;
+	clear: both;
+}
+body .sort-dropdown .filter-dropdown .dropdown-list a {
+	float: none;
+	clear: both;
+}
+body .post-pagination-container.page-navi-container {
+	float: none;
+	clear: both;
+}
+body .resources-column-container {
+	float: none;
+	clear: both;
+}
+body .article-column .article-link {
+	float: none;
+	clear: both;
+}
+body .article-column .article-inner .article-top .cat-tag-text {
+	float: none;
+	clear: both;
+}
+body section.featured-persona-post {
+	float: none;
+	clear: both;
+}
+body section.featured-persona-post .container .featured-article-card {
+	float: none;
+	clear: both;
+}
+body section.featured-persona-post .container .featured-article-card .article-link {
+	float: none;
+	clear: both;
+}
+body section.featured-persona-post .container .featured-article-card .article-link .article-column-container {
+	float: none;
+	clear: both;
+}
+body section.featured-persona-post .container .featured-article-card .article-link .article-column-container .article-text-column .text-inner {
+	float: none;
+	clear: both;
+}
+body section.featured-persona-post .container .featured-article-card .article-link .article-image-column .image-container {
+	float: none;
+	clear: both;
+}
+body .market-narratives-filter-outer {
+	float: none;
+	clear: both;
+}
+body .events-column-container {
+	float: none;
+	clear: both;
+}
+body .events-card.column .event-link {
+	float: none;
+	clear: both;
+}
+body .events-card.column .events-card-inner {
+	float: none;
+	clear: both;
+}
+body .events-card-image.column .event-link {
+	float: none;
+	clear: both;
+}
+body .events-card-image.column .events-card-inner {
+	float: none;
+	clear: both;
+}
+body section.post-title-block .container .back-container {
+	float: none;
+	clear: both;
+}
+body section.post-title-block .container .introduction-title {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article section {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article section .container .post-inner {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article section .container .inner {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article section.videoBlock .container .imageSizeContainer .textContainer .title {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article .articleWrapper {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article .article-content {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article .topicFilter {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article h1.title {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article .dateReadTime {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article .introGrab {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article .smallQuote {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article h1 {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .article h2 {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .speaker-subtitle {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .description .title {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .description .speaker-name {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .description .speaker-role {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .textBlock {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .articleShare {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .articleShare .shareText {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .articleShare a.button.redOutline {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .articleShare.downloadShareContainer .download-image-container {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .relatedArticles {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .relatedArticles h2 {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .relatedArticles .item {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .relatedArticles .item .imageSizeContainer {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .relatedArticles .item .textContainer {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .relatedArticles .item .textContainer a.title {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .share-save-container {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .share-save-container .saveInsight {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .share-save-container .shareArticle {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .share-save-container .saveInsight a {
+	float: none;
+	clear: both;
+}
+body article.articleWrapper .column.second .share-save-container .shareArticle a {
+	float: none;
+	clear: both;
+}
+body .articleWrapper {
+	float: none;
+	clear: both;
+}
+body .articleWrapper .article-content h1 {
+	float: none;
+	clear: both;
+}
+body .articleWrapper .article-content h2 {
+	float: none;
+	clear: both;
+}
+body .articleWrapper .article-content h6 {
+	float: none;
+	clear: both;
+}
+body .fullWidth.article-content .articleWrapper {
+	float: none;
+	clear: both;
+}
+body .fullWidth.article-content .articleWrapper h1 {
+	float: none;
+	clear: both;
+}
+body .fullWidth.article-content .articleWrapper h2 {
+	float: none;
+	clear: both;
+}
+body .fullWidth.article-content .articleWrapper h6 {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer .text {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer a.button {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer .published {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer .type-topic {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer .contributor-container {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer .contributor-container .contributor-title {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .textContainer .replay-button {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .share-save-container {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .share-save-container .saveInsight {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .share-save-container .shareArticle {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .share-save-container .saveInsight a {
+	float: none;
+	clear: both;
+}
+body .expertPresentationFeatured .container .item .share-save-container .shareArticle a {
+	float: none;
+	clear: both;
+}
+
+// .researchArticleTextHeader shares its un-gated base rule (comma-selector,
+// line ~2347) with .expertPresentationFeatured above, but only the
+// .expertPresentationFeatured half was gated - mirroring for
+// .researchArticleTextHeader too. Note: .item (display:flex row) and
+// .textContainer (fixed 260px sidebar column) themselves are a real
+// image+sidebar pair and are deliberately NOT touched here - only their
+// interior single-column content is.
+body .researchArticleTextHeader .container .item .textContainer .text {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .textContainer a.button {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .textContainer .published {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .textContainer .type-topic {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .textContainer .contributor-container {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .textContainer .contributor-container .contributor-title {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .textContainer .replay-button {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .share-save-container {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .share-save-container .saveInsight {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .share-save-container .shareArticle {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .share-save-container .saveInsight a {
+	float: none;
+	clear: both;
+}
+body .researchArticleTextHeader .container .item .share-save-container .shareArticle a {
+	float: none;
+	clear: both;
+}
+body section.featured-module .blockTitle {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .blockTitle {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-image-container {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .image-container {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .image-container .hover-container .hover-text {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-details {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-details .name {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-details .name-title {
+	float: none;
+	clear: both;
+}
+body section.keynote-slider-module .keynote-control-container {
+	float: none;
+	clear: both;
+}
+body section.portal-post-slider .blockTitle {
+	float: none;
+	clear: both;
+}
+body section.portal-post-slider .slider-control-container {
+	float: none;
+	clear: both;
+}
+body section.highlight-post {
+	float: none;
+	clear: both;
+}
+body section.highlight-post .container .post-container .column.title-column h2 {
+	float: none;
+	clear: both;
+}
+body section.highlight-post .container .post-container .column.title-column h2 .h2-inner {
+	float: none;
+	clear: both;
+}
+body section.highlight-post .container .post-container .column.title-column .text-regular {
+	float: none;
+	clear: both;
+}
+body section.highlight-post .container .post-container .column.title-column .button-container {
+	float: none;
+	clear: both;
+}
+body section.highlight-post .container .post-container .video-column .imageSizeContainer {
+	float: none;
+	clear: both;
+}
+body .snapshot-container {
+	float: none;
+	clear: both;
+}
+body .snapshot-container .snapshot-slider-main {
+	float: none;
+	clear: both;
+}
+body .snapshot-container .snapshot-slider-thumbs {
+	float: none;
+	clear: both;
+}
+body .snapshot-container .snapshot-slider-thumbs .snapshot-thumb {
+	float: none;
+	clear: both;
+}
+
+// Supplementary display:block fixes for templates/_post-new.scss's promoted-CSS block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body section.featured-module .container .grid-wrapper .item.market-trend-reports .item-content-container {
+	display: block;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.peer-insights-item .video-container {
+	display: block;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container {
+	display: block;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container .topic-filter {
+	display: block;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.best-practice-item .image-container {
+	display: block;
+}
+body section.featured-module .container .grid-wrapper .item.one-third.best-practice-item .content-container-absolute .topic-filter {
+	display: block;
+}
+body section.title-banner {
+	display: block;
+}
+body section.title-banner h1 {
+	display: block;
+}
+body section.title-banner p {
+	display: block;
+}
+body section.post-events {
+	display: block;
+}
+body .filter-container-outer {
+	display: block;
+}
+body .filter-container-outer .filters-wrapper .filter-dropdown {
+	display: block;
+}
+body .filter-container-outer .filters-wrapper .filter-dropdown .dropdown-list a {
+	display: block;
+}
+body .filter-container-outer .filters-wrapper a.research-link {
+	display: block;
+}
+body .filter-container-outer .filters-wrapper .mobile-filter-accordion {
+	display: block;
+}
+body .filter-container-outer .filters-wrapper .mobile-filter-accordion .mobile-filter-content .filter-dropdown .dropdown-title {
+	display: block;
+}
+body .whats-new-container-outer {
+	display: block;
+}
+body .sort-dropdown .filter-dropdown {
+	display: block;
+}
+body .sort-dropdown .filter-dropdown .dropdown-list a {
+	display: block;
+}
+body .post-pagination-container.page-navi-container {
+	display: block;
+}
+body .article-column .article-link {
+	display: block;
+}
+body .article-column .article-inner .article-top .cat-tag-text {
+	display: block;
+}
+body section.featured-persona-post {
+	display: block;
+}
+body section.featured-persona-post .container .featured-article-card {
+	display: block;
+}
+body section.featured-persona-post .container .featured-article-card .article-link {
+	display: block;
+}
+body section.featured-persona-post .container .featured-article-card .article-link .article-image-column .image-container {
+	display: block;
+}
+body .market-narratives-filter-outer {
+	display: block;
+}
+body .events-card.column .event-link {
+	display: block;
+}
+body .events-card.column .events-card-inner {
+	display: block;
+}
+body .events-card-image.column .event-link {
+	display: block;
+}
+body .events-card-image.column .events-card-inner {
+	display: block;
+}
+body section.post-title-block .container .back-container {
+	display: block;
+}
+body section.post-title-block .container .introduction-title {
+	display: block;
+}
+body article.articleWrapper .column.first .article {
+	display: block;
+}
+body article.articleWrapper .column.first .article section {
+	display: block;
+}
+body article.articleWrapper .column.first .article section .container .post-inner {
+	display: block;
+}
+body article.articleWrapper .column.first .article section .container .inner {
+	display: block;
+}
+body article.articleWrapper .column.first .article section.videoBlock .container .imageSizeContainer .textContainer .title {
+	display: block;
+}
+body article.articleWrapper .column.first .article .articleWrapper {
+	display: block;
+}
+body article.articleWrapper .column.first .article .article-content {
+	display: block;
+}
+body article.articleWrapper .column.first .article .topicFilter {
+	display: block;
+}
+body article.articleWrapper .column.first .article h1.title {
+	display: block;
+}
+body article.articleWrapper .column.first .article .dateReadTime {
+	display: block;
+}
+body article.articleWrapper .column.first .article .introGrab {
+	display: block;
+}
+body article.articleWrapper .column.first .article .smallQuote {
+	display: block;
+}
+body article.articleWrapper .column.first .article h1 {
+	display: block;
+}
+body article.articleWrapper .column.first .article h2 {
+	display: block;
+}
+body article.articleWrapper .column.first .authors {
+	display: block;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner {
+	display: block;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .speaker-subtitle {
+	display: block;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .description .title {
+	display: block;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .description .speaker-name {
+	display: block;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .description .speaker-role {
+	display: block;
+}
+body article.articleWrapper .column.first .authors .speaker-container-inner .textBlock {
+	display: block;
+}
+body article.articleWrapper .column.second .articleShare {
+	display: block;
+}
+body article.articleWrapper .column.second .articleShare .shareText {
+	display: block;
+}
+body article.articleWrapper .column.second .articleShare a.button.redOutline {
+	display: block;
+}
+body article.articleWrapper .column.second .relatedArticles {
+	display: block;
+}
+body article.articleWrapper .column.second .relatedArticles h2 {
+	display: block;
+}
+body article.articleWrapper .column.second .relatedArticles .item {
+	display: block;
+}
+body article.articleWrapper .column.second .relatedArticles .item .imageSizeContainer {
+	display: block;
+}
+body article.articleWrapper .column.second .relatedArticles .item .textContainer {
+	display: block;
+}
+body article.articleWrapper .column.second .relatedArticles .item .textContainer a.title {
+	display: block;
+}
+body article.articleWrapper .column.second .share-save-container .saveInsight {
+	display: block;
+}
+body article.articleWrapper .column.second .share-save-container .shareArticle {
+	display: block;
+}
+body article.articleWrapper .column.second .share-save-container .saveInsight a {
+	display: block;
+}
+body article.articleWrapper .column.second .share-save-container .shareArticle a {
+	display: block;
+}
+body .articleWrapper {
+	display: block;
+}
+body .articleWrapper .article-content h1 {
+	display: block;
+}
+body .articleWrapper .article-content h2 {
+	display: block;
+}
+body .articleWrapper .article-content h6 {
+	display: block;
+}
+body .fullWidth.article-content .articleWrapper {
+	display: block;
+}
+body .fullWidth.article-content .articleWrapper h1 {
+	display: block;
+}
+body .fullWidth.article-content .articleWrapper h2 {
+	display: block;
+}
+body .fullWidth.article-content .articleWrapper h6 {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer .text {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer a.button {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer .published {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer .type-topic {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer .contributor-container {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer .contributor-container .contributor-title {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .textContainer .replay-button {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .share-save-container .saveInsight {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .share-save-container .shareArticle {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .share-save-container .saveInsight a {
+	display: block;
+}
+body .expertPresentationFeatured .container .item .share-save-container .shareArticle a {
+	display: block;
+}
+body section.featured-module .blockTitle {
+	display: block;
+}
+body section.keynote-slider-module .blockTitle {
+	display: block;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-image-container {
+	display: block;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .image-container {
+	display: block;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .image-container .hover-container .hover-text {
+	display: block;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-details {
+	display: block;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-details .name {
+	display: block;
+}
+body section.keynote-slider-module .keynote-slider .slick-slide .slide-inner .slide-details .name-title {
+	display: block;
+}
+body section.keynote-slider-module .keynote-control-container {
+	display: block;
+}
+body section.portal-post-slider .blockTitle {
+	display: block;
+}
+body section.portal-post-slider .slider-control-container {
+	display: block;
+}
+body section.highlight-post {
+	display: block;
+}
+body section.highlight-post .container .post-container .column.title-column h2 {
+	display: block;
+}
+body section.highlight-post .container .post-container .column.title-column h2 .h2-inner {
+	display: block;
+}
+body section.highlight-post .container .post-container .column.title-column .text-regular {
+	display: block;
+}
+body section.highlight-post .container .post-container .video-column .imageSizeContainer {
+	display: block;
+}
+body .snapshot-container {
+	display: block;
+}
+body .snapshot-container .snapshot-slider-main {
+	display: block;
+}
+body .snapshot-container .snapshot-slider-thumbs {
+	display: block;
+}
+body .snapshot-container .snapshot-slider-thumbs .snapshot-thumb {
+	display: block;
+}

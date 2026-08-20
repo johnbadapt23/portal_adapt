@@ -52,18 +52,18 @@
       MeprHooks::do_action('mepr-account-home-fields', $mepr_current_user);
     ?>
 
-    <div class="mepr_spacer">&nbsp;</div>
-
-    <input type="submit" name="mepr-account-form" value="<?php _ex('Save Profile', 'ui', 'memberpress'); ?>" class="mepr-submit mepr-share-button" />
-    <img src="<?php echo admin_url('images/loading.gif'); ?>" style="display: none;" class="mepr-loading-gif" />
     <?php MeprView::render('/shared/has_errors', get_defined_vars()); ?>
   </form>
 
   <div class="mepr_spacer">&nbsp;</div>
 
-  <span class="mepr-account-change-password">
-    <a href="<?php echo $account_url.$delim.'action=newpassword'; ?>"><?php _ex('Change Password', 'ui', 'memberpress'); ?></a>
-  </span>
+  <div class="mepr-account-actions">
+    <input type="submit" name="mepr-account-form" value="<?php _ex('Save Profile', 'ui', 'memberpress'); ?>" class="mepr-submit mepr-share-button" form="mepr_account_form" />
+    <img src="<?php echo admin_url('images/loading.gif'); ?>" style="display: none;" class="mepr-loading-gif" />
+    <span class="mepr-account-change-password">
+      <a href="<?php echo $account_url.$delim.'action=newpassword'; ?>"><?php _ex('Change Password', 'ui', 'memberpress'); ?></a>
+    </span>
+  </div>
 
   <?php MeprHooks::do_action('mepr_account_home', $mepr_current_user); ?>
 </div>

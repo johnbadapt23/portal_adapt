@@ -1186,3 +1186,154 @@ main.login section.login .container .login-form-container .form .mp_wrapper form
         display: block!important;
     }
 }
+
+
+// Login/register page sections (templates/_login.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body main.login section.login {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .button-container {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form span.section-details {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form span.section-details h4.form-title {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .mp_wrapper form span.section-details p {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper .gform_body {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper .gf_progressbar_wrapper {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper form .ginput_container_password span.ginput_left,
+body main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper form .ginput_container_password span.ginput_right {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .introduction-text,
+body main.login section.login .container h2 {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form-title {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form .mp_wrapper:first-child {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form .mp_wrapper {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form .mp_wrapper form {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form .mp_wrapper form .checkbox-container {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .form .mepr-login-actions {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .login-form-container .get-in-touch {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.register {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .template-register .mp_wrapper {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .template-register .mp_wrapper form {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .template-register .mp_wrapper form .checkbox-container {
+	float: none;
+	clear: both;
+	display: block;
+}
+
+// Additional safe-pass candidates found in a later sweep (pure
+// float:left;width:100% single-column wrappers not covered by the
+// original pass above). Same verification rule: display:block added
+// unless the un-gated base rule already declares its own display.
+// .ginput_left is Gravity Forms plugin markup (not in this theme's own
+// PHP) - it's a standard GF <span> wrapper per the plugin's known output,
+// so display:block is corrective here, not just defensive.
+// .introduction-text is a real <div> per templates/template-portal-login.php.
+body main.login section.login .container .login-container-inner.register-container-inner .gform_wrapper form .ginput_container_password span.ginput_left {
+	float: none;
+	clear: both;
+	display: block;
+}
+body main.login section.login .container .introduction-text {
+	float: none;
+	clear: both;
+	display: block;
+}

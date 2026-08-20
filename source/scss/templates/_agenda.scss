@@ -1044,3 +1044,306 @@ section.printContainer {
        }
    }
 }
+
+// Agenda template (template-agenda.php) float -> flex/grid cleanup, safe
+// pass: pure single-column float:left;width:100% wrappers, plus floats
+// already spec-inert (position:absolute/fixed, the element itself
+// display:flex, or its immediate parent being display:flex). Every
+// selector below was cross-checked against the real compiled CSS output.
+// Genuine side-by-side layouts - the titleBlock left/right split, the
+// agendaBlock time+logo+detail timeline row (single and double variants),
+// and the printContainer's two-column print layout - are deliberately left
+// for a dedicated pass. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.dayWrapper {
+	float: none;
+	clear: both;
+}
+body section.dayWrapper .titleBlock {
+	float: none;
+	clear: both;
+}
+body section.dayWrapper .titleBlock .top {
+	float: none;
+	clear: both;
+}
+body section.dayWrapper .titleBlock .bottom {
+	float: none;
+	clear: both;
+}
+body section.itineraryBlock {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item .wrapper {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item .wrapper .logoWrapper .logoContainer {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item .wrapper .detailWrap .title {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item .wrapper .detailWrap .description {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item .read-more-container {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.single .item .hidden {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .headerBlock {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .headerBlock .column .trackTitle {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .headerBlock .column .hrWrapper {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .headerBlock .column .facilitator {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .headerBlock .column .facilitatorTitle {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .wrapper {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .wrapper .logoWrapper {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .wrapper .detailWrap .title {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .wrapper .detailWrap .description {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .hidden {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .read-more-container {
+	float: none;
+	clear: both;
+}
+body div.agendaBlock.double .item .read-more-container .read-more {
+	float: none;
+	clear: both;
+}
+body section.printContainer {
+	float: none;
+	clear: both;
+}
+body section.printContainer .imageHeader {
+	float: none;
+	clear: both;
+}
+body section.printContainer div.agendaBlock.double .headerBlock .column {
+	float: none;
+	clear: both;
+}
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .logoWrapperPrint {
+	float: none;
+	clear: both;
+}
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .left .detail {
+	float: none;
+	clear: both;
+}
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .right .detail {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint .leftColumn .timePrint {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint .leftColumn .logoWrapperPrint {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .title {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .description {
+	float: none;
+	clear: both;
+}
+body section.printContainer .wrapperPrint .rightColumn .detail {
+	float: none;
+	clear: both;
+}
+
+// Supplementary display:block fixes for templates/_agenda.scss's promoted-CSS block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body section.dayWrapper {
+	display: block;
+}
+body section.dayWrapper .titleBlock {
+	display: block;
+}
+body section.dayWrapper .titleBlock .top {
+	display: block;
+}
+body section.dayWrapper .titleBlock .bottom {
+	display: block;
+}
+body section.itineraryBlock {
+	display: block;
+}
+body div.agendaBlock.single {
+	display: block;
+}
+body div.agendaBlock.single .item {
+	display: block;
+}
+body div.agendaBlock.single .item .wrapper {
+	display: block;
+}
+body div.agendaBlock.single .item .wrapper .logoWrapper .logoContainer {
+	display: block;
+}
+body div.agendaBlock.single .item .wrapper .detailWrap .title {
+	display: block;
+}
+body div.agendaBlock.single .item .read-more-container {
+	display: block;
+}
+body div.agendaBlock.double {
+	display: block;
+}
+body div.agendaBlock.double .headerBlock {
+	display: block;
+}
+body div.agendaBlock.double .headerBlock .column .trackTitle {
+	display: block;
+}
+body div.agendaBlock.double .headerBlock .column .hrWrapper {
+	display: block;
+}
+body div.agendaBlock.double .headerBlock .column .facilitator {
+	display: block;
+}
+body div.agendaBlock.double .headerBlock .column .facilitatorTitle {
+	display: block;
+}
+body div.agendaBlock.double .item {
+	display: block;
+}
+body div.agendaBlock.double .item .wrapper {
+	display: block;
+}
+body div.agendaBlock.double .item .wrapper .logoWrapper {
+	display: block;
+}
+body div.agendaBlock.double .item .wrapper .detailWrap .title {
+	display: block;
+}
+body div.agendaBlock.double .item .read-more-container {
+	display: block;
+}
+body div.agendaBlock.double .item .read-more-container .read-more {
+	display: block;
+}
+body section.printContainer .imageHeader {
+	display: block;
+}
+body section.printContainer div.agendaBlock.double .headerBlock .column {
+	display: block;
+}
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .logoWrapperPrint {
+	display: block;
+}
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .left .detail {
+	display: block;
+}
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .right .detail {
+	display: block;
+}
+body section.printContainer .wrapperPrint {
+	display: block;
+}
+body section.printContainer .wrapperPrint .leftColumn .timePrint {
+	display: block;
+}
+body section.printContainer .wrapperPrint .leftColumn .logoWrapperPrint {
+	display: block;
+}
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint {
+	display: block;
+}
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .title {
+	display: block;
+}
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .description {
+	display: block;
+}
+body section.printContainer .wrapperPrint .rightColumn .detail {
+	display: block;
+}
+
+// Additional safe-pass candidates found in a later sweep: the double
+// (two-track) agenda block's own .detailWrap and .hidden .detail wrappers
+// - both are float:right;width:100% single-column rows (their children
+// .title/.description are already gated above), same div-class pattern
+// as the other .detailWrap/.detail selectors already converted in this
+// file, so display:block is corrective here too.
+body div.agendaBlock.double .item .wrapper .detailWrap {
+	float: none;
+	clear: both;
+	display: block;
+}
+body div.agendaBlock.double .item .hidden .detail {
+	float: none;
+	clear: both;
+	display: block;
+}

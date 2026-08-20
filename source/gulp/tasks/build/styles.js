@@ -42,6 +42,13 @@ var error = require('../../error.js');
 //                          live via body class template-portal-flexible).
 //                          Same verified-safe-subset shape, see
 //                          main-tpl-portal-flexible.scss.
+//   tpl-single-post.min.css - templates/single-post.php - not a Page
+//                          template, gated by is_singular('post') instead
+//                          of is_page_template() (see
+//                          adapt_enqueue_template_styles() in functions.php).
+//                          Same verified-safe-subset shape, see
+//                          main-tpl-single-post.scss for what's kept in and
+//                          why (needs more than the usual "pooled six").
 //
 // Extending this list means adding a new main-tpl-*.scss entry point,
 // excluding the matching templates/_*.scss file from main-core.scss (only if
@@ -106,6 +113,10 @@ function buildPortalFlexibleStyles() {
     return compileBundle('source/scss/main-tpl-portal-flexible.scss', 'tpl-portal-flexible.min.css');
 }
 
+function buildSinglePostStyles() {
+    return compileBundle('source/scss/main-tpl-single-post.scss', 'tpl-single-post.min.css');
+}
+
 gulp.task('build:styles', gulp.parallel(
     buildGlobalStyles,
     buildCoreStyles,
@@ -113,5 +124,6 @@ gulp.task('build:styles', gulp.parallel(
     buildEventsStyles,
     buildFlexibleStyles,
     buildHomeStyles,
-    buildPortalFlexibleStyles
+    buildPortalFlexibleStyles,
+    buildSinglePostStyles
 ));

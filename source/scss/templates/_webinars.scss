@@ -973,9 +973,25 @@ section.register-listing {
                 width: 100%;
 
                 .item.one-third {
-                    width: calc(33.33% - 12px);
-                    float: left;
-                    margin-left: 18px;
+                    // .item.one-third's parent (.upcoming-listing) also
+                    // carries .resources-column-container.three-column-container
+                    // (see templates/template-registration.php's markup,
+                    // the only template that uses .upcoming-listing/
+                    // .register-listing) - _post-new.scss's
+                    // .resources-column-container.three-column-container rule
+                    // (2 classes, so it wins over this file's own
+                    // 1-class .upcoming-listing{float:left} base) makes that
+                    // parent display:grid with grid-template-columns:1fr 1fr 1fr
+                    // (2 cols at <=1023px, 1 col at <=767px - same breakpoints
+                    // $break-1023/$break-767 that the old float-grid below used),
+                    // plus .gap-16-40 for spacing via `gap`. float, an explicit
+                    // 33%-of-33% width, and the nth-child margin resets below
+                    // were the old manual-float-grid equivalent of that same
+                    // 3-column layout - now dead weight actively fighting the
+                    // grid (percentage widths on a grid item resolve against
+                    // its own cell, so calc(33.33% - 12px) here shrank each
+                    // card to roughly a third of its column). Removed; a grid
+                    // item fills its cell by default with no extra CSS needed.
                     background-color: #fff;
                     border-bottom-left-radius: 5px;
                     border-bottom-right-radius: 5px;
@@ -986,37 +1002,13 @@ section.register-listing {
                     position: relative;
                     padding-bottom: 100px;
 
-                    @include responsive(1023) {
-                        width: calc(50% - 9px);
-                    }
-
                     @include responsive(767) {
-                        width: 100%;
-                        margin-left: 0px;
                         margin-bottom: 35px;
                         padding-bottom: 80px;
                     }
 
                     &.past-item {
                         padding-bottom: 80px;
-                    }
-
-                    &:nth-child(3n + 1){
-                        margin-left: 0px;
-
-                        @include responsive(1023) {
-                            margin-left: 18px;
-                        }
-
-                        @include responsive(767) {
-                            margin-left: 0px;
-                        }
-                    }
-
-                    &:nth-child(2n + 1){
-                        @include responsive(1023) {
-                            margin-left: 0px;
-                        }
                     }
 
                     .item-container {
@@ -1511,4 +1503,378 @@ section.researchArticleTextHeader.replayArticleHeader {
         margin-top: 0!important;
         order: 2;
     }
+}
+
+// Webinar/registration template float -> flex/grid cleanup, safe pass:
+// pure single-column float:left;width:100% wrappers, plus floats already
+// spec-inert (position:absolute/fixed, the element itself display:flex, or
+// its immediate parent being display:flex). Every selector below was
+// cross-checked against the real compiled CSS output. Genuine side-by-side
+// layouts - the shared .column/.speaker-column-flex left/right pair reused
+// across webinarBanner, webinar-register-form, webinar-speaker-block, and
+// webinar-faq, plus the speaker avatar+description row and register-listing's
+// 3-col grid - are deliberately left for a dedicated pass. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.webinarBanner .container .column .banner-sub-title {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.first-column .webinar-subtitle {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.first-column .content {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.first-column .takeaways-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.first-column .takeaways-container .takeaway {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .upper-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .upper-container .small-text-grey {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .upper-container .text-black {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .bottom-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .bottom-container .title {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .bottom-container .registerButton {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .speaker-subtitle {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .description {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .description .speaker-name {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .description .speaker-role {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .textBlock {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .column-image-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-article .container .column.second-column .column-image-container img {
+	float: none;
+	clear: both;
+}
+body section.webinar-faq .container .faq-item {
+	float: none;
+	clear: both;
+}
+body section.webinar-faq .container .faq-item .faq-title {
+	float: none;
+	clear: both;
+}
+body section.webinar-faq .container .faq-item .faq-content {
+	float: none;
+	clear: both;
+}
+body section.webinar-faq .container .faq-item .faq-content p {
+	float: none;
+	clear: both;
+}
+body section.webinar-faq .container .overlay-image-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-faq .container .overlay-image-container img {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .webinar-subtitle {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner .description .speaker-name {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner .description .speaker-name {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner .description .speaker-role {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner .description .speaker-role {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner .textBlock {
+	float: none;
+	clear: both;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner .textBlock {
+	float: none;
+	clear: both;
+}
+body section.register-listing .registerButton {
+	float: none;
+	clear: both;
+}
+body section.register-listing .filter-outer {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-filter {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top .listing-date {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top h3 {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top span.item-excerpt {
+	float: none;
+	clear: both;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .bottom-bar.past-item-bottom .replay-button {
+	float: none;
+	clear: both;
+}
+body .mfp-registration .mfp-content .webinar-register-form {
+	float: none;
+	clear: both;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .webinar-subtitle {
+	float: none;
+	clear: both;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .form-container {
+	float: none;
+	clear: both;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .form-container .hbspt-form {
+	float: none;
+	clear: both;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .form-container .hs-form {
+	float: none;
+	clear: both;
+}
+
+// Supplementary display:block fixes for templates/_webinars.scss's promoted-CSS block
+// above: same bug as every other file in this pass (a bare float:none
+// silently reverts inline-default tags like span/a to display:inline once
+// float stops blockifying them). Appended as matching flat selectors that
+// add ONLY the missing display:block - later same-specificity rules win
+// per-property in CSS, so this cleanly adds display:block without touching
+// float:none or anything else already set above (including the real
+// flex/grid conversions already present). Every selector was checked
+// against the real compiled default (un-gated) CSS to confirm display
+// truly wasn't already declared there.
+body section.webinarBanner .container .column .banner-sub-title {
+	display: block;
+}
+body section.webinar-article .container .column.first-column .webinar-subtitle {
+	display: block;
+}
+body section.webinar-article .container .column.first-column .content {
+	display: block;
+}
+body section.webinar-article .container .column.first-column .takeaways-container {
+	display: block;
+}
+body section.webinar-article .container .column.first-column .takeaways-container .takeaway {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .upper-container {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .upper-container .small-text-grey {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .upper-container .text-black {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .bottom-container {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .bottom-container .title {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .register-container .sticky-container .bottom-container .registerButton {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .speaker-subtitle {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .description {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .description .speaker-name {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .description .speaker-role {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .speaker-container-inner .textBlock {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .column-image-container {
+	display: block;
+}
+body section.webinar-article .container .column.second-column .column-image-container img {
+	display: block;
+}
+body section.webinar-faq .container .faq-item {
+	display: block;
+}
+body section.webinar-faq .container .faq-item .faq-title {
+	display: block;
+}
+body section.webinar-faq .container .faq-item .faq-content p {
+	display: block;
+}
+body section.webinar-faq .container .overlay-image-container {
+	display: block;
+}
+body section.webinar-faq .container .overlay-image-container img {
+	display: block;
+}
+body section.webinar-speaker-block .container .webinar-subtitle {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner .description .speaker-name {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner .description .speaker-name {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner .description .speaker-role {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner .description .speaker-role {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .column .speaker-container-inner .textBlock {
+	display: block;
+}
+body section.webinar-speaker-block .container .speaker-container .speaker-column-flex .speaker-container-inner .textBlock {
+	display: block;
+}
+body section.register-listing .registerButton {
+	display: block;
+}
+body section.register-listing .filter-outer {
+	display: block;
+}
+// .upcoming-listing itself is NOT given display:block here (unlike its
+// descendants below) - it's a <div> (already block by default, this fix
+// was always redundant for it specifically) that also carries
+// .resources-column-container.three-column-container (see
+// templates/template-registration.php), whose display:grid this
+// selector's higher specificity would otherwise defeat - see the comment
+// on .item.one-third above for the matching float/width fix.
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container {
+	display: block;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top {
+	display: block;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top .listing-date {
+	display: block;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .item-top h3 {
+	display: block;
+}
+body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container .bottom-bar.past-item-bottom .replay-button {
+	display: block;
+}
+body .mfp-registration .mfp-content .webinar-register-form {
+	display: block;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .webinar-subtitle {
+	display: block;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .form-container {
+	display: block;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .form-container .hbspt-form {
+	display: block;
+}
+body .mfp-registration .mfp-content .webinar-register-form .container .form-container .hs-form {
+	display: block;
 }

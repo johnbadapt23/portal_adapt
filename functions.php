@@ -996,6 +996,15 @@ function adapt_asset_version( $relative_path ) {
  *                        front page for logged-in advantage/professional/
  *                        free-trial members). Same verified-safe-subset
  *                        shape, see source/scss/main-tpl-portal-flexible.scss.
+ * - tpl-single-post.min.css Loaded INSTEAD OF core.min.css for
+ *                        templates/single-post.php - gated by
+ *                        is_singular('post') rather than is_page_template(),
+ *                        since single-post.php isn't a selectable Page
+ *                        template; it's WordPress's own single-post-type
+ *                        template hierarchy result (see index.php's
+ *                        is_single() branch). Same verified-safe-subset
+ *                        shape, see source/scss/main-tpl-single-post.scss -
+ *                        needs more than the usual six pooled files.
  *
  * Extending this list means adding a new main-tpl-*.scss entry point
  * (compiled via source/gulp/tasks/build/styles.js) and a matching branch
@@ -1059,6 +1068,21 @@ function adapt_enqueue_template_styles() {
             $theme_uri . '/assets/css/tpl-portal-flexible.min.css',
             array( 'adapt-global' ),
             adapt_asset_version( '/assets/css/tpl-portal-flexible.min.css' )
+        );
+    } elseif ( is_singular( 'post' ) ) {
+        // Not a Page template, so is_page_template() never matches here -
+        // templates/single-post.php is picked up by index.php's own
+        // is_single() branch (get_template_part('templates/single-' .
+        // $post->post_type)), WordPress's normal single-post-type template
+        // hierarchy, not the page-template picker. is_singular('post') is
+        // the matching conditional: true for any singular view of the
+        // built-in 'post' type, same set of pages that route to
+        // templates/single-post.php.
+        wp_enqueue_style(
+            'adapt-tpl-single-post',
+            $theme_uri . '/assets/css/tpl-single-post.min.css',
+            array( 'adapt-global' ),
+            adapt_asset_version( '/assets/css/tpl-single-post.min.css' )
         );
     } else {
         wp_enqueue_style(

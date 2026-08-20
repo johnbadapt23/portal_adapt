@@ -837,7 +837,7 @@ input[type=submit] {
 	line-height: 42px;
 	height:46px;
 	color:#000;
-	padding:0px 40px;
+	padding:0px 40px !important;
 	text-transform: uppercase;
 	cursor: pointer;
 	font-family: $font-light;
@@ -3485,6 +3485,7 @@ span.std-button-span {
 	&.arrow-link {
 		padding-right: 22px;
 		position: relative;
+		float: none;
 
 		&:after {
 			content: '';
@@ -3495,7 +3496,7 @@ span.std-button-span {
 			background-size: 10px 10px;
 			background-repeat: no-repeat;
 			background-position: center;
-			top: 7px;
+			top: 0;
 			left: auto;
 			right: 0px;
 			display: block;
@@ -3540,4 +3541,288 @@ span.std-button-span {
 
 .secondary-dark {
 	color: #5f5f5f;
+}
+
+// Sitewide base styles (global/_styles.scss) float -> flex/grid cleanup, safe pass, redone after the footer
+// regression (see partials/_footer.scss): a bare float:none silently
+// reverts inline-default tags (span, a, ...) to display:inline once float
+// stops blockifying them, collapsing their vertical footprint. Every plain
+// float:none selector below was checked against the REAL compiled default
+// (un-gated) CSS: if its base rule already declares its own display
+// (flex/inline-block/none/etc), only float:none is added here, since that
+// existing display already keeps it blockified; otherwise display:block is
+// added alongside float:none - a no-op for div/li/ul-like elements, a real
+// fix for span/a-like ones. Selectors that were already converted to a
+// specific real-pair display (flex/inline-block/grid) are carried over
+// unchanged from the original pass.
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section {
+	float: none;
+	clear: both;
+	display: block;
+}
+body hr {
+	float: none;
+	clear: both;
+	display: block;
+}
+body body main {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mp_wrapper .mp-form-row {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .inner {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .fullWidth {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .buttonBlock {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .labelXXLarge {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .labelXL {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .labelLarge {
+	float: none;
+	clear: both;
+	display: block;
+}
+body a.label-XXLarge {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .labelMedium {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .labelSmall {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .text-small {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .labelXSmall {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .topic-filter .labelXXsmall {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mfp-members .mfp-content .members-popup-inner {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content h3 {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content p {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content span.already {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content .image-content-mobile {
+	float: none;
+	clear: both;
+}
+// .video-container / .image-container: NOT converted here. Both are
+// generic, widely-reused class names (50+ template files: article cards,
+// event cards, video blocks, download blocks, etc.), each with its own
+// local float/position/display rules for its specific context (some
+// position:absolute + aspect-ratio, some float:left + padding-top,
+// some conditionally display:none). A single blanket
+// body .image-container/.video-container rule is specific
+// enough (0,2,1) to beat many of those local, more narrowly-scoped rules,
+// which broke unrelated components sitewide (images collapsing to their
+// background color) when this was tried. The one place that legitimately
+// needed this (homepage advisors-carousel) already has its own fully
+// -scoped selector in templates/_home.scss handling it correctly on its
+// own - this generic fallback was redundant there and dangerous
+// everywhere else, so it's intentionally left out of the safe pass.
+body li.nf-previous-item {
+	float: none;
+	clear: both;
+	display: block;
+}
+body li.nf-next-item {
+	float: none;
+	clear: both;
+	display: block;
+}
+// .alignnone p: unlike .image-container/.video-container above, this is
+// safe as a bare rule - .alignnone is WordPress core's own image-alignment
+// class (WYSIWYG editor output), used with one consistent meaning
+// everywhere it appears (an unfloated inline image, optionally with a
+// caption paragraph below it), not a theme-authored name reused for
+// different unrelated components. The .alignnone container itself is
+// already float:none; this just clears the same now-stale float off its
+// caption text.
+body .alignnone p {
+	float: none;
+	clear: both;
+}
+// .hbspt-form field-type rows: unlike .image-container/.video-container,
+// .hbspt-form is HubSpot's own root class for its embedded forms - used
+// with one consistent structure everywhere it's embedded (checked all 5
+// files that reuse it; the local per-page overrides only touch margins/
+// colors, never float or width). Each field-type wrapper below is its
+// own full-width stacked row (margin-top:50px between them); the
+// row-level ul[role="checkbox"]/ul.inputs-list wrappers are also
+// full-width, but their own li/label/input children stay float:left
+// (untouched) since those genuinely sit side-by-side as one field's
+// selectable options.
+body .hbspt-form .hs-main-font-element.hs-richtext {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs_home_office_delivery_address {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs_dietary_requirements_ {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs_dietary_requirements {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-checkbox {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-radio {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-textarea {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-booleancheckbox {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-checkbox legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-radio legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-textarea legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-booleancheckbox legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-checkbox div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-radio div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-textarea div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-booleancheckbox div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-checkbox div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-radio div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-textarea div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-booleancheckbox div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-checkbox div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-radio div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-textarea div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .hbspt-form .hs-fieldtype-booleancheckbox div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
 }
