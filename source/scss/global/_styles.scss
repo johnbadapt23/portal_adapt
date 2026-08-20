@@ -837,7 +837,7 @@ input[type=submit] {
 	line-height: 42px;
 	height:46px;
 	color:#000;
-	padding:0px 40px;
+	padding:0px 40px !important;
 	text-transform: uppercase;
 	cursor: pointer;
 	font-family: $font-light;
