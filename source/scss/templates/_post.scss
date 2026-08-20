@@ -11600,6 +11600,43 @@ body.dev-preview {
 // list) as opposed to the many side-by-side/pill-row float layouts in the
 // same area (.checkboxButton pills, .sortContainer split, .viewContainer
 // icons, .radioSlide tiles themselves) which were deliberately left alone.
+//
+// .checkboxButton pill-wrap redesign: this is a real layout change, not
+// a mechanical float:none pass, so it's called out separately here.
+// span.categories/types/duration/events each render a row of
+// .checkboxButton pills that wraps onto multiple lines via
+// float:left + margin - the same wrapping behavior flex-wrap gives for
+// free, without needing the parent's overflow:auto clearfix hack.
+// Confirmed this exact pattern (flex-wrap parent + .checkboxButton
+// without float) already ships live elsewhere in this same file, for
+// the same .checkboxButton component, at
+// .postHeader .filter .categories .insightsFilter (line ~2160) - so the
+// checkbox/label/input markup is already proven compatible with this
+// layout method. Each span's own overflow (categories: hidden, for its
+// collapse/expand max-height animation; duration/events: visible;
+// types: default auto) and its .title/.more absolutely-positioned
+// labels are untouched - position:absolute children are excluded from
+// flex layout, and float still governs each span's own outer
+// left/right position in the two-column split above it (an element can
+// be floated AND be a flex container for its own children at the same
+// time). .radioSlideContainer's .radioSlide tiles are a Slick JS
+// carousel, not a simple wrapping row, so it's deliberately NOT touched
+// here - that would be a real UX decision (keep as a horizontal
+// scroller vs. redesign to a wrapped grid), not a like-for-like
+// modernization.
+body.dev-preview .postHeader .filter .formContainer form span.categories,
+body.dev-preview .postHeader .filter .formContainer form span.types,
+body.dev-preview .postHeader .filter .formContainer form span.duration,
+body.dev-preview .postHeader .filter .formContainer form span.events {
+	display: flex;
+	flex-wrap: wrap;
+}
+body.dev-preview .postHeader .filter .formContainer form span.categories .checkboxButton,
+body.dev-preview .postHeader .filter .formContainer form span.types .checkboxButton,
+body.dev-preview .postHeader .filter .formContainer form span.duration .checkboxButton,
+body.dev-preview .postHeader .filter .formContainer form span.events .checkboxButton {
+	float: none;
+}
 body.dev-preview .postHeader .filter .search form {
 	float: none;
 	clear: both;

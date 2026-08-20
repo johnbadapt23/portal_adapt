@@ -158,3 +158,11 @@ body.dev-preview .advisors-introduction.new-partners-introduction .container .co
 body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container .heading-medium{float:none;clear:both;display:block}
 body.dev-preview section.videoBlock{float:none;clear:both;display:block}
 body.dev-preview.template-evr section.two-column-image-text-customer-events .container .column-container.image-right .column .text-inner{float:none;clear:both;display:block}
+body.dev-preview .postHeader .filter .formContainer form span.categories{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.categories .checkboxButton{float:none}
+body.dev-preview .postHeader .filter .formContainer form span.duration{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.duration .checkboxButton{float:none}
+body.dev-preview .postHeader .filter .formContainer form span.events{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.events .checkboxButton{float:none}
+body.dev-preview .postHeader .filter .formContainer form span.types{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.types .checkboxButton{float:none}

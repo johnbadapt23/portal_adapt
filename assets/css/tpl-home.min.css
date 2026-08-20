@@ -131,3 +131,11 @@ body.dev-preview.template-insights .postHeader .viewContainer.mobile{float:none;
 body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container{float:none;clear:both;display:block}
 body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type=search]{float:none;clear:both;display:block}
 body.dev-preview section.videoBlock{float:none;clear:both;display:block}
+body.dev-preview .postHeader .filter .formContainer form span.categories{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.categories .checkboxButton{float:none}
+body.dev-preview .postHeader .filter .formContainer form span.duration{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.duration .checkboxButton{float:none}
+body.dev-preview .postHeader .filter .formContainer form span.events{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.events .checkboxButton{float:none}
+body.dev-preview .postHeader .filter .formContainer form span.types{display:flex;flex-wrap:wrap}
+body.dev-preview .postHeader .filter .formContainer form span.types .checkboxButton{float:none}
