@@ -1,0 +1,103 @@
+// Exclusive bundle for templates/single-post.php - NOT loaded via
+// is_page_template() like the other tpl-*.scss bundles (single-post.php
+// isn't a selectable Page template; index.php's `is_single()` branch does
+// get_template_part('templates/single-' . $post->post_type), so WordPress's
+// normal single-post-type template hierarchy picks this file automatically
+// for every singular view of the built-in 'post' type - see
+// adapt_enqueue_template_styles() in functions.php, which gates this bundle
+// with is_singular('post') instead).
+//
+// Same shape as main-tpl-flexible.scss / main-tpl-home.scss /
+// main-tpl-portal-flexible.scss: a verified-safe SUBSET of core.min.css's
+// source files, not a set of files exclusive to this template. Every file
+// below stays in main-core.scss too - single-event.php (a sibling
+// single-{post_type}.php template, still on core.min.css) and other
+// core-bundle templates genuinely need several of them (confirmed below) -
+// this bundle is only loaded INSTEAD OF core.min.css for single-post.php
+// pages, never alongside it.
+//
+// single-post.php is a single ~4,400-line file with three near-identical
+// membershipType branches (free-trial / advantage / everything-else, same
+// shape as template-portal-flexible.php), each with the same ~26
+// get_row_layout() flexible-content branches plus 19
+// get_template_part()/locate_template() component dependencies
+// (templates/post-components/_replay-preview, _slide-preview,
+// _video-preview, _article-title, _snapshot; templates/components/
+// _download-block(-two/-three-columns), _video-block-two/-three-columns,
+// _two-column-card, _speaker-cta-block, _full-width-text-block,
+// _counter-block, _repeatable-counter-block, _full-image-button-block,
+// _related-articles-portal(-data-insights), plus _locked-content pulled in
+// by _two-column-card).
+//
+// Extracted every class="" literal from single-post.php and all 19
+// components (279 unique tokens) and checked them against every top-level
+// selector in the 15 templates/*.scss files template-flexible.php's own
+// bundle already verified clean for its own (overlapping but not
+// identical) component set - _account, _advantage-styling, _announcements,
+// _benchmarking, _contact, _default, _home, _kits, _login, _my-topics,
+// _partners, _search-results, _single-speaker - plus this template's own
+// unique components (_slide-preview, _snapshot, _video-preview,
+// _replay-preview, _article-title, _related-articles-portal(-data-insights),
+// _locked-content) against _data-insights and _webinars, which
+// template-flexible.php's bundle also checked but for a different
+// component set.
+//
+// Unlike flexible/home/portal-flexible, this one did NOT come back clean:
+//   - _data-insights.scss: real cross-reference. _slide-preview.php (this
+//     template's own component) renders <section class="researchArticleTextHeader
+//     preview-module ...">, and section.researchArticleTextHeader.preview-module
+//     is the literal top-level selector _data-insights.scss defines
+//     .slide-preview-container/.preview-main-slider/.main-slide/
+//     .preview-thumbnail-slider/.thumbnail-slide under - not a generic
+//     class-name collision, the exact same component. Kept in.
+//   - _webinars.scss: real cross-reference. single-post.php's own
+//     'membership_block' layout branch renders a webinar recap/speaker
+//     section inline (article.webinar-article, section.webinar-speaker-block,
+//     .speaker-container(-inner)/.speaker-column-flex/.speaker-image/
+//     .speaker-name/.speaker-role/.speaker-details*) using the same
+//     domain-specific class names _webinars.scss styles. Kept in.
+//   - _thank-you.scss: ambiguous, kept in out of caution rather than
+//     verified-safe. It defines a bare, unscoped ` .topic-filter { float:
+//     left; width: 100%; ... }` (not nested under any thank-you-specific
+//     wrapper), and _video-preview.php/_replay-preview.php/_article-title.php
+//     (this template's own components) render `.topic-filter` links.
+//     _post.scss/_post-new.scss (kept in below regardless) also define
+//     `.topic-filter` under several specific ancestor chains, and those
+//     may already out-specificity this bare rule everywhere it matters -
+//     but proving that negative with confidence would mean tracing actual
+//     specificity/cascade order for every one of this template's 26 layout
+//     branches, which wasn't done here. Kept in rather than risk a
+//     regression on this page for a marginal size saving.
+//   - All other matches across the 15 files were single generic utility
+//     class names (container, text, title, button(-container),
+//     image(-container), column, item, inner, desktop, mobile, one-half,
+//     form-container, popup-vimeo, login-form-container, bg-container,
+//     logo(Container), textBlock/textContainer, download, stdBtn, red,
+//     v-box/v-wrap, description-container, listing-title) that either
+//     resolved to a globally-defined base rule (.labelSmall, .text-white -
+//     both defined once in global/_styles.scss, always loaded regardless
+//     of this bundle) or to a rule scoped under a completely different,
+//     unrelated top-level wrapper (e.g. _single-speaker.scss's own
+//     .quoteBlock/.quoteAuthor live under section.speakerProfile, not this
+//     template's section.speakerQuoteCarousel - the real styling for this
+//     template's quote carousel is _flexible.scss's own
+//     .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock, kept
+//     in below) - or came from the download-block/two-column-card/counter-block
+//     component set template-flexible.php's own bundle already verified
+//     clean against these same 15 files, which single-post.php also uses
+//     unmodified. No exhaustive trace of specificity/cascade order was done
+//     for every layout branch beyond the topic-filter case above - this
+//     bundle is a conservative subset, not a maximally-trimmed one.
+@import 'global/_mixins';
+@import 'global/_variables';
+@import 'global/_typography-vars';
+
+@import 'templates/_flexible';
+@import 'templates/_portal-modules';
+@import 'templates/_post';
+@import 'templates/_post-new';
+@import 'templates/_single-events';
+@import 'templates/_single-post';
+@import 'templates/_data-insights';
+@import 'templates/_webinars';
+@import 'templates/_thank-you';
