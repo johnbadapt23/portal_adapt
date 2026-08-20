@@ -206,7 +206,7 @@ if (current_user_can('administrator')) {
                                                     <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                                     <div style="display: none;">         
                                                         <div class="preview-cta-form login-form-container" id="userForm<?php echo $userLinkCounter; ?>">
-                                                            <span class="form-container"><?php echo get_sub_field( 'form_embed_code' ); ?></span>
+                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?></span>
                                                         </div>
                                                     </div>                                                
                                                 <?php } else { ?> 
@@ -1329,7 +1329,7 @@ if (current_user_can('administrator')) {
                                                 <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                                 <div style="display: none;">         
                                                     <div class="preview-cta-form login-form-container" id="userForm<?php echo $userLinkCounter; ?>">
-                                                        <span class="form-container"><?php echo get_sub_field( 'form_embed_code' ); ?></span>
+                                                        <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?></span>
                                                     </div>
                                                 </div>
                                             

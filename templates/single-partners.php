@@ -83,7 +83,7 @@ endif;
                                             <span class="form-popup" id="formPopupAdvisor">
                                                 <span class="popup-form-container">
                                                     <span class="popup-form-title">Request an Introduction with <?php echo $title; ?></span>
-                                                        <?php echo get_sub_field( 'form_embed_code' ); ?>
+                                                        <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?>
                                                     </span>
                                             </span>
                                         </span>
