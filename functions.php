@@ -1329,17 +1329,34 @@ function adapt_is_first_hero_image() {
  * alone rather than guessed at - dequeuing the wrong one on a
  * membership-gated site is a real regression risk for a ~170ms gain.
  *
- * These two handles are safe to defer regardless of whether they're used
- * on a given page, because both only affect UI that appears after a user
- * interaction (a popup opening, a time picker being focused) that can't
- * possibly happen before the deferred stylesheet has already loaded:
+ * These handles are safe to defer regardless of whether they're used on
+ * a given page, because each only affects UI that appears after a user
+ * interaction, or a widget that isn't part of the page's initial paint
+ * at all - nothing that could possibly be needed before the deferred
+ * stylesheet has already loaded:
  * - jquery-magnific-popup-css: the popup/lightbox library behind this
  *   site's modals (the request-download forms, image popups, etc.)
  * - jquery-ui-timepicker-addon-css: a jQuery UI datetime picker widget,
  *   not used on a plain article page at all
+ * - wp-pagenavi-css: pagination widget styling, irrelevant until a user
+ *   scrolls to a list's page-number links
+ * - tablepress-default-css: TablePress plugin styling, only relevant on
+ *   the specific posts that actually embed a table
+ * - wordfenceAJAXcss-css: styling for Wordfence's AJAX-loaded admin
+ *   notice box, not part of any visitor-facing page content
+ *
+ * Homepage Lighthouse audit (2026-08-20) flagged 430ms of render-
+ * blocking requests; these three were confirmed present via the live
+ * homepage's <link> handles before being added here.
  */
 function adapt_defer_noncritical_styles( $html, $handle ) {
-    $defer_handles = array( 'jquery-magnific-popup-css', 'jquery-ui-timepicker-addon-css' );
+    $defer_handles = array(
+        'jquery-magnific-popup-css',
+        'jquery-ui-timepicker-addon-css',
+        'wp-pagenavi-css',
+        'tablepress-default-css',
+        'wordfenceAJAXcss-css',
+    );
 
     if ( ! in_array( $handle, $defer_handles, true ) ) {
         return $html;
