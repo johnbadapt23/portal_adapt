@@ -1636,12 +1636,31 @@ article.articleWrapper {
                         margin-bottom: 35px;
                     }
 
+                    // width:60px alone doesn't reserve a height - the actual
+                    // <img> (wp_get_attachment_image at full size, so its
+                    // real dimensions vary per contributor's uploaded photo)
+                    // only gets its rendered height once the browser knows
+                    // its natural size, and combined with the lazy-load
+                    // plugin's placeholder swap this is exactly the "Unsized
+                    // image element" CLS culprit Lighthouse flags on
+                    // article.articleWrapper (this component's ancestor) -
+                    // confirmed live: LCP/CLS report on
+                    // /ai-innovation/market-narratives/workforce-readiness-will-decide-agentic-ai-scale-in-government
+                    // named this exact contributor avatar. aspect-ratio:1/1
+                    // reserves a fixed 60x60 box immediately regardless of
+                    // the source photo's native size, and object-fit:cover
+                    // crops any uploaded photo to fill it consistently.
                     .speaker-image {
                         width: 60px;
+                        aspect-ratio: 1 / 1;
                         float: left;
                         border-radius: 3px;
+                        overflow: hidden;
 
                         img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
                             border-radius: 3px;
                         }
                     }

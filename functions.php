@@ -1248,6 +1248,58 @@ function adapt_render_hubspot_embed( $raw_html ) {
     );
 }
 
+/**
+ * Load a small set of known interaction-only plugin stylesheets
+ * non-render-blocking, using the standard media="print" + onload swap
+ * trick (falls back to a <noscript> stylesheet for no-JS visitors).
+ *
+ * Lighthouse flagged ~170ms of render-blocking CSS on
+ * /ai-innovation/market-narratives/workforce-readiness-will-decide-agentic-ai-scale-in-government,
+ * most of it MemberPress's own bundled stylesheets (account/login/theme
+ * UI, jQuery UI, signup, plans). Those are tied to real membership/
+ * locked-content functionality this site relies on (this exact page has
+ * hidden request-download popups gated behind login), so they're left
+ * alone rather than guessed at - dequeuing the wrong one on a
+ * membership-gated site is a real regression risk for a ~170ms gain.
+ *
+ * These two handles are safe to defer regardless of whether they're used
+ * on a given page, because both only affect UI that appears after a user
+ * interaction (a popup opening, a time picker being focused) that can't
+ * possibly happen before the deferred stylesheet has already loaded:
+ * - jquery-magnific-popup-css: the popup/lightbox library behind this
+ *   site's modals (the request-download forms, image popups, etc.)
+ * - jquery-ui-timepicker-addon-css: a jQuery UI datetime picker widget,
+ *   not used on a plain article page at all
+ */
+function adapt_defer_noncritical_styles( $html, $handle ) {
+    $defer_handles = array( 'jquery-magnific-popup-css', 'jquery-ui-timepicker-addon-css' );
+
+    if ( ! in_array( $handle, $defer_handles, true ) ) {
+        return $html;
+    }
+
+    if ( strpos( $html, 'onload=' ) !== false ) {
+        return $html;
+    }
+
+    $noscript = '<noscript>' . preg_replace( '/\s+media=["\']print["\']/', '', $html ) . '</noscript>';
+
+    $html = preg_replace( '/media=["\']all["\']/', '', $html );
+    $html = str_replace(
+        "rel='stylesheet'",
+        "rel='stylesheet' media='print' onload=\"this.media='all'\"",
+        $html
+    );
+    $html = str_replace(
+        'rel="stylesheet"',
+        'rel="stylesheet" media="print" onload="this.media=\'all\'"',
+        $html
+    );
+
+    return $html . $noscript;
+}
+add_filter( 'style_loader_tag', 'adapt_defer_noncritical_styles', 10, 2 );
+
 // AJAX: Load Partners
 add_action('wp_ajax_load_partners', 'ajax_load_partners');
 add_action('wp_ajax_nopriv_load_partners', 'ajax_load_partners');
