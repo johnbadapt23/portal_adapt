@@ -13,6 +13,9 @@
     "url": "https://github.com/johnbadapt23/portal_adapt/issues"
   },
   "homepage": "https://github.com/johnbadapt23/portal_adapt",
+  "scripts": {
+    "lint:scss": "stylelint \"source/scss/**/*.scss\""
+  },
   "dependencies": {
     "flexslider": "^2.7.2",
     "hover.css": "^2.3.2",
@@ -50,6 +53,8 @@
     "gulp-zip": "^6.1.0",
     "require-dir": "^1.2.0",
     "sass": "^1.102.0",
+    "stylelint": "^16.26.1",
+    "stylelint-config-standard-scss": "^13.1.0",
     "vinyl-ftp": "^0.6.1"
   }
 }
