@@ -11592,6 +11592,316 @@ body.dev-preview {
     }
 }
 
+// postHeader .filter safe-pass additions (flat, matching the convention
+// already used below for the display:block supplements): these are new
+// full-width wrapper/content selectors found in this pass, verified against
+// real source context to be single-column content (search bar, filter
+// form panels, topic/radio-slide row wrappers, mobile stacked checkbox
+// list) as opposed to the many side-by-side/pill-row float layouts in the
+// same area (.checkboxButton pills, .sortContainer split, .viewContainer
+// icons, .radioSlide tiles themselves) which were deliberately left alone.
+body.dev-preview .postHeader .filter .search form {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .search form input.searchInput {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form .search {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form .search input.searchInput {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics span.title {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
+	float: none;
+	clear: both;
+}
+body.dev-preview .postHeader .filter .formContainer form span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-events .postHeader .filter .formContainer form {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-events .postHeader .filter .formContainer form span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.dev-preview.template-insights .postHeader .viewContainer.mobile {
+	float: none;
+	clear: both;
+}
+
+// section.blogWrapper grid + list-view safe-pass additions: the shared
+// per-card content (.postDetails/.blogText/.articleLink/.excerpt base
+// rule, .formTrigger CTA card, results-count line, and the list-view row
+// layout) plus each layoutN variant's single full-width wrapper
+// (.linkWrapper for the side-by-side image+text layouts, .blogText for
+// the stacked image-on-top layouts - verified per layout, they are never
+// both candidates in the same layout). The postLink.layoutN cards
+// themselves and any interior element under 100% width (image columns,
+// side-by-side text panels) were left untouched.
+body.dev-preview section.blogWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout6 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout8 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout0 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout9 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout1 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout10 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout15 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout2 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout5 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout11 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout14 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout16 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout3 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout7 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout12 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout17 .blogText {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout4 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout13 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout18 .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink .blogText .postDetails .info {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink .blogText .articleLink {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .grid .postLink .blogText .excerpt {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .formTrigger {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .formTrigger .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container #loop.results-grid .results span {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
+	float: none;
+	clear: both;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
+	float: none;
+	clear: both;
+}
+
+// .article .preview-cta-container: the only remaining ungated piece of
+// this module - its descendants (.preview-cta-inner and everything under
+// it) were already converted in an earlier pass, this just catches the
+// outer wrapper itself. section.filter-title-block's other 5 candidates
+// found in this pass (.title-container span.type-description,
+// .sidebar-container .media-enquiries-container/.media-contact-title,
+// .media-contact, .press-listing-container) all belong to the FIRST
+// section.filter-title-block definition, already documented above (see
+// the comment above the existing body.dev-preview section.filter-title-block
+// block) as confirmed dead CSS with no matching markup anywhere in
+// templates/ - left unconverted to match that existing decision.
+body.dev-preview .article .preview-cta-container {
+	float: none;
+	clear: both;
+}
 
 // Supplementary display:block fixes for templates/_post.scss's nested
 // body.dev-preview block above: same bug as every other file in this pass
@@ -11953,5 +12263,215 @@ body.dev-preview section.tnc-featured-post .container .item .item-content-contai
 	display: block;
 }
 body.dev-preview section.tnc-featured-post .container .item .item-content-container .topic-filter {
+	display: block;
+}
+body.dev-preview .postHeader .filter .search form {
+	display: block;
+}
+body.dev-preview .postHeader .filter .search form input.searchInput {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form .search {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form .search input.searchInput {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics span.title {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
+	display: block;
+}
+body.dev-preview .postHeader .filter .formContainer form span.submitContainer {
+	display: block;
+}
+body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container {
+	display: block;
+}
+body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
+	display: block;
+}
+body.dev-preview.template-events .postHeader .filter .formContainer form {
+	display: block;
+}
+body.dev-preview.template-events .postHeader .filter .formContainer form span.submitContainer {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+	display: block;
+}
+body.dev-preview.template-insights .postHeader .viewContainer.mobile {
+	display: block;
+}
+body.dev-preview section.blogWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout6 .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout8 .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout0 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout9 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout1 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout10 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout15 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout2 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout5 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout11 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout14 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout16 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout3 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout7 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout12 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout17 .blogText {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout4 .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout13 .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink.layout18 .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink .blogText .postDetails .info {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink .blogText .articleLink {
+	display: block;
+}
+body.dev-preview section.blogWrapper .grid .postLink .blogText .excerpt {
+	display: block;
+}
+body.dev-preview section.blogWrapper .formTrigger {
+	display: block;
+}
+body.dev-preview section.blogWrapper .formTrigger .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container #loop.results-grid .results span {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
+	display: block;
+}
+body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
+	display: block;
+}
+body.dev-preview .article .preview-cta-container {
 	display: block;
 }
