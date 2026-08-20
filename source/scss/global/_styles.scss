@@ -3683,3 +3683,145 @@ body.dev-preview li.nf-next-item {
 	clear: both;
 	display: block;
 }
+// .alignnone p: unlike .image-container/.video-container above, this is
+// safe as a bare rule - .alignnone is WordPress core's own image-alignment
+// class (WYSIWYG editor output), used with one consistent meaning
+// everywhere it appears (an unfloated inline image, optionally with a
+// caption paragraph below it), not a theme-authored name reused for
+// different unrelated components. The .alignnone container itself is
+// already float:none; this just clears the same now-stale float off its
+// caption text.
+body.dev-preview .alignnone p {
+	float: none;
+	clear: both;
+}
+// .hbspt-form field-type rows: unlike .image-container/.video-container,
+// .hbspt-form is HubSpot's own root class for its embedded forms - used
+// with one consistent structure everywhere it's embedded (checked all 5
+// files that reuse it; the local per-page overrides only touch margins/
+// colors, never float or width). Each field-type wrapper below is its
+// own full-width stacked row (margin-top:50px between them); the
+// row-level ul[role="checkbox"]/ul.inputs-list wrappers are also
+// full-width, but their own li/label/input children stay float:left
+// (untouched) since those genuinely sit side-by-side as one field's
+// selectable options.
+body.dev-preview .hbspt-form .hs-main-font-element.hs-richtext {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs_home_office_delivery_address {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs_dietary_requirements_ {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs_dietary_requirements {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-radio {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-radio legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox legend {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-radio div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-radio div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input ul[role="checkbox"] {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-radio div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input ul.inputs-list {
+	float: none;
+	clear: both;
+	display: block;
+}

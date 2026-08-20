@@ -21,3 +21,28 @@ body.dev-preview header .top .headerTopRight .notifications img{float:none;clear
 body.dev-preview header .top .headerTopRight .saved img{float:none;clear:both;display:block}
 body.dev-preview header .top .headerTopRight .help img{float:none;clear:both;display:block}
 body.dev-preview header{float:none;clear:both}
+body.dev-preview .alignnone p{float:none;clear:both}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input ul.inputs-list{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input ul[role=checkbox]{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox legend{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input ul.inputs-list{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input ul[role=checkbox]{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-checkbox legend{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-radio{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-radio div.input{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-radio div.input ul.inputs-list{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-radio div.input ul[role=checkbox]{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-radio legend{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input ul.inputs-list{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input ul[role=checkbox]{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-fieldtype-textarea legend{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs-main-font-element.hs-richtext{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs_dietary_requirements{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs_dietary_requirements_{float:none;clear:both;display:block}
+body.dev-preview .hbspt-form .hs_home_office_delivery_address{float:none;clear:both;display:block}
