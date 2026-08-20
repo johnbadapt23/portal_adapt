@@ -36,6 +36,26 @@ body.memberpressproduct {
     }
 }
 
+// Sidebar (My Details/Subscriptions/Logout) + form content used to sit
+// side by side via float:left/float:right on the two .mp_wrapper siblings
+// below. Scoped with :has() to only the .container that actually holds
+// this exact two-.mp_wrapper structure, so it can't affect any other
+// section.default .container elsewhere on the site.
+section.default .container:has(> .mp_wrapper:nth-child(2)) {
+    display: flex;
+    align-items: flex-start;
+    gap: 135px;
+
+    @include responsive(1023) {
+        gap: 75px;
+    }
+
+    @include responsive(767) {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
 .mp_wrapper {
 
     &.forgot-password {
@@ -46,21 +66,15 @@ body.memberpressproduct {
 
     &:first-child {
         position: relative;
-        float: left;
         width: 150px;
-        margin-right: 135px;
-
-        @include responsive(1023) {
-            margin-right: 75px;
-        }
+        flex-shrink: 0;
 
         @include responsive(767) {
             width: 100%;
-            margin: 0 0 40px 0;
         }
 
         span.mepr-nav-item {
-            float: left;
+            display: block;
             width: 100%;
             margin-bottom: 33px;
 
@@ -87,13 +101,9 @@ body.memberpressproduct {
 
     &:nth-child(2) {
         position: relative;
-        float: right;
-        width: calc(100% - 285px);
+        flex: 1;
+        min-width: 0;
         text-align: center;
-
-        @include responsive(1023) {
-            width: calc(100% - 225px);
-        }
 
         @include responsive(767) {
             width: 100%;
@@ -104,14 +114,27 @@ body.memberpressproduct {
         }
     }
 
-   
+    // The account form is a 2-column grid instead of float:left/float:right
+    // pairs - every .mp-form-row spans both columns (full width) by
+    // default (see grid-column below); the paired rows further down opt
+    // into a single column each so consecutive pairs land side by side via
+    // grid auto-placement.
+    .mepr-account-form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 16px;
+
+        @include responsive(767) {
+            grid-template-columns: 1fr;
+        }
+    }
 
     .mp-form-row {
+        grid-column: 1 / -1;
 
         label {
             color: $color-darkGrey-new !important;
-            float: left;
-            width: 100%;
+            display: inline-block;
             margin-bottom: 8px;
             font-size: 12px;
             font-family: $font-base !important;
@@ -140,7 +163,7 @@ body.memberpressproduct {
         }
 
         span.select2 {
-            float: left;
+            display: block;
             position: relative;
             background: none;
             border-radius: 4px;
@@ -250,49 +273,15 @@ body.memberpressproduct {
         }
     }
 
-    // clear: none is required on all four of these real float:left/float:right
-    // pairs - the promoted safe-pass rule below (body .mp_wrapper .mp-form-row)
-    // sets clear:both on every .mp-form-row at higher specificity than the
-    // plain float:left/right here, which was forcing each of these paired
-    // rows onto its own line instead of sitting side by side.
-    .mp-form-row.mepr_first_name {
-        float: left;
-        clear: none;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
-    }
-
-    .mp-form-row.mepr_last_name {
-        float: right;
-        clear: none;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
-    }
-
-    .mp-form-row.mepr_mepr-address-country {
-        float: left;
-        clear: none;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
-    }
-
+    // These four are the real two-up pairs (First Name/Last Name,
+    // Country/State) - grid-column: span 1 lands each one in a single
+    // track of the 2-column grid above, so consecutive pairs sit side by
+    // side via grid auto-placement instead of float:left/float:right.
+    .mp-form-row.mepr_first_name,
+    .mp-form-row.mepr_last_name,
+    .mp-form-row.mepr_mepr-address-country,
     .mp-form-row.mepr_mepr-address-state {
-        float: right;
-        clear: none;
-        width: calc(50% - 8px)!important;
-
-        @include responsive(767) {
-            width: 100% !important;
-        }
+        grid-column: span 1;
     }
 
     #mepr-account-welcome-message {
@@ -300,12 +289,7 @@ body.memberpressproduct {
     }
 
     .mp-form-row.mepr_mepr_interests {
-        float: left;
-        width: 100% !important;
-
         .mp-form-label {
-            float: left;
-            width: 100%;
 
             label {
                 color: #000 !important;
@@ -315,29 +299,22 @@ body.memberpressproduct {
         }
 
         .mepr-checkboxes-field {
-            float: left !important;
-            width: 100% !important;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 16px;
             padding-top: 30px;
 
             span.mepr-checkboxes-field-row {
-                float: left;
                 text-align: center;
                 width: auto;
-                margin: 0 16px 0 0!important;
-                height: 33px;
-                margin-bottom: 20px !important;
                 height: 47px;
 
                 @include responsive(1023) {
                     width: 48%;
-                    margin: 0px !important;
-                    margin-bottom: 20px !important;
                 }
 
                 @include responsive(640) {
                     width: 100%;
-                    margin: 0px !important;
-                    margin-bottom: 20px !important;
                 }
 
                 input {
@@ -370,7 +347,6 @@ body.memberpressproduct {
                 }
 
                 label {
-                    float: left;
                     min-width: 0px;
                     padding: 0 14px;
                     height: 47px;
@@ -402,7 +378,6 @@ body.memberpressproduct {
     }
 
     .mepr-account-change-password {
-        float: none;
         display: inline-block;
         border: 1px solid $color-darkGrey-new !important;
         color: $color-darkGrey-new;
@@ -450,8 +425,6 @@ body.memberpressproduct {
     // attribute to stay wired up to the account form) so both controls can
     // share one flex row.
     .mepr-account-actions {
-        float: none;
-        clear: both;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -624,19 +597,18 @@ body .mepr-manage_sub_accounts-wrapper .mp_wrapper:nth-child(2) {
 	display: block;
 }
 
-// The account form's "floating label" positioning (float:left; width:auto;
-// position:relative; top/left offset - the label caption cutout look on
-// each input's top border, see .mp_wrapper .mp-form-row label above) lives
-// inside section.default .container on /settings. templates/_default.scss's
-// blanket safe-pass rule (body section.default .container label -
-// float:none;clear:both;display:block) has higher specificity than the
-// plain .mp_wrapper .mp-form-row label rule above and was silently winning,
-// which collapsed the label back to an inline element subject to the
-// parent's text-align:center - every label rendered shifted right/off
-// instead of anchored at the input's top-left corner. Re-asserted here at
-// matching specificity.
+// The account form's "floating label" positioning (display:inline-block;
+// width:auto; position:relative; top/left offset - the label caption
+// cutout look on each input's top border, see .mp_wrapper .mp-form-row
+// label above) lives inside section.default .container on /settings.
+// templates/_default.scss's blanket safe-pass rule (body section.default
+// .container label - float:none;clear:both;display:block) has higher
+// specificity than the plain .mp_wrapper .mp-form-row label rule above and
+// was silently winning, which collapsed the label back to an inline
+// element subject to the parent's text-align:center - every label
+// rendered shifted right/off instead of anchored at the input's top-left
+// corner. Re-asserted here at matching specificity, with no float
+// involved.
 body section.default .container .mp_wrapper .mp-form-row label {
-	float: left;
-	clear: none;
-	display: block;
+	display: inline-block;
 }
