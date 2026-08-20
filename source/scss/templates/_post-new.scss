@@ -5492,6 +5492,62 @@ body.dev-preview .expertPresentationFeatured .container .item .share-save-contai
 	float: none;
 	clear: both;
 }
+
+// .researchArticleTextHeader shares its un-gated base rule (comma-selector,
+// line ~2347) with .expertPresentationFeatured above, but only the
+// .expertPresentationFeatured half was gated - mirroring for
+// .researchArticleTextHeader too. Note: .item (display:flex row) and
+// .textContainer (fixed 260px sidebar column) themselves are a real
+// image+sidebar pair and are deliberately NOT touched here - only their
+// interior single-column content is.
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .text {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer a.button {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .published {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .type-topic {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .contributor-container {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .contributor-container .contributor-title {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .replay-button {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .saveInsight {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .shareArticle {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .saveInsight a {
+	float: none;
+	clear: both;
+}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .shareArticle a {
+	float: none;
+	clear: both;
+}
 body.dev-preview section.featured-module .blockTitle {
 	float: none;
 	clear: both;

@@ -8,3 +8,79 @@ body.dev-preview section.two-column-services.landing-video-intro .container .lan
 body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title p{float:none;clear:both;display:block}
 body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .links-container{float:none;clear:both;display:block}
 body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .buttons-container{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container{float:none;clear:both}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text li{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text p{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about-title{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-content-title{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item .agenda-title{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item .time{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column .company-logo img{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column h3.title{float:none;clear:both;display:block}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column p{float:none;clear:both;display:block}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .saveInsight{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .saveInsight a{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .shareArticle{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .share-save-container .shareArticle a{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .contributor-container{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .contributor-container .contributor-title{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .published{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .replay-button{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .text{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer .type-topic{float:none;clear:both}
+body.dev-preview .researchArticleTextHeader .container .item .textContainer a.button{float:none;clear:both}
+body.dev-preview main.main-topic section.filter{float:none;clear:both;display:block}
+body.dev-preview main.main-topic section.filter .formWrapper{float:none;clear:both;display:block}
+body.dev-preview main.main-topic section.filter .formWrapper .dropDowns .subTopics input{float:none;clear:both;display:block}
+body.dev-preview main.main-topic section.filter .formWrapper .searchField .search{float:none;clear:both;display:block}
+body.dev-preview main.main-topic section.filter .formWrapper label{float:none;clear:both;display:block}
+body.dev-preview main.main-topic section.filter .formWrapper span.select2{float:none;clear:both;display:block}
+body.dev-preview section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-prompt{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .imageSizeContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .dateReadTime{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .topicFilter{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer a.title{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .imageSizeContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .dateReadTime{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .topicFilter{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer a.title{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .imageSizeContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .dateReadTime{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .excerpt{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer a.title{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .imageSizeContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .dateReadTime{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .excerpt{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer a.title{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .imageSizeContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .dateReadTime{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .excerpt{float:none;clear:both;display:block}
+body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer a.title{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .bottom{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top .articleLink{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top .eventDetails{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .imageContainer{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .top.articleTop{float:none;clear:both;display:block}
+body.dev-preview.template-events-portal section.blogWrapper .postLink .top.articleTop .articleLink{float:none;clear:both;display:block}
+body.dev-preview.template-sectors-market-narrative section.filter{float:none;clear:both;display:block}
+body.dev-preview.template-sectors-market-narrative section.filter .formWrapper{float:none;clear:both;display:block}
+body.dev-preview.template-sectors-market-narrative section.filter .formWrapper .dropDowns .subTopics input{float:none;clear:both;display:block}
+body.dev-preview.template-sectors-market-narrative section.filter .formWrapper .searchField .search{float:none;clear:both;display:block}
+body.dev-preview.template-sectors-market-narrative section.filter .formWrapper label{float:none;clear:both;display:block}
+body.dev-preview.template-sectors-market-narrative section.filter .formWrapper span.select2{float:none;clear:both;display:block}
+body.dev-preview.template-technology-trends-markets section.filter{float:none;clear:both;display:block}
+body.dev-preview.template-technology-trends-markets section.filter .formWrapper{float:none;clear:both;display:block}
+body.dev-preview.template-technology-trends-markets section.filter .formWrapper .dropDowns .subTopics input{float:none;clear:both;display:block}
+body.dev-preview.template-technology-trends-markets section.filter .formWrapper .searchField .search{float:none;clear:both;display:block}
+body.dev-preview.template-technology-trends-markets section.filter .formWrapper label{float:none;clear:both;display:block}
+body.dev-preview.template-technology-trends-markets section.filter .formWrapper span.select2{float:none;clear:both;display:block}

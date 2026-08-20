@@ -3444,6 +3444,73 @@ body.dev-preview .mfp-wrap.mfp-speakers .mfp-content .speaker-popup-container .c
 	float: none;
 	clear: both;
 }
+
+// Same speaker-popup-container styling is shared (comma-selector) between
+// .mfp-wrap.mfp-gallery and .mfp-wrap.mfp-speakers in the un-gated base
+// rule (line ~1583), but only the mfp-speakers half was gated above -
+// mirroring the exact same overrides for mfp-gallery so the popup
+// converts correctly regardless of which magnific-popup type class is
+// actually applied when it's triggered.
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column h3.title {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column p {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column .company-logo img {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-content-title {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about-title {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item .time {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item .agenda-title {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text p {
+	float: none;
+	clear: both;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text li {
+	float: none;
+	clear: both;
+}
 body.dev-preview .form-popup .popup-form-container .popup-form-title {
 	float: none;
 	clear: both;
@@ -4013,6 +4080,51 @@ body.dev-preview .mfp-wrap.mfp-speakers .mfp-content .speaker-popup-container .c
 	display: block;
 }
 body.dev-preview .mfp-wrap.mfp-speakers .mfp-content .speaker-popup-container .column.about-column .about .about-text li {
+	display: block;
+}
+
+// mfp-gallery display:block mirror - see the float:none block above for
+// why (shared un-gated base rule via comma-selector with mfp-speakers).
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column h3.title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column p {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.image-column .company-logo img {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-content-title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about-title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item .time {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .agenda-items .agenda-item .agenda-title {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text p {
+	display: block;
+}
+body.dev-preview .mfp-wrap.mfp-gallery .mfp-content .speaker-popup-container .column.about-column .about .about-text li {
 	display: block;
 }
 body.dev-preview .form-popup .popup-form-container .popup-form-title {
