@@ -627,7 +627,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -710,7 +710,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -1797,7 +1797,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -1880,7 +1880,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -1956,7 +1956,7 @@ if (
                                                                             <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#previewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                             <div style="display: none;">         
                                                                                 <div class="preview-cta-form login-form-container" id="previewCTA<?php echo $buttonCounter; ?>">
-                                                                                    <span class="form-container"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                    <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                                 </div>
                                                                             </div>
                                                                         <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -2672,7 +2672,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -3129,7 +3129,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -3212,7 +3212,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -3288,7 +3288,7 @@ if (
                                                                             <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#previewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                             <div style="display: none;">         
                                                                                 <div class="preview-cta-form login-form-container" id="previewCTA<?php echo $buttonCounter; ?>">                                                                            
-                                                                                    <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                    <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                                 </div>
                                                                             </div>
                                                                         <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -4006,7 +4006,7 @@ if (
                                                                         <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
-                                                                                <span class="form-container-inner"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                             </div>                                                                        
                                                                         </div>
                                                                     <?php } ?>                                                                                                                                                                                                                                                                                                                                
@@ -4380,25 +4380,25 @@ if (
 <?php if(get_field('members_only_request_download_form')){ ?> 
     <div class="preview-cta-form login-form-container mfp-hide" id="requestdownload">
         <div class="form-container-inner">
-            <?php echo get_field('members_only_request_download_form'); ?>
+            <?php echo adapt_render_hubspot_embed( get_field('members_only_request_download_form') ); ?>
         </div>
     </div>
 <?php } else { ?>
     <div class="preview-cta-form login-form-container mfp-hide" id="requestdownload">
         <div class="form-container-inner">
-            <?php echo get_field('members_only_request_download_form', 'options'); ?>
+            <?php echo adapt_render_hubspot_embed( get_field('members_only_request_download_form', 'options') ); ?>
         </div>
     </div>
 <?php } ?>
 
 <div class="preview-cta-form login-form-container mfp-hide" id="requestdownloadPersona">
     <div class="form-container-inner">
-        <?php echo get_field('members_only_request_download_form_persona', 'options'); ?>
+        <?php echo adapt_render_hubspot_embed( get_field('members_only_request_download_form_persona', 'options') ); ?>
     </div>
 </div>
 <div class="preview-cta-form login-form-container mfp-hide" id="requestdownloadSector">
     <div class="form-container-inner">
-        <?php echo get_field('members_only_request_download_form_sector', 'options'); ?>
+        <?php echo adapt_render_hubspot_embed( get_field('members_only_request_download_form_sector', 'options') ); ?>
     </div>
 </div>
 

@@ -35,14 +35,14 @@
                                 <a class="formPopupHubspot download-file-button with-icon small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         
                                     <div class="preview-cta-form login-form-container" id="bechamrk_formPopup">
-                                        <div class="form-container"><?php echo get_sub_field( 'hubspot_embed_code' ); ?></div>
+                                        <div class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed_code' ) ); ?></div>
                                     </div>
                                 </div> 
                             <?php } else { ?> 
                                 <a class="formPopupHubspot small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         
                                     <div class="preview-cta-form login-form-container" id="bechamrk_formPopup">
-                                        <div class="form-container"><?php echo get_sub_field( 'hubspot_embed_code' ); ?></div>
+                                        <div class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed_code' ) ); ?></div>
                                     </div>
                                 </div> 
                             <?php } ?>                     	
@@ -67,14 +67,14 @@
                                 <a class="formPopupHubspot download-file-button with-icon small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         
                                     <div class="preview-cta-form login-form-container" id="bechamrk_formPopup">
-                                        <div class="form-container"><?php echo get_sub_field( 'hubspot_embed_code' ); ?></div>
+                                        <div class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed_code' ) ); ?></div>
                                     </div>
                                 </div> 
                             <?php } else { ?> 
                                 <a class="formPopupHubspot small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         
                                     <div class="preview-cta-form login-form-container" id="bechamrk_formPopup">
-                                        <div class="form-container"><?php echo get_sub_field( 'hubspot_embed_code' ); ?></div>
+                                        <div class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed_code' ) ); ?></div>
                                     </div>
                                 </div> 
                             <?php } ?>                     	
