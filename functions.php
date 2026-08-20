@@ -1196,6 +1196,58 @@ function my_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
+/**
+ * Render a raw HubSpot form embed field, de-duplicating the shared
+ * forms/embed/v2.js script tag across multiple embeds on the same page.
+ *
+ * Content editors paste the full HubSpot embed snippet - a
+ * <script src=".../forms/embed/v2.js"> tag plus an inline
+ * hbspt.forms.create({...}) call - into ACF fields (hubspot_embed,
+ * hubspot_embed_code, members_only_request_download_form and its
+ * _persona/_sector variants) for every CTA form block. Pages that render
+ * more than one of these (templates/single-post.php alone has a dozen
+ * call sites, on top of the header/mobile-menu CTA modals that are
+ * present on every page) end up loading and executing the exact same
+ * external script once per instance. Confirmed live on
+ * /ai-innovation/market-narratives/workforce-readiness-will-decide-agentic-ai-scale-in-government,
+ * where Lighthouse flagged 5 duplicate loads of the same script (~565 KiB
+ * combined, each on a 5-minute cache lifetime we don't control since it's
+ * hosted on HubSpot's CDN).
+ *
+ * This keeps the very first embed's script tag exactly as authored (so
+ * load/execution order is unchanged for the first form on the page - by
+ * the time any later hbspt.forms.create() call runs, window.hbspt is
+ * already defined from that first load) and strips the redundant
+ * <script src> tag from every subsequent embed, since hbspt is a global
+ * and later forms.create() calls work fine once it exists.
+ *
+ * @param string|false $raw_html Raw field value from get_field()/get_sub_field().
+ * @return string
+ */
+function adapt_render_hubspot_embed( $raw_html ) {
+    static $script_seen = false;
+
+    if ( empty( $raw_html ) || ! is_string( $raw_html ) ) {
+        return '';
+    }
+
+    if ( ! $script_seen ) {
+        // Only mark as seen if this instance actually contains the embed
+        // script - an ACF field with just an hbspt.forms.create() call
+        // (no script tag) shouldn't count as having loaded it.
+        if ( preg_match( '#<script\b[^>]*\bsrc=["\'](?:https?:)?//(?:js|js-ap1)\.hsforms\.net/forms/embed/v2\.js["\']#i', $raw_html ) ) {
+            $script_seen = true;
+        }
+        return $raw_html;
+    }
+
+    return preg_replace(
+        '#<script\b[^>]*\bsrc=["\'](?:https?:)?//(?:js|js-ap1)\.hsforms\.net/forms/embed/v2\.js["\'][^>]*>\s*</script>#i',
+        '',
+        $raw_html
+    );
+}
+
 // AJAX: Load Partners
 add_action('wp_ajax_load_partners', 'ajax_load_partners');
 add_action('wp_ajax_nopriv_load_partners', 'ajax_load_partners');

@@ -321,7 +321,7 @@
                                                                                 <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
                                                                                     <span style="display: none;">         
                                                                                         <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
-                                                                                            <span class="form-container"><?php echo get_sub_field( 'hubspot_embed' ); ?></span>
+                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
                                                                                         </span>
                                                                                     </span>
                                                                             <?php } ?>                                                                                
