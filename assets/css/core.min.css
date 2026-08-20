@@ -154,3 +154,7 @@ body.dev-preview.template-insights .postHeader .filter .mobile-form-container .m
 body.dev-preview.template-insights .postHeader .viewContainer.mobile{float:none;clear:both;display:block}
 body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container{float:none;clear:both;display:block}
 body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type=search]{float:none;clear:both;display:block}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container{float:none;clear:both}
+body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container .heading-medium{float:none;clear:both;display:block}
+body.dev-preview section.videoBlock{float:none;clear:both;display:block}
+body.dev-preview.template-evr section.two-column-image-text-customer-events .container .column-container.image-right .column .text-inner{float:none;clear:both;display:block}
