@@ -71,6 +71,26 @@
 			}
 		});
 
+		// Accessibility: slick.js's initADA() sets aria-hidden="true" on every
+		// slide that isn't the active one, including the outgoing slide as
+		// soon as a transition starts (on the 'beforeChange' event, before
+		// the DOM settles). If a link/button inside that outgoing slide
+		// still has keyboard focus at that moment (e.g. a user tabbed into
+		// a slide and then autoplay or a dot click moved on), the browser
+		// blocks the aria-hidden attribute and logs a console warning,
+		// since focus isn't allowed inside an aria-hidden subtree. Same
+		// delegated-on-document pattern as the 'init' handler above, so it
+		// covers every carousel on the site, current and future, without
+		// touching each individual .slick({...}) call.
+		$(document).on('beforeChange', '.slick-slider', function (event, slick, currentSlide) {
+			if (!slick || !slick.$slideTrack || !document.activeElement) return;
+
+			var $outgoingSlide = slick.$slideTrack.find('.slick-slide[data-slick-index="' + currentSlide + '"]');
+			if ($outgoingSlide.length && $.contains($outgoingSlide[0], document.activeElement)) {
+				document.activeElement.blur();
+			}
+		});
+
 		// STANDARD
 		@@include('includes/_maps.js')
 

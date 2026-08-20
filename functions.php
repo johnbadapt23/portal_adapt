@@ -1350,12 +1350,19 @@ function adapt_is_first_hero_image() {
  * homepage's <link> handles before being added here.
  */
 function adapt_defer_noncritical_styles( $html, $handle ) {
+    // WordPress's style_loader_tag filter passes the bare registered
+    // handle (e.g. "wordfenceAJAXcss"), not the "{$handle}-css" id
+    // WordPress prints in the <link id="..."> HTML attribute - these
+    // must NOT include the -css suffix or in_array() below never matches
+    // and this filter silently no-ops for every handle, which is exactly
+    // what was happening in production (confirmed via a cache-bypassed
+    // live fetch: none of the 5 handles were getting the onload swap).
     $defer_handles = array(
-        'jquery-magnific-popup-css',
-        'jquery-ui-timepicker-addon-css',
-        'wp-pagenavi-css',
-        'tablepress-default-css',
-        'wordfenceAJAXcss-css',
+        'jquery-magnific-popup',
+        'jquery-ui-timepicker-addon',
+        'wp-pagenavi',
+        'tablepress-default',
+        'wordfenceAJAXcss',
     );
 
     if ( ! in_array( $handle, $defer_handles, true ) ) {
