@@ -3113,7 +3113,14 @@ body header .megaMenu .column .dropDownSection ul li {
 body header .megaMenu .column .dropDownSection ul li a {
 	float: none;
 	clear: both;
-	display: block;
+	display: flex;
+	align-items: flex-start;
+}
+body header .megaMenu .column .dropDownSection ul li a .icon-container {
+	float: none;
+}
+body header .megaMenu .column .dropDownSection ul li a .link-text {
+	float: none;
 }
 body header .megaMenu .column .menu-link {
 	float: none;
@@ -3258,12 +3265,26 @@ body nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDown
 body nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection ul li a {
 	float: none;
 	clear: both;
-	display: block;
+	display: flex;
+	align-items: flex-start;
+}
+body nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection ul li a .icon-container {
+	float: none;
+}
+body nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .dropDownSection ul li a .link-text {
+	float: none;
 }
 body nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection ul li a {
 	float: none;
 	clear: both;
-	display: block;
+	display: flex;
+	align-items: flex-start;
+}
+body nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection ul li a .icon-container {
+	float: none;
+}
+body nav.mobileMenu .menuTop ul li.with-sub-menu > ul.sub-menu .column .dropDownSection ul li a .link-text {
+	float: none;
 }
 body nav.mobileMenu .menuTop ul li.events > ul.sub-menu .column .menu-link {
 	float: none;
