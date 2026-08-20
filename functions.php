@@ -275,6 +275,7 @@ add_filter('upload_mimes', 'cc_mime_types');
 
 add_image_size( 'gallery-landscape', 1280, 800, true );
 add_image_size( 'gallery-portrait', 800, 1280, true );
+add_image_size( 'hero-slide-preview', 900, 0 );
 
 add_filter( 'https_ssl_verify', '__return_false' );
 
