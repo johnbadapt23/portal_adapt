@@ -3485,6 +3485,7 @@ span.std-button-span {
 	&.arrow-link {
 		padding-right: 22px;
 		position: relative;
+		float: none;
 
 		&:after {
 			content: '';
@@ -3495,7 +3496,7 @@ span.std-button-span {
 			background-size: 10px 10px;
 			background-repeat: no-repeat;
 			background-position: center;
-			top: 7px;
+			top: 0;
 			left: auto;
 			right: 0px;
 			display: block;

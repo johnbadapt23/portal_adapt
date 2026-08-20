@@ -3048,7 +3048,14 @@ body header .megaMenu.eventsMenu ul li {
 body header .megaMenu.eventsMenu ul li a {
 	float: none;
 	clear: both;
-	display: block;
+	display: flex;
+	align-items: flex-start;
+}
+body header .megaMenu.eventsMenu ul li a .icon-container {
+	float: none;
+}
+body header .megaMenu.eventsMenu ul li a .link-text {
+	float: none;
 }
 body header .megaMenu.eventsMenu ul li a .link-text .link-title {
 	float: none;
