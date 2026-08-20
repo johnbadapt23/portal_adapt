@@ -3733,6 +3733,10 @@ section.keynote-slider-module {
 
         .slick-list {
             overflow: visible;
+
+            @include responsive(767) {
+                overflow: hidden;
+            }
         }
 
         .slick-slide {
