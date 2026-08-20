@@ -1250,6 +1250,40 @@ function adapt_render_hubspot_embed( $raw_html ) {
 }
 
 /**
+ * Build the wp_get_attachment_image attr array for a preview-main-slider
+ * hero image, applying fetchpriority=high to only the very first slide
+ * rendered on the page.
+ *
+ * _slide-preview.php has several mutually-exclusive branches (member
+ * type, persona/sector, locked/blurred previews) that each loop over a
+ * slider_images or blurred_images repeater and echo a main-slide image.
+ * Only one branch ever executes per request, but several of those loops
+ * render more than one slide, and previously every slide in the loop was
+ * marked fetchpriority=high - diluting the priority hint across multiple
+ * large images instead of flagging just the actual LCP candidate (the
+ * first, visibly active slide), which hurt real-world LCP timing once
+ * this shipped to production.
+ *
+ * @param string $alt Image alt text.
+ * @return array
+ */
+function adapt_main_slide_image_attrs( $alt ) {
+    static $first_slide_rendered = false;
+
+    $attr = array(
+        'alt'   => $alt,
+        'sizes' => '(max-width: 767px) 100vw, 812px',
+    );
+
+    if ( ! $first_slide_rendered ) {
+        $attr['fetchpriority'] = 'high';
+        $first_slide_rendered  = true;
+    }
+
+    return $attr;
+}
+
+/**
  * Load a small set of known interaction-only plugin stylesheets
  * non-render-blocking, using the standard media="print" + onload swap
  * trick (falls back to a <noscript> stylesheet for no-JS visitors).
