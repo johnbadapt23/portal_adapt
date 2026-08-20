@@ -40,7 +40,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                             <span class="bg-container">
                                                 <?php $image = get_sub_field( 'image' ); ?>
                                                 <?php if ( $image ) { ?>
-                                                    <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                    <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                 <?php } ?>
                                             </span>
                                         </span>
@@ -74,7 +74,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -92,7 +92,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                         <span class="bg-container">
                                                             <?php $image = get_sub_field( 'image' ); ?>
                                                             <?php if ( $image ) { ?>
-                                                                <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                                <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                             <?php } ?>
                                                         </span>
                                                     </span>
@@ -164,7 +164,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -182,7 +182,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                         <span class="bg-container">
                                                             <?php $image = get_sub_field( 'image' ); ?>
                                                             <?php if ( $image ) { ?>
-                                                                <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                                <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                             <?php } ?>
                                                         </span>
                                                     </span>
@@ -254,7 +254,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                         <span class="bg-container">
                                             <?php $image = get_sub_field( 'image' ); ?>
                                             <?php if ( $image ) { ?>
-                                                <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                             <?php } ?>
                                         </span>
                                     </span>
@@ -290,7 +290,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                 <span class="bg-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                     <?php } ?>
                                                 </span>
                                                 <?php if($advantagePlus != 'yes'){ ?>
@@ -312,7 +312,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                         <?php } ?>
                                                     </span>
                                                     <?php if($advantagePlus != 'yes'){ ?>
@@ -388,7 +388,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                 <span class="bg-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                     <?php } ?>
                                                 </span>
                                             </span>
@@ -406,7 +406,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -479,7 +479,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                             <span class="bg-container">
                                                 <?php $image = get_sub_field( 'image' ); ?>
                                                 <?php if ( $image ) { ?>
-                                                    <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                    <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                 <?php } ?>
                                             </span>
                                         </span>
@@ -497,7 +497,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                 <span class="bg-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, array( 'alt' => $image['alt'], 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) 100vw, 812px' ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'hero-slide-preview', false, adapt_main_slide_image_attrs( $image['alt'] ) ); ?>
                                                     <?php } ?>
                                                 </span>
                                             </span>

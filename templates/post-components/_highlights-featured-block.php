@@ -22,9 +22,10 @@ $membership_tax_query = [];
 
 // Only the very first hero image on the page should be fetchpriority=high and
 // excluded from lazy-load - it's the one Lighthouse identifies as the LCP
-// element. Applying this to every hero slot would dilute the priority hint
-// and force everything to load eagerly instead of only what's on screen.
-$hero_fetchpriority_used = false;
+// element. This block is an ACF flexible-content module that can be (and
+// is) included more than once on the same page, so the "first" check is
+// delegated to adapt_is_first_hero_image() (functions.php), which is
+// scoped to the whole request instead of resetting on every inclusion.
 
 if ( ! empty( $membership_allowed_ids ) ) {
     $membership_tax_query[] = [
@@ -123,11 +124,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_172_src = $image;
 					$inline_img_172_attach_id = $inline_img_172_src ? attachment_url_to_postid( $inline_img_172_src ) : 0;
 					if ( $inline_img_172_attach_id ) {
-						$inline_img_172_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( ! $hero_fetchpriority_used ? ' skip-lazy' : '' ) );
-						if ( ! $hero_fetchpriority_used ) {
+						$inline_img_172_is_lcp = adapt_is_first_hero_image();
+						$inline_img_172_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_172_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_172_is_lcp ) {
 							$inline_img_172_attrs['fetchpriority'] = 'high';
 							$inline_img_172_attrs['loading'] = 'eager';
-							$hero_fetchpriority_used = true;
 						}
 						echo wp_get_attachment_image( $inline_img_172_attach_id, 'article-hero', false, $inline_img_172_attrs );
 					} elseif ( $inline_img_172_src ) {
@@ -253,11 +254,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_174_src = $image;
 					$inline_img_174_attach_id = $inline_img_174_src ? attachment_url_to_postid( $inline_img_174_src ) : 0;
 					if ( $inline_img_174_attach_id ) {
-						$inline_img_174_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( ! $hero_fetchpriority_used ? ' skip-lazy' : '' ) );
-						if ( ! $hero_fetchpriority_used ) {
+						$inline_img_174_is_lcp = adapt_is_first_hero_image();
+						$inline_img_174_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_174_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_174_is_lcp ) {
 							$inline_img_174_attrs['fetchpriority'] = 'high';
 							$inline_img_174_attrs['loading'] = 'eager';
-							$hero_fetchpriority_used = true;
 						}
 						echo wp_get_attachment_image( $inline_img_174_attach_id, 'article-hero', false, $inline_img_174_attrs );
 					} elseif ( $inline_img_174_src ) {
@@ -404,11 +405,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_176_src = $image;
 					$inline_img_176_attach_id = $inline_img_176_src ? attachment_url_to_postid( $inline_img_176_src ) : 0;
 					if ( $inline_img_176_attach_id ) {
-						$inline_img_176_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( ! $hero_fetchpriority_used ? ' skip-lazy' : '' ) );
-						if ( ! $hero_fetchpriority_used ) {
+						$inline_img_176_is_lcp = adapt_is_first_hero_image();
+						$inline_img_176_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_176_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_176_is_lcp ) {
 							$inline_img_176_attrs['fetchpriority'] = 'high';
 							$inline_img_176_attrs['loading'] = 'eager';
-							$hero_fetchpriority_used = true;
 						}
 						echo wp_get_attachment_image( $inline_img_176_attach_id, 'article-hero', false, $inline_img_176_attrs );
 					} elseif ( $inline_img_176_src ) {
@@ -547,11 +548,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_178_src = $image;
 					$inline_img_178_attach_id = $inline_img_178_src ? attachment_url_to_postid( $inline_img_178_src ) : 0;
 					if ( $inline_img_178_attach_id ) {
-						$inline_img_178_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( ! $hero_fetchpriority_used ? ' skip-lazy' : '' ) );
-						if ( ! $hero_fetchpriority_used ) {
+						$inline_img_178_is_lcp = adapt_is_first_hero_image();
+						$inline_img_178_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_178_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_178_is_lcp ) {
 							$inline_img_178_attrs['fetchpriority'] = 'high';
 							$inline_img_178_attrs['loading'] = 'eager';
-							$hero_fetchpriority_used = true;
 						}
 						echo wp_get_attachment_image( $inline_img_178_attach_id, 'article-hero', false, $inline_img_178_attrs );
 					} elseif ( $inline_img_178_src ) {
@@ -676,11 +677,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_180_src = $image;
 					$inline_img_180_attach_id = $inline_img_180_src ? attachment_url_to_postid( $inline_img_180_src ) : 0;
 					if ( $inline_img_180_attach_id ) {
-						$inline_img_180_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( ! $hero_fetchpriority_used ? ' skip-lazy' : '' ) );
-						if ( ! $hero_fetchpriority_used ) {
+						$inline_img_180_is_lcp = adapt_is_first_hero_image();
+						$inline_img_180_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_180_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_180_is_lcp ) {
 							$inline_img_180_attrs['fetchpriority'] = 'high';
 							$inline_img_180_attrs['loading'] = 'eager';
-							$hero_fetchpriority_used = true;
 						}
 						echo wp_get_attachment_image( $inline_img_180_attach_id, 'article-hero', false, $inline_img_180_attrs );
 					} elseif ( $inline_img_180_src ) {
