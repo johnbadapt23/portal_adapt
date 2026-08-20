@@ -1841,9 +1841,13 @@ body section.register-listing .registerButton {
 body section.register-listing .filter-outer {
 	display: block;
 }
-body section.register-listing .container .register-listing-container .upcoming-listing {
-	display: block;
-}
+// .upcoming-listing itself is NOT given display:block here (unlike its
+// descendants below) - it's a <div> (already block by default, this fix
+// was always redundant for it specifically) that also carries
+// .resources-column-container.three-column-container (see
+// templates/template-registration.php), whose display:grid this
+// selector's higher specificity would otherwise defeat - see the comment
+// on .item.one-third above for the matching float/width fix.
 body section.register-listing .container .register-listing-container .upcoming-listing .item.one-third .item-container {
 	display: block;
 }
