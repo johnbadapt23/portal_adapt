@@ -973,9 +973,25 @@ section.register-listing {
                 width: 100%;
 
                 .item.one-third {
-                    width: calc(33.33% - 12px);
-                    float: left;
-                    margin-left: 18px;
+                    // .item.one-third's parent (.upcoming-listing) also
+                    // carries .resources-column-container.three-column-container
+                    // (see templates/template-registration.php's markup,
+                    // the only template that uses .upcoming-listing/
+                    // .register-listing) - _post-new.scss's
+                    // .resources-column-container.three-column-container rule
+                    // (2 classes, so it wins over this file's own
+                    // 1-class .upcoming-listing{float:left} base) makes that
+                    // parent display:grid with grid-template-columns:1fr 1fr 1fr
+                    // (2 cols at <=1023px, 1 col at <=767px - same breakpoints
+                    // $break-1023/$break-767 that the old float-grid below used),
+                    // plus .gap-16-40 for spacing via `gap`. float, an explicit
+                    // 33%-of-33% width, and the nth-child margin resets below
+                    // were the old manual-float-grid equivalent of that same
+                    // 3-column layout - now dead weight actively fighting the
+                    // grid (percentage widths on a grid item resolve against
+                    // its own cell, so calc(33.33% - 12px) here shrank each
+                    // card to roughly a third of its column). Removed; a grid
+                    // item fills its cell by default with no extra CSS needed.
                     background-color: #fff;
                     border-bottom-left-radius: 5px;
                     border-bottom-right-radius: 5px;
@@ -986,37 +1002,13 @@ section.register-listing {
                     position: relative;
                     padding-bottom: 100px;
 
-                    @include responsive(1023) {
-                        width: calc(50% - 9px);
-                    }
-
                     @include responsive(767) {
-                        width: 100%;
-                        margin-left: 0px;
                         margin-bottom: 35px;
                         padding-bottom: 80px;
                     }
 
                     &.past-item {
                         padding-bottom: 80px;
-                    }
-
-                    &:nth-child(3n + 1){
-                        margin-left: 0px;
-
-                        @include responsive(1023) {
-                            margin-left: 18px;
-                        }
-
-                        @include responsive(767) {
-                            margin-left: 0px;
-                        }
-                    }
-
-                    &:nth-child(2n + 1){
-                        @include responsive(1023) {
-                            margin-left: 0px;
-                        }
                     }
 
                     .item-container {
