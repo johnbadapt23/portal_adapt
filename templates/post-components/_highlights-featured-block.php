@@ -149,7 +149,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_173_src = $image;
 					$inline_img_173_attach_id = $inline_img_173_src ? attachment_url_to_postid( $inline_img_173_src ) : 0;
 					if ( $inline_img_173_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_173_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						$inline_img_173_is_lcp = adapt_is_first_hero_image();
+						$inline_img_173_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_173_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_173_is_lcp ) {
+							$inline_img_173_attrs['fetchpriority'] = 'high';
+							$inline_img_173_attrs['loading'] = 'eager';
+						}
+						echo wp_get_attachment_image( $inline_img_173_attach_id, 'article-card', false, $inline_img_173_attrs );
 					} elseif ( $inline_img_173_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_173_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -279,7 +285,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_175_src = $image;
 					$inline_img_175_attach_id = $inline_img_175_src ? attachment_url_to_postid( $inline_img_175_src ) : 0;
 					if ( $inline_img_175_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_175_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						$inline_img_175_is_lcp = adapt_is_first_hero_image();
+						$inline_img_175_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_175_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_175_is_lcp ) {
+							$inline_img_175_attrs['fetchpriority'] = 'high';
+							$inline_img_175_attrs['loading'] = 'eager';
+						}
+						echo wp_get_attachment_image( $inline_img_175_attach_id, 'article-card', false, $inline_img_175_attrs );
 					} elseif ( $inline_img_175_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_175_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -431,7 +443,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_177_src = $image;
 					$inline_img_177_attach_id = $inline_img_177_src ? attachment_url_to_postid( $inline_img_177_src ) : 0;
 					if ( $inline_img_177_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_177_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						$inline_img_177_is_lcp = adapt_is_first_hero_image();
+						$inline_img_177_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_177_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_177_is_lcp ) {
+							$inline_img_177_attrs['fetchpriority'] = 'high';
+							$inline_img_177_attrs['loading'] = 'eager';
+						}
+						echo wp_get_attachment_image( $inline_img_177_attach_id, 'article-card', false, $inline_img_177_attrs );
 					} elseif ( $inline_img_177_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_177_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -574,7 +592,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_179_src = $image;
 					$inline_img_179_attach_id = $inline_img_179_src ? attachment_url_to_postid( $inline_img_179_src ) : 0;
 					if ( $inline_img_179_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_179_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						$inline_img_179_is_lcp = adapt_is_first_hero_image();
+						$inline_img_179_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_179_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_179_is_lcp ) {
+							$inline_img_179_attrs['fetchpriority'] = 'high';
+							$inline_img_179_attrs['loading'] = 'eager';
+						}
+						echo wp_get_attachment_image( $inline_img_179_attach_id, 'article-card', false, $inline_img_179_attrs );
 					} elseif ( $inline_img_179_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_179_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -703,7 +727,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_181_src = $image;
 					$inline_img_181_attach_id = $inline_img_181_src ? attachment_url_to_postid( $inline_img_181_src ) : 0;
 					if ( $inline_img_181_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_181_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						$inline_img_181_is_lcp = adapt_is_first_hero_image();
+						$inline_img_181_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_181_is_lcp ? ' skip-lazy' : '' ) );
+						if ( $inline_img_181_is_lcp ) {
+							$inline_img_181_attrs['fetchpriority'] = 'high';
+							$inline_img_181_attrs['loading'] = 'eager';
+						}
+						echo wp_get_attachment_image( $inline_img_181_attach_id, 'article-card', false, $inline_img_181_attrs );
 					} elseif ( $inline_img_181_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_181_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
