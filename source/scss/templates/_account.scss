@@ -110,7 +110,7 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
         }
 
         form {
-            text-align: center;
+            text-align: left;
         }
     }
 
@@ -284,6 +284,20 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
         grid-column: span 1;
     }
 
+    // global/_styles.scss still carries an older, un-migrated duplicate of
+    // this pairing (.mp_wrapper .mp-form-row.mepr_mepr-address-country /
+    // -state { width: 50% !important; }, left over from the float-based
+    // 2-column layout, compiled into global.min.css) that also matches
+    // here and, being 50% of this item's own grid cell rather than of the
+    // whole grid, shrank each field to a quarter of the row. width:100%
+    // !important on the exact same selector/specificity here wins via
+    // source order (this file compiles after global.min.css loads) and
+    // makes each field fill its assigned grid cell properly.
+    .mp-form-row.mepr_mepr-address-country,
+    .mp-form-row.mepr_mepr-address-state {
+        width: 100% !important;
+    }
+
     #mepr-account-welcome-message {
         text-align: left;
     }
@@ -298,9 +312,17 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
             }
         }
 
+        // !important is required on display/width - MemberPress's own
+        // plugin stylesheet (theme.css, loaded separately from this
+        // theme's compiled bundles) ships
+        // .mepr-radios-field, .mepr-checkboxes-field { display: inline-block !important; width: 250px !important; }
+        // which otherwise wins over any non-important rule here regardless
+        // of selector specificity, both collapsing the flex row and
+        // capping it to a 250px-wide box the pills can't wrap inside.
         .mepr-checkboxes-field {
-            display: flex;
+            display: flex !important;
             flex-wrap: wrap;
+            width: 100% !important;
             gap: 20px 16px;
             padding-top: 30px;
 
@@ -608,7 +630,12 @@ body .mepr-manage_sub_accounts-wrapper .mp_wrapper:nth-child(2) {
 // element subject to the parent's text-align:center - every label
 // rendered shifted right/off instead of anchored at the input's top-left
 // corner. Re-asserted here at matching specificity, with no float
-// involved.
+// involved. !important is required because MemberPress's own plugin
+// stylesheet (wp-content/plugins/memberpress/css/ui/theme.css, loaded
+// separately from this theme's compiled bundles) ships
+// .mp_wrapper .mp-form-row label { display: inline !important; } -
+// !important always wins over specificity, so a plain (non-important)
+// display here can't beat it no matter how specific the selector is.
 body section.default .container .mp_wrapper .mp-form-row label {
-	display: inline-block;
+	display: inline-block !important;
 }
