@@ -136,6 +136,7 @@ jobs:
             :!/sept-functions.php
             :!/june-footer.php
             :!/header-stage.php
+            :!/assets/css/main.min.css
             :!/assets/css/march-24-main.min.css
             :!/assets/css/oct-23-main.min.css
             :!/assets/js/main-bk.min.js
@@ -169,6 +170,7 @@ jobs:
             --exclude-glob=sept-functions.php
             --exclude-glob=june-footer.php
             --exclude-glob=header-stage.php
+            --exclude-glob=assets/css/main.min.css
             --exclude-glob=assets/css/march-24-main.min.css
             --exclude-glob=assets/css/oct-23-main.min.css
             --exclude-glob=assets/js/main-bk.min.js
