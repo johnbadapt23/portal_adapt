@@ -390,73 +390,73 @@ footer {
 // copyright+legal-links split and span/ul inline row, #cookie-notice
 // .cn-button, mobile-app-download-container one-half 50/50 split and
 // form-button.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview footer {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body footer {
 	float: none;
 	clear: both;
 }
-body.dev-preview footer .top {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview footer .middle {
-	float: none;
-	clear: both;
-}
-body.dev-preview footer .middle .title {
+body footer .top {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview footer .middle ul.footerLinks {
+body footer .middle {
 	float: none;
 	clear: both;
 }
-body.dev-preview footer .middle ul.footerLinks li {
-	float: none;
-	clear: both;
-}
-body.dev-preview footer .middle span.social.mobile {
-	float: none;
-	clear: both;
-}
-body.dev-preview footer .base {
+body footer .middle .title {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview #cn-notice-text {
+body footer .middle ul.footerLinks {
+	float: none;
+	clear: both;
+}
+body footer .middle ul.footerLinks li {
+	float: none;
+	clear: both;
+}
+body footer .middle span.social.mobile {
+	float: none;
+	clear: both;
+}
+body footer .base {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer {
+body #cn-notice-text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container {
+body .mobile-app-download-container .mfp-content .popup-block-outer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title {
+body .mobile-app-download-container .mfp-content .popup-block-outer .popup-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title p {
+body .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-text {
+body .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-title p {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .button-form-container {
+body .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .popup-text {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .mobile-app-download-container .mfp-content .popup-block-outer .popup-container .column .button-form-container {
 	float: none;
 	clear: both;
 	display: block;

@@ -223,8 +223,8 @@ span.customgpt-toggle {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview span.customgpt-toggle {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body span.customgpt-toggle {
 	float: none;
 	clear: both;
 }

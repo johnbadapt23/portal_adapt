@@ -599,9 +599,8 @@ section.fullWidthTextBlock {
 // Dev-preview: float -> modern layout for section.fullWidthTextBlock
 // (full_width_text_block content block). All width:100% single-column,
 // same idiom as elsewhere - .hrWrapper is a span so it needs display:block
-// once float is removed. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview section.fullWidthTextBlock {
+// once float is removed. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.fullWidthTextBlock {
     .titleBlock {
         float: none;clear:both;
 
@@ -1431,10 +1430,9 @@ section.flexible-banner.banner {
 // its own float never mattered; span.title/.text/.buttonBlock/.videoLink
 // are the usual width:100% single-column idiom needing display:block since
 // they're spans. .videoLink a's icon+text row is a real side-by-side
-// float, so it gets display:flex instead. Gated behind body.dev-preview
-// (?dev=true), see includes/_customisations.php.
-body.dev-preview section.videoBlock,
-body.dev-preview section.flexible-banner.banner {
+// float, so it gets display:flex instead. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.videoBlock,
+body section.flexible-banner.banner {
     .content {
         .column.text {
             @include responsive(767) {
@@ -2201,10 +2199,9 @@ section.download-block {
 // naturally force a line break same as their old floats did. column-gap
 // replaces the old margin:0 9px + :first-of-type/:last-child override
 // pattern for the card-to-card gap; row spacing still comes from each
-// item's own margin-bottom, same as before. Gated behind body.dev-preview
-// (?dev=true), see includes/_customisations.php. The download popup
+// item's own margin-bottom, same as before. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history. The download popup
 // modal (.mfp-wrap.download-container) isn't covered by this pass.
-body.dev-preview section.download-block .container {
+body section.download-block .container {
     display: flex;
     flex-wrap: wrap;
     row-gap: 0;
@@ -2468,9 +2465,8 @@ body.dev-preview section.download-block .container {
 // + .download-container (float:right, 215px fixed sidebar) is a real
 // two-column layout, not the usual width:100% pattern, so it gets actual
 // flex-basis values instead of a flat float removal. Everything else here
-// is the familiar width:100% single-column idiom. Gated behind
-// body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container {
+// is the familiar width:100% single-column idiom. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container {
     float: none;
     clear: both;
     display: flex;
@@ -2837,9 +2833,8 @@ section.video-grid-block {
 // column-gap replaces the old margin:0 9px + :first-of-type/:last-child
 // pattern. The play-icon + text row inside .videoLink a was a real
 // side-by-side float (not a width:100% single column), so it gets
-// display:flex instead of a flat removal. Gated behind body.dev-preview
-// (?dev=true), see includes/_customisations.php.
-body.dev-preview section.video-grid-block .container {
+// display:flex instead of a flat removal. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.video-grid-block .container {
     .video-block-title,
     .listing-title {
         float: none;
@@ -3132,246 +3127,245 @@ section.resources-cta-block {
 // 3-col grids, twoColumnTextBlock and halfHalfBlock's paired columns, the
 // speaker gallery image+text split, relatedSpeakerArticles' 4-col grid,
 // pricingBlock's 3-col layout, and resources-cta-block's image+text split)
-// are deliberately left for a dedicated pass. Gated behind
-// body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.banner .imageContainer {
+// are deliberately left for a dedicated pass. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.banner .imageContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.banner .imageContainer .image .container h1 {
+body section.banner .imageContainer .image .container h1 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.banner .imageContainer .image .container h2 {
+body section.banner .imageContainer .image .container h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle {
+body section.relatedArticlesThreeColumn .column.two .relatedArticle {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
+body section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle a {
+body section.relatedArticlesThreeColumn .column.two .relatedArticle a {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.twoColumnTextBlock .titleBlock h2 {
+body section.twoColumnTextBlock .titleBlock h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.halfHalfBlock .textBlock.mobile {
+body section.halfHalfBlock .textBlock.mobile {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.halfHalfBlock .textBlock h2 {
+body section.halfHalfBlock .textBlock h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.halfHalfBlock .textBlock span.desktopText {
+body section.halfHalfBlock .textBlock span.desktopText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.halfHalfBlock .textBlock span.mobileText {
+body section.halfHalfBlock .textBlock span.mobileText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.halfHalfBlock .textBlock span p {
+body section.halfHalfBlock .textBlock span p {
 	float: none;
 	clear: both;
 }
-body.dev-preview .speakerQuoteCarousel .titleBlock {
+body .speakerQuoteCarousel .titleBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview .speakerQuoteCarousel .titleBlock .text {
+body .speakerQuoteCarousel .titleBlock .text {
 	float: none;
 	clear: both;
 }
-body.dev-preview .speakerQuoteCarousel .speaker-gallery {
+body .speakerQuoteCarousel .speaker-gallery {
 	float: none;
 	clear: both;
 }
-body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
+body .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
+body .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.quoteBlockNoImage div.owl-dots {
+body section.quoteBlockNoImage div.owl-dots {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.quoteBlockNoImage .item {
+body section.quoteBlockNoImage .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.quoteBlockNoImage .item .quoteBlock {
+body section.quoteBlockNoImage .item .quoteBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.quoteBlockNoImage .item .quoteAuthor {
+body section.quoteBlockNoImage .item .quoteAuthor {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item {
+body section.twoColumnWithTextAndFeaturedQuote .column.last .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
+body section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
+body section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.fullWidthTextEditor {
+body section.fullWidthTextEditor {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedSpeakerArticles .titleBlock {
+body section.relatedSpeakerArticles .titleBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedSpeakerArticles .articles {
+body section.relatedSpeakerArticles .articles {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedSpeakerArticles .articles a.item .postDetails {
+body section.relatedSpeakerArticles .articles a.item .postDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.relatedSpeakerArticles .articles a.item .postTitle {
+body section.relatedSpeakerArticles .articles a.item .postTitle {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.flexible-banner.banner {
+body section.flexible-banner.banner {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.videoBlock {
+body section.videoBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.formBlock {
+body section.formBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.formBlock .formWrapper {
+body section.formBlock .formWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.formBlock.centered .formWrapper h3 {
+body section.formBlock.centered .formWrapper h3 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock {
+body section.pricingBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock h2 {
+body section.pricingBlock h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .innerWrapper {
+body section.pricingBlock .pricingBlockItem .innerWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .title {
+body section.pricingBlock .pricingBlockItem .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .hrWrapper {
+body section.pricingBlock .pricingBlockItem .hrWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .priceBlockWrapper {
+body section.pricingBlock .pricingBlockItem .priceBlockWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .features {
+body section.pricingBlock .pricingBlockItem .features {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .features .feature {
+body section.pricingBlock .pricingBlockItem .features .feature {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
+body section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
+body section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
+body section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper {
+body section.formBlock .container .inner .formWrapper .mp_wrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper form {
+body section.formBlock .container .inner .formWrapper .mp_wrapper form {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.resources-cta-block {
+body section.resources-cta-block {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .cta-title {
+body section.resources-cta-block .container .cta-content .column.text-column .cta-title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .text {
+body section.resources-cta-block .container .cta-content .column.text-column .text {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .button-container {
+body section.resources-cta-block .container .cta-content .column.text-column .button-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
+body section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
+body section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.banner .videoLink {
+body section.banner .videoLink {
 	float: none;
 	clear: both;
 }
 
-// Supplementary display:block fixes for templates/_flexible.scss's dev-preview block
+// Supplementary display:block fixes for templates/_flexible.scss's promoted-CSS block
 // above: same bug as every other file in this pass (a bare float:none
 // silently reverts inline-default tags like span/a to display:inline once
 // float stops blockifying them). Appended as matching flat selectors that
@@ -3381,258 +3375,258 @@ body.dev-preview section.banner .videoLink {
 // flex/grid conversions already present). Every selector was checked
 // against the real compiled default (un-gated) CSS to confirm display
 // truly wasn't already declared there.
-body.dev-preview section.fullWidthTextBlock .titleBlock {
+body section.fullWidthTextBlock .titleBlock {
 	display: block;
 }
-body.dev-preview section.fullWidthTextBlock .textBlockWrapper {
+body section.fullWidthTextBlock .textBlockWrapper {
 	display: block;
 }
-body.dev-preview section.videoBlock .content span.videoLink a > span:last-child span {
+body section.videoBlock .content span.videoLink a > span:last-child span {
 	display: block;
 }
-body.dev-preview section.flexible-banner.banner .content span.videoLink a > span:last-child span {
+body section.flexible-banner.banner .content span.videoLink a > span:last-child span {
 	display: block;
 }
-body.dev-preview section.download-block .container .download-block-title {
+body section.download-block .container .download-block-title {
 	display: block;
 }
-body.dev-preview section.download-block .container .listing-title {
+body section.download-block .container .listing-title {
 	display: block;
 }
-body.dev-preview section.download-block .container .listing-details {
+body section.download-block .container .listing-details {
 	display: block;
 }
-body.dev-preview section.download-block .container .download-image-container {
+body section.download-block .container .download-image-container {
 	display: block;
 }
-body.dev-preview section.download-block .container .listing-details p {
+body section.download-block .container .listing-details p {
 	display: block;
 }
-body.dev-preview section.download-block .container .listing-details a {
+body section.download-block .container .listing-details a {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .download-image-container {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .download-image-container {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-title {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-title {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details p {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details p {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details a {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .preview-container .description-container .listing-details a {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .download-container .download-title {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .download-container .download-title {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .download-container .downloads {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .download-container .downloads {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-title {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-title {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details p {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details p {
 	display: block;
 }
-body.dev-preview .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details a {
+body .mfp-wrap.download-container .mfp-content .downloadPopup .container .description-container .listing-details a {
 	display: block;
 }
-body.dev-preview section.video-grid-block .container .video-block-title {
+body section.video-grid-block .container .video-block-title {
 	display: block;
 }
-body.dev-preview section.video-grid-block .container .listing-title {
+body section.video-grid-block .container .listing-title {
 	display: block;
 }
-body.dev-preview section.video-grid-block .container .listing-details {
+body section.video-grid-block .container .listing-details {
 	display: block;
 }
-body.dev-preview section.video-grid-block .container .listing-details p {
+body section.video-grid-block .container .listing-details p {
 	display: block;
 }
-body.dev-preview section.video-grid-block .container .listing-details a {
+body section.video-grid-block .container .listing-details a {
 	display: block;
 }
-body.dev-preview section.video-grid-block .container .video-image-container {
+body section.video-grid-block .container .video-image-container {
 	display: block;
 }
-body.dev-preview section.banner .imageContainer {
+body section.banner .imageContainer {
 	display: block;
 }
-body.dev-preview section.banner .imageContainer .image .container h1 {
+body section.banner .imageContainer .image .container h1 {
 	display: block;
 }
-body.dev-preview section.banner .imageContainer .image .container h2 {
+body section.banner .imageContainer .image .container h2 {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle {
+body section.relatedArticlesThreeColumn .column.two .relatedArticle {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
+body section.relatedArticlesThreeColumn .column.two .relatedArticle .postDetails {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.two .relatedArticle a {
+body section.relatedArticlesThreeColumn .column.two .relatedArticle a {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .imageContainer {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .info {
 	display: block;
 }
-body.dev-preview section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
+body section.relatedArticlesThreeColumn .column.three .relatedArticle .postDetails .articleLink {
 	display: block;
 }
-body.dev-preview section.twoColumnTextBlock .titleBlock h2 {
+body section.twoColumnTextBlock .titleBlock h2 {
 	display: block;
 }
-body.dev-preview section.halfHalfBlock .textBlock h2 {
+body section.halfHalfBlock .textBlock h2 {
 	display: block;
 }
-body.dev-preview section.halfHalfBlock .textBlock span p {
+body section.halfHalfBlock .textBlock span p {
 	display: block;
 }
-body.dev-preview .speakerQuoteCarousel .titleBlock {
+body .speakerQuoteCarousel .titleBlock {
 	display: block;
 }
-body.dev-preview .speakerQuoteCarousel .titleBlock .text {
+body .speakerQuoteCarousel .titleBlock .text {
 	display: block;
 }
-body.dev-preview .speakerQuoteCarousel .speaker-gallery {
+body .speakerQuoteCarousel .speaker-gallery {
 	display: block;
 }
-body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
+body .speakerQuoteCarousel .speaker-gallery .textBlock .quoteBlock {
 	display: block;
 }
-body.dev-preview .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
+body .speakerQuoteCarousel .speaker-gallery .textBlock .quoteAuthor {
 	display: block;
 }
-body.dev-preview section.quoteBlockNoImage div.owl-dots {
+body section.quoteBlockNoImage div.owl-dots {
 	display: block;
 }
-body.dev-preview section.quoteBlockNoImage .item {
+body section.quoteBlockNoImage .item {
 	display: block;
 }
-body.dev-preview section.quoteBlockNoImage .item .quoteBlock {
+body section.quoteBlockNoImage .item .quoteBlock {
 	display: block;
 }
-body.dev-preview section.quoteBlockNoImage .item .quoteAuthor {
+body section.quoteBlockNoImage .item .quoteAuthor {
 	display: block;
 }
-body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item {
+body section.twoColumnWithTextAndFeaturedQuote .column.last .item {
 	display: block;
 }
-body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
+body section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteBlock {
 	display: block;
 }
-body.dev-preview section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
+body section.twoColumnWithTextAndFeaturedQuote .column.last .item .quoteAuthor {
 	display: block;
 }
-body.dev-preview section.fullWidthTextEditor {
+body section.fullWidthTextEditor {
 	display: block;
 }
-body.dev-preview section.relatedSpeakerArticles .titleBlock {
+body section.relatedSpeakerArticles .titleBlock {
 	display: block;
 }
-body.dev-preview section.relatedSpeakerArticles .articles {
+body section.relatedSpeakerArticles .articles {
 	display: block;
 }
-body.dev-preview section.relatedSpeakerArticles .articles a.item .postDetails {
+body section.relatedSpeakerArticles .articles a.item .postDetails {
 	display: block;
 }
-body.dev-preview section.relatedSpeakerArticles .articles a.item .postTitle {
+body section.relatedSpeakerArticles .articles a.item .postTitle {
 	display: block;
 }
-body.dev-preview section.flexible-banner.banner {
+body section.flexible-banner.banner {
 	display: block;
 }
-body.dev-preview section.videoBlock {
+body section.videoBlock {
 	display: block;
 }
-body.dev-preview section.formBlock {
+body section.formBlock {
 	display: block;
 }
-body.dev-preview section.formBlock .formWrapper {
+body section.formBlock .formWrapper {
 	display: block;
 }
-body.dev-preview section.formBlock.centered .formWrapper h3 {
+body section.formBlock.centered .formWrapper h3 {
 	display: block;
 }
-body.dev-preview section.pricingBlock {
+body section.pricingBlock {
 	display: block;
 }
-body.dev-preview section.pricingBlock h2 {
+body section.pricingBlock h2 {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .innerWrapper {
+body section.pricingBlock .pricingBlockItem .innerWrapper {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .title {
+body section.pricingBlock .pricingBlockItem .title {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .hrWrapper {
+body section.pricingBlock .pricingBlockItem .hrWrapper {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .priceBlockWrapper {
+body section.pricingBlock .pricingBlockItem .priceBlockWrapper {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .features {
+body section.pricingBlock .pricingBlockItem .features {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .features .feature {
+body section.pricingBlock .pricingBlockItem .features .feature {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
+body section.pricingBlock .pricingBlockItem .pricingButtonWrapper {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
+body section.pricingBlock .pricingBlockItem .pricingButtonWrapper .small {
 	display: block;
 }
-body.dev-preview section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
+body section.pricingBlock .pricingBlockItem.featured .featuredWrapper {
 	display: block;
 }
-body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper {
+body section.formBlock .container .inner .formWrapper .mp_wrapper {
 	display: block;
 }
-body.dev-preview section.formBlock .container .inner .formWrapper .mp_wrapper form {
+body section.formBlock .container .inner .formWrapper .mp_wrapper form {
 	display: block;
 }
-body.dev-preview section.resources-cta-block {
+body section.resources-cta-block {
 	display: block;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .cta-title {
+body section.resources-cta-block .container .cta-content .column.text-column .cta-title {
 	display: block;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .text {
+body section.resources-cta-block .container .cta-content .column.text-column .text {
 	display: block;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.text-column .button-container {
+body section.resources-cta-block .container .cta-content .column.text-column .button-container {
 	display: block;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
+body section.resources-cta-block .container .cta-content .column.image-column .main-image-container img {
 	display: block;
 }
-body.dev-preview section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
+body section.resources-cta-block .container .cta-content .column.image-column .overlay-image-container img {
 	display: block;
 }
-body.dev-preview section.banner .videoLink {
+body section.banner .videoLink {
 	display: block;
 }

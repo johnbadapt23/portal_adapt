@@ -159,62 +159,62 @@ section.announcementsContainer {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.announcementsContainer {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.announcementsContainer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .introductionTextContainer {
+body section.announcementsContainer .container .introductionTextContainer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .introductionTextContainer h1 {
+body section.announcementsContainer .container .introductionTextContainer h1 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .introductionTextContainer .introductionText {
+body section.announcementsContainer .container .introductionTextContainer .introductionText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item {
+body section.announcementsContainer .container .announcements-loop {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top {
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top span.date {
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top h3 {
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top span.date {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.small-text {
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .item-top h3 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.author {
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.small-text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .read-more {
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item span.author {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.announcementsContainer .container .announcements-loop a.announcement-link .post-item .read-more {
 	float: none;
 	clear: both;
 	display: inline-block;

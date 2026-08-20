@@ -329,18 +329,18 @@ html.no-touch {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.search-filter-container .container .search {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.search-filter-container .container .search {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.search-filter-container .container .search form {
+body section.search-filter-container .container .search form {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.search-filter-container .container .article-filtering-container {
+body section.search-filter-container .container .article-filtering-container {
 	float: none;
 	clear: both;
 	display: block;

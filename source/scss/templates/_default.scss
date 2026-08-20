@@ -34,13 +34,13 @@ section.default {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.default .container label {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.default .container label {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.default .register-button-container {
+body section.default .register-button-container {
 	float: none;
 	clear: both;
 	display: block;

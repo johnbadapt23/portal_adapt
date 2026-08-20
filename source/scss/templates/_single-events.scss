@@ -775,73 +775,73 @@ section.eventShare {
 // Deferred real pairs: banner .insetImage/.videoLink a icon+text row,
 // agendaHighlightsBlock .item time+eventOverview split, eventShare share
 // icon row.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.navigation {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.navigation {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.navigation ul {
+body section.navigation ul {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.navigation .container .fixedButtonWrapper {
+body section.navigation .container .fixedButtonWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.centerModeCarousel .titleBlock {
+body section.centerModeCarousel .titleBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.centerModeCarousel .titleBlock .title {
+body section.centerModeCarousel .titleBlock .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.centerModeCarousel .center {
+body section.centerModeCarousel .center {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.agendaHighlightsBlock {
+body section.agendaHighlightsBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.agendaHighlightsBlock .agendaBlock {
+body section.agendaHighlightsBlock .agendaBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.agendaHighlightsBlock .agendaBlock .item {
+body section.agendaHighlightsBlock .agendaBlock .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.agendaHighlightsBlock .seeMore {
+body section.agendaHighlightsBlock .seeMore {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.imageGridBlock.logos .titleBlock {
+body section.imageGridBlock.logos .titleBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.imageGridBlock.logos .logoGroup {
+body section.imageGridBlock.logos .logoGroup {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.imageGridBlock.logos .logoGroup .title {
+body section.imageGridBlock.logos .logoGroup .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.imageGridBlock.logos .item:last-child .yourLogoHere {
+body section.imageGridBlock.logos .item:last-child .yourLogoHere {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventShare {
+body section.eventShare {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventShare .container .share {
+body section.eventShare .container .share {
 	float: none;
 	clear: both;
 }
 
-// Supplementary display:block fixes for templates/_single-events.scss's dev-preview block
+// Supplementary display:block fixes for templates/_single-events.scss's promoted-CSS block
 // above: same bug as every other file in this pass (a bare float:none
 // silently reverts inline-default tags like span/a to display:inline once
 // float stops blockifying them). Appended as matching flat selectors that
@@ -851,48 +851,48 @@ body.dev-preview section.eventShare .container .share {
 // flex/grid conversions already present). Every selector was checked
 // against the real compiled default (un-gated) CSS to confirm display
 // truly wasn't already declared there.
-body.dev-preview section.navigation {
+body section.navigation {
 	display: block;
 }
-body.dev-preview section.navigation ul {
+body section.navigation ul {
 	display: block;
 }
-body.dev-preview section.centerModeCarousel .titleBlock {
+body section.centerModeCarousel .titleBlock {
 	display: block;
 }
-body.dev-preview section.centerModeCarousel .titleBlock .title {
+body section.centerModeCarousel .titleBlock .title {
 	display: block;
 }
-body.dev-preview section.centerModeCarousel .center {
+body section.centerModeCarousel .center {
 	display: block;
 }
-body.dev-preview section.agendaHighlightsBlock {
+body section.agendaHighlightsBlock {
 	display: block;
 }
-body.dev-preview section.agendaHighlightsBlock .agendaBlock {
+body section.agendaHighlightsBlock .agendaBlock {
 	display: block;
 }
-body.dev-preview section.agendaHighlightsBlock .agendaBlock .item {
+body section.agendaHighlightsBlock .agendaBlock .item {
 	display: block;
 }
-body.dev-preview section.agendaHighlightsBlock .seeMore {
+body section.agendaHighlightsBlock .seeMore {
 	display: block;
 }
-body.dev-preview section.imageGridBlock.logos .titleBlock {
+body section.imageGridBlock.logos .titleBlock {
 	display: block;
 }
-body.dev-preview section.imageGridBlock.logos .logoGroup {
+body section.imageGridBlock.logos .logoGroup {
 	display: block;
 }
-body.dev-preview section.imageGridBlock.logos .logoGroup .title {
+body section.imageGridBlock.logos .logoGroup .title {
 	display: block;
 }
-body.dev-preview section.imageGridBlock.logos .item:last-child .yourLogoHere {
+body section.imageGridBlock.logos .item:last-child .yourLogoHere {
 	display: block;
 }
-body.dev-preview section.eventShare {
+body section.eventShare {
 	display: block;
 }
-body.dev-preview section.eventShare .container .share {
+body section.eventShare .container .share {
 	display: block;
 }

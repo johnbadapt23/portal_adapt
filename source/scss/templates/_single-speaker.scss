@@ -242,33 +242,33 @@ section.speakerProfile {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.speakerProfile .speakerLeft .imageContainer {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.speakerProfile .speakerLeft .imageContainer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speakerProfile .speakerLeft .textBlock {
+body section.speakerProfile .speakerLeft .textBlock {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speakerProfile .speakerLeft .textBlock .quoteBlock {
+body section.speakerProfile .speakerLeft .textBlock .quoteBlock {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speakerProfile .speakerLeft .textBlock .quoteAuthor {
+body section.speakerProfile .speakerLeft .textBlock .quoteAuthor {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speakerProfile .speakerRight .logoWrapper {
+body section.speakerProfile .speakerRight .logoWrapper {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speakerProfile .speakerRight .textBlock {
+body section.speakerProfile .speakerRight .textBlock {
 	float: none;
 	clear: both;
 	display: block;

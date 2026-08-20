@@ -50,7 +50,7 @@ The config extends `stylelint-config-standard-scss` with most formatting/style-p
 
 As of this config's introduction, `npm run lint:scss` reports 183 pre-existing violations across the codebase — that's the inherited baseline, not something to fix in one pass. Treat new violations your own change introduces as worth a look; the existing 183 are legacy debt to clean up opportunistically, not a blocker.
 
-Note on indentation: hand-authored SCSS in this codebase uses 4-space indentation; the `body.dev-preview { ... }` blocks added during the float-to-flexbox modernization pass use tabs instead. This predates the lint config and isn't something it enforces either way.
+Note on indentation: hand-authored SCSS in this codebase uses 4-space indentation; the modernization-pass rules added during the float-to-flexbox conversion (originally gated behind `body.dev-preview`, now promoted to default CSS - see git history) use tabs instead. This predates the lint config and isn't something it enforces either way.
 
 ## Project structure
 

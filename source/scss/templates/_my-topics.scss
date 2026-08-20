@@ -161,52 +161,52 @@ section.updateInterests {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.updateInterests {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.updateInterests {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .introductionTextContainer {
+body section.updateInterests .container .introductionTextContainer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .introductionTextContainer h1 {
+body section.updateInterests .container .introductionTextContainer h1 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .introductionTextContainer .introductionText {
+body section.updateInterests .container .introductionTextContainer .introductionText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.updateInterests .container .topicsContainer {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview section.updateInterests .container .topicsContainer .formContainer {
+body section.updateInterests .container .topicsContainer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .topicsContainer .formContainer form {
+body section.updateInterests .container .topicsContainer .formContainer {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic {
+body section.updateInterests .container .topicsContainer .formContainer form {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic .topicTitle {
+body section.updateInterests .container .topicsContainer .formContainer form .topic {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.updateInterests .container .topicsContainer .formContainer form .topic .checkbox-container label {
+body section.updateInterests .container .topicsContainer .formContainer form .topic .topicTitle {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.updateInterests .container .topicsContainer .formContainer form .topic .checkbox-container label {
 	float: none;
 	clear: both;
 	display: inline-block;

@@ -955,47 +955,47 @@ footer {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview .nf-field-container {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .nf-field-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .nf-form-cont {
+body .nf-form-cont {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .nf-fu-progress {
+body .nf-fu-progress {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .files_uploaded {
+body .files_uploaded {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .field-wrap h2:after {
+body .field-wrap h2:after {
 	float: none;
 	clear: both;
 }
-body.dev-preview .field-wrap input[type=button],
-body.dev-preview .field-wrap input[type=submit] {
+body .field-wrap input[type=button],
+body .field-wrap input[type=submit] {
 	float: none;
 	clear: both;
 }
-body.dev-preview footer .form .nf-response-msg {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview .formPopup .nf-response-msg {
+body footer .form .nf-response-msg {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .formWrapper.register .email-wrap {
+body .formPopup .nf-response-msg {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .formWrapper.register .email-wrap {
 	float: none;
 	clear: both;
 	display: block;

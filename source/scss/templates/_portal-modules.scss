@@ -3884,557 +3884,556 @@ html.touch {
 // or its immediate parent being display:flex). Every selector below was
 // cross-checked against the real compiled CSS output.
 // section.topicBanner .imageSizeContainer .title-filter-container is
-// skipped here - already gated in _post.scss's dev-preview block. This
+// skipped here - already covered in _post.scss's promoted-CSS block. This
 // file is unusually real-pair-heavy: the featuredGrid masonry grid
 // (nth-child(1n) through (5n)), the caseStudiesFeaturedText/Video 50/50
 // splits, the welcome section's 34/66 split, getAdvice's 50/50 split,
 // the market-narratives filter dropdowns row, and the topicBanner
 // follow-container are all deliberately left for a dedicated pass -
 // over half of this file's floats are genuine side-by-side layouts, not
-// safe mechanical cleanup. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview section.researchArticleTextHeader.preview-module .item {
+// safe mechanical cleanup. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.researchArticleTextHeader.preview-module .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider .main-slide {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider .main-slide {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider .thumbnail-slide {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider .thumbnail-slide {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.topicBanner.sector-topic-banner .container .breadcrumb-container {
+body section.topicBanner.sector-topic-banner .container .breadcrumb-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.topicBanner.sectorBanner .container .back-to-sectors {
+body section.topicBanner.sectorBanner .container .back-to-sectors {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer .topicFilter {
+body section.featuredSlider.portal .item .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer a.title {
+body section.featuredSlider.portal .item .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer .dateReadTime {
+body section.featuredSlider.portal .item .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer .excerpt {
+body section.featuredSlider.portal .item .textContainer .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredSlider.portal ul.slick-dots {
+body section.featuredSlider.portal ul.slick-dots {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .blockTitle {
+body section.featuredGrid.portal .blockTitle {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper {
+body section.featuredGrid.portal .gridWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .excerpt {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .excerpt {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .excerpt {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .blockTitle {
+body section.caseStudiesFeaturedText.portal .blockTitle {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer {
+body section.caseStudiesFeaturedText.portal .item .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer .topicFilter {
+body section.caseStudiesFeaturedText.portal .item .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer a.title {
+body section.caseStudiesFeaturedText.portal .item .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer .dateReadTime {
+body section.caseStudiesFeaturedText.portal .item .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer .excerpt {
+body section.caseStudiesFeaturedText.portal .item .textContainer .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedVideo.portal .item a.title {
+body section.caseStudiesFeaturedVideo.portal .item a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.caseStudiesFeaturedVideo.portal .item .textContainer .excerpt {
+body section.caseStudiesFeaturedVideo.portal .item .textContainer .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventSlider.portal .blockTitle {
+body section.eventSlider.portal .blockTitle {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventSlider.portal .slideContainer {
+body section.eventSlider.portal .slideContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .imageSizeContainer {
+body section.eventSlider.portal .slideContainer .item .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .textContainer {
+body section.eventSlider.portal .slideContainer .item .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .textContainer .topicFilter {
+body section.eventSlider.portal .slideContainer .item .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .textContainer a.title {
+body section.eventSlider.portal .slideContainer .item .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.topicBanner .imageSizeContainer .bannerBreadcrumbs {
+body section.topicBanner .imageSizeContainer .bannerBreadcrumbs {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.topicBanner .imageSizeContainer h1 {
+body section.topicBanner .imageSizeContainer h1 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.topicBanner .imageSizeContainer p {
+body section.topicBanner .imageSizeContainer p {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-persona-market-narratives section.filter {
+body.template-persona-market-narratives section.filter {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper {
+body.template-persona-market-narratives section.filter .formWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper label {
+body.template-persona-market-narratives section.filter .formWrapper label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper .dropDowns .subTopics input {
+body.template-persona-market-narratives section.filter .formWrapper .dropDowns .subTopics input {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper .searchField .search {
+body.template-persona-market-narratives section.filter .formWrapper .searchField .search {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper span.select2 {
+body.template-persona-market-narratives section.filter .formWrapper span.select2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview main.main-topic section.filter {
+body main.main-topic section.filter {
 	float: none;
 	clear: both;
 }
-body.dev-preview main.main-topic section.filter .formWrapper {
+body main.main-topic section.filter .formWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview main.main-topic section.filter .formWrapper label {
+body main.main-topic section.filter .formWrapper label {
 	float: none;
 	clear: both;
 }
-body.dev-preview main.main-topic section.filter .formWrapper .dropDowns .subTopics input {
+body main.main-topic section.filter .formWrapper .dropDowns .subTopics input {
 	float: none;
 	clear: both;
 }
-body.dev-preview main.main-topic section.filter .formWrapper .searchField .search {
+body main.main-topic section.filter .formWrapper .searchField .search {
 	float: none;
 	clear: both;
 }
-body.dev-preview main.main-topic section.filter .formWrapper span.select2 {
+body main.main-topic section.filter .formWrapper span.select2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-technology-trends-markets section.filter {
+body.template-technology-trends-markets section.filter {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper {
+body.template-technology-trends-markets section.filter .formWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper label {
+body.template-technology-trends-markets section.filter .formWrapper label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper .dropDowns .subTopics input {
+body.template-technology-trends-markets section.filter .formWrapper .dropDowns .subTopics input {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper .searchField .search {
+body.template-technology-trends-markets section.filter .formWrapper .searchField .search {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper span.select2 {
+body.template-technology-trends-markets section.filter .formWrapper span.select2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-sectors-market-narrative section.filter {
+body.template-sectors-market-narrative section.filter {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper {
+body.template-sectors-market-narrative section.filter .formWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper label {
+body.template-sectors-market-narrative section.filter .formWrapper label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper .dropDowns .subTopics input {
+body.template-sectors-market-narrative section.filter .formWrapper .dropDowns .subTopics input {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper .searchField .search {
+body.template-sectors-market-narrative section.filter .formWrapper .searchField .search {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper span.select2 {
+body.template-sectors-market-narrative section.filter .formWrapper span.select2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.expertPresentationFeatured.trial-featured h2 {
+body section.expertPresentationFeatured.trial-featured h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.expertPresentationFeatured.singleResearch .nextSection {
+body section.expertPresentationFeatured.singleResearch .nextSection {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.expertPresentationFeatured .imageSizeContainer {
+body section.expertPresentationFeatured .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.expertPresentationFeatured .imageSizeContainer .textContainer .topicFilter {
+body section.expertPresentationFeatured .imageSizeContainer .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.expertPresentationFeatured .imageSizeContainer .textContainer .title {
+body section.expertPresentationFeatured .imageSizeContainer .textContainer .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader .item {
+body section.researchArticleTextHeader .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .imageContainer {
+body.dashboard section.blogWrapper .postLink .imageContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .top.articleTop {
+body.dashboard section.blogWrapper .postLink .top.articleTop {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .top.articleTop .articleLink {
+body.dashboard section.blogWrapper .postLink .top.articleTop .articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .top {
+body.dashboard section.blogWrapper .postLink .blogText .top {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .top .eventDetails {
+body.dashboard section.blogWrapper .postLink .blogText .top .eventDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .top .articleLink {
+body.dashboard section.blogWrapper .postLink .blogText .top .articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .bottom {
+body.dashboard section.blogWrapper .postLink .blogText .bottom {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .imageContainer {
+body.template-events-portal section.blogWrapper .postLink .imageContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .top.articleTop {
+body.template-events-portal section.blogWrapper .postLink .top.articleTop {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .top.articleTop .articleLink {
+body.template-events-portal section.blogWrapper .postLink .top.articleTop .articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top {
+body.template-events-portal section.blogWrapper .postLink .blogText .top {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top .eventDetails {
+body.template-events-portal section.blogWrapper .postLink .blogText .top .eventDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top .articleLink {
+body.template-events-portal section.blogWrapper .postLink .blogText .top .articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .bottom {
+body.template-events-portal section.blogWrapper .postLink .blogText .bottom {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventsBanner .bannerBreadcrumbs {
+body section.eventsBanner .bannerBreadcrumbs {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventsBanner h1 {
+body section.eventsBanner h1 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.eventsBanner p {
+body section.eventsBanner p {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.getAdvice .textContainer span.howHelp {
+body section.getAdvice .textContainer span.howHelp {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.getAdvice .textContainer form {
+body section.getAdvice .textContainer form {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.getAdvice .textContainer form textarea {
+body section.getAdvice .textContainer form textarea {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.welcome .left .welcome-message {
+body section.welcome .left .welcome-message {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.welcome .left .message {
+body section.welcome .left .message {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.welcome .left .button-block {
+body section.welcome .left .button-block {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles h2 {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .imageSizeContainer {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer .dateReadTime {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer a.title {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer a.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer {
+body section.announcementArticleTextHeader .container .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .topicFilter {
+body section.announcementArticleTextHeader .container .textContainer .topicFilter {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .title {
+body section.announcementArticleTextHeader .container .textContainer .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .author {
+body section.announcementArticleTextHeader .container .textContainer .author {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .dateReadTime {
+body section.announcementArticleTextHeader .container .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .image-container {
+body section.announcementArticleTextHeader .container .image-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcementArticleTextHeader .container .image-container .imageSizeContainer {
+body section.announcementArticleTextHeader .container .image-container .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-scrolldown {
+body section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-scrolldown {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-prompt {
+body section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-prompt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .title {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .dateReadTime {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .dateReadTime {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .item-excerpt {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .item-excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .replay-button-container {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .replay-button-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .replay-button-container .replay-button {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .replay-button-container .replay-button {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer .replay-button-container.mobile .replay-button {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer .replay-button-container.mobile .replay-button {
 	float: none;
 	clear: both;
 }
 
-// Supplementary display:block fixes for templates/_portal-modules.scss's dev-preview block
+// Supplementary display:block fixes for templates/_portal-modules.scss's promoted-CSS block
 // above: same bug as every other file in this pass (a bare float:none
 // silently reverts inline-default tags like span/a to display:inline once
 // float stops blockifying them). Appended as matching flat selectors that
@@ -4444,402 +4443,402 @@ body.dev-preview section.researchArticleTextHeader.replayArticleHeader .containe
 // flex/grid conversions already present). Every selector was checked
 // against the real compiled default (un-gated) CSS to confirm display
 // truly wasn't already declared there.
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider .main-slide {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-main-slider .main-slide {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider .thumbnail-slide {
+body section.researchArticleTextHeader.preview-module .item .slide-preview-container .preview-thumbnail-slider .thumbnail-slide {
 	display: block;
 }
-body.dev-preview section.topicBanner.sector-topic-banner .container .breadcrumb-container {
+body section.topicBanner.sector-topic-banner .container .breadcrumb-container {
 	display: block;
 }
-body.dev-preview section.topicBanner.sectorBanner .container .back-to-sectors {
+body section.topicBanner.sectorBanner .container .back-to-sectors {
 	display: block;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer .topicFilter {
+body section.featuredSlider.portal .item .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer a.title {
+body section.featuredSlider.portal .item .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer .dateReadTime {
+body section.featuredSlider.portal .item .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.featuredSlider.portal .item .textContainer .excerpt {
+body section.featuredSlider.portal .item .textContainer .excerpt {
 	display: block;
 }
-body.dev-preview section.featuredSlider.portal ul.slick-dots {
+body section.featuredSlider.portal ul.slick-dots {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .blockTitle {
+body section.featuredGrid.portal .blockTitle {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper {
+body section.featuredGrid.portal .gridWrapper {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(1n) .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .topicFilter {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(2n) .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .imageSizeContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer a.title {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .dateReadTime {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .excerpt {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(3n) .textContainer .excerpt {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .excerpt {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(4n) .textContainer .excerpt {
 	display: block;
 }
-body.dev-preview section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .excerpt {
+body section.featuredGrid.portal .gridWrapper .item:nth-child(5n) .textContainer .excerpt {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .blockTitle {
+body section.caseStudiesFeaturedText.portal .blockTitle {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer {
+body section.caseStudiesFeaturedText.portal .item .textContainer {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer .topicFilter {
+body section.caseStudiesFeaturedText.portal .item .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer a.title {
+body section.caseStudiesFeaturedText.portal .item .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer .dateReadTime {
+body section.caseStudiesFeaturedText.portal .item .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedText.portal .item .textContainer .excerpt {
+body section.caseStudiesFeaturedText.portal .item .textContainer .excerpt {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedVideo.portal .item a.title {
+body section.caseStudiesFeaturedVideo.portal .item a.title {
 	display: block;
 }
-body.dev-preview section.caseStudiesFeaturedVideo.portal .item .textContainer .excerpt {
+body section.caseStudiesFeaturedVideo.portal .item .textContainer .excerpt {
 	display: block;
 }
-body.dev-preview section.eventSlider.portal .blockTitle {
+body section.eventSlider.portal .blockTitle {
 	display: block;
 }
-body.dev-preview section.eventSlider.portal .slideContainer {
+body section.eventSlider.portal .slideContainer {
 	display: block;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .imageSizeContainer {
+body section.eventSlider.portal .slideContainer .item .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .textContainer {
+body section.eventSlider.portal .slideContainer .item .textContainer {
 	display: block;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .textContainer .topicFilter {
+body section.eventSlider.portal .slideContainer .item .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.eventSlider.portal .slideContainer .item .textContainer a.title {
+body section.eventSlider.portal .slideContainer .item .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.topicBanner .imageSizeContainer .bannerBreadcrumbs {
+body section.topicBanner .imageSizeContainer .bannerBreadcrumbs {
 	display: block;
 }
-body.dev-preview section.topicBanner .imageSizeContainer h1 {
+body section.topicBanner .imageSizeContainer h1 {
 	display: block;
 }
-body.dev-preview section.topicBanner .imageSizeContainer p {
+body section.topicBanner .imageSizeContainer p {
 	display: block;
 }
-body.dev-preview.template-persona-market-narratives section.filter {
+body.template-persona-market-narratives section.filter {
 	display: block;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper {
+body.template-persona-market-narratives section.filter .formWrapper {
 	display: block;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper label {
+body.template-persona-market-narratives section.filter .formWrapper label {
 	display: block;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper .dropDowns .subTopics input {
+body.template-persona-market-narratives section.filter .formWrapper .dropDowns .subTopics input {
 	display: block;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper .searchField .search {
+body.template-persona-market-narratives section.filter .formWrapper .searchField .search {
 	display: block;
 }
-body.dev-preview.template-persona-market-narratives section.filter .formWrapper span.select2 {
+body.template-persona-market-narratives section.filter .formWrapper span.select2 {
 	display: block;
 }
-body.dev-preview main.main-topic section.filter {
+body main.main-topic section.filter {
 	display: block;
 }
-body.dev-preview main.main-topic section.filter .formWrapper {
+body main.main-topic section.filter .formWrapper {
 	display: block;
 }
-body.dev-preview main.main-topic section.filter .formWrapper label {
+body main.main-topic section.filter .formWrapper label {
 	display: block;
 }
-body.dev-preview main.main-topic section.filter .formWrapper .dropDowns .subTopics input {
+body main.main-topic section.filter .formWrapper .dropDowns .subTopics input {
 	display: block;
 }
-body.dev-preview main.main-topic section.filter .formWrapper .searchField .search {
+body main.main-topic section.filter .formWrapper .searchField .search {
 	display: block;
 }
-body.dev-preview main.main-topic section.filter .formWrapper span.select2 {
+body main.main-topic section.filter .formWrapper span.select2 {
 	display: block;
 }
-body.dev-preview.template-technology-trends-markets section.filter {
+body.template-technology-trends-markets section.filter {
 	display: block;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper {
+body.template-technology-trends-markets section.filter .formWrapper {
 	display: block;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper label {
+body.template-technology-trends-markets section.filter .formWrapper label {
 	display: block;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper .dropDowns .subTopics input {
+body.template-technology-trends-markets section.filter .formWrapper .dropDowns .subTopics input {
 	display: block;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper .searchField .search {
+body.template-technology-trends-markets section.filter .formWrapper .searchField .search {
 	display: block;
 }
-body.dev-preview.template-technology-trends-markets section.filter .formWrapper span.select2 {
+body.template-technology-trends-markets section.filter .formWrapper span.select2 {
 	display: block;
 }
-body.dev-preview.template-sectors-market-narrative section.filter {
+body.template-sectors-market-narrative section.filter {
 	display: block;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper {
+body.template-sectors-market-narrative section.filter .formWrapper {
 	display: block;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper label {
+body.template-sectors-market-narrative section.filter .formWrapper label {
 	display: block;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper .dropDowns .subTopics input {
+body.template-sectors-market-narrative section.filter .formWrapper .dropDowns .subTopics input {
 	display: block;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper .searchField .search {
+body.template-sectors-market-narrative section.filter .formWrapper .searchField .search {
 	display: block;
 }
-body.dev-preview.template-sectors-market-narrative section.filter .formWrapper span.select2 {
+body.template-sectors-market-narrative section.filter .formWrapper span.select2 {
 	display: block;
 }
-body.dev-preview section.expertPresentationFeatured.trial-featured h2 {
+body section.expertPresentationFeatured.trial-featured h2 {
 	display: block;
 }
-body.dev-preview section.expertPresentationFeatured.singleResearch .nextSection {
+body section.expertPresentationFeatured.singleResearch .nextSection {
 	display: block;
 }
-body.dev-preview section.expertPresentationFeatured .imageSizeContainer {
+body section.expertPresentationFeatured .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.expertPresentationFeatured .imageSizeContainer .textContainer .topicFilter {
+body section.expertPresentationFeatured .imageSizeContainer .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.expertPresentationFeatured .imageSizeContainer .textContainer .title {
+body section.expertPresentationFeatured .imageSizeContainer .textContainer .title {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader .item {
+body section.researchArticleTextHeader .item {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .imageContainer {
+body.dashboard section.blogWrapper .postLink .imageContainer {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .top.articleTop {
+body.dashboard section.blogWrapper .postLink .top.articleTop {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .top.articleTop .articleLink {
+body.dashboard section.blogWrapper .postLink .top.articleTop .articleLink {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .top {
+body.dashboard section.blogWrapper .postLink .blogText .top {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .top .eventDetails {
+body.dashboard section.blogWrapper .postLink .blogText .top .eventDetails {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .top .articleLink {
+body.dashboard section.blogWrapper .postLink .blogText .top .articleLink {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .imageContainer {
+body.template-events-portal section.blogWrapper .postLink .imageContainer {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .top.articleTop {
+body.template-events-portal section.blogWrapper .postLink .top.articleTop {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .top.articleTop .articleLink {
+body.template-events-portal section.blogWrapper .postLink .top.articleTop .articleLink {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top {
+body.template-events-portal section.blogWrapper .postLink .blogText .top {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top .eventDetails {
+body.template-events-portal section.blogWrapper .postLink .blogText .top .eventDetails {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .top .articleLink {
+body.template-events-portal section.blogWrapper .postLink .blogText .top .articleLink {
 	display: block;
 }
-body.dev-preview.template-events-portal section.blogWrapper .postLink .blogText .bottom {
+body.template-events-portal section.blogWrapper .postLink .blogText .bottom {
 	display: block;
 }
-body.dev-preview.dashboard section.blogWrapper .postLink .blogText .bottom {
+body.dashboard section.blogWrapper .postLink .blogText .bottom {
 	display: block;
 }
-body.dev-preview section.eventsBanner .bannerBreadcrumbs {
+body section.eventsBanner .bannerBreadcrumbs {
 	display: block;
 }
-body.dev-preview section.eventsBanner h1 {
+body section.eventsBanner h1 {
 	display: block;
 }
-body.dev-preview section.eventsBanner p {
+body section.eventsBanner p {
 	display: block;
 }
-body.dev-preview section.getAdvice .textContainer span.howHelp {
+body section.getAdvice .textContainer span.howHelp {
 	display: block;
 }
-body.dev-preview section.getAdvice .textContainer form {
+body section.getAdvice .textContainer form {
 	display: block;
 }
-body.dev-preview section.getAdvice .textContainer form textarea {
+body section.getAdvice .textContainer form textarea {
 	display: block;
 }
-body.dev-preview section.welcome .left .welcome-message {
+body section.welcome .left .welcome-message {
 	display: block;
 }
-body.dev-preview section.welcome .left .message {
+body section.welcome .left .message {
 	display: block;
 }
-body.dev-preview section.welcome .left .button-block {
+body section.welcome .left .button-block {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles h2 {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles h2 {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .imageSizeContainer {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer .dateReadTime {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer a.title {
+body section.webinar-article.announcement-article .container .column.second-column .relatedArticles .item .textContainer a.title {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer {
+body section.announcementArticleTextHeader .container .textContainer {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .topicFilter {
+body section.announcementArticleTextHeader .container .textContainer .topicFilter {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .title {
+body section.announcementArticleTextHeader .container .textContainer .title {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .author {
+body section.announcementArticleTextHeader .container .textContainer .author {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .textContainer .dateReadTime {
+body section.announcementArticleTextHeader .container .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .image-container {
+body section.announcementArticleTextHeader .container .image-container {
 	display: block;
 }
-body.dev-preview section.announcementArticleTextHeader .container .image-container .imageSizeContainer {
+body section.announcementArticleTextHeader .container .image-container .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-scrolldown {
+body section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-scrolldown {
 	display: block;
 }
-body.dev-preview section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-prompt {
+body section.announcement-article.webinar-article.contained-article.dashboard-article .container .announcement-content .webinar-content.content.embed-content .full-screen-prompt {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .title {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .title {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .dateReadTime {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .dateReadTime {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .item-excerpt {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .item-excerpt {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .replay-button-container .replay-button {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .textContainer .replay-button-container .replay-button {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer .replay-button-container.mobile .replay-button {
+body section.researchArticleTextHeader.replayArticleHeader .container .item .imageSizeContainer .replay-button-container.mobile .replay-button {
 	display: block;
 }

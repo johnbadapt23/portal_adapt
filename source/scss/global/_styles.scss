@@ -3554,108 +3554,108 @@ span.std-button-span {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview hr {
+body hr {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview body main {
+body body main {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper .mp-form-row {
+body .mp_wrapper .mp-form-row {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .inner {
+body .inner {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .fullWidth {
+body .fullWidth {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .buttonBlock {
+body .buttonBlock {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .labelXXLarge {
+body .labelXXLarge {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .labelXL {
+body .labelXL {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .labelLarge {
+body .labelLarge {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview a.label-XXLarge {
+body a.label-XXLarge {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .labelMedium {
+body .labelMedium {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .labelSmall {
+body .labelSmall {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .text-small {
+body .text-small {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .labelXSmall {
+body .labelXSmall {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .topic-filter .labelXXsmall {
+body .topic-filter .labelXXsmall {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mfp-members .mfp-content .members-popup-inner {
+body .mfp-members .mfp-content .members-popup-inner {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content h3 {
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content h3 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content p {
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content p {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content span.already {
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content span.already {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-content .image-content-mobile {
+body .mfp-members .mfp-content .members-popup-inner .members-popup-content .image-content-mobile {
 	float: none;
 	clear: both;
 }
@@ -3665,7 +3665,7 @@ body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-c
 // local float/position/display rules for its specific context (some
 // position:absolute + aspect-ratio, some float:left + padding-top,
 // some conditionally display:none). A single blanket
-// body.dev-preview .image-container/.video-container rule is specific
+// body .image-container/.video-container rule is specific
 // enough (0,2,1) to beat many of those local, more narrowly-scoped rules,
 // which broke unrelated components sitewide (images collapsing to their
 // background color) when this was tried. The one place that legitimately
@@ -3673,12 +3673,12 @@ body.dev-preview .mfp-members .mfp-content .members-popup-inner .members-popup-c
 // -scoped selector in templates/_home.scss handling it correctly on its
 // own - this generic fallback was redundant there and dangerous
 // everywhere else, so it's intentionally left out of the safe pass.
-body.dev-preview li.nf-previous-item {
+body li.nf-previous-item {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview li.nf-next-item {
+body li.nf-next-item {
 	float: none;
 	clear: both;
 	display: block;
@@ -3691,7 +3691,7 @@ body.dev-preview li.nf-next-item {
 // different unrelated components. The .alignnone container itself is
 // already float:none; this just clears the same now-stale float off its
 // caption text.
-body.dev-preview .alignnone p {
+body .alignnone p {
 	float: none;
 	clear: both;
 }
@@ -3705,122 +3705,122 @@ body.dev-preview .alignnone p {
 // full-width, but their own li/label/input children stay float:left
 // (untouched) since those genuinely sit side-by-side as one field's
 // selectable options.
-body.dev-preview .hbspt-form .hs-main-font-element.hs-richtext {
+body .hbspt-form .hs-main-font-element.hs-richtext {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs_home_office_delivery_address {
+body .hbspt-form .hs_home_office_delivery_address {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs_dietary_requirements_ {
+body .hbspt-form .hs_dietary_requirements_ {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs_dietary_requirements {
+body .hbspt-form .hs_dietary_requirements {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-checkbox {
+body .hbspt-form .hs-fieldtype-checkbox {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-radio {
+body .hbspt-form .hs-fieldtype-radio {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-textarea {
+body .hbspt-form .hs-fieldtype-textarea {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox {
+body .hbspt-form .hs-fieldtype-booleancheckbox {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-checkbox legend {
+body .hbspt-form .hs-fieldtype-checkbox legend {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-radio legend {
+body .hbspt-form .hs-fieldtype-radio legend {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-textarea legend {
+body .hbspt-form .hs-fieldtype-textarea legend {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox legend {
+body .hbspt-form .hs-fieldtype-booleancheckbox legend {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input {
+body .hbspt-form .hs-fieldtype-checkbox div.input {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-radio div.input {
+body .hbspt-form .hs-fieldtype-radio div.input {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input {
+body .hbspt-form .hs-fieldtype-textarea div.input {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input {
+body .hbspt-form .hs-fieldtype-booleancheckbox div.input {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input ul[role="checkbox"] {
+body .hbspt-form .hs-fieldtype-checkbox div.input ul[role="checkbox"] {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-radio div.input ul[role="checkbox"] {
+body .hbspt-form .hs-fieldtype-radio div.input ul[role="checkbox"] {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input ul[role="checkbox"] {
+body .hbspt-form .hs-fieldtype-textarea div.input ul[role="checkbox"] {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input ul[role="checkbox"] {
+body .hbspt-form .hs-fieldtype-booleancheckbox div.input ul[role="checkbox"] {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-checkbox div.input ul.inputs-list {
+body .hbspt-form .hs-fieldtype-checkbox div.input ul.inputs-list {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-radio div.input ul.inputs-list {
+body .hbspt-form .hs-fieldtype-radio div.input ul.inputs-list {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-textarea div.input ul.inputs-list {
+body .hbspt-form .hs-fieldtype-textarea div.input ul.inputs-list {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .hbspt-form .hs-fieldtype-booleancheckbox div.input ul.inputs-list {
+body .hbspt-form .hs-fieldtype-booleancheckbox div.input ul.inputs-list {
 	float: none;
 	clear: both;
 	display: block;

@@ -833,92 +833,92 @@ section.two-column-services.landing-video-intro {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.thank-you-pink-introduction {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.thank-you-pink-introduction {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .animation-icon-container {
+body section.thank-you-pink-introduction .container .thank-you-inner .animation-icon-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .title-container h1 {
+body section.thank-you-pink-introduction .container .thank-you-inner .title-container h1 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.thank-you-pink-introduction .container .thank-you-inner .title-container .text {
+body section.thank-you-pink-introduction .container .thank-you-inner .title-container .text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .article-container-three-post {
+body .article-container-three-post {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .article-container-three-post .container .grid-wrapper {
+body .article-container-three-post .container .grid-wrapper {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .topic-filter {
+body .topic-filter {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.thank-you-featured .container .thank-you-post-introduction-container {
+body section.thank-you-featured .container .thank-you-post-introduction-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.next-steps-block.partners-cards-module .card-container .card .content-container .counter-title-container {
+body section.next-steps-block.partners-cards-module .card-container .card .content-container .counter-title-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.next-steps-block.partners-cards-module .card-container .card .content-container h4 {
+body section.next-steps-block.partners-cards-module .card-container .card .content-container h4 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container {
+body section.two-column-thank-you-module .container .column-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container .column {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview section.two-column-thank-you-module .container .column-container .column.image-column img {
+body section.two-column-thank-you-module .container .column-container .column {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container .column h2 {
+body section.two-column-thank-you-module .container .column-container .column.image-column img {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container .column .text {
+body section.two-column-thank-you-module .container .column-container .column h2 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container {
+body section.two-column-thank-you-module .container .column-container .column .text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container .list-item {
+body section.two-column-thank-you-module .container .column-container .column .list-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-thank-you-module .container .column-container .column .list-container .button-container {
+body section.two-column-thank-you-module .container .column-container .column .list-container .list-item {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.two-column-thank-you-module .container .column-container .column .list-container .button-container {
 	float: none;
 	clear: both;
 	display: block;
@@ -931,27 +931,27 @@ body.dev-preview section.two-column-thank-you-module .container .column-containe
 // still float:left;width:100% only at the 767 mobile fallback) - these
 // selectors are normal-flow descendants WITHIN that flex item, so
 // converting them doesn't affect the flex row itself.
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .text-content-inner {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .text-content-inner {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .pre-title {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .pre-title {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title p {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title p {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .links-container {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .links-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .buttons-container {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column .buttons-container {
 	float: none;
 	clear: both;
 	display: block;

@@ -7492,8 +7492,8 @@ section.conversation-cta {
 // block). .cardContainer .twoColumnCard used the classic float
 // two-up-grid-via-nth-child-margins pattern; flexbox + gap reproduces the
 // same width:calc(50% - 8px) cards without the odd/even margin overrides.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.twoColumnCard {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.twoColumnCard {
     float: none;clear:both;
 
     .container {
@@ -9634,8 +9634,8 @@ section.featured-module {
 // flex treatment. Doesn't yet cover the peer-insights-featured/
 // best-practices-featured/market-trends-featured/featured-home variants of
 // this same component - only the two named on the resources-featured page.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.featured-module {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.featured-module {
     float: none;clear:both;
 
     .container {
@@ -9887,9 +9887,8 @@ body.dev-preview section.featured-module {
 // grids, so it gets the same column-gap treatment. Left
 // .subscribe-sidebar-form's float:right alone in both places it appears -
 // neither has a clearly paired sibling in this file to verify the
-// replacement against. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview section.filter-listing {
+// replacement against. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.filter-listing {
     float: none;clear:both;
 
     .container {
@@ -10844,9 +10843,8 @@ section.filter-title-block {
 // converted). All width:100% single-column floats here; a.filter-button's
 // float:left is already inert today since its parent .topic-button-container
 // is already display:flex (flex items ignore float per spec), this just
-// removes the now-misleading declaration. Gated behind body.dev-preview
-// (?dev=true), see includes/_customisations.php.
-body.dev-preview section.filter-title-block {
+// removes the now-misleading declaration. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.filter-title-block {
     float: none;clear:both;
 
     .container {
@@ -10966,9 +10964,8 @@ section.conversation-cta {
 // .column/.pre-button-text/.cta-button's float:left is already inert
 // today (flex items ignore float per spec) - this just removes the
 // now-misleading declarations. The rest is the usual width:100%
-// single-column idiom. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview section.conversation-cta {
+// single-column idiom. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.conversation-cta {
     float: none;clear:both;
 
     .container {
@@ -11318,9 +11315,8 @@ body.dev-preview section.conversation-cta {
 // just removes the now-misleading declarations. Both .button-container
 // instances get a real display:flex since their a.stdBtn buttons are a
 // genuine side-by-side row, not the width:100% single-column pattern used
-// everywhere else here. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview .article {
+// everywhere else here. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .article {
     .preview-image-container {
         float: none;clear:both;
 
@@ -11410,9 +11406,8 @@ body.dev-preview .article {
 // injected markup/CSS, similar caution to leaving vendor library CSS
 // (FlexSlider etc.) alone elsewhere in this project. Not confident a
 // mechanical float removal there wouldn't fight with styles HubSpot
-// applies at runtime. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
+// applies at runtime. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
     float: none;
     clear: both;
 }
@@ -11423,9 +11418,8 @@ body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form
 // All confirmed live against real template/component markup (single-post,
 // single-event, template-home, template-flexible, single-kyc, and the
 // components/_main-topic-banner, _evr-video, _evr-fundamentals, _evr-stages,
-// template-tnc PHP files). Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview {
+// template-tnc PHP files). Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body {
     .formPopup {
         float: none;clear:both;
 
@@ -11624,140 +11618,140 @@ body.dev-preview {
 // here - that would be a real UX decision (keep as a horizontal
 // scroller vs. redesign to a wrapped grid), not a like-for-like
 // modernization.
-body.dev-preview .postHeader .filter .formContainer form span.categories,
-body.dev-preview .postHeader .filter .formContainer form span.types,
-body.dev-preview .postHeader .filter .formContainer form span.duration,
-body.dev-preview .postHeader .filter .formContainer form span.events {
+body .postHeader .filter .formContainer form span.categories,
+body .postHeader .filter .formContainer form span.types,
+body .postHeader .filter .formContainer form span.duration,
+body .postHeader .filter .formContainer form span.events {
 	display: flex;
 	flex-wrap: wrap;
 }
-body.dev-preview .postHeader .filter .formContainer form span.categories .checkboxButton,
-body.dev-preview .postHeader .filter .formContainer form span.types .checkboxButton,
-body.dev-preview .postHeader .filter .formContainer form span.duration .checkboxButton,
-body.dev-preview .postHeader .filter .formContainer form span.events .checkboxButton {
+body .postHeader .filter .formContainer form span.categories .checkboxButton,
+body .postHeader .filter .formContainer form span.types .checkboxButton,
+body .postHeader .filter .formContainer form span.duration .checkboxButton,
+body .postHeader .filter .formContainer form span.events .checkboxButton {
 	float: none;
 }
-body.dev-preview .postHeader .filter .search form {
-	float: none;
-	clear: both;
-}
-body.dev-preview .postHeader .filter .search form input.searchInput {
+body .postHeader .filter .search form {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer {
+body .postHeader .filter .search form input.searchInput {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form {
+body .postHeader .filter .formContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form .search {
+body .postHeader .filter .formContainer form {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form .search input.searchInput {
+body .postHeader .filter .formContainer form .search {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics {
+body .postHeader .filter .formContainer form .search input.searchInput {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics span.title {
+body .postHeader .filter .formContainer form span.topics {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
+body .postHeader .filter .formContainer form span.topics span.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview .postHeader .filter .formContainer form span.submitContainer {
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container {
+body .postHeader .filter .formContainer form span.submitContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events .postHeader .filter .formContainer form {
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-events .postHeader .filter .formContainer form span.submitContainer {
+body.template-events .postHeader .filter .formContainer form {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form {
+body.template-events .postHeader .filter .formContainer form span.submitContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
 	float: none;
 	clear: both;
 }
-body.dev-preview.template-insights .postHeader .viewContainer.mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+	float: none;
+	clear: both;
+}
+body.template-insights .postHeader .viewContainer.mobile {
 	float: none;
 	clear: both;
 }
@@ -11771,155 +11765,155 @@ body.dev-preview.template-insights .postHeader .viewContainer.mobile {
 // both candidates in the same layout). The postLink.layoutN cards
 // themselves and any interior element under 100% width (image columns,
 // side-by-side text panels) were left untouched.
-body.dev-preview section.blogWrapper {
+body section.blogWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout6 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout6 .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout8 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout8 .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout0 .blogText {
+body section.blogWrapper .grid .postLink.layout0 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout9 .blogText {
+body section.blogWrapper .grid .postLink.layout9 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout1 .blogText {
+body section.blogWrapper .grid .postLink.layout1 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout10 .blogText {
+body section.blogWrapper .grid .postLink.layout10 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout15 .blogText {
+body section.blogWrapper .grid .postLink.layout15 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout2 .blogText {
+body section.blogWrapper .grid .postLink.layout2 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout5 .blogText {
+body section.blogWrapper .grid .postLink.layout5 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout11 .blogText {
+body section.blogWrapper .grid .postLink.layout11 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout14 .blogText {
+body section.blogWrapper .grid .postLink.layout14 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout16 .blogText {
+body section.blogWrapper .grid .postLink.layout16 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout3 .blogText {
+body section.blogWrapper .grid .postLink.layout3 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout7 .blogText {
+body section.blogWrapper .grid .postLink.layout7 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout12 .blogText {
+body section.blogWrapper .grid .postLink.layout12 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout17 .blogText {
+body section.blogWrapper .grid .postLink.layout17 .blogText {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout4 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout4 .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout13 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout13 .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout18 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout18 .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink .blogText .postDetails .info {
+body section.blogWrapper .grid .postLink .blogText .postDetails .info {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink .blogText .articleLink {
+body section.blogWrapper .grid .postLink .blogText .articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .grid .postLink .blogText .excerpt {
+body section.blogWrapper .grid .postLink .blogText .excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .formTrigger {
+body section.blogWrapper .formTrigger {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .formTrigger .linkWrapper {
+body section.blogWrapper .formTrigger .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container #loop.results-grid .results span {
+body section.blogWrapper .container #loop.results-grid .results span {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper {
+body section.blogWrapper .container .list .list-view .linkWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
 	float: none;
 	clear: both;
 }
@@ -11932,16 +11926,16 @@ body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .b
 // .sidebar-container .media-enquiries-container/.media-contact-title,
 // .media-contact, .press-listing-container) all belong to the FIRST
 // section.filter-title-block definition, already documented above (see
-// the comment above the existing body.dev-preview section.filter-title-block
+// the comment above the existing body section.filter-title-block
 // block) as confirmed dead CSS with no matching markup anywhere in
 // templates/ - left unconverted to match that existing decision.
-body.dev-preview .article .preview-cta-container {
+body .article .preview-cta-container {
 	float: none;
 	clear: both;
 }
 
 // Supplementary display:block fixes for templates/_post.scss's nested
-// body.dev-preview block above: same bug as every other file in this pass
+// body block above: same bug as every other file in this pass
 // (a bare float:none silently reverts inline-default tags like span/a to
 // display:inline once float stops blockifying them). Rather than rewrite the
 // nested structure above (this file predates the flat-selector convention),
@@ -11951,564 +11945,564 @@ body.dev-preview .article .preview-cta-container {
 // else already set above. Every selector was checked against the real
 // compiled default (un-gated) CSS to confirm display truly wasn't already
 // declared there.
-body.dev-preview section.twoColumnCard {
+body section.twoColumnCard {
 	display: block;
 }
-body.dev-preview section.twoColumnCard .container .cardContainer .twoColumnCard .imageContainer {
+body section.twoColumnCard .container .cardContainer .twoColumnCard .imageContainer {
 	display: block;
 }
-body.dev-preview section.featured-module {
+body section.featured-module {
 	display: block;
 }
-body.dev-preview section.featured-module .container .title-container .introduction-column {
+body section.featured-module .container .title-container .introduction-column {
 	display: block;
 }
-body.dev-preview section.featured-module .container .title-container .introduction-column h2 {
+body section.featured-module .container .title-container .introduction-column h2 {
 	display: block;
 }
-body.dev-preview section.featured-module .container .title-container .introduction-column p {
+body section.featured-module .container .title-container .introduction-column p {
 	display: block;
 }
-body.dev-preview section.featured-module .container .title-container .link-container {
+body section.featured-module .container .title-container .link-container {
 	display: block;
 }
-body.dev-preview section.featured-module .container .one-half {
+body section.featured-module .container .one-half {
 	display: block;
 }
-body.dev-preview section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts {
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts {
 	display: block;
 }
-body.dev-preview section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .image-container {
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .image-container {
 	display: block;
 }
-body.dev-preview section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .video-container {
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .video-container {
 	display: block;
 }
-body.dev-preview section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .post-content-container {
+body section.featured-module .container .one-half.side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.filter-featured-post .insights-featured-column .item-content-container {
+body section.featured-module.filter-featured-post .insights-featured-column .item-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.filter-featured-post .insights-featured-column .item-content-container .topic-filter {
+body section.featured-module.filter-featured-post .insights-featured-column .item-content-container .topic-filter {
 	display: block;
 }
-body.dev-preview section.featured-module.filter-featured-post .side-bar-column .recent-sidebar .topic-filter {
+body section.featured-module.filter-featured-post .side-bar-column .recent-sidebar .topic-filter {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide {
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner {
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container {
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container .title {
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider .resources-featured-slide .resources-slide-inner .post-content-container .title {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots li {
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots li {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots li a {
+body section.featured-module.resources-featured .container .slider-column .resources-featured-slider ul.slick-dots li a {
 	display: block;
 }
-body.dev-preview section.featured-module.resources-featured .container .slider-column .paging-counter {
+body section.featured-module.resources-featured .container .slider-column .paging-counter {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column {
+body section.featured-module.peer-insights-featured .container .slide-column {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide {
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide {
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide {
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide {
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner {
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner {
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner {
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner {
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner .post-content-container {
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .peer-slide .peer-slide-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner .post-content-container {
+body section.featured-module.peer-insights-featured .container .slide-column .peer-featured-slider .expert-slide .peer-slide-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner .post-content-container {
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .peer-slide .peer-slide-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner .post-content-container {
+body section.featured-module.peer-insights-featured .container .slide-column .expert-featured-slider .expert-slide .peer-slide-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.peer-insights-featured .container .next-slide-container .post-content-container {
+body section.featured-module.peer-insights-featured .container .next-slide-container .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide {
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide {
 	display: block;
 }
-body.dev-preview section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner {
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner {
 	display: block;
 }
-body.dev-preview section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container {
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container .title {
+body section.featured-module.featured-home .post-list-container .first-post-column .resources-featured-slide .resources-slide-inner .post-content-container .title {
 	display: block;
 }
-body.dev-preview section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts {
+body section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts {
 	display: block;
 }
-body.dev-preview section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .post-content-container {
+body section.featured-module.featured-home .post-list-container .side-bar-column .recent-sidebar .resources-side-posts .resources-side-posts-inner .post-content-container {
 	display: block;
 }
-body.dev-preview section.filter-listing {
+body section.filter-listing {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .peer-insights-container-side-bar {
+body section.filter-listing .container .grid-wrapper .peer-insights-container-side-bar {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .imageSizeContainer {
+body section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container {
+body section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container .topic-filter {
+body section.filter-listing .container .grid-wrapper .item.one-third.peer-insights-item .item-content-container .topic-filter {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .market-trend-reports-container-side-bar {
+body section.filter-listing .container .grid-wrapper .market-trend-reports-container-side-bar {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .market-trend-reports-container-side-bar .item.market-trend-reports .item-content-container {
+body section.filter-listing .container .grid-wrapper .market-trend-reports-container-side-bar .item.market-trend-reports .item-content-container {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .market-trend-reports-sidebar {
+body section.filter-listing .container .grid-wrapper .market-trend-reports-sidebar {
 	display: block;
 }
-body.dev-preview section.filter-listing .container .grid-wrapper .market-trend-reports-container-full-width .item.market-trend-reports .item-content-container {
+body section.filter-listing .container .grid-wrapper .market-trend-reports-container-full-width .item.market-trend-reports .item-content-container {
 	display: block;
 }
-body.dev-preview section.filter-title-block {
+body section.filter-title-block {
 	display: block;
 }
-body.dev-preview section.filter-title-block .container .title-container {
+body section.filter-title-block .container .title-container {
 	display: block;
 }
-body.dev-preview section.filter-title-block .container .title-container h1 {
+body section.filter-title-block .container .title-container h1 {
 	display: block;
 }
-body.dev-preview section.filter-title-block .container .title-container p.type-description {
+body section.filter-title-block .container .title-container p.type-description {
 	display: block;
 }
-body.dev-preview section.filter-title-block .container .topic-button-container-outer {
+body section.filter-title-block .container .topic-button-container-outer {
 	display: block;
 }
-body.dev-preview section.filter-title-block .container .topic-button-container-outer .topic-button-container a.filter-button {
+body section.filter-title-block .container .topic-button-container-outer .topic-button-container a.filter-button {
 	display: block;
 }
-body.dev-preview section.conversation-cta {
+body section.conversation-cta {
 	display: block;
 }
-body.dev-preview section.conversation-cta .container .column-container .column {
+body section.conversation-cta .container .column-container .column {
 	display: block;
 }
-body.dev-preview section.conversation-cta .container .column-container .column.text-column h5 {
+body section.conversation-cta .container .column-container .column.text-column h5 {
 	display: block;
 }
-body.dev-preview section.conversation-cta .container .column-container .column.text-column span.text {
+body section.conversation-cta .container .column-container .column.text-column span.text {
 	display: block;
 }
-body.dev-preview section.conversation-cta .container .column-container .column.text-column .button-container .pre-button-text {
+body section.conversation-cta .container .column-container .column.text-column .button-container .pre-button-text {
 	display: block;
 }
-body.dev-preview section.conversation-cta .container .column-container .column.text-column .button-container .cta-button {
+body section.conversation-cta .container .column-container .column.text-column .button-container .cta-button {
 	display: block;
 }
-body.dev-preview section.conversation-cta .container .column-container .column.image-column .image-container {
+body section.conversation-cta .container .column-container .column.image-column .image-container {
 	display: block;
 }
-body.dev-preview .article .preview-image-container {
+body .article .preview-image-container {
 	display: block;
 }
-body.dev-preview .article .preview-image-container img {
+body .article .preview-image-container img {
 	display: block;
 }
-body.dev-preview .article .preview-cta-container .preview-cta-inner .preview-cta-content {
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content {
 	display: block;
 }
-body.dev-preview .article .preview-cta-container .preview-cta-inner .preview-cta-content .title {
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content .title {
 	display: block;
 }
-body.dev-preview .article .preview-cta-container .preview-cta-inner .preview-cta-content .text {
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content .text {
 	display: block;
 }
-body.dev-preview .article .preview-cta-container .preview-cta-inner .preview-cta-content .button-container a.stdBtn {
+body .article .preview-cta-container .preview-cta-inner .preview-cta-content .button-container a.stdBtn {
 	display: block;
 }
-body.dev-preview .article .blurred-image-cta-container {
+body .article .blurred-image-cta-container {
 	display: block;
 }
-body.dev-preview .article .blurred-image-cta-container .global-preview-cta-container {
+body .article .blurred-image-cta-container .global-preview-cta-container {
 	display: block;
 }
-body.dev-preview .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content {
+body .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content {
 	display: block;
 }
-body.dev-preview .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content .title p {
+body .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content .title p {
 	display: block;
 }
-body.dev-preview .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content .button-container a.stdBtn {
+body .article .blurred-image-cta-container .global-preview-cta-container .preview-cta-content .button-container a.stdBtn {
 	display: block;
 }
-body.dev-preview .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
+body .mfp-wrap.form-container-preview .mfp-content .preview-cta-form {
 	display: block;
 }
-body.dev-preview .formPopup {
+body .formPopup {
 	display: block;
 }
-body.dev-preview .formPopup .formWrapper {
+body .formPopup .formWrapper {
 	display: block;
 }
-body.dev-preview .pagWrapper {
+body .pagWrapper {
 	display: block;
 }
-body.dev-preview section.topicBanner .imageSizeContainer .title-filter-container h1 {
+body section.topicBanner .imageSizeContainer .title-filter-container h1 {
 	display: block;
 }
-body.dev-preview section.topicBanner .imageSizeContainer .title-filter-container .dropdown-button {
+body section.topicBanner .imageSizeContainer .title-filter-container .dropdown-button {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .bannerBreadcrumbs {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .bannerBreadcrumbs {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .title {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .text {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .text {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .links-container .button {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .links-container .button {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .links-container .text-link {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.text-column .links-container .text-link {
 	display: block;
 }
-body.dev-preview section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.video-column .video-container {
+body section.two-column-services.landing-video-intro .container .landing-video-intro-columns .column.video-column .video-container {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals {
+body section.evr-fundamentals {
 	display: block;
 }
-body.dev-preview section.evr-stages {
+body section.evr-stages {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .title-container {
+body section.evr-fundamentals .container .title-container {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .title-container {
+body section.evr-stages .container .title-container {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .fundamentals-container {
+body section.evr-fundamentals .container .fundamentals-container {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .fundamentals-container {
+body section.evr-stages .container .fundamentals-container {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .fundamentals-container .fundamentals-row-one {
+body section.evr-fundamentals .container .fundamentals-container .fundamentals-row-one {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .fundamentals-container .fundamentals-row-two {
+body section.evr-fundamentals .container .fundamentals-container .fundamentals-row-two {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .fundamentals-container .fundamentals-row-one {
+body section.evr-stages .container .fundamentals-container .fundamentals-row-one {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .fundamentals-container .fundamentals-row-two {
+body section.evr-stages .container .fundamentals-container .fundamentals-row-two {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item {
+body section.evr-fundamentals .container .stages-container .stages-item {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item {
+body section.evr-stages .container .stages-container .stages-item {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item .stages-icon-container {
+body section.evr-fundamentals .container .stages-container .stages-item .stages-icon-container {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item .stages-icon-container {
+body section.evr-stages .container .stages-container .stages-item .stages-icon-container {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item .stages-title-container {
+body section.evr-fundamentals .container .stages-container .stages-item .stages-title-container {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item .stages-title-container {
+body section.evr-stages .container .stages-container .stages-item .stages-title-container {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item .stages-title-container h3 {
+body section.evr-fundamentals .container .stages-container .stages-item .stages-title-container h3 {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item .stages-title-container h3 {
+body section.evr-stages .container .stages-container .stages-item .stages-title-container h3 {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item .stages-text {
+body section.evr-fundamentals .container .stages-container .stages-item .stages-text {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item .stages-text {
+body section.evr-stages .container .stages-container .stages-item .stages-text {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item .stages-text p {
+body section.evr-fundamentals .container .stages-container .stages-item .stages-text p {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item .stages-text p {
+body section.evr-stages .container .stages-container .stages-item .stages-text p {
 	display: block;
 }
-body.dev-preview section.evr-fundamentals .container .stages-container .stages-item .stages-button-container .button {
+body section.evr-fundamentals .container .stages-container .stages-item .stages-button-container .button {
 	display: block;
 }
-body.dev-preview section.evr-stages .container .stages-container .stages-item .stages-button-container .button {
+body section.evr-stages .container .stages-container .stages-item .stages-button-container .button {
 	display: block;
 }
-body.dev-preview section.tnc-featured-post {
+body section.tnc-featured-post {
 	display: block;
 }
-body.dev-preview section.tnc-featured-post .container .item {
+body section.tnc-featured-post .container .item {
 	display: block;
 }
-body.dev-preview section.tnc-featured-post .container .item .imageSizeContainer {
+body section.tnc-featured-post .container .item .imageSizeContainer {
 	display: block;
 }
-body.dev-preview section.tnc-featured-post .container .item .item-content-container {
+body section.tnc-featured-post .container .item .item-content-container {
 	display: block;
 }
-body.dev-preview section.tnc-featured-post .container .item .item-content-container .topic-filter {
+body section.tnc-featured-post .container .item .item-content-container .topic-filter {
 	display: block;
 }
-body.dev-preview .postHeader .filter .search form {
+body .postHeader .filter .search form {
 	display: block;
 }
-body.dev-preview .postHeader .filter .search form input.searchInput {
+body .postHeader .filter .search form input.searchInput {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer {
+body .postHeader .filter .formContainer {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form {
+body .postHeader .filter .formContainer form {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form .search {
+body .postHeader .filter .formContainer form .search {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form .search input.searchInput {
+body .postHeader .filter .formContainer form .search input.searchInput {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics {
+body .postHeader .filter .formContainer form span.topics {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics span.title {
+body .postHeader .filter .formContainer form span.topics span.title {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
+body .postHeader .filter .formContainer form span.topics span.radioSlideContainer .radioSlide label {
 	display: block;
 }
-body.dev-preview .postHeader .filter .formContainer form span.submitContainer {
+body .postHeader .filter .formContainer form span.submitContainer {
 	display: block;
 }
-body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container {
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container {
 	display: block;
 }
-body.dev-preview.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
+body.template-insights section.postHeader .filter .formContainer .ajax-search-container #ajaxsearchlite1 .probox .proinput form input[type="search"] {
 	display: block;
 }
-body.dev-preview.template-events .postHeader .filter .formContainer form {
+body.template-events .postHeader .filter .formContainer form {
 	display: block;
 }
-body.dev-preview.template-events .postHeader .filter .formContainer form span.submitContainer {
+body.template-events .postHeader .filter .formContainer form span.submitContainer {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.title {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.topics span.radioSlideContainer .radioSlide label {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .checkboxButton label {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .checkboxButton label {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .filter-by-mobile .select-label {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile .sort-by-mobile .select-label {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
+body.template-insights .postHeader .filter .mobile-form-container .mobile-form form.new-filter.mobile span.submitContainer {
 	display: block;
 }
-body.dev-preview.template-insights .postHeader .viewContainer.mobile {
+body.template-insights .postHeader .viewContainer.mobile {
 	display: block;
 }
-body.dev-preview section.blogWrapper {
+body section.blogWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout-1 .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout6 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout6 .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout8 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout8 .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout0 .blogText {
+body section.blogWrapper .grid .postLink.layout0 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout9 .blogText {
+body section.blogWrapper .grid .postLink.layout9 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout1 .blogText {
+body section.blogWrapper .grid .postLink.layout1 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout10 .blogText {
+body section.blogWrapper .grid .postLink.layout10 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout15 .blogText {
+body section.blogWrapper .grid .postLink.layout15 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout2 .blogText {
+body section.blogWrapper .grid .postLink.layout2 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout5 .blogText {
+body section.blogWrapper .grid .postLink.layout5 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout11 .blogText {
+body section.blogWrapper .grid .postLink.layout11 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout14 .blogText {
+body section.blogWrapper .grid .postLink.layout14 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout16 .blogText {
+body section.blogWrapper .grid .postLink.layout16 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout3 .blogText {
+body section.blogWrapper .grid .postLink.layout3 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout7 .blogText {
+body section.blogWrapper .grid .postLink.layout7 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout12 .blogText {
+body section.blogWrapper .grid .postLink.layout12 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout17 .blogText {
+body section.blogWrapper .grid .postLink.layout17 .blogText {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout4 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout4 .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout13 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout13 .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink.layout18 .linkWrapper {
+body section.blogWrapper .grid .postLink.layout18 .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink .blogText .postDetails .info {
+body section.blogWrapper .grid .postLink .blogText .postDetails .info {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink .blogText .articleLink {
+body section.blogWrapper .grid .postLink .blogText .articleLink {
 	display: block;
 }
-body.dev-preview section.blogWrapper .grid .postLink .blogText .excerpt {
+body section.blogWrapper .grid .postLink .blogText .excerpt {
 	display: block;
 }
-body.dev-preview section.blogWrapper .formTrigger {
+body section.blogWrapper .formTrigger {
 	display: block;
 }
-body.dev-preview section.blogWrapper .formTrigger .linkWrapper {
+body section.blogWrapper .formTrigger .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container #loop.results-grid .results span {
+body section.blogWrapper .container #loop.results-grid .results span {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper {
+body section.blogWrapper .container .list .list-view .linkWrapper {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails .info {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText .info {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.postDetails {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.postDetails {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.articleLink {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.articleLink {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails span.excerpt {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText span.excerpt {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .postDetails a.articleLink {
 	display: block;
 }
-body.dev-preview section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
+body section.blogWrapper .container .list .list-view .linkWrapper .blogText a.articleLink {
 	display: block;
 }
-body.dev-preview .article .preview-cta-container {
+body .article .preview-cta-container {
 	display: block;
 }

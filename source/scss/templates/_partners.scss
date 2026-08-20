@@ -940,120 +940,120 @@ section.partners-content-module {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.partners-title-module {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.partners-title-module {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer {
+body section.speaker-module .container .speakers-container-outer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer {
+body section.speaker-module .container .speakers-container-outer .filter-container-outer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container .expertise-title {
-	float: none;
-	clear: both;
-}
-body.dev-preview section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container form {
-	float: none;
-	clear: both;
-}
-body.dev-preview section.speaker-module .container .speakers-container-outer .speaker-filter-inner {
+body section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers {
+body section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container .expertise-title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio {
+body section.speaker-module .container .speakers-container-outer .filter-container-outer .filter-container form {
 	float: none;
 	clear: both;
-	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
+body section.speaker-module .container .speakers-container-outer .speaker-filter-inner {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
+body section.speaker-module .container .speakers-container-outer .speakers {
+	float: none;
+	clear: both;
+}
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelMedium,
-body.dev-preview section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelXSmall {
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container h5 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.speaker-module .container .speakers-container-outer .page-navi-container {
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container span.labelXSmall {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container {
-	float: none;
-	clear: both;
-}
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container {
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item.advisors a.slide-out-bio .image-container .text-container .learn-more {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container .image-container {
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelMedium,
+body section.speaker-module .container .speakers-container-outer .speakers .column.speaker-item .text-container.desktop-hide .labelXSmall {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .logo-container {
+body section.speaker-module .container .speakers-container-outer .page-navi-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner {
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container {
+	float: none;
+	clear: both;
+}
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner h1 {
-	float: none;
-	clear: both;
-}
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .subtitle {
-	float: none;
-	clear: both;
-}
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .text {
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .headshot-container .image-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container {
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .logo-container {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner h1 {
 	float: none;
 	clear: both;
 }
-body.dev-preview .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container .heading-medium {
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .subtitle {
+	float: none;
+	clear: both;
+}
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.second-column .text-content-inner .text {
+	float: none;
+	clear: both;
+	display: block;
+}
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container {
+	float: none;
+	clear: both;
+}
+body .advisors-introduction.new-partners-introduction .container .column-container-inner .intro-column.column-container .column.first-column .mobile-title-container .heading-medium {
 	float: none;
 	clear: both;
 	display: block;

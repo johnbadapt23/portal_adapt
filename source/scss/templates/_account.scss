@@ -536,38 +536,38 @@ body.account .select2-container--default.select2-container--open .select2-select
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview.memberpressproduct .mp-form-submit {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body.memberpressproduct .mp-form-submit {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper:first-child span.mepr-nav-item {
+body .mp_wrapper:first-child span.mepr-nav-item {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper .mp-form-row span.select2 {
+body .mp_wrapper .mp-form-row span.select2 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests {
+body .mp_wrapper .mp-form-row.mepr_mepr_interests {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mp-form-label {
+body .mp_wrapper .mp-form-row.mepr_mepr_interests .mp-form-label {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field {
+body .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field span.mepr-checkboxes-field-row label {
+body .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-field span.mepr-checkboxes-field-row label {
 	float: none;
 	clear: both;
 }
@@ -584,12 +584,12 @@ body.dev-preview .mp_wrapper .mp-form-row.mepr_mepr_interests .mepr-checkboxes-f
 // "width: auto !important" in the same rule that overrides the earlier
 // width:100% (a floating-label positioning pattern, top/left offsets),
 // so it isn't actually the simple full-width case it first looked like.
-body.dev-preview .mepr-manage_sub_accounts-wrapper .mp_wrapper:first-child {
+body .mepr-manage_sub_accounts-wrapper .mp_wrapper:first-child {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview .mepr-manage_sub_accounts-wrapper .mp_wrapper:nth-child(2) {
+body .mepr-manage_sub_accounts-wrapper .mp_wrapper:nth-child(2) {
 	float: none;
 	clear: both;
 	display: block;

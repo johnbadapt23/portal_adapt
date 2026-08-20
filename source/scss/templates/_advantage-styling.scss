@@ -992,179 +992,179 @@ section.research-top-navigation {
 // fix for span/a-like ones. Selectors that were already converted to a
 // specific real-pair display (flex/inline-block/grid) are carried over
 // unchanged from the original pass.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview section.advantage-home-introduction {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.advantage-home-introduction {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.advantage-home-introduction .container .introduction-container {
+body section.advantage-home-introduction .container .introduction-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container {
+body section.advantage-home-introduction .container .introduction-container .introduction-link-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner {
+body section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .icon-container {
+body section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .icon-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .link-title {
+body section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .link-title {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .text {
+body section.advantage-home-introduction .container .introduction-container .introduction-link-container .introduction-link .link-inner .text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta {
+body section.home-cta {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta .container .cta-content-container {
+body section.home-cta .container .cta-content-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta .container .cta-content-container .column.image-column img {
+body section.home-cta .container .cta-content-container .column.image-column img {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container {
+body section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container h2 {
+body section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container h2 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container .text {
+body section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container .text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container .button-container {
+body section.home-cta .container .cta-content-container .column.text-column .v-wrap .v-box .information-container .button-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-chat {
+body section.home-chat {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-chat .container .inner .chat-image-container {
+body section.home-chat .container .inner .chat-image-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-chat .container .inner h2 {
+body section.home-chat .container .inner h2 {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-chat .container .inner .text {
+body section.home-chat .container .inner .text {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.home-chat .container .inner .button-container {
+body section.home-chat .container .inner .button-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation {
+body section.research-top-navigation {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .breadcrumb-container {
+body section.research-top-navigation .container .breadcrumb-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .title-container {
+body section.research-top-navigation .container .title-container {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .navigation-container {
+body section.research-top-navigation .container .navigation-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.research-top-navigation .container .column .dropDownSection {
-	float: none;
-	clear: both;
-	display: block;
-}
-body.dev-preview section.research-top-navigation .container .column .dropDownSection .columnTitle {
+body section.research-top-navigation .container .column .dropDownSection {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .dropDownSection ul {
-	float: none;
-	clear: both;
-}
-body.dev-preview section.research-top-navigation .container .column .dropDownSection ul li {
+body section.research-top-navigation .container .column .dropDownSection .columnTitle {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .dropDownSection ul li a {
+body section.research-top-navigation .container .column .dropDownSection ul {
+	float: none;
+	clear: both;
+}
+body section.research-top-navigation .container .column .dropDownSection ul li {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .menu-link {
+body section.research-top-navigation .container .column .dropDownSection ul li a {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .menu-link .title {
+body section.research-top-navigation .container .column .menu-link {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .menu-link .text {
-	float: none;
-	clear: both;
-}
-body.dev-preview section.research-top-navigation .container .column .menu-link .link {
-	float: none;
-	clear: both;
-}
-body.dev-preview section.research-top-navigation .container .column .menu-link .half-links {
+body section.research-top-navigation .container .column .menu-link .title {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .event-link span.eventLink {
+body section.research-top-navigation .container .column .menu-link .text {
+	float: none;
+	clear: both;
+}
+body section.research-top-navigation .container .column .menu-link .link {
+	float: none;
+	clear: both;
+}
+body section.research-top-navigation .container .column .menu-link .half-links {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .imageContainer {
+body section.research-top-navigation .container .column .event-link span.eventLink {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview section.research-top-navigation .container .column .text {
+body section.research-top-navigation .container .column .imageContainer {
+	float: none;
+	clear: both;
+	display: block;
+}
+body section.research-top-navigation .container .column .text {
 	float: none;
 	clear: both;
 	display: block;

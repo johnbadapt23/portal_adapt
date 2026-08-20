@@ -765,8 +765,8 @@ section.imageGridBlock.speakerBlock {
 // tricks; column-gap on a wrapping flex row reproduces the same
 // calc(24.7% - 81.75px) item widths without the nth-child math. Row
 // spacing still comes from each item's own margin-bottom, unchanged.
-// Gated behind body.dev-preview (?dev=true), see includes/_customisations.php.
-body.dev-preview .imageGridBlock .gridWrapper {
+// Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body .imageGridBlock .gridWrapper {
     float: none;
     clear: both;
     display: flex;
@@ -1143,16 +1143,16 @@ section.textImageBlock {
     }
 }
 
-// Dev-preview: float -> modern layout for the homepage related-articles
-// carousel (owl-carousel powered .articlesCarousel/.articlesCarouselTaxonomies).
-// Only active behind ?dev=true (see custom_body_classs in
-// includes/_customisations.php) so this doesn't change what other devs/
-// staging visitors see by default until reviewed. The float:left;width:100%
+// Promoted to default CSS: float -> modern layout for the homepage
+// related-articles carousel (owl-carousel powered
+// .articlesCarousel/.articlesCarouselTaxonomies) - previously gated behind
+// body.dev-preview (?dev=true) during development, see
+// includes/_customisations.php's git history. The float:left;width:100%
 // pattern throughout the block above is the usual "force full-width block"
 // idiom with no real side-by-side layout need, except .postDetails .info's
 // topic/date/readTime spans which float side-by-side and get display:flex
 // here instead so they keep sitting in a row.
-body.dev-preview .relatedArticlesCarousel {
+body .relatedArticlesCarousel {
     float: none;clear:both;
 
     h2 {
@@ -1202,7 +1202,7 @@ body.dev-preview .relatedArticlesCarousel {
     }
 }
 
-body.dev-preview section.fullImageInfogram {
+body section.fullImageInfogram {
     float: none;clear:both;
 
     .container {
@@ -1673,134 +1673,133 @@ section.expertPresentationFeatured {
 // cross-checked against the real compiled CSS output. Genuine side-by-side
 // layouts - the author byline row (avatar+name+logo), the share icon row,
 // the postDetails meta row, and the textImageBlock item grid - are
-// deliberately left for a dedicated pass. Gated behind body.dev-preview
-// (?dev=true), see includes/_customisations.php.
-body.dev-preview section.singlePost {
+// deliberately left for a dedicated pass. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.singlePost {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .featureBlock {
+body section.singlePost .featureBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .postDetails {
+body section.singlePost .postDetails {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .postDetails span.topics-container {
+body section.singlePost .postDetails span.topics-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .left {
+body section.singlePost .fullWidth .left {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .left h1 {
+body section.singlePost .fullWidth .left h1 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .left .author {
+body section.singlePost .fullWidth .left .author {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .left .author .label {
+body section.singlePost .fullWidth .left .author .label {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .left .podcastPlayer {
+body section.singlePost .fullWidth .left .podcastPlayer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .left .podcastPlayer .audioWrapper {
+body section.singlePost .fullWidth .left .podcastPlayer .audioWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost .fullWidth .right .share {
+body section.singlePost .fullWidth .right .share {
 	float: none;
 	clear: both;
 }
-body.dev-preview .sideArticles {
+body .sideArticles {
 	float: none;
 	clear: both;
 }
-body.dev-preview .sideArticles h2 {
+body .sideArticles h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview .sideArticles .relatedArticle {
+body .sideArticles .relatedArticle {
 	float: none;
 	clear: both;
 }
-body.dev-preview .sideArticles .relatedArticle a {
+body .sideArticles .relatedArticle a {
 	float: none;
 	clear: both;
 }
-body.dev-preview .imageGridBlock {
+body .imageGridBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview .imageGridBlock h2 {
+body .imageGridBlock h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.textImageBlock {
+body section.textImageBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.textImageBlock .title h2 {
+body section.textImageBlock .title h2 {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.textImageBlock .itemsWrapper {
+body section.textImageBlock .itemsWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.textImageBlock .itemsWrapper .item .title {
+body section.textImageBlock .itemsWrapper .item .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.textImageBlock .itemsWrapper .item .description {
+body section.textImageBlock .itemsWrapper .item .description {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.textImageBlock .itemsWrapper .item .logoContainer {
+body section.textImageBlock .itemsWrapper .item .logoContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview .tags {
+body .tags {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost.locked span.excerpt {
+body section.singlePost.locked span.excerpt {
 	float: none;
 	clear: both;
 }
-body.dev-preview .registrationOverlay {
+body .registrationOverlay {
 	float: none;
 	clear: both;
 }
-body.dev-preview .registrationOverlay .titleBlock p {
+body .registrationOverlay .titleBlock p {
 	float: none;
 	clear: both;
 }
-body.dev-preview .registrationOverlay .titleBlock span.already {
+body .registrationOverlay .titleBlock span.already {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.singlePost.repeatableSingle {
+body section.singlePost.repeatableSingle {
 	float: none;
 	clear: both;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
 	float: none;
 	clear: both;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
 	float: none;
 	clear: both;
 }
 
-// Supplementary display:block fixes for templates/_single-post.scss's dev-preview block
+// Supplementary display:block fixes for templates/_single-post.scss's promoted-CSS block
 // above: same bug as every other file in this pass (a bare float:none
 // silently reverts inline-default tags like span/a to display:inline once
 // float stops blockifying them). Appended as matching flat selectors that
@@ -1810,132 +1809,132 @@ body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedAr
 // flex/grid conversions already present). Every selector was checked
 // against the real compiled default (un-gated) CSS to confirm display
 // truly wasn't already declared there.
-body.dev-preview .imageGridBlock .gridWrapper .item .title {
+body .imageGridBlock .gridWrapper .item .title {
 	display: block;
 }
-body.dev-preview .imageGridBlock .gridWrapper .item .description {
+body .imageGridBlock .gridWrapper .item .description {
 	display: block;
 }
-body.dev-preview .imageGridBlock .gridWrapper .item .logoContainer {
+body .imageGridBlock .gridWrapper .item .logoContainer {
 	display: block;
 }
-body.dev-preview .imageGridBlock .gridWrapper .item .button {
+body .imageGridBlock .gridWrapper .item .button {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel {
+body .relatedArticlesCarousel {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel h2 {
+body .relatedArticlesCarousel h2 {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarousel {
+body .relatedArticlesCarousel .articlesCarousel {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarousel .relatedArticle .imageContainer {
+body .relatedArticlesCarousel .articlesCarousel .relatedArticle .imageContainer {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle .imageContainer {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle .imageContainer {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarousel .relatedArticle .postDetails span {
+body .relatedArticlesCarousel .articlesCarousel .relatedArticle .postDetails span {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle .postDetails span {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle .postDetails span {
 	display: block;
 }
-body.dev-preview section.fullImageInfogram {
+body section.fullImageInfogram {
 	display: block;
 }
-body.dev-preview section.fullImageInfogram .container .featureBlock {
+body section.fullImageInfogram .container .featureBlock {
 	display: block;
 }
-body.dev-preview section.fullImageInfogram .container .infogram-container {
+body section.fullImageInfogram .container .infogram-container {
 	display: block;
 }
-body.dev-preview section.singlePost {
+body section.singlePost {
 	display: block;
 }
-body.dev-preview section.singlePost .featureBlock {
+body section.singlePost .featureBlock {
 	display: block;
 }
-body.dev-preview section.singlePost .postDetails {
+body section.singlePost .postDetails {
 	display: block;
 }
-body.dev-preview section.singlePost .postDetails span.topics-container {
+body section.singlePost .postDetails span.topics-container {
 	display: block;
 }
-body.dev-preview section.singlePost .fullWidth .left {
+body section.singlePost .fullWidth .left {
 	display: block;
 }
-body.dev-preview section.singlePost .fullWidth .left h1 {
+body section.singlePost .fullWidth .left h1 {
 	display: block;
 }
-body.dev-preview section.singlePost .fullWidth .left .author {
+body section.singlePost .fullWidth .left .author {
 	display: block;
 }
-body.dev-preview section.singlePost .fullWidth .left .author .label {
+body section.singlePost .fullWidth .left .author .label {
 	display: block;
 }
-body.dev-preview section.singlePost .fullWidth .left .podcastPlayer {
+body section.singlePost .fullWidth .left .podcastPlayer {
 	display: block;
 }
-body.dev-preview section.singlePost .fullWidth .right .share {
+body section.singlePost .fullWidth .right .share {
 	display: block;
 }
-body.dev-preview .sideArticles h2 {
+body .sideArticles h2 {
 	display: block;
 }
-body.dev-preview .sideArticles .relatedArticle {
+body .sideArticles .relatedArticle {
 	display: block;
 }
-body.dev-preview .sideArticles .relatedArticle a {
+body .sideArticles .relatedArticle a {
 	display: block;
 }
-body.dev-preview .imageGridBlock {
+body .imageGridBlock {
 	display: block;
 }
-body.dev-preview .imageGridBlock h2 {
+body .imageGridBlock h2 {
 	display: block;
 }
-body.dev-preview section.textImageBlock {
+body section.textImageBlock {
 	display: block;
 }
-body.dev-preview section.textImageBlock .title h2 {
+body section.textImageBlock .title h2 {
 	display: block;
 }
-body.dev-preview section.textImageBlock .itemsWrapper {
+body section.textImageBlock .itemsWrapper {
 	display: block;
 }
-body.dev-preview section.textImageBlock .itemsWrapper .item .title {
+body section.textImageBlock .itemsWrapper .item .title {
 	display: block;
 }
-body.dev-preview section.textImageBlock .itemsWrapper .item .description {
+body section.textImageBlock .itemsWrapper .item .description {
 	display: block;
 }
-body.dev-preview section.textImageBlock .itemsWrapper .item .logoContainer {
+body section.textImageBlock .itemsWrapper .item .logoContainer {
 	display: block;
 }
-body.dev-preview section.singlePost.locked span.excerpt {
+body section.singlePost.locked span.excerpt {
 	display: block;
 }
-body.dev-preview .registrationOverlay {
+body .registrationOverlay {
 	display: block;
 }
-body.dev-preview .registrationOverlay .titleBlock p {
+body .registrationOverlay .titleBlock p {
 	display: block;
 }
-body.dev-preview .registrationOverlay .titleBlock span.already {
+body .registrationOverlay .titleBlock span.already {
 	display: block;
 }
-body.dev-preview section.singlePost.repeatableSingle {
+body section.singlePost.repeatableSingle {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent {
 	display: block;
 }
-body.dev-preview .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
+body .relatedArticlesCarousel .articlesCarouselTaxonomies .relatedArticle.memberLocked span.overlay .exclusiveContent .registerLogin {
 	display: block;
 }

@@ -1053,170 +1053,169 @@ section.printContainer {
 // Genuine side-by-side layouts - the titleBlock left/right split, the
 // agendaBlock time+logo+detail timeline row (single and double variants),
 // and the printContainer's two-column print layout - are deliberately left
-// for a dedicated pass. Gated behind body.dev-preview (?dev=true), see
-// includes/_customisations.php.
-body.dev-preview section.dayWrapper {
+// for a dedicated pass. Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
+body section.dayWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.dayWrapper .titleBlock {
+body section.dayWrapper .titleBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.dayWrapper .titleBlock .top {
+body section.dayWrapper .titleBlock .top {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.dayWrapper .titleBlock .bottom {
+body section.dayWrapper .titleBlock .bottom {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.itineraryBlock {
+body section.itineraryBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single {
+body div.agendaBlock.single {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item {
+body div.agendaBlock.single .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper {
+body div.agendaBlock.single .item .wrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper .logoWrapper .logoContainer {
+body div.agendaBlock.single .item .wrapper .logoWrapper .logoContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper .detailWrap .title {
+body div.agendaBlock.single .item .wrapper .detailWrap .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper .detailWrap .description {
+body div.agendaBlock.single .item .wrapper .detailWrap .description {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item .read-more-container {
+body div.agendaBlock.single .item .read-more-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.single .item .hidden {
+body div.agendaBlock.single .item .hidden {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double {
+body div.agendaBlock.double {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .headerBlock {
+body div.agendaBlock.double .headerBlock {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .trackTitle {
+body div.agendaBlock.double .headerBlock .column .trackTitle {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .hrWrapper {
+body div.agendaBlock.double .headerBlock .column .hrWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .facilitator {
+body div.agendaBlock.double .headerBlock .column .facilitator {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .facilitatorTitle {
+body div.agendaBlock.double .headerBlock .column .facilitatorTitle {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item {
+body div.agendaBlock.double .item {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper {
+body div.agendaBlock.double .item .wrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper .logoWrapper {
+body div.agendaBlock.double .item .wrapper .logoWrapper {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper .detailWrap .title {
+body div.agendaBlock.double .item .wrapper .detailWrap .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper .detailWrap .description {
+body div.agendaBlock.double .item .wrapper .detailWrap .description {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .hidden {
+body div.agendaBlock.double .item .hidden {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .read-more-container {
+body div.agendaBlock.double .item .read-more-container {
 	float: none;
 	clear: both;
 }
-body.dev-preview div.agendaBlock.double .item .read-more-container .read-more {
+body div.agendaBlock.double .item .read-more-container .read-more {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer {
+body section.printContainer {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .imageHeader {
+body section.printContainer .imageHeader {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .headerBlock .column {
+body section.printContainer div.agendaBlock.double .headerBlock .column {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .item .columnsWrapper .logoWrapperPrint {
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .logoWrapperPrint {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .item .columnsWrapper .left .detail {
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .left .detail {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .item .columnsWrapper .right .detail {
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .right .detail {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint {
+body section.printContainer .wrapperPrint {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint .leftColumn .timePrint {
+body section.printContainer .wrapperPrint .leftColumn .timePrint {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint .leftColumn .logoWrapperPrint {
+body section.printContainer .wrapperPrint .leftColumn .logoWrapperPrint {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPrint {
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .title {
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .title {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .description {
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .description {
 	float: none;
 	clear: both;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detail {
+body section.printContainer .wrapperPrint .rightColumn .detail {
 	float: none;
 	clear: both;
 }
 
-// Supplementary display:block fixes for templates/_agenda.scss's dev-preview block
+// Supplementary display:block fixes for templates/_agenda.scss's promoted-CSS block
 // above: same bug as every other file in this pass (a bare float:none
 // silently reverts inline-default tags like span/a to display:inline once
 // float stops blockifying them). Appended as matching flat selectors that
@@ -1226,109 +1225,109 @@ body.dev-preview section.printContainer .wrapperPrint .rightColumn .detail {
 // flex/grid conversions already present). Every selector was checked
 // against the real compiled default (un-gated) CSS to confirm display
 // truly wasn't already declared there.
-body.dev-preview section.dayWrapper {
+body section.dayWrapper {
 	display: block;
 }
-body.dev-preview section.dayWrapper .titleBlock {
+body section.dayWrapper .titleBlock {
 	display: block;
 }
-body.dev-preview section.dayWrapper .titleBlock .top {
+body section.dayWrapper .titleBlock .top {
 	display: block;
 }
-body.dev-preview section.dayWrapper .titleBlock .bottom {
+body section.dayWrapper .titleBlock .bottom {
 	display: block;
 }
-body.dev-preview section.itineraryBlock {
+body section.itineraryBlock {
 	display: block;
 }
-body.dev-preview div.agendaBlock.single {
+body div.agendaBlock.single {
 	display: block;
 }
-body.dev-preview div.agendaBlock.single .item {
+body div.agendaBlock.single .item {
 	display: block;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper {
+body div.agendaBlock.single .item .wrapper {
 	display: block;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper .logoWrapper .logoContainer {
+body div.agendaBlock.single .item .wrapper .logoWrapper .logoContainer {
 	display: block;
 }
-body.dev-preview div.agendaBlock.single .item .wrapper .detailWrap .title {
+body div.agendaBlock.single .item .wrapper .detailWrap .title {
 	display: block;
 }
-body.dev-preview div.agendaBlock.single .item .read-more-container {
+body div.agendaBlock.single .item .read-more-container {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double {
+body div.agendaBlock.double {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .headerBlock {
+body div.agendaBlock.double .headerBlock {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .trackTitle {
+body div.agendaBlock.double .headerBlock .column .trackTitle {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .hrWrapper {
+body div.agendaBlock.double .headerBlock .column .hrWrapper {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .facilitator {
+body div.agendaBlock.double .headerBlock .column .facilitator {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .headerBlock .column .facilitatorTitle {
+body div.agendaBlock.double .headerBlock .column .facilitatorTitle {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item {
+body div.agendaBlock.double .item {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper {
+body div.agendaBlock.double .item .wrapper {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper .logoWrapper {
+body div.agendaBlock.double .item .wrapper .logoWrapper {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item .wrapper .detailWrap .title {
+body div.agendaBlock.double .item .wrapper .detailWrap .title {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item .read-more-container {
+body div.agendaBlock.double .item .read-more-container {
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item .read-more-container .read-more {
+body div.agendaBlock.double .item .read-more-container .read-more {
 	display: block;
 }
-body.dev-preview section.printContainer .imageHeader {
+body section.printContainer .imageHeader {
 	display: block;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .headerBlock .column {
+body section.printContainer div.agendaBlock.double .headerBlock .column {
 	display: block;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .item .columnsWrapper .logoWrapperPrint {
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .logoWrapperPrint {
 	display: block;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .item .columnsWrapper .left .detail {
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .left .detail {
 	display: block;
 }
-body.dev-preview section.printContainer div.agendaBlock.double .item .columnsWrapper .right .detail {
+body section.printContainer div.agendaBlock.double .item .columnsWrapper .right .detail {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint {
+body section.printContainer .wrapperPrint {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint .leftColumn .timePrint {
+body section.printContainer .wrapperPrint .leftColumn .timePrint {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint .leftColumn .logoWrapperPrint {
+body section.printContainer .wrapperPrint .leftColumn .logoWrapperPrint {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPrint {
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .title {
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .title {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .description {
+body section.printContainer .wrapperPrint .rightColumn .detailWrapPrint .description {
 	display: block;
 }
-body.dev-preview section.printContainer .wrapperPrint .rightColumn .detail {
+body section.printContainer .wrapperPrint .rightColumn .detail {
 	display: block;
 }
 
@@ -1338,12 +1337,12 @@ body.dev-preview section.printContainer .wrapperPrint .rightColumn .detail {
 // .title/.description are already gated above), same div-class pattern
 // as the other .detailWrap/.detail selectors already converted in this
 // file, so display:block is corrective here too.
-body.dev-preview div.agendaBlock.double .item .wrapper .detailWrap {
+body div.agendaBlock.double .item .wrapper .detailWrap {
 	float: none;
 	clear: both;
 	display: block;
 }
-body.dev-preview div.agendaBlock.double .item .hidden .detail {
+body div.agendaBlock.double .item .hidden .detail {
 	float: none;
 	clear: both;
 	display: block;
