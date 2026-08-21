@@ -296,6 +296,7 @@ add_action( 'wp_footer', function() {
 
 		var targetSelector = <?php echo wp_json_encode( $target ); ?>;
 		var submittedMarked = false;
+		var rangeLabelRepositionFns = [];
 
 		// Only ever called on a detected successful submission (see the
 		// plugin integrations below) - never on a plain close, so closing
@@ -316,6 +317,9 @@ add_action( 'wp_footer', function() {
 			popup.remove();
 			window.removeEventListener('resize', reposition);
 			window.removeEventListener('scroll', reposition);
+			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
+			}
 			document.removeEventListener('keydown', onKeydown);
 			detachSubmissionWatchers();
 		}
@@ -421,6 +425,9 @@ add_action( 'wp_footer', function() {
 			// marked submitted or otherwise persisted, so this user still
 			// gets the survey on a page where the target actually renders.
 			popup.remove();
+			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
+			}
 			detachSubmissionWatchers();
 		}
 
@@ -457,36 +464,57 @@ add_action( 'wp_footer', function() {
 		// ::-moz-range-progress) - paint the "already selected" portion via
 		// a JS-computed --feedbackSurveyRangeFill percentage instead (see
 		// the matching CSS in _feedback-survey.scss), updated live as the
-		// visitor drags. Also wraps the slider with its min/max values as
-		// end labels, read straight off the input's own min/max attributes
+		// visitor drags. Also shows the slider's min/max values as labels
+		// below it, read straight off the input's own min/max attributes
 		// (whatever the field is configured to in WPForms, etc.) rather
 		// than hardcoded - can't be done in pure CSS since browsers don't
-		// render ::before/::after on <input> elements at all. Scoped to
-		// range inputs inside this popup's own form (e.g. WPForms' Number
-		// Slider field) rather than changing range input styling anywhere
-		// else on the site.
+		// render ::before/::after on <input> elements at all.
+		//
+		// The labels are appended to formWrap itself and positioned via
+		// measured geometry, deliberately NOT inserted into the slider's
+		// own immediate DOM neighborhood - an earlier version wrapped the
+		// input in a new parent div, which moved it and broke WPForms' own
+		// "Selected Value: X" hint updater: that code reads its hint text
+		// off input.nextElementSibling, assumed to always be its own hint
+		// div, and threw once that was our new label span instead. Scoped
+		// to range inputs inside this popup's own form (e.g. WPForms'
+		// Number Slider field) rather than changing range input styling
+		// anywhere else on the site.
 		if (formWrap) {
 			var sliders = formWrap.querySelectorAll('input[type="range"]');
 			for (var s = 0; s < sliders.length; s++) {
 				(function(slider) {
 					var min = slider.getAttribute('min');
 					var max = slider.getAttribute('max');
-					if (min !== null && max !== null && min !== max && slider.parentNode) {
-						var wrap = document.createElement('div');
-						wrap.className = 'feedbackSurvey-rangeWrap';
+
+					if (min !== null && max !== null && min !== max) {
+						if (getComputedStyle(formWrap).position === 'static') {
+							formWrap.style.position = 'relative';
+						}
 
 						var minLabel = document.createElement('span');
-						minLabel.className = 'feedbackSurvey-rangeWrap-min';
+						minLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--min';
 						minLabel.textContent = min;
 
 						var maxLabel = document.createElement('span');
-						maxLabel.className = 'feedbackSurvey-rangeWrap-max';
+						maxLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--max';
 						maxLabel.textContent = max;
 
-						slider.parentNode.insertBefore(wrap, slider);
-						wrap.appendChild(minLabel);
-						wrap.appendChild(slider);
-						wrap.appendChild(maxLabel);
+						formWrap.appendChild(minLabel);
+						formWrap.appendChild(maxLabel);
+
+						var positionLabels = function() {
+							var sliderRect = slider.getBoundingClientRect();
+							var wrapRect = formWrap.getBoundingClientRect();
+							var top = sliderRect.bottom - wrapRect.top + 4;
+							minLabel.style.top  = top + 'px';
+							minLabel.style.left = (sliderRect.left - wrapRect.left) + 'px';
+							maxLabel.style.top  = top + 'px';
+							maxLabel.style.left = (sliderRect.right - wrapRect.left) + 'px';
+						};
+						positionLabels();
+						window.addEventListener('resize', positionLabels);
+						rangeLabelRepositionFns.push(positionLabels);
 					}
 
 					function paintFill() {

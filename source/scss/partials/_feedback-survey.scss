@@ -139,27 +139,38 @@
 			}
 		}
 
-		// Wraps the slider - inserted by the same inline script, around the
-		// input plus its min/max end labels. flex so the labels sit flush
-		// against either end regardless of the slider's own width.
-		.feedbackSurvey-rangeWrap {
-			display: flex;
-			align-items: center;
-			gap: 10px;
+		// WPForms' own "Selected Value: X" hint text sits directly below
+		// the slider by default - pushed down a bit here to leave room for
+		// the min/max labels the inline script positions in between (see
+		// .feedbackSurvey-rangeLabel below), rather than the two visually
+		// colliding.
+		.wpforms-field-number-slider-hint {
+			margin-top: 22px;
+		}
+	}
 
-			input[type="range"] {
-				flex: 1;
-			}
+	// Min/max end labels for a range slider, appended to .feedbackSurvey-form
+	// by the inline script and positioned via measured geometry (top/left
+	// set inline via JS, same reasoning as the highlight/dialog positioning
+	// above - the slider can be any width, so this isn't attempted in CSS
+	// alone). Deliberately absolutely positioned rather than inserted into
+	// the slider's own DOM neighborhood - see the inline script's comment
+	// for why that broke WPForms' own hint-text updater.
+	&-rangeLabel {
+		position: absolute;
+		font-size: 13px;
+		font-weight: 600;
+		color: #777;
 
-			&-min,
-			&-max {
-				flex-shrink: 0;
-				min-width: 14px;
-				font-size: 13px;
-				font-weight: 600;
-				color: #777;
-				text-align: center;
-			}
+		&--min {
+			transform: translate(0, 2px);
+		}
+
+		// Right-aligned against its own left edge (set to the slider's
+		// right edge by the inline script), so the label reads as flush
+		// with the end of the track rather than starting from it.
+		&--max {
+			transform: translate(-100%, 2px);
 		}
 	}
 
