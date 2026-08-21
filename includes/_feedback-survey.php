@@ -15,11 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Closing it (X, overlay click, or Escape) WITHOUT submitting does not
  * suppress it permanently - it's only a "not right now", so it comes back
  * on the visitor's next page load. It only stops showing for good once
- * they've actually submitted the form. If the configured shortcode happens
- * to be Contact Form 7's, submission is detected via its vanilla-JS
- * wpcf7mailsent success event (see below) - other form plugins don't fire
- * an equivalent event, so for those the survey has no way to know it was
- * submitted and keeps reappearing until an admin disables it.
+ * they've actually submitted the form. Since the shortcode can be any form
+ * plugin's, submission is detected via named integrations for the common
+ * ones (Contact Form 7, Gravity Forms, WPForms, HubSpot) plus a
+ * plugin-agnostic DOM fallback for anything else not explicitly wired up
+ * (see the inline script below) - so this doesn't just wait around for CF7
+ * specifically.
  *
  * Entirely self-contained, same pattern as includes/_welcome-popup.php: its
  * own ACF field group on the existing options page, its own once-per-user
@@ -216,17 +217,19 @@ add_action( 'wp_footer', function() {
 
 		var overlay  = popup.querySelector('.feedbackSurvey-overlay');
 		var closeBtn = popup.querySelector('.feedbackSurvey-close');
-		var formEl   = popup.querySelector('.feedbackSurvey-form form, .feedbackSurvey-form .wpcf7');
+		var formWrap = popup.querySelector('.feedbackSurvey-form');
+		var formEl   = formWrap ? formWrap.querySelector('form, .wpcf7') : null;
 
 		var submittedMarked = false;
 
-		// Only ever called on an actual successful submission (see the
-		// wpcf7mailsent listener below) - never on a plain close, so
-		// closing without submitting is not persisted anywhere and the
-		// survey simply comes back on the visitor's next page load.
+		// Only ever called on a detected successful submission (see the
+		// plugin integrations below) - never on a plain close, so closing
+		// without submitting is not persisted anywhere and the survey
+		// simply comes back on the visitor's next page load.
 		function markSubmitted() {
 			if (submittedMarked) return;
 			submittedMarked = true;
+			detachSubmissionWatchers();
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', '<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -237,6 +240,7 @@ add_action( 'wp_footer', function() {
 			document.body.classList.remove('fixed');
 			popup.remove();
 			document.removeEventListener('keydown', onKeydown);
+			detachSubmissionWatchers();
 		}
 
 		function onKeydown(e) {
@@ -250,19 +254,117 @@ add_action( 'wp_footer', function() {
 		document.addEventListener('keydown', onKeydown);
 		if (closeBtn) closeBtn.focus();
 
-		// If the configured shortcode happens to be a Contact Form 7 form,
-		// it dispatches this native event on the form element once an AJAX
-		// submission succeeds - plain DOM event, no jQuery/load-order
-		// dependency. Marks it submitted right away so a refresh won't show
-		// it again, but leaves the popup open so the confirmation message
-		// stays visible until the visitor closes it themselves. Other form
-		// plugins don't fire this event, so for those there's no way to
-		// detect a successful submission and the survey keeps reappearing
-		// on every page load until an admin disables it.
-		if (formEl) {
-			formEl.addEventListener('wpcf7mailsent', function() {
-				markSubmitted();
-			}, false);
+		/**
+		 * Submission detection: every form plugin signals a successful AJAX
+		 * submit its own way, so rather than only reacting to whichever one
+		 * happens to be configured, wire up named integrations for the
+		 * common ones plus a plugin-agnostic DOM fallback for everything
+		 * else - "expect and be prepared" rather than only handling CF7 and
+		 * leaving every other plugin to never mark the survey submitted.
+		 */
+		var detachFns = [];
+		function detachSubmissionWatchers() {
+			for (var i = 0; i < detachFns.length; i++) detachFns[i]();
+			detachFns = [];
+		}
+
+		var recognizedPlugin = false;
+
+		// Contact Form 7: dispatches this native DOM event directly on the
+		// form element once an AJAX submission succeeds - no jQuery
+		// dependency for this one.
+		if (formEl && formEl.classList && formEl.classList.contains('wpcf7')) {
+			recognizedPlugin = true;
+			var cf7Handler = function() { markSubmitted(); };
+			formEl.addEventListener('wpcf7mailsent', cf7Handler, false);
+			detachFns.push(function() { formEl.removeEventListener('wpcf7mailsent', cf7Handler, false); });
+		}
+
+		// Gravity Forms: fires this jQuery event on document once the AJAX
+		// confirmation has loaded, passing the numeric form ID - read off
+		// the rendered form's own id="gform_{ID}" attribute so this only
+		// reacts to this specific form, not some other GF form on the page.
+		var gfMatch = formEl && formEl.id && formEl.id.match(/^gform_(\d+)$/);
+		if (window.jQuery && gfMatch) {
+			recognizedPlugin = true;
+			var gfFormId = gfMatch[1];
+			var gfHandler = function(event, formId) {
+				if (String(formId) === gfFormId) markSubmitted();
+			};
+			jQuery(document).on('gform_confirmation_loaded', gfHandler);
+			detachFns.push(function() { jQuery(document).off('gform_confirmation_loaded', gfHandler); });
+		}
+
+		// WPForms: fires this jQuery event on document on AJAX submit
+		// success, with the form ID in the response payload - same
+		// per-form scoping idea as Gravity Forms above, read off
+		// id="wpforms-form-{ID}".
+		var wpformsMatch = formEl && formEl.id && formEl.id.match(/^wpforms-form-(\d+)$/);
+		if (window.jQuery && wpformsMatch) {
+			recognizedPlugin = true;
+			var wpformsFormId = wpformsMatch[1];
+			var wpformsHandler = function(event, response) {
+				var respFormId = response && response.data ? String(response.data.form_id) : null;
+				if (!respFormId || respFormId === wpformsFormId) markSubmitted();
+			};
+			jQuery(document).on('wpformsAjaxSubmitSuccess', wpformsHandler);
+			detachFns.push(function() { jQuery(document).off('wpformsAjaxSubmitSuccess', wpformsHandler); });
+		}
+
+		// HubSpot forms: rendered inside a cross-origin iframe, so the only
+		// way to hear about a submission is the postMessage its embed
+		// script sends to the parent window - scoped to this popup's own
+		// iframe(s) by checking the message's source window, since other
+		// HubSpot forms could exist elsewhere on the same page.
+		if (formWrap && formWrap.querySelector('.hbspt-form, iframe[id^="hs-form-iframe"]')) {
+			recognizedPlugin = true;
+			var hsHandler = function(event) {
+				if (!event.data || event.data.type !== 'hsFormCallback' || event.data.eventName !== 'onFormSubmitted') return;
+				var iframes = formWrap.querySelectorAll('iframe');
+				for (var i = 0; i < iframes.length; i++) {
+					if (event.source === iframes[i].contentWindow) {
+						markSubmitted();
+						return;
+					}
+				}
+			};
+			window.addEventListener('message', hsHandler, false);
+			detachFns.push(function() { window.removeEventListener('message', hsHandler, false); });
+		}
+
+		// Anything else: no named integration, so fall back to watching the
+		// DOM for the tell-tale signs most plugins leave behind on success -
+		// either the original form disappearing (swapped for a confirmation
+		// message, e.g. Formidable, Ninja Forms) or a newly inserted element
+		// whose class/id reads like a success message. Skips wording that
+		// also shows up in failure states (error/invalid/fail/-ng) so a
+		// validation error isn't mistaken for a successful submission. Only
+		// runs when none of the named integrations above matched, so a
+		// recognized plugin's own precise event is always what decides.
+		if (formWrap && !recognizedPlugin) {
+			var successPattern = /\b(success|thank\s*you|thanks|confirmation|complete)\b/i;
+			var failurePattern = /error|invalid|fail|denied|-ng\b/i;
+
+			var observer = new MutationObserver(function(mutations) {
+				if (formEl && !formWrap.contains(formEl)) {
+					markSubmitted();
+					return;
+				}
+				for (var m = 0; m < mutations.length; m++) {
+					var added = mutations[m].addedNodes;
+					for (var n = 0; n < added.length; n++) {
+						var node = added[n];
+						if (node.nodeType !== 1) continue;
+						var haystack = (node.className || '') + ' ' + (node.id || '');
+						if (successPattern.test(haystack) && !failurePattern.test(haystack)) {
+							markSubmitted();
+							return;
+						}
+					}
+				}
+			});
+			observer.observe(formWrap, { childList: true, subtree: true });
+			detachFns.push(function() { observer.disconnect(); });
 		}
 	})();
 	</script>
@@ -271,9 +373,10 @@ add_action( 'wp_footer', function() {
 
 /**
  * AJAX: mark the survey as permanently submitted for this user, so it stops
- * showing. Only ever called by the wpcf7mailsent success handler above, not
- * by a plain close - logged-in only, same reasoning as the welcome popup's
- * equivalent endpoint - guests never see this in the first place.
+ * showing. Only ever called by one of the submission-detection integrations
+ * above (never by a plain close) - logged-in only, same reasoning as the
+ * welcome popup's equivalent endpoint - guests never see this in the first
+ * place.
  */
 add_action( 'wp_ajax_adapt_feedback_survey_submitted', function() {
 	check_ajax_referer( 'adapt_feedback_survey', 'nonce' );
