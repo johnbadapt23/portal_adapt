@@ -3,6 +3,24 @@
     "title": "Post Filtering Elements",
     "fields": [
         {
+            "key": "field_8af4206f96684",
+            "label": "Header Text",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_6959eb82c64ea",
             "label": "Title",
             "name": "title",
@@ -64,6 +82,24 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_452368a362bb4",
+            "label": "Topics",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_695ada6674316",
@@ -150,11 +186,11 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_695ada8274317",
-            "label": "Show Types Filter?",
-            "name": "types_filter",
+            "key": "field_4fb54c9ed7294",
+            "label": "Types & Trends",
+            "name": "",
             "aria-label": "",
-            "type": "true_false",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -163,12 +199,9 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6959ec35c64f0",
@@ -234,27 +267,6 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_695ada9674318",
-            "label": "Show Trends Filter?",
-            "name": "trends_filter",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_6959ec4bc64f1",
             "label": "All Trends",
             "name": "all_trends",
@@ -308,6 +320,24 @@
             "multiple": 0,
             "allow_null": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_26bd0fe74efa4",
+            "label": "Persona",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_695adef853a87",
@@ -399,6 +429,24 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_96c0c9fe8b034",
+            "label": "Sector",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_695adf8f53a8b",
             "label": "Sector Filter?",
             "name": "sector_filter",
@@ -488,6 +536,24 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_ee03ee1918c64",
+            "label": "Events",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_695ef0a484380",
             "label": "Events Filter?",
             "name": "events_filter",
@@ -572,12 +638,30 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_196c65ddc54a4",
+            "label": "Ordering",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_69c9dc05e31f5",
             "label": "Research Type Order?",
             "name": "research_type_order",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "When ON, posts tagged with the \"research-type-order\" term are pinned to the top of filtered results (then sorted by date); when OFF, results sort by the normal default order.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -616,5 +700,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }

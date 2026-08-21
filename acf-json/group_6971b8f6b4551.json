@@ -3,6 +3,24 @@
     "title": "Sectors Filtering Elements",
     "fields": [
         {
+            "key": "field_21f518007dca4",
+            "label": "Header Text",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_6971b8f6b9ac8",
             "label": "Title",
             "name": "title",
@@ -64,6 +82,24 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_1c12976159084",
+            "label": "Topics",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6971b8f6b9b72",
@@ -150,11 +186,11 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_6971b8f6b9c1b",
-            "label": "Show Types Filter?",
-            "name": "types_filter",
+            "key": "field_e81a7394e15a4",
+            "label": "Types & Trends",
+            "name": "",
             "aria-label": "",
-            "type": "true_false",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -163,12 +199,9 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6971b8f6b9c54",
@@ -226,27 +259,6 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_6971b8f6b9cc4",
-            "label": "Show Trends Filter?",
-            "name": "trends_filter",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_6971b8f6b9cfd",
             "label": "All Trends",
             "name": "all_trends",
@@ -300,6 +312,24 @@
             "multiple": 0,
             "allow_null": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_7f1cf8eec1cc4",
+            "label": "Sector",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6971b8f6b9d6d",
@@ -414,5 +444,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }

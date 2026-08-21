@@ -3,6 +3,24 @@
     "title": "Persona Filtering Elements",
     "fields": [
         {
+            "key": "field_e087830a18064",
+            "label": "Header Text",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_69640efa2c6db",
             "label": "Title",
             "name": "title",
@@ -64,6 +82,24 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_a933e8cd327f4",
+            "label": "Topics",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_69640efa2c786",
@@ -142,11 +178,11 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_69640efa2c830",
-            "label": "Show Types Filter?",
-            "name": "types_filter",
+            "key": "field_d0bf0c712ce54",
+            "label": "Types & Trends",
+            "name": "",
             "aria-label": "",
-            "type": "true_false",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -155,12 +191,9 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_69640efa2c868",
@@ -218,27 +251,6 @@
             "bidirectional_target": []
         },
         {
-            "key": "field_69640efa2c8d9",
-            "label": "Show Trends Filter?",
-            "name": "trends_filter",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "allow_in_bindings": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_69640efa2c912",
             "label": "All Trends",
             "name": "all_trends",
@@ -292,6 +304,24 @@
             "multiple": 0,
             "allow_null": 0,
             "bidirectional_target": []
+        },
+        {
+            "key": "field_c6624daef6514",
+            "label": "Persona",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_69640efa2c985",
@@ -383,12 +413,30 @@
             "bidirectional_target": []
         },
         {
+            "key": "field_f56f70e312e04",
+            "label": "Ordering",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_69c9e59c7f48b",
             "label": "Research Type Order?",
             "name": "research_type_order",
             "aria-label": "",
             "type": "true_false",
-            "instructions": "",
+            "instructions": "When ON, posts tagged with the \"research-type-order\" term are pinned to the top of filtered results (then sorted by date); when OFF, results sort by the normal default order.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -427,5 +475,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }
