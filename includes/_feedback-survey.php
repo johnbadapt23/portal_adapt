@@ -10,15 +10,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * per logged-in user inside a popup styled to match the welcome spotlight's
  * centered dialog, starting from a configurable date. Not tied to any one
  * form plugin: the admin pastes the shortcode for whatever form they've
- * built, and do_shortcode() renders it as-is. If that shortcode happens to
- * be Contact Form 7's, the popup also gets an early "seen" mark on its
- * vanilla-JS wpcf7mailsent success event (see below) - a bonus, not a
- * requirement, since dismissing the popup always marks it seen regardless
- * of which plugin rendered the form.
+ * built, and do_shortcode() renders it as-is.
+ *
+ * Closing it (X, overlay click, or Escape) WITHOUT submitting does not
+ * suppress it permanently - it's only a "not right now", so it comes back
+ * on the visitor's next page load. It only stops showing for good once
+ * they've actually submitted the form. If the configured shortcode happens
+ * to be Contact Form 7's, submission is detected via its vanilla-JS
+ * wpcf7mailsent success event (see below) - other form plugins don't fire
+ * an equivalent event, so for those the survey has no way to know it was
+ * submitted and keeps reappearing until an admin disables it.
  *
  * Entirely self-contained, same pattern as includes/_welcome-popup.php: its
  * own ACF field group on the existing options page, its own once-per-user
- * "seen" user meta flag, its own nonce-verified AJAX dismiss endpoint -
+ * "submitted" user meta flag, its own nonce-verified AJAX endpoint -
  * independent of the welcome popup, so either can be edited, toggled, or
  * removed without touching the other.
  */
@@ -107,7 +112,7 @@ add_action( 'acf/init', function() {
 				'label'             => 'Show again to everyone',
 				'name'              => 'feedback_survey_force_redisplay',
 				'type'              => 'true_false',
-				'instructions'      => 'Same idea as the welcome popup\'s equivalent toggle - turn this ON to bring the survey back for everyone who already closed it, without losing that history (their dismissal record is kept, just ignored while this is ON). Turn it back OFF to resume once-per-user behavior.',
+				'instructions'      => 'Same idea as the welcome popup\'s equivalent toggle - turn this ON to bring the survey back for everyone who already submitted it, without losing that history (their submission record is kept, just ignored while this is ON). Turn it back OFF to resume once-per-user behavior. Note simply closing the survey without submitting never suppresses it long-term either way - it always comes back on the next page load until submitted.',
 				'default_value'     => 0,
 				'ui'                => 1,
 				'conditional_logic' => $shown_if_enabled,
@@ -130,15 +135,17 @@ add_action( 'acf/init', function() {
  * logged in, feature enabled, a form shortcode is configured, today is
  * on/after the configured start date, this user has already dismissed the
  * welcome popup (i.e. actually encountered the AI Assistant box, not just
- * logged in), and this user hasn't dismissed the survey itself before
- * (unless exempted - see below).
+ * logged in), and this user hasn't already submitted the survey itself
+ * (unless exempted - see below). Note there's no "already dismissed the
+ * survey" check here on purpose - closing it without submitting is not
+ * persisted anywhere, so it's simply asked again on the next page load.
  *
  * Administrators always see it regardless of the welcome-popup-seen
- * requirement or past survey dismissals (debugging/QA convenience, same
+ * requirement or a past submission (debugging/QA convenience, same
  * exemption already used for the welcome popup). The "Show again to
- * everyone" field does the same for the survey's own seen check, for every
- * logged-in user - an admin-controlled, non-destructive override for
- * bringing the survey back without bulk-deleting seen user meta.
+ * everyone" field does the same for the survey's own submitted check, for
+ * every logged-in user - an admin-controlled, non-destructive override for
+ * bringing the survey back without bulk-deleting submitted user meta.
  */
 function adapt_should_show_feedback_survey() {
 	if ( ! is_user_logged_in() ) {
@@ -165,8 +172,8 @@ function adapt_should_show_feedback_survey() {
 	if ( ! current_user_can( 'administrator' ) && ! get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
 		return false;
 	}
-	$bypass_seen_check = get_field( 'feedback_survey_force_redisplay', 'option' ) || current_user_can( 'administrator' );
-	if ( ! $bypass_seen_check && get_user_meta( get_current_user_id(), 'adapt_feedback_survey_seen', true ) ) {
+	$bypass_submitted_check = get_field( 'feedback_survey_force_redisplay', 'option' ) || current_user_can( 'administrator' );
+	if ( ! $bypass_submitted_check && get_user_meta( get_current_user_id(), 'adapt_feedback_survey_submitted', true ) ) {
 		return false;
 	}
 	return true;
@@ -211,22 +218,25 @@ add_action( 'wp_footer', function() {
 		var closeBtn = popup.querySelector('.feedbackSurvey-close');
 		var formEl   = popup.querySelector('.feedbackSurvey-form form, .feedbackSurvey-form .wpcf7');
 
-		var seenMarked = false;
+		var submittedMarked = false;
 
-		function markSeen() {
-			if (seenMarked) return;
-			seenMarked = true;
+		// Only ever called on an actual successful submission (see the
+		// wpcf7mailsent listener below) - never on a plain close, so
+		// closing without submitting is not persisted anywhere and the
+		// survey simply comes back on the visitor's next page load.
+		function markSubmitted() {
+			if (submittedMarked) return;
+			submittedMarked = true;
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', '<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>', true);
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-			xhr.send('action=adapt_dismiss_feedback_survey&nonce=<?php echo esc_js( $nonce ); ?>');
+			xhr.send('action=adapt_feedback_survey_submitted&nonce=<?php echo esc_js( $nonce ); ?>');
 		}
 
 		function dismiss() {
 			document.body.classList.remove('fixed');
 			popup.remove();
 			document.removeEventListener('keydown', onKeydown);
-			markSeen();
 		}
 
 		function onKeydown(e) {
@@ -243,14 +253,15 @@ add_action( 'wp_footer', function() {
 		// If the configured shortcode happens to be a Contact Form 7 form,
 		// it dispatches this native event on the form element once an AJAX
 		// submission succeeds - plain DOM event, no jQuery/load-order
-		// dependency. Marks it seen right away so a refresh won't show it
-		// again, but leaves the popup open so the confirmation message
+		// dependency. Marks it submitted right away so a refresh won't show
+		// it again, but leaves the popup open so the confirmation message
 		// stays visible until the visitor closes it themselves. Other form
-		// plugins don't fire this event, so for those the survey still
-		// gets marked seen the normal way, on dismiss (close/overlay/Escape).
+		// plugins don't fire this event, so for those there's no way to
+		// detect a successful submission and the survey keeps reappearing
+		// on every page load until an admin disables it.
 		if (formEl) {
 			formEl.addEventListener('wpcf7mailsent', function() {
-				markSeen();
+				markSubmitted();
 			}, false);
 		}
 	})();
@@ -259,12 +270,13 @@ add_action( 'wp_footer', function() {
 } );
 
 /**
- * AJAX: mark the survey as permanently seen for this user. Logged-in only,
- * same reasoning as the welcome popup's equivalent endpoint - guests never
- * see this in the first place.
+ * AJAX: mark the survey as permanently submitted for this user, so it stops
+ * showing. Only ever called by the wpcf7mailsent success handler above, not
+ * by a plain close - logged-in only, same reasoning as the welcome popup's
+ * equivalent endpoint - guests never see this in the first place.
  */
-add_action( 'wp_ajax_adapt_dismiss_feedback_survey', function() {
+add_action( 'wp_ajax_adapt_feedback_survey_submitted', function() {
 	check_ajax_referer( 'adapt_feedback_survey', 'nonce' );
-	update_user_meta( get_current_user_id(), 'adapt_feedback_survey_seen', 1 );
+	update_user_meta( get_current_user_id(), 'adapt_feedback_survey_submitted', 1 );
 	wp_send_json_success();
 } );
