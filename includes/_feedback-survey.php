@@ -132,6 +132,46 @@ add_action( 'acf/init', function() {
 } );
 
 /**
+ * Renders (once, memoized) and returns the survey's configured shortcode
+ * output. Deliberately given its first call from the wp_enqueue_scripts
+ * hook below - BEFORE wp_head - rather than from wp_footer where the
+ * markup actually gets echoed, because several form plugins (WPForms in
+ * particular, with its "Improve Global Assets Loading" setting) only
+ * decide to wp_enqueue_style()/wp_enqueue_script() their frontend assets
+ * as a side effect of the shortcode itself running. If that first run
+ * happened in wp_footer - after wp_head has already called
+ * wp_print_styles() - any style enqueued that late is registered but
+ * never actually printed, so the form renders with no CSS at all. Contact
+ * Form 7 masked this because it unconditionally enqueues its own CSS on
+ * every front-end request regardless of shortcode timing, but it's not
+ * safe to assume every plugin behaves that way. Running the shortcode once
+ * here lets each plugin's own enqueue calls land in time for wp_head to
+ * print them normally; wp_footer then reuses this same cached HTML via a
+ * second call below, so no plugin ever has its shortcode executed twice.
+ */
+function adapt_get_feedback_survey_form_html() {
+	static $html = null;
+	if ( null === $html ) {
+		$shortcode = get_field( 'feedback_survey_shortcode', 'option' );
+		$html      = $shortcode ? do_shortcode( $shortcode ) : '';
+	}
+	return $html;
+}
+
+/**
+ * Primes the shortcode render (and therefore each plugin's asset enqueues)
+ * early enough for wp_head to still print them - see the doc comment on
+ * adapt_get_feedback_survey_form_html() above for why this can't just
+ * happen inline in the wp_footer render callback below.
+ */
+add_action( 'wp_enqueue_scripts', function() {
+	if ( is_admin() || ! adapt_should_show_feedback_survey() ) {
+		return;
+	}
+	adapt_get_feedback_survey_form_html();
+} );
+
+/**
  * Whether the current request should even attempt to render the survey:
  * logged in, feature enabled, a form shortcode is configured, today is
  * on/after the configured start date, this user has already dismissed the
@@ -190,10 +230,9 @@ add_action( 'wp_footer', function() {
 		return;
 	}
 
-	$shortcode = get_field( 'feedback_survey_shortcode', 'option' );
-	$heading   = get_field( 'feedback_survey_heading', 'option' );
-	$intro     = get_field( 'feedback_survey_intro', 'option' );
-	$nonce     = wp_create_nonce( 'adapt_feedback_survey' );
+	$heading = get_field( 'feedback_survey_heading', 'option' );
+	$intro   = get_field( 'feedback_survey_intro', 'option' );
+	$nonce   = wp_create_nonce( 'adapt_feedback_survey' );
 	?>
 	<div id="adapt-feedback-survey" class="feedbackSurvey" style="display:none;" role="dialog" aria-modal="true" <?php echo $heading ? 'aria-labelledby="adapt-feedback-survey-heading"' : ''; ?>>
 		<div class="feedbackSurvey-overlay"></div>
@@ -206,7 +245,7 @@ add_action( 'wp_footer', function() {
 				<p><?php echo nl2br( esc_html( $intro ) ); ?></p>
 			<?php endif; ?>
 			<div class="feedbackSurvey-form">
-				<?php echo do_shortcode( $shortcode ); ?>
+				<?php echo adapt_get_feedback_survey_form_html(); ?>
 			</div>
 		</div>
 	</div>

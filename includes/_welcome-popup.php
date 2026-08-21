@@ -166,6 +166,18 @@ add_action( 'wp_footer', function() {
 		return;
 	}
 
+	// If the feedback survey also qualifies to show on this same request
+	// (e.g. an admin testing both, or "Show again to everyone" toggled on
+	// for this popup after a user already dismissed it and became eligible
+	// for the survey too), let the survey take priority and skip this
+	// popup entirely rather than stacking both dialogs on top of each
+	// other. includes/_feedback-survey.php is loaded alongside this file
+	// regardless of include order, so the function is always defined by
+	// the time this callback actually runs at wp_footer.
+	if ( function_exists( 'adapt_should_show_feedback_survey' ) && adapt_should_show_feedback_survey() ) {
+		return;
+	}
+
 	$target  = get_field( 'welcome_popup_target_selector', 'option' );
 	$heading = get_field( 'welcome_popup_heading', 'option' );
 	$message = get_field( 'welcome_popup_message', 'option' );
