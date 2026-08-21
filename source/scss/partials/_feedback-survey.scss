@@ -138,6 +138,29 @@
 				background: $color-red;
 			}
 		}
+
+		// Wraps the slider - inserted by the same inline script, around the
+		// input plus its min/max end labels. flex so the labels sit flush
+		// against either end regardless of the slider's own width.
+		.feedbackSurvey-rangeWrap {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			input[type="range"] {
+				flex: 1;
+			}
+
+			&-min,
+			&-max {
+				flex-shrink: 0;
+				min-width: 14px;
+				font-size: 13px;
+				font-weight: 600;
+				color: #777;
+				text-align: center;
+			}
+		}
 	}
 
 	&-close {

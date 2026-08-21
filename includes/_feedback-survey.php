@@ -457,19 +457,44 @@ add_action( 'wp_footer', function() {
 		// ::-moz-range-progress) - paint the "already selected" portion via
 		// a JS-computed --feedbackSurveyRangeFill percentage instead (see
 		// the matching CSS in _feedback-survey.scss), updated live as the
-		// visitor drags. Scoped to range inputs inside this popup's own
-		// form (e.g. WPForms' Number Slider field) rather than changing
-		// range input styling anywhere else on the site.
+		// visitor drags. Also wraps the slider with its min/max values as
+		// end labels, read straight off the input's own min/max attributes
+		// (whatever the field is configured to in WPForms, etc.) rather
+		// than hardcoded - can't be done in pure CSS since browsers don't
+		// render ::before/::after on <input> elements at all. Scoped to
+		// range inputs inside this popup's own form (e.g. WPForms' Number
+		// Slider field) rather than changing range input styling anywhere
+		// else on the site.
 		if (formWrap) {
 			var sliders = formWrap.querySelectorAll('input[type="range"]');
 			for (var s = 0; s < sliders.length; s++) {
 				(function(slider) {
+					var min = slider.getAttribute('min');
+					var max = slider.getAttribute('max');
+					if (min !== null && max !== null && min !== max && slider.parentNode) {
+						var wrap = document.createElement('div');
+						wrap.className = 'feedbackSurvey-rangeWrap';
+
+						var minLabel = document.createElement('span');
+						minLabel.className = 'feedbackSurvey-rangeWrap-min';
+						minLabel.textContent = min;
+
+						var maxLabel = document.createElement('span');
+						maxLabel.className = 'feedbackSurvey-rangeWrap-max';
+						maxLabel.textContent = max;
+
+						slider.parentNode.insertBefore(wrap, slider);
+						wrap.appendChild(minLabel);
+						wrap.appendChild(slider);
+						wrap.appendChild(maxLabel);
+					}
+
 					function paintFill() {
-						var min = parseFloat(slider.min) || 0;
-						var max = parseFloat(slider.max) || 100;
+						var minVal = parseFloat(slider.min) || 0;
+						var maxVal = parseFloat(slider.max) || 100;
 						var val = parseFloat(slider.value);
-						if (isNaN(val)) val = min;
-						var pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+						if (isNaN(val)) val = minVal;
+						var pct = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
 						slider.style.setProperty('--feedbackSurveyRangeFill', pct + '%');
 					}
 					slider.addEventListener('input', paintFill);
