@@ -92,6 +92,15 @@ add_action( 'acf/init', function() {
 				'conditional_logic' => $shown_if_enabled,
 			),
 			array(
+				'key'               => 'field_adapt_feedback_survey_target_selector',
+				'label'             => 'Target element (CSS selector)',
+				'name'              => 'feedback_survey_target_selector',
+				'type'              => 'text',
+				'instructions'      => 'Same idea as the welcome popup\'s equivalent field - the element to highlight behind the survey dialog. Defaults to the homepage AI Assistant box, matching the welcome popup it follows on from. If the element is not found on a given page (not loaded yet, or this page does not have it), the survey silently does not show and the user is not counted as having seen it - they will still get it on a page where the element does appear. Leave blank to always show the survey without any target check or highlight.',
+				'default_value'     => '.cgpt-hero-card',
+				'conditional_logic' => $shown_if_enabled,
+			),
+			array(
 				'key'               => 'field_adapt_feedback_survey_heading',
 				'label'             => 'Heading',
 				'name'              => 'feedback_survey_heading',
@@ -177,6 +186,20 @@ add_action( 'wp', function() {
 		return;
 	}
 	adapt_get_feedback_survey_form_html();
+
+	// Belt-and-suspenders for WPForms specifically: confirmed via live
+	// testing that priming the shortcode render alone isn't enough for
+	// this plugin - even with its own "Load Assets Globally" setting
+	// turned on, that only reliably forces its JS, not its CSS, for a
+	// form rendered outside normal post content (a plain [wpforms ...]
+	// pasted directly into a page's content editor works fine; this
+	// footer-injected one didn't). wpforms()->frontend->assets_css() is
+	// WPForms' own documented escape hatch for exactly this situation -
+	// call it directly rather than continuing to rely on its internal
+	// detection.
+	if ( function_exists( 'wpforms' ) ) {
+		wpforms()->frontend->assets_css();
+	}
 } );
 
 /**
@@ -240,10 +263,12 @@ add_action( 'wp_footer', function() {
 
 	$heading = get_field( 'feedback_survey_heading', 'option' );
 	$intro   = get_field( 'feedback_survey_intro', 'option' );
+	$target  = get_field( 'feedback_survey_target_selector', 'option' );
 	$nonce   = wp_create_nonce( 'adapt_feedback_survey' );
 	?>
 	<div id="adapt-feedback-survey" class="feedbackSurvey" style="display:none;" role="dialog" aria-modal="true" <?php echo $heading ? 'aria-labelledby="adapt-feedback-survey-heading"' : ''; ?>>
 		<div class="feedbackSurvey-overlay"></div>
+		<div class="feedbackSurvey-highlight"></div>
 		<div class="feedbackSurvey-dialog">
 			<button type="button" class="feedbackSurvey-close" aria-label="Close">&times;</button>
 			<?php if ( $heading ) : ?>
@@ -262,11 +287,13 @@ add_action( 'wp_footer', function() {
 		var popup = document.getElementById('adapt-feedback-survey');
 		if (!popup) return;
 
-		var overlay  = popup.querySelector('.feedbackSurvey-overlay');
-		var closeBtn = popup.querySelector('.feedbackSurvey-close');
-		var formWrap = popup.querySelector('.feedbackSurvey-form');
-		var formEl   = formWrap ? formWrap.querySelector('form, .wpcf7') : null;
+		var overlay   = popup.querySelector('.feedbackSurvey-overlay');
+		var highlight = popup.querySelector('.feedbackSurvey-highlight');
+		var closeBtn  = popup.querySelector('.feedbackSurvey-close');
+		var formWrap  = popup.querySelector('.feedbackSurvey-form');
+		var formEl    = formWrap ? formWrap.querySelector('form, .wpcf7') : null;
 
+		var targetSelector = <?php echo wp_json_encode( $target ); ?>;
 		var submittedMarked = false;
 
 		// Only ever called on a detected successful submission (see the
@@ -286,6 +313,8 @@ add_action( 'wp_footer', function() {
 		function dismiss() {
 			document.body.classList.remove('fixed');
 			popup.remove();
+			window.removeEventListener('resize', reposition);
+			window.removeEventListener('scroll', reposition);
 			document.removeEventListener('keydown', onKeydown);
 			detachSubmissionWatchers();
 		}
@@ -294,12 +323,106 @@ add_action( 'wp_footer', function() {
 			if (e.key === 'Escape') dismiss();
 		}
 
-		popup.style.display = '';
-		document.body.classList.add('fixed');
-		overlay.addEventListener('click', dismiss);
-		closeBtn.addEventListener('click', dismiss);
-		document.addEventListener('keydown', onKeydown);
-		if (closeBtn) closeBtn.focus();
+		var currentTarget = null;
+
+		// Sizes the highlight box to the live target element - same
+		// re-resolve-if-detached and skip-on-zero-rect defensiveness as the
+		// welcome popup's own reposition(), since the same widgets (e.g.
+		// CustomGPT re-rendering its own DOM) can go stale the same way.
+		// The dialog itself stays centered via CSS regardless of the
+		// target's position - only the highlight cutout tracks it.
+		function reposition() {
+			if (!currentTarget || !highlight) return;
+
+			if (!document.body.contains(currentTarget)) {
+				var stillThere = document.querySelector(targetSelector);
+				if (!stillThere) return;
+				currentTarget = stillThere;
+			}
+
+			var rect = currentTarget.getBoundingClientRect();
+			if (rect.width === 0 && rect.height === 0) return;
+
+			var pad = 8;
+			highlight.style.top    = (rect.top - pad) + 'px';
+			highlight.style.left   = (rect.left - pad) + 'px';
+			highlight.style.width  = (rect.width + pad * 2) + 'px';
+			highlight.style.height = (rect.height + pad * 2) + 'px';
+		}
+
+		var settled = false; // true once we've either shown it or given up
+
+		function showFor(target) {
+			if (settled) return;
+			settled = true;
+			currentTarget = target;
+
+			if (target) {
+				target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			} else {
+				// No target configured - the highlight box never gets sized,
+				// so it provides no dimming on its own. Fall back to a flat
+				// dim on the overlay itself, same as this popup's original
+				// always-centered behavior.
+				overlay.classList.add('feedbackSurvey-overlay--dim');
+			}
+
+			// Same settle delay as the welcome popup, so the highlight box
+			// measures the target after any smooth-scroll has finished
+			// rather than mid-scroll.
+			setTimeout(function() {
+				popup.style.display = '';
+				reposition();
+				document.body.classList.add('fixed');
+				if (closeBtn) closeBtn.focus();
+			}, target ? 400 : 0);
+
+			if (target) {
+				window.addEventListener('resize', reposition);
+				window.addEventListener('scroll', reposition);
+			}
+			overlay.addEventListener('click', dismiss);
+			closeBtn.addEventListener('click', dismiss);
+			document.addEventListener('keydown', onKeydown);
+		}
+
+		function giveUp() {
+			if (settled) return;
+			settled = true;
+			// Target never showed up on this page load - remove quietly,
+			// same as the welcome popup's equivalent giveUp(): nothing is
+			// marked submitted or otherwise persisted, so this user still
+			// gets the survey on a page where the target actually renders.
+			popup.remove();
+			detachSubmissionWatchers();
+		}
+
+		if (!targetSelector) {
+			// No target configured - always show, centered, with no
+			// highlight, matching this popup's original behavior.
+			showFor(null);
+		} else {
+			var existingTarget = document.querySelector(targetSelector);
+			if (existingTarget) {
+				showFor(existingTarget);
+			} else {
+				// Same reasoning and timeout as the welcome popup: the
+				// CustomGPT widget this defaults to can take several
+				// seconds to render.
+				var targetObserver = new MutationObserver(function() {
+					var found = document.querySelector(targetSelector);
+					if (found) {
+						targetObserver.disconnect();
+						showFor(found);
+					}
+				});
+				targetObserver.observe(document.body, { childList: true, subtree: true });
+				setTimeout(function() {
+					targetObserver.disconnect();
+					giveUp();
+				}, 45000);
+			}
+		}
 
 		/**
 		 * Submission detection: every form plugin signals a successful AJAX
