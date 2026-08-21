@@ -289,6 +289,7 @@ add_action( 'wp_footer', function() {
 
 		var overlay   = popup.querySelector('.feedbackSurvey-overlay');
 		var highlight = popup.querySelector('.feedbackSurvey-highlight');
+		var dialog    = popup.querySelector('.feedbackSurvey-dialog');
 		var closeBtn  = popup.querySelector('.feedbackSurvey-close');
 		var formWrap  = popup.querySelector('.feedbackSurvey-form');
 		var formEl    = formWrap ? formWrap.querySelector('form, .wpcf7') : null;
@@ -327,10 +328,11 @@ add_action( 'wp_footer', function() {
 
 		// Sizes the highlight box to the live target element - same
 		// re-resolve-if-detached and skip-on-zero-rect defensiveness as the
-		// welcome popup's own reposition(), since the same widgets (e.g.
-		// CustomGPT re-rendering its own DOM) can go stale the same way.
-		// The dialog itself stays centered via CSS regardless of the
-		// target's position - only the highlight cutout tracks it.
+		// welcome popup's own reposition(). Also tries to anchor the dialog
+		// directly below the highlight (rather than centered on top of it,
+		// which just covers up the thing being highlighted) - falls back to
+		// this component's original centered layout if there genuinely
+		// isn't enough room below the target to fit it.
 		function reposition() {
 			if (!currentTarget || !highlight) return;
 
@@ -348,6 +350,31 @@ add_action( 'wp_footer', function() {
 			highlight.style.left   = (rect.left - pad) + 'px';
 			highlight.style.width  = (rect.width + pad * 2) + 'px';
 			highlight.style.height = (rect.height + pad * 2) + 'px';
+
+			if (!dialog) return;
+
+			var margin = 16;
+			var gap = 16;
+			var top = rect.bottom + pad + gap;
+			var spaceBelow = window.innerHeight - top - margin;
+
+			// Only worth anchoring below if there's a reasonable minimum of
+			// room to actually show something useful there - otherwise fall
+			// back to the centered layout rather than pinning the dialog
+			// into a sliver of space at the bottom of the screen.
+			if (spaceBelow >= 200) {
+				var dRect = dialog.getBoundingClientRect();
+				var left = rect.left + (rect.width / 2) - (dRect.width / 2);
+				left = Math.max(margin, Math.min(left, window.innerWidth - dRect.width - margin));
+
+				dialog.classList.add('is-anchored');
+				dialog.style.top       = top + 'px';
+				dialog.style.left      = left + 'px';
+				dialog.style.maxHeight = spaceBelow + 'px';
+			} else {
+				dialog.classList.remove('is-anchored');
+				dialog.style.top = dialog.style.left = dialog.style.maxHeight = '';
+			}
 		}
 
 		var settled = false; // true once we've either shown it or given up

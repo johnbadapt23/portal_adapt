@@ -75,6 +75,18 @@
 		padding: 28px;
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 		text-align: left;
+		transition: top 250ms ease, left 250ms ease;
+
+		// Applied by the inline script's reposition() once it's found room
+		// to anchor the dialog directly below the highlighted target rather
+		// than centered on top of it. top/left/max-height are set inline
+		// via JS against the live target's position - this class only needs
+		// to cancel the centered layout's transform, since the inline
+		// top/left values already override the 50%/50% defaults above on
+		// their own (inline styles beat class rules).
+		&.is-anchored {
+			transform: none;
+		}
 
 		h2 {
 			font-size: 20px;
