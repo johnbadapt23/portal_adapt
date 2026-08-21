@@ -404,6 +404,14 @@ add_action( 'wp_footer', function() {
 			setTimeout(function() {
 				popup.style.display = '';
 				reposition();
+				// Range label geometry (see rangeLabelRepositionFns below)
+				// can only be measured once the popup is actually visible -
+				// display:none up to this point means getBoundingClientRect()
+				// would return an all-zero rect, same reasoning as why
+				// reposition() itself waits for this point too.
+				for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+					rangeLabelRepositionFns[r]();
+				}
 				document.body.classList.add('fixed');
 				if (closeBtn) closeBtn.focus();
 			}, target ? 400 : 0);
@@ -512,7 +520,12 @@ add_action( 'wp_footer', function() {
 							maxLabel.style.top  = top + 'px';
 							maxLabel.style.left = (sliderRect.right - wrapRect.left) + 'px';
 						};
-						positionLabels();
+						// Not called immediately here - the popup is still
+						// display:none at this point (shown later, from
+						// showFor()'s setTimeout, which is what actually
+						// calls this the first time), so
+						// getBoundingClientRect() would only ever measure
+						// an all-zero rect and misplace both labels.
 						window.addEventListener('resize', positionLabels);
 						rangeLabelRepositionFns.push(positionLabels);
 					}
