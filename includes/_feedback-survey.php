@@ -4,14 +4,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Direct access not allowed.
 }
 /**
- * Feedback survey - a Contact Form 7 form (built and edited entirely in
- * wp-admin > Contact > Contact Forms, whatever questions are wanted - not
- * hardcoded here) shown once per logged-in user inside a popup styled to
- * match the welcome spotlight's centered dialog, starting from a
- * configurable date. Chosen over Gravity Forms since there's no GF license
- * available - CF7 is free and already fires a plain vanilla-JS event on
- * successful submission (wpcf7mailsent), so this needs no jQuery timing
- * dependency at all.
+ * Feedback survey - a form rendered from an admin-configured shortcode
+ * (built and edited entirely in whichever form plugin is in use - Contact
+ * Form 7, WPForms, Gravity Forms, whatever - not hardcoded here) shown once
+ * per logged-in user inside a popup styled to match the welcome spotlight's
+ * centered dialog, starting from a configurable date. Not tied to any one
+ * form plugin: the admin pastes the shortcode for whatever form they've
+ * built, and do_shortcode() renders it as-is. If that shortcode happens to
+ * be Contact Form 7's, the popup also gets an early "seen" mark on its
+ * vanilla-JS wpcf7mailsent success event (see below) - a bonus, not a
+ * requirement, since dismissing the popup always marks it seen regardless
+ * of which plugin rendered the form.
  *
  * Entirely self-contained, same pattern as includes/_welcome-popup.php: its
  * own ACF field group on the existing options page, its own once-per-user
@@ -75,11 +78,11 @@ add_action( 'acf/init', function() {
 				'conditional_logic' => $shown_if_enabled,
 			),
 			array(
-				'key'               => 'field_adapt_feedback_survey_form_id',
-				'label'             => 'Contact Form 7 form ID',
-				'name'              => 'feedback_survey_form_id',
-				'type'              => 'number',
-				'instructions'      => 'The numeric ID of the Contact Form 7 form to show (Contact > Contact Forms - the ID is shown next to each form\'s title, and in its shortcode). Build/edit the actual survey questions there, not here.',
+				'key'               => 'field_adapt_feedback_survey_shortcode',
+				'label'             => 'Form shortcode',
+				'name'              => 'feedback_survey_shortcode',
+				'type'              => 'text',
+				'instructions'      => 'The shortcode for the form to show - works with any form plugin\'s shortcode, e.g. [contact-form-7 id="123" title="Feedback"] or [gravityform id="4"]. Build/edit the actual survey questions in that plugin, not here.',
 				'conditional_logic' => $shown_if_enabled,
 			),
 			array(
@@ -124,11 +127,11 @@ add_action( 'acf/init', function() {
 
 /**
  * Whether the current request should even attempt to render the survey:
- * logged in, feature enabled, Contact Form 7 is actually active, a form ID
- * is configured, today is on/after the configured start date, this user has
- * already dismissed the welcome popup (i.e. actually encountered the AI
- * Assistant box, not just logged in), and this user hasn't dismissed the
- * survey itself before (unless exempted - see below).
+ * logged in, feature enabled, a form shortcode is configured, today is
+ * on/after the configured start date, this user has already dismissed the
+ * welcome popup (i.e. actually encountered the AI Assistant box, not just
+ * logged in), and this user hasn't dismissed the survey itself before
+ * (unless exempted - see below).
  *
  * Administrators always see it regardless of the welcome-popup-seen
  * requirement or past survey dismissals (debugging/QA convenience, same
@@ -144,12 +147,9 @@ function adapt_should_show_feedback_survey() {
 	if ( ! get_field( 'feedback_survey_enabled', 'option' ) ) {
 		return false;
 	}
-	if ( ! class_exists( 'WPCF7' ) ) {
-		return false; // Contact Form 7 isn't active - nothing to embed.
-	}
-	$form_id = (int) get_field( 'feedback_survey_form_id', 'option' );
-	if ( ! $form_id ) {
-		return false;
+	$shortcode = trim( (string) get_field( 'feedback_survey_shortcode', 'option' ) );
+	if ( ! $shortcode ) {
+		return false; // Nothing configured to embed.
 	}
 	$start_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string.
 	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
@@ -182,10 +182,10 @@ add_action( 'wp_footer', function() {
 		return;
 	}
 
-	$form_id = (int) get_field( 'feedback_survey_form_id', 'option' );
-	$heading = get_field( 'feedback_survey_heading', 'option' );
-	$intro   = get_field( 'feedback_survey_intro', 'option' );
-	$nonce   = wp_create_nonce( 'adapt_feedback_survey' );
+	$shortcode = get_field( 'feedback_survey_shortcode', 'option' );
+	$heading   = get_field( 'feedback_survey_heading', 'option' );
+	$intro     = get_field( 'feedback_survey_intro', 'option' );
+	$nonce     = wp_create_nonce( 'adapt_feedback_survey' );
 	?>
 	<div id="adapt-feedback-survey" class="feedbackSurvey" style="display:none;" role="dialog" aria-modal="true" <?php echo $heading ? 'aria-labelledby="adapt-feedback-survey-heading"' : ''; ?>>
 		<div class="feedbackSurvey-overlay"></div>
@@ -198,7 +198,7 @@ add_action( 'wp_footer', function() {
 				<p><?php echo nl2br( esc_html( $intro ) ); ?></p>
 			<?php endif; ?>
 			<div class="feedbackSurvey-form">
-				<?php echo do_shortcode( '[contact-form-7 id="' . $form_id . '"]' ); ?>
+				<?php echo do_shortcode( $shortcode ); ?>
 			</div>
 		</div>
 	</div>
@@ -240,17 +240,17 @@ add_action( 'wp_footer', function() {
 		document.addEventListener('keydown', onKeydown);
 		if (closeBtn) closeBtn.focus();
 
-		// Contact Form 7 dispatches this native event on the form element
-		// once an AJAX submission succeeds and its confirmation message is
-		// shown - plain DOM event, no jQuery/load-order dependency. Marks
-		// it seen right away so a refresh won't show it again, but leaves
-		// the popup open so the confirmation message stays visible until
-		// the visitor closes it themselves.
+		// If the configured shortcode happens to be a Contact Form 7 form,
+		// it dispatches this native event on the form element once an AJAX
+		// submission succeeds - plain DOM event, no jQuery/load-order
+		// dependency. Marks it seen right away so a refresh won't show it
+		// again, but leaves the popup open so the confirmation message
+		// stays visible until the visitor closes it themselves. Other form
+		// plugins don't fire this event, so for those the survey still
+		// gets marked seen the normal way, on dismiss (close/overlay/Escape).
 		if (formEl) {
-			formEl.addEventListener('wpcf7mailsent', function(event) {
-				if (!event.detail || Number(event.detail.contactFormId) === <?php echo (int) $form_id; ?>) {
-					markSeen();
-				}
+			formEl.addEventListener('wpcf7mailsent', function() {
+				markSeen();
 			}, false);
 		}
 	})();
