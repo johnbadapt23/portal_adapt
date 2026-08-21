@@ -1,6 +1,6 @@
 {
     "key": "group_68180d55a7727",
-    "title": "Sector Listing Elements",
+    "title": "Sector & Persona Listing Elements",
     "fields": [
         {
             "key": "field_68180d567bd97",
@@ -140,6 +140,13 @@
                 "operator": "==",
                 "value": "sector-analysis"
             }
+        ],
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "persona-mapping"
+            }
         ]
     ],
     "menu_order": 0,
@@ -154,5 +161,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291071
 }
