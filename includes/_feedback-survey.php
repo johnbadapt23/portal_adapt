@@ -133,21 +133,28 @@ add_action( 'acf/init', function() {
 
 /**
  * Renders (once, memoized) and returns the survey's configured shortcode
- * output. Deliberately given its first call from the wp_enqueue_scripts
- * hook below - BEFORE wp_head - rather than from wp_footer where the
- * markup actually gets echoed, because several form plugins (WPForms in
- * particular, with its "Improve Global Assets Loading" setting) only
- * decide to wp_enqueue_style()/wp_enqueue_script() their frontend assets
- * as a side effect of the shortcode itself running. If that first run
- * happened in wp_footer - after wp_head has already called
- * wp_print_styles() - any style enqueued that late is registered but
- * never actually printed, so the form renders with no CSS at all. Contact
- * Form 7 masked this because it unconditionally enqueues its own CSS on
- * every front-end request regardless of shortcode timing, but it's not
- * safe to assume every plugin behaves that way. Running the shortcode once
- * here lets each plugin's own enqueue calls land in time for wp_head to
- * print them normally; wp_footer then reuses this same cached HTML via a
+ * output. Deliberately given its first call from the wp hook below - not
+ * just before wp_head, but before wp_enqueue_scripts even fires - rather
+ * than from wp_footer where the markup actually gets echoed.
+ *
+ * Several form plugins (WPForms among them) don't enqueue their CSS/JS
+ * directly as an immediate side effect of the shortcode running - instead
+ * their own wp_enqueue_scripts callback checks an internal "was a form
+ * displayed on this request" flag and enqueues only if that's true. That
+ * callback is registered by the plugin itself, which loads well before the
+ * theme does, so it runs BEFORE any wp_enqueue_scripts callback this theme
+ * registers - meaning triggering the shortcode from our own
+ * wp_enqueue_scripts hook is already too late; the plugin's own asset
+ * decision has already been made and won't be reconsidered. Priming from
+ * wp - which fires before wp_enqueue_scripts altogether, regardless of
+ * hook registration order - guarantees the flag is set before any plugin's
+ * asset-enqueue logic runs, so its styles land in time for wp_head to
+ * print them normally. wp_footer then reuses this same cached HTML via a
  * second call below, so no plugin ever has its shortcode executed twice.
+ *
+ * Contact Form 7 masked this entirely, since it unconditionally enqueues
+ * its own CSS on every front-end request regardless of shortcode timing -
+ * but it's not safe to assume every plugin behaves that way.
  */
 function adapt_get_feedback_survey_form_html() {
 	static $html = null;
@@ -159,12 +166,13 @@ function adapt_get_feedback_survey_form_html() {
 }
 
 /**
- * Primes the shortcode render (and therefore each plugin's asset enqueues)
- * early enough for wp_head to still print them - see the doc comment on
- * adapt_get_feedback_survey_form_html() above for why this can't just
- * happen inline in the wp_footer render callback below.
+ * Primes the shortcode render (and therefore each plugin's asset-detection
+ * flags) as early in the request as possible - see the doc comment on
+ * adapt_get_feedback_survey_form_html() above for why this has to happen
+ * on wp, not wp_enqueue_scripts, and not inline in the wp_footer render
+ * callback below.
  */
-add_action( 'wp_enqueue_scripts', function() {
+add_action( 'wp', function() {
 	if ( is_admin() || ! adapt_should_show_feedback_survey() ) {
 		return;
 	}
