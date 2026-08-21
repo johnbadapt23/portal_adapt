@@ -451,6 +451,33 @@ add_action( 'wp_footer', function() {
 			}
 		}
 
+		// Cosmetic: native range inputs don't fill their own track to show
+		// progress consistently cross-browser (Chrome/Safari's
+		// -webkit-slider-runnable-track has no equivalent of Firefox's
+		// ::-moz-range-progress) - paint the "already selected" portion via
+		// a JS-computed --feedbackSurveyRangeFill percentage instead (see
+		// the matching CSS in _feedback-survey.scss), updated live as the
+		// visitor drags. Scoped to range inputs inside this popup's own
+		// form (e.g. WPForms' Number Slider field) rather than changing
+		// range input styling anywhere else on the site.
+		if (formWrap) {
+			var sliders = formWrap.querySelectorAll('input[type="range"]');
+			for (var s = 0; s < sliders.length; s++) {
+				(function(slider) {
+					function paintFill() {
+						var min = parseFloat(slider.min) || 0;
+						var max = parseFloat(slider.max) || 100;
+						var val = parseFloat(slider.value);
+						if (isNaN(val)) val = min;
+						var pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+						slider.style.setProperty('--feedbackSurveyRangeFill', pct + '%');
+					}
+					slider.addEventListener('input', paintFill);
+					paintFill();
+				})(sliders[s]);
+			}
+		}
+
 		/**
 		 * Submission detection: every form plugin signals a successful AJAX
 		 * submit its own way, so rather than only reacting to whichever one

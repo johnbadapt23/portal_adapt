@@ -110,6 +110,34 @@
 		// room and a top rule so it reads as a distinct section under any
 		// heading/intro text above it.
 		margin-top: 4px;
+
+		// Native range inputs (e.g. WPForms' Number Slider field) don't
+		// fill their own track to show progress consistently cross-browser
+		// - the inline script sets --feedbackSurveyRangeFill on load and on
+		// every 'input' event, this just paints it as a gradient: solid red
+		// from the left edge up to the thumb's position, plain grey past
+		// it. !important because WPForms' own field CSS sets a background
+		// on this same element with enough specificity to otherwise win.
+		// The thumb/track shape/size themselves are left as WPForms styles
+		// them - only the fill color is added here.
+		input[type="range"] {
+			--feedbackSurveyRangeFill: 0%;
+			background: linear-gradient(
+				to right,
+				$color-red 0%,
+				$color-red var(--feedbackSurveyRangeFill),
+				#e1e1e1 var(--feedbackSurveyRangeFill),
+				#e1e1e1 100%
+			) !important;
+
+			&::-moz-range-track {
+				background: transparent;
+			}
+
+			&::-moz-range-progress {
+				background: $color-red;
+			}
+		}
 	}
 
 	&-close {
