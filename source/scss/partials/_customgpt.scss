@@ -225,6 +225,6 @@ span.customgpt-toggle {
 // unchanged from the original pass.
 // Promoted to default CSS - previously gated behind body.dev-preview (?dev=true) during development, see includes/_customisations.php's git history.
 body span.customgpt-toggle {
-	float: none;
+	// float: none;
 	clear: both;
 }
