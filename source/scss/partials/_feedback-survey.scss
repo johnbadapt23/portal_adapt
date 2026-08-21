@@ -1,9 +1,17 @@
 // One-time feedback survey popup - see includes/_feedback-survey.php for
-// the render/dismiss logic. Visually matches the welcome popup's centered
-// dialog (see .welcomeSpotlight.is-centered in _welcome-popup.scss) per
-// request to display it "the same as the tooltip", but kept as its own
-// independent component/file so either feature can be edited or turned off
-// without touching the other.
+// the render/dismiss/targeting logic. Same target-gated, spotlight-highlight
+// behavior as the welcome popup (see .welcomeSpotlight in
+// _welcome-popup.scss): only shows once its configured target element is
+// found on the page, and highlights that element behind the dialog the
+// same way. Unlike the welcome popup's tooltip, this dialog itself stays
+// centered rather than anchored/arrowed next to the target - it can hold an
+// entire embedded form, so pinning it to a small anchored callout wouldn't
+// scale the same way. -highlight positioning (top/left/width/height) is set
+// inline via JS against the live target element's getBoundingClientRect(),
+// same reasoning as the welcome popup - not attempted in CSS alone, since
+// the target can be anywhere on the page. Kept as its own independent
+// component/file so either feature can be edited or turned off without
+// touching the other.
 //
 // #adapt-feedback-survey carries role="dialog" for accessibility - same
 // pre-existing global [role=dialog] { background-color: var(--background)
@@ -23,8 +31,34 @@
 	&-overlay {
 		position: fixed;
 		inset: 0;
-		background: rgba(0, 0, 0, 0.7);
 		cursor: pointer;
+
+		// Only added by the inline script when no target selector is
+		// configured at all - the highlight box below provides the dim via
+		// its own box-shadow otherwise, and this overlay has to stay
+		// transparent for that box's "cutout" to actually reveal the
+		// brighter page underneath rather than showing a second, separate
+		// dim layer sitting behind it.
+		&--dim {
+			background: rgba(0, 0, 0, 0.7);
+		}
+	}
+
+	// Same "shadow as spotlight" technique as .welcomeSpotlight-highlight -
+	// a small transparent box positioned exactly over the target, whose huge
+	// box-shadow spread darkens the rest of the viewport without darkening
+	// the box's own area. Replaces the old flat dim overlay above (now just
+	// a transparent click-catcher when a target is in play) so the target
+	// reads as highlighted rather than sitting under the same uniform dim as
+	// everything else. When no target is configured, this box is simply
+	// never sized/shown (see the inline script's targetSelector check) and
+	// -overlay--dim above takes over instead.
+	&-highlight {
+		position: fixed;
+		border-radius: 8px;
+		box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7);
+		pointer-events: none;
+		transition: top 250ms ease, left 250ms ease, width 250ms ease, height 250ms ease;
 	}
 
 	&-dialog {
