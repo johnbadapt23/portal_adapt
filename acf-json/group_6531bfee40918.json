@@ -3,6 +3,24 @@
     "title": "Ecosystem Partners Post Elements",
     "fields": [
         {
+            "key": "field_02869aff4be14",
+            "label": "Listing Card",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_6531c47d87c9c",
             "label": "Partner Type",
             "name": "partner_type",
@@ -168,6 +186,24 @@
             "rows": 2,
             "placeholder": "",
             "new_lines": "br"
+        },
+        {
+            "key": "field_f2699da80db84",
+            "label": "Profile Content",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_6531bfee6a6bf",
@@ -710,6 +746,24 @@
             ]
         },
         {
+            "key": "field_92602d01dfa54",
+            "label": "Details",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_6531c5bbaf831",
             "label": "Regions",
             "name": "who_we_help",
@@ -1153,5 +1207,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }

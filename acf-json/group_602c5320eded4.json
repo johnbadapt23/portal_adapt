@@ -3,6 +3,128 @@
     "title": "Registration Elements",
     "fields": [
         {
+            "key": "field_b7f31b1370d54",
+            "label": "Event Details",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_602c5350d61c4",
+            "label": "Event Date",
+            "name": "event_date",
+            "aria-label": "",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "display_format": "F j, Y",
+            "return_format": "Ymd",
+            "first_day": 1,
+            "default_to_current_date": 0
+        },
+        {
+            "key": "field_602c5372d61c5",
+            "label": "Event Start Time",
+            "name": "event_start_time",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_602c58f9d61c6",
+            "label": "Event End Time",
+            "name": "event_end_time",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_699ba30d1ab77",
+            "label": "Listing Image",
+            "name": "listing_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_3007d473dde84",
+            "label": "Membership & Access",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_60321a32dc1e2",
             "label": "Membership IDs",
             "name": "membership_ids",
@@ -49,11 +171,11 @@
             "rows_per_page": 20
         },
         {
-            "key": "field_602c5350d61c4",
-            "label": "Event Date",
-            "name": "event_date",
+            "key": "field_9a81ec6f80c94",
+            "label": "Registration Form",
+            "name": "",
             "aria-label": "",
-            "type": "date_picker",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -62,17 +184,16 @@
                 "class": "",
                 "id": ""
             },
-            "display_format": "F j, Y",
-            "return_format": "Ymd",
-            "first_day": 1,
-            "default_to_current_date": 0
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
-            "key": "field_602c5372d61c5",
-            "label": "Event Start Time",
-            "name": "event_start_time",
+            "key": "field_6034588a9a77e",
+            "label": "Registration Form Embed",
+            "name": "registration_form_embed",
             "aria-label": "",
-            "type": "text",
+            "type": "textarea",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -83,14 +204,14 @@
             },
             "default_value": "",
             "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
         },
         {
-            "key": "field_602c58f9d61c6",
-            "label": "Event End Time",
-            "name": "event_end_time",
+            "key": "field_603458c79a77f",
+            "label": "Registration Form Title",
+            "name": "registration_form_title",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -176,11 +297,11 @@
             "maxlength": ""
         },
         {
-            "key": "field_6034588a9a77e",
-            "label": "Registration Form Embed",
-            "name": "registration_form_embed",
+            "key": "field_333874c171514",
+            "label": "Page Content",
+            "name": "",
             "aria-label": "",
-            "type": "textarea",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -189,31 +310,9 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": "",
-            "maxlength": "",
-            "rows": "",
-            "new_lines": ""
-        },
-        {
-            "key": "field_603458c79a77f",
-            "label": "Registration Form Title",
-            "name": "registration_form_title",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_602c5b5bd61c8",
@@ -234,33 +333,6 @@
             "maxlength": "",
             "rows": "",
             "new_lines": ""
-        },
-        {
-            "key": "field_699ba30d1ab77",
-            "label": "Listing Image",
-            "name": "listing_image",
-            "aria-label": "",
-            "type": "image",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "return_format": "array",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "",
-            "allow_in_bindings": 0,
-            "preview_size": "medium"
         },
         {
             "key": "field_602c5b69d61c9",
@@ -638,5 +710,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }

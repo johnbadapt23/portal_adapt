@@ -3,6 +3,24 @@
     "title": "Flexible Elements",
     "fields": [
         {
+            "key": "field_ac9de46e081d4",
+            "label": "Banner",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_5c5912f2a1212",
             "label": "Banner Image",
             "name": "banner_image",
@@ -162,12 +180,12 @@
             "rows_per_page": 20
         },
         {
-            "key": "field_5ce32d76d91e8",
-            "label": "Hidden Vimeo Embed (for Yoast)",
-            "name": "hidden_vimeo_embed_for_yoast",
+            "key": "field_f1e97211ad2b4",
+            "label": "Navigation",
+            "name": "",
             "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "If there is any video content, please put vimeo embed code in here.",
+            "type": "tab",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -175,11 +193,9 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "tabs": "text",
-            "media_upload": 1,
-            "toolbar": "full",
-            "delay": 0
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_5e44aa1b27d1d",
@@ -187,7 +203,7 @@
             "name": "remove_main_menu",
             "aria-label": "",
             "type": "select",
-            "instructions": "Remove the main menu / mega menu from page (only black header banner remains)",
+            "instructions": "Hides the sitewide main navigation header entirely on this page. Different from Hide Main Menu below, which only affects the separate fixed in-page nav block.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -197,6 +213,42 @@
             },
             "choices": {
                 "remove-main": "Yes",
+                "no": "No"
+            },
+            "default_value": "no",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_5e4482bf8b72c",
+            "label": "Hide Main Menu?",
+            "name": "hide_main_menu",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Hides ONLY the fixed in-page navigation block configured below (Fixed Menu) - does not affect the sitewide main header. Different from Remove Main Menu above.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5cf73e697dd28",
+                        "operator": "==",
+                        "value": "yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "start-fixed": "Yes",
                 "no": "No"
             },
             "default_value": "no",
@@ -384,40 +436,60 @@
             "rows_per_page": 20
         },
         {
-            "key": "field_5e4482bf8b72c",
-            "label": "Hide Main Menu?",
-            "name": "hide_main_menu",
+            "key": "field_69c012e871be4",
+            "label": "SEO",
+            "name": "",
             "aria-label": "",
-            "type": "select",
-            "instructions": "If there are Navigation Items",
+            "type": "tab",
+            "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5cf73e697dd28",
-                        "operator": "==",
-                        "value": "yes"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "start-fixed": "Yes",
-                "no": "No"
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_5ce32d76d91e8",
+            "label": "Hidden Vimeo Embed (for Yoast)",
+            "name": "hidden_vimeo_embed_for_yoast",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "If there is any video content, please put vimeo embed code in here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
             },
-            "default_value": "no",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
+            "default_value": "",
+            "tabs": "text",
+            "media_upload": 1,
+            "toolbar": "full",
+            "delay": 0
+        },
+        {
+            "key": "field_9374258952844",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_5c5912daa10aa",
@@ -8015,5 +8087,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }

@@ -3,31 +3,11 @@
     "title": "Event Elements",
     "fields": [
         {
-            "key": "field_5fbb04b8a6e5b",
-            "label": "External Link",
-            "name": "external_link",
+            "key": "field_f51604ea835d4",
+            "label": "Banner & Listing",
+            "name": "",
             "aria-label": "",
-            "type": "text",
-            "instructions": "Link to event on adapt.com.au",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_5fbb04c6a6e5c",
-            "label": "External Link Target",
-            "name": "external_link_target",
-            "aria-label": "",
-            "type": "select",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -36,19 +16,9 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "_blank": "New Tab",
-                "_self": "Same Tab"
-            },
-            "default_value": "_blank",
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": "",
-            "create_options": 0,
-            "save_options": 0
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_5c50dd7cad1dc",
@@ -381,46 +351,6 @@
             "rows_per_page": 20
         },
         {
-            "key": "field_5ce32e2c35230",
-            "label": "Hidden Vimeo Embed (for Yoast)",
-            "name": "hidden_vimeo_embed_for_yoast",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "If there is any video content, please put vimeo embed code in here.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "text",
-            "media_upload": 1,
-            "toolbar": "full",
-            "delay": 0
-        },
-        {
-            "key": "field_5cf5b8d5598aa",
-            "label": "Share Title",
-            "name": "share_title",
-            "aria-label": "",
-            "type": "text",
-            "instructions": "Title for share buttons (please no '|' )",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
             "key": "field_5c52551c44d25",
             "label": "Listing Page Grid Image",
             "name": "listing_page_grid_image",
@@ -486,6 +416,44 @@
             "maxlength": ""
         },
         {
+            "key": "field_5cf5b8d5598aa",
+            "label": "Share Title",
+            "name": "share_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Title for share buttons (please no '|' )",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_284dcaa1d38a4",
+            "label": "Registration",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_5cad8459c0db5",
             "label": "Show Register Button",
             "name": "show_register_button",
@@ -542,6 +510,24 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_877fcc7340a54",
+            "label": "Navigation",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_5c52413809eca",
@@ -664,6 +650,110 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_5fbb04b8a6e5b",
+            "label": "External Link",
+            "name": "external_link",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Link to event on adapt.com.au",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5fbb04c6a6e5c",
+            "label": "External Link Target",
+            "name": "external_link_target",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "_blank": "New Tab",
+                "_self": "Same Tab"
+            },
+            "default_value": "_blank",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": "",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_134c79c15da14",
+            "label": "SEO",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_5ce32e2c35230",
+            "label": "Hidden Vimeo Embed (for Yoast)",
+            "name": "hidden_vimeo_embed_for_yoast",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "If there is any video content, please put vimeo embed code in here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "text",
+            "media_upload": 1,
+            "toolbar": "full",
+            "delay": 0
+        },
+        {
+            "key": "field_4bca23b9fed84",
+            "label": "Content",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_5c50dee17830d",
@@ -6979,5 +7069,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787291146
 }
