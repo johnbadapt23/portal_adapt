@@ -1206,7 +1206,7 @@ section.post-title-block {
 
     .container {
         .back-container {
-            float: left;
+            display: block;
             width: 100%;
             margin-bottom: 40px;
 
@@ -1216,17 +1216,13 @@ section.post-title-block {
         }
 
         .introduction-title {
-            float: left;
+            display: block;
             width: 100%;
 
             h1 {
-                float: left;
-                width: calc(100% - 276px);
+                display: block;
+                width: 100%;
                 margin-bottom: 0px;
-
-                @include responsive(767) {
-                    width: 100%;
-                }
             }
         }
     }
@@ -1244,8 +1240,23 @@ article.articleWrapper {
         padding: 40px 0 80px;
     }
 
+    // .column.first (article body) and .column.second (sidebar) are the two
+    // direct children rendered inside this .container in single-post.php -
+    // previously a float:left/float:right pair with .first's width reserving
+    // 200px more than .second actually needs (460px vs 260px) to fake a
+    // gutter between them, since floats can't express a gap directly.
+    // justify-content: space-between reproduces that same gutter exactly
+    // (container width minus both column widths, in the one space between
+    // them) without the reserved-width trick, and flex-wrap carries over the
+    // existing 767px stacking (both columns already go to width: 100% at
+    // that breakpoint, so the second one simply wraps onto its own line).
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
     .column {
-        float: left;
         min-height: 10px;
 
         .simplefavorite-button.active {
@@ -1761,7 +1772,6 @@ article.articleWrapper {
 
         &.second {
             width: 260px;
-            float: right;
 
             @include responsive(767) {
                 width: 100%;
@@ -5274,14 +5284,6 @@ body .events-card-image.column .events-card-inner {
 	float: none;
 	clear: both;
 }
-body section.post-title-block .container .back-container {
-	float: none;
-	clear: both;
-}
-body section.post-title-block .container .introduction-title {
-	float: none;
-	clear: both;
-}
 body article.articleWrapper .column.first .article {
 	float: none;
 	clear: both;
@@ -5756,12 +5758,6 @@ body .events-card-image.column .event-link {
 	display: block;
 }
 body .events-card-image.column .events-card-inner {
-	display: block;
-}
-body section.post-title-block .container .back-container {
-	display: block;
-}
-body section.post-title-block .container .introduction-title {
 	display: block;
 }
 body article.articleWrapper .column.first .article {
