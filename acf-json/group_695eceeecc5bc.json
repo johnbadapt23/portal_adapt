@@ -908,10 +908,7 @@
                                 "post"
                             ],
                             "post_status": "",
-                            "taxonomy": [
-                                "filter-types:expert-presentations",
-                                "filter-types:edge-snapshots"
-                            ],
+                            "taxonomy": "",
                             "return_format": "object",
                             "multiple": 0,
                             "allow_null": 0,
@@ -953,5 +950,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787539920
 }

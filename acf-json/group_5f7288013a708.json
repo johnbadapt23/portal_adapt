@@ -174,7 +174,8 @@
                                     "choices": {
                                         "most-recent": "Most Recent",
                                         "most-popular": "Most Popular",
-                                        "types": "Types"
+                                        "types": "Types",
+                                        "tagged-popular": "Tagged Most Popular"
                                     },
                                     "default_value": false,
                                     "return_format": "value",
@@ -211,7 +212,7 @@
                                     "parent_repeater": "field_695d867aa9178"
                                 },
                                 {
-                                    "key": "field_69a8d0e6b49c1",
+                                    "key": "field_69a8deccc58f3",
                                     "label": "Type",
                                     "name": "type",
                                     "aria-label": "",
@@ -238,7 +239,7 @@
                                     "load_terms": 0,
                                     "return_format": "object",
                                     "field_type": "radio",
-                                    "allow_null": 1,
+                                    "allow_null": 0,
                                     "allow_in_bindings": 0,
                                     "bidirectional": 0,
                                     "multiple": 0,
@@ -1744,7 +1745,9 @@
                                     },
                                     "choices": {
                                         "most-recent": "Most Recent",
-                                        "most-popular": "Most Popular"
+                                        "most-popular": "Most Popular",
+                                        "types": "Types",
+                                        "tagged-popular": "Tagged Most Popular"
                                     },
                                     "default_value": false,
                                     "return_format": "value",
@@ -1778,6 +1781,33 @@
                                     "placeholder": "",
                                     "prepend": "",
                                     "append": "",
+                                    "parent_repeater": "field_695a00f7e16b8"
+                                },
+                                {
+                                    "key": "field_69a8df00c58f4",
+                                    "label": "Type",
+                                    "name": "type",
+                                    "aria-label": "",
+                                    "type": "taxonomy",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "taxonomy": "filter-types",
+                                    "add_term": 0,
+                                    "save_terms": 0,
+                                    "load_terms": 0,
+                                    "return_format": "object",
+                                    "field_type": "radio",
+                                    "allow_null": 0,
+                                    "allow_in_bindings": 0,
+                                    "bidirectional": 0,
+                                    "multiple": 0,
+                                    "bidirectional_target": [],
                                     "parent_repeater": "field_695a00f7e16b8"
                                 }
                             ]
@@ -3460,5 +3490,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787289495
+    "modified": 1787539920
 }

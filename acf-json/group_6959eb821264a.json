@@ -656,7 +656,7 @@
             "selected": 0
         },
         {
-            "key": "field_69c9dc05e31f5",
+            "key": "field_69c9dc1f87a45",
             "label": "Research Type Order?",
             "name": "research_type_order",
             "aria-label": "",
@@ -700,5 +700,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787291146
+    "modified": 1787539920
 }
