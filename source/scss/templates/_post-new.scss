@@ -1476,7 +1476,8 @@ article.articleWrapper {
                 }
 
                 .topicFilter {
-                    display: block;
+                    display: flex;
+                    flex-wrap: wrap;
                     width: 100%;
                     margin-bottom: 27px;
 
@@ -1485,7 +1486,6 @@ article.articleWrapper {
                     }
 
                     a.topicFilterText {
-                        float: left;
                         margin-right: 15px;
                         font-family: $font-base;
                         font-weight: 400;
@@ -1495,10 +1495,7 @@ article.articleWrapper {
 
                         &:hover {
                             text-decoration: underline;
-                            ;
                         }
-
-                        @include responsive(767) {}
                     }
                 }
 
