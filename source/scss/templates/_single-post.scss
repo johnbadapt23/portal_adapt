@@ -1410,7 +1410,7 @@ section.singlePost.locked .lockOverlay {
     }
 
     a.back-button {
-        float: left;
+        display: inline-block;
         text-transform: uppercase;
         color: #000;
         padding-left: 20px;
@@ -1433,7 +1433,7 @@ section.singlePost.locked .lockOverlay {
 section.singlePost {
     .container {
         a.back-button {
-            float: left;
+            display: inline-block;
             text-transform: uppercase;
             color: #000;
             padding-left: 20px;
@@ -1608,8 +1608,7 @@ section.expertPresentationFeatured {
     .container {
         .back-button {
             position: relative;
-            float: left;
-            width: auto;
+            display: inline-block;
             margin-bottom: 16px;
             padding-left: 18px;
             color: #838383;

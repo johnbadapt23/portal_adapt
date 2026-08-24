@@ -3510,7 +3510,7 @@ span.std-button-span {
 	font-size: 14px;
 	line-height: 16px;
 	color: #9a9a9a;
-	float: left;
+	display: inline-block;
 
 	&:before {
 		content: '';

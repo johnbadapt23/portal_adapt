@@ -75,6 +75,18 @@
 		padding: 28px;
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 		text-align: left;
+		transition: top 250ms ease, left 250ms ease;
+
+		// Applied by the inline script's reposition() once it's found room
+		// to anchor the dialog directly below the highlighted target rather
+		// than centered on top of it. top/left/max-height are set inline
+		// via JS against the live target's position - this class only needs
+		// to cancel the centered layout's transform, since the inline
+		// top/left values already override the 50%/50% defaults above on
+		// their own (inline styles beat class rules).
+		&.is-anchored {
+			transform: none;
+		}
 
 		h2 {
 			font-size: 20px;
@@ -98,6 +110,68 @@
 		// room and a top rule so it reads as a distinct section under any
 		// heading/intro text above it.
 		margin-top: 4px;
+
+		// Native range inputs (e.g. WPForms' Number Slider field) don't
+		// fill their own track to show progress consistently cross-browser
+		// - the inline script sets --feedbackSurveyRangeFill on load and on
+		// every 'input' event, this just paints it as a gradient: solid red
+		// from the left edge up to the thumb's position, plain grey past
+		// it. !important because WPForms' own field CSS sets a background
+		// on this same element with enough specificity to otherwise win.
+		// The thumb/track shape/size themselves are left as WPForms styles
+		// them - only the fill color is added here.
+		input[type="range"] {
+			--feedbackSurveyRangeFill: 0%;
+			background: linear-gradient(
+				to right,
+				$color-red 0%,
+				$color-red var(--feedbackSurveyRangeFill),
+				#e1e1e1 var(--feedbackSurveyRangeFill),
+				#e1e1e1 100%
+			) !important;
+
+			&::-moz-range-track {
+				background: transparent;
+			}
+
+			&::-moz-range-progress {
+				background: $color-red;
+			}
+		}
+
+		// WPForms' own "Selected Value: X" hint text sits directly below
+		// the slider by default - pushed down a bit here to leave room for
+		// the min/max labels the inline script positions in between (see
+		// .feedbackSurvey-rangeLabel below), rather than the two visually
+		// colliding.
+		.wpforms-field-number-slider-hint {
+			margin-top: 22px;
+		}
+	}
+
+	// Min/max end labels for a range slider, appended to .feedbackSurvey-form
+	// by the inline script and positioned via measured geometry (top/left
+	// set inline via JS, same reasoning as the highlight/dialog positioning
+	// above - the slider can be any width, so this isn't attempted in CSS
+	// alone). Deliberately absolutely positioned rather than inserted into
+	// the slider's own DOM neighborhood - see the inline script's comment
+	// for why that broke WPForms' own hint-text updater.
+	&-rangeLabel {
+		position: absolute;
+		font-size: 13px;
+		font-weight: 600;
+		color: #777;
+
+		&--min {
+			transform: translate(0, 2px);
+		}
+
+		// Right-aligned against its own left edge (set to the slider's
+		// right edge by the inline script), so the label reads as flush
+		// with the end of the track rather than starting from it.
+		&--max {
+			transform: translate(-100%, 2px);
+		}
 	}
 
 	&-close {

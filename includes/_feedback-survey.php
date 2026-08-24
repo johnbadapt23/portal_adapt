@@ -289,12 +289,14 @@ add_action( 'wp_footer', function() {
 
 		var overlay   = popup.querySelector('.feedbackSurvey-overlay');
 		var highlight = popup.querySelector('.feedbackSurvey-highlight');
+		var dialog    = popup.querySelector('.feedbackSurvey-dialog');
 		var closeBtn  = popup.querySelector('.feedbackSurvey-close');
 		var formWrap  = popup.querySelector('.feedbackSurvey-form');
 		var formEl    = formWrap ? formWrap.querySelector('form, .wpcf7') : null;
 
 		var targetSelector = <?php echo wp_json_encode( $target ); ?>;
 		var submittedMarked = false;
+		var rangeLabelRepositionFns = [];
 
 		// Only ever called on a detected successful submission (see the
 		// plugin integrations below) - never on a plain close, so closing
@@ -315,6 +317,9 @@ add_action( 'wp_footer', function() {
 			popup.remove();
 			window.removeEventListener('resize', reposition);
 			window.removeEventListener('scroll', reposition);
+			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
+			}
 			document.removeEventListener('keydown', onKeydown);
 			detachSubmissionWatchers();
 		}
@@ -327,10 +332,11 @@ add_action( 'wp_footer', function() {
 
 		// Sizes the highlight box to the live target element - same
 		// re-resolve-if-detached and skip-on-zero-rect defensiveness as the
-		// welcome popup's own reposition(), since the same widgets (e.g.
-		// CustomGPT re-rendering its own DOM) can go stale the same way.
-		// The dialog itself stays centered via CSS regardless of the
-		// target's position - only the highlight cutout tracks it.
+		// welcome popup's own reposition(). Also tries to anchor the dialog
+		// directly below the highlight (rather than centered on top of it,
+		// which just covers up the thing being highlighted) - falls back to
+		// this component's original centered layout if there genuinely
+		// isn't enough room below the target to fit it.
 		function reposition() {
 			if (!currentTarget || !highlight) return;
 
@@ -348,6 +354,31 @@ add_action( 'wp_footer', function() {
 			highlight.style.left   = (rect.left - pad) + 'px';
 			highlight.style.width  = (rect.width + pad * 2) + 'px';
 			highlight.style.height = (rect.height + pad * 2) + 'px';
+
+			if (!dialog) return;
+
+			var margin = 16;
+			var gap = 16;
+			var top = rect.bottom + pad + gap;
+			var spaceBelow = window.innerHeight - top - margin;
+
+			// Only worth anchoring below if there's a reasonable minimum of
+			// room to actually show something useful there - otherwise fall
+			// back to the centered layout rather than pinning the dialog
+			// into a sliver of space at the bottom of the screen.
+			if (spaceBelow >= 200) {
+				var dRect = dialog.getBoundingClientRect();
+				var left = rect.left + (rect.width / 2) - (dRect.width / 2);
+				left = Math.max(margin, Math.min(left, window.innerWidth - dRect.width - margin));
+
+				dialog.classList.add('is-anchored');
+				dialog.style.top       = top + 'px';
+				dialog.style.left      = left + 'px';
+				dialog.style.maxHeight = spaceBelow + 'px';
+			} else {
+				dialog.classList.remove('is-anchored');
+				dialog.style.top = dialog.style.left = dialog.style.maxHeight = '';
+			}
 		}
 
 		var settled = false; // true once we've either shown it or given up
@@ -373,6 +404,14 @@ add_action( 'wp_footer', function() {
 			setTimeout(function() {
 				popup.style.display = '';
 				reposition();
+				// Range label geometry (see rangeLabelRepositionFns below)
+				// can only be measured once the popup is actually visible -
+				// display:none up to this point means getBoundingClientRect()
+				// would return an all-zero rect, same reasoning as why
+				// reposition() itself waits for this point too.
+				for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+					rangeLabelRepositionFns[r]();
+				}
 				document.body.classList.add('fixed');
 				if (closeBtn) closeBtn.focus();
 			}, target ? 400 : 0);
@@ -394,6 +433,9 @@ add_action( 'wp_footer', function() {
 			// marked submitted or otherwise persisted, so this user still
 			// gets the survey on a page where the target actually renders.
 			popup.remove();
+			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
+			}
 			detachSubmissionWatchers();
 		}
 
@@ -421,6 +463,84 @@ add_action( 'wp_footer', function() {
 					targetObserver.disconnect();
 					giveUp();
 				}, 45000);
+			}
+		}
+
+		// Cosmetic: native range inputs don't fill their own track to show
+		// progress consistently cross-browser (Chrome/Safari's
+		// -webkit-slider-runnable-track has no equivalent of Firefox's
+		// ::-moz-range-progress) - paint the "already selected" portion via
+		// a JS-computed --feedbackSurveyRangeFill percentage instead (see
+		// the matching CSS in _feedback-survey.scss), updated live as the
+		// visitor drags. Also shows the slider's min/max values as labels
+		// below it, read straight off the input's own min/max attributes
+		// (whatever the field is configured to in WPForms, etc.) rather
+		// than hardcoded - can't be done in pure CSS since browsers don't
+		// render ::before/::after on <input> elements at all.
+		//
+		// The labels are appended to formWrap itself and positioned via
+		// measured geometry, deliberately NOT inserted into the slider's
+		// own immediate DOM neighborhood - an earlier version wrapped the
+		// input in a new parent div, which moved it and broke WPForms' own
+		// "Selected Value: X" hint updater: that code reads its hint text
+		// off input.nextElementSibling, assumed to always be its own hint
+		// div, and threw once that was our new label span instead. Scoped
+		// to range inputs inside this popup's own form (e.g. WPForms'
+		// Number Slider field) rather than changing range input styling
+		// anywhere else on the site.
+		if (formWrap) {
+			var sliders = formWrap.querySelectorAll('input[type="range"]');
+			for (var s = 0; s < sliders.length; s++) {
+				(function(slider) {
+					var min = slider.getAttribute('min');
+					var max = slider.getAttribute('max');
+
+					if (min !== null && max !== null && min !== max) {
+						if (getComputedStyle(formWrap).position === 'static') {
+							formWrap.style.position = 'relative';
+						}
+
+						var minLabel = document.createElement('span');
+						minLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--min';
+						minLabel.textContent = min;
+
+						var maxLabel = document.createElement('span');
+						maxLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--max';
+						maxLabel.textContent = max;
+
+						formWrap.appendChild(minLabel);
+						formWrap.appendChild(maxLabel);
+
+						var positionLabels = function() {
+							var sliderRect = slider.getBoundingClientRect();
+							var wrapRect = formWrap.getBoundingClientRect();
+							var top = sliderRect.bottom - wrapRect.top + 4;
+							minLabel.style.top  = top + 'px';
+							minLabel.style.left = (sliderRect.left - wrapRect.left) + 'px';
+							maxLabel.style.top  = top + 'px';
+							maxLabel.style.left = (sliderRect.right - wrapRect.left) + 'px';
+						};
+						// Not called immediately here - the popup is still
+						// display:none at this point (shown later, from
+						// showFor()'s setTimeout, which is what actually
+						// calls this the first time), so
+						// getBoundingClientRect() would only ever measure
+						// an all-zero rect and misplace both labels.
+						window.addEventListener('resize', positionLabels);
+						rangeLabelRepositionFns.push(positionLabels);
+					}
+
+					function paintFill() {
+						var minVal = parseFloat(slider.min) || 0;
+						var maxVal = parseFloat(slider.max) || 100;
+						var val = parseFloat(slider.value);
+						if (isNaN(val)) val = minVal;
+						var pct = maxVal > minVal ? ((val - minVal) / (maxVal - minVal)) * 100 : 0;
+						slider.style.setProperty('--feedbackSurveyRangeFill', pct + '%');
+					}
+					slider.addEventListener('input', paintFill);
+					paintFill();
+				})(sliders[s]);
 			}
 		}
 
