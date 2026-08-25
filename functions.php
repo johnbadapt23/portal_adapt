@@ -2539,15 +2539,6 @@ function adapt_render_filter_posts() {
     }
 }
 
-// One-time bulk role assignment for a fixed list of existing users - already
-// ran successfully (agent_tester role added to all 232 users below without
-// touching their existing roles), so this is commented out rather than left
-// active. Kept here instead of deleted in case the same 232-user batch (or
-// the agent_tester role definition) is needed again later - uncomment both
-// add_action() calls to re-run; the option-flag guard on
-// adapt_assign_agent_tester_role_once() would need clearing first via
-// delete_option('adapt_agent_tester_role_assigned') since it already ran once.
-/*
 function adapt_register_agent_tester_role() {
     if ( ! get_role( 'agent_tester' ) ) {
         add_role( 'agent_tester', 'Agent Tester', array(
@@ -2557,6 +2548,17 @@ function adapt_register_agent_tester_role() {
 }
 add_action( 'init', 'adapt_register_agent_tester_role' );
 
+// One-time bulk role assignment for a fixed list of existing users - already
+// ran successfully (agent_tester role added to all 232 users below without
+// touching their existing roles). Only the add_action() below is commented
+// out, not the function itself - a commented-out add_action() means nothing
+// ever calls this function, since hooking it to 'init' was the only thing
+// that invoked it in the first place, so this is just as inert as wrapping
+// the whole thing in a block comment, but faster to re-enable later (one
+// line, no un-nesting a /* */ block). To re-run: uncomment the add_action()
+// call below and clear the option flag first via
+// delete_option('adapt_agent_tester_role_assigned'), since it already ran
+// once.
 function adapt_assign_agent_tester_role_once() {
     if ( get_option( 'adapt_agent_tester_role_assigned' ) ) {
         return;
@@ -2598,16 +2600,14 @@ function adapt_assign_agent_tester_role_once() {
 
     update_option( 'adapt_agent_tester_role_assigned', 1 );
 }
-add_action( 'init', 'adapt_assign_agent_tester_role_once', 20 );
-*/
+// add_action( 'init', 'adapt_assign_agent_tester_role_once', 20 );
 
 // One-time bulk removal: strips the agent_tester role from the same 232
 // users above, using WP_User::remove_role() so only that one role is taken
-// off - any other role(s) each user has stay exactly as they are. Runs once
-// (tracked via its own option flag) and is safe to leave in functions.php
-// afterward. This does not unregister the agent_tester role itself - it just
-// stops applying it - since the registration function above is commented
-// out, not deleted, in case it is needed again.
+// off - any other role(s) each user has stay exactly as they are. Same
+// pattern as above - the add_action() below is commented out rather than
+// the function itself, so it will not run until that line is uncommented.
+// Does not unregister the agent_tester role itself, just stops applying it.
 function adapt_remove_agent_tester_role_once() {
     if ( get_option( 'adapt_agent_tester_role_removed' ) ) {
         return;
@@ -2649,4 +2649,4 @@ function adapt_remove_agent_tester_role_once() {
 
     update_option( 'adapt_agent_tester_role_removed', 1 );
 }
-add_action( 'init', 'adapt_remove_agent_tester_role_once', 20 );
+// add_action( 'init', 'adapt_remove_agent_tester_role_once', 20 );
