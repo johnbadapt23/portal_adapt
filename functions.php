@@ -2538,3 +2538,65 @@ function adapt_render_filter_posts() {
         include locate_template('/templates/components/_article-card.php');
     }
 }
+
+// One-time bulk role assignment for a fixed list of existing users - already
+// ran successfully (agent_tester role added to all 232 users below without
+// touching their existing roles), so this is commented out rather than left
+// active. Kept here instead of deleted in case the same 232-user batch (or
+// the agent_tester role definition) is needed again later - uncomment both
+// add_action() calls to re-run; the option-flag guard on
+// adapt_assign_agent_tester_role_once() would need clearing first via
+// delete_option('adapt_agent_tester_role_assigned') since it already ran once.
+/*
+function adapt_register_agent_tester_role() {
+    if ( ! get_role( 'agent_tester' ) ) {
+        add_role( 'agent_tester', 'Agent Tester', array(
+            'read' => true,
+        ) );
+    }
+}
+add_action( 'init', 'adapt_register_agent_tester_role' );
+
+function adapt_assign_agent_tester_role_once() {
+    if ( get_option( 'adapt_agent_tester_role_assigned' ) ) {
+        return;
+    }
+
+    $user_ids = array(
+        1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
+        1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
+        1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
+        1596, 1825, 1824, 1288, 1375, 1306, 1653, 1630, 1286, 1536,
+        959,  1021, 973,  967,  962,  960,  899,  151,  1724, 988,
+        965,  970,  961,  1611, 1365, 1550, 1566, 1629, 1556, 1564,
+        1377, 1554, 1547, 1565, 1558, 1567, 1552, 1283, 1716, 1652,
+        1712, 1655, 1654, 1656, 1400, 1572, 1557, 1562, 1553, 1563,
+        1561, 1560, 1559, 1551, 1555, 1657, 1659, 1397, 1380, 1392,
+        1390, 1389, 1386, 1387, 1385, 1384, 1383, 1374, 1364, 467,
+        1366, 1658, 1729, 1393, 1367, 1422, 1011, 1140, 1860, 1590,
+        1430, 154,  1183, 1231, 1136, 1141, 1134, 1165, 1150, 1147,
+        1146, 1133, 1144, 1137, 1428, 1135, 1010, 344,  1139, 1145,
+        1143, 1142, 1138, 1864, 1867, 1172, 1265, 1802, 1723, 1761,
+        1680, 1421, 1316, 1372, 1368, 1312, 1308, 1307, 1305, 1300,
+        1299, 1298, 1295, 1291, 1290, 1289, 1287, 1681, 1890, 1793,
+        1727, 1710, 1722, 1757, 1589, 1726, 1835, 1808, 1788, 1758,
+        1591, 1709, 1683, 1704, 1711, 1691, 1705, 1702, 1707, 1701,
+        1696, 1706, 1689, 1685, 1717, 1693, 1679, 1725, 1687, 1697,
+        1684, 1719, 1713, 1692, 1434, 1433, 1432, 1311, 1240, 1180,
+        912,  1047, 1045, 409,  392,  391,  929,  389,  921,  914,
+        911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
+        1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
+        913,  1721,
+    );
+
+    foreach ( $user_ids as $user_id ) {
+        $user = get_user_by( 'id', $user_id );
+        if ( $user ) {
+            $user->add_role( 'agent_tester' );
+        }
+    }
+
+    update_option( 'adapt_agent_tester_role_assigned', 1 );
+}
+add_action( 'init', 'adapt_assign_agent_tester_role_once', 20 );
+*/
