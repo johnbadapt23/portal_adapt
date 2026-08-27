@@ -380,9 +380,9 @@ get_header();
 					$inline_img_137_src = get_field( 'print_header' );
 					$inline_img_137_attach_id = $inline_img_137_src ? attachment_url_to_postid( $inline_img_137_src ) : 0;
 					if ( $inline_img_137_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, array( 'alt' => 'Adapt - <?php echo the_title(); ?>' ) );
+						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, array( 'alt' => 'Adapt - ' . get_the_title() ) );
 					} elseif ( $inline_img_137_src ) {
-						echo '<img src="' . esc_url( $inline_img_137_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt - <?php echo the_title(); ?>' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_137_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt - ' . get_the_title() ) . '" />';
 					}
 				?></div>
     <div class="content">

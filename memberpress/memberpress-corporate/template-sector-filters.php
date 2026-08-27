@@ -8,7 +8,7 @@ global $membershipType;
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
-$events = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
+$events = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
 $sector = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
 $has_persona_get = ($persona !== '');
 $persona_term = null;
@@ -183,7 +183,7 @@ if ($membershipType === 'it-pro') {
                                 $all_value = !empty($allowed_topic_slugs) ? wp_json_encode($allowed_topic_slugs) : '[]';
                                 $active_found = false;
                                 ?>
-                                <a href="#" class="filter-button all <?php $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
+                                <a href="#" class="filter-button all <?= $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                 <?php foreach($topic_terms as $term) :
                                     $is_active = $term->slug === $topic;
                                     if($is_active) $active_found = true;

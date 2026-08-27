@@ -2,6 +2,7 @@
 // echo $current_user;
 if ( 0 == $current_user->ID ) {
     header("Location: https://research.adapt.com.au/login/");
+    exit;
 } ?>
 
 <?php
