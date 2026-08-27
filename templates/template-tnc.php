@@ -5,28 +5,10 @@ $displayed_posts = array (); ?>
 
 $q = get_queried_object();
 
-if($keyword != '') {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        's' => $keyword,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'filter-types',
-                'field' => 'slug',
-                'terms'    => 'tnc'
-            )
-        )
-    );
-} else {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        'paged'=> $paged
-    );
-}
+// A dead $args build used to sit here (an if($keyword)/else block using
+// $keyword and $paged, neither defined anywhere in this file before this
+// point) - $args was never read by any query before being reassigned
+// fresh further down this file for the actual queries it uses. Removed.
 ?>
 
 <section class="filter-title-block ">

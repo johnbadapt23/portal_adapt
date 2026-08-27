@@ -279,10 +279,15 @@ $post_types = array ();
         </div>
     </section>
     <?php
+    // This query only feeds the facet loop below (get_the_terms per post to
+    // build the filter-types dropdown), which never reads title/content/ACF
+    // fields, so it doesn't need full WP_Post objects. fields => ids skips
+    // that hydration on a query with no result limit.
     $args = array(
         'post_type'      => 'post',
         'posts_per_page' => -1,
         'paged'=> $paged,
+        'fields' => 'ids',
         'tax_query'      => array(
             'relation' => 'AND',
             array (
@@ -336,9 +341,9 @@ $post_types = array ();
 
     <?php $posts = new WP_Query( $args );
     if( $posts->have_posts() ): ?>
-        <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
-            <?php if(get_the_terms( $post->ID, 'filter-types' )){
-                $termsType = get_the_terms( $post->ID, 'filter-types' );
+        <?php foreach ( $posts->posts as $post_id ) : ?>
+            <?php if(get_the_terms( $post_id, 'filter-types' )){
+                $termsType = get_the_terms( $post_id, 'filter-types' );
 
                 foreach($termsType as $type) {
                     if(!in_array($type,$post_types)){
@@ -347,7 +352,7 @@ $post_types = array ();
                 }
             }
             ?>
-        <?php endwhile; else : ?>
+        <?php endforeach; else : ?>
     <?php endif; ?>
     <?php wp_reset_query();?>
     <section class="persona-filtering">
