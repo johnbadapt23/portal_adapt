@@ -2924,10 +2924,7 @@ a.post-popup {
 				bottom: -40px;
 
 				@include responsive(767) {
-					bottom: auto;
-					top: 0;
-					right: auto;
-					left: calc(50% - 7px);
+					inset: 0 auto auto calc(50% - 7px);
 				}
 			}
 		}

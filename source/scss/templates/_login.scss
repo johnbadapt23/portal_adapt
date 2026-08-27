@@ -367,10 +367,7 @@ main.login {
                                 &:after {
                                     height: 7px!important;
                                     margin-top: -7px!important;
-                                    border-top-right-radius: 3px;
-                                    border-bottom-right-radius: 3px;
-                                    border-top-left-radius: 3px;
-                                    border-bottom-left-radius: 3px;
+                                    border-radius: 3px;
                                 }
                             }
                         }
