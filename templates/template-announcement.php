@@ -7,7 +7,10 @@ if ( 0 == $current_user->ID ) {
 
 <?php
 global $displayed_posts;
-$posts = new WP_Query( $args );
+// A leftover `$posts = new WP_Query( $args )` used to sit here, running
+// with $args undefined at that point (defined a few lines below for the
+// real query) and its result was never read anywhere in this file - a
+// dead, fully unbounded WP_Query on every load of this template. Removed.
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 <?php $args = array(
     'post_type' => 'announcement',
