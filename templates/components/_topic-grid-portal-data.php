@@ -1,10 +1,17 @@
-<?php $sector_term = get_sub_field( 'topic' ); ?>
+<?php
+// _topic-grid-portal-markets.php is a near-identical component that only
+// differs in the data-insights vs market-narratives URL prefix and
+// subcategories taxonomy used below - rather than maintain two full copies
+// of this markup, it sets $section and includes this file directly.
+$section = $section ?? 'data-insights';
+$sector_term = get_sub_field( 'topic' );
+?>
 
 <section class="topicGrid portal sector-grid">
     <div class="container">
         <div class="blockTitle">
             <h2><?php echo get_sub_field( 'topic_title' ); ?></h2>
-            <a href="/data-insights/technology-trends/?topic=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
+            <a href="/<?php echo $section; ?>/technology-trends/?topic=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
             <?php
@@ -14,7 +21,7 @@
                     'tax_query'      => array(
                         'relation' => 'AND',
                         array (
-                            'taxonomy' => 'data-insights-subcategories',
+                            'taxonomy' => $section . '-subcategories',
                             'field' => 'slug',
                             'terms'    => 'technology-trends'
                         ),

@@ -1,10 +1,17 @@
-<?php $sector_term = get_sub_field( 'persona' ); ?>
+<?php
+// _persona-grid-portal-markets.php is a near-identical component that only
+// differs in the data-insights vs market-narratives URL prefix and
+// filter-types taxonomy term used below - rather than maintain two full
+// copies of this markup, it sets $section and includes this file directly.
+$section = $section ?? 'data-insights';
+$sector_term = get_sub_field( 'persona' );
+?>
 
 <section class="topicGrid portal sector-grid">
     <div class="container">
         <div class="blockTitle">
             <h2><?php echo get_sub_field( 'persona_title' ); ?></h2>
-            <a href="/data-insights/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
+            <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
             <?php
@@ -21,7 +28,7 @@
                         array(
                             'taxonomy' => 'filter-types',
                             'field'    => 'slug',
-                            'terms'    => 'data-insights'
+                            'terms'    => $section
                         ),
                     ),
                 );
@@ -78,8 +85,8 @@
                             </a>
                             <div class="textContainer">
                                 <span class="topicFilter">
-                                    <a href="/data-insights/persona-mapping/" class="topicFilterText">Persona Mapping</a>
-                                    <a href="/data-insights/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo $sector_term->name; ?></a>
+                                    <a href="/<?php echo $section; ?>/persona-mapping/" class="topicFilterText">Persona Mapping</a>
+                                    <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo $sector_term->name; ?></a>
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
                                 <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
