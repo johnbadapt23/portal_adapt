@@ -2595,6 +2595,8 @@ function adapt_assign_agent_tester_role_once() {
         913,  1721,
     );
 
+    // $user_ids = array(421, 1811, 1179, 1189, 1317, 1178, 1181, 1171, 1177, 1176, 1175, 1173, 1174);
+
     foreach ( $user_ids as $user_id ) {
         $user = get_user_by( 'id', $user_id );
         if ( $user ) {
