@@ -115,15 +115,6 @@
 	          column-gap: $gap;
 }// @include columns;
 
-
-@mixin fill($top:0, $right:0, $bottom:0, $left:0) {
-	position: absolute;
-	top: $top;
-	right: $right;
-	left: $left;
-	bottom: $bottom;
-}// @include fill;
-
 @mixin bgcover($align:center) {
 	background-size: cover;
 	background-position: $align;
