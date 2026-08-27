@@ -4379,13 +4379,7 @@ if (
              <?php }?>
         <?php } else if( has_term( 'data-insights', 'filter-types' )) { ?>
             <?php if ( have_rows( 'dataset_share' ) ) { ?>
-                <?php get_template_part( 'templates/components/_related-articles-portal-data-insights' ); ?>
-            <?php } else { ?>
                 <?php get_template_part( 'templates/components/_related-articles-portal' ); ?>
-            <?php }?>
-            <?php } else if( has_term( 'data-insights', 'filter-types' )) { ?>
-            <?php if ( have_rows( 'dataset_share' ) ) { ?>
-                <?php get_template_part( 'templates/components/_related-articles-portal-data-insights' ); ?>
             <?php } else { ?>
                 <?php get_template_part( 'templates/components/_related-articles-portal' ); ?>
             <?php }?>

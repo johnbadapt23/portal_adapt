@@ -46,13 +46,6 @@ if (current_user_can('administrator')) {
 } 
 
 ?>
-<span style="display: none;">
-<span class="user-info"><?php print_r($user_info); ?></span>
-<span class="member-info"><?php print_r($member); ?></span>
-
-    <span class="last-login"><?php echo $userLastLogin; ?></span>
-    <span class="login-counts"><?php echo $userLogins; ?></span>
-</span>
 <header class="header clear<?php if(get_field( 'remove_main_menu' )){ ?> <?php echo get_field( 'remove_main_menu' ); ?><?php } ?>" role="banner">
 	<div class="top">
 		<div class="container">
