@@ -362,6 +362,9 @@ function track_displayed_posts($url) {
 }
 
 function remove_already_displayed_posts($query) {
+ if ( is_admin() ) {
+     return;
+ }
  global $displayed_posts;
  $query->set('post__not_in', $displayed_posts);
 }
@@ -2254,7 +2257,9 @@ add_action( 'after_setup_theme', function() {
 // ─────────────────────────────────────────────────────────────────────────────
 function adapt_render_filter_posts() {
  
-    $is_admin = current_user_can('manage_options');
+    // User 584 is an administrator but should still see posts filtered by
+    // their own subscription, not bypass gating like other admins.
+    $is_admin = current_user_can('manage_options') && get_current_user_id() != 584;
 
     // -------------------------
     // Membership detection
