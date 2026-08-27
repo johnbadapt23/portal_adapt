@@ -185,9 +185,6 @@ main.login {
                         width: 100%;
                         text-align: left;
 
-                        a.tour-button {
-
-                        }
                     }
 
                     h3,
@@ -1099,7 +1096,6 @@ main.register-form.login {
         background-color: #fff;
 
         .mp_wrapper .cc-error {
-            position: absolute;
             font-size: 10px;
             position: absolute;
             bottom: -14px;
@@ -1161,9 +1157,6 @@ main.register-form.login.kyc-register-form {
 }
 
 
-main.login.register-thanks {
-
-}
 
 #mpca-add-sub-user-form {
     input[name="userdata[existing_login]"] {
