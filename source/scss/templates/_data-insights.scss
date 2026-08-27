@@ -785,8 +785,6 @@ section.featured-article-slider-data {
                             text-decoration: underline;
                         }
 
-                        @include responsive(767) {
-                        }
                     }
                 }
 
@@ -838,7 +836,6 @@ section.featured-article-slider-data {
                     height: 42px;
                     line-height: 42px;
                     line-height: 44px;
-                    font-size: 10px;
                     padding: 0 20px;
                     font-weight: bold;
                     font-size: 10px;
@@ -1508,8 +1505,6 @@ section.persona-featured-article {
                             text-decoration: underline;
                         }
 
-                        @include responsive(767) {
-                        }
                     }
                 }
 
