@@ -206,7 +206,7 @@ $advantagePlus = "no";
                         <?php echo do_shortcode('[favorite_button]'); ?>
                     <?php } ?>
                 </span>
-                 <?php if($advantagePlus = "no"){ ?>
+                 <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
                         <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
