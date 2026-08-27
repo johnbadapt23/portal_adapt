@@ -1,7 +1,7 @@
 <?php if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');} ?>
 
 <?php
-$reset_error = isset($_REQUEST['error']) ? $_REQUEST['error'] : "";
+$reset_error = $_REQUEST['error'] ?? "";
 
 if(!empty($reset_error)) {
   $errors[] = $reset_error;

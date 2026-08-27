@@ -139,9 +139,9 @@ class MPCA_Account_Controller {
       $account_url = (is_plugin_active('buddypress/bp-loader.php') && class_exists('MpBuddyPress')) ? bp_core_get_user_domain(get_current_user_id()) . 'mp-membership/' : MeprUtils::get_permalink($post->ID);
       $delim = MeprAppCtrl::get_param_delimiter_char($account_url);
 
-      $perpage = intval(isset($_REQUEST['perpage']) ? $_REQUEST['perpage'] : 10);
-      $currpage = intval(isset($_REQUEST['currpage']) ? $_REQUEST['currpage'] : 1);
-      $search = wp_kses((isset($_REQUEST['search']) ? $_REQUEST['search'] : ''), false);
+      $perpage = intval($_REQUEST['perpage'] ?? 10);
+      $currpage = intval($_REQUEST['currpage'] ?? 1);
+      $search = wp_kses(($_REQUEST['search'] ?? ''), false);
 
       $res = $ca->sub_account_list_table('last_name','ASC',$currpage,$perpage,$search);
 

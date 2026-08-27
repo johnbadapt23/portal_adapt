@@ -27,7 +27,7 @@
 					if ( $inline_img_151_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_151_attach_id, 'full', false, $inline_img_151_attrs );
 					} elseif ( $inline_img_151_src ) {
-						$fallback_loading = isset( $inline_img_151_attrs['loading'] ) ? $inline_img_151_attrs['loading'] : 'lazy';
+						$fallback_loading = $inline_img_151_attrs['loading'] ?? 'lazy';
 						$fallback_class = isset( $inline_img_151_attrs['class'] ) ? ' class="' . esc_attr( $inline_img_151_attrs['class'] ) . '"' : '';
 						$fallback_fetchpriority = isset( $inline_img_151_attrs['fetchpriority'] ) ? ' fetchpriority="' . esc_attr( $inline_img_151_attrs['fetchpriority'] ) . '"' : '';
 						echo '<img' . $fallback_class . ' src="' . esc_url( $inline_img_151_src ) . '" loading="' . esc_attr( $fallback_loading ) . '"' . $fallback_fetchpriority . ' alt="' . esc_attr( get_the_title() ) . '" />';
