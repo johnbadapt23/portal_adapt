@@ -549,6 +549,7 @@ function update_user_activity_info() {
 
     foreach ($users as $user) {
         $user_id = $user->ID;
+        $member  = null;
 
         if (class_exists('MeprUser')) {
             $member = new MeprUser($user_id);
@@ -585,9 +586,16 @@ function update_user_activity_info() {
 
         // Update active membership info
         if (user_can($user_id, 'mepr-active')) {
-            $member = new MeprUser($user_id);
-            update_user_meta($user_id, 'mepr_logins', $member->login_count);
-            update_user_meta($user_id, 'mepr_subscriptions', $member->get_active_subscription_titles(', '));
+            // $member was already instantiated above for this same user
+            // when the mepr-active check passed - reuse it instead of
+            // re-querying MemberPress a second time per user, per run.
+            if (!$member) {
+                $member = class_exists('MeprUser') ? new MeprUser($user_id) : null;
+            }
+            if ($member) {
+                update_user_meta($user_id, 'mepr_logins', $member->login_count);
+                update_user_meta($user_id, 'mepr_subscriptions', $member->get_active_subscription_titles(', '));
+            }
             update_user_meta($user_id, 'mepr_active_status', 'active');
         } else {
             update_user_meta($user_id, 'mepr_active_status', 'inactive');
@@ -783,15 +791,12 @@ function custom_subscription_update_action($user_id) {
         return;
     }
 
-    // Update subscriptions and active status
-    if (user_can($user_id, 'mepr-active')) {
-        $member = new MeprUser($user_id);
-        $subscriptions = $member->get_active_subscription_titles(", ");
-        update_user_meta($user_id, 'mepr_subscriptions', $subscriptions);
-        update_user_meta($user_id, 'mepr_active_status', 'active');
-    } else {
-        update_user_meta($user_id, 'mepr_active_status', 'inactive');
-    }
+    // mepr-active is already confirmed true above (otherwise we'd have
+    // returned), so reuse $member instead of re-instantiating MeprUser
+    // for the same user in the same request.
+    $subscriptions = $member->get_active_subscription_titles(", ");
+    update_user_meta($user_id, 'mepr_subscriptions', $subscriptions);
+    update_user_meta($user_id, 'mepr_active_status', 'active');
 
     // Clear transient
     delete_transient('user_activity_' . $user_id);
