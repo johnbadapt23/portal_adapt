@@ -7,7 +7,7 @@ get_header();
 $sector = $_GET['sector'];
 $keyword = $_GET['searchWords'];
 $q = get_queried_object();
-$q_slug = isset( $q->slug ) ? $q->slug : '';
+$q_slug = $q->slug ?? '';
 ?>
 
 

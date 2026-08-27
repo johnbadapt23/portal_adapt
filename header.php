@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php endif; ?>
 
 </head>
-<?php $q = get_queried_object(); $q_slug = isset( $q->slug ) ? $q->slug : ''; ?>
+<?php $q = get_queried_object(); $q_slug = $q->slug ?? ''; ?>
 <body <?php body_class(''); ?> <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'customer' ){ ?>data-theme-style="dark" <?php } ?> rel="<?php if ( is_404() ): echo 'notFound'; endif; ?>" <?php if(current_user_can('mepr-active')) { ?>id="logged-in"<?php } ?>>
     <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHF4ZRS"

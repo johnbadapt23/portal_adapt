@@ -209,7 +209,7 @@ add_action('wp', function() {
         set_transient('membership_ids', $membership_ids, HOUR_IN_SECONDS);
     }
 
-    $active_subscriptions = $member ? $member->active_product_subscriptions('ids') : [];
+    $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
 
     if (array_intersect($membership_ids['adv'], $active_subscriptions)) {
         $membershipType = 'advantage';
@@ -1514,7 +1514,7 @@ function get_membership_type_for_user($user_id = null) {
     $member = class_exists('MeprUser') ? new MeprUser($user_id) : null;
 
     // get active subscription IDs
-    $active_subscriptions = $member ? $member->active_product_subscriptions('ids') : [];
+    $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
 
     // get all membership IDs from ACF
     $get_membership_ids = function($field) {
@@ -1587,7 +1587,7 @@ function ajax_load_filtered_posts() {
     $current_user_id = get_current_user_id();
 
     $member = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
-    $active_subscriptions = $member ? $member->active_product_subscriptions('ids') : [];
+    $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
     // -------------------------
     // Pagination + basic data
     // -------------------------
@@ -2291,7 +2291,7 @@ function adapt_render_filter_posts() {
         $membershipType        = get_membership_type_for_user();
         $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
         $member                = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
-        $active_subscriptions  = $member ? $member->active_product_subscriptions('ids') : [];
+        $active_subscriptions  = $member?->active_product_subscriptions('ids') ?? [];
  
         set_transient($mem_cache_key, [
             'membershipType'        => $membershipType,
@@ -2304,8 +2304,8 @@ function adapt_render_filter_posts() {
     // Membership allowed IDs + allowed type slugs (server-side, same logic as adapt_render_filter_dropdowns)
     // -------------------------
     $q          = get_queried_object();
-    $q_slug     = isset($q->slug)     ? $q->slug     : '';
-    $q_taxonomy = isset($q->taxonomy) ? $q->taxonomy : '';
+    $q_slug     = $q->slug ?? '';
+    $q_taxonomy = $q->taxonomy ?? '';
  
     $acf_cache_key          = 'filter_types_allowed_ids_' . md5($membershipType);
     $membership_allowed_ids = $is_admin ? [] : get_transient($acf_cache_key);
