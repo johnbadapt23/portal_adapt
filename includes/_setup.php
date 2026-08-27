@@ -8,7 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 function theme_setup() {
 
 	add_editor_style();
-	add_theme_support( 'menus' );
+	// Note: menu support comes from register_nav_menus() in
+	// includes/_menu.php, not add_theme_support() - 'menus' isn't a real
+	// WP theme-support feature (WP core only recognizes a fixed set like
+	// post-thumbnails/title-tag/html5/custom-header/etc.), so the previous
+	// add_theme_support('menus') call here was silently doing nothing.
 	add_theme_support( 'post-thumbnails' );
 	// Lets WP (and Yoast SEO, which is active on this site) manage the
 	// <title> tag via wp_head() instead of the theme hardcoding one with
