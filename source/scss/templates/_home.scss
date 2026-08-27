@@ -116,10 +116,7 @@ section.advisors-carousel {
                     border-top-left-radius: 40px;
 
                     .bg-container {
-                        top: 4px;
-                        left: 4px;
-                        right: 4px;
-                        bottom: 4px;
+                        inset: 4px;
                         width: calc(100% - 8px);
                         height: calc(100% - 8px);
                         overflow: hidden;
@@ -215,10 +212,7 @@ section.advisors-carousel {
                     @include transition(all, 300ms, ease);
 
                     .bg-container {
-                        top: 4px;
-                        left: 4px;
-                        right: 4px;
-                        bottom: 4px;
+                        inset: 4px;
                         width: calc(100% - 8px);
                         overflow: hidden;
                         transition: height 350ms cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -359,10 +353,7 @@ section.upcoming-events-slider-section {
 
                 .leftslideCover {
                     position: absolute;
-                    top: -14px;
-                    left: auto;
-                    bottom: -20px;
-                    right: 100%;
+                    inset: -14px 100% -20px auto;
                     width: 70vw; // enough to cover the left of slider to end of screen
                     background: #000; // hard block so nothing appears under title column
                     z-index: 1;
@@ -370,10 +361,7 @@ section.upcoming-events-slider-section {
 
                 .rightslideCover {
                     position: absolute;
-                    top: -14px;
-                    left: 100%;
-                    bottom: 0;
-                    right: auto;
+                    inset: -14px auto 0 100%;
                     width: 50vw; // extend to the end of the screen
                     background: linear-gradient(to right, 
                             rgba(0, 0, 0, 0) 0px,
