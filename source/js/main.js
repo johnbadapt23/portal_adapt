@@ -182,10 +182,8 @@
 					nonce: ajaxobject.nonce
 				},
 				success: function(response) {
-					console.log('Download counter updated successfully');
 				},
 				error: function(xhr, status, error) {
-					console.log('Error updating download counter: ' + error);
 				}
 			});
 
@@ -2225,7 +2223,6 @@ $('.post-filtering-module').each(function(){
             dataType: 'json',
             data: ajaxData,
             success: function(response){
-				console.log('AJAX Debug:', response.data.debug);
                 if (!response || !response.success) {
                     loading = false;
                     loader.hide();
@@ -2571,7 +2568,6 @@ $(document).on('click', function(e) {
             });
             pillsWrap.append(pill);
         }
-		console.log('hasPills => ', hasPills);
         pillsWrap.toggle(hasPills);
     }
 
