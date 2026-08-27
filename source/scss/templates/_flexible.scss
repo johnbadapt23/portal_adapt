@@ -14,10 +14,7 @@ section.banner {
 
         .image {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
             background-size: cover;
             background-position: center center;
 
@@ -180,10 +177,7 @@ section.relatedArticlesThreeColumn {
 
                     .image {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
+                        inset: 0;
                         background-size: cover;
                         background-position: center center;
                         border-radius: 3px 3px 0px 0px;
@@ -501,10 +495,7 @@ section.halfHalfBlock {
 
         .image {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
             background-size: cover;
             background-position: center center;
         }
@@ -580,10 +571,7 @@ section.fullWidthTextBlock {
             width: 100%;
             text-align: center;
             display: block;
-            top: auto;
-            left: auto;
-            right: auto;
-            bottom: auto;
+            inset: auto;
             height: auto;
             z-index: 1;
 
@@ -757,10 +745,7 @@ body section.fullWidthTextBlock {
 
             .image {
                 position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
+                inset: 0;
                 background-size: cover;
                 background-position: center center;
                 border-radius: 3px 0 0 3px;
@@ -2109,10 +2094,7 @@ section.download-block {
 
             .image {
                 position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                inset: 0;
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -2192,8 +2174,7 @@ section.download-block {
 body section.download-block .container {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 0;
-    column-gap: 18px;
+    gap: 0 18px;
 
     .download-block-title,
     .listing-title,
@@ -2283,10 +2264,7 @@ body section.download-block .container {
 
                         .image {
                             position: absolute;
-                            top: 0;
-                            bottom: 0;
-                            left: 0;
-                            right: 0;
+                            inset: 0;
                             background-position: center;
                             background-size: cover;
                             background-repeat: no-repeat;
@@ -2700,10 +2678,7 @@ section.video-grid-block {
 
             .image {
                 position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                inset: 0;
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -2840,8 +2815,7 @@ body section.video-grid-block .container {
     .video-grid-block-container {
         display: flex;
         flex-wrap: wrap;
-        row-gap: 0;
-        column-gap: 18px;
+        gap: 0 18px;
     }
 
     .video-image-container {
