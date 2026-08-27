@@ -5,6 +5,13 @@
 
 ?>
 <?php
+    // Not every call site sets these before including this template -
+    // default them so an unset value degrades gracefully instead of
+    // throwing an undefined-variable notice.
+    $eventtype     = $eventtype ?? 'no';
+    $post_slug     = $post_slug ?? '';
+    $extra_classes = $extra_classes ?? '';
+
     global $articleCounter;
 
     $articleCounter++;
