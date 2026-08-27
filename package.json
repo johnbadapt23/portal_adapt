@@ -56,5 +56,15 @@
     "stylelint": "^16.26.1",
     "stylelint-config-standard-scss": "^13.1.0",
     "vinyl-ftp": "^0.6.1"
-  }
+  },
+  "browserslist": [
+    "> 0.3%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "not op_mini all",
+    "not and_uc > 0",
+    "not and_qq > 0",
+    "not kaios > 0"
+  ]
 }
