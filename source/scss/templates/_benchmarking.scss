@@ -1272,10 +1272,7 @@ section.animated-text-logos.animated-text {
 
                             .bg-container {
                                 position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
+                                inset: 0;
                                 padding: 0;
                                 overflow: hidden;
 
@@ -1345,10 +1342,7 @@ section.animated-text-logos.animated-text {
 
                             .bg-container {
                                 position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
+                                inset: 0;
                                 padding: 12px 15px;
                                 overflow: hidden;
 
@@ -1923,10 +1917,7 @@ section.speaker-text-carousel {
 
                         .speaker-slide-image {
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            left: 0;
-                            bottom: 0;
+                            inset: 0;
                             opacity: 0;
                             transition: opacity 0.8s ease;
 
@@ -2705,10 +2696,7 @@ section.company-slider {
                         .logo-container-colour-mask {
                             opacity: 0;
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            left: 0;
-                            bottom: 0;
+                            inset: 0;
 
 
                         }
@@ -4160,10 +4148,7 @@ section.left-text-links.advisors-centered-text-links {
             .image-container {
                 padding-top: 94%;
                 position: relative;
-                top: auto;
-                bottom: auto;
-                left: auto;
-                right: auto;
+                inset: auto;
                 height: auto;
 
                 img {
@@ -5543,10 +5528,7 @@ section.two-column-logo-carousel {
 
                     .carousel-outer {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
+                        inset: 0;
                         width: 100%;
                         height: 100%;
                         padding: 0 50px;
@@ -6922,10 +6904,7 @@ section.cards-module.gtm-cards-module.benchmark-card-module {
 
             .background-container {
                 position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
+                inset: 0;
                 overflow: hidden;
                 background-repeat: repeat-y;
                 background-position: top center;
@@ -8275,10 +8254,7 @@ section.quicklinks-with-hover {
 
         .background-container {
             position: absolute;
-            top: 50%;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            inset: 50% 0 0 0;
             overflow: hidden;
             background-repeat: repeat-y;
             background-position: top center;
@@ -8288,8 +8264,7 @@ section.quicklinks-with-hover {
         .card-container {
             display: flex;
             width: 100%;
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-flow: row wrap;
             gap: 8px;
             overflow: visible;
 
