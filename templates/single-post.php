@@ -569,6 +569,20 @@ if (
             <div class="container">                
                 <div class="column first">
                     <div class="article">                    
+                        <?php if(current_user_can('memberpress_authorized') || $advantagePlus == 'yes') { ?>
+                        <?php } else { ?>
+                            <?php $previewContent = false; ?>
+                            <?php if ( have_rows( 'members_only_preview_content' ) ) : ?>
+                                <?php while ( have_rows( 'members_only_preview_content' ) ) : the_row(); ?>
+                                    <?php if( get_sub_field( 'preview_text' )){ ?>
+                                        <?php $previewContent = true; ?>
+                                        <?php $previewText = get_sub_field( 'preview_text' ); ?>
+                                    <?php } ?>
+                                <?php endwhile; ?>
+                            <?php else : ?>
+                                <?php // no rows found ?>
+                            <?php endif; ?>
+                        <?php } ?>
                         <?php if (get_field('article_content')){ ?>
                             <div class="article-content">
                                 <?php if(current_user_can('memberpress_authorized') || $advantagePlus == 'yes' || (function_exists('adapt_content_unlocked') && adapt_content_unlocked()) ) { ?>
@@ -1504,6 +1518,7 @@ if (
                         <?php if (get_field( 'download' ) == 'yes'){ ?>
                             <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
                                 <?php $counter = 0; ?>
+                                <?php $members = ''; ?>
                                     <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
                                         <?php if ( $counter == 0 ) {
                                            $members = $members . get_sub_field( 'membership_id' );
@@ -2820,6 +2835,7 @@ if (
                                     <?php if (get_field( 'download' ) == 'yes'){ ?>
                                         <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
                                             <?php $counter = 0; ?>
+                                            <?php $members = ''; ?>
                                                 <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
                                                     <?php if ( $counter == 0 ) {
                                                     $members = $members . get_sub_field( 'membership_id' );
@@ -2863,6 +2879,7 @@ if (
                                 <?php if (get_field( 'download' ) == 'yes'){ ?>
                                     <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
                                         <?php $counter = 0; ?>
+                                        <?php $members = ''; ?>
                                             <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
                                                 <?php if ( $counter == 0 ) {
                                                 $members = $members . get_sub_field( 'membership_id' );
@@ -4154,6 +4171,7 @@ if (
                                     <?php if (get_field( 'download' ) == 'yes'){ ?>
                                         <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
                                             <?php $counter = 0; ?>
+                                            <?php $members = ''; ?>
                                                 <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
                                                     <?php if ( $counter == 0 ) {
                                                     $members = $members . get_sub_field( 'membership_id' );
@@ -4197,6 +4215,7 @@ if (
                                 <?php if (get_field( 'download' ) == 'yes'){ ?>
                                     <?php if ( have_rows( 'membership_ids_for_download', 'options' ) ) : ?>
                                         <?php $counter = 0; ?>
+                                        <?php $members = ''; ?>
                                             <?php while ( have_rows( 'membership_ids_for_download', 'options' ) ) : the_row(); ?>
                                                 <?php if ( $counter == 0 ) {
                                                 $members = $members . get_sub_field( 'membership_id' );
