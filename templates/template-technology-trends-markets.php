@@ -70,11 +70,17 @@ $q_slug = isset( $q->slug ) ? $q->slug : '';
 										);
 										?>
 									<?php $terms = array(); ?>
+									<?php
+									// This loop only tallies distinct terms for a filter dropdown - it
+									// never reads title/content/ACF fields, so it doesn't need full
+									// WP_Post objects.
+									$argsFilter['fields'] = 'ids';
+									?>
 									<?php $loop = new WP_Query( $argsFilter ); ?>
 									<?php if ( $loop->have_posts() ) : ?>
-										<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+										<?php foreach ( $loop->posts as $result_id ) : ?>
 										<?php
-											$topics = get_the_terms( $post->ID, 'topic' );
+											$topics = get_the_terms( $result_id, 'topic' );
 											if($topics){
 												foreach( $topics as $topic ){
 													if($topic-> parent == 0){
@@ -87,7 +93,7 @@ $q_slug = isset( $q->slug ) ? $q->slug : '';
 												}
 											}
 										?>
-										<?php endwhile; ?>
+										<?php endforeach; ?>
 									<?php else : ?>
 									<?php endif; ?>									
 									<?php foreach($terms as $term) { ?>
@@ -326,11 +332,17 @@ $q_slug = isset( $q->slug ) ? $q->slug : '';
 										);
 									?>
 									<?php $terms = array(); ?>
+									<?php
+									// This loop only tallies distinct terms for a filter dropdown - it
+									// never reads title/content/ACF fields, so it doesn't need full
+									// WP_Post objects.
+									$argsFilter['fields'] = 'ids';
+									?>
 									<?php $loop = new WP_Query( $argsFilter ); ?>
 									<?php if ( $loop->have_posts() ) : ?>
-										<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+										<?php foreach ( $loop->posts as $result_id ) : ?>
 										<?php
-											$topics = get_the_terms( $post->ID, 'topic' );
+											$topics = get_the_terms( $result_id, 'topic' );
 											if($topics){
 												foreach( $topics as $topic ){
 													if($topic-> parent == 0){
@@ -343,7 +355,7 @@ $q_slug = isset( $q->slug ) ? $q->slug : '';
 												}
 											}
 										?>
-										<?php endwhile; ?>
+										<?php endforeach; ?>
 									<?php else : ?>
 									<?php endif; ?>		
 									<?php wp_reset_query(); ?>							
