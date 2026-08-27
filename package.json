@@ -14,7 +14,8 @@
   },
   "homepage": "https://github.com/johnbadapt23/portal_adapt",
   "scripts": {
-    "lint:scss": "stylelint \"source/scss/**/*.scss\""
+    "lint:scss": "stylelint \"source/scss/**/*.scss\"",
+    "lint:js": "eslint \"source/js/**/*.js\""
   },
   "dependencies": {
     "flexslider": "^2.7.2",
@@ -33,7 +34,9 @@
   },
   "devDependencies": {
     "browser-sync": "^3.0.4",
+    "eslint": "^10.9.1",
     "fancy-log": "^2.0.0",
+    "globals": "^17.11.0",
     "gulp": "^5.0.1",
     "gulp-autoprefixer": "^10.0.0",
     "gulp-clean-css": "^4.3.0",

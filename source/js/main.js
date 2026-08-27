@@ -55,7 +55,7 @@
 				slick.$nextArrow.attr('aria-label', 'Next slide');
 			}
 			if (slick.$dots && slick.$dots.length) {
-				var applyDotTabRoles = function () {
+				const applyDotTabRoles = function () {
 					slick.$dots.find('> li').each(function () {
 						if (this.getAttribute('role') !== 'tab') {
 							this.setAttribute('role', 'tab');
@@ -85,7 +85,7 @@
 		$(document).on('beforeChange', '.slick-slider', function (event, slick, currentSlide) {
 			if (!slick || !slick.$slideTrack || !document.activeElement) return;
 
-			var $outgoingSlide = slick.$slideTrack.find('.slick-slide[data-slick-index="' + currentSlide + '"]');
+			const $outgoingSlide = slick.$slideTrack.find('.slick-slide[data-slick-index="' + currentSlide + '"]');
 			if ($outgoingSlide.length && $.contains($outgoingSlide[0], document.activeElement)) {
 				document.activeElement.blur();
 			}
@@ -112,8 +112,8 @@
 
 		// Interactive prompts
 		$('.full-screen-scrolldown').on('click', function(e) {
-			var $windowHeight = $(window).height();
-			var $heightOffset = $windowHeight -100;
+			const $windowHeight = $(window).height();
+			const $heightOffset = $windowHeight -100;
 			$('html, body').animate({ scrollTop: $('.full-screen-prompt').offset().top - $heightOffset}, 1000);
 		});
 
@@ -123,9 +123,9 @@
 
 		// SCROLL UP TO SEE FULL MENU
 
-		var lastScrollTop = 0;
+		let lastScrollTop = 0;
 		$(window).scroll(function(event){
-		   var st = $(this).scrollTop();
+		   const st = $(this).scrollTop();
 		   if (st > lastScrollTop){
 		        $('header').removeClass('scrolledUp');
 		   } else {
@@ -135,7 +135,7 @@
 		});
 
 		function updateUserInterests() {
-			var filter = $('#updateUserInterests');
+			const filter = $('#updateUserInterests');
 			$.ajax({
 				url: filter.attr('action'),
 				data: filter.serialize(), // form data
@@ -171,7 +171,7 @@
 
 		$('.preview-module .download').on('click', function(e) {
 			// Ensure the default action (e.g., file download) happens
-			var downloadUrl = $(this).attr('href');
+			const downloadUrl = $(this).attr('href');
 
 			// Send AJAX request without preventing the default download behavior
 			$.ajax({
@@ -238,7 +238,7 @@
 		// Show password
 
 		$('img.show-password').on('click', function(e) {
-			var x = document.getElementById("user_pass");
+			const x = document.getElementById("user_pass");
 			if (x.type === "password") {
 				x.type = "text";
 				$(this).addClass('active');
@@ -250,7 +250,7 @@
 
 		// MEGA MENU
 
-		var timer;
+		let timer;
 
 		$('.dropdown').on('mouseover',function (e){
 			if ($(window).width() >= 1023) {
@@ -433,14 +433,14 @@
 		});
 
 		$(".excerpt-scroll-to-content").html(function(){
-		  var text= $(this).text().trim().split(" ");
-		  var last = text.pop();
+		  const text= $(this).text().trim().split(" ");
+		  const last = text.pop();
 		  return text.join(" ") + (text.length > 0 ? " <span class='excerpt-scroll-to-content-button'>" + last + "</span>" : last);
 		});
 
 		$(".speaker-details-excerpt").html(function(){
-		  var text= $(this).text().trim().split(" ");
-		  var last = text.pop();
+		  const text= $(this).text().trim().split(" ");
+		  const last = text.pop();
 		  return text.join(" ") + (text.length > 0 ? " <span class='speaker-excerpt-see-all'>" + last + "</span>" : last);
 		});
 
@@ -476,7 +476,7 @@
 		});
 
 		$('.article-content .articleWrapper a').on( 'click', function(){
-		    var target = this.hash;
+		    const target = this.hash;
 			if( target ){
 				$target = $(target);
 			    $('html, body').animate({ scrollTop: $target.offset().top-120}, 1000);
@@ -535,17 +535,17 @@
 
 		// Post article images popup
 
-		var images = $('div.articleWrapper img');
+		const images = $('div.articleWrapper img');
 		$(images).each(function() {
-			var imageSrc = $(this).attr('src');
+			const imageSrc = $(this).attr('src');
 
 		   $(this).wrap('<a class="post-popup" href="'+ imageSrc +'"></a>');
 		   $(this).parents('a.post-popup').append('<span class="enlarge-image"></span>');
 		});
 
-		var imagesOther = $('div.article-content img');
+		const imagesOther = $('div.article-content img');
 		$(imagesOther).each(function() {
-			var imageSrc = $(this).attr('src');
+			const imageSrc = $(this).attr('src');
 
 		   $(this).wrap('<a class="post-popup" href="'+ imageSrc +'"></a>');
 		   $(this).parents('a.post-popup').append('<span class="enlarge-image"></span>');
@@ -598,11 +598,11 @@
 
 		if($('.webinar-register-form').length ){
 
-			var hiddenName = $('.hidden-name').text();
-			var hiddenEvent = $('.hidden-event').text();
-			var hiddenDate = $('.hidden-date').text();
-			var hiddenID = $('.hidden-id').text();
-			var genericForm = $('.webinar-register-form .form-container form');
+			const hiddenName = $('.hidden-name').text();
+			const hiddenEvent = $('.hidden-event').text();
+			const hiddenDate = $('.hidden-date').text();
+			const hiddenID = $('.hidden-id').text();
+			const genericForm = $('.webinar-register-form .form-container form');
 			setTimeout(function(){
 				$('.webinar-register-form .form-container form').find('.hs-hidden_event_name').children('div.input').children('input').attr('value', hiddenName);
 				$('.webinar-register-form .form-container form').find('.hs-hidden_event_name').children('div.input').children('input').val(hiddenName).change();
@@ -615,28 +615,28 @@
 			}, 2000);
 
 			if($('.gift-opt-in-text').length ){
-				var giftOptIn = $('.gift-opt-in-text').html();
+				const giftOptIn = $('.gift-opt-in-text').html();
 				setTimeout(function(){
 					$('.webinar-register-form .form-container form').find('.hs_gift_opt_in').children('legend.hs-field-desc').html(giftOptIn);
 				}, 2000);
 			}
 
 			if($('.marketing-text').length ){
-				var marketingOptIn = $('.marketing-text').html();
+				const marketingOptIn = $('.marketing-text').html();
 				setTimeout(function(){
 					$('.webinar-register-form .form-container form').find('.hs_single_client_opt_in').children('.input').children('ul').children('li').children('label').children('span').html(marketingOptIn);
 				}, 2000);
 			}
 
 			if($('.umbrella-help-text').length ){
-				var umbrellaHelp = $('.umbrella-help-text').html();
+				const umbrellaHelp = $('.umbrella-help-text').html();
 				setTimeout(function(){
 					$('.webinar-register-form .form-container form').find('.hs_client_communication_opt_in').children('legend.hs-field-desc').html(umbrellaHelp);
 				}, 2000);
 			}
 
 			if($('.umbrella-text').length ){
-				var umbrellaOptIn = $('.umbrella-text').html();
+				const umbrellaOptIn = $('.umbrella-text').html();
 				setTimeout(function(){
 					$('.webinar-register-form .form-container form').find('.hs_client_communication_opt_in').children('.input').children('ul').children('li').children('label').children('span').html(umbrellaOptIn);
 				}, 2000);
@@ -814,7 +814,7 @@
 			},
 			callbacks: {
 				change: function () {
-				var $about = this.content.find('.about-text');
+				const $about = this.content.find('.about-text');
 				if ($about.length && typeof PerfectScrollbar !== 'undefined') {
 					try {
 						if ($about[0]._perfectScrollbar) {
@@ -898,11 +898,11 @@
 		// children. Isotope would still take over that container, lay out
 		// zero items, and force it to height: 0px via inline style, an
 		// inline override no stylesheet clearfix can win against.
-		var grids = document.querySelectorAll('.kits-listing.grid');
-		var isos = [];
+		const grids = document.querySelectorAll('.kits-listing.grid');
+		const isos = [];
 
 		grids.forEach(function(grid) {
-			var iso = new Isotope(grid, {
+			const iso = new Isotope(grid, {
 				itemSelector: '.kit-item',
 				layoutMode: 'fitRows'
 			});
@@ -911,29 +911,29 @@
 		});
 
         // filter functions
-        var filterFns = {
+        const filterFns = {
             // show if number is greater than 50
             numberGreaterThan50: function( itemElem ) {
-                var number = itemElem.querySelector('.number').textContent;
+                const number = itemElem.querySelector('.number').textContent;
                 return parseInt( number, 10 ) > 50;
             },
             // show if name ends with -ium
             ium: function( itemElem ) {
-                var name = itemElem.querySelector('.name').textContent;
+                const name = itemElem.querySelector('.name').textContent;
                 return name.match( /ium$/ );
             }
         };
 
        // Bind filter button click for each button group
-		var filterGroups = document.querySelectorAll('.filter-group-listing');
+		const filterGroups = document.querySelectorAll('.filter-group-listing');
 
 		filterGroups.forEach(function(filtersElem) {
 			filtersElem.addEventListener('click', function(event) {
-				var filterValue;
-				var target = event.target;
+				let filterValue;
+				const target = event.target;
 
 				// Find the nearest <a> element by traversing the DOM
-				var anchorElement = target.closest('a');
+				const anchorElement = target.closest('a');
 
 				if (anchorElement) {
 					filterValue = anchorElement.getAttribute('data-filter');
@@ -956,10 +956,10 @@
 					}
 
 					// Initialize an array to store multiple filter values
-					var filterValues = [];
+					const filterValues = [];
 
 					// Loop through checked filter buttons to collect filter values
-					var checkedFilterButtons = document.querySelectorAll('.kit-filter.is-checked');
+					const checkedFilterButtons = document.querySelectorAll('.kit-filter.is-checked');
 					checkedFilterButtons.forEach(function(button) {
 						filterValues.push(button.getAttribute('data-filter'));
 					});
@@ -1029,8 +1029,8 @@
 
 		$('.loginPopupButton').on('click', function(e){
 			if($('input[name="redirect_to"]').length ){
-				var inputVal = $('input[name="redirect_to"]').val();
-				var newVal = inputVal.replace('+', '%C2%A0');
+				const inputVal = $('input[name="redirect_to"]').val();
+				const newVal = inputVal.replace('+', '%C2%A0');
 				$('input[name="redirect_to"]').val(newVal);
 			}
 		});
@@ -1063,8 +1063,8 @@
               dataType: "html",
               success: function(out){
 
-                  var result = $(out).find('#loop .postLink');
-                  var nextlink = $(out).find('#pagination a').attr('href');
+                  const result = $(out).find('#loop .postLink');
+                  const nextlink = $(out).find('#pagination a').attr('href');
                   $('#loop').append(result.fadeIn(300));
 				  if($('#loop').hasClass('list')) {
 					  $('#loop .postLink').addClass('list-view');
@@ -1091,7 +1091,7 @@
 
 		$('section.navigation .container ul li a.scroll-button').on('click', function(e) {
 		    e.preventDefault();
-		    var target = this.hash;
+		    const target = this.hash;
 		    $target = $(target);
 			$('section.navigation .container ul li a.scroll-button').removeClass('active');
 			$(this).addClass('active');
@@ -1103,14 +1103,14 @@
 
 		// ACCORDION AGENDA
 
-		var speed = "500";
+		const speed = "500";
 
 		$('section.itineraryBlock .agendaBlock .item .container .inner .read-more-container .read-more').on('click', function(e) {
 			$(this).parents('.read-more-container').prev().slideToggle(speed);
 
 			$(this).parent().parent().siblings().children('.hidden').slideUp(speed);
 
-			var img = $(this);
+			const img = $(this);
 
 			$('img').not(img).removeClass('rotate');
 
@@ -1238,10 +1238,10 @@
 		});
 
 		// EVENT SLIDER
-		var containerWidth = $('.container').width();
-		var windowWidth = $(window).width();
-		var paddingWidth = (windowWidth - containerWidth ) / 2 - 8;
-		var paddingWidthPx = paddingWidth + 'px';
+		const containerWidth = $('.container').width();
+		const windowWidth = $(window).width();
+		const paddingWidth = (windowWidth - containerWidth ) / 2 - 8;
+		const paddingWidthPx = paddingWidth + 'px';
 		// console.log(paddingWidthPx);
 		$('.eventSlider .slider').slick({
 		  // centerMode: false,
@@ -1504,23 +1504,23 @@
 			arrows: false,
 			dots: true,
 			customPaging : function(slider, i) {
-			   var thumb = $(slider.$slides[i]).data();
-			   var i = i + 1;
+			   const thumb = $(slider.$slides[i]).data();
+			   i = i + 1;
 			   return '<a>0'+i+'</a>';
 		   },
 	   });
 
 	   // KEYNOTE SLIDER
 		$('.keynote-slider-module').each(function () {
-			var $module = $(this);
-			var $slickElementKeynote = $module.find('.keynote-slider');
+			const $module = $(this);
+			const $slickElementKeynote = $module.find('.keynote-slider');
 
 			/**
 			 * FIX JUMPING ANIMATION
 			 */
 			$slickElementKeynote.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-				var direction,
-					slideCountZeroBased = slick.slideCount - 1;
+				let direction;
+				const slideCountZeroBased = slick.slideCount - 1;
 
 				if (nextSlide == currentSlide) {
 					direction = "same";
@@ -1586,7 +1586,7 @@
 		// Post SLIDER
 
 		$('.portal-post-slider').each(function () {
-			var $section = $(this);
+			const $section = $(this);
 
 			$section.find('.slider').slick({
 				arrows: true,
@@ -1620,15 +1620,15 @@
 
 
 		$('.portal-post-slider .slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-			var $slider  = $(this);
-			var $section = $slider.closest('.portal-post-slider');
+			const $slider  = $(this);
+			const $section = $slider.closest('.portal-post-slider');
 			$section.find('.slideContainer button.slick-prev').addClass('active');
 		});
 
 		// Upcoming Events Slider
 
 		$('.upcoming-events-slider-section').each(function () {
-			var $section = $(this);
+			const $section = $(this);
 
 			$section.find('.upcoming-events-slider').slick({
 				arrows: true,
@@ -1681,7 +1681,7 @@
 		});
 
 		if($('.hidden-keyword').length) {
-			var keyword = $('.hidden-keyword').text();
+			const keyword = $('.hidden-keyword').text();
 			 $('.ajax-search-container input[type=search]').attr("placeholder", keyword);
 		}
 
@@ -1717,7 +1717,7 @@
 		// Show password
 
 		$('img.show-password').on('click', function(e){
-			var x = document.getElementById("user_pass");
+			const x = document.getElementById("user_pass");
 			if (x.type === "password") {
 				x.type = "text";
 				$(this).addClass('active');
@@ -1868,7 +1868,7 @@
 		$('.snapshot-popup-trigger').on('click', function (e) {
 			e.preventDefault();
 
-			var startIndex = parseInt($(this).data('index'), 10) || 0;
+			const startIndex = parseInt($(this).data('index'), 10) || 0;
 
 			$.magnificPopup.open({
 				items: {
@@ -1878,7 +1878,7 @@
 				callbacks: {
 					open: function () {
 
-						var $slider = $('.snapshot-popup-slider');
+						const $slider = $('.snapshot-popup-slider');
 
 						// init slick ONLY ONCE
 						if (!$slider.hasClass('slick-initialized')) {
@@ -1902,18 +1902,18 @@
 
 		// Speaker resources load more 
 
-		var $module = $('#resourcesAdvisor');
+		const $module = $('#resourcesAdvisor');
 		if ($module.length){
 
-			var container = $module.find('.resources-column-container');
-    var loadMoreBtn = $module.find('.resources-load-more');
-    var loader = $module.find('.ajax-loader');
+			const container = $module.find('.resources-column-container');
+    const loadMoreBtn = $module.find('.resources-load-more');
+    const loader = $module.find('.ajax-loader');
 
-    var page = parseInt(container.data('page')) || 1;
-    var perPage = parseInt(container.data('per-page')) || 6;
-    var total = parseInt(container.data('total')) || 0;
-    var postId = parseInt(container.data('post-id')) || 0;
-    var loading = false;
+    let page = parseInt(container.data('page')) || 1;
+    const perPage = parseInt(container.data('per-page')) || 6;
+    const total = parseInt(container.data('total')) || 0;
+    const postId = parseInt(container.data('post-id')) || 0;
+    let loading = false;
 
     loadMoreBtn.on('click', function(e){
         e.preventDefault();
@@ -1954,25 +1954,25 @@
 // Filtering Ajax
 $('.post-filtering-module').each(function(){
 
-    var $module = $(this);
-    var container = $module.find('#posts-container');
-    var loadMoreBtn = $module.find('.load-more-btn');
-    var resetBtn = $module.find('.reset-filters-btn');
-    var loader = $module.find('.ajax-loader');
-    var searchForm = $module.find('.post-search-form');
-    var searchInput = $module.find('.post-search-input');
+    const $module = $(this);
+    const container = $module.find('#posts-container');
+    const loadMoreBtn = $module.find('.load-more-btn');
+    const resetBtn = $module.find('.reset-filters-btn');
+    const loader = $module.find('.ajax-loader');
+    const searchForm = $module.find('.post-search-form');
+    const searchInput = $module.find('.post-search-input');
 
-    var postsPage = 1;
-    var postsMaxPages = 1;
-    var loading = false;
+    let postsPage = 1;
+    let postsMaxPages = 1;
+    let loading = false;
 
-    var postType = $module.data('post-type') || 'post';
-    var isFavourites = $module.data('is-favourites') === 1;
+    const postType = $module.data('post-type') || 'post';
+    const isFavourites = $module.data('is-favourites') === 1;
 
     // ===============================
     // FILTER STATE
     // ===============================
-    var filters = {
+    let filters = {
         topic: [],
         type: [],
         'trending-themes': [],
@@ -1981,25 +1981,25 @@ $('.post-filtering-module').each(function(){
         sector: []
     };
 
-    var currentDate = [];
+    let currentDate = [];
 	if ($module.find('.filter-dropdown[data-filter="date"]').length) {
 		filters.date = [];
 		// initialize "All (last 3 months)" if needed
-		var $allDateBtn = $module.find('.filter-dropdown[data-filter="date"] .filter-button.all');
+		const $allDateBtn = $module.find('.filter-dropdown[data-filter="date"] .filter-button.all');
 		if ($allDateBtn.length) {
 			filters.date = normalizeFilterValue($allDateBtn.data('value'));
 			currentDate = filters.date;
 		}
 	}
-    var currentSearch = '';
-    var currentSort = 'featured';
+    let currentSearch = '';
+    const currentSort = 'featured';
 
-    var hasEventFilter = $module.find('.filter-dropdown[data-filter="event"]').length > 0;
+    const hasEventFilter = $module.find('.filter-dropdown[data-filter="event"]').length > 0;
 
     // ===============================
     // QUERY MAP
     // ===============================
-    var queryMap = {
+    const queryMap = {
         type: 'type',
         topic: 'topicType',
         persona: 'persona',
@@ -2021,7 +2021,7 @@ $('.post-filtering-module').each(function(){
     // ACTIVE FILTERS BODY CLASSES
     // ===============================
     function updateActiveFilterClasses() {
-        var activeDropdowns = 0;
+        let activeDropdowns = 0;
 
         $('body').removeClass(function(index, className){
             return (className.match(/(^|\s)filter-active-\S+/g) || []).join(' ');
@@ -2030,10 +2030,10 @@ $('.post-filtering-module').each(function(){
             return (className.match(/(^|\s)\S+-active/g) || []).join(' ');
         });
 
-        for (var key in filters) {
+        for (const key in filters) {
             if (filters.hasOwnProperty(key)) {
-                var $dropdown = $('.filter-dropdown[data-filter="' + key + '"]');
-                var $activeBtn = $dropdown.find('.filter-button.active').not('.all');
+                const $dropdown = $('.filter-dropdown[data-filter="' + key + '"]');
+                const $activeBtn = $dropdown.find('.filter-button.active').not('.all');
 
                 if ($activeBtn.length) {
                     activeDropdowns++;
@@ -2049,29 +2049,29 @@ $('.post-filtering-module').each(function(){
     // BUILD ACTIVE FILTER PILLS
     // ===============================
     function buildActiveFilterPills() {
-        var pillsWrap = $module.find('.active-filter-pills');
-        var searchLabel = $module.find('.search-results-label');
+        const pillsWrap = $module.find('.active-filter-pills');
+        const searchLabel = $module.find('.search-results-label');
         if (!pillsWrap.length) return;
 
         pillsWrap.empty();
-        var hasPills = false;
+        let hasPills = false;
 
         $module.find('.filter-dropdown').each(function(){
-            var $dropdown = $(this);
-            var filter = $dropdown.data('filter');
+            const $dropdown = $(this);
+            const filter = $dropdown.data('filter');
 
             if ($dropdown.find('.dropdown-title').hasClass('disabled-dropdown') || filter === 'sort') return;
 
-            var $activeBtn = $dropdown.find('.filter-button.active').not('.all');
+            const $activeBtn = $dropdown.find('.filter-button.active').not('.all');
             if (!$activeBtn.length) return;
 
             hasPills = true;
-            var label = $activeBtn.text().trim();
+            const label = $activeBtn.text().trim();
 
-            var pill = $('<button type="button" class="filter-pill"><span>' + label + '</span><span class="pill-close">×</span></button>');
+            const pill = $('<button type="button" class="filter-pill"><span>' + label + '</span><span class="pill-close">×</span></button>');
 
             pill.on('click', function(){
-                var $allBtn = $dropdown.find('.filter-button.all');
+                const $allBtn = $dropdown.find('.filter-button.all');
                 $dropdown.find('.filter-button').removeClass('active');
                 $allBtn.addClass('active');
                 $dropdown.find('.dropdown-title').removeClass('filter-active');
@@ -2106,19 +2106,19 @@ $('.post-filtering-module').each(function(){
     function updateURL(push) {
         if (typeof push === 'undefined') push = true;
 
-        var url = new URL(window.location.href);
+        const url = new URL(window.location.href);
 
-        for (var key in queryMap) {
+        for (const key in queryMap) {
             if (queryMap.hasOwnProperty(key)) {
                 url.searchParams.delete(queryMap[key]);
             }
         }
         url.searchParams.delete('search');
 
-        for (var fKey in filters) {
+        for (const fKey in filters) {
             if (filters.hasOwnProperty(fKey) && queryMap.hasOwnProperty(fKey)) {
-                var $dropdown = $module.find('.filter-dropdown[data-filter="' + fKey + '"]');
-                var $allBtn = $dropdown.find('.filter-button.all.active');
+                const $dropdown = $module.find('.filter-dropdown[data-filter="' + fKey + '"]');
+                const $allBtn = $dropdown.find('.filter-button.all.active');
                 // Only set URL param if not All
                 if (!($allBtn.length) && filters[fKey] && filters[fKey].length) {
                     url.searchParams.set(queryMap[fKey], filters[fKey].join(','));
@@ -2130,7 +2130,7 @@ $('.post-filtering-module').each(function(){
             url.searchParams.set('search', currentSearch);
         }
 
-        var stateData = {
+        const stateData = {
             filters: JSON.parse(JSON.stringify(filters)),
             search: currentSearch
         };
@@ -2146,19 +2146,19 @@ $('.post-filtering-module').each(function(){
     // APPLY FILTERS FROM URL
     // ===============================
     function applyFiltersFromURL() {
-        var url = new URL(window.location.href);
+        const url = new URL(window.location.href);
 
-        for (var fKey in queryMap) {
+        for (const fKey in queryMap) {
             if (queryMap.hasOwnProperty(fKey)) {
-                var param = queryMap[fKey];
-                var value = url.searchParams.get(param);
+                const param = queryMap[fKey];
+                const value = url.searchParams.get(param);
                 if (value) {
                     filters[fKey] = value.split(',');
                 }
             }
         }
 
-        var searchParam = url.searchParams.get('search') || url.searchParams.get('s');
+        const searchParam = url.searchParams.get('search') || url.searchParams.get('s');
 		if (searchParam) {
 			currentSearch = searchParam;
 			searchInput.val(currentSearch);
@@ -2171,10 +2171,10 @@ $('.post-filtering-module').each(function(){
     // INITIALIZE FILTERS FROM ACTIVE BUTTONS
     // ===============================
     $module.find('.filter-dropdown').each(function(){
-        var $dropdown = $(this);
-        var filter = $dropdown.data('filter');
-        var $activeBtn = $dropdown.find('.filter-button.active').not('.all');
-        var $allBtn = $dropdown.find('.filter-button.all.active');
+        const $dropdown = $(this);
+        const filter = $dropdown.data('filter');
+        const $activeBtn = $dropdown.find('.filter-button.active').not('.all');
+        const $allBtn = $dropdown.find('.filter-button.all.active');
 
         if ($activeBtn.length) {
             filters[filter] = normalizeFilterValue($activeBtn.data('value'));
@@ -2193,7 +2193,7 @@ $('.post-filtering-module').each(function(){
         loading = true;
         loader.show();
 
-		var ajaxData = {
+		const ajaxData = {
 			action: isFavourites ? 'load_favourite_posts' : 'load_filtered_posts',
 			nonce: ajaxobject.nonce,
 			page: page,
@@ -2208,7 +2208,7 @@ $('.post-filtering-module').each(function(){
 			sort: currentSort
 		};
 		// Add research_type_order only if the input exists
-		var $researchInput = $module.find('input[name="research_type_order"]');
+		const $researchInput = $module.find('input[name="research_type_order"]');
 		if ($researchInput.length) {
 			ajaxData.research_type_order = $researchInput.val();
 		}
@@ -2261,10 +2261,10 @@ $('.post-filtering-module').each(function(){
     // FEATURED POSTS
     // ===============================
     function loadFeaturedPost(type, termSlug) {
-        var container = $module.find('#featured-post-' + type);
+        const container = $module.find('#featured-post-' + type);
         if (!container.length) return;
 
-        var inner = container.find('.container');
+        const inner = container.find('.container');
         if (!inner.length) return;
 
         if (!termSlug || termSlug === '') {
@@ -2301,11 +2301,11 @@ $('.post-filtering-module').each(function(){
 
     function loadFeaturedPostsIfNeeded() {
         if ($module.find('#featured-post-persona').length) {
-            var personaSlug = filters.persona.length ? filters.persona[0] : '';
+            const personaSlug = filters.persona.length ? filters.persona[0] : '';
             loadFeaturedPost('persona', personaSlug);
         }
         if ($module.find('#featured-post-sector').length) {
-            var sectorSlug = filters.sector.length ? filters.sector[0] : '';
+            const sectorSlug = filters.sector.length ? filters.sector[0] : '';
             loadFeaturedPost('sector', sectorSlug);
         }
     }
@@ -2326,9 +2326,9 @@ $('.post-filtering-module').each(function(){
     $module.find('.filter-dropdown .filter-button').on('click', function(e){
         e.preventDefault();
 
-        var $btn = $(this);
-        var $dropdown = $btn.closest('.filter-dropdown');
-        var filter = $dropdown.data('filter');
+        const $btn = $(this);
+        const $dropdown = $btn.closest('.filter-dropdown');
+        const filter = $dropdown.data('filter');
 
         if ($dropdown.find('.dropdown-title').hasClass('disabled-dropdown')) return;
 
@@ -2346,7 +2346,7 @@ $('.post-filtering-module').each(function(){
         $btn.siblings().removeClass('active');
         $btn.addClass('active');
 
-        var $title = $dropdown.find('.dropdown-title');
+        const $title = $dropdown.find('.dropdown-title');
         if (!$btn.hasClass('all')) {
             $title.addClass('filter-active').removeClass('active');
         } else {
@@ -2395,7 +2395,7 @@ $('.post-filtering-module').each(function(){
     resetBtn.on('click', function(e){
         e.preventDefault();
 
-        for (var key in filters) {
+        for (const key in filters) {
             if (filters.hasOwnProperty(key)) filters[key] = [];
         }
 
@@ -2417,7 +2417,7 @@ $('.post-filtering-module').each(function(){
     // HIDE EMPTY FILTER BUTTONS
     // ===============================
     function hideEmptyFilters(visibleTerms){
-        var taxonomyMap = {
+        const taxonomyMap = {
             topic: 'topic',
             type: 'filter-types',
             persona: 'persona-mapping',
@@ -2428,28 +2428,28 @@ $('.post-filtering-module').each(function(){
         };
 
         $module.find('.filter-dropdown').each(function(){
-            var $dropdown = $(this);
-            var filter = $dropdown.data('filter');
-            var taxonomyKey = taxonomyMap[filter] || filter;
+            const $dropdown = $(this);
+            const filter = $dropdown.data('filter');
+            const taxonomyKey = taxonomyMap[filter] || filter;
 
-            var allowedRaw = visibleTerms ? visibleTerms[taxonomyKey] : [];
-            var allowed = [];
+            const allowedRaw = visibleTerms ? visibleTerms[taxonomyKey] : [];
+            let allowed = [];
 
             if (Array.isArray(allowedRaw)) {
                 allowed = allowedRaw;
             } else if (allowedRaw && typeof allowedRaw === 'object') {
-                for (var k in allowedRaw) { if (allowedRaw.hasOwnProperty(k)) allowed.push(allowedRaw[k]); }
+                for (const k in allowedRaw) { if (allowedRaw.hasOwnProperty(k)) allowed.push(allowedRaw[k]); }
             }
 
             $dropdown.find('.filter-button').each(function(){
-                var $btn = $(this);
+                const $btn = $(this);
                 if ($btn.hasClass('all')) { $btn.show(); return; }
 
-                var val = $btn.data('value');
-                var values = Array.isArray(val) ? val : [val];
+                const val = $btn.data('value');
+                const values = Array.isArray(val) ? val : [val];
 
-                var shouldShow = false;
-                for (var i=0; i<values.length; i++) {
+                let shouldShow = false;
+                for (let i=0; i<values.length; i++) {
                     if (allowed.indexOf(values[i]) !== -1) {
                         shouldShow = true; break;
                     }
@@ -2483,7 +2483,7 @@ $('.post-filtering-module').each(function(){
 
 $(document).on('click', function(e) {
     $('.filters-wrapper .filter-dropdown').each(function() {
-        var $dropdown = $(this);
+        const $dropdown = $(this);
 
         // If the click was outside this dropdown
         if (!$dropdown.is(e.target) && $dropdown.has(e.target).length === 0) {
@@ -2496,39 +2496,39 @@ $(document).on('click', function(e) {
 
 		$('.speaker-module').each(function() {
 
-    var $module = $(this);
-    var container = $module.find('.speakers');
-    var loadMoreBtn = $module.find('.load-more-btn');
-    var resetBtn = $module.find('.reset-filters-btn');
-    var loader = $module.find('.ajax-loader');
-    var searchForm = $module.find('.partner-search-form');
-    var searchInput = $module.find('.partner-search-input');
+    const $module = $(this);
+    const container = $module.find('.speakers');
+    const loadMoreBtn = $module.find('.load-more-btn');
+    const resetBtn = $module.find('.reset-filters-btn');
+    const loader = $module.find('.ajax-loader');
+    const searchForm = $module.find('.partner-search-form');
+    const searchInput = $module.find('.partner-search-input');
 
-    var partnersPage = 1;
-    var partnersMaxPages = 1;
-    var loading = false;
+    let partnersPage = 1;
+    let partnersMaxPages = 1;
+    let loading = false;
 
-    var currentExpertise = $module.find('.filter-dropdown[data-filter="expertise"] .filter-button.active').data('value') || '';
-    var currentIndustry = $module.find('.filter-dropdown[data-filter="industry"] .filter-button.active').data('value') || '';
-    var currentSearch = searchInput.length ? searchInput.val().trim() : '';
+    let currentExpertise = $module.find('.filter-dropdown[data-filter="expertise"] .filter-button.active').data('value') || '';
+    let currentIndustry = $module.find('.filter-dropdown[data-filter="industry"] .filter-button.active').data('value') || '';
+    let currentSearch = searchInput.length ? searchInput.val().trim() : '';
 
-    var partnerTypeId = $module.data('partner-type-id');
+    const partnerTypeId = $module.data('partner-type-id');
 
     // ===============================
     // Build Active Filter Pills
     // ===============================
     function buildActiveFilterPills() {
-        var pillsWrap = $module.find('.active-filter-pills');
+        const pillsWrap = $module.find('.active-filter-pills');
         if (!pillsWrap.length) return;
 
         pillsWrap.empty();
-        var hasPills = false;
+        let hasPills = false;
 
         // Expertise
-        var $expertiseBtn = $module.find('.filter-dropdown[data-filter="expertise"] .filter-button.active').not('[data-value=""]');
+        const $expertiseBtn = $module.find('.filter-dropdown[data-filter="expertise"] .filter-button.active').not('[data-value=""]');
         if ($expertiseBtn.length) {
             hasPills = true;
-            var pill = $('<button type="button" class="filter-pill"><span>' + $expertiseBtn.text().trim() + '</span><span class="pill-close">×</span></button>');
+            const pill = $('<button type="button" class="filter-pill"><span>' + $expertiseBtn.text().trim() + '</span><span class="pill-close">×</span></button>');
             pill.on('click', function() {
                 $expertiseBtn.removeClass('active');
                 $module.find('.filter-dropdown[data-filter="expertise"] .filter-button[data-value=""]').addClass('active');
@@ -2541,10 +2541,10 @@ $(document).on('click', function(e) {
         }
 
         // Industry
-        var $industryBtn = $module.find('.filter-dropdown[data-filter="industry"] .filter-button.active').not('[data-value=""]');
+        const $industryBtn = $module.find('.filter-dropdown[data-filter="industry"] .filter-button.active').not('[data-value=""]');
         if ($industryBtn.length) {
             hasPills = true;
-            var pill = $('<button type="button" class="filter-pill"><span>' + $industryBtn.text().trim() + '</span><span class="pill-close">×</span></button>');
+            const pill = $('<button type="button" class="filter-pill"><span>' + $industryBtn.text().trim() + '</span><span class="pill-close">×</span></button>');
             pill.on('click', function() {
                 $industryBtn.removeClass('active');
                 $module.find('.filter-dropdown[data-filter="industry"] .filter-button[data-value=""]').addClass('active');
@@ -2559,7 +2559,7 @@ $(document).on('click', function(e) {
         // Search pill
         if (currentSearch !== '') {
             hasPills = true;
-            var pill = $('<button type="button" class="filter-pill"><span>Search: "' + currentSearch + '"</span><span class="pill-close">×</span></button>');
+            const pill = $('<button type="button" class="filter-pill"><span>Search: "' + currentSearch + '"</span><span class="pill-close">×</span></button>');
             pill.on('click', function() {
                 currentSearch = '';
                 searchInput.val('');
@@ -2637,9 +2637,9 @@ $(document).on('click', function(e) {
     $module.find('.filter-dropdown .filter-button').on('click', function(e) {
         e.preventDefault();
 
-        var $btn = $(this);
-        var filter = $btn.closest('.filter-dropdown').data('filter');
-        var value = $btn.data('value');
+        const $btn = $(this);
+        const filter = $btn.closest('.filter-dropdown').data('filter');
+        const value = $btn.data('value');
 
         $btn.siblings().removeClass('active');
         $btn.addClass('active');
@@ -2717,8 +2717,8 @@ $(document).on('click', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 
-			var $currentTitle = $(this);
-			var $currentList  = $currentTitle.siblings('.dropdown-list');
+			const $currentTitle = $(this);
+			const $currentList  = $currentTitle.siblings('.dropdown-list');
 
 			// Close all other dropdowns
 			$('.filter-dropdown .dropdown-title')
@@ -2742,15 +2742,15 @@ $(document).on('click', function(e) {
 
 		// Past events 
 
-		var $containerPast = $('#past-sessions-container .upcoming-listing');
-var $buttonPast = $('#load-more-past-sessions');
+		const $containerPast = $('#past-sessions-container .upcoming-listing');
+const $buttonPast = $('#load-more-past-sessions');
 
 if ($containerPast.length && $buttonPast.length) {
     $buttonPast.on('click', function(e) {
         e.preventDefault();
 
-        var offset = parseInt($buttonPast.data('offset')) || 0;
-        var perpage = parseInt($buttonPast.data('perpage')) || 18;
+        let offset = parseInt($buttonPast.data('offset')) || 0;
+        const perpage = parseInt($buttonPast.data('perpage')) || 18;
 
         $.ajax({
             url: ajaxobject.ajax_url,
@@ -2797,9 +2797,9 @@ if ($containerPast.length && $buttonPast.length) {
 
 		// Two column speaker image slider
 		
-		var $slides = $('.customer-events-image-slider .slide');
-		var currentIndex = 0;
-		var autoplayInterval;
+		const $slides = $('.customer-events-image-slider .slide');
+		let currentIndex = 0;
+		let autoplayInterval;
 
 		function setActiveSlide(index) {
 			$slides.removeClass('active');
@@ -2810,7 +2810,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 		function autoplaySlides() {
 			autoplayInterval = setInterval(function() {
-				var nextIndex = (currentIndex + 1) % $slides.length;
+				const nextIndex = (currentIndex + 1) % $slides.length;
 				setActiveSlide(nextIndex);
 			}, 5000); // 5 seconds per slide
 		}
@@ -2821,7 +2821,7 @@ if ($containerPast.length && $buttonPast.length) {
 		}
 
 		function resetProgressBar($slide) {
-			var $progressInner = $slide.find('.progress-inner');
+			const $progressInner = $slide.find('.progress-inner');
 
 			// Reset width to 0
 			$progressInner.css('width', '0');
@@ -2835,7 +2835,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 
 		$slides.on('click', function() {
-			var index = $(this).index();
+			const index = $(this).index();
 			setActiveSlide(index);
 			resetAutoplay();
 		});
@@ -2848,10 +2848,10 @@ if ($containerPast.length && $buttonPast.length) {
 
 
 		// Two column speaker image slider
-		var $slidesSpeakerImage = $('.speaker-slider-image-outer .speaker-slide-image');
-		var $slidesSpeakerText = $('.speaker-slider-text-outer .speaker-slide-text');
-		var currentIndexSpeaker = 0;
-		var autoplayIntervalSpeaker;
+		const $slidesSpeakerImage = $('.speaker-slider-image-outer .speaker-slide-image');
+		const $slidesSpeakerText = $('.speaker-slider-text-outer .speaker-slide-text');
+		let currentIndexSpeaker = 0;
+		let autoplayIntervalSpeaker;
 
 		// Function to set the active slide
 		function setActiveSlideSpeaker(index) {
@@ -2868,7 +2868,7 @@ if ($containerPast.length && $buttonPast.length) {
 		function autoplaySlidesSpeaker() {
 			if ($(window).width() > 767) {
 				autoplayIntervalSpeaker = setInterval(function() {
-					var nextIndexSpeaker = (currentIndexSpeaker + 1) % $slidesSpeakerImage.length;
+					const nextIndexSpeaker = (currentIndexSpeaker + 1) % $slidesSpeakerImage.length;
 					setActiveSlideSpeaker(nextIndexSpeaker);
 				}, 6000); // 5 seconds per slide
 			}
@@ -2898,7 +2898,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 		// Click event for slides, active on all screens
 		$slidesSpeakerText.on('click', function() {
-			var index = $(this).index();
+			const index = $(this).index();
 			setActiveSlideSpeaker(index);
 			if ($(window).width() > 767) {
 				resetAutoplaySpeaker();  // Reset autoplay if applicable
@@ -2907,25 +2907,25 @@ if ($containerPast.length && $buttonPast.length) {
 
 		// EVR progress tracking
 
-		var $trackingLine = $('.steps-container .tracking-line');
-		var $steps = $('.steps-container .step');
-		var $window = $(window);
+		const $trackingLine = $('.steps-container .tracking-line');
+		const $steps = $('.steps-container .step');
+		const $window = $(window);
 
 		$window.on('scroll', function () {
-			var scrollTop = $window.scrollTop();
-			var windowHeight = $window.height();
-			var windowWidth = $window.width();
-			var isSmallScreen = windowWidth <= 767;
+			const scrollTop = $window.scrollTop();
+			const windowHeight = $window.height();
+			const windowWidth = $window.width();
+			const isSmallScreen = windowWidth <= 767;
 
 			if (!$steps.length || !$trackingLine.length) return;
 
 			$steps.each(function () {
-				var $step = $(this);
-				var stepOffset = $step.offset().top;
-				var stepHeight = $step.outerHeight();
+				const $step = $(this);
+				const stepOffset = $step.offset().top;
+				const stepHeight = $step.outerHeight();
 				
 				// Trigger step activation earlier on small screens
-				var stepMidPoint = stepOffset + stepHeight / (isSmallScreen ? 1.5 : 2);
+				const stepMidPoint = stepOffset + stepHeight / (isSmallScreen ? 1.5 : 2);
 
 				if (scrollTop + windowHeight / (isSmallScreen ? 1.2 : 2) >= stepMidPoint - 24) {
 					$step.find('.step-counter').addClass('active');
@@ -2935,12 +2935,12 @@ if ($containerPast.length && $buttonPast.length) {
 			});
 
 			// Update tracking line height
-			var firstStepTop = $steps.first().offset().top + 56;
-			var lastStepBottom = $steps.last().offset().top + $steps.last().outerHeight() + 180;
+			const firstStepTop = $steps.first().offset().top + 56;
+			const lastStepBottom = $steps.last().offset().top + $steps.last().outerHeight() + 180;
 
-			var maxLineHeight = lastStepBottom - firstStepTop;
-			var scrolledDistance = scrollTop + windowHeight / (isSmallScreen ? 1.2 : 2) - firstStepTop;
-			var newLineHeight = Math.min(maxLineHeight, Math.max(0, scrolledDistance));
+			const maxLineHeight = lastStepBottom - firstStepTop;
+			const scrolledDistance = scrollTop + windowHeight / (isSmallScreen ? 1.2 : 2) - firstStepTop;
+			let newLineHeight = Math.min(maxLineHeight, Math.max(0, scrolledDistance));
 
 			if (isSmallScreen) {
 				newLineHeight += 175; // Faster growth for smaller screens
@@ -2961,9 +2961,9 @@ if ($containerPast.length && $buttonPast.length) {
 		// Form popup slider
 
 		$('.form-popup-slider').on('afterChange', function(event, slick, currentSlide){
-			var slidesToShow = slick.slickGetOption('slidesToShow');
-			var totalSlides = slick.slideCount - slidesToShow + 1; // Adjust based on slidesToShow
-			var progress = ((currentSlide) / (totalSlides - 1)) * 100;
+			const slidesToShow = slick.slickGetOption('slidesToShow');
+			const totalSlides = slick.slideCount - slidesToShow + 1; // Adjust based on slidesToShow
+			const progress = ((currentSlide) / (totalSlides - 1)) * 100;
 
 			$('.progress-bar-form-popup').css('width', progress + '%');		
 		});
@@ -3013,19 +3013,19 @@ if ($containerPast.length && $buttonPast.length) {
 		});
 
 		$('.full-suite-slider').on('afterChange', function(event, slick, currentSlide){
-			var slidesToShow = slick.slickGetOption('slidesToShow');
-			var totalSlides = slick.slideCount - slidesToShow + 1; // Adjust based on slidesToShow
-			var progress = ((currentSlide) / (totalSlides - 1)) * 100;
+			const slidesToShow = slick.slickGetOption('slidesToShow');
+			const totalSlides = slick.slideCount - slidesToShow + 1; // Adjust based on slidesToShow
+			const progress = ((currentSlide) / (totalSlides - 1)) * 100;
 
 			$('.progress-bar-form-suite').css('width', progress + '%');		
 		});
 
 		if ($('.large-quote-slide-container').length) {
 
-			var $sliderLargeQuote = $('.large-quote-slide-container');
-			var $timerLargeQuote = $('.quote-slider-timer-inner');
-			var autoplaySpeedLargeQuote = 8000; // 8 seconds
-			var timerLargeQuote;
+			const $sliderLargeQuote = $('.large-quote-slide-container');
+			const $timerLargeQuote = $('.quote-slider-timer-inner');
+			const autoplaySpeedLargeQuote = 8000; // 8 seconds
+			let timerLargeQuote;
 
 			// Init slick
 			$sliderLargeQuote.slick({
@@ -3125,7 +3125,7 @@ if ($containerPast.length && $buttonPast.length) {
 			$(this).addClass('active');
 
 			// Get the index of the clicked link
-			var slideIndexIcon = $(this).index();
+			const slideIndexIcon = $(this).index();
 
 			// Scroll to the corresponding slide
 			$('.gtm-icon-slider').slick('slickGoTo', slideIndexIcon);
@@ -3183,10 +3183,10 @@ if ($containerPast.length && $buttonPast.length) {
 		resize();
 		scrollMenu();
 		scrollMobile();
-		var viewportWidth = jQuery(window).width();
+		const viewportWidth = jQuery(window).width();
 		if($('.post-title-block').length ){
 			if (viewportWidth > 1023) {
-				var targetScroll = $('.post-title-block').offset().top + $('.post-title-block').outerHeight();
+				const targetScroll = $('.post-title-block').offset().top + $('.post-title-block').outerHeight();
 				if($(window).scrollTop() > targetScroll){
 					$('.single-post-sticky').addClass('scrolled');					
 				} else {
@@ -3209,13 +3209,13 @@ if ($containerPast.length && $buttonPast.length) {
 		matchHeightInit();
 		outsideContainer();
 		if($('input[name="redirect_to"]').length ){
-			var inputVal = $('input[name="redirect_to"]').val();
-			var newVal = inputVal.replace('+', '%C2%A0');
+			const inputVal = $('input[name="redirect_to"]').val();
+			const newVal = inputVal.replace('+', '%C2%A0');
 			$('input[name="redirect_to"]').val(newVal);
 		}
 
 		$('img.show-password').on('click', function(e){
-			var x = document.getElementById("user_pass");
+			const x = document.getElementById("user_pass");
 			if (x.type === "password") {
 				x.type = "text";
 				$(this).addClass('active');
@@ -3229,12 +3229,12 @@ if ($containerPast.length && $buttonPast.length) {
 		// Populate hubspot hidden field
 
 		if($('#sharepopupcontainer').length ){
-			var shareDownload = $('.hidden-share-link').text();
-			var shareName = $('.hidden-share-name').text();
-			var shareTitle= $('.hidden-share-title').text();
-			var sharedDescription = $('.hidden-share-excerpt').text();
+			const shareDownload = $('.hidden-share-link').text();
+			const shareName = $('.hidden-share-name').text();
+			const shareTitle= $('.hidden-share-title').text();
+			const sharedDescription = $('.hidden-share-excerpt').text();
 			setTimeout(function(){
-				var shareForm = $('#sharepopupcontainer form');
+				const shareForm = $('#sharepopupcontainer form');
 				$(shareForm).find('.hs_hidden_download_field').children('div.input').children('input').attr('value', shareDownload);
 				$(shareForm).find('.hs_hidden_download_field').children('div.input').children('input').val(shareDownload).change();
 				$(shareForm).find('.hs-hidden_content_shared_by_field').children('div.input').children('input').attr('value', shareName);
@@ -3249,12 +3249,12 @@ if ($containerPast.length && $buttonPast.length) {
 		// Populate datashare hubspot hidden field
 
 		if($('#datasetsharepopupcontainer').length ){
-			var shareDownload = $('.hidden-share-link').text();
-			var shareName = $('.hidden-share-name').text();
-			var shareTitle= $('.hidden-share-title').text();
-			var sharedDescription = $('.hidden-share-excerpt').text();
+			const shareDownload = $('.hidden-share-link').text();
+			const shareName = $('.hidden-share-name').text();
+			const shareTitle= $('.hidden-share-title').text();
+			const sharedDescription = $('.hidden-share-excerpt').text();
 			setTimeout(function(){
-				var shareForm = $('#datasetsharepopupcontainer form');
+				const shareForm = $('#datasetsharepopupcontainer form');
 				$(shareForm).find('.hs_hidden_download_field').children('div.input').children('input').attr('value', shareDownload);
 				$(shareForm).find('.hs_hidden_download_field').children('div.input').children('input').val(shareDownload).change();
 				$(shareForm).find('.hs-hidden_content_shared_by_field').children('div.input').children('input').attr('value', shareName);
@@ -3270,13 +3270,13 @@ if ($containerPast.length && $buttonPast.length) {
 		// Benchmarking templates 
 
 			// Slide Stack
-		var track = $('.slider-track');
-		var trackSlides = track.find('.slide');
-		var contentSlides = $('.slider-content .slide');
-		var DURATION = 300; // transition duration
-		var busy = false;
+		const track = $('.slider-track');
+		let trackSlides = track.find('.slide');
+		const contentSlides = $('.slider-content .slide');
+		const DURATION = 300; // transition duration
+		let busy = false;
 
-		var positions = [
+		let positions = [
 			{ y: -60, scale: 0.75, z: 5 },
 			{ y: -48, scale: 0.8, z: 6 },
 			{ y: -36, scale: 0.85, z: 7 },
@@ -3300,7 +3300,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 		function applyPositions(){
 			trackSlides.each(function(i){
-				var pos = positions[i];
+				const pos = positions[i];
 				$(this).css({
 					transform:'translateY(' + pos.y + 'px) scale(' + pos.scale + ')',
 					'z-index': pos.z,
@@ -3309,7 +3309,7 @@ if ($containerPast.length && $buttonPast.length) {
 			});
 
 			// sync content
-			var activeNumber = trackSlides.eq(-1).data('slide-number');
+			const activeNumber = trackSlides.eq(-1).data('slide-number');
 			contentSlides.removeClass('active')
 				.filter('[data-slide-number="'+activeNumber+'"]')
 				.addClass('active');
@@ -3321,7 +3321,7 @@ if ($containerPast.length && $buttonPast.length) {
 			if(busy) return;
 			busy = true;
 
-			var front = trackSlides.eq(0);
+			const front = trackSlides.eq(0);
 
 			// Step 1: fade out front slide
 			front.css('opacity', 0);
@@ -3345,7 +3345,7 @@ if ($containerPast.length && $buttonPast.length) {
 			if(busy) return;
 			busy = true;
 
-			var back = trackSlides.last();
+			const back = trackSlides.last();
 
 			// Step 1: fade out back slide
 			back.css('opacity', 0);
@@ -3371,9 +3371,9 @@ if ($containerPast.length && $buttonPast.length) {
 		// GTM Map hovers
 
 		$('.map-container .card-hover-container').each(function() {
-			var $container = $(this);
-			var $trigger = $container.find('.card-hover-trigger');
-			var $card = $container.find('.gtm-card');
+			const $container = $(this);
+			const $trigger = $container.find('.card-hover-trigger');
+			const $card = $container.find('.gtm-card');
 
 			$trigger.on('mouseenter', function() {
 				$('.map-container .card-hover-trigger, .map-container .gtm-card').removeClass('active');
@@ -3396,7 +3396,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 		// Ensure GSAP and ScrollMagic are loaded
 		TweenLite.defaultEase = Linear.easeNone;
-		var controllerTeam = new ScrollMagic.Controller();
+		const controllerTeam = new ScrollMagic.Controller();
 
 		const $scrollContainers = $('.fixed-scroller-inner');
 
@@ -3417,7 +3417,7 @@ if ($containerPast.length && $buttonPast.length) {
 				const endScroll = Math.max(0, totalWidth - containerWidth); // Ensure endScroll is not negative
 
 				// Create a TimelineMax instance
-				var tl = new TimelineMax();
+				const tl = new TimelineMax();
 
 				// Add the horizontal scroll animation to the timeline
 				tl.to($scrollContainer[0], { x: -endScroll, ease: 'none' });
@@ -3461,16 +3461,16 @@ if ($containerPast.length && $buttonPast.length) {
 
 		// scrolling grow text 
 		// Ensure GSAP and ScrollMagic are loaded
-		var controllerText = new ScrollMagic.Controller();
+		const controllerText = new ScrollMagic.Controller();
 
-		var $scrollingContainers = $('.scrolling-container');
+		const $scrollingContainers = $('.scrolling-container');
 
 		if ($scrollingContainers.length && $(window).width() > 767) {
 			$scrollingContainers.each(function() {
-				var $scrollContainer = $(this);
-				var $fixedScrollerContainer = $scrollContainer.closest('.map-fixed-scroller-container');
-				var $columns = $scrollContainer.find('.column');
-				var $titles = $scrollContainer.find('.growing-title');
+				const $scrollContainer = $(this);
+				const $fixedScrollerContainer = $scrollContainer.closest('.map-fixed-scroller-container');
+				const $columns = $scrollContainer.find('.column');
+				const $titles = $scrollContainer.find('.growing-title');
 
 				// Ensure there are columns to work with
 				if ($columns.length === 0) {
@@ -3479,16 +3479,16 @@ if ($containerPast.length && $buttonPast.length) {
 				}
 
 				// Calculate the total width needed for horizontal scrolling
-				var memberWidth = $columns.outerWidth(true);
-				var gapWidth = 32; // Adjust this if necessary
-				var columnCount = $columns.length - 1;
-				var totalWidth = (columnCount * (memberWidth + gapWidth)) - gapWidth; // Subtract gapWidth as it's added at the end
+				const memberWidth = $columns.outerWidth(true);
+				const gapWidth = 32; // Adjust this if necessary
+				const columnCount = $columns.length - 1;
+				const totalWidth = (columnCount * (memberWidth + gapWidth)) - gapWidth; // Subtract gapWidth as it's added at the end
 
 				// Set the width of the scrolling container
 				$scrollContainer.css('width', totalWidth + 'px');
 
 				// Create GSAP timeline for horizontal scrolling
-				var tlHorizontal = new TimelineMax();
+				const tlHorizontal = new TimelineMax();
 				tlHorizontal.to($scrollContainer[0], 1, { x: -totalWidth, ease: Linear.easeNone });
 
 				// Create ScrollMagic scene for horizontal scrolling
@@ -3503,9 +3503,9 @@ if ($containerPast.length && $buttonPast.length) {
 
 				// Create GSAP animations for each title
 				$titles.each(function() {
-					var $title = $(this);
-					var titleWidth = $title.outerWidth(true);
-					var titleOffset = $title.position().left; // Offset relative to the container
+					const $title = $(this);
+					const titleWidth = $title.outerWidth(true);
+					const titleOffset = $title.position().left; // Offset relative to the container
 
 					// Create GSAP ScrollTrigger for each title
 					gsap.to($title[0], {
@@ -3597,10 +3597,10 @@ if ($containerPast.length && $buttonPast.length) {
 	});
 
 	function debounce(func, delay) {
-		var debounceTimer;
+		let debounceTimer;
 		return function() {
-			var context = this;
-			var args = arguments;
+			const context = this;
+			const args = arguments;
 			clearTimeout(debounceTimer);
 			debounceTimer = setTimeout(function() {
 				func.apply(context, args);
@@ -3610,8 +3610,8 @@ if ($containerPast.length && $buttonPast.length) {
 
 	function scrollProgressBar() {
 
-		var progressBar = $('.progress-bar');
-		var max = 0;
+		const progressBar = $('.progress-bar');
+		let max = 0;
 
 		function getMax() {
 			return document.documentElement.scrollHeight - window.innerHeight;
@@ -3622,10 +3622,10 @@ if ($containerPast.length && $buttonPast.length) {
 		}
 
 		function setWidth() {
-			var value = getValue();
+			const value = getValue();
 			max = getMax();
 
-			var percent = max > 0 ? (value / max) * 100 : 0;
+			let percent = max > 0 ? (value / max) * 100 : 0;
 			percent = Math.min(Math.max(percent, 0), 100);
 
 			progressBar.css('width', percent + '%');
@@ -3653,17 +3653,17 @@ if ($containerPast.length && $buttonPast.length) {
 	}
 
 	function multipartBreadcrumb() {
-		var number = $('.nf-breadcrumbs li').length;
-		var width = 100/number
+		const number = $('.nf-breadcrumbs li').length;
+		const width = 100/number
 		$('.nf-breadcrumbs li').css('width', width + '%');
 	}
 
 
 	function headerSet() {
-		var header = $('header');
-		var range = 200;
-		var winHeight =$(window).height();
-		var scrollTop = $(this).scrollTop();
+		const header = $('header');
+		const range = 200;
+		const winHeight =$(window).height();
+		const scrollTop = $(this).scrollTop();
 
 		if($('body').hasClass('home')) {
 			if(scrollTop > 1) {
@@ -3788,6 +3788,8 @@ if ($containerPast.length && $buttonPast.length) {
 	}
 
 	function scrollMenu() {
+		let navTop, refElement, elementTop, elementBottom;
+
 		$('section.navigation.event').each(function() {
 
 			refElement = $(this).siblings('section.banner');
@@ -3795,9 +3797,9 @@ if ($containerPast.length && $buttonPast.length) {
 			elementTop = refElement.position().top;
 			elementBottom = elementTop + $(refElement).outerHeight();
 
-			var viewportTop = $(document).scrollTop();
-			var headerHeight = $('header span.logo').outerHeight();
-			var viewportTopHeader = viewportTop + headerHeight;
+			const viewportTop = $(document).scrollTop();
+			const headerHeight = $('header span.logo').outerHeight();
+			const viewportTopHeader = viewportTop + headerHeight;
 
 			if (elementBottom <= viewportTopHeader) {
 				$('section.navigation.event').addClass('fixed');
@@ -3814,9 +3816,9 @@ if ($containerPast.length && $buttonPast.length) {
 				if($('main').hasClass('no-banner-top') ) {
 					navTop = $(this).offset().top;
 					// console.log(navTop);
-					var viewportTop = $(document).scrollTop();
-					var headerHeight = $('header span.logo').outerHeight();
-					var viewportTopHeader = viewportTop + headerHeight;
+					const viewportTop = $(document).scrollTop();
+					const headerHeight = $('header span.logo').outerHeight();
+					const viewportTopHeader = viewportTop + headerHeight;
 					// console.log(viewportTopHeader);
 					if (navTop <= viewportTopHeader) {
 						$('section.navigation.fixed-menu').addClass('fixed');
@@ -3831,9 +3833,9 @@ if ($containerPast.length && $buttonPast.length) {
 
 					elementTop = refElement.offset().top;
 					elementBottom = elementTop + $(refElement).outerHeight();
-					var viewportTop = $(document).scrollTop();
-					var headerHeight = $('header span.logo').outerHeight();
-					var viewportTopHeader = viewportTop + headerHeight - 28;
+					const viewportTop = $(document).scrollTop();
+					const headerHeight = $('header span.logo').outerHeight();
+					const viewportTopHeader = viewportTop + headerHeight - 28;
 					if (elementBottom <= viewportTopHeader) {
 						$('section.navigation.fixed-menu').addClass('fixed');
 
@@ -3846,8 +3848,8 @@ if ($containerPast.length && $buttonPast.length) {
 				navTop = $(this).offset().top;
 				elementTop = refElement.offset().top;
 				elementBottom = elementTop + $(refElement).outerHeight();
-				var viewportTop = $(document).scrollTop();
-				var viewportTopHeader = viewportTop - 28;
+				const viewportTop = $(document).scrollTop();
+				const viewportTopHeader = viewportTop - 28;
 				if (elementBottom <= viewportTopHeader) {
 					$('section.navigation.fixed-menu').addClass('fixed');
 				} else {
@@ -3860,9 +3862,9 @@ if ($containerPast.length && $buttonPast.length) {
 
 				elementTop = refElement.offset().top;
 				elementBottom = elementTop + $(refElement).outerHeight();
-				var viewportTop = $(document).scrollTop();
-				var headerHeight = $('header span.logo').outerHeight();
-				var viewportTopHeader = viewportTop + headerHeight - 28;
+				const viewportTop = $(document).scrollTop();
+				const headerHeight = $('header span.logo').outerHeight();
+				const viewportTopHeader = viewportTop + headerHeight - 28;
 				if (elementBottom <= viewportTopHeader) {
 					$('section.navigation.fixed-menu').addClass('fixed');
 
@@ -3874,16 +3876,16 @@ if ($containerPast.length && $buttonPast.length) {
 
 	    });
 
-		var sections = $('.scrollPos')
+		const sections = $('.scrollPos')
 		  , nav = $('section.navigation.fixed-menu')
 		  , nav_height = nav.outerHeight();
 
 
-		var cur_pos = $(this).scrollTop();
+		const cur_pos = $(this).scrollTop();
 
 		sections.each(function() {
 			if($(this).is('[id]')){
-				var top = $(this).offset().top - ( nav_height + 90),
+				const top = $(this).offset().top - ( nav_height + 90),
 					bottom = top + $(this).outerHeight();
 
 				if (cur_pos >= top && cur_pos <= bottom) {
