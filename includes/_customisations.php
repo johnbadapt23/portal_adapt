@@ -237,9 +237,13 @@ function custom_remove_footer() {
 
 // remove default jquery migrate
 function custom_remove_jquery_migrate( &$scripts) {
-    if(!is_admin()) {
-        $scripts->remove( 'jquery');
-        $scripts->add( 'jquery', false, array( 'jquery-core' ), '1.11.1' );
+    if ( ! is_admin() && isset( $scripts->registered['jquery'] ) ) {
+        // Surgically drop the jquery-migrate dependency instead of
+        // re-registering jquery under a hardcoded, long-outdated version
+        // string (was '1.11.1', from ~2014) - this keeps WordPress core's
+        // actual bundled jQuery version and its deps array intact.
+        $script = $scripts->registered['jquery'];
+        $script->deps = array_diff( $script->deps, array( 'jquery-migrate' ) );
     }
 }
 

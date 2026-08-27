@@ -221,7 +221,7 @@
 
 		// Disable right click on video blocks
 
-   		$('video').bind('contextmenu',function() { return false; });
+   		$('video').on('contextmenu',function() { return false; });
 
 		// AUDIO PLAYER REVEAL
 
