@@ -446,7 +446,6 @@ section.featuredGrid.portal {
                         height: 55%;
                         z-index: 2;
                         background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
-                        background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
                     }
                 }
 
@@ -470,9 +469,6 @@ section.featuredGrid.portal {
                         width: 100%;
                         margin-bottom: 12px;
 
-                        @include responsive(767) {
-
-                        }
 
                         a.topicFilterText,
                         span.topicFilterText {
@@ -484,8 +480,6 @@ section.featuredGrid.portal {
                             font-size: 10px!important;
                             text-transform: uppercase;
 
-                            @include responsive(767) {
-                            }
 
                             &:hover {
                                 color: #fff!important;
@@ -555,7 +549,6 @@ section.featuredGrid.portal {
                         height: 55%;
                         z-index: 2;
                         background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
-                        background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
                     }
                 }
 
@@ -579,9 +572,6 @@ section.featuredGrid.portal {
                         width: 100%;
                         margin-bottom: 12px;
 
-                        @include responsive(767) {
-
-                        }
 
                         a.topicFilterText,
                         span.topicFilterText {
@@ -593,8 +583,6 @@ section.featuredGrid.portal {
                             font-size: 10px!important;
                             text-transform: uppercase;
 
-                            @include responsive(767) {
-                            }
 
                             &:hover {
                                 color: #fff!important;
@@ -613,9 +601,6 @@ section.featuredGrid.portal {
                         text-transform: none;
                         margin-bottom: 12px;
 
-                        @include responsive(767) {
-
-                        }
                     }
 
                     .dateReadTime {
@@ -681,9 +666,6 @@ section.featuredGrid.portal {
                         background-color: #fff;
                         padding: 8px 5px 0px 0px;
 
-                        @include responsive(767) {
-
-                        }
 
                         a.topicFilterText,
                         span.topicFilterText {
@@ -699,8 +681,6 @@ section.featuredGrid.portal {
                                 color: #000!important;
                             }
 
-                            @include responsive(767) {
-                            }
                         }
                     }
 
@@ -715,9 +695,6 @@ section.featuredGrid.portal {
                         text-transform: none;
                         margin-bottom: 13px;
 
-                        @include responsive(767) {
-
-                        }
                     }
 
                     .dateReadTime {
@@ -1160,7 +1137,6 @@ section.caseStudiesFeaturedVideo.portal {
 
             @include responsive(1023) {
                 float: right;
-                width: 100%;
                 margin-bottom: 10px;
                 padding-top: 67.076%;
                 height: auto;
@@ -1171,7 +1147,6 @@ section.caseStudiesFeaturedVideo.portal {
 
             @include responsive(767) {
                 float: right;
-                width: 100%;
                 margin-bottom: 10px;
                 padding-top: 63.885%;
                 height: auto;
@@ -1317,9 +1292,6 @@ section.eventSlider.portal {
     .container {
         padding: 0px 20px;
 
-        @include responsive(767) {
-
-        }
     }
 
     .blockTitle {
@@ -1505,9 +1477,6 @@ section.eventSlider.portal {
                     background-color: $color-bg-dark;
                     padding: 8px 5px 0px 0px;
 
-                    @include responsive(767) {
-
-                    }
 
                     a.topicFilterText,
                     span.topicFilterText {
@@ -1519,8 +1488,6 @@ section.eventSlider.portal {
                         font-size: 8px!important;
                         text-transform: uppercase;
 
-                        @include responsive(767) {
-                        }
                     }
                 }
 
@@ -1733,8 +1700,6 @@ section.topicBanner {
                 min-width: 0px;
                 padding: 0 20px;
                 height: 32px;
-                line-height: 32px;
-                text-align: center;
                 display: block;
                 background-color: #000;
                 border: 1px solid #fff;
@@ -1931,7 +1896,6 @@ body.template-persona-market-narratives {
                 &.select2-container--open {
 
                     .select2-selection {
-                        background-color: #000 !important;
                         background: #000 !important;
                     }
                 }
@@ -2226,7 +2190,6 @@ body.template-persona-market-narratives {
             	font-family: $font-base;
                 font-weight: 700;
             	// text-align: center !important;
-                text-align: center;
             	text-transform: none;
                 color: #000;
             	// top: 0px !important;
@@ -2248,7 +2211,6 @@ body.template-persona-market-narratives {
                     .select2-selection {
                         // background-color: #fafafa !important;
                         // background: #fafafa !important;
-                        background-color: #fafafa;
                         background: #fafafa;
                     }
                 }
@@ -2310,7 +2272,6 @@ body.template-persona-market-narratives {
             .select2-selection__arrow b {
 
                 &:after {
-                    position: absolute;
                     content: '';
                     background-image: url(../images/arrow-down-black.svg);
                     background-size: 6px 4px;
@@ -2477,7 +2438,6 @@ section.expertPresentationFeatured {
             height: 55%;
             z-index: 1;
             background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
-            background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
         }
 
         .watchIcon {
@@ -2567,9 +2527,6 @@ section.expertPresentationFeatured {
                 width: 100%;
                 margin-bottom: 15px;
 
-                @include responsive(767) {
-
-                }
 
                 a.topicFilterText {
                     float: left;
@@ -3289,7 +3246,6 @@ section.welcome {
                 height: 55%;
                 z-index: 2;
                 background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
-                background: transparent linear-gradient(0deg, #000000 0%, #00000000 100%) 0% 0% no-repeat;
             }
 
             .image {
@@ -3523,7 +3479,6 @@ section.webinar-article.announcement-article {
                                 background-color: #fff;
                                 padding: 8px 5px 0px 0px;
                                 font-weight: 700;
-                                color: #000;
                                 font-size: 8px;
                                 font-family: $font-base;
                                 color: #000;
@@ -3775,7 +3730,6 @@ section.announcement-article.webinar-article.contained-article {
                             font-style: italic;
                             color: #000;
                             font-size: 16px;
-                            padding-top: 7px;
                             line-height: 20px;
                             padding-top: 7px;
                             padding-bottom: 8px;
