@@ -133,10 +133,7 @@ header {
 
 	.search.mobile {
 		position: relative;
-		position: relative;
 		float: right;
-		width: 16px;
-		height: 16px;
 		width: 34px;
 		height: 34px;
 		margin-top: 7px;
@@ -404,7 +401,6 @@ header {
 				}
 
 				.userEmailMain {
-					float: left;
 					font-family: $font-base;
 					font-weight: 400;
 					color: #838383;
@@ -2788,7 +2784,6 @@ body.event {
 
 .single-post-sticky {
 	float: left;
-	width: 100%;
 	position: absolute;
 	height: 64px;
 	top: -160px;
