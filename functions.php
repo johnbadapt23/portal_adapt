@@ -2311,12 +2311,11 @@ function adapt_render_filter_posts() {
     if (!$is_admin && $membership_allowed_ids === false) {
         $it_pro_types_ids    = get_field('it_pro_types',    'options') ?: [];
         $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
-        $membership_allowed_ids = [];
-        if ($membershipType === 'it-pro') {
-            $membership_allowed_ids = $it_pro_types_ids;
-        } elseif ($membershipType === 'advantage') {
-            $membership_allowed_ids = $advantage_types_ids;
-        }
+        $membership_allowed_ids = match ($membershipType) {
+            'it-pro'    => $it_pro_types_ids,
+            'advantage' => $advantage_types_ids,
+            default     => [],
+        };
         set_transient($acf_cache_key, $membership_allowed_ids, HOUR_IN_SECONDS);
     }
  
