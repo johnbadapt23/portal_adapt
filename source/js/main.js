@@ -178,7 +178,8 @@
 				url: '/wp-admin/admin-ajax.php',
 				type: 'POST',
 				data: {
-					action: 'update_download_counter'
+					action: 'update_download_counter',
+					nonce: ajaxobject.nonce
 				},
 				success: function(response) {
 					console.log('Download counter updated successfully');
@@ -1930,7 +1931,8 @@
                 action: 'load_more_resources',
                 page: page,
                 per_page: perPage,
-                post_id: postId // NEW
+                post_id: postId, // NEW
+                nonce: ajaxobject.nonce
             },
             success: function(html){
                 container.append(html);
@@ -2195,6 +2197,7 @@ $('.post-filtering-module').each(function(){
 
 		var ajaxData = {
 			action: isFavourites ? 'load_favourite_posts' : 'load_filtered_posts',
+			nonce: ajaxobject.nonce,
 			page: page,
 			post_type: postType,
 			topic: filters.topic,
@@ -2280,7 +2283,8 @@ $('.post-filtering-module').each(function(){
             data: {
                 action: 'load_featured_post',
                 type: type,
-                term_slug: termSlug
+                term_slug: termSlug,
+                nonce: ajaxobject.nonce
             },
             success: function(response) {
                 if (response && response.success && response.data && response.data.has_post) {
@@ -2585,6 +2589,7 @@ $(document).on('click', function(e) {
             dataType: 'json',
             data: {
                 action: 'load_partners',
+                nonce: ajaxobject.nonce,
                 page: page,
                 partner_type_id: partnerTypeId,
                 expertise: currentExpertise,
@@ -2757,7 +2762,8 @@ if ($containerPast.length && $buttonPast.length) {
             data: {
                 action: 'load_past_sessions_unique',
                 offset: offset,
-                perpage: perpage
+                perpage: perpage,
+                nonce: ajaxobject.nonce
             },
             beforeSend: function() {
                 $buttonPast.text('Loading...').prop('disabled', true);

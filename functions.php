@@ -296,6 +296,7 @@ add_action('wp_ajax_myfilter', 'ajaxtest_function'); // wp_ajax_{ACTION HERE}
 add_action('wp_ajax_nopriv_myfilter', 'ajaxtest_function');
 
 function ajaxtest_function() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     // Ensure 'mepr_interests' is set and valid
     if (isset($_POST['mepr_interests']) && !empty($_POST['mepr_interests'])) {
         global $current_user;
@@ -445,6 +446,7 @@ function mepr_update_monthly_count($user_id, $meta_key_array, $meta_key_total) {
 add_action('wp_ajax_update_download_counter', 'update_download_counter');
 add_action('wp_ajax_nopriv_update_download_counter', 'update_download_counter');
 function update_download_counter() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     if (!is_user_logged_in()) wp_die();
 
     $user_id = get_current_user_id();
@@ -1166,7 +1168,8 @@ function my_enqueue_scripts() {
     );
 
     wp_localize_script('main-js', 'ajaxobject', array(
-        'ajax_url' => admin_url('admin-ajax.php')
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('adapt_ajax_nonce'),
     ));
 
     // HubSpot deferred loader
@@ -1399,6 +1402,7 @@ add_action('wp_ajax_load_partners', 'ajax_load_partners');
 add_action('wp_ajax_nopriv_load_partners', 'ajax_load_partners');
 
 function ajax_load_partners() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     // Get AJAX POST data
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $partner_type_id = isset($_POST['partner_type_id']) ? intval($_POST['partner_type_id']) : 0;
@@ -1569,6 +1573,7 @@ function get_visible_terms_cache_version() {
 // AJAX function
 // -------------------------
 function ajax_load_filtered_posts() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     // -------------------------
     // Detect membership
     // -------------------------
@@ -1864,6 +1869,7 @@ add_action('wp_ajax_nopriv_load_filtered_posts', 'ajax_load_filtered_posts');
 // Persona and Sector Featured
 
 function ajax_load_featured_post() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
     $type      = sanitize_text_field($_POST['type'] ?? '');
     $term_slug = sanitize_text_field($_POST['term_slug'] ?? '');
@@ -1940,6 +1946,7 @@ add_action('wp_ajax_load_favourite_posts', 'ajax_load_favourite_posts');
 add_action('wp_ajax_nopriv_load_favourite_posts', 'ajax_load_favourite_posts');
 
 function ajax_load_favourite_posts() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
     $favorites = get_user_favorites();
 
@@ -2011,6 +2018,7 @@ add_action('wp_ajax_load_more_resources', 'load_more_resources');
 add_action('wp_ajax_nopriv_load_more_resources', 'load_more_resources');
 
 function load_more_resources() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
     global $post; // ← THIS is what you're missing
 
@@ -2102,6 +2110,7 @@ add_action('wp_ajax_load_past_sessions_unique', 'load_past_sessions_unique');
 add_action('wp_ajax_nopriv_load_past_sessions_unique', 'load_past_sessions_unique');
 
 function load_past_sessions_unique() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
     $posts_per_page = isset($_POST['perpage']) ? intval($_POST['perpage']) : 18;
     $soft_limit = $posts_per_page * 5; // fetch extra to guarantee 18 visible posts
