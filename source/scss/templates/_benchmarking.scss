@@ -1123,7 +1123,8 @@ section.two-column {
 
                     &.image-column {
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 80%;
                         }
@@ -2437,7 +2438,8 @@ section.full-image-text {
         }
 
         .image-container {
-            float: left;
+            float: none;
+            display: block;
             width: 100%;
             padding-top: 56.25%;
             border-radius: 4px;
@@ -2891,7 +2893,8 @@ section.infinite-images {
             }
 
             .image-container {
-                float: left;
+                float: none;
+                display: block;
                 width: 100%;
                 padding-top: 56.25%;
             }
@@ -4204,7 +4207,8 @@ section.left-text-links.advisors-centered-text-links {
 
                     .image-container {
                         position: relative;
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         padding-top: 100%;
                     }
@@ -4702,7 +4706,8 @@ section.two-column-text-image-cards {
 
                     .image-container {
                         padding-top: 56.25%;
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
 
                         .bg-container {
@@ -4846,7 +4851,8 @@ section.three-column-text-image-cards {
 
                     .image-container {
                         padding-top: 56.25%;
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
 
                         .bg-container {
@@ -5311,7 +5317,8 @@ section.full-suite-slider-module {
 
 
                             .image-container {
-                                float: left;
+                                float: none;
+                                display: block;
                                 width: 100%;
                                 padding-top: 100%;
                                 display: none;
@@ -5336,7 +5343,8 @@ section.full-suite-slider-module {
                             }
 
                             .image-container {
-                                float: left;
+                                float: none;
+                                display: block;
                                 width: 100%;
                                 padding-top: 100%;
 
@@ -5631,7 +5639,8 @@ section.two-column-logo-carousel {
                                 width: 100%;
 
                                 .image-container {
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                     padding-top: calc(100% - 2px);
                                     background-color: #fbfbfb;
@@ -5858,7 +5867,8 @@ section.sticky-heading-cards {
                     width: 100%;
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         padding-top: 43%;
 
@@ -6044,7 +6054,8 @@ section.sticky-heading-cards {
 
                                 .image-container {
                                     padding-top: 100%;
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                 }
                             }
@@ -6398,7 +6409,8 @@ section.sticky-heading-cards {
                             align-items: center;
 
                             .image-container {
-                                float: left;
+                                float: none;
+                                display: block;
                                 width: 100%;
                                 padding-top: 100%;
 

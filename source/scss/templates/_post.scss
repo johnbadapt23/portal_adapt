@@ -5587,7 +5587,8 @@ section.featured-module {
 
                     &.best-practice-item {
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 110%;
                             margin-bottom: 20px;
@@ -7111,7 +7112,8 @@ section.conversation-cta {
 
                 &.image-column {      
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         height: 100%;
                         padding-top: 56.25%;
 
@@ -9004,7 +9006,8 @@ section.featured-module {
 
                     &.best-practice-item {
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 110%;
                             margin-bottom: 20px;
@@ -10942,7 +10945,8 @@ section.conversation-cta {
 
                 &.image-column {
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         height: 100%;
                         padding-top: 56.25%;
 

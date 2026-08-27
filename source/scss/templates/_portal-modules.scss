@@ -3676,7 +3676,8 @@ section.announcementArticleTextHeader {
 
         .image-container {
             width: 100%;
-            float: left;
+            float: none;
+            display: block;
             text-align: center;
 
             .image-container-inner {

@@ -3010,7 +3010,8 @@ a.post-popup {
 .image-container {
 	position: relative;
 	width: 100%;
-	float: left;
+	float: none;
+	display: block;
 
 	.bg-container {
 		position: absolute;

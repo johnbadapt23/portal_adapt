@@ -301,7 +301,8 @@ section.researchArticleTextHeader.preview-module {
                                 margin-bottom: 40px;
 
                                 .image-container {
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                     position: relative;
                                     padding-top: 56.25%;
@@ -521,7 +522,8 @@ section.data-links {
                     margin-bottom: 20px;
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         position: relative;
                         padding-top: 56.25%;
@@ -699,7 +701,8 @@ section.featured-article-slider-data {
                     }
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         position: relative;
                         padding-top: 56.25%;

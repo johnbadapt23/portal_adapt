@@ -106,7 +106,8 @@ section.advisors-carousel {
                 width: 100%;
 
                 .image-container {
-                    float: left;
+                    float: none;
+                    display: block;
                     width: 100%;
                     padding-top: 133%;
                     border-top-left-radius: 40px;

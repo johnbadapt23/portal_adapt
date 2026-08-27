@@ -116,7 +116,8 @@ section.customer-kit-content {
                         margin-bottom: 40px;
 
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 56.25%;
                     
@@ -1233,7 +1234,8 @@ section.partners-content-module {
                                 }
                     
                                 .image-container {
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                     padding-top: 125%;
                                     position: relative;
@@ -1688,7 +1690,8 @@ section.two-column-services.partners-introduction.kyc-video-introduction {
                     }
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 150px;
                         height: 200px;
                         position: relative;
@@ -2874,7 +2877,8 @@ section.tnc-registration-banner {
                     }
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         padding-top: 80%;
 
@@ -2907,7 +2911,8 @@ section.registration-video-block {
             margin: 0 auto;
 
             .image-container {
-                float: left;
+                float: none;
+                display: block;
                 width: 100%;
                 padding-top: 56.25%;
         

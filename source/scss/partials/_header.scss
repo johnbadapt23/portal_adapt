@@ -1688,7 +1688,8 @@ header {
 				.image-container {
 					aspect-ratio: 1/1;
 					margin-bottom: 16px;
-					float: left;
+					float: none;
+					display: block;
 					width: 100%;
 				}
 
