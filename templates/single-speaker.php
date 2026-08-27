@@ -130,6 +130,7 @@ endif;
                             <?php // no rows found ?>
                         <?php endif; ?>                        
                         <?php if ( ! empty( $resources_array ) ) : ?>
+                            <?php $per_page = 6; // Number of resources per "page" ?>
                             <div class="switch-content resources<?php if ($contentCounter == 1){ ?> active<?php } ?>" id="resourcesAdvisor">
                                 <div class="resources-column-container gap-16-40 two-column-container resources-advisor tablet-one-column"
                                 data-page="1"
@@ -138,7 +139,6 @@ endif;
                                 data-post-id="<?php the_ID(); ?>">
 
                                     <?php
-                                    $per_page = 6; // Number of resources per "page"
                                     $page = 1; // Initial page
                                     // Sort featured first
                                     usort($resources_array, function($a, $b){
