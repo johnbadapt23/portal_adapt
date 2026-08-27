@@ -766,7 +766,6 @@ section.kits-listing-filter {
                         ul.slick-dots {
                             position: absolute;
                             float: left;
-                            width: auto;
                             bottom: 20px;
                             left: 0;
                             width: 100%;
@@ -2338,7 +2337,6 @@ section.ecosystems-search-template {
         padding: 30px;
 
         .mp_wrapper .cc-error {
-            position: absolute;
             font-size: 10px;
             position: absolute;
             bottom: -14px;
@@ -2852,7 +2850,6 @@ section.tnc-registration-banner {
                 .text-container {
                     float: left;
                     width: 100%;
-                    margin-bottom: 0px;
                     font-size: 18px;
                     line-height: 1.5;
                     text-align: left;
