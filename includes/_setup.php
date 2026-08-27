@@ -10,6 +10,11 @@ function theme_setup() {
 	add_editor_style();
 	add_theme_support( 'menus' );
 	add_theme_support( 'post-thumbnails' );
+	// Lets WP (and Yoast SEO, which is active on this site) manage the
+	// <title> tag via wp_head() instead of the theme hardcoding one with
+	// wp_title() - the standard approach since WP 4.1, and what Yoast's
+	// own "hardcoded title tag" admin notice asks every theme to do.
+	add_theme_support( 'title-tag' );
 
 	if ( function_exists('acf_add_options_page') ) {
     	acf_add_options_page();
