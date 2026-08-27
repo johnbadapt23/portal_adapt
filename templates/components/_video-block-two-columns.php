@@ -1,3 +1,10 @@
+<?php
+// _video-block-three-columns.php is a near-identical component that only
+// differs in the column-count class used below - rather than maintain two
+// full copies of this markup, it sets $video_variant and includes this
+// file directly.
+$video_variant = $video_variant ?? 'two';
+?>
 <section class="video-grid-block" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
     <div class="container">
         <?php if(get_sub_field( 'block_title' )){ ?>
@@ -7,7 +14,7 @@
             <div class="video-grid-block-container">
                 <?php $counter = 0; ?>
 				<?php while ( have_rows( 'video_columns' ) ) : the_row(); ?>
-                    <div class="column two-column <?php echo $counter; ?>">
+                    <div class="column <?php echo $video_variant; ?>-column <?php echo $counter; ?>">
                         <div class="video-image-container">
                             <div class="image" style="background-image: url(<?php echo get_sub_field( 'listing_image' ); ?>);"></div>
                             <span class="videoLink">
