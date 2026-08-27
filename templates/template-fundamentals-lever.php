@@ -1,6 +1,13 @@
 
 <?php
 
+// template-fundamentals-levers.php is a near-identical taxonomy archive
+// template for the separate fundamentals-levers taxonomy - rather than
+// maintain two full copies of this markup, it includes this file directly.
+// $taxonomy is already set by WordPress core (extracted from the query
+// vars before either file is loaded), so it correctly reflects whichever
+// of the two taxonomies is actually being viewed with no extra wiring.
+
 $today = date('Ymd');
 $args = array(
     'post_type' => 'post',
@@ -59,7 +66,7 @@ if($keyword != '') {
         'tax_query' => array(
             'relation' => 'AND',
             array (
-                'taxonomy' => 'fundamentals-lever',
+                'taxonomy' => $taxonomy,
                 'field' => 'slug',
                 'terms'    => $q->slug
             )
@@ -73,7 +80,7 @@ if($keyword != '') {
         'tax_query' => array(
             'relation' => 'AND',
             array (
-                'taxonomy' => 'fundamentals-lever',
+                'taxonomy' => $taxonomy,
                 'field' => 'slug',
                 'terms'    => $q->slug
             )
@@ -104,7 +111,7 @@ if ( $loop->have_posts() ) :
 <div class="other-dropdown fundamentals-dropdown">
     <div class="container">
         <?php
-        $term_m = 'fundamentals-lever';
+        $term_m = $taxonomy;
         ?>
         <?php
         $terms = get_terms( $term_m, array(
@@ -241,7 +248,7 @@ if ( $loop->have_posts() ) :
                         'tax_query' => array(
                             'relation' => 'AND',
                             array (
-                                'taxonomy' => 'fundamentals-lever',
+                                'taxonomy' => $taxonomy,
                                 'field' => 'slug',
                                 'terms'    => $q->slug
                             )
@@ -255,7 +262,7 @@ if ( $loop->have_posts() ) :
                         'tax_query' => array(
                             'relation' => 'AND',
                             array (
-                                'taxonomy' => 'fundamentals-lever',
+                                'taxonomy' => $taxonomy,
                                 'field' => 'slug',
                                 'terms'    => $q->slug
                             )
@@ -404,7 +411,7 @@ if ( $loop->have_posts() ) :
                                     'tax_query'      => array(
                                         'relation' => 'AND',
                                         array (
-                                            'taxonomy' => 'fundamentals-lever',
+                                            'taxonomy' => $taxonomy,
                                             'field' => 'slug',
                                             'terms'    => $q->slug
                                         ),
