@@ -267,7 +267,7 @@ $filterBy = array();
                 <div class="formContainer">
                     <div class="ajax-search-container">
                         <?php if($keyword != '') { ?>
-                            <span class="hidden-keyword" style="display: none;"><?php echo $keyword; ?></span>
+                            <span class="hidden-keyword" style="display: none;"><?php echo esc_html( $keyword ); ?></span>
                             <span class="clear-keyword">Clear</span>
                         <?php } ?>
                         <?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
@@ -276,7 +276,7 @@ $filterBy = array();
                     <form action="" name="insightsFilter" class="new-filter desktop insightsFilter<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>" method="get">
 
                         <span class="search">
-                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo $keyword; ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'post_search_placeholder_text', 'option' ); ?>" />
+                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'post_search_placeholder_text', 'option' ); ?>" />
                             <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
                             <input type="hidden" value="1" name="sentence" />
                         </span>
@@ -314,13 +314,13 @@ $filterBy = array();
                         <?php
                         if ($sortBy != '') { ?>
                             <span class="hidden" style="visibility: hidden; opacity: 0;">
-                                <input type="checkbox" name="orderby" value="<?php echo $sortBy; ?>" checked>
-                                <input type="checkbox" name="order" value="<?php echo $sort; ?>" checked>
+                                <input type="checkbox" name="orderby" value="<?php echo esc_attr( $sortBy ); ?>" checked>
+                                <input type="checkbox" name="order" value="<?php echo esc_attr( $sort ); ?>" checked>
                             </span>
                         <?php } ?>
                         <?php if ($filterType != '') { ?>
                             <span class="hidden" style="visibility: hidden; opacity: 0;">
-                                <input type="checkbox" name="filterType" value="<?php echo $filterType; ?>" checked>
+                                <input type="checkbox" name="filterType" value="<?php echo esc_attr( $filterType ); ?>" checked>
                             </span>
                         <?php } ?>
                         <span class="submitContainer">
@@ -447,7 +447,7 @@ $filterBy = array();
                                 </span>
                             </span>
                             <div class="filter-by-mobile" id="filterBy">
-                                <span class="title select-label">Filter By: <span class="current-value"><?php if($filterType == '') {?>All<?php } else { if ($filterType == 'all') { ?>All<?php } else {?><?php echo $filterType; ?><?php } } ?></span></span>
+                                <span class="title select-label">Filter By: <span class="current-value"><?php if($filterType == '') {?>All<?php } else { if ($filterType == 'all') { ?>All<?php } else {?><?php echo esc_html( $filterType ); ?><?php } } ?></span></span>
                                 <span class="mobile-filter-container mobile">
                                     <?php if($filterTopics != '' || $keyword != '') { ?>
                                        <?php $terms = array(); ?>
@@ -731,14 +731,14 @@ $filterBy = array();
                             $countzero = count(array_keys($filterTypesResults, 0));
                             $len = $lenall - $countzero;
                             ?>
-                            <span class="total"><?php echo $counterResults; ?> results found <?php if(empty($filterTopics)){ ?><?php if($keyword != '') {?> for "<?php echo $keyword;?>" <?php } } else { ?><?php if (count($filterTopics) > 1) {?> <?php } else { ?> for "<?php echo $topic;?>"<?php } ?> <?php } ?></span>
+                            <span class="total"><?php echo $counterResults; ?> results found <?php if(empty($filterTopics)){ ?><?php if($keyword != '') {?> for "<?php echo esc_html( $keyword );?>" <?php } } else { ?><?php if (count($filterTopics) > 1) {?> <?php } else { ?> for "<?php echo esc_html( $topic );?>"<?php } ?> <?php } ?></span>
                             <span class="breakdown">
                                 Explore below
                                 <?php
                                 foreach($filterTypesResults as $typeName => $typeValue){ ?>
                                     <?php if($typeValue == 0){ ?>
                                     <?php } else { ?>
-                                        <?php if ($i == 0) {?> <?php } else if ($i == $len - 1) {?> and <?php } else {?>, <?php }?><a class="articlesButton" href="<?php echo $queryURL; ?>&filterType=<?php echo $typeName; ?>"><?php echo $typeValue; ?> <?php echo $typeName; ?></a>
+                                        <?php if ($i == 0) {?> <?php } else if ($i == $len - 1) {?> and <?php } else {?>, <?php }?><a class="articlesButton" href="<?php echo esc_url( $queryURL ); ?>&filterType=<?php echo esc_attr( $typeName ); ?>"><?php echo $typeValue; ?> <?php echo $typeName; ?></a>
                                         <?php $i++; ?>
                                     <?php }?>
                                 <?php } ?>
@@ -1033,7 +1033,7 @@ $filterBy = array();
                                             <?php foreach($terms as $term) { ?>
 
                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                     <a href="<?php echo $queryURL; ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></a>
+                                                     <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></a>
                                                 </span>
                                                 <?php $counterTopic++; ?>
                                             <?php } ?>
@@ -1134,7 +1134,7 @@ $filterBy = array();
                                                     <?php foreach($terms as $term) { ?>
 
                                                         <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                             <a href="<?php echo $queryURL; ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></a>
+                                                             <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></a>
                                                         </span>
                                                         <?php $counterTopic++; ?>
                                                     <?php } ?>

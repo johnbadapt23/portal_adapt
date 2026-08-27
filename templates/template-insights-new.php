@@ -43,7 +43,7 @@ $sort = $_GET['order'];
                 <div class="formContainer">
                     <form action="" name="insightsFilter" class="insightsFilter<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>" method="get">
                         <span class="search">
-                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo $keyword; ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'post_search_placeholder_text', 'option' ); ?>" />
+                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'post_search_placeholder_text', 'option' ); ?>" />
                             <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
                         </span>
                         <span class="categories<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>">
@@ -125,8 +125,8 @@ $sort = $_GET['order'];
                         <?php
                         if ($sortBy != '') { ?>
                             <span class="hidden" style="visibility: hidden; opacity: 0;">
-                                <input type="checkbox" name="orderby" value="<?php echo $sortBy; ?>" checked>
-                                <input type="checkbox" name="order" value="<?php echo $sort; ?>" checked>
+                                <input type="checkbox" name="orderby" value="<?php echo esc_attr( $sortBy ); ?>" checked>
+                                <input type="checkbox" name="order" value="<?php echo esc_attr( $sort ); ?>" checked>
                             </span>
                         <?php } ?>
                         <span class="submitContainer">
