@@ -59,19 +59,8 @@ if ($membershipType === 'it-pro') {
                 </span>
 
                 <?php
-                // ----------------------------------------
-                // HELPER: get allowed slugs or empty
-                // ----------------------------------------
-                function get_allowed_slugs($field_name, $all_field_name, $taxonomy = null) {
-                    if ( get_field($field_name) == 1 && $taxonomy ) {
-                        return []; // all allowed
-                    }
-                    $terms = get_field($all_field_name) ?: [];
-                    if ($taxonomy && get_field($field_name) != 1) {
-                        return array_map(fn($term) => $term->slug, is_array($terms) ? $terms : []);
-                    }
-                    return [];
-                }
+                // get_allowed_slugs() now lives in includes/_functions.php
+                // (shared by the persona/sector/topic/post filter templates).
 
                 // ----------------------------------------
                 // TOPICS

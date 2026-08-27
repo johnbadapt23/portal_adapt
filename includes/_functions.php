@@ -81,4 +81,24 @@ function redirectPage($url){
 	echo '<script type="text/javascript">window.location = "' . $url . '"</script>';
 }
 
+// Shared by the persona/sector/topic/post filter templates: returns the
+// slugs a filter dropdown should restrict to, or an empty array when
+// "all" is allowed for that field. Was previously declared, identically,
+// as an unguarded top-level function inside each of those four template
+// files - harmless today since only one Template Name page loads per
+// request, but a fatal redeclare waiting to happen the moment two of them
+// are ever included in the same request.
+if ( ! function_exists( 'get_allowed_slugs' ) ) {
+	function get_allowed_slugs($field_name, $all_field_name, $taxonomy = null) {
+		if ( get_field($field_name) == 1 && $taxonomy ) {
+			return []; // all allowed
+		}
+		$terms = get_field($all_field_name) ?: [];
+		if ($taxonomy && get_field($field_name) != 1) {
+			return array_map(fn($term) => $term->slug, is_array($terms) ? $terms : []);
+		}
+		return [];
+	}
+}
+
 ?>
