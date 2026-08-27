@@ -3,6 +3,12 @@
  * Template Name: Register Template
  */
 
+// template-register-kyck.php (Template Name: KYC Register Template) is a
+// near-identical page template that only adds one extra body class - rather
+// than maintain two full copies of this markup, it sets $is_kyc_register
+// and includes this file directly instead of calling get_header() itself.
+$is_kyc_register = $is_kyc_register ?? false;
+
 get_header();
 ?>
 <header class="login-header">
@@ -20,7 +26,7 @@ get_header();
 		</div>
 	</div>
 </header>
-<main id="main" role="main" class="home login register-form">
+<main id="main" role="main" class="home login register-form<?php if ( $is_kyc_register ) { ?> kyc-register-form<?php } ?>">
 	<section class="login">
 		<div class="container">
 			<div class="login-container-inner register-container-inner">

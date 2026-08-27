@@ -3,15 +3,22 @@
  * Template Name: Advantage Register Template
  */
 
+// template-register-tnc.php (Template Name: TNC Register Template) is a
+// near-identical page template that only differs in the advantage_ vs tnc_
+// ACF field-name prefix used for every options-page lookup below - rather
+// than maintain two full copies of this markup, it sets $reg_prefix and
+// includes this file directly instead of calling get_header() itself.
+$reg_prefix = $reg_prefix ?? 'advantage';
+
 get_header();
 ?>
 
-<main id="main" role="main" class="home login register-form tnc-registration advantage-registration">
-	<?php if ( have_rows( 'advantage_registration_banner', 'options' ) ) : ?>
+<main id="main" role="main" class="home login register-form <?php echo esc_attr( $reg_prefix ); ?>-registration">
+	<?php if ( have_rows( $reg_prefix . '_registration_banner', 'options' ) ) : ?>
 		<section class="tnc-registration-banner">
 			<span class="grey-background"></span>
 			<div class="container">
-				<?php while ( have_rows( 'advantage_registration_banner', 'options' ) ) : the_row(); ?>
+				<?php while ( have_rows( $reg_prefix . '_registration_banner', 'options' ) ) : the_row(); ?>
 					<div class="column-container">
 						<div class="column text-column">
 							<span class="title-container"><?php echo get_sub_field( 'title' ); ?></span>
@@ -44,7 +51,7 @@ get_header();
 	<div style="display: none;">
 		<div class="login-form-popup" id="loginForm">
 			<div class="login-form-container">
-				<h3 class="form-title"><?php echo get_field( 'advantage_registration_form_title', 'options' ); ?></h3>
+				<h3 class="form-title"><?php echo get_field( $reg_prefix . '_registration_form_title', 'options' ); ?></h3>
 				<span class="form">
 					<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 						<?php the_content(); ?>
@@ -53,8 +60,8 @@ get_header();
 			</div>
 		</div>
 	</div>
-	<?php if ( have_rows( 'advantage_registration_video_module', 'options' ) ) : ?>
-		<?php while ( have_rows( 'advantage_registration_video_module', 'options' ) ) : the_row(); ?>
+	<?php if ( have_rows( $reg_prefix . '_registration_video_module', 'options' ) ) : ?>
+		<?php while ( have_rows( $reg_prefix . '_registration_video_module', 'options' ) ) : the_row(); ?>
 			<section class="registration-video-block">
 				<div class="container">
 					<div class="video-inner">
@@ -77,8 +84,8 @@ get_header();
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	<?php if ( have_rows( 'advantage_registration_icon_text_block', 'options' ) ) : ?>
-		<?php while ( have_rows( 'advantage_registration_icon_text_block', 'options' ) ) : the_row(); ?>
+	<?php if ( have_rows( $reg_prefix . '_registration_icon_text_block', 'options' ) ) : ?>
+		<?php while ( have_rows( $reg_prefix . '_registration_icon_text_block', 'options' ) ) : the_row(); ?>
 			<section class="text-icon-module">
 				<div class="container">
 					<div class="inner">
@@ -98,8 +105,8 @@ get_header();
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	<?php if ( have_rows( 'advantage_registration_two_column_list', 'options' ) ) : ?>
-		<?php while ( have_rows( 'advantage_registration_two_column_list', 'options' ) ) : the_row(); ?>
+	<?php if ( have_rows( $reg_prefix . '_registration_two_column_list', 'options' ) ) : ?>
+		<?php while ( have_rows( $reg_prefix . '_registration_two_column_list', 'options' ) ) : the_row(); ?>
 			<section class="two-column-list">
 				<div class="container">
 					<div class="column-container">
@@ -136,8 +143,8 @@ get_header();
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	<?php if ( have_rows( 'advantage_registration_image_and_text_block', 'options' ) ) : ?>
-		<?php while ( have_rows( 'advantage_registration_image_and_text_block', 'options' ) ) : the_row(); ?>
+	<?php if ( have_rows( $reg_prefix . '_registration_image_and_text_block', 'options' ) ) : ?>
+		<?php while ( have_rows( $reg_prefix . '_registration_image_and_text_block', 'options' ) ) : the_row(); ?>
 			<section class="customer-kit-image-text <?php echo get_sub_field( 'background_colour' ); ?>">
 				<div class="container">
 					<div class="title-container">
@@ -169,8 +176,8 @@ get_header();
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	<?php if ( have_rows( 'advantage_registration_testimonial_slider', 'options' ) ) : ?>
-		<?php while ( have_rows( 'advantage_registration_testimonial_slider', 'options' ) ) : the_row(); ?>
+	<?php if ( have_rows( $reg_prefix . '_registration_testimonial_slider', 'options' ) ) : ?>
+		<?php while ( have_rows( $reg_prefix . '_registration_testimonial_slider', 'options' ) ) : the_row(); ?>
 			<section class="ecosystem-quote-slider">
 				<div class="container">
 					<div class="quote-slider-module">
