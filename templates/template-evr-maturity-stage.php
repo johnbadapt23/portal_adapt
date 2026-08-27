@@ -59,54 +59,34 @@ $filterType = $_GET['filterby'];
 $keyword = $_GET['searchWords'];
 ?>
 <?php
-if($keyword != '') {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        's' => $keyword,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'evr-maturity-stage',
-                'field' => 'slug',
-                'terms'    => $q->slug
-            )
-        )
-    );
-} else {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'evr-maturity-stage',
-                'field' => 'slug',
-                'terms'    => $q->slug
-            )
-        )
-    );
-}
-?>
-<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-<?php $args = array(
+// A dead $args build used to sit here (an if($keyword)/else block scoped to
+// the evr-maturity-stage taxonomy, using $paged before it was even defined
+// below) - $args was immediately overwritten by the simpler array right
+// after it, on the next line, so it was never actually used by any query.
+// Removed - the real keyword-filtered query for this page lives further
+// down this file where $keyword is actually consumed.
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
+<?php
+// This loop only reads each post's ID (to populate $displayed_posts) - it
+// never touches title/content/ACF fields, so it doesn't need full WP_Post
+// objects. fields => ids skips that hydration on a query with no result
+// limit.
+$args = array(
     'post_type' => 'post',
     'posts_per_page' => -1,
-    'paged'=> $paged
+    'paged'=> $paged,
+    'fields' => 'ids'
 ); ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
-    while ( $loop->have_posts() ) : $loop->the_post();
+    foreach ( $loop->posts as $id ) :
 ?>
 <?php if(current_user_can('mepr_auth')) {?>
 <?php } else { ?>
-    <?php $id = get_the_ID(); ?>
     <?php $displayed_posts[] = $id; ?>
 <?php }?>
 
-<?php endwhile; else : ?>
+<?php endforeach; else : ?>
 <?php endif; ?>
 <?php wp_reset_postdata(); wp_reset_query();?>
 
