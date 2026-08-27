@@ -20,7 +20,7 @@ get_header();
                 <div class="formContainer">
                     <form action="" name="insightsFilter" class="insightsFilter" method="get">
                         <span class="search">
-                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo $keyword; ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'events_search_placeholder_text', 'option' ); ?>" />
+                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'events_search_placeholder_text', 'option' ); ?>" />
                             <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
                         </span>
                         <span class="spacer"></span>

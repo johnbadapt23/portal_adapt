@@ -54,7 +54,7 @@ if (isset($_GET['partner-search'])) {
 					<form class="partners-form">
 						<span class="searchField">
                             <span class="search">
-								<input class="searchInput" type="text" name="partner-search" id="search" value="<?php echo $searchTerms ?>" placeholder="Search"/>								
+								<input class="searchInput" type="text" name="partner-search" id="search" value="<?php echo esc_attr( $searchTerms ); ?>" placeholder="Search"/>
 								<input type="hidden" value="1" name="sentence" />
 								<input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg"/>
 							</span>

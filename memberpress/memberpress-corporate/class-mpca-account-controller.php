@@ -307,7 +307,7 @@ class MPCA_Account_Controller {
     if(isset($_REQUEST['ca'])) {
 
       // Add hidden field to the checkout form with CA id as the value
-      echo "<input id='mpca-corporate-account-id' name='mpca_corporate_account_id' value='{$_REQUEST['ca']}' type='hidden' />";
+      echo "<input id='mpca-corporate-account-id' name='mpca_corporate_account_id' value='" . esc_attr( $_REQUEST['ca'] ) . "' type='hidden' />";
     }
   }
 
