@@ -6,6 +6,8 @@
 get_header();
 $sector = $_GET['sector'];
 $keyword = $_GET['searchWords'];
+$q = get_queried_object();
+$q_slug = isset( $q->slug ) ? $q->slug : '';
 ?>
 
 
@@ -34,7 +36,7 @@ $keyword = $_GET['searchWords'];
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Sector Analysis" <?php if($keyword != '') {?>value="<?php echo $keyword;?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'workshop-recordings' || $q->slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span> 
 						<span class="filtersButtonMobile">                            
@@ -290,7 +292,7 @@ $keyword = $_GET['searchWords'];
 					<span class="searchField">
 						<span class="search">
 							<input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Sector Analysis" <?php if($keyword != '') {?>value="<?php echo $keyword;?>"<?php } ?>/>
-							<input class="searchButton" type="image" alt="Search" <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'workshop-recordings' || $q->slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+							<input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
 						</span>
 					</span>                     
 					<span class="filtersButtonMobile">                            

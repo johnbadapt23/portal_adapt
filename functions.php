@@ -1459,7 +1459,6 @@ function ajax_load_partners() {
         while ($query->have_posts()) {
             $query->the_post();
             $post_id = get_the_ID();
-            $eventtype = $has_event_filter ? 'yes' : 'no';
             include locate_template('/templates/partners-components/_partner-card.php');
         }
     }
