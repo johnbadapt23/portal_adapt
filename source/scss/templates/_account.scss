@@ -187,7 +187,6 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
                 .select2-selection {
                     // background-color: #fafafa !important;
                     // background: #fafafa !important;
-                    background-color: #fff;
                     background: #fff;
                 }
             }
@@ -228,7 +227,6 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
                 border-color: transparent !important;
 
                 &:after {
-                    position: absolute;
                     content: '';
                     background-image: url(../images/arrow-down-black.svg);
                     background-size: 6px 4px;
@@ -369,7 +367,6 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
                 }
 
                 label {
-                    min-width: 0px;
                     padding: 0 14px;
                     height: 47px;
                     line-height: 46px;
