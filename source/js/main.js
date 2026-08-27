@@ -2012,7 +2012,7 @@ $('.post-filtering-module').each(function(){
     // NORMALISE
     // ===============================
     function normalizeFilterValue(value) {
-        if ($.isArray(value)) return value;
+        if (Array.isArray(value)) return value;
         if (typeof value === 'string') return [value];
         return value ? [value] : [];
     }
@@ -2066,7 +2066,7 @@ $('.post-filtering-module').each(function(){
             if (!$activeBtn.length) return;
 
             hasPills = true;
-            var label = $.trim($activeBtn.text());
+            var label = $activeBtn.text().trim();
 
             var pill = $('<button type="button" class="filter-pill"><span>' + label + '</span><span class="pill-close">×</span></button>');
 
@@ -2435,7 +2435,7 @@ $('.post-filtering-module').each(function(){
             var allowedRaw = visibleTerms ? visibleTerms[taxonomyKey] : [];
             var allowed = [];
 
-            if ($.isArray(allowedRaw)) {
+            if (Array.isArray(allowedRaw)) {
                 allowed = allowedRaw;
             } else if (allowedRaw && typeof allowedRaw === 'object') {
                 for (var k in allowedRaw) { if (allowedRaw.hasOwnProperty(k)) allowed.push(allowedRaw[k]); }
@@ -2446,7 +2446,7 @@ $('.post-filtering-module').each(function(){
                 if ($btn.hasClass('all')) { $btn.show(); return; }
 
                 var val = $btn.data('value');
-                var values = $.isArray(val) ? val : [val];
+                var values = Array.isArray(val) ? val : [val];
 
                 var shouldShow = false;
                 for (var i=0; i<values.length; i++) {
@@ -2528,7 +2528,7 @@ $(document).on('click', function(e) {
         var $expertiseBtn = $module.find('.filter-dropdown[data-filter="expertise"] .filter-button.active').not('[data-value=""]');
         if ($expertiseBtn.length) {
             hasPills = true;
-            var pill = $('<button type="button" class="filter-pill"><span>' + $.trim($expertiseBtn.text()) + '</span><span class="pill-close">×</span></button>');
+            var pill = $('<button type="button" class="filter-pill"><span>' + $expertiseBtn.text().trim() + '</span><span class="pill-close">×</span></button>');
             pill.on('click', function() {
                 $expertiseBtn.removeClass('active');
                 $module.find('.filter-dropdown[data-filter="expertise"] .filter-button[data-value=""]').addClass('active');
@@ -2544,7 +2544,7 @@ $(document).on('click', function(e) {
         var $industryBtn = $module.find('.filter-dropdown[data-filter="industry"] .filter-button.active').not('[data-value=""]');
         if ($industryBtn.length) {
             hasPills = true;
-            var pill = $('<button type="button" class="filter-pill"><span>' + $.trim($industryBtn.text()) + '</span><span class="pill-close">×</span></button>');
+            var pill = $('<button type="button" class="filter-pill"><span>' + $industryBtn.text().trim() + '</span><span class="pill-close">×</span></button>');
             pill.on('click', function() {
                 $industryBtn.removeClass('active');
                 $module.find('.filter-dropdown[data-filter="industry"] .filter-button[data-value=""]').addClass('active');
