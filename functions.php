@@ -22,8 +22,8 @@ function cc_mime_types($mimes) {
 function adapt_is_staging() {
     return (
         wp_get_environment_type() === 'staging' ||
-        strpos($_SERVER['HTTP_HOST'] ?? '', 'staging') !== false ||
-        strpos($_SERVER['HTTP_HOST'] ?? '', 'devstage') !== false
+        str_contains($_SERVER['HTTP_HOST'] ?? '', 'staging') ||
+        str_contains($_SERVER['HTTP_HOST'] ?? '', 'devstage')
     );
 }
 
@@ -58,7 +58,7 @@ add_filter('user_has_cap', function ($allcaps, $required_caps, $args, $user) {
     }
 
     foreach ((array) $required_caps as $cap) {
-        if ($cap === 'memberpress_authorized' || strpos($cap, 'mepr-active') === 0) {
+        if ($cap === 'memberpress_authorized' || str_starts_with($cap, 'mepr-active')) {
             $allcaps[$cap] = true;
         }
     }
@@ -827,7 +827,7 @@ add_action('mepr-validate-signup', function($errors) {
         $blocked_keywords = ['gmail', 'hotmail', 'outlook', 'yahoo', 'icloud'];
 
         foreach ($blocked_keywords as $keyword) {
-            if (strpos($domain, $keyword) !== false) {
+            if (str_contains($domain, $keyword)) {
                 $errors[] = __("Please use your work email.", 'memberpress');
                 break;
             }
@@ -1380,7 +1380,7 @@ function adapt_defer_noncritical_styles( $html, $handle ) {
         return $html;
     }
 
-    if ( strpos( $html, 'onload=' ) !== false ) {
+    if ( str_contains( $html, 'onload=' ) ) {
         return $html;
     }
 

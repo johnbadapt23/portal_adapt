@@ -367,7 +367,7 @@ class MPCA_Account_Controller {
           update_user_meta($user_id, 'last_name', sanitize_text_field($_REQUEST['userdata']['last_name']));
         }
         foreach($_REQUEST['userdata'] as $key => $val) {
-          if(strpos($key, 'mepr_') !== false) {
+          if(str_contains($key, 'mepr_')) {
             update_user_meta($user_id, $key, sanitize_text_field($val));
           }
         }
