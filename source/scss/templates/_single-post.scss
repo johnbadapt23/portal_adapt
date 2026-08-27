@@ -87,10 +87,7 @@ section.singlePost {
 
         .image {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
             background-size: cover;
             background-position: center center;
         }
@@ -338,10 +335,7 @@ section.singlePost {
 
                             .logo {
                                 position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
+                                inset: 0;
                                 background-size: contain;
                                 background-position: center top;
                                 background-repeat: no-repeat;
@@ -683,10 +677,7 @@ section.singlePost {
 
                 .image {
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     background-size: cover;
                     background-position: center center;
                     border-radius: 3px;
@@ -771,8 +762,7 @@ body .imageGridBlock .gridWrapper {
     clear: both;
     display: flex;
     flex-wrap: wrap;
-    row-gap: 0;
-    column-gap: 109px;
+    gap: 0 109px;
 
     @include responsive(1023) {
         column-gap: 50px;
@@ -886,10 +876,7 @@ section.textImageBlock {
 
                 .image {
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     background-size: cover;
                     background-position: center center;
                 }
@@ -1017,10 +1004,7 @@ section.textImageBlock {
 
                 .image {
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     background-size: cover;
                     background-position: center center;
                     border-radius: 3px 3px 0px 0px;
@@ -1488,10 +1472,7 @@ section.fullImageInfogram {
 
             .image {
                 position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
+                inset: 0;
                 background-size: cover;
                 background-position: center center;
             }
@@ -1523,10 +1504,7 @@ body.post {
         span.overlay {
             position: absolute;
             display: none;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
             z-index: 5;
             border-radius: 3px;
             background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6-15 */
