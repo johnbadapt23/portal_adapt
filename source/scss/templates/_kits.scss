@@ -124,10 +124,7 @@ section.customer-kit-content {
                             .bg-container {
                                 .opacity-overlay {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-color: rgba(18, 18, 18, 0.6);
                                     mix-blend-mode: multiply;
                                     @include transition(all, 300ms, ease);
@@ -135,10 +132,7 @@ section.customer-kit-content {
                     
                                 .popup-vimeo {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-image: url('../images/careers-video-button.svg');
                                     background-size: 72px 72px;
                                     background-position: center;
@@ -995,10 +989,7 @@ section.partners-content-module {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(18, 18, 18, 0.6);
                                 mix-blend-mode: multiply;
                                 @include transition(all, 300ms, ease);
@@ -1006,10 +997,7 @@ section.partners-content-module {
                         
                             .popup-vimeo {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/careers-video-button.svg');
                                 background-size: 72px 72px;
                                 background-position: center;
@@ -1128,10 +1116,7 @@ section.partners-content-module {
 
                                             .opacity-overlay {
                                                 position: absolute;
-                                                top: 0;
-                                                left: 0;
-                                                right: 0;
-                                                bottom: 0;
+                                                inset: 0;
                                                 background-color: rgba(18, 18, 18, 0.6);
                                                 mix-blend-mode: multiply;
                                                 @include transition(all, 300ms, ease);
@@ -1139,10 +1124,7 @@ section.partners-content-module {
                                         
                                             .popup-vimeo {
                                                 position: absolute;
-                                                top: 0;
-                                                left: 0;
-                                                right: 0;
-                                                bottom: 0;
+                                                inset: 0;
                                                 background-image: url('../images/careers-video-button.svg');
                                                 background-size: 72px 72px;
                                                 background-position: center;
@@ -1499,10 +1481,7 @@ section.partners-content-module {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(18, 18, 18, 0.6);
                                 mix-blend-mode: multiply;
                                 @include transition(all, 300ms, ease);
@@ -1510,10 +1489,7 @@ section.partners-content-module {
 
                             .popup-vimeo {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/careers-video-button.svg');
                                 background-size: 72px 72px;
                                 background-position: center;
@@ -2916,10 +2892,7 @@ section.registration-video-block {
                 .bg-container {
                     .opacity-overlay {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-color: rgba(18, 18, 18, 0.6);
                         mix-blend-mode: multiply;
                         @include transition(all, 300ms, ease);
@@ -2927,10 +2900,7 @@ section.registration-video-block {
         
                     .popup-vimeo {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-image: url('../images/careers-video-button.svg');
                         background-size: 72px 72px;
                         background-position: center;
