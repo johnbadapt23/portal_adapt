@@ -693,12 +693,21 @@ $filterBy = array();
                             }
                         }
                     }
+                    // This loop only tallies facet counts (get_the_terms per
+                    // matching post) - it never reads title/content/ACF
+                    // fields, so it doesn't need full WP_Post objects.
+                    // 'fields' => 'ids' skips hydrating post objects (and
+                    // the associated meta/term cache priming the_post()
+                    // would otherwise trigger for every matching post),
+                    // which matters here since this query has no
+                    // posts_per_page limit.
+                    $args['fields'] = 'ids';
                     $loop = new WP_Query( $args );
 
                     if ( $loop->have_posts() ) : ?>
-                    <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+                    <?php foreach ( $loop->posts as $result_id ) : ?>
                             <?php
-                                $terms = get_the_terms( $post->ID, 'filter-types' );
+                                $terms = get_the_terms( $result_id, 'filter-types' );
                             ?>
                             <?php if ( $terms ) { ?>
                                 <?php foreach($terms as $term) { ?>
@@ -708,7 +717,7 @@ $filterBy = array();
                                     ?>
                                 <?php } ?>
                             <?php } ?>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     <?php
 
                     // find out the domain:
