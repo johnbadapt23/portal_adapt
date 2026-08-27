@@ -813,9 +813,6 @@ section.textImageBlock {
     width: 100%;
     padding: 87px 0 105px 0;
 
-    @include responsive(1023) {
-
-    }
 
     &.grey {
         background-color: #f2f2f2;
@@ -956,7 +953,6 @@ section.textImageBlock {
         float: left;
         width: 100%;
         text-transform: uppercase;
-        font-size: 40px;
         margin-bottom: 30px;
         font-size: 14px;
         font-family: $font-light;
@@ -1373,7 +1369,6 @@ section.singlePost.locked .lockOverlay {
             margin-top: 20px;
             height: 42px;
             line-height: 44px;
-            font-size: 10px;
             padding: 0 20px;
             font-weight: bold;
             font-size: 10px;
