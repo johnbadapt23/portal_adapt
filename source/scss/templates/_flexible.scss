@@ -438,7 +438,6 @@ section.halfHalfBlock {
 
             &.desktopText {
                 display: block;
-                font-size: $p-font-size;
             	font-size: $p-font-size;
             	font-weight: $p-font-weight;
             	line-height: $p-line-height;
@@ -783,12 +782,8 @@ body section.fullWidthTextBlock {
                 padding: 83px 53px 45px 58px;
             }
 
-            @include responsive(mobile) {
-
-            }
 
             .quoteBlock {
-                position: relative;
                 float: left;
                 width: 100%;
                 position: relative;
@@ -815,7 +810,6 @@ body section.fullWidthTextBlock {
             }
 
             .quoteAuthor {
-                position: relative;
                 float: left;
                 width: 100%;
                 position: relative;
@@ -913,7 +907,6 @@ section.quoteBlockNoImage {
         }
 
         .quoteBlock {
-            position: relative;
             float: left;
             width: 100%;
             position: relative;
@@ -940,7 +933,6 @@ section.quoteBlockNoImage {
         }
 
         .quoteAuthor {
-            position: relative;
             float: left;
             width: 100%;
             position: relative;
@@ -1023,7 +1015,6 @@ section.twoColumnWithTextAndFeaturedQuote {
                 }
 
                 .quoteBlock {
-                    position: relative;
                     float: left;
                     width: 100%;
                     position: relative;
@@ -1050,7 +1041,6 @@ section.twoColumnWithTextAndFeaturedQuote {
                 }
 
                 .quoteAuthor {
-                    position: relative;
                     float: left;
                     width: 100%;
                     position: relative;
@@ -1565,7 +1555,6 @@ section.pricingBlock {
         .title {
             float: left;
             width: 100%;
-            text-align: center;
             font-size: 34px;
             font-family: $font-main;
             line-height: 1.2;
@@ -1844,7 +1833,6 @@ section.navigation.fixed-menu {
             position: fixed!important;
 
             &.open {
-                top: auto;
                 top: auto!important;
             }
         }
@@ -2561,7 +2549,6 @@ body .mfp-wrap.download-container .mfp-content .downloadPopup .container {
         padding: 0px!important;
         padding-bottom: 5px!important;
         display: inline-block;
-        padding: 0;
         text-align: center;
         color: #838383;
 		border-radius: 0px;
@@ -3006,7 +2993,6 @@ section.resources-cta-block {
                     margin-top: 20px;
 
                     .std-button {
-                        padding-right: 52px;
                         position: relative;
                         border: 1px solid #e7534f;
                         border-radius: 4px;
