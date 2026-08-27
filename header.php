@@ -199,8 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php endif; ?>
 
 </head>
-<?php $q = get_queried_object(); ?>
-<body <?php body_class(''); ?> <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'customer' ){ ?>data-theme-style="dark" <?php } ?> rel="<?php if ( is_404() ): echo 'notFound'; endif; ?>" <?php if(current_user_can('mepr-active')) { ?>id="logged-in"<?php } ?>>
+<?php $q = get_queried_object(); $q_slug = isset( $q->slug ) ? $q->slug : ''; ?>
+<body <?php body_class(''); ?> <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'customer' ){ ?>data-theme-style="dark" <?php } ?> rel="<?php if ( is_404() ): echo 'notFound'; endif; ?>" <?php if(current_user_can('mepr-active')) { ?>id="logged-in"<?php } ?>>
     <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHF4ZRS"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

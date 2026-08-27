@@ -236,9 +236,9 @@ if (current_user_can('administrator')) {
 	<div class="bottom">
 		<div class="container">
 			<span class="desktopNav <?= $membershipType; ?> <?= $superAdminView ? 'is_admin': 'is_not'; ?>">
-                <?php if ($membershipType == 'tnc' || $membership == 'kyc') { ?>
+                <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
                     <ul>
-                        <?php if ($membership == 'kyc') { ?>
+                        <?php if ($membershipType == 'kyc') { ?>
                             <li>
                                 <a href="/kyc/persona/">KYC Kits</a>
                             </li>
@@ -1462,9 +1462,9 @@ if (current_user_can('administrator')) {
 <nav class="mobileMenu">
     <div class="mobileMenuItems">
         <span class="menuTop">
-                <?php if ($membershipType == 'tnc' || $membership == 'kyc') { ?>
+                <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
                 <ul>
-                    <?php if ($membership == 'kyc') { ?>
+                    <?php if ($membershipType == 'kyc') { ?>
                         <li>
                             <a href="/kyc/persona/">KYC Kits</a>
                         </li>
