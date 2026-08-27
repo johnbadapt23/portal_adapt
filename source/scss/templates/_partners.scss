@@ -235,10 +235,7 @@ section.speaker-module {
                                 border-top-left-radius: 40px;
 
                                 .bg-container {
-                                    top: 4px;
-                                    left: 4px;
-                                    right: 4px;
-                                    bottom: 4px;
+                                    inset: 4px;
                                     width: calc(100% - 8px);
                                     height: calc(100% - 8px);
                                     overflow: hidden;
@@ -338,10 +335,7 @@ section.speaker-module {
                                 @include transition(all, 300ms, ease);
                     
                                 .bg-container {
-                                    top: 4px;
-                                    left: 4px;
-                                    right: 4px;
-                                    bottom: 4px;
+                                    inset: 4px;
                                     width: calc(100% - 8px);
                                     overflow: hidden;
                                     transition: height 350ms cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -485,10 +479,7 @@ section.speaker-module {
                             }
                     
                             .bg-container {
-                                top: 4px;
-                                left: 4px;
-                                right: 4px;
-                                bottom: 4px;
+                                inset: 4px;
                                 width: calc(100% - 8px);
                                 height: calc(100% - 8px);
                                 overflow: hidden;
@@ -496,10 +487,7 @@ section.speaker-module {
                                 border-top-left-radius: 36px;
 
                                 @media (max-width: 767px) {
-                                    top: 2px;
-                                    left: 2px;
-                                    right: 2px;
-                                    bottom: 2px;
+                                    inset: 2px;
                                     width: calc(100% - 4px);
                                     height: calc(100% - 4px) !important;
                                     border-top-left-radius: 22px;
@@ -535,10 +523,7 @@ section.speaker-module {
                             }
                     
                             .bg-container {
-                                top: 4px;
-                                left: 4px;
-                                right: 4px;
-                                bottom: 4px;
+                                inset: 4px;
                                 width: calc(100% - 8px);
                                 overflow: hidden;
                                 transition: height 350ms cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -546,10 +531,7 @@ section.speaker-module {
                                 height: calc(100% - 8px) !important;
 
                                 @media (max-width: 767px) {
-                                    top: 2px;
-                                    left: 2px;
-                                    right: 2px;
-                                    bottom: 2px;
+                                    inset: 2px;
                                     width: calc(100% - 4px);
                                     height: calc(100% - 4px)!important;
                                     border-top-left-radius: 22px;
@@ -739,10 +721,7 @@ section.partners-content-module {
 
                         .logo {
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                            left: 0;
+                            inset: 0;
                             background-size: contain;
                             background-position: center left;
                             background-repeat: no-repeat;
@@ -838,10 +817,7 @@ section.partners-content-module {
 
                                 .opacity-overlay {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-color: rgba(18, 18, 18, 0.6);
                                     mix-blend-mode: multiply;
                                     @include transition(all, 300ms, ease);
@@ -849,10 +825,7 @@ section.partners-content-module {
 
                                 .popup-vimeo {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-image: url('../images/careers-video-button.svg');
                                     background-size: 72px 72px;
                                     background-position: center;
