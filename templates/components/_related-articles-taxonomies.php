@@ -21,10 +21,18 @@
                                     $terms     =  get_sub_field( 'event' );
 
                                     foreach( $terms as $term ) :
+                                        // orderby => rand forces MySQL to scan and randomly sort every
+                                        // matching row on every page view of this related-articles carousel -
+                                        // a well-known slow-at-scale pattern. Pulling a small pool ordered by
+                                        // date (uses the normal date index) and shuffling in PHP gives the
+                                        // same genuinely-randomized-per-request selection without the DB-side
+                                        // random sort.
                                         $args = array(
                                             'post_type'      => $post_type,
-                                            'posts_per_page' => 8,
-                                            'orderby'        => 'rand',
+                                            'posts_per_page' => 20,
+                                            'fields'         => 'ids',
+                                            'orderby'        => 'date',
+                                            'order'          => 'DESC',
                                             'tax_query'      => array(
                                                 array(
                                                     'taxonomy' => $taxonomy,
@@ -33,8 +41,17 @@
                                                 ),
                                             ),
                                         );
-
-                                        $posts = new WP_Query( $args );
+                                        $pool = get_posts( $args );
+                                        shuffle( $pool );
+                                        $related_ids = array_slice( $pool, 0, 8 );
+                                        $posts = $related_ids
+                                        	? new WP_Query( array(
+                                        		'post_type'      => $post_type,
+                                        		'post__in'       => $related_ids,
+                                        		'orderby'        => 'post__in',
+                                        		'posts_per_page' => 8,
+                                        	) )
+                                        	: new WP_Query( array( 'post__in' => array( 0 ) ) );
                                          if( $posts->have_posts() ): ?>
                                           <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                               <?php if(current_user_can('mepr_auth')) {?>
@@ -214,10 +231,18 @@
                                     $terms     =  get_sub_field( 'topic' );
 
                                     foreach( $terms as $term ) :
+                                        // orderby => rand forces MySQL to scan and randomly sort every
+                                        // matching row on every page view of this related-articles carousel -
+                                        // a well-known slow-at-scale pattern. Pulling a small pool ordered by
+                                        // date (uses the normal date index) and shuffling in PHP gives the
+                                        // same genuinely-randomized-per-request selection without the DB-side
+                                        // random sort.
                                         $args = array(
                                             'post_type'      => $post_type,
-                                            'posts_per_page' => 8,
-                                            'orderby'        => 'rand',
+                                            'posts_per_page' => 20,
+                                            'fields'         => 'ids',
+                                            'orderby'        => 'date',
+                                            'order'          => 'DESC',
                                             'tax_query'      => array(
                                                 array(
                                                     'taxonomy' => $taxonomy,
@@ -226,8 +251,17 @@
                                                 ),
                                             ),
                                         );
-
-                                        $posts = new WP_Query( $args );
+                                        $pool = get_posts( $args );
+                                        shuffle( $pool );
+                                        $related_ids = array_slice( $pool, 0, 8 );
+                                        $posts = $related_ids
+                                        	? new WP_Query( array(
+                                        		'post_type'      => $post_type,
+                                        		'post__in'       => $related_ids,
+                                        		'orderby'        => 'post__in',
+                                        		'posts_per_page' => 8,
+                                        	) )
+                                        	: new WP_Query( array( 'post__in' => array( 0 ) ) );
                                          if( $posts->have_posts() ): ?>
                                           <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                               <?php if(current_user_can('mepr_auth')) {?>
@@ -408,10 +442,18 @@
                                     $terms     =  get_sub_field( 'filter_type' );
 
                                     foreach( $terms as $term ) :
+                                        // orderby => rand forces MySQL to scan and randomly sort every
+                                        // matching row on every page view of this related-articles carousel -
+                                        // a well-known slow-at-scale pattern. Pulling a small pool ordered by
+                                        // date (uses the normal date index) and shuffling in PHP gives the
+                                        // same genuinely-randomized-per-request selection without the DB-side
+                                        // random sort.
                                         $args = array(
                                             'post_type'      => $post_type,
-                                            'posts_per_page' => 8,
-                                            'orderby'        => 'rand',
+                                            'posts_per_page' => 20,
+                                            'fields'         => 'ids',
+                                            'orderby'        => 'date',
+                                            'order'          => 'DESC',
                                             'tax_query'      => array(
                                                 array(
                                                     'taxonomy' => $taxonomy,
@@ -420,8 +462,17 @@
                                                 ),
                                             ),
                                         );
-
-                                        $posts = new WP_Query( $args );
+                                        $pool = get_posts( $args );
+                                        shuffle( $pool );
+                                        $related_ids = array_slice( $pool, 0, 8 );
+                                        $posts = $related_ids
+                                        	? new WP_Query( array(
+                                        		'post_type'      => $post_type,
+                                        		'post__in'       => $related_ids,
+                                        		'orderby'        => 'post__in',
+                                        		'posts_per_page' => 8,
+                                        	) )
+                                        	: new WP_Query( array( 'post__in' => array( 0 ) ) );
                                          if( $posts->have_posts() ): ?>
                                           <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                               <?php if(current_user_can('mepr_auth')) {?>
@@ -628,10 +679,18 @@
                             $terms     =  get_sub_field( 'event' );
 
                             foreach( $terms as $term ) :
+                                // orderby => rand forces MySQL to scan and randomly sort every
+                                // matching row on every page view of this related-articles carousel -
+                                // a well-known slow-at-scale pattern. Pulling a small pool ordered by
+                                // date (uses the normal date index) and shuffling in PHP gives the
+                                // same genuinely-randomized-per-request selection without the DB-side
+                                // random sort.
                                 $args = array(
                                     'post_type'      => $post_type,
-                                    'posts_per_page' => 8,
-                                    'orderby'        => 'rand',
+                                    'posts_per_page' => 20,
+                                    'fields'         => 'ids',
+                                    'orderby'        => 'date',
+                                    'order'          => 'DESC',
                                     'tax_query'      => array(
                                         array(
                                             'taxonomy' => $taxonomy,
@@ -640,8 +699,17 @@
                                         ),
                                     ),
                                 );
-
-                                $posts = new WP_Query( $args );
+                                $pool = get_posts( $args );
+                                shuffle( $pool );
+                                $related_ids = array_slice( $pool, 0, 8 );
+                                $posts = $related_ids
+                                	? new WP_Query( array(
+                                		'post_type'      => $post_type,
+                                		'post__in'       => $related_ids,
+                                		'orderby'        => 'post__in',
+                                		'posts_per_page' => 8,
+                                	) )
+                                	: new WP_Query( array( 'post__in' => array( 0 ) ) );
                                  if( $posts->have_posts() ): ?>
                                   <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                       <?php if(current_user_can('mepr_auth')) {?>
@@ -822,10 +890,18 @@
                             $terms     =  get_sub_field( 'topic' );
 
                             foreach( $terms as $term ) :
+                                // orderby => rand forces MySQL to scan and randomly sort every
+                                // matching row on every page view of this related-articles carousel -
+                                // a well-known slow-at-scale pattern. Pulling a small pool ordered by
+                                // date (uses the normal date index) and shuffling in PHP gives the
+                                // same genuinely-randomized-per-request selection without the DB-side
+                                // random sort.
                                 $args = array(
                                     'post_type'      => $post_type,
-                                    'posts_per_page' => 8,
-                                    'orderby'        => 'rand',
+                                    'posts_per_page' => 20,
+                                    'fields'         => 'ids',
+                                    'orderby'        => 'date',
+                                    'order'          => 'DESC',
                                     'tax_query'      => array(
                                         array(
                                             'taxonomy' => $taxonomy,
@@ -834,8 +910,17 @@
                                         ),
                                     ),
                                 );
-
-                                $posts = new WP_Query( $args );
+                                $pool = get_posts( $args );
+                                shuffle( $pool );
+                                $related_ids = array_slice( $pool, 0, 8 );
+                                $posts = $related_ids
+                                	? new WP_Query( array(
+                                		'post_type'      => $post_type,
+                                		'post__in'       => $related_ids,
+                                		'orderby'        => 'post__in',
+                                		'posts_per_page' => 8,
+                                	) )
+                                	: new WP_Query( array( 'post__in' => array( 0 ) ) );
                                  if( $posts->have_posts() ): ?>
                                   <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                       <?php if(current_user_can('mepr_auth')) {?>
@@ -1016,10 +1101,18 @@
                             $terms     =  get_sub_field( 'filter_type' );
 
                             foreach( $terms as $term ) :
+                                // orderby => rand forces MySQL to scan and randomly sort every
+                                // matching row on every page view of this related-articles carousel -
+                                // a well-known slow-at-scale pattern. Pulling a small pool ordered by
+                                // date (uses the normal date index) and shuffling in PHP gives the
+                                // same genuinely-randomized-per-request selection without the DB-side
+                                // random sort.
                                 $args = array(
                                     'post_type'      => $post_type,
-                                    'posts_per_page' => 8,
-                                    'orderby'        => 'rand',
+                                    'posts_per_page' => 20,
+                                    'fields'         => 'ids',
+                                    'orderby'        => 'date',
+                                    'order'          => 'DESC',
                                     'tax_query'      => array(
                                         array(
                                             'taxonomy' => $taxonomy,
@@ -1028,8 +1121,17 @@
                                         ),
                                     ),
                                 );
-
-                                $posts = new WP_Query( $args );
+                                $pool = get_posts( $args );
+                                shuffle( $pool );
+                                $related_ids = array_slice( $pool, 0, 8 );
+                                $posts = $related_ids
+                                	? new WP_Query( array(
+                                		'post_type'      => $post_type,
+                                		'post__in'       => $related_ids,
+                                		'orderby'        => 'post__in',
+                                		'posts_per_page' => 8,
+                                	) )
+                                	: new WP_Query( array( 'post__in' => array( 0 ) ) );
                                  if( $posts->have_posts() ): ?>
                                   <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                       <?php if(current_user_can('mepr_auth')) {?>
