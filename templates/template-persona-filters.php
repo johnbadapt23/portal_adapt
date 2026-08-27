@@ -8,7 +8,7 @@ global $membershipType;
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
-$themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
+$themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
 $has_persona_get = ($persona !== '');
 $persona_term = null;
 

@@ -10,7 +10,7 @@ $sectors = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
 $event = isset($_GET['eventType']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
-$themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
+$themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
 ?>
 
 
