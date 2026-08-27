@@ -1,6 +1,15 @@
 
 <?php
 
+// template-evr-maturity-stage-live.php is a near-identical taxonomy archive
+// template that filters against the separate fundamentals-levers taxonomy
+// instead of fundamentals-lever, and renders the feature_article layout
+// slightly differently (see the $is_evr_live branch below) - rather than
+// maintain two full copies of this markup, it sets $is_evr_live and
+// includes this file directly.
+$is_evr_live = $is_evr_live ?? false;
+$fund_taxonomy = $is_evr_live ? 'fundamentals-levers' : 'fundamentals-lever';
+
 $today = date('Ymd');
 $args = array(
     'post_type' => 'post',
@@ -163,7 +172,7 @@ if ( $loop->have_posts() ) :
                             <?php if ( $loop->have_posts() ) : ?>
                                 <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
                                 <?php
-                                    $types = get_the_terms( $post->ID, 'fundamentals-lever' );
+                                    $types = get_the_terms( $post->ID, $fund_taxonomy );
                                     if($types){
                                         foreach( $types as $type ){
                                             if( $type-> parent == 0){
@@ -205,7 +214,7 @@ if ( $loop->have_posts() ) :
                         Search Results for <span class="search-word"><?php echo $keyword; ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/reset-search.svg" width="15" height="15" loading="lazy" alt="Reset search" /></a></span>
                     <?php } else { ?>
                         <?php if ($filterType != '') { ?>
-                            <?php $term = get_term_by('slug', $filterType, 'fundamentals-lever'); ?>
+                            <?php $term = get_term_by('slug', $filterType, $fund_taxonomy); ?>
                             <?php $icon = get_field( 'icon', $term ); ?>
                             <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $term->name; ?>                                
                         <?php } else { ?>
@@ -217,7 +226,7 @@ if ( $loop->have_posts() ) :
                 <?php if($keyword != '') { ?>
                 <?php } else { ?>
                     <?php if ($filterType != '') { ?>
-                        <?php $term = get_term_by('slug', $filterType, 'fundamentals-lever'); ?>
+                        <?php $term = get_term_by('slug', $filterType, $fund_taxonomy); ?>
                         <p><?php echo $term->description; ?></p>                                
                     <?php } else { ?>
                         <p><?php echo $q->description; ?></p> 
@@ -268,7 +277,7 @@ if ( $loop->have_posts() ) :
 
                     } else {
                         if($filterType == 'all') {
-                            $term_m = 'fundamentals-lever';
+                            $term_m = $fund_taxonomy;
                             $terms = get_terms( $term_m, array(
                                 'hide_empty' => false,
                             ) );
@@ -278,7 +287,7 @@ if ( $loop->have_posts() ) :
                                 $types[] = $term->slug;
                             }
                             array_push($args['tax_query'],array(
-                                    'taxonomy' => 'fundamentals-lever',
+                                    'taxonomy' => $fund_taxonomy,
                                     'field' => 'slug',
                                     'terms' => $types,
                                     'operator' => 'IN'
@@ -288,7 +297,7 @@ if ( $loop->have_posts() ) :
                         } else {
                             // print_r($filterType);
                             array_push($args['tax_query'],array(
-                                    'taxonomy' => 'fundamentals-lever',
+                                    'taxonomy' => $fund_taxonomy,
                                     'field' => 'slug',
                                     'terms' => $filterType,
                                     'operator' => 'IN'
@@ -409,7 +418,7 @@ if ( $loop->have_posts() ) :
                                             'terms'    => $q->slug
                                         ),
                                         array(
-                                            'taxonomy' => 'fundamentals-lever',
+                                            'taxonomy' => $fund_taxonomy,
                                             'field'    => 'slug',
                                             'terms'    => $topic_term->slug
                                         )
@@ -496,6 +505,89 @@ if ( $loop->have_posts() ) :
                     </div>
                 </section>
             <?php elseif ( get_row_layout() == 'feature_article' ) : ?>
+                <?php if ( $is_evr_live ) { ?>
+                <section class="caseStudiesFeaturedText portal <?php echo get_sub_field( 'background_colour' ); ?>">
+                    <?php $post_object = get_sub_field( 'article' ); ?>
+                    <div class="container">
+                        <div class="blockTitle<?php if(get_sub_field('title')){?> margin-top<?php } else { ?> no-border<?php }?>">
+                            <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                        </div>
+                        <?php if ( $post_object ): ?>
+                        <?php $post = $post_object; ?>
+                        <?php setup_postdata( $post ); ?>
+                            <div class="item">
+                                <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
+                                    <div class="bgContainer">
+                                        <?php if ( get_field( 'listing_image') ) { ?>
+                                            <?php $image = get_field( 'listing_image'); ?>
+                                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
+                                        <?php } elseif ( get_field( 'video_image' )){  ?>
+                                            <?php $video_image = get_field( 'video_image' ); ?>
+                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                        <?php } else { ?>
+                                            <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
+                                                <?php $image = get_field( 'video_poster'); ?>
+                                            <?php } else { ?>
+                                                <?php $image = get_field( 'featured_image'); ?>
+                                            <?php } ?>
+                                            <?php
+								$image_attach_id = attachment_url_to_postid( $image );
+								if ( $image_attach_id ) {
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+								} else {
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+								}
+							?>
+                                        <?php } ?>
+                                    </div>
+                                </a>
+                                <div class="textContainer">
+                                    <span class="topicFilter">
+                                        <?php if (yoast_get_primary_term_id('topic')) {
+                                            $primary_term_topic_id = yoast_get_primary_term_id('topic');
+                                            $postTopic = get_term( $primary_term_topic_id );
+                                        } else {
+                                            if(get_the_terms( $post->ID, 'topic' )){
+                                                $terms = get_the_terms( $post->ID, 'topic' );
+                                                foreach($terms as $term) {
+                                                    $postTopic = $term;
+                                                }
+                                            }
+                                        }?>
+
+                                        <?php if (yoast_get_primary_term_id('filter-types')) {
+                                            $primary_term_type_id = yoast_get_primary_term_id('filter-types');
+                                            $postType = get_term( $primary_term_type_id );
+                                        } else {
+                                            if(get_the_terms( $post->ID, 'filter-types' )){
+                                                $termsType = get_the_terms( $post->ID, 'filter-types' );
+                                                foreach($termsType as $type) {
+                                                    $postType = $type;
+                                                }
+                                            }
+                                        }?>
+                                        <?php if($postTopic){?>
+                                            <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <?php } ?>
+                                    </span>
+                                    <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
+                                    <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                    <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                    <a href="<?php the_permalink(); ?>" class="readMore">Read More</a>
+                                </div>
+                            </div>
+                            <?php wp_reset_postdata(); ?>
+                        <?php endif; ?>
+                    </div>
+                </section> 
+                <?php } else { ?>
                 <section class="caseStudiesFeaturedText evr-featured portal <?php echo get_sub_field( 'background_colour' ); ?>">
                     <?php $post_object = get_sub_field( 'article' ); ?>
                     <div class="container">                        
@@ -576,6 +668,7 @@ if ( $loop->have_posts() ) :
                         <?php endif; ?>
                     </div>
                 </section> 
+                <?php } ?>
             <?php endif; ?>              
         <?php endwhile; ?>
     <?php else: ?>
