@@ -211,15 +211,13 @@ add_action('wp', function() {
 
     $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
 
-    if (array_intersect($membership_ids['adv'], $active_subscriptions)) {
-        $membershipType = 'advantage';
-    } elseif (array_intersect($membership_ids['it'], $active_subscriptions)) {
-        $membershipType = 'it-pro';
-    } elseif (array_intersect($membership_ids['free'], $active_subscriptions)) {
-        $membershipType = 'free-trial';
-    } elseif (array_intersect($membership_ids['kyc'], $active_subscriptions)) {
-        $membershipType = 'kyc';
-    }
+    $membershipType = match (true) {
+        (bool) array_intersect($membership_ids['adv'], $active_subscriptions)  => 'advantage',
+        (bool) array_intersect($membership_ids['it'], $active_subscriptions)   => 'it-pro',
+        (bool) array_intersect($membership_ids['free'], $active_subscriptions) => 'free-trial',
+        (bool) array_intersect($membership_ids['kyc'], $active_subscriptions)  => 'kyc',
+        default => 'default',
+    };
 
     // ------------------------------
     // 7. Set advantageType specifically
@@ -1510,7 +1508,6 @@ function get_membership_type_for_user($user_id = null) {
     if (!$user_id) $user_id = get_current_user_id();
     if (!$user_id) return '';
 
-    $current_user = wp_get_current_user();
     $member = class_exists('MeprUser') ? new MeprUser($user_id) : null;
 
     // get active subscription IDs
@@ -1527,17 +1524,18 @@ function get_membership_type_for_user($user_id = null) {
         return $ids;
     };
 
-    $free_ids = $get_membership_ids('free_trial_memberships');
     $adv_ids  = $get_membership_ids('advantage_memberships');
     $it_ids   = $get_membership_ids('it_pro_memberships');
+    $free_ids = $get_membership_ids('free_trial_memberships');
     $kyc_ids  = $get_membership_ids('kyc_memberships');
 
-    if (array_intersect($adv_ids, $active_subscriptions)) return 'advantage';
-    if (array_intersect($it_ids, $active_subscriptions)) return 'it-pro';
-    if (array_intersect($free_ids, $active_subscriptions)) return 'free-trial';
-    if (array_intersect($kyc_ids, $active_subscriptions)) return 'kyc';
-
-    return 'default';
+    return match (true) {
+        (bool) array_intersect($adv_ids, $active_subscriptions)  => 'advantage',
+        (bool) array_intersect($it_ids, $active_subscriptions)   => 'it-pro',
+        (bool) array_intersect($free_ids, $active_subscriptions) => 'free-trial',
+        (bool) array_intersect($kyc_ids, $active_subscriptions)  => 'kyc',
+        default => 'default',
+    };
 }
 
 function get_allowed_subscriptions_for_user($membershipType = null) {
