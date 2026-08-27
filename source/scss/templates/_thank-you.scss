@@ -170,10 +170,7 @@ section.thank-you-pink-introduction {
 
 .video-button {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background-image: url('../images/video-play.svg');
     background-size: 38px 38px;
     background-position: center;
@@ -777,10 +774,7 @@ section.two-column-services.landing-video-intro {
                         .bg-container {
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(18, 18, 18, 0.5);
                                 mix-blend-mode: multiply;
                                 @include transition(all, 300ms, ease);
@@ -788,10 +782,7 @@ section.two-column-services.landing-video-intro {
 
                             .popup-vimeo {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/careers-video-button.svg');
                                 background-size: 48px 48px;
                                 background-position: center;
