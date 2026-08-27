@@ -172,7 +172,6 @@ body.template-insights {
             	font-size: 14px;
                 line-height: 40px;
             	font-family: $font-base;
-            	text-align: center !important;
             	text-transform: uppercase;
             	top: 0px !important;
             	left: 0px;
@@ -544,7 +543,6 @@ body.template-insights {
                             width: 25px;
                             height: 25px;
                             border: none;
-                            box-shadow: none;
                             z-index: 2;
                             box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
                             border-radius: 50%;
@@ -1039,9 +1037,7 @@ body.template-insights {
                     }
 
                     input[type=submit] {
-                        display: inline-block;
                         float: right;
-                        margin: 0 auto;
                         width: auto;
                     	height: 50px;
                     	padding: 0 44px;
@@ -1955,7 +1951,6 @@ section.blogWrapper {
                 .tags {
                     position: relative;
                     float: left;
-                    width: 100%;
                     // bottom: 23px;
                     // left: 25px;
                     margin-top: 25px;
@@ -2683,7 +2678,6 @@ section.blogWrapper {
 
 .viewContainer.relatedArticles {
     float: right;
-    margin-top: 20px;
     position: relative;
     margin-top: 6px;
 
@@ -2807,7 +2801,6 @@ body.template-insights{
                         top: auto;
                         bottom: auto;
                         right: auto;
-                        padding-right: 0;
                         padding: 0 9px;
                         text-align: center;
                         position: relative;
@@ -2815,9 +2808,7 @@ body.template-insights{
                         margin-bottom: 20px;
 
                         input[type=submit] {
-                            display: inline-block;
                             float: none;
-                            margin: 0 auto;
                             width: auto;
                             height: 50px;
                             padding: 0 44px;
@@ -2886,7 +2877,6 @@ body.template-insights{
                         position: absolute;
                         right: calc(16.6667% + 80px);
                         line-height: 60px;
-                        color: #838383;
                         cursor: pointer;
                         z-index: 4;
                         text-transform: uppercase;
@@ -2905,9 +2895,7 @@ body.template-insights{
                     }
 
                     .ajax-search-button {
-                        display: inline-block;
                         float: right;
-                        margin: 0 auto;
                         width: calc(16.6667% - 18px);
                     	height: 60px;
                     	padding: 0 44px;
@@ -3749,13 +3737,10 @@ body.template-insights {
                             span.submitContainer {
                                 float: left;
                                 width: 100%;
-                                margin-top: 0;
                                 text-align: center;
                                 margin-top: 20px;
 
                                 input[type=submit] {
-                                    display: inline-block;
-                                    margin: 0 auto;
                                     width: auto;
                                 	height: 50px;
                                 	padding: 0 44px;
@@ -3825,7 +3810,6 @@ body.template-insights {
                 a {
                     float: left;
                     width: 50%;
-                    height: 100%;
                     line-height: 60px;
                     height: 60px;
                     text-align: center;
@@ -4037,9 +4021,6 @@ section.twoColumnCard {
             margin: 0 auto;
             text-align: center;
 
-            h2 {
-
-            }
 
             hr {
                 display: inline-block;
@@ -4386,7 +4367,6 @@ section.topicBanner .imageSizeContainer .title-filter-container {
         top: 16px;
         right: 16px;
         cursor: pointer;
-        background-image: url();
         width: 25px;
         height: 25px;
         background-image: url('../images/close-grey.svg');
@@ -5209,7 +5189,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 position: relative;
                                 overflow: hidden;
@@ -6161,7 +6140,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 overflow: hidden;
                                 border: 1px solid transparent;
@@ -7805,7 +7783,6 @@ section.topicBanner .imageSizeContainer .title-filter-container {
         top: 16px;
         right: 16px;
         cursor: pointer;
-        background-image: url();
         width: 25px;
         height: 25px;
         background-image: url('../images/close-grey.svg');
@@ -8628,7 +8605,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 position: relative;
                                 overflow: hidden;
@@ -9580,7 +9556,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 overflow: hidden;
                                 border: 1px solid transparent;
