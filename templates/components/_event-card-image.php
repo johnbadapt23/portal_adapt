@@ -13,7 +13,7 @@
 					if ( $inline_img_150_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_150_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
 					} elseif ( $inline_img_150_src ) {
-						echo '<img src="' . esc_url( $inline_img_150_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_150_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
                 </span>

@@ -71,7 +71,7 @@
                                                               <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -79,7 +79,7 @@
                                                               <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -153,7 +153,7 @@
                                                               <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -161,7 +161,7 @@
                                                               <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -282,7 +282,7 @@
                                                               <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -290,7 +290,7 @@
                                                               <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -365,7 +365,7 @@
                                                               <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -373,7 +373,7 @@
                                                               <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -494,7 +494,7 @@
                                                               <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -502,7 +502,7 @@
                                                               <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -577,7 +577,7 @@
                                                               <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -585,7 +585,7 @@
                                                               <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                                   <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                                       <span class="podcast">
-                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                                       </span>
                                                                   <?php } ?>
                                                               </div>
@@ -732,7 +732,7 @@
                                                       <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -740,7 +740,7 @@
                                                       <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -815,7 +815,7 @@
                                                       <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -823,7 +823,7 @@
                                                       <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -944,7 +944,7 @@
                                                       <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -952,7 +952,7 @@
                                                       <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -1027,7 +1027,7 @@
                                                       <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -1035,7 +1035,7 @@
                                                       <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -1156,7 +1156,7 @@
                                                       <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -1164,7 +1164,7 @@
                                                       <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -1238,7 +1238,7 @@
                                                       <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>
@@ -1246,7 +1246,7 @@
                                                       <div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                           <?php if ( get_field ( 'podcast_file' ) ) { ?>
                                                               <span class="podcast">
-                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                  <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                               </span>
                                                           <?php } ?>
                                                       </div>

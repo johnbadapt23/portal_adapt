@@ -40,7 +40,7 @@ $q_slug = $q->slug ?? '';
                             </span>
                         </span>                        
                         <span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />                            
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
                             <span class="filterButtonText">Filter</span>
                         </span>
                         <span class="dropDowns">
@@ -209,7 +209,7 @@ $q_slug = $q->slug ?? '';
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 	                                        <span class="hover-container">
@@ -296,7 +296,7 @@ $q_slug = $q->slug ?? '';
                             </span>
                         </span>                      
 						<span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />                            
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
 							<span class="filterButtonText">Filter</span>
 						</span>
 						<span class="dropDowns">
@@ -454,7 +454,7 @@ $q_slug = $q->slug ?? '';
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																			<?php } ?>
@@ -600,7 +600,7 @@ $q_slug = $q->slug ?? '';
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 										 <span class="hover-container">

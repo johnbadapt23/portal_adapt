@@ -139,7 +139,7 @@ if ( $loop->have_posts() ) :
                     </span>
                 </span>
                 <span class="filtersButtonMobile">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />
                     <span class="filterButtonText">Filters</span>
                 </span>
                 <span class="dropDowns">                        
@@ -191,7 +191,7 @@ if ( $loop->have_posts() ) :
             <div class="blockTitle">
                 <h2>
                     <?php if($keyword != '') { ?>
-                        Search Results for <span class="search-word"><?php echo $keyword; ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/reset-search.svg" width="15" height="15" loading="lazy" alt="Reset search" /></a></span>
+                        Search Results for <span class="search-word"><?php echo $keyword; ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/reset-search.svg" width="15" height="15" loading="lazy" decoding="async" alt="Reset search" /></a></span>
                     <?php } else { ?>
                         <?php if ($filterType != '') { ?>
                             <?php $term = get_term_by('slug', $filterType, $fund_taxonomy); ?>
@@ -213,8 +213,8 @@ if ( $loop->have_posts() ) :
                     <?php } ?>
                 <?php } ?>   
                 <div class="gridView">
-                    <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view.svg" width="5" height="4" loading="lazy" alt="Grid View" /></span>
-                    <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view.svg" width="5" height="4" loading="lazy" alt="List View" /></span>
+                    <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view.svg" width="5" height="4" loading="lazy" decoding="async" alt="Grid View" /></span>
+                    <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view.svg" width="5" height="4" loading="lazy" decoding="async" alt="List View" /></span>
                 </div>
             </div>
             <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
@@ -299,7 +299,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                     <?php } elseif ( get_field( 'video_image' )){  ?>
@@ -316,7 +316,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                     <?php } ?>
@@ -417,7 +417,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                     <?php } elseif ( get_field( 'video_image' )){  ?>
@@ -434,7 +434,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                     <?php } ?>
@@ -504,7 +504,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } elseif ( get_field( 'video_image' )){  ?>
@@ -521,7 +521,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } ?>
@@ -619,7 +619,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } elseif ( get_field( 'video_image' )){  ?>
@@ -636,7 +636,7 @@ if ( $loop->have_posts() ) :
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } ?>

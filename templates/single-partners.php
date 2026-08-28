@@ -42,7 +42,7 @@ endif;
 									if ( $listing_icon_attach_id ) {
 										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
 									} else {
-										echo '<img src="' . esc_url( $listing_icon ) . '" loading="lazy" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
+										echo '<img src="' . esc_url( $listing_icon ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
 								?>
                                             <?php } ?>
@@ -62,7 +62,7 @@ endif;
 									if ( $listing_avatar_attach_id ) {
 										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
 									} else {
-										echo '<img src="' . esc_url( $listing_avatar ) . '" loading="lazy" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
+										echo '<img src="' . esc_url( $listing_avatar ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
 								?>
                                             <?php } ?>
@@ -300,7 +300,7 @@ endif;
 								if ( $speaker_image_attach_id ) {
 									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>                                                                                                                          
                                                             <?php } ?>
@@ -388,7 +388,7 @@ endif;
                                 <?php if (count($resources_array) > $per_page): ?>
                                     <a class="resources-load-more std-button red-button small-button">Load More</a>
                                     <div class="ajax-loader" style="display: none;">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                                     </div>
                                 <?php endif; ?>
                             </div>

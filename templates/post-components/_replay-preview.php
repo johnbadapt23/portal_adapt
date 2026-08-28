@@ -24,7 +24,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
 								} else {
-									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>                        
                     <?php } ?>

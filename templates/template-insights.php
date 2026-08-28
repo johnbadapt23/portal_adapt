@@ -296,7 +296,7 @@ $filterBy = array();
                                     <span class="radioSlide slide <?php echo $term -> slug; ?>">
                                         <label style="background-image: url(<?php echo get_field( 'button_image', $term ); ?>);">
                                           <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
-                                          <img class="tick" src="<?php echo get_template_directory_uri(); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" alt="Checkmark" />
+                                          <img class="tick" src="<?php echo get_template_directory_uri(); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" decoding="async" alt="Checkmark" />
                                           <span class="overlay"></span>
                                           <span class="checkbox-text">
                                               <span class="v-wrap">
@@ -428,7 +428,7 @@ $filterBy = array();
                                         <span class="radioSlide slide <?php echo $term -> slug; ?>">
                                             <label style="background-image: url(<?php echo get_field( 'button_image', $term ); ?>);">
                                               <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
-                                              <img class="tick" src="<?php echo get_template_directory_uri(); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" alt="Checkmark" />
+                                              <img class="tick" src="<?php echo get_template_directory_uri(); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" decoding="async" alt="Checkmark" />
                                               <span class="overlay"></span>
                                               <span class="checkbox-text">
                                                   <span class="v-wrap">

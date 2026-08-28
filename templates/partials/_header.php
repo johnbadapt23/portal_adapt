@@ -73,7 +73,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_158_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_158_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '300' ) );
 					} elseif ( $inline_img_158_src ) {
-						echo '<img src="' . esc_url( $inline_img_158_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_158_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
                         <?php
@@ -94,7 +94,7 @@ if (current_user_can('administrator')) {
                 </span>
                 <?php endif; ?>
                 <span class="search">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="search icon" /></span>
+                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" decoding="async" alt="search icon" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search" aria-label="Search" placeholder="Search..." value="" />
 					</form>
@@ -426,7 +426,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_159_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_159_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_159_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_159_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_159_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                             <?php if($video == 'yes'){ ?>
@@ -625,7 +625,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_160_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_160_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_160_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_160_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_160_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                             <?php if($video == 'yes'){ ?>
@@ -815,7 +815,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_161_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_161_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_161_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_161_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_161_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                             <?php if($video == 'yes'){ ?>
@@ -1003,7 +1003,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_162_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_162_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_162_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_162_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_162_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                             <?php if($video == 'yes'){ ?>
@@ -1359,11 +1359,11 @@ if (current_user_can('administrator')) {
                     </svg>
                 </span>
                 <span class="search mobile">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" alt="Search" /></span>
+                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" decoding="async" alt="Search" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search-mobile" aria-label="Search" placeholder="Search..." value="" />
 					</form>
-                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" alt="Close search" /></span>
+                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" decoding="async" alt="Close search" /></span>
 				</span>
                 <?php if( $is_agent_tester ) : ?>
                 <span class="customgpt-toggle mobile">
@@ -1398,8 +1398,8 @@ if (current_user_can('administrator')) {
 		                            <input type="text" value="<?php echo esc_url( get_permalink() ); ?>" id="postLink" style="display: none;">
 		                            <a onclick="copyJobLink()">
 										<span class="image-icon-container">
-		                                    <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link.svg" width="33" height="32" loading="lazy" alt="Copy link" />
-		                                    <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link-hover.svg" width="24" height="24" loading="lazy" alt="Copy link" />
+		                                    <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link.svg" width="33" height="32" loading="lazy" decoding="async" alt="Copy link" />
+		                                    <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Copy link" />
 											<span class="job-link-text"></span>
 										</span>
 		                            </a>
@@ -1422,24 +1422,24 @@ if (current_user_can('administrator')) {
 								<span class="share-linked-in share">
 									<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>&summary=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
-	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" />
-											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/linked-in-hover.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" />
+	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" />
+											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/linked-in-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" />
 										</span>
 									</a>
 								</span>
 								<span class="share-twitter share">
 									<a class="twitterShare" href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>&text=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
-	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-black.svg" width="24" height="24" loading="lazy" alt="Tweet" />
-											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-hover.svg" width="24" height="24" loading="lazy" alt="Tweet" />
+	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Tweet" />
+											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Tweet" />
 										</span>
 									</a>
 								</span>
 								<span class="share-email share">
 									<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
-                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/job-email.svg" width="32" height="32" loading="lazy" alt="Share via Email" />
-                                        <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/email-red-hover.svg" width="24" height="24" loading="lazy" alt="Email" />
+                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/job-email.svg" width="32" height="32" loading="lazy" decoding="async" alt="Share via Email" />
+                                        <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/email-red-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Email" />
 									</a>
 								</span>
 							</span>
@@ -1627,7 +1627,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_163_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_163_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_163_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_163_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_163_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                         <?php if($video == 'yes'){ ?>
@@ -1963,7 +1963,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_164_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_164_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_164_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_164_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_164_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                         <?php if($video == 'yes'){ ?>
@@ -2149,7 +2149,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_165_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_165_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_165_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_165_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_165_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                             <?php if($video == 'yes'){ ?>
@@ -2333,7 +2333,7 @@ if (current_user_can('administrator')) {
 					if ( $inline_img_166_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_166_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_166_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_166_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_166_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                             <?php if($video == 'yes'){ ?>

@@ -41,7 +41,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                         </div>
@@ -67,7 +67,7 @@ get_header();
             </div>
             <?php if (get_field('video_url')){ ?>
                 <div class="videoPlayerContainer print-no">
-                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
+                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
                     <div class="videoWrapper">
                         <video width="100%" id="popupVideo" controls controlsList="nodownload">
                             <source type="video/mp4" src="<?php echo esc_url( get_field('video_url') ); ?>" />

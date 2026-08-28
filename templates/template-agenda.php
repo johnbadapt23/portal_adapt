@@ -27,7 +27,7 @@ get_header();
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
 						) );
 					} else {
-						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
     					<div class="container">
@@ -44,7 +44,7 @@ get_header();
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
 						) );
 					} else {
-						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
     								</div>
@@ -63,7 +63,7 @@ get_header();
     								<span class="videoLink">
     									<a href="#" class="playBtn">
     										<span class="icon">
-    											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
+    											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
     										</span>
     										<span class="text">
     											<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo esc_html( $slide['video'][0]['video_button_text'] ); ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -79,7 +79,7 @@ get_header();
     			<?php foreach($bannerSlides as $slide) { ?>
     				<?php if($slide['video']) { ?>
     					<div class="videoPlayerContainer">
-    						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="close" /></span>
+    						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="close" /></span>
     						<div class="videoWrapper">
     							<video width="100%" id="popupVideo" controls controlsList="nodownload">
     								<source type="video/mp4" src="<?php echo esc_url( $slide['video'][0]['vimeo_code'] ); ?>" />
@@ -127,8 +127,8 @@ get_header();
     	<div class="container">
             <div class="inner">
         		<div class="share">
-        			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
-                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
+        			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" decoding="async" alt="Share via Email" /><span>Email</span></a>
+                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" /><span>Share</span></a>
         		</div>
             </div>
     	</div>
@@ -382,7 +382,7 @@ get_header();
 					if ( $inline_img_137_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, array( 'alt' => 'Adapt - ' . get_the_title() ) );
 					} elseif ( $inline_img_137_src ) {
-						echo '<img src="' . esc_url( $inline_img_137_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt - ' . get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_137_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt - ' . get_the_title() ) . '" />';
 					}
 				?></div>
     <div class="content">
@@ -423,7 +423,7 @@ get_header();
 					if ( $inline_img_138_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_138_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
 					} elseif ( $inline_img_138_src ) {
-						echo '<img src="' . esc_url( $inline_img_138_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_138_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
                                                         <?php endwhile; ?>
@@ -524,7 +524,7 @@ get_header();
 					if ( $inline_img_139_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_139_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
 					} elseif ( $inline_img_139_src ) {
-						echo '<img src="' . esc_url( $inline_img_139_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_139_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
                                                                         <?php endwhile; ?>
@@ -571,7 +571,7 @@ get_header();
 					if ( $inline_img_140_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_140_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
 					} elseif ( $inline_img_140_src ) {
-						echo '<img src="' . esc_url( $inline_img_140_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_140_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
                                                                         <?php endwhile; ?>

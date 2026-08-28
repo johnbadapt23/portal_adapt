@@ -19,7 +19,7 @@
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
 						) );
 					} else {
-						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
 					<div class="container">
@@ -36,7 +36,7 @@
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
 						) );
 					} else {
-						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
 								</div>
@@ -63,7 +63,7 @@
 								<span class="videoLink">
 									<a href="#" class="playBtn">
 										<span class="icon">
-											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
+											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
 										</span>
 										<span class="text">
 											<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo esc_html( $slide['video'][0]['video_button_text'] ); ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -79,7 +79,7 @@
 			<?php foreach($bannerSlides as $slide) { ?>
 				<?php if($slide['video']) { ?>
 					<div class="videoPlayerContainer">
-						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
+						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
 						<div class="videoWrapper">
 							<video width="100%" id="popupVideo" controls controlsList="nodownload">
 								<source type="video/mp4" src="<?php echo esc_url( $slide['video'][0]['vimeo_code'] ); ?>" />
@@ -140,8 +140,8 @@
 <section class="eventShare">
 	<div class="container">
 		<div class="share">
-			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
-			<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo get_field( 'share_title' ); ?>&summary=<?php echo get_field('event_short_description_for_listing'); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
+			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" decoding="async" alt="Share via Email" /><span>Email</span></a>
+			<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo get_field( 'share_title' ); ?>&summary=<?php echo get_field('event_short_description_for_listing'); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" /><span>Share</span></a>
 		</div>
 	</div>
 </section>
@@ -362,7 +362,7 @@
 					if ( $inline_img_45_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_45_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
 					} elseif ( $inline_img_45_src ) {
-						echo '<img src="' . esc_url( $inline_img_45_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_45_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
 												</div>
@@ -452,7 +452,7 @@
 							<a href="#" class="playBtnVideoBlock">
 		                <?php } ?>
 							<span class="icon">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
 							</span>
 							<span class="text">
 								<span><?php if( get_sub_field('video_button_text')) { ?><?php echo get_sub_field('video_button_text') ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -463,7 +463,7 @@
 				</div>
 			</div>
 			<div class="videoPlayerContainer videoBlock">
-				<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
+				<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
 				<div class="videoWrapper">
 					<video width="100%" id="popupVideo" controls controlsList="nodownload">
 						<source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
@@ -551,7 +551,7 @@
 					if ( $inline_img_46_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_46_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
 					} elseif ( $inline_img_46_src ) {
-						echo '<img src="' . esc_url( $inline_img_46_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_46_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
                                             </div>
@@ -591,7 +591,7 @@
                                                     <div class="image video" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
                                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                                             <span class="podcast">
-                                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                             </span>
                                                         <?php } ?>
                                                     </div>
@@ -599,7 +599,7 @@
 													<div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
                                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                                             <span class="podcast">
-                                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+                                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
                                                             </span>
                                                         <?php } ?>
                                                     </div>
@@ -607,7 +607,7 @@
 													<div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
 														<?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
 															<span class="podcast">
-																<img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" alt="Podcast Available" />
+																<img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
 															</span>
 														<?php } ?>
 													</div>

@@ -108,7 +108,7 @@
 					if ( $inline_img_152_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_152_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_152_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_152_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_152_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                             <?php if($video == 'yes'){ ?>

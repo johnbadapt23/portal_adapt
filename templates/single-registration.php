@@ -36,7 +36,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				<span class="register-container">
 					<span class="sticky-container">
 						<span class="upper-container">
-							<img class="calendar-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/calendar.svg" width="26" height="26" loading="lazy" alt="Calendar" />
+							<img class="calendar-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/calendar.svg" width="26" height="26" loading="lazy" decoding="async" alt="Calendar" />
 							<span class="date-title small-text-grey">Date</span>
 							<span class="date text-black"><?php echo esc_html( $date->format('l, j F, Y') ); ?></span>
 							<span class="time-title small-text-grey">Time</span>
@@ -222,7 +222,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					if ( $inline_img_136_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_136_src ) {
-						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
 										</span>
