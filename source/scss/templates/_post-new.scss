@@ -1233,7 +1233,7 @@ section.post-title-block {
     }
 }
 article.articleWrapper {
-    padding: 148px 0 100px;
+    padding: 60px 0 100px;
 
     @include responsive(767) {
         padding: 40px 0 80px;
@@ -2366,11 +2366,6 @@ article.articleWrapper {
 .researchArticleTextHeader,
 .expertPresentationFeatured {
     padding: 0px;
-    margin-bottom: -60px;
-
-    @include responsive(767) {
-        margin-bottom: 0px;
-    }
 
     .container {
         @include responsive(767) {
@@ -2379,7 +2374,6 @@ article.articleWrapper {
 
         .item {
             position: relative;
-            float: left;
             width: 100%;
             display: flex;
             justify-content: space-between;
