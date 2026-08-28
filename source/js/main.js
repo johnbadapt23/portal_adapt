@@ -1,5 +1,14 @@
 (function($){
 
+	// Shared across headerSet()/outsideContainer()/scrollMobile()/resize(),
+	// which are declared below as siblings of $(document).ready(...) rather
+	// than nested inside it, so this has to live at the same outer scope
+	// they do - not inside the ready() callback, which is a child scope
+	// those functions can't see into. headerSet() reads ww without ever
+	// assigning it itself, relying on outsideContainer()/scrollMobile()
+	// having already run earlier (see the ready() callback's call order).
+	let ww, wh;
+
 	$(document).ready(function (){
 
 		// Accessibility: slick.js generates prev/next <button> arrows with no
@@ -478,7 +487,7 @@
 		$('.article-content .articleWrapper a').on( 'click', function(){
 		    const target = this.hash;
 			if( target ){
-				$target = $(target);
+				const $target = $(target);
 			    $('html, body').animate({ scrollTop: $target.offset().top-120}, 1000);
 			}
 		});
@@ -525,7 +534,7 @@
 
 		$('.scroll-to-button').on( 'click', function(e){
 			e.preventDefault();
-			$section = $(this).attr('href');
+			const $section = $(this).attr('href');
 			if($(window).width() > 900) {
 		    	$('html, body').animate({ scrollTop: $($section).offset().top - 80 }, 1000);
 			} else {
@@ -766,14 +775,14 @@
 			} else {
 				$(this).siblings().removeClass('active');
 				$(this).addClass('active');
-				thisEcoIndex = $(this).index();
+				const thisEcoIndex = $(this).index();
 				if($(this).hasClass('partners-content-switch-trigger-testimonials')){					
 					$('.quote-slider-module').slick('refresh');
 					$('.quote-slider-module').slick('slickGoTo', 0);
 				}
 				$('.partners-switch-content .switch-content').eq(thisEcoIndex).siblings().removeClass('active');
 				$('.partners-switch-content .switch-content').eq(thisEcoIndex).addClass('active');
-				$target = $('#partnerContent');
+				const $target = $('#partnerContent');
 				$('html, body').animate({ scrollTop: $target.offset().top-110}, 500);
 			}			
 		});
@@ -843,7 +852,7 @@
 			} else {
 				$(this).siblings().removeClass('active');
 				$(this).addClass('active');
-				thisKYCIndex = $(this).index();
+				const thisKYCIndex = $(this).index();
 				$('.chapters-content-container .chapter-content').eq(thisKYCIndex).siblings().removeClass('active');
 				$('.chapters-content-container .chapter-content').eq(thisKYCIndex).addClass('active');
 			}			
@@ -1092,7 +1101,7 @@
 		$('section.navigation .container ul li a.scroll-button').on('click', function(e) {
 		    e.preventDefault();
 		    const target = this.hash;
-		    $target = $(target);
+		    const $target = $(target);
 			$('section.navigation .container ul li a.scroll-button').removeClass('active');
 			$(this).addClass('active');
 		    $('html, body').animate({ scrollTop: $target.offset().top-120}, 1000);
@@ -1483,8 +1492,8 @@
 
 		if ($(window).width() <= 767) {
 			$('.radioSlideContainer.desktop .radioSlide').on('click', function(e){
-				thisRadioIndex = $(this).parents().parents('.slick-slide').index();
-				mobileRadioIndex = $('.radioSlideContainer.mobile .radioSlide').eq(thisRadioIndex);
+				const thisRadioIndex = $(this).parents().parents('.slick-slide').index();
+				const mobileRadioIndex = $('.radioSlideContainer.mobile .radioSlide').eq(thisRadioIndex);
 				$(mobileRadioIndex).children('label').children('input').prop("checked", true);
 				$('.filter .mobile-form-container').addClass('active');
 			});
@@ -1737,11 +1746,6 @@
 			}
 		});
 
-		$('.owl-carousel.sliderBlockCarousel').each(function() {
-			pl = $(this).children('.owl-dots').width();
-			ml = pl / 2;
-		});
-
 		//progressBar();
 
 		headerSet();
@@ -1754,8 +1758,8 @@
 
 		$('a.playBtn').on('click', function(e) {
 			e.preventDefault();
-			thisIndex = $(this).parent().parent().parent().parent('li').index();
-			thisVideo = ('.videoPlayerContainer');
+			const thisIndex = $(this).parent().parent().parent().parent('li').index();
+			const thisVideo = ('.videoPlayerContainer');
 			$(thisVideo).eq(thisIndex).show();
 			$('body').addClass('fixed');
 			$(thisVideo).eq(thisIndex).children('.videoWrapper').children('video').get(0).play();
@@ -1763,9 +1767,9 @@
 
 		$('a.playBtnGrid').on('click', function(e) {
 			e.preventDefault();
-			thisIndex = $(this).parent().parent().parent('.column').index();
-			thisContainer = $(this).parent().parent().parent('.column').parent().parent('.container');
-			thisVideo = $(thisContainer).siblings('.videoPlayerContainerGrid');
+			const thisIndex = $(this).parent().parent().parent('.column').index();
+			const thisContainer = $(this).parent().parent().parent('.column').parent().parent('.container');
+			const thisVideo = $(thisContainer).siblings('.videoPlayerContainerGrid');
 			$(thisVideo).eq(thisIndex).show();
 			$('body').addClass('fixed');
 			$(thisVideo).eq(thisIndex).children('.videoWrapper').children('video').get(0).play();
@@ -1774,7 +1778,7 @@
 		$('a.postPlayBtn').on('click', function(e) {
 			e.preventDefault();
 			$(this).parent().parent().css('z-index', '999');
-			thisVideo = $(this).parent().siblings('.videoPlayerContainer');
+			const thisVideo = $(this).parent().siblings('.videoPlayerContainer');
 			thisVideo.show();
 			$('body').addClass('fixed');
 			thisVideo.children('.videoWrapper').children('video').get(0).play();
@@ -1783,7 +1787,7 @@
 		$('a.how-to-get-started').on('click', function(e) {
 			e.preventDefault();
 			$(this).parent().parent().parent().css('z-index', '999');
-			thisVideo = $(this).parent().parent().siblings('.videoPlayerContainer');
+			const thisVideo = $(this).parent().parent().siblings('.videoPlayerContainer');
 			thisVideo.show();
 			$('body').addClass('fixed');
 			thisVideo.children('.videoWrapper').children('video').get(0).play();
@@ -1792,8 +1796,8 @@
 
 		$('a.videoBlockPlay').on('click', function(e) {
 			e.preventDefault();
-			thisIndex = $(this).parent().parent().parent().parent('li').index();
-			thisVideoBlock = ('.videoPlayerContainer');
+			const thisIndex = $(this).parent().parent().parent().parent('li').index();
+			const thisVideoBlock = ('.videoPlayerContainer');
 			$(thisVideoBlock).eq(thisIndex).show();
 			$('body').addClass('fixed');
 			$(thisVideoBlock).eq(thisIndex).children('.videoWrapper').children('video').get(0).play();
@@ -1801,7 +1805,7 @@
 
 		$('a.playBtnVideoBlock').on('click', function(e) {
 			e.preventDefault();
-			thisVideo = $(this).parent().parent().parent().siblings('.videoPlayerContainer');
+			const thisVideo = $(this).parent().parent().parent().siblings('.videoPlayerContainer');
 			thisVideo.show();
 			$('body').addClass('fixed');
 			thisVideo.children('.videoWrapper').children('video').get(0).play();
@@ -3758,18 +3762,14 @@ if ($containerPast.length && $buttonPast.length) {
 
 	function outsideContainer() {
 		ww = $(window).width();
-		container = $('.eventSlider .container').width();
-		outsideContainerWidth = ww - container;
-		slideWidth = $('.eventSlider div.item').width();
-		arrowLeftPos = outsideContainerWidth / 2 - 66;
-		arrowRightPos = outsideContainerWidth / 2 + 66;
-		coverWidth = outsideContainerWidth / 2;
+		const container = $('.eventSlider .container').width();
+		const outsideContainerWidth = ww - container;
+		const coverWidth = outsideContainerWidth / 2;
 		$('.eventSlider .slideContainer .rightslideCover').css('width', coverWidth);
 		$('.eventSlider .slideContainer .leftslideCover').css('width', coverWidth);
-		containerPortal = $('.portal-post-slider .container').width();
-		outsideContainerWidthPortal = ww - containerPortal;
-		slideWidthPortal = $('.portal-post-slider .article-column').width();
-		coverWidthPortal = outsideContainerWidthPortal / 2;
+		const containerPortal = $('.portal-post-slider .container').width();
+		const outsideContainerWidthPortal = ww - containerPortal;
+		const coverWidthPortal = outsideContainerWidthPortal / 2;
 		$('.portal-post-slider .slideContainer .rightslideCover').css('width', coverWidth);
 		$('.portal-post-slider .slideContainer .leftslideCover').css('width', coverWidth);
 	}
