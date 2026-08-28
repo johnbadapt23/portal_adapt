@@ -14,8 +14,8 @@ $q = get_queried_object();
 <section class="filter-title-block ">
     <div class="container">
         <div class="title-container">
-            <h1 class="type-title text-black"><?php echo get_field( 'next_conversation_title', 'options' ); ?></h1>
-            <span class="type-description text-black"><?php echo get_field( 'next_conversation_text', 'options' ); ?></span>
+            <h1 class="type-title text-black"><?php echo esc_html( get_field( 'next_conversation_title', 'options' ) ); ?></h1>
+            <span class="type-description text-black"><?php echo esc_html( get_field( 'next_conversation_text', 'options' ) ); ?></span>
         </div>
         <div class="topic-button-container-outer">
             <div class="topic-button-container filter-button-container">
@@ -45,7 +45,7 @@ $q = get_queried_object();
                     <?php if ( $post_object ): ?>
                         <?php $post = $post_object; ?>
                         <?php setup_postdata( $post ); ?>
-                            <div class="item <?php echo $q->slug; ?> full-width">
+                            <div class="item <?php echo esc_attr( $q->slug ); ?> full-width">
                                 <div class="imageSizeContainer">
                                     <div class="bgContainer">
                                         <?php if ( get_field( 'listing_image') ) { ?>
@@ -118,13 +118,13 @@ $q = get_queried_object();
                                             }?>
                                         <?php } ?>
                                         <?php if($postType){?>
-                                                <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
+                                                <a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                         <?php } ?>
                                         <?php if($postSector){?>
-                                                <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
+                                                <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                         <?php } ?>                                
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -151,7 +151,7 @@ $q = get_queried_object();
                         $posts = new WP_Query( $args ); ?>
                         <?php if( $posts->have_posts() ): ?>
                             <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
-                                <div class="item <?php echo $q->slug; ?> full-width">
+                                <div class="item <?php echo esc_attr( $q->slug ); ?> full-width">
                                     <div class="imageSizeContainer">
                                         <div class="bgContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
@@ -224,13 +224,13 @@ $q = get_queried_object();
                                                 }?>
                                             <?php } ?>
                                             <?php if($postType){?>
-                                                    <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
+                                                    <a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                             <?php } ?>
                                             <?php if($postSector){?>
-                                                    <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
+                                                    <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                             <?php } ?>                                
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -338,13 +338,13 @@ $q = get_queried_object();
                                     }?>
                                 <?php } ?>
                                  <?php if($postType){?>
-                                        <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
+                                        <a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                 <?php } ?>
                                 <?php if($postSector){?>
-                                        <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
+                                        <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                 <?php } ?>                                
                                 <?php if($postTopic){?>
-                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                 <?php } ?>
                             </span>
                             <a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
