@@ -7,11 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 // theme_menus
 function theme_menus() {
     register_nav_menus(array(
-        'main-menu' => __('Main Menu', 'theme'),
-        'new-menu' => __('New Menu', 'theme'),
-        'bottom-menu' => __('Bottom Menu', 'theme'),
-        'mobile-menu' => __('Mobile Menu', 'theme'),
-        'footer-menu' => __('Footer Menu', 'theme')
+        'main-menu' => __('Main Menu', 'portal'),
+        'new-menu' => __('New Menu', 'portal'),
+        'bottom-menu' => __('Bottom Menu', 'portal'),
+        'mobile-menu' => __('Mobile Menu', 'portal'),
+        'footer-menu' => __('Footer Menu', 'portal')
     ));
 }
 

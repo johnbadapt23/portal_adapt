@@ -7,6 +7,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 // theme_setup
 function theme_setup() {
 
+	// Loads languages/portal-{locale}.mo if one is ever added - matches the
+	// "Text Domain: portal" / "Domain Path: /languages" header in style.css.
+	// No .mo files exist yet, so this is currently a no-op, but every
+	// __()/_e() call in the theme already uses the 'portal' domain (or
+	// should - see includes/_menu.php fix), so translations will just work
+	// the moment one is dropped in, with no further code changes needed.
+	load_theme_textdomain( 'portal', get_template_directory() . '/languages' );
+
 	add_editor_style();
 	// Note: menu support comes from register_nav_menus() in
 	// includes/_menu.php, not add_theme_support() - 'menus' isn't a real
