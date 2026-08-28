@@ -28,7 +28,7 @@
                                     <?php if ( have_rows( 'speaker_block_button' ) ) : ?>
                                         <?php while ( have_rows( 'speaker_block_button' ) ) : the_row(); ?>
                                             <?php if ( get_sub_field( 'download_file' ) ) { ?>
-                                                <a class="button" target="_blank" rel="noopener noreferrer" href="<?php echo get_sub_field( 'download_file' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_file' ) ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                             <?php } ?>
                                         <?php endwhile; ?>
                                     <?php else : ?>
@@ -45,7 +45,7 @@
         <?php if ( have_rows( 'button_block' ) ) : ?>
             <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                 <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-                    <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
                 </div>
             <?php endwhile; ?>
         <?php endif; ?>

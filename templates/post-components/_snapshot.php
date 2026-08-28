@@ -74,7 +74,7 @@
                                             Share Via Email
                                         </a>
 
-                                        <a href="<?php echo $url; ?>" download>
+                                        <a href="<?php echo esc_url( $url ); ?>" download>
                                             Download Image
                                         </a>
                                     </figcaption>

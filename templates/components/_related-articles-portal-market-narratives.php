@@ -93,7 +93,7 @@
                                     }
                                 }?>
                                 <?php if($postTopic){?>
-                                    <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                                 <?php } ?>
                                 <?php if($postType){?>
                                     <?php if($postType->slug == 'market-insights'){?>

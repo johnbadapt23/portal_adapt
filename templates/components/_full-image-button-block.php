@@ -18,7 +18,7 @@
             <?php if ( have_rows( 'button_block' ) ) : ?>
 				<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                     <span class="videoLink buttonContainer">
-                        <a href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>" class="button">
+                        <a href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>" class="button">
                             <?php echo get_sub_field( 'link_text' ); ?>
                         </a>
                     </span>

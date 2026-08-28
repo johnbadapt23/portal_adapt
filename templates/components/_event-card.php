@@ -1,8 +1,8 @@
 <span class="events-card column <?php echo $extra_classes; ?>">
      <?php if (get_field('external_link')) { ?>
-        <a href="<?php echo get_field('external_link'); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
+        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
     <?php } else { ?>
-        <a href="<?= get_post_type() === 'event' ? '' : get_the_permalink(); ?>" class="event-link" target="_self">
+        <a href="<?= esc_url( get_post_type() === 'event' ? '' : get_the_permalink() ); ?>" class="event-link" target="_self">
     <?php }?>
         <span class="events-card-inner">
             <span class="image-container">

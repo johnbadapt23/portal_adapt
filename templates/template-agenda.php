@@ -150,7 +150,7 @@ get_header();
                                 <span class="right">
                                     <a class="button popup-modal registerInterest" href="#form">Register Interest</a>
                                     <?php if ( get_field( 'ticket_link' )) { ?>
-                                        <a class="button ticket buttonTicket" href="<?php echo get_field( 'ticket_link' ); ?>" target="_blank" rel="noopener noreferrer">Purchase Tickets</a>
+                                        <a class="button ticket buttonTicket" href="<?php echo esc_url( get_field( 'ticket_link' ) ); ?>" target="_blank" rel="noopener noreferrer">Purchase Tickets</a>
                                     <?php } ?>
                                     <a class="button print buttonPrint" id="print" onclick="window.print()">Print Agenda</a>
                                 </span>

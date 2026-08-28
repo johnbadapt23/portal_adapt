@@ -103,7 +103,7 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
@@ -182,7 +182,7 @@
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
@@ -273,7 +273,7 @@
                                                     }
                                                 }?>
                                                 <?php if($postTopic){?>
-                                                    <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                                 <?php } ?>
                                             </span>
                                             <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
@@ -352,7 +352,7 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>

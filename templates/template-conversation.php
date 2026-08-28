@@ -126,7 +126,7 @@ get_header();
 														<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
 												<?php } ?>                                
 												<?php if($postTopic){?>
-													<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+													<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 												<?php } ?>
 											</span>
 											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
@@ -239,7 +239,7 @@ get_header();
 																					<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
 																			<?php } ?>                                
 																			<?php if($postTopic){?>
-																				<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+																				<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 																			<?php } ?>
 																		</span>
 																		<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php the_title(); ?></h2></a>
@@ -369,7 +369,7 @@ get_header();
 																	<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
 															<?php } ?>                                
 															<?php if($postTopic){?>
-																<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+																<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 															<?php } ?>
 														</span>
 														<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
@@ -474,7 +474,7 @@ get_header();
 																		<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
 																<?php } ?>                                
 																<?php if($postTopic){?>
-																	<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+																	<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 																<?php } ?>
 															</span>
 															<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php the_title(); ?></h2></a>
@@ -599,7 +599,7 @@ get_header();
 														<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
 												<?php } ?>                                
 												<?php if($postTopic){?>
-													<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+													<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 												<?php } ?>
 											</span>
 											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
@@ -635,7 +635,7 @@ get_header();
 										<?php while ( have_rows( 'link' ) ) : the_row(); ?>
 											<span class="button-container">
 												<span class="pre-button-text labelLarge <?php echo $textcolour; ?>"><?php echo get_sub_field( 'pre_button_text' ); ?></span>
-												<a class="cta-button button stdBtn red red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+												<a class="cta-button button stdBtn red red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
 											</span>
 										<?php endwhile; ?>
 									<?php else : ?>

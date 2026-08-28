@@ -306,7 +306,7 @@ if ($membershipType === 'it-pro') {
                             <?php endif; ?>
                         <?php } ?>
 
-                        <a class="research-link" href="<?php echo $researchLink; ?>" target="_self">All research</a>
+                        <a class="research-link" href="<?php echo esc_url( $researchLink ); ?>" target="_self">All research</a>
                         <a class="reset-filters-btn mobile-reset-button labelSmall text-grey font-bold desktop-hide">Reset Filters</a>
                     </div>
 

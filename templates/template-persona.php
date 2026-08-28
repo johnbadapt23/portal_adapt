@@ -37,7 +37,7 @@ get_header();
 						<?php $persona_terms = get_sub_field( 'personas' ); ?>
 						<?php if ( $persona_terms ): ?>
 							<?php foreach ( $persona_terms as $persona_term ): ?>
-								<a class="persona-button" href="<?php echo get_term_link($persona_term); ?>" target="_self">
+								<a class="persona-button" href="<?php echo esc_url( get_term_link($persona_term) ); ?>" target="_self">
 									<span class="persona-button-inner">
 										<span class="persona-text-container">
 											<span class="v-wrap">
@@ -139,7 +139,7 @@ get_header();
 										}
 									}?>
 									<?php if($postTopic){?>
-										<a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
 									<?php } ?>
 									<?php if($postType){?>
 											<a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
@@ -257,7 +257,7 @@ get_header();
                                         }
                                     }?>
 									<?php if($postTopic){?>
-                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
                                             <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>

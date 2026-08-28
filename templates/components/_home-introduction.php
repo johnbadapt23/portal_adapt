@@ -7,7 +7,7 @@
                 <div class="introduction-link-container">
                     <?php while ( have_rows( 'link_blocks' ) ) : the_row(); ?>
                         <div class="introduction-link column one-third">
-                            <a href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>">
+                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>">
                                 <span class="link-inner">
                                     <span class="icon-container">
                                         <span class="icon-background-container">

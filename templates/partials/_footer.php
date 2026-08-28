@@ -29,7 +29,7 @@
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -50,7 +50,7 @@
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                             <li>
-                                                <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
                                             </li>
                                         <?php endwhile; ?>
                                     </ul>
@@ -69,7 +69,7 @@
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                             <li>
-                                                <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
                                             </li>
                                         <?php endwhile; ?>
                                     </ul>
@@ -90,7 +90,7 @@
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -111,7 +111,7 @@
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                             <li>
                                                 <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                    <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
                                                 <?php } else { ?> 
                                                     <span class="footerLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
                                                 <?php } ?>
@@ -136,7 +136,7 @@
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
                                             <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
                                             <?php } else { ?> 
                                                 <span class="footerLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
                                             <?php } ?>
@@ -159,7 +159,7 @@
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink <?php echo get_sub_field( 'class' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink <?php echo get_sub_field( 'class' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -172,7 +172,7 @@
                     <?php endif; ?>
                     <span class="social desktop">
                         <?php if(get_field('linkedin_url','options')) { ?>
-                            <a href="<?php echo get_field('linkedin_url','options') ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)">
+                            <a href="<?php echo esc_url( get_field('linkedin_url','options') ); ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)">
                                 <svg version="1.1" id="Group_193" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 	 viewBox="0 0 14.9 15" style="enable-background:new 0 0 14.9 15;" xml:space="preserve">
                                 <style type="text/css">
@@ -197,7 +197,7 @@
                             </a>
                         <?php } ?>
                         <?php if(get_field('youtube_url','options')) { ?>
-                            <a href="<?php echo get_field('youtube_url','options') ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube (opens in a new tab)">
+                            <a href="<?php echo esc_url( get_field('youtube_url','options') ); ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube (opens in a new tab)">
                                 <svg version="1.1" id="Group_194" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 	 viewBox="0 0 16.6 11.8" style="enable-background:new 0 0 16.6 11.8;" xml:space="preserve">
                                 <style type="text/css">
@@ -271,7 +271,7 @@
                             </div>
                             <?php if ( have_rows( 'members_only_button', 'option' ) ) : ?>
                                 <?php while ( have_rows( 'members_only_button', 'option' ) ) : the_row(); ?>
-                                    <a class="button" href="<?php echo get_sub_field( 'button_link' ); ?>" target="_self"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                    <a class="button" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="_self"><?php echo get_sub_field( 'button_text' ); ?></a>
                                 <?php endwhile; ?>
                             <?php else : ?>
                                 <?php // no rows found ?>

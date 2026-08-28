@@ -29,7 +29,7 @@
                         <?php if( $advantagePlus == 'yes') { ?> 
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo $download['url']; ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['persona-profiles' ], 'filter-types' )){ ?>
@@ -47,7 +47,7 @@
                     <?php } else { ?> 
                         <?php $download = get_sub_field( 'download' ); ?>
                         <?php if ( $download ) { ?>
-                            <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo $download['url']; ?>">Download</a>                                             
+                            <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
                         <?php } ?>
                     <?php } ?>                                        
                 <?php } else { ?>
@@ -78,9 +78,9 @@
                         }
                     }?> -->
 
-                    <!-- <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a> -->
+                    <!-- <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a> -->
                     <!-- <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a> -->
-                    <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText">Cloud</a>
+                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText">Cloud</a>
                     <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText">Research</a>
                 </span>
                 <span class="title"><?php the_title(); ?></span>

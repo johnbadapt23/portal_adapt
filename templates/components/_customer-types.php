@@ -28,7 +28,7 @@
                             </span>
                         <?php } ?>                    
                         <span class="stages-button-container">
-                            <a class="stdBtn red data-set-button" href="<?php echo get_term_link($stage_term); ?>" target="_self">View All</a>
+                            <a class="stdBtn red data-set-button" href="<?php echo esc_url( get_term_link($stage_term) ); ?>" target="_self">View All</a>
                         </span>
                     </span>
                 <?php endif; ?>

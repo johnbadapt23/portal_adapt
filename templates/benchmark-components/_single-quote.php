@@ -26,9 +26,9 @@
                             <span class="link-container">
                                 <?php $target = get_sub_field( 'link_target' ); ?>
                                 <?php if($target){ ?> 
-                                    <a class="red-text text-link large-link-text red-underline-link external-link" href="<?php echo get_sub_field('full_story_link'); ?>" target="<?php echo $target; ?>">Read full story</a>
+                                    <a class="red-text text-link large-link-text red-underline-link external-link" href="<?php echo esc_url( get_sub_field('full_story_link') ); ?>" target="<?php echo $target; ?>">Read full story</a>
                                 <?php } else { ?> 
-                                    <a class="red-text text-link large-link-text red-underline-link external-link" href="<?php echo get_sub_field('full_story_link'); ?>" target="_self">Read full story</a>
+                                    <a class="red-text text-link large-link-text red-underline-link external-link" href="<?php echo esc_url( get_sub_field('full_story_link') ); ?>" target="_self">Read full story</a>
                                 <?php } ?>                                
                             </span>
                         <?php } ?>

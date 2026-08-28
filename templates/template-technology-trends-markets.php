@@ -234,10 +234,10 @@ $q_slug = $q->slug ?? '';
 									   <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 									   <?php if ($topicFilter != '') { ?>
 											<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-											<a href="<?php echo get_term_link($term); ?>" class="topicFilterText"><?php echo $term->name; ?></a>
+											<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo $term->name; ?></a>
 										<?php } else { ?> 
 											<?php if($postType){?>
-												<a href="<?php echo get_term_link($postType); ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+												<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
 											<?php } ?>
 										<?php } ?>
 	                                </span>
@@ -496,7 +496,7 @@ $q_slug = $q->slug ?? '';
 												                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
 												                <?php endif; ?>
 															</span>
-															<a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+															<a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
 														</span>
 													</span>
 					                            </div>
@@ -625,10 +625,10 @@ $q_slug = $q->slug ?? '';
 								 <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 								 <?php if ($topicFilter != '') { ?>
 									<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-									<a href="<?php echo get_term_link($term); ?>" class="topicFilterText"><?php echo $term->name; ?></a>
+									<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo $term->name; ?></a>
 								<?php } else { ?> 
 									<?php if($postType){?>
-										<a href="<?php echo get_term_link($postType); ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+										<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
 									<?php } ?>
 								<?php } ?>
 								 </span>

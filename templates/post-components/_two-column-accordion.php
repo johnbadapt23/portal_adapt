@@ -15,7 +15,7 @@
                                             <?php echo get_sub_field( 'answer' ); ?>
                                             <?php if (get_sub_field('link')) { ?>
                                                 <span class="link-container">
-                                                    <a href="<?php echo get_sub_field('link'); ?>" target="_self" class="text-link red-text-link uppercase arrow-link"><?php echo get_sub_field('link_text'); ?></a>
+                                                    <a href="<?php echo esc_url( get_sub_field('link') ); ?>" target="_self" class="text-link red-text-link uppercase arrow-link"><?php echo get_sub_field('link_text'); ?></a>
                                                 </span>  
                                             <?php } ?>                                            
                                         </span>
@@ -30,7 +30,7 @@
                     <span class="button-container desktop">
                         <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                             <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                <a class="small-button std-button red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
+                                <a class="small-button std-button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
                             <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
                                 <a class="formPopupHubspot download-file-button with-icon small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         
@@ -62,7 +62,7 @@
                     <span class="button-container desktop">
                         <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                             <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                <a class="small-button std-button red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
+                                <a class="small-button std-button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
                             <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
                                 <a class="formPopupHubspot download-file-button with-icon small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         

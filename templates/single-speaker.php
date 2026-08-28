@@ -77,7 +77,7 @@ endif;
             <div class="partners-content-column-container column-container">
                 <div class="column first-column">                    
                     <?php if ( get_field ( 'linked_in_url' ) ) { ?>
-                        <a class="linkedIn" href="<?php echo get_field('linked_in_url'); ?>" target="_blank" rel="noopener noreferrer"></a>
+                        <a class="linkedIn" href="<?php echo esc_url( get_field('linked_in_url') ); ?>" target="_blank" rel="noopener noreferrer"></a>
                     <?php } ?>                  
                 </div>
                 <div class="column second-column content-column">

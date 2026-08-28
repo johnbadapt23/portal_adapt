@@ -3,7 +3,7 @@
     <div class="container">
         <div class="blockTitle">
             <h2><?php echo get_sub_field( 'title' ); ?></h2>
-            <a href="<?php echo get_sub_field( 'view_all_link' ); ?>" class="viewAll">View All</a>
+            <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="viewAll">View All</a>
         </div>
         <?php if ( $post_object ): ?>
     		<?php $post = $post_object; ?>
@@ -56,7 +56,7 @@
                             }
                         }?>
                         <?php if($postTopic){?>
-                            <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                         <?php } ?>
                     </span>
                     <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>

@@ -119,7 +119,7 @@ if( $is_agent_tester ){
 																	}
 																}?>
 																<?php if($postTopic){?>
-																	<a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+																	<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
 																<?php } ?>
 
 																	<a href="/filter-types/expert-presentations/" class="topicFilterText">Expert Presentations</a>
@@ -235,7 +235,7 @@ if( $is_agent_tester ){
  		                                                                   }
  		                                                               }?>
  		                                                               <?php if($postTopic){?>
- 		                                                                   <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+ 		                                                                   <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
  		                                                               <?php } ?>
  		                                                               <a href="/filter-types/expert-presentations/" class="topicFilterText">Expert Presentations</a>
 
@@ -264,7 +264,7 @@ if( $is_agent_tester ){
 								        		<?php if ( have_rows( 'button' ) ) : ?>
 								                    <span class="button-container">
 								            			<?php while ( have_rows( 'button' ) ) : the_row(); ?>
-								                            <a class="std-button arrow-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+								                            <a class="std-button arrow-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
 								            			<?php endwhile; ?>
 								                    </span>
 								        		<?php else : ?>

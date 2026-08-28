@@ -25,7 +25,7 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
 <div class="one-third speaker-item one-quarter column <?php echo esc_attr($partnerslug); ?>"
      data-filter="<?php echo esc_attr($filter_slugs); ?>">
 
-    <a class="slide-out-bio" href="<?php echo get_permalink($post_id); ?>" id="<?php echo esc_attr($post_slug); ?>">
+    <a class="slide-out-bio" href="<?php echo esc_url( get_permalink($post_id) ); ?>" id="<?php echo esc_attr($post_slug); ?>">
 
         <?php if ($partnerslug == 'advisors') : ?>
 

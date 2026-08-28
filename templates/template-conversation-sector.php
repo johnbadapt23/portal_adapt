@@ -118,7 +118,7 @@ get_header();
 											<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
 									<?php } ?>                                
 									<?php if($postTopic){?>
-										<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
 									<?php } ?>
 								</span>
 								<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>

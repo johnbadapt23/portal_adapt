@@ -7,7 +7,7 @@
                 <?php if ( have_rows( 'links' ) ) : ?>
                     <span class="link-container">
                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
-                            <a class="link" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>">
+                            <a class="link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>">
                                 <span class="link-inner-container">
                                     <span class="icon-container">
                                         <?php $icon = get_sub_field( 'icon' ); ?>
@@ -29,7 +29,7 @@
                     <span class="button-container desktop">
                         <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                             <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                <a class="small-button std-button red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
+                                <a class="small-button std-button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
                             <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
                                 <a class="formPopupHubspot download-file-button with-icon small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         
@@ -61,7 +61,7 @@
                     <span class="button-container desktop">
                         <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                             <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                <a class="small-button std-button red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
+                                <a class="small-button std-button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>                        
                             <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
                                 <a class="formPopupHubspot download-file-button with-icon small-button std-button red-button" href="#bechamrk_formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <div style="display: none;">         

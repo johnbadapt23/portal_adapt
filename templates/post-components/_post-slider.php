@@ -34,7 +34,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
         <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo get_sub_field( 'title' ); ?></h2>
             <?php if(get_sub_field( 'view_all_link' )){ ?> 
-                <a href="<?php echo get_sub_field( 'view_all_link' ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
+                <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
             <?php } ?>            
         </div>
     </div>

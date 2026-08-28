@@ -22,7 +22,7 @@
                 </div>
                 <?php if ( get_sub_field ( 'link_url' ) ) { ?>
                     <span class="buttonWrapper">
-                        <a class="logoBlockLink button" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                        <a class="logoBlockLink button" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                     </span>
                 <?php } ?>
             </div>

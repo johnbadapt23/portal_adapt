@@ -39,7 +39,7 @@ get_header();
 						<?php $sectors_terms = get_sub_field( 'sectors' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="<?php echo get_term_link($sectors_term); ?>" target="_self"><?php echo $sectors_term->name; ?></a>
+								<a class="sector-button button grey-button" href="<?php echo esc_url( get_term_link($sectors_term) ); ?>" target="_self"><?php echo $sectors_term->name; ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -151,7 +151,7 @@ get_header();
 												                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
 												                <?php endif; ?>
 															</span>
-															<a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+															<a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
 														</span>
 													</span>
 					                            </div>

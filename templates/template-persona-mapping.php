@@ -127,7 +127,7 @@ $post_types = array ();
                                                     <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
                                                 <?php endif; ?>
                                             </span>
-                                            <a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+                                            <a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
                                         </span>
                                     </span>
                                 </div>
@@ -237,9 +237,9 @@ $post_types = array ();
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
-                                                    <a href="<?php echo get_term_link($q); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
 
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
@@ -362,7 +362,7 @@ $post_types = array ();
             $terms = $post_types;
             ?>
             <span class="filter-link-container">
-                <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo get_term_link($q); ?>">All</a>
+                <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo esc_url( get_term_link($q) ); ?>">All</a>
                 <?php foreach ($terms as $term){ ?>
                     <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo get_term_link($q); ?>?type=<?php echo $term->slug;?>"><?php echo $term->name;?></a>
                 <?php } ?>
@@ -492,7 +492,7 @@ $post_types = array ();
                                         }
                                     }?>
 									<?php if($q){?>
-                                        <a href="<?php echo get_term_link($q); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
                                             <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>

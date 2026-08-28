@@ -2,7 +2,7 @@
 	<div class="container">
         <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo get_sub_field( 'title' ); ?></h2>
-            <a href="<?php echo get_sub_field( 'view_all_link' ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
+            <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
         </div>
     </div>
 	<div class="container">
@@ -23,7 +23,7 @@
 									<span class="hover-container background-black">
 										<span class="hover-text"><?php echo get_sub_field( 'hover_text' ); ?></span>
 										<?php if (get_sub_field( 'link' )) { ?>
-											<a class="text-link red-text-link uppercase arrow-link" href="<?php echo get_sub_field( 'link' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+											<a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
 										<?php } ?>
 									</span>
 								</span>

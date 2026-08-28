@@ -21,7 +21,7 @@
                                     <span class="link-container">
                                         <?php while( have_rows('link') ): the_row(); ?>
                                             <a class="text-link external-link red-text red-link red-underline-link"
-                                            href="<?php echo get_sub_field('link_url'); ?>"
+                                            href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
                                             target="<?php echo get_sub_field('link_target'); ?>">
                                             <?php echo get_sub_field('link_text'); ?>
                                             </a>
@@ -48,7 +48,7 @@
                                     <span class="link-container">
                                         <?php while( have_rows('link') ): the_row(); ?>
                                             <a class="text-link external-link red-text red-link red-underline-link"
-                                            href="<?php echo get_sub_field('link_url'); ?>"
+                                            href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
                                             target="<?php echo get_sub_field('link_target'); ?>">
                                             <?php echo get_sub_field('link_text'); ?>
                                             </a>

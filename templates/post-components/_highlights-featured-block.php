@@ -42,7 +42,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
          <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo get_sub_field( 'title' ); ?></h2>
             <?php if(get_sub_field( 'view_all_link' )){ ?> 
-                <a href="<?php echo get_sub_field( 'view_all_link' ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
+                <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
             <?php } ?>            
         </div>
     </div>
@@ -473,7 +473,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
@@ -622,7 +622,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
@@ -757,7 +757,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>

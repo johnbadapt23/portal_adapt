@@ -798,7 +798,7 @@
         <?php if ( have_rows( 'button_block' ) ) : ?>
             <div class="buttonBlock">
                 <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                    <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
                 <?php endwhile; ?>
             </div>
         <?php endif; ?>

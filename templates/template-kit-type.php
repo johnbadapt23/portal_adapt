@@ -22,7 +22,7 @@
                                             <?php if(get_sub_field( 'button_type' ) == 'video-button') { ?>
                                                 <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                             <?php } else { ?>
-                                                <a class="link stdBtn red-outline-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                             <?php } ?>
                                             <?php $buttonCounter++; ?>
                                         <?php endwhile; ?>

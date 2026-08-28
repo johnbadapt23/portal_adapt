@@ -102,7 +102,7 @@ if ( $loop->have_posts() ) :
         ) );
         ?>
         <?php foreach($terms as $term) { ?>
-            <span class="other-stage-items other-items"><a href="<?php echo get_term_link($term); ?>" target="_self">
+            <span class="other-stage-items other-items"><a href="<?php echo esc_url( get_term_link($term) ); ?>" target="_self">
             <?php $icon = get_field( 'icon', $term ); ?>
             <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $term->name; ?> 
             </a></span>
@@ -349,7 +349,7 @@ if ( $loop->have_posts() ) :
                                         }
                                     }?>
                                     <?php if($postTopic){?>
-                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
 
@@ -380,7 +380,7 @@ if ( $loop->have_posts() ) :
                             <?php $icon = get_field( 'icon', $topic_term); ?>
                             <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo get_sub_field( 'title' ); ?></h2>
                             <p><?php echo $topic_term->description; ?></p>
-                            <a href="<?php echo get_term_link($topic_term); ?>" class="viewAll">View All</a>
+                            <a href="<?php echo esc_url( get_term_link($topic_term) ); ?>" class="viewAll">View All</a>
                         </div>
                         <div class="gridWrapper">
                             <?php
@@ -467,9 +467,9 @@ if ( $loop->have_posts() ) :
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                                                     <?php } ?>
-                                                    <a href="<?php echo get_term_link($q); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
 
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
@@ -554,7 +554,7 @@ if ( $loop->have_posts() ) :
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
@@ -601,7 +601,7 @@ if ( $loop->have_posts() ) :
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText red-text"><?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText red-text"><?php echo $postTopic->name; ?></a>
                                         <?php } ?>
                                          <?php if($postType){?>
                                             <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText red-text"><?php echo $postType->name; ?></a>

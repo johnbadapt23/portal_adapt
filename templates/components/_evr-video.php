@@ -14,7 +14,7 @@
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
                                     <a class="scroll-to-button button red-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <?php } else { ?>
-                                    <a class="link button red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="link button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <?php } ?>
                             <?php endwhile; ?>
                         <?php else : ?>

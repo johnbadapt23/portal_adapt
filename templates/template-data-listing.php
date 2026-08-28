@@ -33,7 +33,7 @@ get_header();
 							<div class="data-link one-third column">
 								<div class="slide-container">
 									<?php if($buttonLink){?>
-										<a class="imagecontainer-link" href="<?php echo $buttonLink; ?>" target="<?php echo $target; ?>">
+										<a class="imagecontainer-link" href="<?php echo esc_url( $buttonLink ); ?>" target="<?php echo $target; ?>">
 									<?php } ?>
 										<span class="image-container">
 											<?php $image = get_sub_field( 'image_one' ); ?>
@@ -62,7 +62,7 @@ get_header();
 											<?php if (get_sub_field('coming_soon') == 1 ){ ?> 
 												<span class="button pink-button no-click coming-soon"><?php echo get_sub_field( 'button_text' ); ?></span>
 											<?php } else { ?>
-												<a class="button black-outline-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+												<a class="button black-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
 											<?php } ?>
 											<?php endwhile; ?>
 										<?php else : ?>
@@ -91,7 +91,7 @@ get_header();
 							<div class="data-link one-third column">
 								<div class="slide-container">
 									<?php if($buttonLink){?>
-										<a class="imagecontainer-link" href="<?php echo $buttonLink; ?>" target="<?php echo $target; ?>">
+										<a class="imagecontainer-link" href="<?php echo esc_url( $buttonLink ); ?>" target="<?php echo $target; ?>">
 									<?php } ?>
 										<span class="image-container">
 											<?php $image = get_sub_field( 'image_one' ); ?>
@@ -120,7 +120,7 @@ get_header();
 											<?php if (get_sub_field('coming_soon') == 1 ){ ?> 
 												<span class="button pink-button no-click coming-soon"><?php echo get_sub_field( 'button_text' ); ?></span>
 											<?php } else { ?>
-												<a class="button black-outline-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+												<a class="button black-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
 											<?php } ?>
 											<?php endwhile; ?>
 										<?php else : ?>

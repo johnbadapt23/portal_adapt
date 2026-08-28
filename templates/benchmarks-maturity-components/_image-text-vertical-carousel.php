@@ -8,7 +8,7 @@
                         <span class="link-container">                        
                             <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                 <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                    <a class="text-link red-link external-link red-arrow-link-external" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="text-link red-link external-link red-arrow-link-external" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <?php } else if( get_sub_field( 'link_type' ) =='scroll-to') { ?> 
                                     <a class="text-link red-link red-arrow-link-external external-link scroll-to-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
                                 <?php } else { ?> 

@@ -654,7 +654,7 @@
                         <?php if ( have_rows( 'button_block' ) ) : ?>
                             <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                                 <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-                                    <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
                                 </div>
                             <?php endwhile; ?>
                         <?php endif; ?>
@@ -1312,7 +1312,7 @@
                 <?php if ( have_rows( 'button_block' ) ) : ?>
                     <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                         <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-                            <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
                         </div>
                     <?php endwhile; ?>
                 <?php endif; ?>

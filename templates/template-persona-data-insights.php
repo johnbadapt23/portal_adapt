@@ -294,7 +294,7 @@ $persona = $_GET['persona'];
 												                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
 												                <?php endif; ?>
 															</span>
-															<a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+															<a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
 														</span>
 													</span>
 					                            </div>

@@ -52,7 +52,7 @@
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
                                 <?php $noMargin = 'no'; ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo $download['url']; ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['cxo-buyer-persona-profiles' ], 'filter-types' )){ ?>
@@ -74,7 +74,7 @@
                             <?php $download = 'yes'; ?>
                             <?php $noMargin = 'no'; ?>
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo get_sub_field( 'download_url' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a> 
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a> 
                             <?php endwhile; ?>                            
                         <?php else : ?>
                             <?php // no rows found ?>
@@ -158,7 +158,7 @@
                         }?>
                     <?php if ( !empty( $postType ) ) { ?>
                         <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
-                        <a href="<?php echo get_term_link($postType); ?>" class="topic-filter red-text"><?php echo $postType->name; ?> </a>
+                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo $postType->name; ?> </a>
                     <?php } ?>
                 </span>
 
