@@ -427,7 +427,7 @@ if (
                         </span>
                         <?php if($advantagePlus == "no"){ ?>
                             <span class="shareArticle">
-                                <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
+                                <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                                     <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                                 </a>
                             </span>  
@@ -1488,7 +1488,7 @@ if (
                             </span>
                              <?php if($advantagePlus == "no"){ ?>
                             <span class="shareArticle">
-                                <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
+                                <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                                     <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                                 </a>
                             </span>  
@@ -1547,7 +1547,7 @@ if (
                                                             <?php if (get_sub_field( 'text' )) { ?>
                                                                 <span class="shareText download mobile"><?php echo get_sub_field( 'text' ); ?></span>
                                                             <?php } ?>
-                                                            <a id="downloadButton" href="<?php echo get_sub_field( 'download_url' ); ?>" target="_blank" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                            <a id="downloadButton" href="<?php echo get_sub_field( 'download_url' ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php else : ?>
@@ -1572,7 +1572,7 @@ if (
                                                         <?php if (get_sub_field( 'text' )) { ?>
                                                             <span class="shareText download mobile"><?php echo get_sub_field( 'text' ); ?></span>
                                                         <?php } ?>
-                                                        <a id="downloadButton" href="<?php echo get_sub_field( 'download_url' ); ?>" target="_blank" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                        <a id="downloadButton" href="<?php echo get_sub_field( 'download_url' ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
                                                     <?php endwhile; ?>
                                                 </div>
                                             <?php else : ?>

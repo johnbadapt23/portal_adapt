@@ -127,8 +127,8 @@ get_header();
     	<div class="container">
             <div class="inner">
         		<div class="share">
-        			<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
-                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title();?>" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
+        			<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
+                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title();?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
         		</div>
             </div>
     	</div>
@@ -150,7 +150,7 @@ get_header();
                                 <span class="right">
                                     <a class="button popup-modal registerInterest" href="#form">Register Interest</a>
                                     <?php if ( get_field( 'ticket_link' )) { ?>
-                                        <a class="button ticket buttonTicket" href="<?php echo get_field( 'ticket_link' ); ?>" target="_blank">Purchase Tickets</a>
+                                        <a class="button ticket buttonTicket" href="<?php echo get_field( 'ticket_link' ); ?>" target="_blank" rel="noopener noreferrer">Purchase Tickets</a>
                                     <?php } ?>
                                     <a class="button print buttonPrint" id="print" onclick="window.print()">Print Agenda</a>
                                 </span>

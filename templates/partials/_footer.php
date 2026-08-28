@@ -172,7 +172,7 @@
                     <?php endif; ?>
                     <span class="social desktop">
                         <?php if(get_field('linkedin_url','options')) { ?>
-                            <a href="<?php echo get_field('linkedin_url','options') ?>" target="_blank" aria-label="LinkedIn (opens in a new tab)">
+                            <a href="<?php echo get_field('linkedin_url','options') ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)">
                                 <svg version="1.1" id="Group_193" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 	 viewBox="0 0 14.9 15" style="enable-background:new 0 0 14.9 15;" xml:space="preserve">
                                 <style type="text/css">
@@ -197,7 +197,7 @@
                             </a>
                         <?php } ?>
                         <?php if(get_field('youtube_url','options')) { ?>
-                            <a href="<?php echo get_field('youtube_url','options') ?>" target="_blank" aria-label="YouTube (opens in a new tab)">
+                            <a href="<?php echo get_field('youtube_url','options') ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube (opens in a new tab)">
                                 <svg version="1.1" id="Group_194" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 	 viewBox="0 0 16.6 11.8" style="enable-background:new 0 0 16.6 11.8;" xml:space="preserve">
                                 <style type="text/css">

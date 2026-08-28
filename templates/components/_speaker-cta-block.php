@@ -28,7 +28,7 @@
                                     <?php if ( have_rows( 'speaker_block_button' ) ) : ?>
                                         <?php while ( have_rows( 'speaker_block_button' ) ) : the_row(); ?>
                                             <?php if ( get_sub_field( 'download_file' ) ) { ?>
-                                                <a class="button" target="_blank" href="<?php echo get_sub_field( 'download_file' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="button" target="_blank" rel="noopener noreferrer" href="<?php echo get_sub_field( 'download_file' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
                                             <?php } ?>
                                         <?php endwhile; ?>
                                     <?php else : ?>

@@ -29,7 +29,7 @@
                         <?php if( $advantagePlus == 'yes') { ?> 
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
-                                <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo $download['url']; ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['persona-profiles' ], 'filter-types' )){ ?>
@@ -47,7 +47,7 @@
                     <?php } else { ?> 
                         <?php $download = get_sub_field( 'download' ); ?>
                         <?php if ( $download ) { ?>
-                            <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                            <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo $download['url']; ?>">Download</a>                                             
                         <?php } ?>
                     <?php } ?>                                        
                 <?php } else { ?>

@@ -52,7 +52,7 @@
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
                                 <?php $noMargin = 'no'; ?>
-                                <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo $download['url']; ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['cxo-buyer-persona-profiles' ], 'filter-types' )){ ?>
@@ -74,7 +74,7 @@
                             <?php $download = 'yes'; ?>
                             <?php $noMargin = 'no'; ?>
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button" target="_blank" href="<?php echo get_sub_field( 'download_url' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a> 
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo get_sub_field( 'download_url' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a> 
                             <?php endwhile; ?>                            
                         <?php else : ?>
                             <?php // no rows found ?>
@@ -214,7 +214,7 @@
                 </span>
                  <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
+                        <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  

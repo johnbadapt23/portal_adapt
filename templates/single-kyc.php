@@ -160,7 +160,7 @@
                                                         <ul class="resources-container">
                                                             <?php while ( have_rows( 'resource' ) ) : the_row(); ?>
                                                                 <li>
-                                                                    <a class="resource-link" href="<?php echo get_sub_field( 'link' ); ?>" target="_blank"><?php echo get_sub_field( 'title' ); ?></a>                                                                                                                        
+                                                                    <a class="resource-link" href="<?php echo get_sub_field( 'link' ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'title' ); ?></a>                                                                                                                        
                                                                 </li>
                                                             <?php endwhile; ?>
                                                         </ul>

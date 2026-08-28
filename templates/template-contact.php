@@ -17,7 +17,7 @@ get_header();
 					<span class="details">
 						<p><a class="email hvr-underline-from-left" href="mailto:<?php echo get_field( 'email_address', 'option' ); ?>"><?php echo get_field( 'email_address', 'option' ); ?></a><br />
                         <a class="telephone hvr-underline-from-left" href=""><?php echo get_field( 'phone_number', 'option' ); ?></a></p>
-                        <p><a class="directionsLink hvr-underline-from-left" href="<?php echo get_field( 'google_map_link', 'option' ); ?>" target="_blank">Get Directions</a></p>
+                        <p><a class="directionsLink hvr-underline-from-left" href="<?php echo get_field( 'google_map_link', 'option' ); ?>" target="_blank" rel="noopener noreferrer">Get Directions</a></p>
 					</span>
 					<span class="socials">
     					<a href="<?php echo get_field( 'facebook_link', 'option' ); ?>"><i class="icon-facebook"></i></a>
