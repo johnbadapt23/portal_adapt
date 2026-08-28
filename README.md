@@ -7,6 +7,7 @@ WordPress theme for the research/membership portal (MemberPress-gated content, p
 - Node **22** (see `.nvmrc` — run `nvm use` if you use nvm)
 - npm 10+
 - A local WordPress install if you want to run the live-reload dev server (`gulp __start` proxies `http://adapt.local`, configurable in `source/gulp/config.js`)
+- PHP 8.1+ and Composer — optional, only needed to run the `lint:php` PHPCS check (see "Linting" below)
 
 ## Quick start
 
@@ -51,6 +52,10 @@ The config extends `stylelint-config-standard-scss` with most formatting/style-p
 As of this config's introduction, `npm run lint:scss` reports 183 pre-existing violations across the codebase — that's the inherited baseline, not something to fix in one pass. Treat new violations your own change introduces as worth a look; the existing 183 are legacy debt to clean up opportunistically, not a blocker.
 
 Note on indentation: hand-authored SCSS in this codebase uses 4-space indentation; the modernization-pass rules added during the float-to-flexbox conversion (originally gated behind `body.dev-preview`, now promoted to default CSS - see git history) use tabs instead. This predates the lint config and isn't something it enforces either way.
+
+`npm run lint:js` runs ESLint (config: `eslint.config.js`) against `source/js/**/*.js`, checking for `no-var`/`prefer-const` and undeclared globals. `source/js/main.js` is excluded - it contains a `gulp-file-include` directive that isn't valid JS until the build concatenates `includes/_maps.js` into it, so ESLint's parser can't load it as-is.
+
+`composer run lint:php` (or `vendor/bin/phpcs`, config: `phpcs.xml.dist`) runs PHP_CodeSniffer against the theme's own PHP - `memberpress/`, `memberpress-corporate/`, `download-monitor/` (bundled third-party plugin code), `source/`, and `assets/` are excluded. Like the SCSS config, this targets real bugs rather than a full retroactive style rewrite: it runs `WordPress.Security.EscapeOutput`, `WordPress.Security.NonceVerification`, `WordPress.DB.PreparedSQL`, `WordPress.WP.I18n`, a handful of deprecated-API sniffs, and `PHPCompatibilityWP` set to PHP 8.1-8.3 (style.css declares `Requires PHP: 8.3`) - it does not run full `WordPress-Extra`/`WordPress-Core`, which would flag thousands of pre-existing formatting violations (brace placement, Yoda conditions, indentation) across an inherited codebase. Run `composer install` once to pull in PHP_CodeSniffer, WPCS, and PHPCompatibilityWP before running it - there's no PHP toolchain in this repo's own CI today, so this is for local/editor use and a future CI gate, not something currently enforced. No baseline violation count is recorded here (unlike stylelint's 183) since it hasn't been run against the codebase yet - expect a first run to surface a real, non-zero list.
 
 ## Project structure
 
