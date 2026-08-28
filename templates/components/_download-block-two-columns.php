@@ -14,28 +14,28 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
         <?php if ( have_rows( 'download_columns' ) ) : ?>
             <?php $counter = 0; ?>
 				<?php while ( have_rows( 'download_columns' ) ) : the_row(); ?>
-                    <div class="column <?php echo $download_variant; ?>-column <?php echo $counter; ?>">
-                        <a class="download-popup-button-multi" href="#downloadPopup<?php echo $popup_id_prefix; ?><?php echo $counter; ?>">
+                    <div class="column <?php echo esc_attr( $download_variant ); ?>-column <?php echo esc_attr( $counter ); ?>">
+                        <a class="download-popup-button-multi" href="#downloadPopup<?php echo esc_attr( $popup_id_prefix ); ?><?php echo esc_attr( $counter ); ?>">
                             <span class="download-image-container">
-                                <span class="image" style="background-image: url(<?php echo get_sub_field( 'listing_image' ); ?>);"></span>
+                                <span class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'listing_image' ) ); ?>);"></span>
                             </span>
                         </a>
                         <?php if(get_sub_field( 'listing_title' )){ ?>
                             <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                         <?php } ?>
                         <?php if(get_sub_field( 'listing_text' )){ ?>
-                            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                         <?php } ?>
-                        <a class="download-popup-button-multi" href="#downloadPopup<?php echo $popup_id_prefix; ?><?php echo $counter; ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                        <a class="download-popup-button-multi" href="#downloadPopup<?php echo esc_attr( $popup_id_prefix ); ?><?php echo esc_attr( $counter ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         <div class="downloadPopupContainer" style="display: none;">
-                            <div class="downloadPopup" id="downloadPopup<?php echo $popup_id_prefix; ?><?php echo $counter; ?>">
+                            <div class="downloadPopup" id="downloadPopup<?php echo esc_attr( $popup_id_prefix ); ?><?php echo esc_attr( $counter ); ?>">
                                 <div class="container">
                                     <div class="preview-container">
                                         <?php if (get_sub_field('pdf_flip_embed')) { ?>
-                                            <?php echo get_sub_field('pdf_flip_embed'); ?>
+                                            <?php echo wp_kses_post( get_sub_field('pdf_flip_embed') ); ?>
                                         <?php } else { ?>
                                             <div class="download-image-container">
-                                                <div class="image" style="background-image: url(<?php echo get_sub_field( 'listing_image' ); ?>);"></div>
+                                                <div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'listing_image' ) ); ?>);"></div>
                                             </div>
                                         <?php }?>
                                         <div class="description-container desktop">
@@ -43,7 +43,7 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
                                                 <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                                             <?php } ?>
                                             <?php if(get_sub_field( 'listing_text' )){ ?>
-                                                <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                                                <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
                                         <span class="downloads">
                                             <?php if ( have_rows( 'download' ) ) : ?>
                                                 <?php while ( have_rows( 'download' ) ) : the_row(); ?>
-                                                    <?php echo get_sub_field( 'download' ); ?>
+                                                    <?php echo wp_kses_post( get_sub_field( 'download' ) ); ?>
                                                 <?php endwhile; ?>
                                             <?php else : ?>
                                                 <?php // no rows found ?>
@@ -66,7 +66,7 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
                                             <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                                         <?php } ?>
                                         <?php if(get_sub_field( 'listing_text' )){ ?>
-                                            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                                            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                                         <?php } ?>
                                     </div>
                                 </div>
