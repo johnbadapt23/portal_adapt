@@ -43,7 +43,7 @@ get_header();
                         <p><strong>Team alignment on transformation</strong></p>
                         <p>Identify where your customers are providing data and create a platform where they can transact on a range of products and services related to this data. Bring your employees on this digital transformation journey by creating not just a vision and mission, but a ‘dream’ like Tesla’s 12-year vision to create a sustainable vehicle for the mass market.</p>
                         <p>
-                            <img src="" />
+                            <img src="" loading="lazy" alt="" />
                         </p>
                         <h4>Key advice</h4>
                         <ul>
@@ -60,7 +60,7 @@ get_header();
                     <div class="contributor writtenBy">
                         <div class="imageSizeContainer">
                             <div class="bgContainer">
-                                <img class="desktop" src="" />
+                                <img class="desktop" src="" loading="lazy" alt="" />
                             </div>
                         </div>
                         <div class="textContainer">
