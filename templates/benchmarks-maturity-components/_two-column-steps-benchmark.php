@@ -9,7 +9,7 @@
     <div class="container">
         <div class="title-container">
             <div class="inner-text-container">
-                <h2 class="bold-red <?php echo $textcolor; ?>"><?php echo get_sub_field( 'title' ); ?></h2>
+                <h2 class="bold-red <?php echo $textcolor; ?>"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
             </div>
         </div>
         <div class="steps-container">
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="column one-half text-column">
-                            <h3 class="title red-text"><?php echo get_sub_field( 'title' ); ?></h3>
+                            <h3 class="title red-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
                             <h4 class="sub-title <?php echo $textcolor; ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></h4>
                             <span class="mobile-image-container">
                                 <?php $image = get_sub_field( 'image' ); ?>

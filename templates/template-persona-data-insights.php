@@ -132,7 +132,7 @@ $persona = $_GET['persona'];
 	                                </span>
 	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
 									<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
-	                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+	                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
 	                                <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 	                            </div>
 	                        </div>
@@ -283,7 +283,7 @@ $persona = $_GET['persona'];
 							                                        <a href="/data-insights/persona-mapping/?persona=<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 							                                    <?php } ?>
 							                                </span>
-							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
+							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
 															<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
@@ -291,7 +291,7 @@ $persona = $_GET['persona'];
 																	   <?php echo get_sub_field( 'overview_text' ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
-												                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
+												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
 												                <?php endif; ?>
 															</span>
 															<a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
@@ -433,7 +433,7 @@ $persona = $_GET['persona'];
 								 </span>
 								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
 								 <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
-								 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+								 <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
 								 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 							 </div>
 						 </div>

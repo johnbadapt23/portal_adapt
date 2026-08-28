@@ -50,19 +50,19 @@ get_header();
 							<div class="content <?php echo $slide['text_layout']; ?>">
 								<?php if($slide['title']) { ?>
 									<div class="column title">
-										<span class="title"><?php echo $slide['title']; ?></span>
+										<span class="title"><?php echo esc_html( $slide['title'] ); ?></span>
 									</div>
 									<hr>
 								<?php } ?>
 								<?php if($slide['text']) { ?>
 									<div class="column text">
-										<span class="text"><?php echo $slide['text']; ?></span>
+										<span class="text"><?php echo esc_html( $slide['text'] ); ?></span>
 									</div>
 								<?php } ?>
 								<?php if($slide['buttons']) { ?>
 									<span class="buttonBlock">
 										<?php foreach($slide['buttons'] as $button) { ?>
-											<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo $button['target']; ?>" class="stdBtn red"><?php echo $button['title']; ?></a>
+											<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo $button['target']; ?>" class="stdBtn red"><?php echo esc_html( $button['title'] ); ?></a>
 										<?php } ?>
 									</span>
 								<?php } ?>
@@ -77,8 +77,8 @@ get_header();
 												<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
 											</span>
 											<span class="text">
-												<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo $slide['video'][0]['video_button_text']; ?><?php } else { ?>Watch Video<?php } ?></span>
-												<span><?php echo $slide['video'][0]['duration']; ?></span>
+												<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo esc_html( $slide['video'][0]['video_button_text'] ); ?><?php } else { ?>Watch Video<?php } ?></span>
+												<span><?php echo esc_html( $slide['video'][0]['duration'] ); ?></span>
 											</span>
 										</a>
 									</span>
@@ -91,8 +91,8 @@ get_header();
 									<span>
 									<?php foreach($slide['banner_buttons'] as $button) { ?>
 										<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo $button['target']; ?>">
-											<span class="text"><?php echo $button['text']; ?></span>
-											<span class="title"><?php echo $button['title']; ?></span>
+											<span class="text"><?php echo esc_html( $button['text'] ); ?></span>
+											<span class="title"><?php echo esc_html( $button['title'] ); ?></span>
 										</a>
 									<?php } ?>
 									</span>
@@ -266,7 +266,7 @@ get_header();
                                                             <?php $len = count($terms); ?>
                                                             <?php foreach($terms as $term) { ?>
                                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                     <?php echo $term -> name; ?>
+                                                                     <?php echo esc_html( $term -> name ); ?>
                                                                 </span>
                                                                 <?php $counterTopic++; ?>
                                                             <?php } ?>

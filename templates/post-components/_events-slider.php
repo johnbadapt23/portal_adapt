@@ -13,7 +13,7 @@
         <div class="title-slider-container">
             <div class="column title-column">
                 <h2 class="headerXsmall text-bold bold-red">
-                    <?php echo get_sub_field( 'title' ); ?>
+                    <?php echo wp_kses_post( get_sub_field( 'title' ) ); ?>
                 </h2>
                 <span class="text-regular white-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                 <?php if ( have_rows( 'button' ) ) : ?>

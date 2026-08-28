@@ -17,7 +17,7 @@
                             <h3><?php echo esc_html( $stage_term->name ); ?></h3>
                         </span>
                         <span class="stages-text">
-                            <p><?php echo $stage_term->description; ?></p>               
+                            <p><?php echo esc_html( $stage_term->description ); ?></p>               
                         </span>
                         <span class="stages-button-container">
                             <a class="button data-set-button" href="<?php echo esc_url( get_term_link($stage_term) ); ?>" target="_self">View All</a>

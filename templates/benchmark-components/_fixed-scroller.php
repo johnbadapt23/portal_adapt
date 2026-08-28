@@ -7,9 +7,9 @@
                         <span class="pre-title font-ibm medium-grey labelIBMSmall"><?php echo get_sub_field('pre_title'); ?></span>
                     <?php } ?>                    
                     <?php if(get_sub_field('title_pixel_max_width')){ ?>
-                        <h2 class="bold-red white-text" style="max-width:<?php echo get_sub_field('title_pixel_max_width'); ?>"><?php echo get_sub_field( 'title' ); ?></h2>
+                        <h2 class="bold-red white-text" style="max-width:<?php echo get_sub_field('title_pixel_max_width'); ?>"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                     <?php } else { ?> 
-                        <h2 class="bold-red white-text"><?php echo get_sub_field( 'title' ); ?></h2>
+                        <h2 class="bold-red white-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                     <?php } ?>                    
                     <p class="p-large white-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                 </div>
@@ -29,7 +29,7 @@
                                 </span>
                             </span>
                             <span class="text-column column">
-                                <h2 class="white-text bold-grey"><?php echo get_sub_field( 'title' ); ?></h2>
+                                <h2 class="white-text bold-grey"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                                 <span class="p-large bold-red grey-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                             </span>
                         </div>                                                                        

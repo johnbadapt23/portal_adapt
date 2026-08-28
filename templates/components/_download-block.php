@@ -12,7 +12,7 @@
             <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
         <?php } ?>
         <?php if(get_sub_field( 'listing_text' )){ ?>
-            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
         <?php } ?>
         <a class="download-popup-button" href="#downloadPopupSingle"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
     </div>
@@ -32,7 +32,7 @@
                             <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                         <?php } ?>
                         <?php if(get_sub_field( 'listing_text' )){ ?>
-                            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                         <?php } ?>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                     <?php } ?>
                     <?php if(get_sub_field( 'listing_text' )){ ?>
-                        <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                        <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                     <?php } ?>
                 </div>
             </div>

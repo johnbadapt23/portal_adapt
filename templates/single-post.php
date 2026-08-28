@@ -414,7 +414,7 @@ if (
     		<div class="column webinar-column first-column first">
     			<span class="webinar-subtitle"><?php echo esc_html( get_field( 'sub_title' ) ); ?></span>
     			<span class="webinar-content content">
-    				<?php echo get_field( 'content' ); ?>
+    				<?php echo wp_kses_post( get_field( 'content' ) ); ?>
     			</span>
             </div>
             <div class="column webinar-column second second-column<?php if( get_field( 'number_of_speakers' ) == 'one') { ?> speaker-column<?php } ?>">

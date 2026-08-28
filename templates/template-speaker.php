@@ -75,7 +75,7 @@ get_header();
                             </span>
                             <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
                             <span class="excerpt">
-                                <?php echo the_excerpt(); ?>
+                                <?php echo esc_html( the_excerpt() ); ?>
                             </span>
 
                             <?php

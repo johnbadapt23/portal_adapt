@@ -44,7 +44,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                     $trimmed_content = wp_trim_words( $text, $num_words = 22 );
                 ?>
                 <span class="published labelSmall text-dark-grey<?php if ( $download ) { ?><?php } else { ?> no-margin-border<?php } ?>">
-                    <?php echo $date->format('j F, Y'); ?>
+                    <?php echo esc_html( $date->format('j F, Y') ); ?>
                 </span>
                 <span class="type-topic labelSmall">
                     <a href="/events/analyst-market-briefings/" class="topic-filter red-text">Analyst Market Briefings</a>

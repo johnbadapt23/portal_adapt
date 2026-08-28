@@ -46,7 +46,7 @@ get_header();
 								'hide_empty' => false // Set hide_empty to false to include empty terms
 							));
 						?>
-						<span class="filter-group-toggle<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>"><span class="toggle-text"><?php echo $term -> name; ?></span></span>						
+						<span class="filter-group-toggle<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>"><span class="toggle-text"><?php echo esc_html( $term -> name ); ?></span></span>						
 						<span class="filter-group-listing button-group<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>">
 							<?php 
 								foreach ($child_terms as $child_term) { ?>

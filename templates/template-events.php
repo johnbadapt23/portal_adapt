@@ -41,7 +41,7 @@ get_header();
                                 <?php } else { ?>
                                     <span class="checkboxButton">
                                         <label>
-                                          <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                          <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                         </label>
                                     </span>
                                 <?php }?>
@@ -62,7 +62,7 @@ get_header();
                                 <?php $image = get_field('icon', $term); ?>
                                 <span class="checkboxButton">
                                     <label>
-                                      <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                     </label>
                                 </span>
                             <?php } ?>
@@ -81,7 +81,7 @@ get_header();
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
                                     <label>
-                                      <input type="checkbox" name="duration[]" <?php if($filterDuration == '') { } else { if (in_array( $term -> slug, $filterDuration )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="duration[]" <?php if($filterDuration == '') { } else { if (in_array( $term -> slug, $filterDuration )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                     </label>
                                 </span>
                             <?php } ?>

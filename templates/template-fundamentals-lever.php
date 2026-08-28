@@ -122,7 +122,7 @@ if ( $loop->have_posts() ) :
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><a href="<?php echo esc_url( home_url( '/' ) ); ?>evr" class="breadcrumb">EVR</a><span class="divider">/</span><span class="breadcrumb"><?php echo esc_html( $q->name ); ?></span></a>
             </span>
             <span class="title-filter-container"><h1><?php echo esc_html( $q->name ); ?></h1><span class="dropdown-button">Other fundamentals</span></span>
-            <p><?php echo $q->description; ?></p>               
+            <p><?php echo esc_html( $q->description ); ?></p>               
         </div>
     </div>
 </section>
@@ -168,7 +168,7 @@ if ( $loop->have_posts() ) :
                             <?php endif; ?>
                             <?php wp_reset_query(); ?>
                             <?php foreach($terms as $term) { ?>
-                                <option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($filterType == '') { } else { if ($term -> slug == $filterType ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
+                                <option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($filterType == '') { } else { if ($term -> slug == $filterType ) { ?> selected <?php }}?>><?php echo esc_html( $term -> name ); ?></option>
                             <?php } ?>
                         </select>
                     </span>
@@ -205,9 +205,9 @@ if ( $loop->have_posts() ) :
                 <?php } else { ?>
                     <?php if ($filterType != '') { ?>
                         <?php $term = get_term_by('slug', $filterType, 'evr-maturity-stage'); ?>
-                        <p><?php echo $term->description; ?></p>                                
+                        <p><?php echo esc_html( $term->description ); ?></p>                                
                     <?php } else { ?>
-                        <p><?php echo $q->description; ?></p> 
+                        <p><?php echo esc_html( $q->description ); ?></p> 
                     <?php } ?>
                 <?php } ?>                
                 <div class="gridView">
@@ -357,7 +357,7 @@ if ( $loop->have_posts() ) :
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
-                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -377,7 +377,7 @@ if ( $loop->have_posts() ) :
                         <div class="blockTitle">
                             <?php $icon = get_field( 'icon', $topic_term); ?>
                             <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo get_sub_field( 'title' ); ?></h2>
-                            <p><?php echo $topic_term->description; ?></p>
+                            <p><?php echo esc_html( $topic_term->description ); ?></p>
                             <a href="<?php echo esc_url( get_term_link($topic_term) ); ?>" class="viewAll">View All</a>
                         </div>
                         <div class="gridWrapper">
@@ -472,7 +472,7 @@ if ( $loop->have_posts() ) :
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
-                                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>
@@ -523,7 +523,7 @@ if ( $loop->have_posts() ) :
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
-                                    <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                    <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                     <a href="<?php the_permalink(); ?>" class="stdBtn red red-button">Read More</a>
                                 </div>
                                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">

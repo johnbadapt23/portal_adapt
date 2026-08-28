@@ -1,7 +1,7 @@
 <section class="cards-module gtm-cards-module background-black benchmark-card-module" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
 	<div class="container">
 		<div class="top-content">
-			<h2 class="text-white bold-grey"><?php echo get_sub_field( 'title' ); ?></h2>
+			<h2 class="text-white bold-grey"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
 			<?php if(get_sub_field( 'learn_more_link' )){ ?>
 				<span class="link-container">
 					<a class="red-text text-link large-link-text red-underline-link external-link" href="<?php echo esc_url( get_sub_field( 'learn_more_link' ) ); ?>" target="_self">Learn more</a>				

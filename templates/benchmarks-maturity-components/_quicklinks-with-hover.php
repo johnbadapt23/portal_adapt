@@ -1,7 +1,7 @@
 <section class="quicklinks-with-hover background-black">
     <div class="container">
         <div class="title-container">
-            <?php echo get_sub_field( 'title' ); ?>
+            <?php echo wp_kses_post( get_sub_field( 'title' ) ); ?>
         </div>
         <div class="background-card-container">
             <?php $background_image = get_sub_field( 'background_image' ); ?>

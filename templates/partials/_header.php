@@ -140,12 +140,12 @@ if (current_user_can('administrator')) {
                 <?php if ( 0 == $current_user->ID ) { ?>
                 <?php } else { ?>
                     <span class="user desktop dropdown users-menu">
-    					<span class="userIcon"><span><?php echo $first_name[0]; ?></span></span>
+    					<span class="userIcon"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
     					<span class="userName"><?php echo $first_name; ?></span>
     					<span class="userDropdown"></span>
                         <div class="megaMenu usersMenu" id="users">
                             <div class="userMenuInfo">
-                                <span class="userIconMain"><span><?php echo $first_name[0]; ?></span></span>
+                                <span class="userIconMain"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
                                 <span class="userNameMain"><span><?php echo $first_name; ?> <?php echo $last_name; ?></span></span>
                                 <span class="userEmailMain"><span><?php echo $user_email; ?></span></span>
                             </div>
@@ -1263,12 +1263,12 @@ if (current_user_can('administrator')) {
             <?php } else { ?>
                 
     			<span class="user dropdown mobile">
-                    <span class="userIcon"><span><?php echo $first_name[0]; ?></span></span>
+                    <span class="userIcon"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
                     <span class="userName"><?php echo $first_name; ?></span>
                     <span class="userDropdown"></span>
                     <div class="megaMenu usersMenu mobile" id="users-mobile">
                         <div class="userMenuInfo">
-                            <span class="userIconMain"><span><?php echo $first_name[0]; ?></span></span>
+                            <span class="userIconMain"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
                             <span class="userNameMain"><span><?php echo $first_name; ?> <?php echo $last_name; ?></span></span>
                             <span class="userEmailMain"><span><?php echo $user_email; ?></span></span>
                         </div>

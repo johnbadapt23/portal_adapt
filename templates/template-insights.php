@@ -302,7 +302,7 @@ $filterBy = array();
                                           <span class="checkbox-text">
                                               <span class="v-wrap">
                                                   <span class="v-box">
-                                                      <?php echo $term -> name; ?>
+                                                      <?php echo esc_html( $term -> name ); ?>
                                                   </span>
                                               </span>
                                           </span>
@@ -397,7 +397,7 @@ $filterBy = array();
 
                             <option value="<?php if ($filterTopics != '' || $sortBy != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else if (isset($keyword)) { ?>&<?php } else { ?>?<?php } ?>filterType=all">All</option>
                             <?php foreach($terms as $term) { ?>
-                                <option <?php if ($filterType == $term -> slug){?> selected=""<?php } ?>value="<?php if ($filterTopics != '' || $sortBy != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else if (isset($keyword)) { ?>&<?php } else { ?>?<?php } ?>filterType=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></option>
+                                <option <?php if ($filterType == $term -> slug){?> selected=""<?php } ?>value="<?php if ($filterTopics != '' || $sortBy != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else if (isset($keyword)) { ?>&<?php } else { ?>?<?php } ?>filterType=<?php echo $term -> slug; ?>"><?php echo esc_html( $term -> name ); ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -434,12 +434,12 @@ $filterBy = array();
                                               <span class="checkbox-text">
                                                   <span class="v-wrap">
                                                       <span class="v-box">
-                                                          <?php echo $term -> name; ?>
+                                                          <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                   </span>
                                               </span>
                                               <span class="checkbox-description">
-                                                  <?php echo $term -> description; ?>
+                                                  <?php echo esc_html( $term -> description ); ?>
                                               </span>
                                             </label>
                                         </span>
@@ -487,7 +487,7 @@ $filterBy = array();
                                     <?php foreach($terms as $term) { ?>
                                         <span class="checkboxButton filterItemMobile">
                                             <label>
-                                              <input type="checkbox" name="filterType" <?php if($filterType == '') { } else { if ($filterType == $term -> slug) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                              <input type="checkbox" name="filterType" <?php if($filterType == '') { } else { if ($filterType == $term -> slug) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                             </label>
                                         </span>
                                     <?php } ?>
@@ -1042,7 +1042,7 @@ $filterBy = array();
                                             <?php foreach($terms as $term) { ?>
 
                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                     <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></a>
+                                                     <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo esc_html( $term -> name ); ?></a>
                                                 </span>
                                                 <?php $counterTopic++; ?>
                                             <?php } ?>
@@ -1058,7 +1058,7 @@ $filterBy = array();
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="excerpt">
-                                    <?php echo the_excerpt(); ?>
+                                    <?php echo esc_html( the_excerpt() ); ?>
                                 </span>
 
                                 <?php
@@ -1143,7 +1143,7 @@ $filterBy = array();
                                                     <?php foreach($terms as $term) { ?>
 
                                                         <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                             <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo $term -> name; ?></a>
+                                                             <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo esc_html( $term -> name ); ?></a>
                                                         </span>
                                                         <?php $counterTopic++; ?>
                                                     <?php } ?>
@@ -1159,7 +1159,7 @@ $filterBy = array();
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt">
-                                        <?php echo the_excerpt(); ?>
+                                        <?php echo esc_html( the_excerpt() ); ?>
                                     </span>
                                     <span class="grid-bottom-details">
                                         <span class="date grid-info">

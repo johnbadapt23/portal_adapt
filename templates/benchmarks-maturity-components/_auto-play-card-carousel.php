@@ -1,7 +1,7 @@
 <section class="auto-play-card-carousel" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <div class="title-container">
-            <span><?php echo get_sub_field( 'title' ); ?></span>
+            <span><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></span>
         </div>
        <div class="auto-card-container-inner">
             <div class="slide-wrapper">
@@ -15,7 +15,7 @@
                                 <?php endif; ?>
                             </span>
                             <span class="text-container">
-                                <span class="white-text labelMedium"><?php echo get_sub_field('title'); ?></span>
+                                <span class="white-text labelMedium"><?php echo wp_kses_post( get_sub_field('title') ); ?></span>
                                 <span class="text text-medium-grey"><?php echo get_sub_field('text'); ?></span>
                                 <?php if( get_sub_field('add_link') == 'yes' && have_rows('link') ): ?>
                                     <span class="link-container">
@@ -42,7 +42,7 @@
                                 <?php endif; ?>
                             </span>
                             <span class="text-container">
-                                <span class="white-text labelMedium"><?php echo get_sub_field('title'); ?></span>
+                                <span class="white-text labelMedium"><?php echo wp_kses_post( get_sub_field('title') ); ?></span>
                                 <span class="text text-medium-grey"><?php echo get_sub_field('text'); ?></span>
                                 <?php if( get_sub_field('add_link') == 'yes' && have_rows('link') ): ?>
                                     <span class="link-container">

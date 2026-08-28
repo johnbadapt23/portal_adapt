@@ -64,7 +64,7 @@
 									<span class="article-inner">
 										<span class="article-top">
 											<span class="topic cat-tag-text">
-												<?php echo $date->format('l, j F, Y'); ?>
+												<?php echo esc_html( $date->format('l, j F, Y') ); ?>
 											</span>
 											<span class="article-title"><?php echo esc_html(get_the_title($post_id)); ?></span>
 										</span>
@@ -141,7 +141,7 @@
 										<span class="article-inner">
 											<span class="article-top">
 												<span class="topic cat-tag-text">
-													<?php echo $date->format('l, j F, Y'); ?>
+													<?php echo esc_html( $date->format('l, j F, Y') ); ?>
 												</span>
 												<span class="article-title"><?php echo esc_html(get_the_title($post_id)); ?></span>
 											</span>

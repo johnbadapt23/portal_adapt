@@ -4,7 +4,7 @@
 <section class="three-column-text-image-cards benchmarking-three-column-text-image-cards <?php echo get_sub_field( 'background_colour' ); ?><?php if ( $border_top == 'yes' ) { ?> border-top<?php } ?>">
     <div class="container">
         <div class="top-content">
-            <h2 class="title bold-grey"><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2 class="title bold-grey"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
             <?php if ( have_rows( 'button' ) ) : ?>
                 <div class="button-container" data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-duration="800">
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
@@ -35,7 +35,7 @@
                                 </span>
                             </span>
                             <span class="text-container">
-                                <span class="black-text labelXL"><?php echo get_sub_field( 'title' ); ?></span>
+                                <span class="black-text labelXL"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></span>
                                 <span class="p-small text-dark-grey"><?php echo get_sub_field( 'text' ); ?></span>
                             </span>                                                
                         </div>

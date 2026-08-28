@@ -137,13 +137,13 @@ if (user_can($current_user, 'administrator')) {
         <div class="announcement-content">
             <span class="webinar-content content <?php echo $membershipType; ?>">
                 <?php if ($membershipType == 'advantage') { ?>
-                <?php echo get_field( 'content' ); ?>
+                <?php echo wp_kses_post( get_field( 'content' ) ); ?>
                 <?php } ?> 
                 <?php if ($membershipType == 'it-pro') { ?>
                     <?php if( get_field('content_it_pro')){ ?> 
                         <?php echo get_field( 'content_it_pro' ); ?>
                     <?php } else { ?>
-                        <?php echo get_field( 'content' ); ?>
+                        <?php echo wp_kses_post( get_field( 'content' ) ); ?>
                     <?php } ?>
                 <?php } ?>
             </span>

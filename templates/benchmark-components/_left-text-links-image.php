@@ -16,7 +16,7 @@
                 <?php if (get_sub_field( 'sub_title' )) { ?> 
                     <span class="sub-title labelSmall <?php echo $textColour; ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
                 <?php } ?>                         
-                <h2 <?php if(get_sub_field( 'title_max_width' )){ ?> style="max-width:<?php echo get_sub_field( 'title_max_width' ); ?>px;"<?php } ?>class="h1-style bold-red <?php echo $textColour; ?>"><?php echo get_sub_field( 'title' ); ?></h2>
+                <h2 <?php if(get_sub_field( 'title_max_width' )){ ?> style="max-width:<?php echo get_sub_field( 'title_max_width' ); ?>px;"<?php } ?>class="h1-style bold-red <?php echo $textColour; ?>"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                 <span class="text p.large <?php echo $textColour; ?>"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                 <div class="mobile-image-container">
                     <div class="image-container">

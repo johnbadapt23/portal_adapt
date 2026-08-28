@@ -48,14 +48,14 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
                 </span>
 
                 <span class="text-container mobile-hide">
-                    <h5 class="labelMedium"><?php echo get_the_title($post_id); ?></h5>
+                    <h5 class="labelMedium"><?php echo esc_html( get_the_title($post_id) ); ?></h5>
                     <span class="role labelXSmall"><?php echo esc_html(get_field('role', $post_id)); ?></span>
                     <span class="text-link red-text learn-more red-arrow-link arrow-link bold-link uppercase">Learn More</span>
                 </span>
             </span>
 
             <span class="text-container desktop-hide">
-                <span class="labelMedium text-black"><?php echo get_the_title($post_id); ?></span>
+                <span class="labelMedium text-black"><?php echo esc_html( get_the_title($post_id) ); ?></span>
                 <span class="role labelXSmall text-black"><?php echo esc_html(get_field('role', $post_id)); ?></span>
                 <span class="text-link red-text  red-arrow-link arrow-link bold-link uppercase">Learn More</span>
             </span>
@@ -80,12 +80,12 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
                     <?php endif; ?>
                 </span>
                 <span class="text-container mobile-hide">
-                    <h5 class="labelMedium"><?php echo get_the_title($post_id); ?></h5>
+                    <h5 class="labelMedium"><?php echo esc_html( get_the_title($post_id) ); ?></h5>
                 </span>
             </span>
 
             <span class="text-container desktop-hide">
-                <span class="labelMedium text-black"><?php echo get_the_title($post_id); ?></span>
+                <span class="labelMedium text-black"><?php echo esc_html( get_the_title($post_id) ); ?></span>
                 <span class="text-link red-text red-arrow-link arrow-link bold-link uppercase">Learn More</span>
             </span>
 

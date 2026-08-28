@@ -88,7 +88,7 @@
                                                   <?php $len = count($terms); ?>
                                                   <?php foreach($terms as $term) { ?>
                                                       <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                           <?php echo $term -> name; ?>
+                                                           <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                       <?php $counterTopic++; ?>
                                                   <?php } ?>
@@ -171,7 +171,7 @@
                                                   <?php $len = count($terms); ?>
                                                   <?php foreach($terms as $term) { ?>
                                                       <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                           <?php echo $term -> name; ?>
+                                                           <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                       <?php $counterTopic++; ?>
                                                   <?php } ?>
@@ -299,7 +299,7 @@
                                                   <?php $len = count($terms); ?>
                                                   <?php foreach($terms as $term) { ?>
                                                       <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                           <?php echo $term -> name; ?>
+                                                           <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                       <?php $counterTopic++; ?>
                                                   <?php } ?>
@@ -382,7 +382,7 @@
                                                   <?php $len = count($terms); ?>
                                                   <?php foreach($terms as $term) { ?>
                                                       <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                           <?php echo $term -> name; ?>
+                                                           <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                       <?php $counterTopic++; ?>
                                                   <?php } ?>
@@ -510,7 +510,7 @@
                                                   <?php $len = count($terms); ?>
                                                   <?php foreach($terms as $term) { ?>
                                                       <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                           <?php echo $term -> name; ?>
+                                                           <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                       <?php $counterTopic++; ?>
                                                   <?php } ?>
@@ -593,7 +593,7 @@
                                                   <?php $len = count($terms); ?>
                                                   <?php foreach($terms as $term) { ?>
                                                       <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                           <?php echo $term -> name; ?>
+                                                           <?php echo esc_html( $term -> name ); ?>
                                                       </span>
                                                       <?php $counterTopic++; ?>
                                                   <?php } ?>

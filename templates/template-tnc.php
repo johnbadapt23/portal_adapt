@@ -27,7 +27,7 @@ $q = get_queried_object();
                     ) ); 
                 ?>
                 <?php foreach($terms as $term) { ?>
-                    <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo $term -> name; ?></a>
+                    <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo esc_html( $term -> name ); ?></a>
                 <?php } ?>
             </div>
         </div>           

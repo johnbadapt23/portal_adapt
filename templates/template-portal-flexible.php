@@ -242,7 +242,7 @@ if( $is_agent_tester ){
  		                                                           </span>
  		                                                           <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
  		                                                           <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
- 		                                                           <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+ 		                                                           <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
  		                                                       </div>
  		                                                   </div>
 		                                                <?php endwhile; ?>

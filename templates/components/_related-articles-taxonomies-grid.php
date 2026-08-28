@@ -83,7 +83,7 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
@@ -106,7 +106,7 @@
                                                     </span>
                                                     <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -198,7 +198,7 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
@@ -221,7 +221,7 @@
                                                     </span>
                                                     <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -344,7 +344,7 @@
                                                             <?php $len = count($terms); ?>
                                                             <?php foreach($terms as $term) { ?>
                                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                     <?php echo $term -> name; ?>
+                                                                     <?php echo esc_html( $term -> name ); ?>
                                                                 </span>
                                                                 <?php $counterTopic++; ?>
                                                             <?php } ?>
@@ -367,7 +367,7 @@
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="excerpt">
-                                                    <?php echo the_excerpt(); ?>
+                                                    <?php echo esc_html( the_excerpt() ); ?>
                                                 </span>
                                             <?php } ?>
 
@@ -459,7 +459,7 @@
                                                             <?php $len = count($terms); ?>
                                                             <?php foreach($terms as $term) { ?>
                                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                     <?php echo $term -> name; ?>
+                                                                     <?php echo esc_html( $term -> name ); ?>
                                                                 </span>
                                                                 <?php $counterTopic++; ?>
                                                             <?php } ?>
@@ -482,7 +482,7 @@
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="excerpt">
-                                                    <?php echo the_excerpt(); ?>
+                                                    <?php echo esc_html( the_excerpt() ); ?>
                                                 </span>
                                             <?php } ?>
 
@@ -605,7 +605,7 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
@@ -628,7 +628,7 @@
                                                     </span>
                                                     <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -720,7 +720,7 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
@@ -743,7 +743,7 @@
                                                     </span>
                                                     <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 

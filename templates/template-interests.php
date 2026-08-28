@@ -36,7 +36,7 @@ $interests = $user_info->mepr_interests;
                         <?php foreach($terms as $term) { ?>
                             <span class="topic">
                                 <span class="topicTitle"><h2><?php echo esc_html( $term->name ); ?></h2></span>
-                                <span class="topicIntroduction"><?php echo $term->description; ?></span>
+                                <span class="topicIntroduction"><?php echo esc_html( $term->description ); ?></span>
                                 <span class="checkbox-container">
                                     <?php if ($interests){ ?>
                                         <input type="checkbox" id="checkbox<?php echo $term->slug;?>" value="on" name="mepr_interests[<?php echo $term->slug; ?>]" <?php if('on'==$interests[$term->slug]){ ?>checked="checked"<?php }?>/>

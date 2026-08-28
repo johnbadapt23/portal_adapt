@@ -116,7 +116,7 @@ $post_types = array ();
                                                     <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                                 <?php } ?>
                                             </span>
-                                            <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
+                                            <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
                                             <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
                                             <span class="excerpt">
                                                 <?php if ( have_rows( 'preview_module', $post ) ) : ?>
@@ -124,7 +124,7 @@ $post_types = array ();
                                                     <?php echo get_sub_field( 'overview_text' ); ?>
                                                     <?php endwhile; ?>
                                                 <?php else : ?>
-                                                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
+                                                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
                                                 <?php endif; ?>
                                             </span>
                                             <a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
@@ -248,7 +248,7 @@ $post_types = array ();
                                                 <?php } else { ?>
                                                     <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                                 <?php } ?>
-                                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>
@@ -275,7 +275,7 @@ $post_types = array ();
                 <a href="/persona-mapping/" target="_self">Persona Mapping</a>
             </span>
             <h1><?php echo get_field( 'persona_title', $q ); ?></h1>
-            <p class="persona-description"><?php echo $q->description; ?></span>
+            <p class="persona-description"><?php echo esc_html( $q->description ); ?></span>
         </div>
     </section>
     <?php
@@ -500,7 +500,7 @@ $post_types = array ();
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
 								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
-                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                             </div>
                         </div>
 

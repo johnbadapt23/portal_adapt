@@ -62,7 +62,7 @@ $sort = $_GET['order'];
                                 <?php } else { ?>
                                     <span class="checkboxButton">
                                         <label>
-                                          <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                          <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                         </label>
                                     </span>
                                 <?php }?>
@@ -81,7 +81,7 @@ $sort = $_GET['order'];
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton <?php echo $term -> slug; ?>">
                                     <label>
-                                      <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                     </label>
                                 </span>
                             <?php } ?>
@@ -99,7 +99,7 @@ $sort = $_GET['order'];
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
                                     <label>
-                                      <input type="checkbox" name="events[]" <?php if($filterEvent == '') { } else { if (in_array( $term -> slug, $filterEvent )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="events[]" <?php if($filterEvent == '') { } else { if (in_array( $term -> slug, $filterEvent )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                     </label>
                                 </span>
                             <?php } ?>
@@ -117,7 +117,7 @@ $sort = $_GET['order'];
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
                                     <label>
-                                      <input type="checkbox" name="duration[]" <?php if($filterDuration == '') { } else { if (in_array( $term -> slug, $filterDuration )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="duration[]" <?php if($filterDuration == '') { } else { if (in_array( $term -> slug, $filterDuration )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                     </label>
                                 </span>
                             <?php } ?>
@@ -328,7 +328,7 @@ $sort = $_GET['order'];
                                         <?php if ( $terms ) { ?>
                                             <?php foreach($terms as $term) { ?>
                                                 <span class="event list-info">
-                                                    <?php echo $term -> name; ?>
+                                                    <?php echo esc_html( $term -> name ); ?>
                                                 </span>
                                             <?php } ?>
                                         <?php } ?>
@@ -337,7 +337,7 @@ $sort = $_GET['order'];
                                         <?php if ( $cats ) { ?>
                                             <?php foreach($cats as $cat) { ?>
                                                 <span class="category list-info">
-                                                    <?php echo $cat -> name; ?>
+                                                    <?php echo esc_html( $cat -> name ); ?>
                                                 </span>
                                             <?php } ?>
                                         <?php } ?>
@@ -356,7 +356,7 @@ $sort = $_GET['order'];
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="excerpt">
-                                    <?php echo the_excerpt(); ?>
+                                    <?php echo esc_html( the_excerpt() ); ?>
                                 </span>
 
                                 <?php
@@ -426,7 +426,7 @@ $sort = $_GET['order'];
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt">
-                                        <?php echo the_excerpt(); ?>
+                                        <?php echo esc_html( the_excerpt() ); ?>
                                     </span>
 
                                     <?php

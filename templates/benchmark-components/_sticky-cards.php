@@ -1,7 +1,7 @@
 <section class="benchmarking-sticky-cards background-light-grey">
     <div class="container">
         <div class="top-content">
-			<h2 class="text-black bold-red"><?php echo get_sub_field( 'title' ); ?></h2>
+			<h2 class="text-black bold-red"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
 			<span class="link-container desktop">
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
@@ -40,7 +40,7 @@
                     <?php while ( have_rows( 'sticky_content' ) ) : the_row(); ?>
                         <div class="text-block-wrapper">
                             <div class="text-block">
-                                <h3 class="header-medium"><?php echo get_sub_field( 'title' ); ?></h3>
+                                <h3 class="header-medium"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
                                 <p class="p-large text-dark-grey"><?php the_sub_field( 'text' ); ?></p>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                     <div class="mobile-column">
                         <div class="text-block-wrapper">
                             <div class="text-block">
-                                <h3 class="header-medium"><?php echo get_sub_field( 'title' ); ?></h3>
+                                <h3 class="header-medium"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
                                 <p class="p-medium text-dark-grey"><?php the_sub_field( 'text' ); ?></p>
                             </div>
                         </div>

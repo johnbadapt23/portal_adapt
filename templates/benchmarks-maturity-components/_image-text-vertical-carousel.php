@@ -3,7 +3,7 @@
         <div class="container-inner">
             <div class="title-container bottom-align">
                 <div class="column-container">
-                    <h2 class="white-text"><?php echo get_sub_field( 'title' ); ?></h2>
+                    <h2 class="white-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                     <?php if ( have_rows( 'link' ) ) : ?>
                         <span class="link-container">                        
                             <?php while ( have_rows( 'link' ) ) : the_row(); ?>
@@ -35,7 +35,7 @@
                                     <span class="progress">
                                         <span class="progress-inner"></span>
                                     </span>
-                                    <h3 class="white-text"><?php echo get_sub_field( 'title' ); ?></h3>
+                                    <h3 class="white-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
                                     <p class="p-medium medium-grey"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                                 </div>
                                 <?php $speakerCounter++; ?>

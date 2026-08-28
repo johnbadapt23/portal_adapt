@@ -43,13 +43,13 @@
 							<?php } ?>
 							<?php if($slide['title']) { ?>
 								<div class="column title">
-									<span class="title"><?php echo $slide['title']; ?></span>
+									<span class="title"><?php echo esc_html( $slide['title'] ); ?></span>
 								</div>
 								<hr>
 							<?php } ?>
 							<?php if($slide['text']) { ?>
 								<div class="column text">
-									<span class="text"><?php echo $slide['text']; ?></span>
+									<span class="text"><?php echo esc_html( $slide['text'] ); ?></span>
 								</div>
 							<?php } ?>
 							<?php if($slide['button_block']) { ?>
@@ -66,8 +66,8 @@
 											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
 										</span>
 										<span class="text">
-											<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo $slide['video'][0]['video_button_text']; ?><?php } else { ?>Watch Video<?php } ?></span>
-											<span><?php echo $slide['video'][0]['duration']; ?></span>
+											<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo esc_html( $slide['video'][0]['video_button_text'] ); ?><?php } else { ?>Watch Video<?php } ?></span>
+											<span><?php echo esc_html( $slide['video'][0]['duration'] ); ?></span>
 										</span>
 									</a>
 								</span>
@@ -263,7 +263,7 @@
 								<div class="inner">
 									<?php if ( get_sub_field ( 'time' ) ) { ?>
 										<span class="time">
-											<?php echo get_sub_field( 'time' ); ?>
+											<?php echo esc_html( get_sub_field( 'time' ) ); ?>
 										</span>
 									<?php } ?>
 									<span class="eventOverview">

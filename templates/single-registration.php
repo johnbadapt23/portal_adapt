@@ -24,7 +24,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					<a href="/events/analyst-market-briefings" class="text-red banner-sub-title">Analyst Market Briefings</a>
 				<?php } ?>
 				<h1 class="text-white"><?php echo esc_html( get_the_title() ); ?></h1>
-				<p class="text-white"><?php echo $date->format('l, j F, Y'); ?> @<?php echo get_field( 'event_start_time' ); ?></p>
+				<p class="text-white"><?php echo esc_html( $date->format('l, j F, Y') ); ?> @<?php echo get_field( 'event_start_time' ); ?></p>
 			</div>
 		</div>
 	</div>
@@ -38,7 +38,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 						<span class="upper-container">
 							<img class="calendar-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/calendar.svg" width="26" height="26" loading="lazy" alt="Calendar" />
 							<span class="date-title small-text-grey">Date</span>
-							<span class="date text-black"><?php echo $date->format('l, j F, Y'); ?></span>
+							<span class="date text-black"><?php echo esc_html( $date->format('l, j F, Y') ); ?></span>
 							<span class="time-title small-text-grey">Time</span>
 							<span class="time text-black"><?php echo get_field( 'event_start_time' ); ?> -<?php echo get_field( 'event_end_time' ); ?></span>
 							<span class="location-title small-text-grey">Location</span>
@@ -67,7 +67,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 			<div class="column webinar-column first-column">
 				<span class="webinar-subtitle"><?php echo esc_html( get_field( 'sub_title' ) ); ?></span>
 				<span class="webinar-content content">
-					<?php echo get_field( 'content' ); ?>
+					<?php echo wp_kses_post( get_field( 'content' ) ); ?>
 				</span>
 				<?php if ( have_rows( 'takeaways' ) ) : ?>
 					<span class="takeaways-container">
@@ -95,7 +95,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 		<div class="hidden-fields" style="display: none;">
 			<span class="hidden-name"><?php echo get_field( 'registration_form_event_name_sf' ); ?></span>
 			<span class="hidden-event"><?php echo esc_html( get_the_title() ); ?></span>
-			<span class="hidden-date"><?php echo $date->format('l, j F, Y'); ?></span>
+			<span class="hidden-date"><?php echo esc_html( $date->format('l, j F, Y') ); ?></span>
 			<span class="hidden-id"><?php echo get_field( 'registration_form_sf_id' ); ?></span>
 		</div>
 		<div class="webinar-register-form" id="registerForm">
@@ -274,7 +274,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 		    				<?php while ( have_rows( 'faq_item' ) ) : the_row(); ?>
 								<span class="faq-item">
 									<span class="faq-title text-white"><?php echo get_sub_field( 'title' ); ?></span>
-			    					<span class="faq-content text-white"><?php echo get_sub_field( 'content' ); ?></span>
+			    					<span class="faq-content text-white"><?php echo wp_kses_post( get_sub_field( 'content' ) ); ?></span>
 								</span>
 		    				<?php endwhile; ?>
 		    			<?php else : ?>
