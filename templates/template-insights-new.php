@@ -20,12 +20,12 @@ $sort = $_GET['order'];
     <section class="postHeader">
         <div class="container">
             <div class="headerWrapper">
-                <h1><?php echo get_field( 'title_text', 'option' ); ?></h1>
+                <h1><?php echo esc_html( get_field( 'title_text', 'option' ) ); ?></h1>
                 <span class="subTitle">
                     <?php if(current_user_can('mepr-active')) { ?>
                         <?php echo esc_html( get_field( 'sub_title', 'option' ) ); ?>
                     <?php } else { ?>
-                        <?php echo get_field( 'sub_title_logged_out', 'option' ); ?>
+                        <?php echo esc_html( get_field( 'sub_title_logged_out', 'option' ) ); ?>
                     <?php } ?>
                 </span>
                 <span class="memberLogin">
@@ -44,7 +44,7 @@ $sort = $_GET['order'];
                     <form action="" name="insightsFilter" class="insightsFilter<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>" method="get">
                         <span class="search">
                             <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo esc_attr( get_field( 'post_search_placeholder_text', 'option' ) ); ?>" />
-                            <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
+                            <input class="searchButton" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" />
                         </span>
                         <span class="categories<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>">
                             <span class="more<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>"><?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> Close<?php } else { ?>More<?php } ?></span>
@@ -79,7 +79,7 @@ $sort = $_GET['order'];
                             ) );
                             ?>
                             <?php foreach($terms as $term) { ?>
-                                <span class="checkboxButton <?php echo $term -> slug; ?>">
+                                <span class="checkboxButton <?php echo esc_attr( $term -> slug ); ?>">
                                     <label>
                                       <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo esc_html( $term -> name ); ?></span>
                                     </label>
@@ -160,7 +160,7 @@ $sort = $_GET['order'];
                                 $sortValue = 'Sort By:';
                             }
                             ?>
-                            <option value=""><?php echo $sortValue ?></option>
+                            <option value=""><?php echo esc_html( $sortValue ) ?></option>
                             <?php if ($sortBy == 'date' && $sort == 'DESC') { ?>
                             <?php } else { ?>
                                 <option value="<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?>&<?php } else { ?>?<?php } ?>orderby=date&order=DESC">Newest</option>
@@ -297,7 +297,7 @@ $sort = $_GET['order'];
                 <?php if(current_user_can('mepr_auth')) {?>
                     <!--  User has access to post -->
 
-                    <span class="postLink layout<?php echo $counter; ?>">
+                    <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                         <div class="linkWrapper">
                             <span class="iconWrapper grid-icons">
                                 <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
@@ -309,10 +309,10 @@ $sort = $_GET['order'];
                             </span>
                             <a href="<?php the_permalink(); ?>" class="imageContainer">
                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                     </div>
                                 <?php } else { ?>
-                                    <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                     </div>
                                 <?php } ?>
                             </a>
@@ -383,10 +383,10 @@ $sort = $_GET['order'];
 
                 <?php } else { ?>
                     <!--  User has no access to post -->
-                        <span class="postLink layout<?php echo $counter; ?> memberContentLock">
+                        <span class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock">
                             <span class="overlay">
                                 <span class="exclusiveContent">
-                                    <span class="overlayText"><?php echo get_field('member_content_post_overlay_text', 'option'); ?></span>
+                                    <span class="overlayText"><?php echo esc_html( get_field('member_content_post_overlay_text', 'option') ); ?></span>
                                     <span class="registerLogin">
                                         <a class="registerLink" href="/members">Register</a>
                                         <span>or</span>
@@ -406,10 +406,10 @@ $sort = $_GET['order'];
                                 </span>
                                 <div class="imageContainer">
                                     <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                         </a>
                                     <?php } else { ?>
-                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                         </a>
                                     <?php } ?>
                                 </div>
@@ -464,13 +464,13 @@ $sort = $_GET['order'];
 
             <div class="formTrigger">
                 <?php if ( get_field ( 'form_title', 'option' ) ) { ?>
-                    <h2><?php echo get_field( 'form_title', 'option' ); ?></h2>
+                    <h2><?php echo esc_html( get_field( 'form_title', 'option' ) ); ?></h2>
                 <?php } ?>
                 <?php if ( get_field ( 'form_subtitle', 'option' ) ) { ?>
-                    <h3><?php echo get_field( 'form_subtitle', 'option' ); ?></h3>
+                    <h3><?php echo esc_html( get_field( 'form_subtitle', 'option' ) ); ?></h3>
                 <?php } ?>
                 <?php if ( get_field ( 'call_to_action_text', 'option' ) ) { ?>
-                    <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
+                    <h4><?php echo esc_html( get_field( 'call_to_action_text', 'option' ) ); ?></h4>
                 <?php } ?>
 
                 <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
