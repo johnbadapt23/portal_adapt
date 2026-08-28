@@ -7,7 +7,7 @@
                     <div class="column one-half text-column">
                         <div class="text-content-inner">   
 							<a class="kit-back-button" href="/know-your-customer/" target="_self">Back</a>
-                            <span class="subtitle text-red"><a href="/know-your-customer/" target="_self"><?php echo get_sub_field( 'sub_title' ); ?></a></span>              
+                            <span class="subtitle text-red"><a href="/know-your-customer/" target="_self"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>              
                             <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
                             <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
                             <span class="links-container">
@@ -20,9 +20,9 @@
                                         <?php $buttonCounter = 1; ?>
                                         <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
                                             <?php if(get_sub_field( 'button_type' ) == 'video-button') { ?>
-                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } else { ?>
-                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } ?>
                                             <?php $buttonCounter++; ?>
                                         <?php endwhile; ?>
@@ -102,7 +102,7 @@
                             <?php if (get_field( 'older_version_question' ) == 'no') { ?> 
 								<span class="one-third kit-item my-kits <?php echo $kitType; ?>">
 									<span class="kit-inner background-white ">
-										<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+										<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 										<span class="icon-container">
 											<?php $listing_icon = get_field( 'listing_icon' ); ?>
 											<?php if ( $listing_icon ) { ?>
@@ -124,7 +124,7 @@
 											<?php if ( get_field( 'show_new_tag' ) == 1 ) { ?>
 												<span class="new-flag">New</span>
 											<?php } ?>
-											<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+											<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 											<span class="icon-container">
 												<?php $listing_icon = get_field( 'listing_icon' ); ?>
 												<?php if ( $listing_icon ) { ?>
@@ -143,7 +143,7 @@
 											<?php foreach ( $older_version as $post ):  ?>
 												<?php setup_postdata ( $post ); ?>
 													<span class="kit-inner background-white">												
-														<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+														<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 														<span class="icon-container">
 															<?php $listing_icon = get_field( 'listing_icon' ); ?>
 															<?php if ( $listing_icon ) { ?>
@@ -206,7 +206,7 @@
                         <?php } else { ?>
                             <span class="one-third kit-item <?php echo $kitType; ?>">
                                 <span class="kit-inner background-pink">
-                                    <span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+                                    <span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
                                     <span class="icon-container">
                                         <?php $listing_icon = get_field( 'listing_icon' ); ?>
                                         <?php if ( $listing_icon ) { ?>

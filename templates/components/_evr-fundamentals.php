@@ -1,7 +1,7 @@
 <section class="evr-fundamentals" <?php if( get_sub_field( 'id' )){ ?> id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>"<?php } ?>>
     <div class="container">
         <div class="title-container">
-            <h2 class="evr-title"><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2 class="evr-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
         </div>
         <div class="fundamentals-container">
             <?php if ( have_rows( 'fundamentals_row_one' ) ) : ?>

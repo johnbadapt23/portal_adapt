@@ -72,7 +72,7 @@ if (isset($_GET['partner-search'])) {
 							<span class="filter-group-listing button-group">									
 								<?php 
 									foreach ($terms as $term) { ?>
-										<label class="category-checkbox partner-type"><?php echo $term->name; ?>
+										<label class="category-checkbox partner-type"><?php echo esc_html( $term->name ); ?>
 											<input type="checkbox" name="partner-types[]" class="category-filter" value="<?php echo esc_attr( $term->slug ); ?>" <?php if (!empty($partnerTypes)) { if (in_array($term->slug, $partnerTypes)) { ?> checked <?php } } ?>>
 											<span class="checkbox"></span>
 										</label> 
@@ -96,7 +96,7 @@ if (isset($_GET['partner-search'])) {
 							<span class="filter-group-listing button-group">									
 								<?php 
 									foreach ($terms as $term) { ?>
-										<label class="category-checkbox partner-capability"><?php echo $term->name; ?>
+										<label class="category-checkbox partner-capability"><?php echo esc_html( $term->name ); ?>
 											<input type="checkbox" name="capabilities[]" class="category-filter" value="<?php echo esc_attr( $term->slug ); ?>" <?php if (!empty($capabilities)) { if (in_array($term->slug, $capabilities)) { ?> checked <?php } } ?>>
 											<span class="checkbox"></span>
 										</label> 
@@ -120,7 +120,7 @@ if (isset($_GET['partner-search'])) {
 							<span class="filter-group-listing button-group">									
 								<?php 
 									foreach ($terms as $term) { ?>
-										<label class="category-checkbox partner-industries"><?php echo $term->name; ?>
+										<label class="category-checkbox partner-industries"><?php echo esc_html( $term->name ); ?>
 											<input type="checkbox" name="partner-industries[]" class="category-filter" value="<?php echo esc_attr( $term->slug ); ?>" <?php if (!empty($partnerIndustries)) { if (in_array($term->slug, $partnerIndustries)) { ?> checked <?php } } ?>>
 											<span class="checkbox"></span>
 										</label> 
@@ -198,7 +198,7 @@ if (isset($_GET['partner-search'])) {
 											</span>
 										<?php } ?>
 									<?php }	?>
-									<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>										
+									<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>										
 									<span class="excerpt-container">
 										<?php echo get_field( 'listing_excerpt' ); ?>
 									</span>
@@ -208,7 +208,7 @@ if (isset($_GET['partner-search'])) {
 												if(get_the_terms( $post->ID, 'capabilities' )){
 													$terms = get_the_terms( $post->ID, 'capabilities' );
 													foreach($terms as $term) { ?>
-														<span class="tag capability"><?php echo $term->name; ?></span>
+														<span class="tag capability"><?php echo esc_html( $term->name ); ?></span>
 													<?php }
 												}
 											?> 

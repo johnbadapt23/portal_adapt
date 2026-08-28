@@ -23,7 +23,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				<?php } else { ?>
 					<a href="/events/analyst-market-briefings" class="text-red banner-sub-title">Analyst Market Briefings</a>
 				<?php } ?>
-				<h1 class="text-white"><?php the_title(); ?></h1>
+				<h1 class="text-white"><?php echo esc_html( get_the_title() ); ?></h1>
 				<p class="text-white"><?php echo $date->format('l, j F, Y'); ?> @<?php echo get_field( 'event_start_time' ); ?></p>
 			</div>
 		</div>
@@ -65,7 +65,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				</span>
 			</div>
 			<div class="column webinar-column first-column">
-				<span class="webinar-subtitle"><?php echo get_field( 'sub_title' ); ?></span>
+				<span class="webinar-subtitle"><?php echo esc_html( get_field( 'sub_title' ) ); ?></span>
 				<span class="webinar-content content">
 					<?php echo get_field( 'content' ); ?>
 				</span>
@@ -94,7 +94,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 	<div style="display: none;">
 		<div class="hidden-fields" style="display: none;">
 			<span class="hidden-name"><?php echo get_field( 'registration_form_event_name_sf' ); ?></span>
-			<span class="hidden-event"><?php the_title(); ?></span>
+			<span class="hidden-event"><?php echo esc_html( get_the_title() ); ?></span>
 			<span class="hidden-date"><?php echo $date->format('l, j F, Y'); ?></span>
 			<span class="hidden-id"><?php echo get_field( 'registration_form_sf_id' ); ?></span>
 		</div>
@@ -227,8 +227,8 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				?>
 										</span>
 										<span class="description">
-											<span class="speaker-name"><?php echo the_title(); ?></span>
-											<span class="speaker-role"><?php echo get_field('speaker_description'); ?></span>
+											<span class="speaker-name"><?php echo esc_html( get_the_title() ); ?></span>
+											<span class="speaker-role"><?php echo esc_html( get_field('speaker_description') ); ?></span>
 										</span>
 										<div class="textBlock">
 											<?php

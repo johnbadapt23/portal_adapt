@@ -10,8 +10,8 @@
                 </span>
             </span>
             <span class="title-container">
-                <h1 class="h2-style black-text"><?php echo get_sub_field( 'title' ); ?></h1>
-                <span class="text text-black"><?php echo get_sub_field( 'text' ); ?></span>
+                <h1 class="h2-style black-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+                <span class="text text-black"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
             </span>
         </div>
     </div>

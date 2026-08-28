@@ -200,9 +200,9 @@ get_header();
                                 </div>
                             </div>
                             <span class="blogText">
-                                <span class="articleLink"><?php echo the_title(); ?></span>
+                                <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
                                 <span class="excerpt">
-                                    <?php echo get_field('event_short_description_for_listing'); ?>
+                                    <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
                                 </span>
 
                                 <?php
@@ -214,7 +214,7 @@ get_header();
                                         <?php $i = 0; ?>
                                         <?php foreach( $post_tags as $tag ) { ?>
                                             <span>
-                                                <?php echo '#' . $tag->name  ; ?>
+                                                <?php echo esc_html( '#' . $tag->name ); ?>
                                             </span>
                                              <?php $i++;
                                              if ($i >= 4){
@@ -252,7 +252,7 @@ get_header();
                     <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
                 <?php } ?>
 
-                <a class="logoBlockLink button popup-modal" href="#form"><?php echo get_field( 'button_text', 'option' ); ?></a>
+                <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
             </div>
 
         </div>

@@ -3,7 +3,7 @@
 <section class="topicGrid portal">
     <div class="container">
         <div class="blockTitle">
-            <h2><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
             <a href="/topic/<?php echo $topic_term->slug; ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
@@ -83,14 +83,14 @@
                                         }
                                     }?>
                                     <?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
-                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-                                <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                             </div>
                         </div>

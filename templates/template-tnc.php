@@ -118,16 +118,16 @@ $q = get_queried_object();
                                             }?>
                                         <?php } ?>
                                         <?php if($postType){?>
-                                                <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+                                                <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                         <?php } ?>
                                         <?php if($postSector){?>
-                                                <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+                                                <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                         <?php } ?>                                
                                         <?php if($postTopic){?>
                                             <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
                                         <?php } ?>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                 </span>         
                             </div>
                         <?php wp_reset_postdata(); ?>
@@ -224,16 +224,16 @@ $q = get_queried_object();
                                                 }?>
                                             <?php } ?>
                                             <?php if($postType){?>
-                                                    <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+                                                    <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                             <?php } ?>
                                             <?php if($postSector){?>
-                                                    <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+                                                    <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                             <?php } ?>                                
                                             <?php if($postTopic){?>
                                                 <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
                                             <?php } ?>
                                         </span>
-                                        <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php the_title(); ?></a>
+                                        <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                     </span>                                    
                                 </div>
                             <?php endwhile; ?>
@@ -338,16 +338,16 @@ $q = get_queried_object();
                                     }?>
                                 <?php } ?>
                                  <?php if($postType){?>
-                                        <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+                                        <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                 <?php } ?>
                                 <?php if($postSector){?>
-                                        <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+                                        <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                 <?php } ?>                                
                                 <?php if($postTopic){?>
                                     <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
                                 <?php } ?>
                             </span>
-                            <a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
+                            <a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                         </span>
                     </div>                               
                 <?php endwhile; ?>                        

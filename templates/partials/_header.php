@@ -159,24 +159,24 @@ if (current_user_can('administrator')) {
                                                     <?php if(get_sub_field( 'link_type' ) == 'advantage' ){ ?>
                                                         <?php if ($membershipType == 'advantage') { ?>
                                                             <?php if(get_sub_field( 'link' ) !== '' ){ ?>                                                            
-                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                             <?php } else { ?> 
-                                                                <span class="userMenuLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                                <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                             <?php } ?>
                                                         <?php } ?>
                                                     <?php } else if(get_sub_field( 'link_type' ) == 'it-pro' ){ ?>
                                                         <?php if ($membershipType == 'it-pro') { ?>
                                                             <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                             <?php } else { ?> 
-                                                                <span class="userMenuLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                                <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                             <?php } ?>
                                                         <?php } ?>
                                                     <?php } else { ?> 
                                                         <?php if(get_sub_field( 'link' ) !== '' ){ ?> 
-                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } else { ?> 
-                                                            <span class="userMenuLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                            <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                         <?php } ?>
                                                     <?php } ?>                                                    
                                     			<?php endwhile; ?>
@@ -196,14 +196,14 @@ if (current_user_can('administrator')) {
                                             <?php $userLinkCounter = 1 ?>
                                 			<?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                                 <?php if(get_sub_field('link_type') == 'form-popup'){ ?> 
-                                                    <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                     <div style="display: none;">         
                                                         <div class="preview-cta-form login-form-container" id="userForm<?php echo $userLinkCounter; ?>">
                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?></span>
                                                         </div>
                                                     </div>                                                
                                                 <?php } else { ?> 
-                                                    <a class="userMenuLink <?php echo get_sub_field( 'link_class' ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <a class="userMenuLink <?php echo get_sub_field( 'link_class' ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                 <?php } ?>
                                                 <?php $userLinkCounter++ ?>
                                 			<?php endwhile; ?>
@@ -284,7 +284,7 @@ if (current_user_can('administrator')) {
                                                                             <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                             <?php if ( $topic_link_term ): ?>
                                                                                 <li>
-                                                                                    <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo $topic_link_term->name; ?></a>
+                                                                                    <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
                                                                                 </li>
                                                                             <?php endif; ?>
                                                                         <?php endwhile; ?>
@@ -332,7 +332,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                         </a>
                                                                                     </li>                                                                                                                                                                    
                                                                                 <?php endif; ?>
@@ -436,7 +436,7 @@ if (current_user_can('administrator')) {
                                                                     <?php endif; ?>
                                                                 </span>
                                                                 <span class="text-container">
-                                                                    <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                    <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                     <span class="link-container">
                                                                         <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                     </span>
@@ -479,7 +479,7 @@ if (current_user_can('administrator')) {
                                                                             <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                             <?php if ( $topic_link_term ): ?>
                                                                                 <li>
-                                                                                    <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo $topic_link_term->name; ?></a>
+                                                                                    <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
                                                                                 </li>
                                                                             <?php endif; ?>
                                                                         <?php endwhile; ?>
@@ -531,7 +531,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                         </a>
                                                                                     </li>                                                                                                                                                                    
                                                                                 <?php endif; ?>
@@ -635,7 +635,7 @@ if (current_user_can('administrator')) {
                                                                     <?php endif; ?>
                                                                 </span>
                                                                 <span class="text-container">
-                                                                    <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                    <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                     <span class="link-container">
                                                                         <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                     </span>
@@ -727,7 +727,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                         </a>
                                                                                     </li>                                                                                                                                                                    
                                                                                 <?php endif; ?>
@@ -825,7 +825,7 @@ if (current_user_can('administrator')) {
                                                                     <?php endif; ?>
                                                                 </span>
                                                                 <span class="text-container">
-                                                                    <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                    <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                     <span class="link-container">
                                                                         <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                     </span>
@@ -915,7 +915,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                         </a>
                                                                                     </li>                                                                                                                                                                    
                                                                                 <?php endif; ?>
@@ -1013,7 +1013,7 @@ if (current_user_can('administrator')) {
                                                                     <?php endif; ?>
                                                                 </span>
                                                                 <span class="text-container">
-                                                                    <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                    <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                     <span class="link-container">
                                                                         <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                     </span>
@@ -1048,7 +1048,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
-                                                                        <?php echo get_sub_field( 'link_text' ); ?>
+                                                                        <?php echo esc_html( get_sub_field( 'link_text' ) ); ?>
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -1197,7 +1197,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
-                                                                        <?php echo get_sub_field( 'link_text' ); ?>
+                                                                        <?php echo esc_html( get_sub_field( 'link_text' ) ); ?>
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -1282,24 +1282,24 @@ if (current_user_can('administrator')) {
                                                 <?php if(get_sub_field( 'link_type' ) == 'advantage' ){ ?>
                                                     <?php if ($membershipType == 'advantage') { ?>
                                                         <?php if(get_sub_field( 'link' ) !== '' ){ ?>                                                            
-                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } else { ?> 
-                                                            <span class="userMenuLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                            <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                         <?php } ?>
                                                     <?php } ?>
                                                 <?php } else if(get_sub_field( 'link_type' ) == 'it-pro' ){ ?>
                                                     <?php if ($membershipType == 'it-pro') { ?>
                                                         <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } else { ?> 
-                                                            <span class="userMenuLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                            <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                         <?php } ?>
                                                     <?php } ?>
                                                 <?php } else { ?> 
                                                     <?php if(get_sub_field( 'link' ) !== '' ){ ?> 
-                                                        <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                        <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                     <?php } else { ?> 
-                                                        <span class="userMenuLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                        <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                     <?php } ?>
                                                 <?php } ?>         
                                             <?php endwhile; ?>
@@ -1319,7 +1319,7 @@ if (current_user_can('administrator')) {
                                         <?php $userLinkCounter = 1 ?>
                                         <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                             <?php if(get_sub_field('link_type') == 'form-popup'){ ?> 
-                                                <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                 <div style="display: none;">         
                                                     <div class="preview-cta-form login-form-container" id="userForm<?php echo $userLinkCounter; ?>">
                                                         <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?></span>
@@ -1327,7 +1327,7 @@ if (current_user_can('administrator')) {
                                                 </div>
                                             
                                             <?php } else { ?> 
-                                                <a class="userMenuLink <?php echo get_sub_field( 'link_class' ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a class="userMenuLink <?php echo get_sub_field( 'link_class' ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                             <?php } ?>
                                             <?php $userLinkCounter++ ?>
                                         <?php endwhile; ?>
@@ -1388,7 +1388,7 @@ if (current_user_can('administrator')) {
 			<div class="single-post-sticky <?php if($videoType == 'yes'){ ?>bg-black<?php } else { ?>bg-white<?php } ?>">
 				<div class="container">					
 					<span class="title-container">
-						<span class="labelSmall"><?php the_title(); ?></span>
+						<span class="labelSmall"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="right-container">
 						<span class="share-container">
@@ -1420,7 +1420,7 @@ if (current_user_can('administrator')) {
 		                        	}
 		                        </script>
 								<span class="share-linked-in share">
-									<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title(); ?>&summary=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
+									<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>&summary=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
 	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" />
 											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/linked-in-hover.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" />
@@ -1428,7 +1428,7 @@ if (current_user_can('administrator')) {
 									</a>
 								</span>
 								<span class="share-twitter share">
-									<a class="twitterShare" href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&title=<?php the_title(); ?>&text=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
+									<a class="twitterShare" href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>&text=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
 	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-black.svg" width="24" height="24" loading="lazy" alt="Tweet" />
 											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-hover.svg" width="24" height="24" loading="lazy" alt="Tweet" />
@@ -1436,7 +1436,7 @@ if (current_user_can('administrator')) {
 									</a>
 								</span>
 								<span class="share-email share">
-									<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+									<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
                                         <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/job-email.svg" width="32" height="32" loading="lazy" alt="Share via Email" />
                                         <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/email-red-hover.svg" width="24" height="24" loading="lazy" alt="Email" />
@@ -1496,7 +1496,7 @@ if (current_user_can('administrator')) {
                                                                         <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                         <?php if ( $topic_link_term ): ?>
                                                                             <li>
-                                                                                <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo $topic_link_term->name; ?></a>
+                                                                                <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
                                                                             </li>
                                                                         <?php endif; ?>
                                                                     <?php endwhile; ?>
@@ -1539,7 +1539,7 @@ if (current_user_can('administrator')) {
                                                                                                 <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
-                                                                                        <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                        <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                     </a>
                                                                                 </li>                                                                                                                                                                    
                                                                             <?php endif; ?>
@@ -1637,7 +1637,7 @@ if (current_user_can('administrator')) {
                                                                 <?php endif; ?>
                                                             </span>
                                                             <span class="text-container">
-                                                                <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                 <span class="link-container">
                                                                     <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                 </span>
@@ -1755,7 +1755,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
-                                                                        <?php echo get_sub_field( 'link_text' ); ?>
+                                                                        <?php echo esc_html( get_sub_field( 'link_text' ) ); ?>
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -1829,7 +1829,7 @@ if (current_user_can('administrator')) {
                                                                         <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                         <?php if ( $topic_link_term ): ?>
                                                                             <li>
-                                                                                <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo $topic_link_term->name; ?></a>
+                                                                                <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
                                                                             </li>
                                                                         <?php endif; ?>
                                                                     <?php endwhile; ?>
@@ -1875,7 +1875,7 @@ if (current_user_can('administrator')) {
                                                                                                 <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
-                                                                                        <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                        <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                     </a>
                                                                                 </li>                                                                                                                                                                    
                                                                             <?php endif; ?>
@@ -1973,7 +1973,7 @@ if (current_user_can('administrator')) {
                                                                 <?php endif; ?>
                                                             </span>
                                                             <span class="text-container">
-                                                                <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                 <span class="link-container">
                                                                     <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                 </span>
@@ -2061,7 +2061,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                         </a>
                                                                                     </li>                                                                                                                                                                    
                                                                                 <?php endif; ?>
@@ -2159,7 +2159,7 @@ if (current_user_can('administrator')) {
                                                                     <?php endif; ?>
                                                                 </span>
                                                                 <span class="text-container">
-                                                                    <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                    <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                     <span class="link-container">
                                                                         <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                     </span>
@@ -2245,7 +2245,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $type_link_term->name; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
                                                                                         </a>
                                                                                     </li>                                                                                                                                                                    
                                                                                 <?php endif; ?>
@@ -2343,7 +2343,7 @@ if (current_user_can('administrator')) {
                                                                     <?php endif; ?>
                                                                 </span>
                                                                 <span class="text-container">
-                                                                    <span class="labelSmall text-bold text-black"><?php the_title(); ?></span>
+                                                                    <span class="labelSmall text-bold text-black"><?php echo esc_html( get_the_title() ); ?></span>
                                                                     <span class="link-container">
                                                                         <span class="text-link red-text-link uppercase arrow-link">Read Report</span>
                                                                     </span>
@@ -2381,7 +2381,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
-                                                                        <?php echo get_sub_field( 'link_text' ); ?>
+                                                                        <?php echo esc_html( get_sub_field( 'link_text' ) ); ?>
                                                                     </span>
                                                                 </a>
                                                             </li>

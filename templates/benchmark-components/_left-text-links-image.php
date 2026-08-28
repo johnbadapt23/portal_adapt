@@ -14,10 +14,10 @@
         <div class="column-container">      
             <div class="text-container text-column one-half">   
                 <?php if (get_sub_field( 'sub_title' )) { ?> 
-                    <span class="sub-title labelSmall <?php echo $textColour; ?>"><?php echo get_sub_field( 'sub_title' ); ?></span>
+                    <span class="sub-title labelSmall <?php echo $textColour; ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
                 <?php } ?>                         
                 <h2 <?php if(get_sub_field( 'title_max_width' )){ ?> style="max-width:<?php echo get_sub_field( 'title_max_width' ); ?>px;"<?php } ?>class="h1-style bold-red <?php echo $textColour; ?>"><?php echo get_sub_field( 'title' ); ?></h2>
-                <span class="text p.large <?php echo $textColour; ?>"><?php echo get_sub_field( 'text' ); ?></span>
+                <span class="text p.large <?php echo $textColour; ?>"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                 <div class="mobile-image-container">
                     <div class="image-container">
                         <div class="bg-container">
@@ -33,19 +33,19 @@
                         <?php $buttonCounter = 1;?>
                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                             <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                <a class="stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                <a class="stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                             <?php } else if( get_sub_field( 'link_type' ) =='file') { ?> 
                                 <?php $file = get_sub_field( 'file' ); ?>
-                                <a class="download-file-button std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                <a class="download-file-button std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                              <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
-                                <a class="formPopupHubspot download-file-button stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#formPopup<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                <a class="formPopupHubspot download-file-button stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#formPopup<?php echo $buttonCounter; ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <div style="display: none;">         
                                     <div class="preview-cta-form login-form-container" id="formPopup<?php echo $buttonCounter; ?>">
                                         <div class="form-container"><?php echo get_sub_field( 'form_code' ); ?></div>
                                     </div>
                                 </div> 
                             <?php } else { ?> 
-                                 <a class="formPopupHubspot stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#formPopup<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                 <a class="formPopupHubspot stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#formPopup<?php echo $buttonCounter; ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <div style="display: none;">         
                                     <div class="preview-cta-form login-form-container" id="formPopup<?php echo $buttonCounter; ?>">
                                         <div class="form-container"><?php echo get_sub_field( 'form_code' ); ?></div>
@@ -81,7 +81,7 @@
                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                 <?php } ?>
                             </span>
-                            <span class="bullet-text labelLarge"><?php echo get_sub_field( 'text' ); ?></span>
+                            <span class="bullet-text labelLarge"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                         </div>                        
                     <?php endwhile; ?>
                 </div>

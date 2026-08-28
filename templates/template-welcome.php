@@ -58,7 +58,7 @@ get_header();
                 </span>
                 <span class="button-block">
                     <?php if(get_field('button_link')){ ?>
-                    <a <?php if(get_field('button_link')){ ?>href="<?php echo esc_url( get_field('button_link') ); ?>"<?php } ?> class="stdBtn red" target="_self"><?php echo get_field('button_text'); ?></a>
+                    <a <?php if(get_field('button_link')){ ?>href="<?php echo esc_url( get_field('button_link') ); ?>"<?php } ?> class="stdBtn red" target="_self"><?php echo esc_html( get_field('button_text') ); ?></a>
                     <?php } ?>
                     <?php if( get_field('how_to_get_started_link_text')){ ?>
                         <a href="https://vimeo.com/<?php echo get_field('vimeo_code'); ?>" class="popup-vimeo stdBtn red" target="_self"><?php echo get_field('how_to_get_started_link_text'); ?></a>

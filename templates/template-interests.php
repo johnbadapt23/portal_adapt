@@ -35,7 +35,7 @@ $interests = $user_info->mepr_interests;
                         ?>
                         <?php foreach($terms as $term) { ?>
                             <span class="topic">
-                                <span class="topicTitle"><h2><?php echo $term->name; ?></h2></span>
+                                <span class="topicTitle"><h2><?php echo esc_html( $term->name ); ?></h2></span>
                                 <span class="topicIntroduction"><?php echo $term->description; ?></span>
                                 <span class="checkbox-container">
                                     <?php if ($interests){ ?>

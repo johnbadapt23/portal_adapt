@@ -50,7 +50,7 @@
                             }
                         }
                     }?>             
-                    <span class="article-title headerXsmall text-bold text-black"><?php echo $postTopic->name; ?> Buyer Persona Profile</span>
+                    <span class="article-title headerXsmall text-bold text-black"><?php echo esc_html( $postTopic->name ); ?> Buyer Persona Profile</span>
                     <span class="excerpt text-black">
                         <?php echo esc_html(get_the_excerpt($post_id)); ?>
                     </span>

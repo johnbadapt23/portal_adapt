@@ -40,7 +40,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 <section class="resources-featured highlights-featured featured-module <?php echo $membershipType; ?>">
     <div class="container">
          <div class="blockTitle">
-            <h2 class="headerXsmall text-bold"><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
             <?php if(get_sub_field( 'view_all_link' )){ ?> 
                 <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
             <?php } ?>            
@@ -186,7 +186,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 </span>
 
                                                 <a href="<?php the_permalink(); ?>" class="title text-black">
-                                                    <h2 class="title text-black headerXsmall text-bold"><?php the_title(); ?></h2>
+                                                    <h2 class="title text-black headerXsmall text-bold"><?php echo esc_html( get_the_title() ); ?></h2>
                                                 </a>
                                             </div>
 
@@ -322,7 +322,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     </span>
 
                                                     <a href="<?php the_permalink(); ?>" class="title text-black">
-                                                        <h2 class="title text-black headerXsmall text-bold"><?php the_title(); ?></h2>
+                                                        <h2 class="title text-black headerXsmall text-bold"><?php echo esc_html( get_the_title() ); ?></h2>
                                                     </a>
                                                 </div>
 
@@ -473,10 +473,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -622,10 +622,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -757,10 +757,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>

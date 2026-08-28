@@ -21,16 +21,16 @@
             </div>
             <div class="column one-half text-column">
                 <div class="text-inner">
-                    <h2 class="<?php echo esc_attr( $textcolor ); ?>"><?php echo get_sub_field( 'title' ); ?></h2>
-                    <p class="p-medium <?php echo $textSecondary; ?>"><?php echo get_sub_field( 'text' ); ?></p>
+                    <h2 class="<?php echo esc_attr( $textcolor ); ?>"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                    <p class="p-medium <?php echo $textSecondary; ?>"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                     <?php if ( have_rows( 'button' ) ) : ?>
                         <span class="button-container">
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                    <a class="stdBtn std-button red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="stdBtn std-button red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else if( get_sub_field( 'link_type' ) == 'file') { ?> 
                                     <?php $file = get_sub_field( 'file' ); ?>
-                                        <a class="file-button std-button download-icon-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                        <a class="file-button std-button download-icon-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?> 
                                     <span style="display: none"><?php echo get_sub_field( 'form_code' ); ?></span>
                                     <span class="form-popup-button-container red-outline-button"><?php echo get_sub_field( 'form_button' ); ?></span>                                                               

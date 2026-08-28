@@ -74,14 +74,14 @@
                                     <span class="postDetails">
                                         <span class="info">
                                             <span class="date">
-                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                             </span>
                                             <span class="readTime">
                                                 <?php the_field( 'read_time' ); ?>
                                             </span>
                                         </span>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt">
                                         <?php echo the_excerpt(); ?>
                                     </span>
@@ -94,7 +94,7 @@
                                         <div class="tags">
                                             <?php foreach( $post_tags as $tag ) { ?>
                                                 <span>
-                                                    <?php echo '#' . $tag->name  ; ?>
+                                                    <?php echo esc_html( '#' . $tag->name ); ?>
                                                 </span>
                                             <?php } ?>
                                         </div>
@@ -131,14 +131,14 @@
                                     <span class="postDetails">
                                         <span class="info">
                                             <span class="date">
-                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                             </span>
                                             <span class="readTime">
                                                 <?php the_field( 'read_time' ); ?>
                                             </span>
                                         </span>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt">
                                         <?php echo the_excerpt(); ?>
                                     </span>
@@ -152,7 +152,7 @@
                                             <?php $i = 0; ?>
                                             <?php foreach( $post_tags as $tag ) { ?>
                                                 <span>
-                                                    <?php echo '#' . $tag->name  ; ?>
+                                                    <?php echo esc_html( '#' . $tag->name ); ?>
                                                 </span>
                                                  <?php $i++;
                                                  if ($i >= 4){
@@ -185,14 +185,14 @@
                                 <span class="postDetails">
                                     <span class="info">
                                         <span class="date">
-                                            <?php echo get_the_date('d.m.Y'); ?>
+                                            <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                         </span>
                                         <span class="readTime">
                                             <?php the_field( 'read_time' ); ?>
                                         </span>
                                     </span>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="excerpt">
                                     <?php echo the_excerpt(); ?>
                                 </span>
@@ -205,7 +205,7 @@
                                     <div class="tags">
                                         <?php foreach( $post_tags as $tag ) { ?>
                                             <span>
-                                                <?php echo '#' . $tag->name  ; ?>
+                                                <?php echo esc_html( '#' . $tag->name ); ?>
                                             </span>
                                         <?php } ?>
                                     </div>

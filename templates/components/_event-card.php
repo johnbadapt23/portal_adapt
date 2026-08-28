@@ -36,12 +36,12 @@
                 </span>
             </span>
             <span class="events-text">
-                <span class="labelXLarge"><?php echo the_title(); ?></span>
+                <span class="labelXLarge"><?php echo esc_html( get_the_title() ); ?></span>
                 <span class="labelXXsmall date text-red">
-                    <span><?php echo get_field('event_date'); ?></span>
+                    <span><?php echo esc_html( get_field('event_date') ); ?></span>
                 </span>
                 <span class="excerpt text-small">
-                    <?php echo get_field('event_short_description_for_listing'); ?>
+                    <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
                 </span>
                 <?php if( empty(get_field('external_link')) && get_post_type() === 'event' ) : ?>
                 <?php else : ?>

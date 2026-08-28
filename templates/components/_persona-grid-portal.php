@@ -86,10 +86,10 @@ $sector_term = get_sub_field( 'persona' );
                             <div class="textContainer">
                                 <span class="topicFilter">
                                     <a href="/<?php echo $section; ?>/persona-mapping/" class="topicFilterText">Persona Mapping</a>
-                                    <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo $sector_term->name; ?></a>
+                                    <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
-                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                                 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
                             </div>

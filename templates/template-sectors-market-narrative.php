@@ -26,7 +26,7 @@ $q_slug = $q->slug ?? '';
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/market-narratives/sector-analysis/" target="_self">Sector Analysis</a>
 	            </span>
-	            <h1><?php echo $taxonomy_details->name; ?><?php if(get_field( 'sector_title', $taxonomy_details )){ ?> (<?php echo get_field( 'sector_title', $taxonomy_details ); ?>)<?php } ?></h1>
+	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'sector_title', $taxonomy_details )){ ?> (<?php echo get_field( 'sector_title', $taxonomy_details ); ?>)<?php } ?></h1>
 	        </div>
 	    </section>
 		<section class="filter margin-bottom">
@@ -237,18 +237,18 @@ $q_slug = $q->slug ?? '';
 	                                        }
 	                                    }?>
 										<?php if($sector != '') { ?>
-											<a href="/market-narratives/sector-analysis/?sector=<?php echo $sector; ?>" class="topicFilterText"><?php echo $taxonomy_details->name; ?></a>
+											<a href="/market-narratives/sector-analysis/?sector=<?php echo $sector; ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
 										<?php } else { ?> 
 											<?php if($sectorTerm){?>
-												<a href="/market-narratives/sector-analysis/?sector=<?php echo $sectorTerm->slug; ?>" class="topicFilterText"><?php echo $sectorTerm->name; ?></a>
+												<a href="/market-narratives/sector-analysis/?sector=<?php echo $sectorTerm->slug; ?>" class="topicFilterText"><?php echo esc_html( $sectorTerm->name ); ?></a>
 											<?php } ?>
 										<?php } ?>
 	                                    <?php if($postType){?>
-	                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+	                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 	                                    <?php } ?>
 	                                </span>
-	                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-									<span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+									<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
 	                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
 	                                <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 	                            </div>
@@ -278,11 +278,11 @@ $q_slug = $q->slug ?? '';
 						<span class="divider">/</span>
 						<a class="home-link" href="/market-narratives" target="_self">Market Narratives</a>
 						<span class="divider">/</span>
-						<span class="title"><?php the_title();?></span>
+						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
 						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
-						<span class="subtitle"><?php echo get_sub_field( 'sub_title' ); ?></span>
+						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
 			</section>
@@ -378,7 +378,7 @@ $q_slug = $q->slug ?? '';
 						<?php $sectors_terms = get_sub_field( 'sectors' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/market-narratives/sector-analysis/?sector=<?php echo $sectors_term->slug; ?>" target="_self"><strong><?php echo $sectors_term->name; ?></strong><?php if(get_field( 'sector_title', $sectors_term )){ ?> (<?php echo get_field( 'sector_title', $sectors_term ); ?>)<?php } ?></a>
+								<a class="sector-button button grey-button" href="/market-narratives/sector-analysis/?sector=<?php echo $sectors_term->slug; ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'sector_title', $sectors_term )){ ?> (<?php echo get_field( 'sector_title', $sectors_term ); ?>)<?php } ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -476,11 +476,11 @@ $q_slug = $q->slug ?? '';
 							                                    }?>
 							                                    <a href="/market-narratives/sector-analysis/" class="topicFilterText">Sector Analysis</a>
 							                                    <?php if($postType){?>
-							                                        <a href="/market-narratives/sector-analysis/?sector=<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+							                                        <a href="/market-narratives/sector-analysis/?sector=<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 							                                    <?php } ?>
 							                                </span>
 							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
-															<span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+															<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
@@ -622,13 +622,13 @@ $q_slug = $q->slug ?? '';
 											 }
 										 }
 									 }?>
-									 <a href="/market-narratives/sector-analysis/?sector=<?php echo $sector->slug; ?>" class="topicFilterText"><?php echo $sector->name; ?></a>
+									 <a href="/market-narratives/sector-analysis/?sector=<?php echo $sector->slug; ?>" class="topicFilterText"><?php echo esc_html( $sector->name ); ?></a>
 									 <?php if($postType){?>
-										 <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+										 <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									 <?php } ?>
 								 </span>
-								 <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-								 <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+								 <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
 								 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
 								 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 							 </div>

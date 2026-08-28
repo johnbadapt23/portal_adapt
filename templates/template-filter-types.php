@@ -162,7 +162,7 @@ if (
 <?php $q = adjust_term_name_for_membership($q); ?>
 <section class="title-banner filter-title-banner light-theme <?php echo $membershipType; ?>">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo $q->name; ?></h1>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
             echo (term_description($q->term_id, $q->taxonomy));

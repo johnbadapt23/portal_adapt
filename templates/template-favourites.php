@@ -14,7 +14,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
 
 <section class="title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php the_title(); ?></h1>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_the_title() ); ?></h1>
         <p><?php echo get_field('whats_new_subtitle', 'options'); ?></p>
     </div>
 </section>

@@ -50,7 +50,7 @@ get_header();
 						<span class="filter-group-listing button-group<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>">
 							<?php 
 								foreach ($child_terms as $child_term) { ?>
-									<a class="kit-filter" data-filter=".<?php echo $child_term->slug; ?>"><span class="kit-filter-checkbox"></span><span class="kit-filter-label"><?php echo $child_term->name; ?></span></a>
+									<a class="kit-filter" data-filter=".<?php echo $child_term->slug; ?>"><span class="kit-filter-checkbox"></span><span class="kit-filter-label"><?php echo esc_html( $child_term->name ); ?></span></a>
 								<?php }
 							?>
 							<span class="opacity-layer"></span>
@@ -86,7 +86,7 @@ get_header();
 							<?php if (get_field( 'older_version_question' ) == 'no') { ?> 
 								<span class="one-third kit-item <?php echo $kitType; ?>">
 									<span class="kit-inner background-white ">
-										<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+										<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 										<span class="icon-container">
 											<?php $listing_icon = get_field( 'listing_icon' ); ?>
 											<?php if ( $listing_icon ) { ?>
@@ -108,7 +108,7 @@ get_header();
 											<?php if ( get_field( 'show_new_tag' ) == 1 ) { ?>
 												<span class="new-flag">New</span>
 											<?php } ?>
-											<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+											<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 											<span class="icon-container">
 												<?php $listing_icon = get_field( 'listing_icon' ); ?>
 												<?php if ( $listing_icon ) { ?>
@@ -127,7 +127,7 @@ get_header();
 											<?php foreach ( $older_version as $post ):  ?>
 												<?php setup_postdata ( $post ); ?>
 													<span class="kit-inner background-white">												
-														<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+														<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 														<span class="icon-container">
 															<?php $listing_icon = get_field( 'listing_icon' ); ?>
 															<?php if ( $listing_icon ) { ?>
@@ -182,7 +182,7 @@ get_header();
 						<?php if ( get_field( 'this_older_version' ) == 0 ) { ?>
 							<span class="one-third kit-item <?php echo $kitType; ?>">
 								<span class="kit-inner background-pink">
-									<span class="listing-title"><?php echo get_field( 'listing_title' ); ?></span>
+									<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 									<span class="icon-container">
 										<?php $listing_icon = get_field( 'listing_icon' ); ?>
 										<?php if ( $listing_icon ) { ?>

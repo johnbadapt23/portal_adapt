@@ -26,7 +26,7 @@
 				<?php if ( have_rows( 'button' ) ) : ?>
 					<span class="button-container">
 						<?php while ( have_rows( 'button' ) ) : the_row(); ?>
-							<a class="std-button button-with-arrow red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+							<a class="std-button button-with-arrow red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 						<?php endwhile; ?>
 					</span>
 				<?php else : ?>

@@ -5,10 +5,10 @@
                 <div class="quote-slide">
                     <div class="customer-quote-slider-inner">
                         <?php if (get_sub_field( 'large_quote_text' )) { ?> 
-                            <h2 class="quote text-white <?php if (get_sub_field( 'quote_text' )) { ?><?php } else { ?> large-margin-bottom<?php } ?>"><?php echo get_sub_field( 'large_quote_text' ); ?></h2>
+                            <h2 class="quote text-white <?php if (get_sub_field( 'quote_text' )) { ?><?php } else { ?> large-margin-bottom<?php } ?>"><?php echo esc_html( get_sub_field( 'large_quote_text' ) ); ?></h2>
                         <?php } ?>	
                         <?php if (get_sub_field( 'quote_text' )) { ?>
-                            <span class="small-quote-text p-small text-white-dark-mode"><?php echo get_sub_field( 'quote_text' ); ?></span>
+                            <span class="small-quote-text p-small text-white-dark-mode"><?php echo esc_html( get_sub_field( 'quote_text' ) ); ?></span>
                         <?php } ?>	
                         <?php $logo = get_sub_field( 'logo' ); ?>	
                         <span class="logo-text-container<?php if ( $logo ) { ?><?php } else { ?> no-logo<?php } ?>">	                            
@@ -18,8 +18,8 @@
                                 </span>
                             <?php } ?>		
                             <span class="quote-name-container">	
-                                <span class="quote-title text-white labelMedium"><?php echo get_sub_field( 'name' ); ?></span>
-                                <span class="quote-business grey-text labelMedium"><?php echo get_sub_field( 'role' ); ?></span>
+                                <span class="quote-title text-white labelMedium"><?php echo esc_html( get_sub_field( 'name' ) ); ?></span>
+                                <span class="quote-business grey-text labelMedium"><?php echo esc_html( get_sub_field( 'role' ) ); ?></span>
                             </span>                           
                         </span>
                         <?php if(get_sub_field('full_story_link')){ ?> 

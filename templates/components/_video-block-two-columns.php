@@ -8,7 +8,7 @@ $video_variant = $video_variant ?? 'two';
 <section class="video-grid-block" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <?php if(get_sub_field( 'block_title' )){ ?>
-            <span class="video-block-title"><?php echo get_sub_field( 'block_title' ); ?></span>
+            <span class="video-block-title"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></span>
         <?php } ?>
         <?php if ( have_rows( 'video_columns' ) ) : ?>
             <div class="video-grid-block-container">
@@ -27,14 +27,14 @@ $video_variant = $video_variant ?? 'two';
                                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
                                     </span>
                                     <span class="text">
-                                        <span><?php echo get_sub_field( 'button_text' ); ?></span>
+                                        <span><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></span>
                                         <span><?php echo get_sub_field( 'duration' ); ?></span>
                                     </span>
                                 </a>
                             </span>
                         </div>
                         <?php if(get_sub_field( 'listing_title' )){ ?>
-                            <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+                            <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                         <?php } ?>
                         <?php if(get_sub_field( 'listing_text' )){ ?>
                             <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>

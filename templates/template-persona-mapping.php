@@ -113,11 +113,11 @@ $post_types = array ();
                                                 }?>
                                                 <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
                                                 <?php if($postType){?>
-                                                    <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                                    <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                                 <?php } ?>
                                             </span>
                                             <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
-                                            <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+                                            <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
                                             <span class="excerpt">
                                                 <?php if ( have_rows( 'preview_module', $post ) ) : ?>
                                                 <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
@@ -237,16 +237,16 @@ $post_types = array ();
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
-                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
 
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
+                                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <?php if ($q->slug == 'workshop-recordings' || $q->slug == 'case-studies' || $q->slug == 'best-practices' || $postType->slug == 'market-narratives'){ ?>
-                                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo get_field('read_time'); ?><?php } ?></span>
+                                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                                 <?php } else { ?>
-                                                    <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                                    <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                                 <?php } ?>
                                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                                             </div>
@@ -364,7 +364,7 @@ $post_types = array ();
             <span class="filter-link-container">
                 <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo esc_url( get_term_link($q) ); ?>">All</a>
                 <?php foreach ($terms as $term){ ?>
-                    <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo get_term_link($q); ?>?type=<?php echo $term->slug;?>"><?php echo $term->name;?></a>
+                    <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo get_term_link($q); ?>?type=<?php echo $term->slug;?>"><?php echo esc_html( $term->name );?></a>
                 <?php } ?>
             </span>
         </div>
@@ -492,14 +492,14 @@ $post_types = array ();
                                         }
                                     }?>
 									<?php if($q){?>
-                                        <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-								<span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                             </div>
                         </div>

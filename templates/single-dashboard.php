@@ -5,7 +5,7 @@
                 <span class="topicFilter">
                     <a href="/interactive-dashboards/" class="topicFilterText">Interactive Dashboards</a>
                 </span>
-                <span class="title"><?php the_title(); ?></span>
+                <span class="title"><?php echo esc_html( get_the_title() ); ?></span>
                 <hr>
             </div>
         </div>

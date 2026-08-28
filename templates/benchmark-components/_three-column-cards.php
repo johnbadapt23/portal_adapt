@@ -9,9 +9,9 @@
                 <div class="button-container" data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-duration="800">
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                         <?php if( get_sub_field( 'button_type' ) == 'link'){ ?> 
-                            <a class="stdBtn std-button red-button" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                            <a class="stdBtn std-button red-button" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'button_type' ) =='scroll-to') { ?> 
-                            <a class="scroll-to-button std-button red-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                            <a class="scroll-to-button std-button red-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         <?php } else { ?> 
                             <span class="form-popup-button-container red-button"><?php echo get_sub_field( 'form_button' ); ?></span>                                                               
                         <?php } ?>                     

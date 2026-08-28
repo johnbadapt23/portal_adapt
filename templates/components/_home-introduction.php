@@ -27,7 +27,7 @@
                                     </span>
                                     <h2 class="link-title"><?php echo get_sub_field( 'title' ); ?></h2>
                                     <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
-                                    <span class="readMore"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                    <span class="readMore"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                 </span>
                             </a>
                         </div>

@@ -32,18 +32,18 @@
                                     }
                                     ?>
                                     <?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
-                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <h1 class="title"><?php the_title(); ?></h1>
+                                <h1 class="title"><?php echo esc_html( get_the_title() ); ?></h1>
                                 <?php if ($postType->slug == 'workshop-recordings' || $postType->slug == 'case-studies' || $postType->slug == 'best-practices' || $postType->slug == 'market-narratives'){ ?>
-                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo get_field('read_time'); ?><?php } ?></span>
+                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
 
                                 <?php } else { ?>
-                                    <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                    <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                 <?php } ?>
                             <?php } ?>       
                             <?php if(current_user_can('memberpress_authorized') || $advantagePlus == 'yes') { ?>
@@ -113,9 +113,9 @@
                                                                     <?php if( get_sub_field( 'button_type' ) == 'link'){ 
                                                                         $theLink = $hasTransformationSubs ? $transformationCTALink : get_sub_field( 'button_link' );
                                                                         ?> 
-                                                                        <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $theLink ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                        <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $theLink ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                     <?php } else { ?> 
-                                                                        <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                        <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
                                                                                 <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
@@ -134,7 +134,7 @@
                                                     $postID = get_the_ID();
                                                     $postURL = get_permalink();
                                                 ?>
-                                                <span class="preview-cta-bottom-module"><?php echo get_sub_field( 'login_text' ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
+                                                <span class="preview-cta-bottom-module"><?php echo esc_html( get_sub_field( 'login_text' ) ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>
@@ -196,9 +196,9 @@
                                                                     <?php if( get_sub_field( 'button_type' ) == 'link'){ 
                                                                         $theLink = $hasTransformationSubs ? $transformationCTALink : get_sub_field( 'button_link' );
                                                                         ?> 
-                                                                        <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $theLink ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                        <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $theLink ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                     <?php } else { ?> 
-                                                                        <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                        <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
                                                                                 <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
@@ -217,7 +217,7 @@
                                                     $postID = get_the_ID();
                                                     $postURL = get_permalink();
                                                 ?>
-                                                <span class="preview-cta-bottom-module"><?php echo get_sub_field( 'login_text' ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
+                                                <span class="preview-cta-bottom-module"><?php echo esc_html( get_sub_field( 'login_text' ) ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>
@@ -272,9 +272,9 @@
                                                                 <span class="button-container">                                                                                                                   
                                                                     <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
                                                                         <?php if( get_sub_field( 'button_type' ) == 'link'){ ?> 
-                                                                            <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                            <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                         <?php } else { ?> 
-                                                                            <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#previewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                            <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#previewCTA<?php echo $buttonCounter; ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                             <div style="display: none;">         
                                                                                 <div class="preview-cta-form login-form-container" id="previewCTA<?php echo $buttonCounter; ?>">                                                                            
                                                                                     <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
@@ -293,7 +293,7 @@
                                                         $postID = get_the_ID();
                                                         $postURL = get_permalink();
                                                     ?>
-                                                    <span class="preview-cta-bottom-module"><?php echo get_sub_field( 'login_text' ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
+                                                    <span class="preview-cta-bottom-module"><?php echo esc_html( get_sub_field( 'login_text' ) ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
                                                 </div>                                        
                                             <?php endwhile; ?>
                                         <?php else : ?>
@@ -368,7 +368,7 @@
                                         <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="print-only imageGridBlock standard <?php echo get_sub_field( 'background_colour' ); ?>">
                                             <div class="container">
                                                 <div class="inner">
-                                                    <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                    <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
 
                                                     <?php if ( have_rows( 'item' ) ) : ?>
                                                         <div class="gridWrapper">
@@ -408,7 +408,7 @@
                                                 <?php if ( have_rows( 'button_block' ) ) : ?>
                                                     <div class="buttonBlock">
                                                         <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -419,11 +419,11 @@
                                             <div class="container">
                                                 <div class="titleBlock">
                                                     <span class="title">
-                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                        <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
                                                     </span>
 
                                                     <span class="description <?php echo get_sub_field( 'top_right_text_position' ); ?>">
-                                                        <h3><?php echo get_sub_field( 'top_right_text' ); ?></h3>
+                                                        <h3><?php echo esc_html( get_sub_field( 'top_right_text' ) ); ?></h3>
                                                     </span>
                                                 </div>
 
@@ -444,7 +444,7 @@
                                                 <?php endif; ?>
 
                                                 <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                                    <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                 <?php } ?>
                                             </div>
                                         </section>
@@ -464,7 +464,7 @@
                                         <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
                                             <div class="container">
                                                 <div class="inner">
-                                                    <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                    <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
 
                                                     <?php if ( have_rows( 'speakers' ) ) : ?>
                                                         <div class="gridWrapper">
@@ -482,9 +482,9 @@
                                                                                 </div>
                                                                             <?php } ?>
                                                                             <hr>
-                                                                            <span class="title"><?php the_title(); ?></span>
+                                                                            <span class="title"><?php echo esc_html( get_the_title() ); ?></span>
                                                                             <span class="description">
-                                                                                <?php echo get_field( 'speaker_description' ); ?>
+                                                                                <?php echo esc_html( get_field( 'speaker_description' ) ); ?>
                                                                             </span>
                                                                             <?php if ( get_field( 'logo') ) { ?>
                                                                                 <div class="logoContainer">
@@ -510,7 +510,7 @@
                                                 <?php if ( have_rows( 'button_block' ) ) : ?>
                                                     <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                                                         <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                                         </div>
                                                     <?php endwhile; ?>
                                                 <?php endif; ?>
@@ -530,7 +530,7 @@
                                                     <div class="textBlock">
                                                         <?php echo get_sub_field( 'text_block' ); ?>
                                                         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                                            <a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -541,7 +541,7 @@
                                             <div class="container">
                                                 <div class="inner">
                                                     <div class="title">
-                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                        <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
                                                         <hr>
                                                     </div>
                                                     <?php if ( have_rows( 'item' ) ) : ?>
@@ -566,7 +566,7 @@
                                                 <?php if ( have_rows( 'button_block' ) ) : ?>
                                                     <div class="buttonBlock">
                                                         <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -583,7 +583,7 @@
                                                             <span class="desktopText"><?php echo get_sub_field( 'text_block' ); ?></span>
                                                         <?php } ?>
                                                         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                                            <a class="logoBlockLink desktop <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="logoBlockLink desktop <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -599,7 +599,7 @@
                                                             <span class="mobileText"><?php echo get_sub_field( 'text_block' ); ?></span>
                                                         <?php } ?>
                                                         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                                            <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } ?>
                                                     </div>
                                                 </div>
@@ -612,9 +612,9 @@
                                             <div class="container">
                                                 <div class="inner">
                                                     <div class="titleBlock">
-                                                        <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                        <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
                                                         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                                            <a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } ?>
                                                     </div>
 
@@ -630,10 +630,10 @@
                                                                         <div class="v-wrap">
                                                                             <div class="v-box">
                                                                                 <span class="quoteBlock">
-                                                                                    <?php echo get_sub_field( 'quote' ); ?>
+                                                                                    <?php echo esc_html( get_sub_field( 'quote' ) ); ?>
                                                                                 </span>
                                                                                 <span class="quoteAuthor">
-                                                                                    <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                                    <?php echo esc_html( get_sub_field( 'quote_author' ) ); ?>
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -657,10 +657,10 @@
                                                                     <div class="v-wrap">
                                                                         <div class="v-box">
                                                                             <span class="quoteBlock">
-                                                                                <?php echo get_sub_field( 'quote' ); ?>
+                                                                                <?php echo esc_html( get_sub_field( 'quote' ) ); ?>
                                                                             </span>
                                                                             <span class="quoteAuthor">
-                                                                                <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                                <?php echo esc_html( get_sub_field( 'quote_author' ) ); ?>
                                                                             </span>
                                                                         </div>
                                                                     </div>
@@ -672,7 +672,7 @@
                                                 <?php if ( have_rows( 'button_block' ) ) : ?>
                                                     <div class="buttonBlock">
                                                         <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -684,7 +684,7 @@
                                                 <div class="inner">
                                                     <div class="titleBlock">
                                                         <?php if ( get_sub_field ( 'block_title' ) ) { ?>
-                                                            <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                                                            <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
                                                             <span class="hrWrapper">
                                                                 <hr>
                                                             </span>
@@ -717,7 +717,7 @@
                                                 <?php if ( have_rows( 'button_block' ) ) : ?>
                                                     <div class="buttonBlock">
                                                         <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -756,7 +756,7 @@
                                                                     <?php endif; ?>
                                                                 </div>
                                                                 <span class="pricingButtonWrapper">
-                                                                    <a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                                    <a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
                                                                 </span>
                                                             <?php endwhile; ?>
                                                         </div>
@@ -789,7 +789,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <span class="pricingButtonWrapper">
-                                                                    <a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                                    <a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
                                                                 </span>
                                                             <?php endwhile; ?>
                                                         </div>
@@ -819,7 +819,7 @@
                                                                     <?php endif; ?>
                                                                 </div>
                                                                 <span class="pricingButtonWrapper">
-                                                                    <a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo get_sub_field( 'button_text', 'option' ); ?></a>
+                                                                    <a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
                                                                 </span>
                                                             <?php endwhile; ?>
                                                         </div>
@@ -839,7 +839,7 @@
                                                             <?php echo get_sub_field( 'text_block' ); ?>
                                                         </div>
                                                         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                                            <a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                            <a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } ?>
                                                     </div>
 
@@ -848,10 +848,10 @@
                                                             <div class="v-wrap">
                                                                 <div class="v-box">
                                                                     <span class="quoteBlock">
-                                                                        <?php echo get_sub_field( 'quote' ); ?>
+                                                                        <?php echo esc_html( get_sub_field( 'quote' ) ); ?>
                                                                     </span>
                                                                     <span class="quoteAuthor">
-                                                                        <?php echo get_sub_field( 'quote_author' ); ?>
+                                                                        <?php echo esc_html( get_sub_field( 'quote_author' ) ); ?>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -883,7 +883,7 @@
                                                         </div>
                                                         <span class="watchIcon"></span>
                                                         <span class="textContainer">
-                                                            <span class="title"><?php the_title(); ?></span>
+                                                            <span class="title"><?php echo esc_html( get_the_title() ); ?></span>
                                                         </span>
                                                     </div>
                                                 </a>
@@ -907,7 +907,7 @@
                                                 <?php if ( have_rows( 'button_block' ) ) : ?>
                                                     <div class="buttonBlock">
                                                         <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                                                            <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -919,7 +919,7 @@
                                                 <div class="inner">
                                                     <div class="formWrapper register">
                                                         <?php if ( get_sub_field ( 'block_title' ) ) { ?>
-                                                            <h2><?php echo get_sub_field('block_title'); ?></h2>
+                                                            <h2><?php echo esc_html( get_sub_field('block_title') ); ?></h2>
                                                             <?php if ( get_sub_field ( 'embed' ) == 'embed' ) { ?>
                                                                 <hr>
                                                             <?php } ?>
@@ -931,11 +931,11 @@
                                                             <?php echo get_sub_field('form_shortcode'); ?>
                                                         <?php }?>
                                                         <?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
-                                                            <a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo get_sub_field('button_text'); ?></a>
+                                                            <a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo esc_html( get_sub_field('button_text') ); ?></a>
                                                             <div class="formPopup mfp-hide" id="<?php echo esc_attr( get_sub_field('form_id') ); ?>">
                                                                 <a class="popup-modal-dismiss"></a>
                                                                 <?php if ( get_sub_field ( 'block_title' ) ) { ?>
-                                                                    <h2><h2><?php echo get_sub_field('block_title'); ?></h2></h2>
+                                                                    <h2><h2><?php echo esc_html( get_sub_field('block_title') ); ?></h2></h2>
                                                                 <?php } ?>
                                                                 <?php if ( get_sub_field ( 'block_description' ) ) { ?>
                                                                     <h3><?php echo get_sub_field('block_description'); ?></h3>
@@ -989,9 +989,9 @@
                                                                     <?php if( get_sub_field( 'button_type' ) == 'link'){ 
                                                                         $theLink = $hasTransformationSubs ? $transformationCTALink : get_sub_field( 'button_link' );
                                                                         ?> 
-                                                                        <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $theLink ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                        <a class="stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $theLink ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                     <?php } else { ?> 
-                                                                        <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                        <a class="formPopupHubspot stdBtn <?php if($buttonCounter == 1){ ?>red<?php } else { ?>red-outline-button<?php } ?>" href="#globalpreviewCTA<?php echo $buttonCounter; ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                                         <div style="display: none;">         
                                                                             <div class="preview-cta-form login-form-container" id="globalpreviewCTA<?php echo $buttonCounter; ?>">
                                                                                 <span class="form-container-inner"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
@@ -1010,7 +1010,7 @@
                                                     $postID = get_the_ID();
                                                     $postURL = get_permalink();
                                                 ?>
-                                                <span class="preview-cta-bottom-module"><?php echo get_sub_field( 'login_text' ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
+                                                <span class="preview-cta-bottom-module"><?php echo esc_html( get_sub_field( 'login_text' ) ); ?><a class="login-link"  href="/login/?mepr-unauth-page=<?php echo $postID;?>&redirect_to=<?php echo $postURL;?>" target="_self">Login here</a></span>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>
@@ -1057,10 +1057,10 @@
         										</span>
         										<span class="description">
                                                     <span class="title"><?php if(get_sub_field('contributors_pre_heading')){ ?><?php echo get_sub_field('contributors_pre_heading'); ?><?php } else { ?>Contributor<?php } ?></span>
-        											<a class="author-link text-black" href="<?php the_permalink(); ?>" target="_self"><span class="speaker-name"><?php echo the_title(); ?></span></a>
+        											<a class="author-link text-black" href="<?php the_permalink(); ?>" target="_self"><span class="speaker-name"><?php echo esc_html( get_the_title() ); ?></span></a>
         											<span class="speaker-role">
                                                         <?php if(get_field('speaker_description')){ ?>
-                                                            <?php echo get_field('speaker_description'); ?>
+                                                            <?php echo esc_html( get_field('speaker_description') ); ?>
                                                         <?php } else if(get_field('role')){ ?>
                                                             <?php echo get_field('role'); ?>
                                                         <?php } ?>
@@ -1110,7 +1110,7 @@
                                 </span>
                                  <?php if($advantagePlus == "no"){ ?>
                             <span class="shareArticle">
-                                <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+                                <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                                     <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                                 </a>
                             </span>  
@@ -1169,7 +1169,7 @@
                                                                 <?php if (get_sub_field( 'text' )) { ?>
                                                                     <span class="shareText download mobile"><?php echo get_sub_field( 'text' ); ?></span>
                                                                 <?php } ?>
-                                                                <a id="downloadButton" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                                <a id="downloadButton" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                             <?php endwhile; ?>
                                                         </div>
                                                     <?php else : ?>
@@ -1213,7 +1213,7 @@
                                                             <?php if (get_sub_field( 'text' )) { ?>
                                                                 <span class="shareText download mobile"><?php echo get_sub_field( 'text' ); ?></span>
                                                             <?php } ?>
-                                                            <a id="downloadButton" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                            <a id="downloadButton" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php else : ?>
@@ -1316,13 +1316,13 @@
                                                     }
                                                     ?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                     <?php if($postType){?>
-                                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
+                                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>

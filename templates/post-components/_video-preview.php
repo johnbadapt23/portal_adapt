@@ -151,7 +151,7 @@ $advantagePlus = "no";
                         }?>
                     <?php if ( !empty( $postType ) ) { ?>
                         <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
-                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo $postType->name; ?> </a>
+                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
                     <?php } ?>
                 </span>
 
@@ -186,7 +186,7 @@ $advantagePlus = "no";
                 <!-- <a href="<?php the_permalink(); ?>"> -->
                     <span class="contributor labelSmall text-black">
                         
-                            <?php the_title(); ?>
+                            <?php echo esc_html( get_the_title() ); ?>
                        
                     </span>
                      <!-- </a> -->
@@ -208,7 +208,7 @@ $advantagePlus = "no";
                 </span>
                  <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  

@@ -23,7 +23,7 @@ $sort = $_GET['order'];
                 <h1><?php echo get_field( 'title_text', 'option' ); ?></h1>
                 <span class="subTitle">
                     <?php if(current_user_can('mepr-active')) { ?>
-                        <?php echo get_field( 'sub_title', 'option' ); ?>
+                        <?php echo esc_html( get_field( 'sub_title', 'option' ) ); ?>
                     <?php } else { ?>
                         <?php echo get_field( 'sub_title_logged_out', 'option' ); ?>
                     <?php } ?>
@@ -320,7 +320,7 @@ $sort = $_GET['order'];
                                 <span class="postDetails">
                                     <span class="info">
                                         <span class="date grid-info">
-                                            <?php echo get_the_date('d.m.Y'); ?>
+                                            <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                         </span>
                                         <?php
                                             $terms = get_the_terms( $post->ID, 'insights-event' );
@@ -342,7 +342,7 @@ $sort = $_GET['order'];
                                             <?php } ?>
                                         <?php } ?>
                                         <span class="readTime">
-                                            <?php echo get_field( 'read_time' ); ?>
+                                            <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                         </span>
                                         <span class="iconWrapper list-icons">
                                             <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
@@ -354,7 +354,7 @@ $sort = $_GET['order'];
                                         </span>
                                     </span>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="excerpt">
                                     <?php echo the_excerpt(); ?>
                                 </span>
@@ -368,7 +368,7 @@ $sort = $_GET['order'];
                                         <?php $i = 0; ?>
                                         <?php foreach( $post_tags as $tag ) { ?>
                                             <span>
-                                                <?php echo '#' . $tag->name  ; ?>
+                                                <?php echo esc_html( '#' . $tag->name ); ?>
                                             </span>
                                              <?php $i++;
                                              if ($i >= 4){
@@ -417,14 +417,14 @@ $sort = $_GET['order'];
                                     <span class="postDetails">
                                         <span class="info">
                                             <span class="date">
-                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                             </span>
                                             <span class="readTime">
-                                                <?php echo get_field( 'read_time' ); ?>
+                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                             </span>
                                         </span>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt">
                                         <?php echo the_excerpt(); ?>
                                     </span>
@@ -437,7 +437,7 @@ $sort = $_GET['order'];
                                         <div class="tags">
                                             <?php foreach( $post_tags as $tag ) { ?>
                                                 <span>
-                                                    <?php echo '#' . $tag->name  ; ?>
+                                                    <?php echo esc_html( '#' . $tag->name ); ?>
                                                 </span>
                                             <?php } ?>
                                         </div>
@@ -473,7 +473,7 @@ $sort = $_GET['order'];
                     <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
                 <?php } ?>
 
-                <a class="logoBlockLink button popup-modal" href="#form"><?php echo get_field( 'button_text', 'option' ); ?></a>
+                <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
             </div>
 
         </div>

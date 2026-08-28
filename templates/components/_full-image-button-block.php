@@ -6,7 +6,7 @@
         <div class="content">
             <?php if( get_sub_field ( 'title' ) ) { ?>
                 <div class="column title">
-                    <span class="title"><?php echo get_sub_field('title'); ?></span>
+                    <span class="title"><?php echo esc_html( get_sub_field('title') ); ?></span>
                 </div>
                 <hr>
             <?php } ?>
@@ -19,7 +19,7 @@
 				<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                     <span class="videoLink buttonContainer">
                         <a href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>" class="button">
-                            <?php echo get_sub_field( 'link_text' ); ?>
+                            <?php echo esc_html( get_sub_field( 'link_text' ) ); ?>
                         </a>
                     </span>
                 <?php endwhile; ?>

@@ -1,4 +1,4 @@
-<h1 class="pageTitleLine"><?php echo the_title(); ?></h1>
+<h1 class="pageTitleLine"><?php echo esc_html( get_the_title() ); ?></h1>
 <section class="default">
     <div class="container <?php echo get_field('content_width'); ?>">
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>

@@ -92,10 +92,10 @@ $sector_url = $is_markets
                             <div class="textContainer">
                                 <span class="topicFilter">
                                     <a href="/<?php echo $section; ?>/sector-analysis/" class="topicFilterText">Sector Analysis</a>
-                                    <a href="<?php echo esc_url( $sector_url ); ?>" class="topicFilterText"><?php echo $sector_term->name; ?></a>
+                                    <a href="<?php echo esc_url( $sector_url ); ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
-                                <?php if ( ! $is_markets ) { ?><span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span><?php } ?>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <?php if ( ! $is_markets ) { ?><span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span><?php } ?>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                                 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
                             </div>

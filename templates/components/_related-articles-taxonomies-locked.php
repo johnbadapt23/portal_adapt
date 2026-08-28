@@ -1,7 +1,7 @@
 <section class="relatedArticlesCarousel scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <div class="inner">
-            <h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>
+            <h2 class="relatedTitle"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
                 <div class="owl-carousel articlesCarouselTaxonomies">
                     <?php if (get_sub_field( 'taxonomy_type' ) == 'event') { ?>
                         <?php
@@ -96,18 +96,18 @@
                                               <?php } else { ?>
                                               <span class="date">
                                                  <?php if( get_field('event_date')) { ?>
-                                                    <?php echo get_field('event_date'); ?>
+                                                    <?php echo esc_html( get_field('event_date') ); ?>
                                                 <?php } else { ?>
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 <?php } ?>
                                              </span>
                                              <span class="readTime">
-                                                 <?php echo get_field( 'read_time' ); ?>
+                                                 <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                              </span>
                                               <?php } ?>
                                           </span>
 
-                                          <span class="articleLink"><?php the_title(); ?></span>
+                                          <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
 
                                           <?php
                                               $post_tags = get_the_tags();
@@ -118,7 +118,7 @@
                                                   <?php foreach( $post_tags as $tag ) { $count++; ?>
                                                       <?php if ( $count <= 3 ) { ?>
                                                           <span>
-                                                              <?php echo '#' . $tag->name  ; ?>
+                                                              <?php echo esc_html( '#' . $tag->name ); ?>
                                                           </span>
                                                       <?php } ?>
                                                   <?php } ?>
@@ -179,18 +179,18 @@
                                               <?php } else { ?>
                                               <span class="date">
                                                  <?php if( get_field('event_date')) { ?>
-                                                    <?php echo get_field('event_date'); ?>
+                                                    <?php echo esc_html( get_field('event_date') ); ?>
                                                 <?php } else { ?>
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 <?php } ?>
                                              </span>
                                              <span class="readTime">
-                                                 <?php echo get_field( 'read_time' ); ?>
+                                                 <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                              </span>
                                               <?php } ?>
                                           </span>
 
-                                          <span class="articleLink"><?php the_title(); ?></span>
+                                          <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
 
                                           <?php
                                               $post_tags = get_the_tags();
@@ -201,7 +201,7 @@
                                                   <?php foreach( $post_tags as $tag ) { $count++; ?>
                                                       <?php if ( $count <= 3 ) { ?>
                                                           <span>
-                                                              <?php echo '#' . $tag->name  ; ?>
+                                                              <?php echo esc_html( '#' . $tag->name ); ?>
                                                           </span>
                                                       <?php } ?>
                                                   <?php } ?>
@@ -307,18 +307,18 @@
                                               <?php } else { ?>
                                               <span class="date">
                                                  <?php if( get_field('event_date')) { ?>
-                                                    <?php echo get_field('event_date'); ?>
+                                                    <?php echo esc_html( get_field('event_date') ); ?>
                                                 <?php } else { ?>
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 <?php } ?>
                                              </span>
                                              <span class="readTime">
-                                                 <?php echo get_field( 'read_time' ); ?>
+                                                 <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                              </span>
                                               <?php } ?>
                                           </span>
 
-                                          <span class="articleLink"><?php the_title(); ?></span>
+                                          <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
 
                                           <?php
                                               $post_tags = get_the_tags();
@@ -329,7 +329,7 @@
                                                   <?php foreach( $post_tags as $tag ) { $count++; ?>
                                                       <?php if ( $count <= 3 ) { ?>
                                                           <span>
-                                                              <?php echo '#' . $tag->name  ; ?>
+                                                              <?php echo esc_html( '#' . $tag->name ); ?>
                                                           </span>
                                                       <?php } ?>
                                                   <?php } ?>
@@ -390,18 +390,18 @@
                                               <?php } else { ?>
                                               <span class="date">
                                                  <?php if( get_field('event_date')) { ?>
-                                                    <?php echo get_field('event_date'); ?>
+                                                    <?php echo esc_html( get_field('event_date') ); ?>
                                                 <?php } else { ?>
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 <?php } ?>
                                              </span>
                                              <span class="readTime">
-                                                 <?php echo get_field( 'read_time' ); ?>
+                                                 <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                              </span>
                                               <?php } ?>
                                           </span>
 
-                                          <span class="articleLink"><?php the_title(); ?></span>
+                                          <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
 
                                           <?php
                                               $post_tags = get_the_tags();
@@ -412,7 +412,7 @@
                                                   <?php foreach( $post_tags as $tag ) { $count++; ?>
                                                       <?php if ( $count <= 3 ) { ?>
                                                           <span>
-                                                              <?php echo '#' . $tag->name  ; ?>
+                                                              <?php echo esc_html( '#' . $tag->name ); ?>
                                                           </span>
                                                       <?php } ?>
                                                   <?php } ?>
@@ -518,18 +518,18 @@
                                               <?php } else { ?>
                                               <span class="date">
                                                  <?php if( get_field('event_date')) { ?>
-                                                    <?php echo get_field('event_date'); ?>
+                                                    <?php echo esc_html( get_field('event_date') ); ?>
                                                 <?php } else { ?>
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 <?php } ?>
                                              </span>
                                              <span class="readTime">
-                                                 <?php echo get_field( 'read_time' ); ?>
+                                                 <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                              </span>
                                               <?php } ?>
                                           </span>
 
-                                          <span class="articleLink"><?php the_title(); ?></span>
+                                          <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
 
                                           <?php
                                               $post_tags = get_the_tags();
@@ -540,7 +540,7 @@
                                                   <?php foreach( $post_tags as $tag ) { $count++; ?>
                                                       <?php if ( $count <= 3 ) { ?>
                                                           <span>
-                                                              <?php echo '#' . $tag->name  ; ?>
+                                                              <?php echo esc_html( '#' . $tag->name ); ?>
                                                           </span>
                                                       <?php } ?>
                                                   <?php } ?>
@@ -601,18 +601,18 @@
                                               <?php } else { ?>
                                               <span class="date">
                                                  <?php if( get_field('event_date')) { ?>
-                                                    <?php echo get_field('event_date'); ?>
+                                                    <?php echo esc_html( get_field('event_date') ); ?>
                                                 <?php } else { ?>
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 <?php } ?>
                                              </span>
                                              <span class="readTime">
-                                                 <?php echo get_field( 'read_time' ); ?>
+                                                 <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                              </span>
                                               <?php } ?>
                                           </span>
 
-                                          <span class="articleLink"><?php the_title(); ?></span>
+                                          <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
 
                                           <?php
                                               $post_tags = get_the_tags();
@@ -623,7 +623,7 @@
                                                   <?php foreach( $post_tags as $tag ) { $count++; ?>
                                                       <?php if ( $count <= 3 ) { ?>
                                                           <span>
-                                                              <?php echo '#' . $tag->name  ; ?>
+                                                              <?php echo esc_html( '#' . $tag->name ); ?>
                                                           </span>
                                                       <?php } ?>
                                                   <?php } ?>
@@ -644,7 +644,7 @@
             <?php if ( have_rows( 'button_block' ) ) : ?>
                 <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                     <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-                        <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                        <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                     </div>
                 <?php endwhile; ?>
             <?php endif; ?>

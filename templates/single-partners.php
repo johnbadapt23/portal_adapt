@@ -72,7 +72,7 @@ endif;
                             <?php } ?>
                             <div class="mobile-title-container">
                                  <span class="advisor-title text-white header-medium"><?php echo get_sub_field( 'title' ); ?></span>
-                                <span class="subtitle text-white labelMedium"><?php echo get_sub_field( 'sub_title' ); ?></span> 
+                                <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span> 
                             </div>
                             <span class="links-container">
                                 <?php $title = get_sub_field( 'title' ); ?>
@@ -96,7 +96,7 @@ endif;
                         <div class="column second-column text-column">
                             <div class="text-content-inner">
                                 <h1 class="advisor-title text-white header-large"><?php echo get_sub_field( 'title' ); ?></h1>
-                                <span class="subtitle text-white labelMedium"><?php echo get_sub_field( 'sub_title' ); ?></span>                                              
+                                <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>                                              
                                 <span class="text regular-text text-light-grey"><?php echo get_sub_field( 'text' ); ?></span>                               
                             </div>                            
                         </div>                        
@@ -306,8 +306,8 @@ endif;
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">
-                                                            <span class="labelMedium name"><?php the_title(); ?></span>
-                                                            <span class="text-dark-grey text-grey"><?php echo get_field('speaker_description'); ?></span>
+                                                            <span class="labelMedium name"><?php echo esc_html( get_the_title() ); ?></span>
+                                                            <span class="text-dark-grey text-grey"><?php echo esc_html( get_field('speaker_description') ); ?></span>
                                                         </span>
                                                     </span>                                             
                                                 <?php endforeach; ?>

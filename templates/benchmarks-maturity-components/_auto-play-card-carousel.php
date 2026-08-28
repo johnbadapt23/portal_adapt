@@ -23,7 +23,7 @@
                                             <a class="text-link external-link red-text red-link red-underline-link"
                                             href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
                                             target="<?php echo get_sub_field('link_target'); ?>">
-                                            <?php echo get_sub_field('link_text'); ?>
+                                            <?php echo esc_html( get_sub_field('link_text') ); ?>
                                             </a>
                                         <?php endwhile; ?>
                                     </span>
@@ -50,7 +50,7 @@
                                             <a class="text-link external-link red-text red-link red-underline-link"
                                             href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
                                             target="<?php echo get_sub_field('link_target'); ?>">
-                                            <?php echo get_sub_field('link_text'); ?>
+                                            <?php echo esc_html( get_sub_field('link_text') ); ?>
                                             </a>
                                         <?php endwhile; ?>
                                     </span>

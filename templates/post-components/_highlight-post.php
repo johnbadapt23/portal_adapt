@@ -8,7 +8,7 @@
                 <div class="column title-column">
                     <h2 class="headerXsmall text-bold">
                         <span class="h2-inner">
-                            <?php the_title(); ?>
+                            <?php echo esc_html( get_the_title() ); ?>
                         </span>
                     </h2>
                     <span class="text-regular black-text"><?php the_excerpt(); ?></span>

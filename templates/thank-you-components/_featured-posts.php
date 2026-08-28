@@ -2,7 +2,7 @@
     <div class="container">
         <div class="thank-you-post-introduction-container">
             <div class="introduction-column">
-                <h3 class="introduction black-text"><?php echo get_sub_field( 'introduction' ); ?></h3>
+                <h3 class="introduction black-text"><?php echo esc_html( get_sub_field( 'introduction' ) ); ?></h3>
 				<?php $arrow_image = get_sub_field( 'arrow_image' ); ?>
 				<?php if ( $arrow_image ) { ?>
 					<span class="arrow-container">
@@ -106,7 +106,7 @@
                                                 <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                             <?php } ?>
                                         </span>
-                                        <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
+                                        <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                         <span class="excerpt text-black"><?php the_excerpt(); ?></span>
                                     </span>
                                 </div>
@@ -185,7 +185,7 @@
                                             <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                         <?php } ?>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                 </span>
                             </div>
                         <?php } ?>
@@ -276,7 +276,7 @@
                                                     <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                                 <?php } ?>
                                             </span>
-                                            <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
+                                            <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                             <span class="excerpt text-black"><?php the_excerpt(); ?></span>
                                         </span>
                                     </div>
@@ -355,7 +355,7 @@
                                                 <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
                                             <?php } ?>
                                         </span>
-                                        <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php the_title(); ?></a>
+                                        <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                     </span>
                                 </div>
                             <?php } ?>

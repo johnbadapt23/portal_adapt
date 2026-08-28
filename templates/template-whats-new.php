@@ -22,7 +22,7 @@ if ($membershipType === 'it-pro') {
 } ?>
 <section class="title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo the_title(); ?></h1>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_the_title() ); ?></h1>
         <?php if ($membershipType == 'advantage') { ?>
             <p><?php echo get_field( 'whats_new_subtitle', 'options' ); ?></p> 
         <?php } else { ?> 

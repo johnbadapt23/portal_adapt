@@ -10,7 +10,7 @@
 				<p><?php echo get_field( 'members_only_text', 'option' ); ?></p>
 				<?php if ( have_rows( 'members_only_button', 'option' ) ) : ?>
 					<?php while ( have_rows( 'members_only_button', 'option' ) ) : the_row(); ?>
-						<a class="button" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="_self"><?php echo get_sub_field( 'button_text' ); ?></a>
+						<a class="button" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="_self"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
 					<?php endwhile; ?>
 				<?php else : ?>
 					<?php // no rows found ?>

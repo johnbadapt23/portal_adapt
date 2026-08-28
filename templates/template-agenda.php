@@ -127,8 +127,8 @@ get_header();
     	<div class="container">
             <div class="inner">
         		<div class="share">
-        			<a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
-                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title();?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
+        			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" alt="Share via Email" /><span>Email</span></a>
+                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" alt="Share on LinkedIn" /><span>Share</span></a>
         		</div>
             </div>
     	</div>
@@ -141,7 +141,7 @@ get_header();
                 <div class="container">
                     <div class="inner">
                         <div class="titleBlock">
-                            <h1 class="pageTitleLine"><?php echo the_title(); ?></h1>
+                            <h1 class="pageTitleLine"><?php echo esc_html( get_the_title() ); ?></h1>
                             <div class="top">
                                 <span class="left">
                                     <h2><?php echo get_sub_field( 'title' ); ?></h2>
@@ -208,7 +208,7 @@ get_header();
                                             						<?php if ( $post_object ): ?>
                                             							<?php $post = $post_object; ?>
                                             							<?php setup_postdata( $post ); ?>
-                                            								<span class="description"><a  href="<?php the_permalink(); ?>" class="speakerName"><?php the_title(); ?>&nbsp;-&nbsp;</a><span class="speakerTitle"><?php echo get_field('speaker_description'); ?></span></span>
+                                            								<span class="description"><a  href="<?php the_permalink(); ?>" class="speakerName"><?php echo esc_html( get_the_title() ); ?>&nbsp;-&nbsp;</a><span class="speakerTitle"><?php echo esc_html( get_field('speaker_description') ); ?></span></span>
                                             							<?php wp_reset_postdata(); ?>
                                             						<?php endif; ?>
                                             					<?php endwhile; ?>
@@ -284,7 +284,7 @@ get_header();
                                                     						<?php if ( $post_object ): ?>
                                                     							<?php $post = $post_object; ?>
                                                     							<?php setup_postdata( $post ); ?>
-                                                                                    <span class="description"><a  href="<?php the_permalink(); ?>" class="speakerName"><?php the_title(); ?>&nbsp;-&nbsp;</a><span class="speakerTitle"><?php echo get_field('speaker_description'); ?></span></span>
+                                                                                    <span class="description"><a  href="<?php the_permalink(); ?>" class="speakerName"><?php echo esc_html( get_the_title() ); ?>&nbsp;-&nbsp;</a><span class="speakerTitle"><?php echo esc_html( get_field('speaker_description') ); ?></span></span>
                                                     							<?php wp_reset_postdata(); ?>
                                                     						<?php endif; ?>
                                                     					<?php endwhile; ?>
@@ -330,7 +330,7 @@ get_header();
                                                     						<?php if ( $post_object ): ?>
                                                     							<?php $post = $post_object; ?>
                                                     							<?php setup_postdata( $post ); ?>
-                                                                                    <span class="description"><a  href="<?php the_permalink(); ?>" class="speakerName"><?php the_title(); ?>&nbsp;-&nbsp;</a><span class="speakerTitle"><?php echo get_field('speaker_description'); ?></span></span>
+                                                                                    <span class="description"><a  href="<?php the_permalink(); ?>" class="speakerName"><?php echo esc_html( get_the_title() ); ?>&nbsp;-&nbsp;</a><span class="speakerTitle"><?php echo esc_html( get_field('speaker_description') ); ?></span></span>
                                                     							<?php wp_reset_postdata(); ?>
                                                     						<?php endif; ?>
                                                     					<?php endwhile; ?>
@@ -441,7 +441,7 @@ get_header();
                                                             <?php if ( $post_object ): ?>
                                                                 <?php $post = $post_object; ?>
                                                                 <?php setup_postdata( $post ); ?>
-                                                                    <span class="description"><span class="speakerName"><?php the_title(); ?>&nbsp;-&nbsp;</span><span class="speakerTitle"><?php echo get_field('speaker_description'); ?></span></span>
+                                                                    <span class="description"><span class="speakerName"><?php echo esc_html( get_the_title() ); ?>&nbsp;-&nbsp;</span><span class="speakerTitle"><?php echo esc_html( get_field('speaker_description') ); ?></span></span>
                                                                 <?php wp_reset_postdata(); ?>
                                                             <?php endif; ?>
                                                         <?php endwhile; ?>
@@ -509,7 +509,7 @@ get_header();
                                                                         <?php if ( $post_object ): ?>
                                                                             <?php $post = $post_object; ?>
                                                                             <?php setup_postdata( $post ); ?>
-                                                                                <span class="description"><span class="speakerName"><?php the_title(); ?>&nbsp;-&nbsp;</span><span class="speakerTitle"><?php echo get_field('speaker_description'); ?></span></span>
+                                                                                <span class="description"><span class="speakerName"><?php echo esc_html( get_the_title() ); ?>&nbsp;-&nbsp;</span><span class="speakerTitle"><?php echo esc_html( get_field('speaker_description') ); ?></span></span>
                                                                             <?php wp_reset_postdata(); ?>
                                                                         <?php endif; ?>
                                                                     <?php endwhile; ?>
@@ -557,7 +557,7 @@ get_header();
                                                                         <?php if ( $post_object ): ?>
                                                                             <?php $post = $post_object; ?>
                                                                             <?php setup_postdata( $post ); ?>
-                                                                                <span class="description"><span class="speakerName"><?php the_title(); ?>&nbsp;-&nbsp;</span><span class="speakerTitle"><?php echo get_field('speaker_description'); ?></span></span>
+                                                                                <span class="description"><span class="speakerName"><?php echo esc_html( get_the_title() ); ?>&nbsp;-&nbsp;</span><span class="speakerTitle"><?php echo esc_html( get_field('speaker_description') ); ?></span></span>
                                                                             <?php wp_reset_postdata(); ?>
                                                                         <?php endif; ?>
                                                                     <?php endwhile; ?>

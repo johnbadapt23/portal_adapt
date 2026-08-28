@@ -11,7 +11,7 @@
                     <?php } else { ?> 
                         <h2 class="bold-red white-text"><?php echo get_sub_field( 'title' ); ?></h2>
                     <?php } ?>                    
-                    <p class="p-large white-text"><?php echo get_sub_field( 'text' ); ?></p>
+                    <p class="p-large white-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                 </div>
             </div>
             <div class="fixed-scroller-inner">
@@ -30,7 +30,7 @@
                             </span>
                             <span class="text-column column">
                                 <h2 class="white-text bold-grey"><?php echo get_sub_field( 'title' ); ?></h2>
-                                <span class="p-large bold-red grey-text"><?php echo get_sub_field( 'text' ); ?></span>
+                                <span class="p-large bold-red grey-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                             </span>
                         </div>                                                                        
                     <?php endwhile; ?>

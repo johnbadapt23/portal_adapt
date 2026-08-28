@@ -10,13 +10,13 @@
                         <?php echo wp_get_attachment_image( $title_icon['ID'], 'full', false, array( 'alt' => $title_icon['alt'] ) ); ?>
                     <?php } ?>
                 </span>
-                <span class="title-text font-ibm"><?php echo get_sub_field( 'title' ); ?></span>
+                <span class="title-text font-ibm"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
             </span>
             <div class="column-container">
                 <?php if ( have_rows( 'column' ) ) : ?>
                     <?php while ( have_rows( 'column' ) ) : the_row(); ?>
                         <div class="column one-quarter">
-                            <span class="headerXL text-white"><?php echo get_sub_field( 'title' ); ?></span>
+                            <span class="headerXL text-white"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                             <span class="labelMedium text-medium-grey"><?php echo get_sub_field( 'text' ); ?></span>
                         </div>
                     <?php endwhile; ?>

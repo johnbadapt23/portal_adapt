@@ -258,7 +258,7 @@ $filterBy = array();
                 <h1><?php echo get_field( 'title_text', 'option' ); ?></h1>
                 <span class="subTitle">
                     <?php if(current_user_can('mepr-active')) { ?>
-                        <?php echo get_field( 'sub_title', 'option' ); ?>
+                        <?php echo esc_html( get_field( 'sub_title', 'option' ) ); ?>
                     <?php } else { ?>
                         <?php echo get_field( 'sub_title_logged_out', 'option' ); ?>
                     <?php } ?>
@@ -1029,14 +1029,14 @@ $filterBy = array();
 
                                         <?php } ?>
                                         <span class="date list-info">
-                                            <?php echo get_the_date('d.m.Y'); ?>
+                                            <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                         </span>
                                         <span class="readTime list-info">
-                                            <?php echo get_field( 'read_time' ); ?>
+                                            <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                         </span>
                                     </span>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="excerpt">
                                     <?php echo the_excerpt(); ?>
                                 </span>
@@ -1050,7 +1050,7 @@ $filterBy = array();
                                         <?php $i = 0; ?>
                                         <?php foreach( $post_tags as $tag ) { ?>
                                             <span>
-                                                <?php echo '#' . $tag->name  ; ?>
+                                                <?php echo esc_html( '#' . $tag->name ); ?>
                                             </span>
                                              <?php $i++;
                                              if ($i >= 4){
@@ -1061,10 +1061,10 @@ $filterBy = array();
                                 <?php } ?>
                                 <span class="grid-bottom-details">
                                     <span class="date grid-info">
-                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                     </span>
                                     <span class="readTime grid-info">
-                                        <?php echo get_field( 'read_time' ); ?>
+                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                     </span>
                                 </span>
                             </span>
@@ -1116,23 +1116,23 @@ $filterBy = array();
 
                                                 <?php } ?>
                                                 <span class="date list-info">
-                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                 </span>
                                                 <span class="readTime list-info">
-                                                    <?php echo get_field( 'read_time' ); ?>
+                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                 </span>
                                         </span>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt">
                                         <?php echo the_excerpt(); ?>
                                     </span>
                                     <span class="grid-bottom-details">
                                         <span class="date grid-info">
-                                            <?php echo get_the_date('d.m.Y'); ?> |
+                                            <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                         </span>
                                         <span class="readTime grid-info">
-                                            <?php echo get_field( 'read_time' ); ?>
+                                            <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -1162,7 +1162,7 @@ $filterBy = array();
                     <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
                 <?php } ?>
 
-                <a class="logoBlockLink button popup-modal" href="#form"><?php echo get_field( 'button_text', 'option' ); ?></a>
+                <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
             </div>
 
         </div>

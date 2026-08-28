@@ -15,8 +15,8 @@ if ( 0 == $current_user->ID ) {
 <section class="getAdvice bg-white">
     <div class="container">
         <div class="textContainer">
-            <h1><?php echo get_sub_field( 'title' ); ?></h1>
-            <p><?php echo get_sub_field( 'sub_title' ); ?></p>
+            <h1><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+            <p><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></p>
             <span class="howHelp">Hi <?php echo $first_name;?>, how can we help?</span>
             <?php echo get_sub_field( 'form' ); ?>
         </div>

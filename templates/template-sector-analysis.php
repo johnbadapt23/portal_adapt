@@ -10,7 +10,7 @@
             <span class="back-to-sectors topicFilter">
                 <a href="/data-insights/sector-analysis/" target="_self">Sector Analysis</a>
             </span>
-            <h1><?php echo $q->name;?></h1>
+            <h1><?php echo esc_html( $q->name );?></h1>
         </div>
     </section>
     <section class="portal postListing topicGrid sector-grid subTopic sector-container">
@@ -116,10 +116,10 @@
                                     }?>
                                     <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
                                     <?php if($postType){?>
-                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                                 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
                             </div>

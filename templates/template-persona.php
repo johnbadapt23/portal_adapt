@@ -16,11 +16,11 @@ get_header();
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
 						<span class="divider">/</span>
-						<span class="title"><?php the_title();?></span>
+						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
 						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
-						<span class="subtitle"><?php echo get_sub_field( 'sub_title' ); ?></span>
+						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
 			</section>
@@ -42,7 +42,7 @@ get_header();
 										<span class="persona-text-container">
 											<span class="v-wrap">
 												<span class="v-box">
-													<span class="persona-name"><?php echo $persona_term->name; ?></span>
+													<span class="persona-name"><?php echo esc_html( $persona_term->name ); ?></span>
 													<span class="persona-full-name"><?php echo get_field( 'persona_title', $persona_term ); ?></span>
 												</span>
 											</span>
@@ -139,14 +139,14 @@ get_header();
 										}
 									}?>
 									<?php if($postTopic){?>
-										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
 									<?php } ?>
 									<?php if($postType){?>
-											<a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+											<a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									<?php } ?>
 								</span>
-								<a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-								<span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+								<a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
 								<span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
 								<a href="<?php the_permalink(); ?>" class="read-more">Read more</a>
 							</div>
@@ -163,7 +163,7 @@ get_header();
 	<section class="portal postListing topicGrid subTopic sector-container list-style-list">
         <div class="container">
 			<div class="blockTitle">
-				<h2>All <?php the_title();?></h2>
+				<h2>All <?php echo esc_html( get_the_title() ); ?></h2>
 			</div>
             <div id="loop" class="gridWrapper listWrapper list">
 				<?php
@@ -257,14 +257,14 @@ get_header();
                                         }
                                     }?>
 									<?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-								<span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                             </div>
                         </div>

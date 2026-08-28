@@ -2,7 +2,7 @@
     <div class="container">
         <div class="inner">
             <div class="animated-text-container">
-                <span id="animatedText"><?php echo get_sub_field( 'text' ); ?></span>
+                <span id="animatedText"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
             </div>
             <div class="logo-container-inner logo-ticker-tape">                
                 <div class="band-container-backwards">

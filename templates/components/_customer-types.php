@@ -2,7 +2,7 @@
     <div class="container">
         <?php if (get_sub_field( 'title' )) { ?> 
             <div class="title-container">
-                <h2 class="evr-title"><?php echo get_sub_field( 'title' ); ?></h2>
+                <h2 class="evr-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
             </div>
         <?php } ?>        
         <div class="stages-container">
@@ -18,12 +18,12 @@
                             </span>
                         <?php } ?>                                              
                         <span class="stages-title-container">
-                            <h3><?php echo $stage_term->name; ?> Kits</h3>
+                            <h3><?php echo esc_html( $stage_term->name ); ?> Kits</h3>
                         </span>   
                         <?php if(get_sub_field( 'sub_title' )) { ?> 
                             <span class="stages-text-container">
                                 <span class="text-inner">
-                                    <?php echo get_sub_field( 'sub_title' ); ?>
+                                    <?php echo esc_html( get_sub_field( 'sub_title' ) ); ?>
                                 </span>
                             </span>
                         <?php } ?>                    

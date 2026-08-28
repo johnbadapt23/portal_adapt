@@ -119,9 +119,9 @@ if ( $loop->have_posts() ) :
         </div>
         <div class="container">
             <span class="bannerBreadcrumbs">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><a href="<?php echo esc_url( home_url( '/' ) ); ?>evr" class="breadcrumb">EVR</a><span class="divider">/</span><span class="breadcrumb"><?php echo $q->name; ?></span></a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><a href="<?php echo esc_url( home_url( '/' ) ); ?>evr" class="breadcrumb">EVR</a><span class="divider">/</span><span class="breadcrumb"><?php echo esc_html( $q->name ); ?></span></a>
             </span>
-            <span class="title-filter-container"><h1><?php echo $q->name; ?></h1><span class="dropdown-button">Other fundamentals</span></span>
+            <span class="title-filter-container"><h1><?php echo esc_html( $q->name ); ?></h1><span class="dropdown-button">Other fundamentals</span></span>
             <p><?php echo $q->description; ?></p>               
         </div>
     </div>
@@ -347,16 +347,16 @@ if ( $loop->have_posts() ) :
                                         }
                                     }?>
                                     <?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
 
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-                                <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                             </div>
                         </div>
@@ -465,13 +465,13 @@ if ( $loop->have_posts() ) :
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
-                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
 
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-                                                <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
                                                 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                                             </div>
                                         </div>
@@ -516,13 +516,13 @@ if ( $loop->have_posts() ) :
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText red-text"><?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText red-text"><?php echo esc_html( $postTopic->name ); ?></a>
                                         <?php } ?>
                                          <?php if($postType){?>
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText red-text"><?php echo $postType->name; ?></a>
+                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText red-text"><?php echo esc_html( $postType->name ); ?></a>
                                         <?php } ?>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                     <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                                     <a href="<?php the_permalink(); ?>" class="stdBtn red red-button">Read More</a>
                                 </div>

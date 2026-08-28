@@ -6,21 +6,21 @@
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                         <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                            <a class="stdBtn std-button red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="stdBtn std-button red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'link_type' ) == 'scroll-to'){ ?> 
-                            <a class="stdBtn std-button scroll-to-button red-outline-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="stdBtn std-button scroll-to-button red-outline-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'link_type' ) =='file') { ?> 
                             <?php $file = get_sub_field( 'file' ); ?>
-                            <a class="download-file-button std-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="download-file-button std-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
-                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#stickyCardFormPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#stickyCardFormPopup"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                             <div style="display: none;">         
                                 <div class="preview-cta-form login-form-container" id="stickyCardFormPopup">
                                     <div class="form-container"><?php echo get_sub_field( 'form_code' ); ?></div>
                                 </div>
                             </div> 
                         <?php } else { ?>                                 
-                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#formPopupStickyCards"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#formPopupStickyCards"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                             <div style="display: none;">         
                                 <div class="preview-cta-form login-form-container" id="formPopupStickyCards">
                                     <div class="form-container"><?php echo get_sub_field( 'form_code' ); ?></div>
@@ -87,21 +87,21 @@
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                         <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                            <a class="stdBtn std-button red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="stdBtn std-button red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'link_type' ) == 'scroll-to'){ ?> 
-                            <a class="stdBtn std-button scroll-to-button red-outline-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="stdBtn std-button scroll-to-button red-outline-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'link_type' ) =='file') { ?> 
                             <?php $file = get_sub_field( 'file' ); ?>
-                            <a class="download-file-button std-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="download-file-button std-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                         <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
-                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#formPopup"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                             <div style="display: none;">         
                                 <div class="preview-cta-form login-form-container" id="formPopup">
                                     <div class="form-container"><?php echo get_sub_field( 'form_code' ); ?></div>
                                 </div>
                             </div> 
                         <?php } else { ?>                                 
-                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#formPopup"><?php echo get_sub_field( 'link_text' ); ?></a>
+                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#formPopup"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                             <div style="display: none;">         
                                 <div class="preview-cta-form login-form-container" id="formPopup">
                                     <div class="form-container"><?php echo get_sub_field( 'form_code' ); ?></div>

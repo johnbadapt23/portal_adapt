@@ -88,7 +88,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                 <!-- <a href="<?php the_permalink(); ?>"> -->
                     <span class="contributor labelSmall text-black">
                         
-                            <?php the_title(); ?>
+                            <?php echo esc_html( get_the_title() ); ?>
                        
                     </span>
                      <!-- </a> -->

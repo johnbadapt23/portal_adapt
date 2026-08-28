@@ -18,12 +18,12 @@
 				?>
                 </span>
                 <span class="events-text">
-                    <span class="labelXLarge"><?php echo the_title(); ?></span>
+                    <span class="labelXLarge"><?php echo esc_html( get_the_title() ); ?></span>
                     <span class="labelXXsmall date text-red">
-                        <span><?php echo get_field('event_date'); ?></span>
+                        <span><?php echo esc_html( get_field('event_date') ); ?></span>
                     </span>
                     <span class="excerpt">
-                        <?php echo get_field('event_short_description_for_listing'); ?>
+                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
                     </span>
                     <span class="link-container">
                         <span class="text-link red-text learn-more red-arrow-link arrow-link bold-link uppercase">Learn More</span>

@@ -8,13 +8,13 @@ $youtubeLink = get_field( 'you_tube', 'options'  );
         <div class="column-container background-red">
             <span class="grow-container"></span>
             <div class="column info-column">
-               <h2 class="white-text<?php if(get_sub_field( 'main_text' )){ ?> mobile-margin-small<?php } ?>"><?php echo get_sub_field( 'title' ); ?></h2>
+               <h2 class="white-text<?php if(get_sub_field( 'main_text' )){ ?> mobile-margin-small<?php } ?>"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                <?php if(get_sub_field( 'main_text' )){ ?> 
                     <span class="text white-text p-large"><?php echo get_sub_field( 'main_text' ); ?></span>
                 <?php } ?>               
 			    <span class="text white-text hide-mobile p-small"><?php echo get_sub_field( 'text' ); ?></span>
 			    <span class="socials-container hide-mobile">
-                    <span class="text white-text p-small"><?php echo get_sub_field( 'socials_text' ); ?></span>
+                    <span class="text white-text p-small"><?php echo esc_html( get_sub_field( 'socials_text' ) ); ?></span>
                     <span class="social-links">
                         <?php if ($linkedInLink) {?>
                             <a class="social-link linkedin" href="<?php echo esc_url( $linkedInLink ); ?>" target="_blank" rel="noopener noreferrer">
@@ -57,7 +57,7 @@ $youtubeLink = get_field( 'you_tube', 'options'  );
                 </span>
                 <span class="text white-text hide-desktop p-small"><?php echo get_sub_field( 'text' ); ?></span>
 			    <span class="socials-container hide-desktop">
-                    <span class="text white-text"><?php echo get_sub_field( 'socials_text' ); ?></span>
+                    <span class="text white-text"><?php echo esc_html( get_sub_field( 'socials_text' ) ); ?></span>
                     <span class="social-links">
                         <?php if ($linkedInLink) {?>
                             <a class="social-link linkedin" href="<?php echo esc_url( $linkedInLink ); ?>" target="_blank" rel="noopener noreferrer">

@@ -82,7 +82,7 @@ if (user_can($current_user, 'administrator')) {
                 <span class="topicFilter">
                     <a href="/announcements/" class="topicFilterText">Announcements</a>
                 </span>
-                <span class="title"><?php the_title(); ?></span>
+                <span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 
                 <?php $textcontributors = get_field( 'contributors_text_field'); ?>
                 <?php if ( have_rows( 'contributors' ) ) : ?>
@@ -94,7 +94,7 @@ if (user_can($current_user, 'administrator')) {
                             <?php if ( $post_object ): ?>
                                 <?php $post = $post_object; ?>
                                 <?php setup_postdata( $post ); ?>
-                                    <span class="authorName"><?php the_title(); ?><?php if ($count == $totalCount - 1){?> <?php } else { ?><span class="comma"><?php if ($count == $totalCount - 2){?> and <?php } else { ?>, <?php } ?></span><?php } ?></span>
+                                    <span class="authorName"><?php echo esc_html( get_the_title() ); ?><?php if ($count == $totalCount - 1){?> <?php } else { ?><span class="comma"><?php if ($count == $totalCount - 2){?> and <?php } else { ?>, <?php } ?></span><?php } ?></span>
                                 <?php endif; ?>
                             <?php wp_reset_postdata(); ?>
                             <?php $count++; ?>
@@ -105,7 +105,7 @@ if (user_can($current_user, 'administrator')) {
                         <span class="author">by <span class="authorName"><?php echo $textcontributors; ?></span></span>
                     <?php } ?>
                 <?php endif; ?>
-                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+                <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
             </div>
         </div>
         <?php if ( get_field( 'listing_image') ) { ?>
@@ -175,8 +175,8 @@ if (user_can($current_user, 'administrator')) {
                     <?php while( $loop->have_posts() ) : $loop->the_post(); ?>
                         <div class="item no-image">
                             <div class="textContainer">
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
-                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
                                 <?php
                                      $text = get_field( 'content' );
                                      $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '...' );

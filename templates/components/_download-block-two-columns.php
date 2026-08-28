@@ -9,7 +9,7 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
 <section class="download-block" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <?php if(get_sub_field( 'block_title' )){ ?>
-            <span class="download-block-title"><?php echo get_sub_field( 'block_title' ); ?></span>
+            <span class="download-block-title"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></span>
         <?php } ?>
         <?php if ( have_rows( 'download_columns' ) ) : ?>
             <?php $counter = 0; ?>
@@ -21,12 +21,12 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
                             </span>
                         </a>
                         <?php if(get_sub_field( 'listing_title' )){ ?>
-                            <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+                            <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                         <?php } ?>
                         <?php if(get_sub_field( 'listing_text' )){ ?>
                             <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
                         <?php } ?>
-                        <a class="download-popup-button-multi" href="#downloadPopup<?php echo $popup_id_prefix; ?><?php echo $counter; ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                        <a class="download-popup-button-multi" href="#downloadPopup<?php echo $popup_id_prefix; ?><?php echo $counter; ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         <div class="downloadPopupContainer" style="display: none;">
                             <div class="downloadPopup" id="downloadPopup<?php echo $popup_id_prefix; ?><?php echo $counter; ?>">
                                 <div class="container">
@@ -40,7 +40,7 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
                                         <?php }?>
                                         <div class="description-container desktop">
                                             <?php if(get_sub_field( 'listing_title' )){ ?>
-                                                <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+                                                <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                                             <?php } ?>
                                             <?php if(get_sub_field( 'listing_text' )){ ?>
                                                 <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
@@ -63,7 +63,7 @@ $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
                                     </div>
                                     <div class="description-container mobile">
                                         <?php if(get_sub_field( 'listing_title' )){ ?>
-                                            <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+                                            <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                                         <?php } ?>
                                         <?php if(get_sub_field( 'listing_text' )){ ?>
                                             <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>

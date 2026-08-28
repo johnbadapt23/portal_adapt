@@ -6,7 +6,7 @@
         <div class="content">
             <?php if( get_sub_field ( 'video_title' ) ) { ?>
                 <div class="column title">
-                    <span class="title"><?php echo get_sub_field('video_title'); ?></span>
+                    <span class="title"><?php echo esc_html( get_sub_field('video_title') ); ?></span>
                 </div>
                 <hr>
             <?php } ?>
@@ -25,8 +25,8 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
                     </span>
                     <span class="text">
-                        <span><?php if( get_sub_field('video_button_text')) { ?><?php echo get_sub_field('video_button_text') ?><?php } else { ?>Watch Video<?php } ?></span>
-                        <span><?php echo get_sub_field('video_duration') ?></span>
+                        <span><?php if( get_sub_field('video_button_text')) { ?><?php echo esc_html( get_sub_field('video_button_text') ) ?><?php } else { ?>Watch Video<?php } ?></span>
+                        <span><?php echo esc_html( get_sub_field('video_duration') ) ?></span>
                     </span>
                 </a>
             </span>

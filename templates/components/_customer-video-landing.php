@@ -23,16 +23,16 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                     <span class="bannerBreadcrumbs">
                         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a>
                     </span>              
-                    <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
-                    <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+                    <h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                    <span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                     <span class="links-container desktop">
                         <?php if ( have_rows( 'button' ) ) : ?>
                             <?php $buttonCounter = 1; ?>
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
-                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } elseif(get_sub_field( 'link_type' ) == 'link')  { ?>
-                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?>
                                     <?php if($counter <= 0){ ?> 
                                         <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">

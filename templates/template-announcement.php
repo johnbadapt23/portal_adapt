@@ -146,8 +146,8 @@ if (user_can($current_user, 'administrator')) {
                <a class="announcement-link" href="<?php the_permalink();?>" target="_self">
                    <span class="post-item">
                        <span class="item-top">
-                           <span class="date"><?php echo get_the_date('F j, Y'); ?></span>
-                           <h2 class="h3 h3-style"><?php the_title();?></h2>
+                           <span class="date"><?php echo esc_html( get_the_date('F j, Y') ); ?></span>
+                           <h2 class="h3 h3-style"><?php echo esc_html( get_the_title() ); ?></h2>
                        </span>
                        <span class="small-text">
                            <?php
@@ -166,7 +166,7 @@ if (user_can($current_user, 'administrator')) {
                                    <?php if ( $post_object ): ?>
                                        <?php $post = $post_object; ?>
                                        <?php setup_postdata( $post ); ?>
-                                           <span class="authorName"><?php the_title(); ?><?php if ($count == $totalCount - 1){?> <?php } else { ?><span class="comma"><?php if ($count == $totalCount - 2){?> and <?php } else { ?>, <?php } ?></span><?php } ?></span>
+                                           <span class="authorName"><?php echo esc_html( get_the_title() ); ?><?php if ($count == $totalCount - 1){?> <?php } else { ?><span class="comma"><?php if ($count == $totalCount - 2){?> and <?php } else { ?>, <?php } ?></span><?php } ?></span>
                                        <?php endif; ?>
                                    <?php wp_reset_postdata(); ?>
                                    <?php $count++; ?>

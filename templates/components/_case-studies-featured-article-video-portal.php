@@ -5,7 +5,7 @@
     		<?php $post = $post_object; ?>
     		<?php setup_postdata( $post ); ?>
             <div class="item">
-                <a href="<?php the_permalink(); ?>" class="title mobile"><?php the_title(); ?></a>
+                <a href="<?php the_permalink(); ?>" class="title mobile"><?php echo esc_html( get_the_title() ); ?></a>
                 <div class="imageSizeContainer">
                     <span class="overlayGradient"></span>
                     <a href="<?php the_permalink(); ?>" class="postPlayBtn-">
@@ -32,7 +32,7 @@
                     </a>
                 </div>
                 <div class="textContainer">
-                    <a href="<?php the_permalink(); ?>" class="title desktop"><?php the_title(); ?></a>
+                    <a href="<?php the_permalink(); ?>" class="title desktop"><?php echo esc_html( get_the_title() ); ?></a>
                     <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
                     <a href="<?php the_permalink(); ?>" class="readMore">Watch Video</a>
                 </div>

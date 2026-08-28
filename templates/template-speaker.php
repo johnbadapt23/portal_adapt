@@ -66,14 +66,14 @@ get_header();
                             <span class="postDetails">
                                 <span class="info">
                                     <span class="date">
-                                        <?php echo get_the_date('d.m.Y'); ?>
+                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                     </span>
                                     <span class="readTime">
-                                        <?php echo get_field( 'read_time' ); ?>
+                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                     </span>
                                 </span>
                             </span>
-                            <span class="articleLink"><?php echo the_title(); ?></span>
+                            <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
                             <span class="excerpt">
                                 <?php echo the_excerpt(); ?>
                             </span>
@@ -86,7 +86,7 @@ get_header();
                                 <div class="tags">
                                     <?php foreach( $post_tags as $tag ) { ?>
                                         <span>
-                                            <?php echo '#' . $tag->name  ; ?>
+                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                         </span>
                                     <?php } ?>
                                 </div>
@@ -117,7 +117,7 @@ get_header();
                 <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
             <?php } ?>
 
-            <a class="logoBlockLink button popup-modal" href="#form"><?php echo get_field( 'button_text', 'option' ); ?></a>
+            <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
         </div>
 
     </div>

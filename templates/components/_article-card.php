@@ -277,7 +277,7 @@ $filtered_topic = $filtered_topic ?? null;
                                 <?php
                             }
                             ?>
-                            <span class="date"><?php echo get_the_date('M j, Y', $post_id); ?></span>
+                            <span class="date"><?php echo esc_html( get_the_date('M j, Y', $post_id) ); ?></span>
                             <?php if($video == 'yes'){ ?>
                                 <span class="video-icon"></span>
                             <?php } ?>

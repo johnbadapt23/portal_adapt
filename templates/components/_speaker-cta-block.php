@@ -1,7 +1,7 @@
 <section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?> scrollPos">
     <div class="container">
         <div class="inner">
-            <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+            <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
 
             <?php if ( have_rows( 'speakers' ) ) : ?>
                 <div class="gridWrapper speaker-cta">
@@ -20,15 +20,15 @@
                                             </div>
                                         <?php } ?>
                                         <hr>
-                                        <span class="title"><?php the_title(); ?></span>
+                                        <span class="title"><?php echo esc_html( get_the_title() ); ?></span>
                                         <span class="description">
-                                            <?php echo get_field( 'speaker_description' ); ?>
+                                            <?php echo esc_html( get_field( 'speaker_description' ) ); ?>
                                         </span>
                                     </a>
                                     <?php if ( have_rows( 'speaker_block_button' ) ) : ?>
                                         <?php while ( have_rows( 'speaker_block_button' ) ) : the_row(); ?>
                                             <?php if ( get_sub_field( 'download_file' ) ) { ?>
-                                                <a class="button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_file' ) ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_file' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } ?>
                                         <?php endwhile; ?>
                                     <?php else : ?>
@@ -45,7 +45,7 @@
         <?php if ( have_rows( 'button_block' ) ) : ?>
             <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
                 <div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                 </div>
             <?php endwhile; ?>
         <?php endif; ?>

@@ -1,7 +1,7 @@
 <section class="keynote-slider-module">
 	<div class="container">
         <div class="blockTitle">
-            <h2 class="headerXsmall text-bold"><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
             <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
         </div>
     </div>
@@ -23,14 +23,14 @@
 									<span class="hover-container background-black">
 										<span class="hover-text"><?php echo get_sub_field( 'hover_text' ); ?></span>
 										<?php if (get_sub_field( 'link' )) { ?>
-											<a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+											<a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 										<?php } ?>
 									</span>
 								</span>
 							</div>
 							<span class="slide-details">
-								<span class="name text-black"><?php echo get_sub_field( 'title' ); ?></span>
-								<span class="name-title text-black"><?php echo get_sub_field( 'sub_title' ); ?></span>
+								<span class="name text-black"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+								<span class="name-title text-black"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 							</span>
 						</div>
 					</div>
