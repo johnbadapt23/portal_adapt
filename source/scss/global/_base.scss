@@ -94,6 +94,42 @@
 	border: 0;
 }
 
+// "Skip to main content" link (WCAG 2.4.1 Bypass Blocks) - every page
+// wraps its content in a #main element (see index.php and the various
+// templates/*.php top-level templates), so this is a single link that
+// works everywhere. Hidden the same way .sr-only is until it receives
+// keyboard focus, at which point it needs to actually be visible - a
+// screen reader user does not need to see it, but a sighted keyboard user
+// tabbing through the page does, so this can't just reuse .sr-only as-is.
+.skip-link {
+	position: absolute !important;
+	top: -999px;
+	left: 0;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+	z-index: 100000;
+
+	&:focus {
+		top: 0;
+		width: auto;
+		height: auto;
+		padding: 12px 20px;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: normal;
+		background: #fff;
+		color: #000;
+		text-decoration: underline;
+	}
+}
+
 ::-moz-selection {
 	//background: $selection-bg;
 	color: $selection-color;

@@ -204,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php $q = get_queried_object(); $q_slug = $q->slug ?? ''; ?>
 <body <?php body_class(''); ?> <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'customer' ){ ?>data-theme-style="dark" <?php } ?> rel="<?php if ( is_404() ): echo 'notFound'; endif; ?>" <?php if(current_user_can('mepr-active')) { ?>id="logged-in"<?php } ?>>
 <?php wp_body_open(); // Standard hook (WP 5.2+) so plugins can inject markup right after <body> instead of hacking body_class/the_content filters. ?>
+    <a class="skip-link" href="#main"><?php esc_html_e( 'Skip to main content', 'portal' ); ?></a>
     <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHF4ZRS"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
