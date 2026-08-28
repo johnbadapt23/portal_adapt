@@ -1629,12 +1629,16 @@ article.articleWrapper {
                 }
 
                 .speaker-container-inner {
-                    display: block;
+                    // .speaker-subtitle (width:100%) needs its own row above
+                    // .speaker-image + .description sitting side by side -
+                    // flex-wrap lets the 100%-wide item force a line break
+                    // the same way the old float layout did, without float.
+                    display: flex;
+                    flex-wrap: wrap;
                     width: 100%;
                     margin-bottom: 60px;
 
                     .speaker-subtitle {
-                        float: left;
                         width: 100%;
                         color: #838383;
                         font-size: 20px;
@@ -1657,8 +1661,8 @@ article.articleWrapper {
                     // crops any uploaded photo to fill it consistently.
                     .speaker-image {
                         width: 60px;
+                        flex-shrink: 0;
                         aspect-ratio: 1 / 1;
-                        float: left;
                         border-radius: 3px;
                         overflow: hidden;
 
@@ -1671,7 +1675,6 @@ article.articleWrapper {
                     }
 
                     .description {
-                        float: left;
                         width: calc(100% - 60px);
                         padding-top: 0px;
                         padding-left: 15px;
@@ -1704,7 +1707,6 @@ article.articleWrapper {
                     }
 
                     .textBlock {
-                        float: left;
                         width: 100%;
                         margin-top: 30px;
                         position: relative;
