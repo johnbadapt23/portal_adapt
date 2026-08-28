@@ -2192,7 +2192,7 @@ function load_past_sessions_unique() {
 
     wp_reset_postdata();
 
-    echo $html;
+    echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- pre-rendered markup captured via ob_start()/ob_get_clean() from the local _article-card.php template, whose own dynamic values are already escaped at output; not user-controllable input, and wp_kses_post() would strip the card's structural markup.
     wp_die();
 }
 
