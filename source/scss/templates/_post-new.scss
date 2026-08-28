@@ -1708,7 +1708,7 @@ article.articleWrapper {
 
                     .textBlock {
                         width: 100%;
-                        margin-top: 30px;
+                        margin-top: 10px;
                         position: relative;
 
                         p {
@@ -5306,6 +5306,9 @@ body article.articleWrapper .column.second .relatedArticles {
 	display: block;
 }
 body article.articleWrapper .column.second .relatedArticles .item .textContainer a.title {
+	display: block;
+}
+body article.articleWrapper .column.second .share-save-container {
 	display: block;
 }
 body article.articleWrapper .column.second .share-save-container .saveInsight {
