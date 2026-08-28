@@ -6,7 +6,7 @@
 $download_variant = $download_variant ?? 'two';
 $popup_id_prefix = $download_variant === 'three' ? 'Triple' : 'Double';
 ?>
-<section class="download-block" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="download-block" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <?php if(get_sub_field( 'block_title' )){ ?>
             <span class="download-block-title"><?php echo get_sub_field( 'block_title' ); ?></span>

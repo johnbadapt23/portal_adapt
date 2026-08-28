@@ -35,7 +35,7 @@ $q_slug = $q->slug ?? '';
 					<form action="" name="postTypesFilter" class="postTypesFilter" method="get"> 
 						<span class="searchField">
                             <span class="search">
-                                <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Persona Mapping" <?php if($keyword != '') {?>value="<?php echo $keyword;?>"<?php } ?>/>
+                                <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Persona Mapping" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
                                 <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span>                       
@@ -119,7 +119,7 @@ $q_slug = $q->slug ?? '';
 										});
 									?>
 									<?php foreach($terms as $term) { ?>
-										<option value="<?php echo $term->slug; ?>" <?php if($persona == '') { } else { if ($term -> slug == $persona ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
+										<option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($persona == '') { } else { if ($term -> slug == $persona ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
 									<?php } ?>
 								</select>
 							</span>                            
@@ -407,7 +407,7 @@ $q_slug = $q->slug ?? '';
 										});
 									?>
 									<?php foreach($terms as $term) { ?>
-										<option value="<?php echo $term->slug; ?>" <?php if($persona == '') { } else { if ($term -> slug == $persona ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
+										<option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($persona == '') { } else { if ($term -> slug == $persona ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
 									<?php } ?>
 								</select>
 							</span>                            

@@ -5,7 +5,7 @@
                 <span class="animator-player thank-you-animation">
                     <?php $animation = get_sub_field( 'animation' ); ?>
         			<?php if ( $animation ) { ?>
-                        <lottie-player id="thanks" autoplay loop speed="1" src="<?php echo $animation['url']; ?>" background="transparent" style="width: 100%; height: auto"></lottie-player>
+                        <lottie-player id="thanks" autoplay loop speed="1" src="<?php echo esc_url( $animation['url'] ); ?>" background="transparent" style="width: 100%; height: auto"></lottie-player>
         			<?php } ?>
                 </span>
             </span>

@@ -1,4 +1,4 @@
-<section class="evr-fundamentals" <?php if( get_sub_field( 'id' )){ ?> id="<?php echo get_sub_field( 'id' ); ?>"<?php } ?>>
+<section class="evr-fundamentals" <?php if( get_sub_field( 'id' )){ ?> id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>"<?php } ?>>
     <div class="container">
         <div class="title-container">
             <h2 class="evr-title"><?php echo get_sub_field( 'title' ); ?></h2>

@@ -9,7 +9,7 @@
             <?php $counter++; ?>
         <?php endwhile; ?>
         <?php if(current_user_can('mepr-active','memberships:' . $members)): ?>
-            <section class="relatedArticlesCarousel scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+            <section class="relatedArticlesCarousel scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
                 <div class="container">
                     <div class="inner">
                         <h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>
@@ -667,7 +667,7 @@
             <?php } ?>
         <?php endif; ?>
 <?php else: ?>
-    <section class="relatedArticlesCarousel scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+    <section class="relatedArticlesCarousel scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
         <div class="container">
             <div class="inner">
                 <h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>

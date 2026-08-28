@@ -1,4 +1,4 @@
-<section class="videoBlock scrollPos" style="background-image: url(<?php echo get_sub_field('video_poster_image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="videoBlock scrollPos" style="background-image: url(<?php echo get_sub_field('video_poster_image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <?php if( get_sub_field('dark_overlay') == 'yes') { ?>
         <span class="dark-overlay"></span>
     <?php } ?>
@@ -36,7 +36,7 @@
         <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
         <div class="videoWrapper">
             <video width="100%" id="popupVideo" controls controlsList="nodownload">
-                <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+                <source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
             </video>
         </div>
     </div>

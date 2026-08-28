@@ -1,4 +1,4 @@
-<section class="videoBlock image-button-block scrollPos" style="background-image: url(<?php echo get_sub_field('image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="videoBlock image-button-block scrollPos" style="background-image: url(<?php echo get_sub_field('image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <?php if( get_sub_field('dark_overlay') == 'yes') { ?>
         <span class="dark-overlay"></span>
     <?php } ?>

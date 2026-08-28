@@ -1,4 +1,4 @@
-<section class="evr-stages customer-kit-types" <?php if( get_sub_field( 'id' )){ ?> id="<?php echo get_sub_field( 'id' ); ?>"<?php } ?>>
+<section class="evr-stages customer-kit-types" <?php if( get_sub_field( 'id' )){ ?> id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>"<?php } ?>>
     <div class="container">
         <?php if (get_sub_field( 'title' )) { ?> 
             <div class="title-container">

@@ -31,7 +31,7 @@ get_header();
 		</span>
 		<span class="mapBlock">
 			<span class="googleMap acf-map">
-                <span class="marker" data-lat="<?php echo $map['lat']; ?>" data-lng="<?php echo $map['lng']; ?>"></span>
+                <span class="marker" data-lat="<?php echo esc_attr( $map['lat'] ); ?>" data-lng="<?php echo esc_attr( $map['lng'] ); ?>"></span>
             </span>
 			<span class="closeMap">
                 <i class="icon-close"></i>

@@ -754,7 +754,7 @@ if (
                             <?php if ( have_rows( 'content_blocks' ) ): ?>
                             <?php while ( have_rows( 'content_blocks' ) ) : the_row(); ?>
                                 <?php if ( get_row_layout() == 'article_content' ) : ?>
-                                   <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos singlePost repeatableSingle">
+                                   <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="print-only scrollPos singlePost repeatableSingle">
                                        <div class="container">
                                            <div class="post-inner">
                                                <div class="fullWidth article-content">
@@ -779,7 +779,7 @@ if (
                                 <?php elseif ( get_row_layout() == 'snapshot' ) : ?>
                                     <?php get_template_part( 'templates/post-components/_snapshot' ); ?>
                                 <?php elseif ( get_row_layout() == 'feature_image_or_infogram' ) : ?>
-                                   <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only fullImageInfogram members-logged-in">
+                                   <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only fullImageInfogram members-logged-in">
                                        <div class="container">
                                             <?php if ( get_sub_field ( 'feature_image_or_infogram' ) == 'image' ) { ?>
                                                 <div class="featureBlock">
@@ -810,7 +810,7 @@ if (
                                        </div>
                                    </section>
                                 <?php elseif ( get_row_layout() == 'image_grid_block' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only imageGridBlock standard <?php echo get_sub_field( 'background_colour' ); ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="print-only imageGridBlock standard <?php echo get_sub_field( 'background_colour' ); ?>">
                                         <div class="container">
                                             <div class="inner">
                                                 <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
@@ -860,7 +860,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'logo_grid' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos logoGrid <?php echo get_sub_field( 'background_colour' ); ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="print-only scrollPos logoGrid <?php echo get_sub_field( 'background_colour' ); ?>">
                                 		<div class="container">
                                 			<div class="titleBlock">
                                 				<span class="title">
@@ -906,7 +906,7 @@ if (
                                 <?php elseif ( get_row_layout() == 'two_column_card_block' ) : ?>
                                     <?php get_template_part( 'templates/components/_two-column-card' ); ?>
                                 <?php elseif ( get_row_layout() == 'speaker_block' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
                                         <div class="container">
                                             <div class="inner">
                                                 <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
@@ -964,7 +964,7 @@ if (
                                 <?php elseif ( get_row_layout() == 'speaker_block_button' ) : ?>
                                         <?php get_template_part( 'templates/components/_speaker-cta-block' ); ?>
                                 <?php elseif ( get_row_layout() == 'two_column_text_block' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="print-only scrollPos twoColumnTextBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="print-only scrollPos twoColumnTextBlock <?php echo get_sub_field( 'background_colour' ); ?>">
                                         <div class="container">
                                             <div class="inner">
                                                 <div class="titleBlock">
@@ -982,7 +982,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'text_and_image_block' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
                                         <div class="container">
                                             <div class="inner">
                                                 <div class="title">
@@ -1018,7 +1018,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'half_text_half_image' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
                                         <div class="textBlock <?php echo get_sub_field( 'image_position' ); ?>">
                                             <div class="v-wrap">
                                                 <div class="v-box">
@@ -1053,7 +1053,7 @@ if (
                                 <?php elseif ( get_row_layout() == 'full_width_text_block' ) : ?>
                                     <?php get_template_part( 'templates/components/_full-width-text-block' ); ?>
                                 <?php elseif ( get_row_layout() == 'speaker_quote_carousel' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no speakerQuoteCarousel">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-no speakerQuoteCarousel">
                                         <div class="container">
                                             <div class="inner">
                                                 <div class="titleBlock">
@@ -1092,7 +1092,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'quote_block_with_no_image' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no quoteBlockNoImage">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-no quoteBlockNoImage">
                                         <div class="container">
                                             <div class="inner">
                                                 <?php if ( have_rows( 'quotes' ) ) : ?>
@@ -1124,7 +1124,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'single_level_logo_block' ) : ?>
-                                    <section id="<?php echo get_sub_field( 'id' ); ?>" class="scrollPos imageGridBlock standard logos">
+                                    <section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="scrollPos imageGridBlock standard logos">
                                         <div class="container">
                                             <div class="inner">
                                                 <div class="titleBlock">
@@ -1174,7 +1174,7 @@ if (
                                     <?php get_template_part( 'templates/components/_repeatable-counter-block' ); ?>
                                 <?php elseif ( get_row_layout() == 'membership_block' ) : ?>
                                     <?php if ( get_sub_field ( 'display_membership_block' ) == 'yes' ) { ?>
-                                        <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no pricingBlock">
+                                        <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-no pricingBlock">
                                             <div class="container">
                                                 <h2>Membership</h2>
                                                 <?php if ( have_rows( 'first_pricing_block', 'option' ) ) : ?>
@@ -1273,7 +1273,7 @@ if (
                                         </section>
                                     <?php } ?>
                                 <?php elseif ( get_row_layout() == 'two_column_block_with_text_and_featured_quote' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only twoColumnWithTextAndFeaturedQuote">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only twoColumnWithTextAndFeaturedQuote">
                                         <div class="container">
                                             <div class="inner">
                                                 <div class="column first">
@@ -1306,7 +1306,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'video_block' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no videoBlock postVideoBlock">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-no videoBlock postVideoBlock">
                                         <div class="container">
                                             <?php if( get_sub_field('vimeo_code_popup')){ ?>
                                                 <a href="https://vimeo.com/<?php echo get_sub_field('vimeo_code_popup'); ?>" class="image popup-vimeo">
@@ -1337,7 +1337,7 @@ if (
                                             <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
                                             <div class="videoWrapper">
                                                 <video width="100%" id="popupVideo" controls controlsList="nodownload">
-                                                    <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+                                                    <source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
                                                 </video>
                                             </div>
                                         </div>
@@ -1346,7 +1346,7 @@ if (
                                 <?php elseif ( get_row_layout() == 'full_width_image_block' ) : ?>
                                     <?php get_template_part( 'templates/components/_full-image-button-block' ); ?>
                                 <?php elseif ( get_row_layout() == 'full_width_text_editor' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-only fullWidthTextEditor<?php if ( get_sub_field( 'font') ) { ?> <?php echo get_sub_field( 'font' );?><?php } ?><?php if ( get_sub_field( 'font_colour') ) { ?> <?php echo get_sub_field( 'font_colour' ); ?><?php } ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-only fullWidthTextEditor<?php if ( get_sub_field( 'font') ) { ?> <?php echo get_sub_field( 'font' );?><?php } ?><?php if ( get_sub_field( 'font_colour') ) { ?> <?php echo get_sub_field( 'font_colour' ); ?><?php } ?>">
                                         <div class="container">
                                             <?php echo get_sub_field( 'text_editor' ); ?>
                                             <?php if ( have_rows( 'button_block' ) ) : ?>
@@ -1359,7 +1359,7 @@ if (
                                         </div>
                                     </section>
                                 <?php elseif ( get_row_layout() == 'form_block' ) : ?>
-                                    <section <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?> class="scrollPos print-no formBlock<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?> centered<?php } ?>">
+                                    <section <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?> class="scrollPos print-no formBlock<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?> centered<?php } ?>">
                                 		<div class="container">
                                 			<div class="inner">
                                 				<div class="formWrapper register">
@@ -1377,7 +1377,7 @@ if (
                                 					<?php }?>
                                 					<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
                                 						<a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo get_sub_field('button_text'); ?></a>
-                                						<div class="formPopup mfp-hide" id="<?php echo get_sub_field('form_id'); ?>">
+                                						<div class="formPopup mfp-hide" id="<?php echo esc_attr( get_sub_field('form_id') ); ?>">
                                 							<a class="popup-modal-dismiss"></a>
                                 							<?php if ( get_sub_field ( 'block_title' ) ) { ?>
                                 								<h2><h2><?php echo get_sub_field('block_title'); ?></h2></h2>

@@ -307,6 +307,6 @@ function custom_acf_init() {
 function custom_enquiry_value($formid){
 	if ($formid == 9) {
 ?>
-	<input type="hidden" name="ninja_forms_field_10" value="<?php echo get_sub_field('enquiry_email');?>">
+	<input type="hidden" name="ninja_forms_field_10" value="<?php echo esc_attr( get_sub_field('enquiry_email') ); ?>">
 <?php
 }} */

@@ -168,7 +168,7 @@ if ( $loop->have_posts() ) :
                             <?php endif; ?>
                             <?php wp_reset_query(); ?>
                             <?php foreach($terms as $term) { ?>
-                                <option value="<?php echo $term->slug; ?>" <?php if($filterType == '') { } else { if ($term -> slug == $filterType ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
+                                <option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($filterType == '') { } else { if ($term -> slug == $filterType ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
                             <?php } ?>
                         </select>
                     </span>

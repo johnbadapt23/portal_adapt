@@ -82,7 +82,7 @@
 						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
 						<div class="videoWrapper">
 							<video width="100%" id="popupVideo" controls controlsList="nodownload">
-								<source type="video/mp4" src="<?php echo $slide['video'][0]['vimeo_code']; ?>" />
+								<source type="video/mp4" src="<?php echo esc_url( $slide['video'][0]['vimeo_code'] ); ?>" />
 							</video>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 	<?php while ( have_rows( 'content_blocks' ) ) : the_row(); ?>
 
 	<?php if ( get_row_layout() == 'event_theme' ) : ?>
-		<section class="fullWidthTextEditor" id="<?php echo get_sub_field( 'id' ); ?>">
+		<section class="fullWidthTextEditor" id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>">
 			<div class="container">
 				<div class="inner">
 					<div class="content">
@@ -186,7 +186,7 @@
 		</section>
 
 	<?php elseif ( get_row_layout() == 'carousel_block' ) : ?>
-		<section class="centerModeCarousel" id="<?php echo get_sub_field( 'id' ); ?>">
+		<section class="centerModeCarousel" id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>">
 			<div class="container">
 				<div class="inner">
 					<div class="titleBlock">
@@ -206,7 +206,7 @@
 									</a>
 								<?php } else { ?>
 									<a href="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" class="video" id="video" playsinline="" webkit-playsinline="" loop="" controls>
-		                                <source src="<?php echo get_sub_field('vimeo_code'); ?>" type="video/mp4"></source>
+		                                <source src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" type="video/mp4"></source>
 		                            </a>
 								<?php } ?>
 
@@ -243,7 +243,7 @@
 
 	<?php elseif ( get_row_layout() == 'agenda_highlights' ) : ?>
 
-		<section class="agendaHighlightsBlock" id="<?php echo get_sub_field( 'id' ); ?>">
+		<section class="agendaHighlightsBlock" id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>">
 
 			<div class="container">
 				<div class="inner">
@@ -329,7 +329,7 @@
 
 	<?php elseif ( get_row_layout() == 'speaker_block' ) : ?>
 
-		<section id="<?php echo get_sub_field( 'id' ); ?>" class="imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+		<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?>">
 			<div class="container">
 				<div class="inner">
 					<h2><?php echo get_sub_field( 'block_title' ); ?></h2>
@@ -388,7 +388,7 @@
 	    <?php get_template_part( 'templates/components/_speaker-cta-block' ); ?>
 	<?php elseif ( get_row_layout() == 'single_level_logo_block' ) : ?>
 
-		<section id="<?php echo get_sub_field( 'id' ); ?>" class="imageGridBlock standard logos">
+		<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="imageGridBlock standard logos">
 			<div class="container">
 				<div class="inner">
 					<div class="titleBlock">
@@ -466,7 +466,7 @@
 				<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
 				<div class="videoWrapper">
 					<video width="100%" id="popupVideo" controls controlsList="nodownload">
-						<source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+						<source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
 					</video>
 				</div>
 			</div>
@@ -477,7 +477,7 @@
 		 <?php get_template_part( 'templates/components/_full-width-text-block' ); ?>
 	<?php elseif ( get_row_layout() == 'hierarchical_logo_block' ) : ?>
 
-		<section id="<?php echo get_sub_field( 'id' ); ?>" class="imageGridBlock standard logos">
+		<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="imageGridBlock standard logos">
 			<div class="container">
 				<div class="inner">
 					<div class="titleBlock">
@@ -572,7 +572,7 @@
 
 		<?php elseif ( get_row_layout() == 'related_articles' ) : ?>
 
-            <section id="<?php echo get_sub_field( 'id' ); ?>" class="relatedArticlesCarousel">
+            <section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="relatedArticlesCarousel">
                 <div class="container">
                     <div class="inner">
             			<h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>
@@ -702,7 +702,7 @@
 			</section>
 
 		<?php elseif ( get_row_layout() == 'speaker_quote_carousel' ) : ?>
-			<section class="speakerQuoteCarousel" id="<?php echo get_sub_field( 'id' ); ?>">
+			<section class="speakerQuoteCarousel" id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>">
 				<div class="container">
 					<div class="inner">
 						<div class="titleBlock">
@@ -742,7 +742,7 @@
 			</section>
 
 		<?php elseif ( get_row_layout() == 'half_text_half_image' ) : ?>
-			<section id="<?php echo get_sub_field( 'id' ); ?>"  class="halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+			<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>"  class="halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
 				<div class="textBlock <?php echo get_sub_field( 'image_position' ); ?>">
 					<div class="v-wrap">
 						<div class="v-box">
@@ -777,7 +777,7 @@
 
 		<?php elseif ( get_row_layout() == 'text_and_image_block' ) : ?>
 
-            <section id="<?php echo get_sub_field( 'id' ); ?>" class="textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+            <section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
                 <div class="container">
                     <div class="inner">
                         <div class="title">
@@ -814,7 +814,7 @@
             </section>
 
 		<?php elseif ( get_row_layout() == 'form_block' ) : ?>
-			<section id="<?php echo get_sub_field( 'id' ); ?>" class="formBlock<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?> centered<?php } ?>">
+			<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="formBlock<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?> centered<?php } ?>">
 				<div class="container">
 					<div class="inner">
 						<div class="formWrapper register">
@@ -832,7 +832,7 @@
 							<?php }?>
 							<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
 								<a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo get_sub_field('button_text'); ?></a>
-								<div class="formPopup mfp-hide" id="<?php echo get_sub_field('form_id'); ?>">
+								<div class="formPopup mfp-hide" id="<?php echo esc_attr( get_sub_field('form_id') ); ?>">
 									<a class="popup-modal-dismiss"></a>
 									<?php if ( get_sub_field ( 'block_title' ) ) { ?>
 										<h2><h2><?php echo get_sub_field('block_title'); ?></h2></h2>

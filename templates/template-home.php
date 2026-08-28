@@ -107,7 +107,7 @@ get_header();
 							<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
 							<div class="videoWrapper">
 								<video width="100%" id="popupVideo" controls controlsList="nodownload">
-									<source type="video/mp4" src="<?php echo $slide['video'][0]['vimeo_code']; ?>" />
+									<source type="video/mp4" src="<?php echo esc_url( $slide['video'][0]['vimeo_code'] ); ?>" />
 								</video>
 							</div>
 						<?php } ?>
@@ -507,7 +507,7 @@ get_header();
 				<?php get_template_part( 'templates/components/_full-width-text-block' ); ?>
 			<?php elseif ( get_row_layout() == 'single_level_logo_block' ) : ?>
 
-				<section id="<?php echo get_sub_field( 'id' ); ?>" class="imageGridBlock standard logos">
+				<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="imageGridBlock standard logos">
 					<div class="container">
 						<div class="inner">
 
@@ -674,7 +674,7 @@ get_header();
 						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
 						<div class="videoWrapper">
 							<video width="100%" id="popupVideo" controls controlsList="nodownload">
-								<source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+								<source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
 							</video>
 						</div>
 					</div>
@@ -743,7 +743,7 @@ get_header();
 								<?php }?>
 								<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
 									<a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo get_sub_field('button_text'); ?></a>
-									<div class="formPopup mfp-hide" id="<?php echo get_sub_field('form_id'); ?>">
+									<div class="formPopup mfp-hide" id="<?php echo esc_attr( get_sub_field('form_id') ); ?>">
 										<a class="popup-modal-dismiss"></a>
 										<?php if ( get_sub_field ( 'block_title' ) ) { ?>
 											<h2><h2><?php echo get_sub_field('block_title'); ?></h2></h2>

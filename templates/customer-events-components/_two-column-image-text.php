@@ -21,7 +21,7 @@
             </div>
             <div class="column one-half text-column">
                 <div class="text-inner">
-                    <h2 class="<?php echo $textcolor; ?>"><?php echo get_sub_field( 'title' ); ?></h2>
+                    <h2 class="<?php echo esc_attr( $textcolor ); ?>"><?php echo get_sub_field( 'title' ); ?></h2>
                     <p class="p-medium <?php echo $textSecondary; ?>"><?php echo get_sub_field( 'text' ); ?></p>
                     <?php if ( have_rows( 'button' ) ) : ?>
                         <span class="button-container">

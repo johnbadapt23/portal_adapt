@@ -352,7 +352,7 @@ if ($membershipType === 'it-pro') {
             <!-- Search -->
             <div class="filter-search">
                 <form class="post-search-form">
-                    <input type="text" class="post-search-input" placeholder="<?php echo get_field('search_help_text'); ?>">
+                    <input type="text" class="post-search-input" placeholder="<?php echo esc_attr( get_field('search_help_text') ); ?>">
                     <input type="image" class="post-search-submit" src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" alt="Search">
                 </form>
                 <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>

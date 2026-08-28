@@ -73,7 +73,7 @@ if (isset($_GET['partner-search'])) {
 								<?php 
 									foreach ($terms as $term) { ?>
 										<label class="category-checkbox partner-type"><?php echo $term->name; ?>
-											<input type="checkbox" name="partner-types[]" class="category-filter" value="<?php echo $term->slug; ?>" <?php if (!empty($partnerTypes)) { if (in_array($term->slug, $partnerTypes)) { ?> checked <?php } } ?>>
+											<input type="checkbox" name="partner-types[]" class="category-filter" value="<?php echo esc_attr( $term->slug ); ?>" <?php if (!empty($partnerTypes)) { if (in_array($term->slug, $partnerTypes)) { ?> checked <?php } } ?>>
 											<span class="checkbox"></span>
 										</label> 
 									<?php }
@@ -97,7 +97,7 @@ if (isset($_GET['partner-search'])) {
 								<?php 
 									foreach ($terms as $term) { ?>
 										<label class="category-checkbox partner-capability"><?php echo $term->name; ?>
-											<input type="checkbox" name="capabilities[]" class="category-filter" value="<?php echo $term->slug; ?>" <?php if (!empty($capabilities)) { if (in_array($term->slug, $capabilities)) { ?> checked <?php } } ?>>
+											<input type="checkbox" name="capabilities[]" class="category-filter" value="<?php echo esc_attr( $term->slug ); ?>" <?php if (!empty($capabilities)) { if (in_array($term->slug, $capabilities)) { ?> checked <?php } } ?>>
 											<span class="checkbox"></span>
 										</label> 
 									<?php }
@@ -121,7 +121,7 @@ if (isset($_GET['partner-search'])) {
 								<?php 
 									foreach ($terms as $term) { ?>
 										<label class="category-checkbox partner-industries"><?php echo $term->name; ?>
-											<input type="checkbox" name="partner-industries[]" class="category-filter" value="<?php echo $term->slug; ?>" <?php if (!empty($partnerIndustries)) { if (in_array($term->slug, $partnerIndustries)) { ?> checked <?php } } ?>>
+											<input type="checkbox" name="partner-industries[]" class="category-filter" value="<?php echo esc_attr( $term->slug ); ?>" <?php if (!empty($partnerIndustries)) { if (in_array($term->slug, $partnerIndustries)) { ?> checked <?php } } ?>>
 											<span class="checkbox"></span>
 										</label> 
 									<?php }

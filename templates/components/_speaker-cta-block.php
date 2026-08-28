@@ -1,4 +1,4 @@
-<section id="<?php echo get_sub_field( 'id' ); ?>" class="imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?> scrollPos">
+<section id="<?php echo esc_attr( get_sub_field( 'id' ) ); ?>" class="imageGridBlock speakerBlock <?php echo get_sub_field( 'background_colour' ); ?> scrollPos">
     <div class="container">
         <div class="inner">
             <h2><?php echo get_sub_field( 'block_title' ); ?></h2>

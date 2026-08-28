@@ -1,4 +1,4 @@
-<section class="cards-module gtm-cards-module background-black benchmark-card-module" <?php if(get_sub_field('id')){ ?> id="<?php echo get_sub_field('id');?>"<?php } ?>>
+<section class="cards-module gtm-cards-module background-black benchmark-card-module" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
 	<div class="container">
 		<div class="top-content">
 			<h2 class="text-white bold-grey"><?php echo get_sub_field( 'title' ); ?></h2>

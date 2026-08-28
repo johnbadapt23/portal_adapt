@@ -1,5 +1,5 @@
 
-<section class="blogWrapper relatedArticles post-insights gridModule scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="blogWrapper relatedArticles post-insights gridModule scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>
         <div class="viewContainer relatedArticles"><a class="tooltip list"><span class="tooltiptext">Switch to list view</a></div>

@@ -356,8 +356,8 @@ endif;
                             <div class="switch-content resources<?php if ($contentCounter == 1){ ?> active<?php } ?>" id="resourcesAdvisor">
                                 <div class="resources-column-container gap-16-40 two-column-container resources-advisor tablet-one-column"
                                 data-page="1"
-                                data-per-page="<?php echo $per_page; ?>"
-                                data-total="<?php echo count($resources_array); ?>"
+                                data-per-page="<?php echo esc_attr( $per_page ); ?>"
+                                data-total="<?php echo esc_attr( count($resources_array) ); ?>"
                                 data-post-id="<?php the_ID(); ?>">
 
                                     <?php

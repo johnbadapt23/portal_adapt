@@ -1395,7 +1395,7 @@ if (current_user_can('administrator')) {
 							<span class="share-title">Share</span>
 							<span class="share-links-container">
 								<span class="copy-link share">
-		                            <input type="text" value="<?php echo the_permalink(); ?>" id="postLink" style="display: none;">
+		                            <input type="text" value="<?php echo esc_url( get_permalink() ); ?>" id="postLink" style="display: none;">
 		                            <a onclick="copyJobLink()">
 										<span class="image-icon-container">
 		                                    <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link.svg" width="33" height="32" loading="lazy" alt="Copy link" />

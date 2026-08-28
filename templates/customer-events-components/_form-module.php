@@ -3,7 +3,7 @@ $linkedInLink = get_field( 'linked_in', 'options'  );
 $youtubeLink = get_field( 'you_tube', 'options'  );
 ?>
 
-<section class="expanding-form-module background-true-black" <?php if(get_sub_field('id')){ ?> id="<?php echo get_sub_field('id');?>"<?php } ?>>
+<section class="expanding-form-module background-true-black" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">        
         <div class="column-container background-red">
             <span class="grow-container"></span>

@@ -20,7 +20,7 @@ get_header();
                 <div class="formContainer">
                     <form action="" name="insightsFilter" class="insightsFilter" method="get">
                         <span class="search">
-                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'events_search_placeholder_text', 'option' ); ?>" />
+                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo esc_attr( get_field( 'events_search_placeholder_text', 'option' ) ); ?>" />
                             <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
                         </span>
                         <span class="spacer"></span>
@@ -41,7 +41,7 @@ get_header();
                                 <?php } else { ?>
                                     <span class="checkboxButton">
                                         <label>
-                                          <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                          <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
                                         </label>
                                     </span>
                                 <?php }?>
@@ -62,7 +62,7 @@ get_header();
                                 <?php $image = get_field('icon', $term); ?>
                                 <span class="checkboxButton">
                                     <label>
-                                      <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="types[]" <?php if($filterType == '') { } else { if (in_array( $term -> slug, $filterType )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
                                     </label>
                                 </span>
                             <?php } ?>
@@ -81,13 +81,13 @@ get_header();
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
                                     <label>
-                                      <input type="checkbox" name="duration[]" <?php if($filterDuration == '') { } else { if (in_array( $term -> slug, $filterDuration )) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                      <input type="checkbox" name="duration[]" <?php if($filterDuration == '') { } else { if (in_array( $term -> slug, $filterDuration )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
                                     </label>
                                 </span>
                             <?php } ?>
                         </span>
                         <span class="submitContainer">
-                            <input type="submit" class="button filterButton" value="<?php echo get_field( 'events_filter_button_text', 'option' ); ?>" />
+                            <input type="submit" class="button filterButton" value="<?php echo esc_attr( get_field( 'events_filter_button_text', 'option' ) ); ?>" />
                             <?php if ($filterCat != '' || $filterDuration != '' || $filterType != '' ) { ?>
                                 <a class="clear" href="/edge-events">Clear</a>
                             <?php } ?>

@@ -276,7 +276,7 @@ $filterBy = array();
                     <form action="" name="insightsFilter" class="new-filter desktop insightsFilter<?php if ($filterCat != '' || $filterEvent != '' || $filterDuration != '' || $filterType != '' ) { ?> active<?php } ?>" method="get">
 
                         <span class="search">
-                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo get_field( 'post_search_placeholder_text', 'option' ); ?>" />
+                            <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo esc_attr( get_field( 'post_search_placeholder_text', 'option' ) ); ?>" />
                             <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
                             <input type="hidden" value="1" name="sentence" />
                         </span>
@@ -296,7 +296,7 @@ $filterBy = array();
                                 <?php foreach($terms as $term) { ?>
                                     <span class="radioSlide slide <?php echo $term -> slug; ?>">
                                         <label style="background-image: url(<?php echo get_field( 'button_image', $term ); ?>);">
-                                          <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>">
+                                          <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                           <img class="tick" src="<?php echo get_template_directory_uri(); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" alt="Checkmark" />
                                           <span class="overlay"></span>
                                           <span class="checkbox-text">
@@ -428,7 +428,7 @@ $filterBy = array();
                                     <?php foreach($terms as $term) { ?>
                                         <span class="radioSlide slide <?php echo $term -> slug; ?>">
                                             <label style="background-image: url(<?php echo get_field( 'button_image', $term ); ?>);">
-                                              <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>">
+                                              <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                               <img class="tick" src="<?php echo get_template_directory_uri(); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" alt="Checkmark" />
                                               <span class="overlay"></span>
                                               <span class="checkbox-text">
@@ -487,7 +487,7 @@ $filterBy = array();
                                     <?php foreach($terms as $term) { ?>
                                         <span class="checkboxButton filterItemMobile">
                                             <label>
-                                              <input type="checkbox" name="filterType" <?php if($filterType == '') { } else { if ($filterType == $term -> slug) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                              <input type="checkbox" name="filterType" <?php if($filterType == '') { } else { if ($filterType == $term -> slug) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
                                             </label>
                                         </span>
                                     <?php } ?>

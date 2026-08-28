@@ -34,7 +34,7 @@
                         <?php foreach($terms as $term) { ?>
                             <span class="checkboxButton">
                                 <label>
-                                  <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo $term -> slug; ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
+                                  <input type="checkbox" name="categories[]" <?php if($filterCat == '') { } else { if (in_array( $term -> slug, $filterCat )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>"><span class="checkbox-text"><?php echo $term -> name; ?></span>
                                 </label>
                             </span>
                         <?php } ?>

@@ -316,7 +316,7 @@ $html = ob_get_clean();
 
     <?php if ($visible_count > $posts_per_page) : ?>
 		<div class="past-nav-container page-navi-container post-pagination-container">
-			<a class="std-button red-button small-button" id="load-more-past-sessions" data-offset="<?php echo $shown; ?>" data-perpage="<?php echo $posts_per_page; ?>">Load More</a>
+			<a class="std-button red-button small-button" id="load-more-past-sessions" data-offset="<?php echo esc_attr( $shown ); ?>" data-perpage="<?php echo esc_attr( $posts_per_page ); ?>">Load More</a>
 		</div>
     <?php endif; ?>
 </div>
