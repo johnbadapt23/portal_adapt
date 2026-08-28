@@ -1127,19 +1127,41 @@ function my_enqueue_scripts() {
 
 
     // GSAP & ScrollTrigger
+    //
+    // Neither has any inline script attached (wp_add_inline_script /
+    // wp_localize_script) and their only real dependency is on each other
+    // (ScrollTrigger is a GSAP plugin, needs gsap.min.js already loaded -
+    // now declared explicitly instead of relying on enqueue call order),
+    // so both are safe to mark 'defer' per WP 6.3's script loading
+    // strategy: the browser can keep parsing the rest of the page while
+    // these download, and they're still guaranteed by spec to finish
+    // executing, in this relative order, before DOMContentLoaded fires -
+    // i.e. before main-js's $(document).ready() callback (which is what
+    // actually calls into gsap/ScrollTrigger) ever runs. main-js itself
+    // can't get the same treatment: it depends on jquery, which core
+    // doesn't register with a defer-compatible strategy, so WP's own
+    // dependency-aware negotiation would just silently downgrade it back
+    // to blocking anyway (see the strategy negotiation rules in WP's
+    // Make Core post announcing this feature in 6.3).
     wp_enqueue_script(
         'gsap-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js',
         array(),
         null,
-        true
+        array(
+            'strategy'  => 'defer',
+            'in_footer' => true,
+        )
     );
     wp_enqueue_script(
         'scrolltrigger-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js',
-        array(),
+        array('gsap-js'),
         null,
-        true
+        array(
+            'strategy'  => 'defer',
+            'in_footer' => true,
+        )
     );
 
     // Main JS
