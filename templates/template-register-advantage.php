@@ -21,12 +21,12 @@ get_header();
 				<?php while ( have_rows( $reg_prefix . '_registration_banner', 'options' ) ) : the_row(); ?>
 					<div class="column-container">
 						<div class="column text-column">
-							<span class="title-container"><?php echo get_sub_field( 'title' ); ?></span>
+							<span class="title-container"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 							<span class="text-container black-text">
-								<?php echo get_sub_field( 'text' ); ?>
+								<?php echo esc_html( get_sub_field( 'text' ) ); ?>
 							</span>
 							<span class="button-container">
-								<a class="formPopupRegister red-button red stdBtn" href="#loginForm"><?php echo get_sub_field( 'scroll_to_button_text' ); ?></a>
+								<a class="formPopupRegister red-button red stdBtn" href="#loginForm"><?php echo esc_html( get_sub_field( 'scroll_to_button_text' ) ); ?></a>
 							</span>							
 						</div>
 						<div class="column image-column">
@@ -51,7 +51,7 @@ get_header();
 	<div style="display: none;">
 		<div class="login-form-popup" id="loginForm">
 			<div class="login-form-container">
-				<h3 class="form-title"><?php echo get_field( $reg_prefix . '_registration_form_title', 'options' ); ?></h3>
+				<h3 class="form-title"><?php echo esc_html( get_field( $reg_prefix . '_registration_form_title', 'options' ) ); ?></h3>
 				<span class="form">
 					<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 						<?php the_content(); ?>
@@ -73,7 +73,7 @@ get_header();
 								<?php } ?>                                                                
 								<?php if( get_sub_field( 'vimeo_code' )) { ?>
 									<span class="opacity-overlay"></span>
-									<a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+									<a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
 								<?php } ?>                                
 							</div>
 						</div> 
@@ -96,7 +96,7 @@ get_header();
 							<?php } ?>
 						</span>
 						<span class="text-container">
-							<?php echo get_sub_field( 'text' ); ?>
+							<?php echo esc_html( get_sub_field( 'text' ) ); ?>
 						</span>
 					</div>
 				</div>
@@ -111,7 +111,7 @@ get_header();
 				<div class="container">
 					<div class="column-container">
 						<div class="column text-list-column">
-							<h2 class="black-text"><?php echo get_sub_field( 'title' ); ?></h2>							
+							<h2 class="black-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>							
 							<div class="mobile-image">
 								<?php $image = get_sub_field( 'image' ); ?>
 								<?php if ( $image ) { ?>
@@ -122,7 +122,7 @@ get_header();
 								<span class="list-container">
 									<?php while ( have_rows( 'list_items' ) ) : the_row(); ?>
 										<span class="list-item text-black labelXLarge">
-											<?php echo get_sub_field( 'list_text' ); ?>
+											<?php echo esc_html( get_sub_field( 'list_text' ) ); ?>
 										</span>
 									<?php endwhile; ?>
 								</span>
@@ -145,10 +145,10 @@ get_header();
 	<?php endif; ?>
 	<?php if ( have_rows( $reg_prefix . '_registration_image_and_text_block', 'options' ) ) : ?>
 		<?php while ( have_rows( $reg_prefix . '_registration_image_and_text_block', 'options' ) ) : the_row(); ?>
-			<section class="customer-kit-image-text <?php echo get_sub_field( 'background_colour' ); ?>">
+			<section class="customer-kit-image-text <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
 				<div class="container">
 					<div class="title-container">
-						<h3><?php echo get_sub_field( 'title' ); ?></h3>
+						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
 					</div>
 					<div class="column-container">
 						<?php if ( have_rows( 'column' ) ) : ?>
@@ -161,8 +161,8 @@ get_header();
 										<?php } ?>
 									</div>
 									<div class="text-column two-thirds">
-										<span class="title"><?php echo get_sub_field( 'title' ); ?></span>
-										<span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+										<span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+										<span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
 									</div>
 								</div>
 							<?php endwhile; ?>
@@ -186,7 +186,7 @@ get_header();
 								<div class="quote-slide">
 									<div class="quote-slider-inner">
 										<h4 class="quote text-black"><?php echo esc_html( get_sub_field( 'quote' ) ); ?></h4>
-										<span class="quote-title text-black"><?php echo get_sub_field( 'quoter' ); ?></span>
+										<span class="quote-title text-black"><?php echo esc_html( get_sub_field( 'quoter' ) ); ?></span>
 									</div>
 								</div>
 							<?php endwhile; ?>
