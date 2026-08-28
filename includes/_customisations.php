@@ -147,13 +147,6 @@ function custom_add_query_vars_filter( $vars ){
 	return $vars;
 }
 
-// start session
-function custom_start_session() {
-    if(!session_id()) {
-        session_start();
-    }
-}
-
 // disable emojicons
 function custom_disable_wp_emojicons() {
   remove_action( 'admin_print_styles', 'print_emoji_styles' );
@@ -264,9 +257,74 @@ function custom_disable_json_api () {
   add_filter('json_jsonp_enabled', '__return_false');
 
   // Filters for WP-API version 2.x
+  // Note: rest_enabled/rest_jsonp_enabled were filters from the old
+  // standalone JSON REST API plugin era. Once the REST API merged into
+  // WP core (4.7) these two stopped having any effect - core's REST API
+  // cannot be switched off this way, so despite the function name the
+  // REST API has been fully active this whole time. Left in place since
+  // removing them changes nothing either way, but see
+  // custom_restrict_rest_user_enumeration() below for the hardening that
+  // actually does something: it blocks the one part of the REST API
+  // (the user list/user detail endpoints) that is genuinely worth
+  // restricting, without touching the endpoints wp-admin/Gutenberg need.
   add_filter('rest_enabled', '__return_false');
   add_filter('rest_jsonp_enabled', '__return_false');
 
+}
+
+// Block anonymous access to the REST API user endpoints. Unauthenticated,
+// these return every user's display name and slug (wp/v2/users), which is
+// a standard first step in enumerating usernames for a credential-stuffing
+// or brute-force attempt - a real concern on a membership site where every
+// visitor with an account is a valid REST API user. Logged-in requests
+// still work as normal (editors/admins picking a post author, etc.).
+function custom_restrict_rest_user_enumeration( $result ) {
+	if ( ! empty( $result ) ) {
+		return $result;
+	}
+
+	if ( is_user_logged_in() ) {
+		return $result;
+	}
+
+	if ( ! empty( $GLOBALS['wp']->query_vars['rest_route'] ) &&
+		preg_match( '#^/wp/v2/users(/|$)#', $GLOBALS['wp']->query_vars['rest_route'] ) ) {
+		return new WP_Error(
+			'rest_forbidden',
+			__( 'Sorry, you are not allowed to do that.', 'portal' ),
+			array( 'status' => rest_authorization_required_code() )
+		);
+	}
+
+	return $result;
+}
+
+// Author archives redirect ?author=N to the matching /author/username/
+// URL, which leaks a valid username to anyone willing to try a few IDs.
+// Send logged-out probes to the homepage instead of letting that redirect
+// happen; logged-in users (who already know who they are) are unaffected.
+function custom_block_author_enumeration() {
+	if ( is_user_logged_in() ) {
+		return;
+	}
+
+	if ( isset( $_GET['author'] ) && preg_match( '/^\d+$/', wp_unslash( $_GET['author'] ) ) ) {
+		wp_safe_redirect( home_url( '/' ), 301 );
+		exit;
+	}
+}
+
+// A conservative set of response headers with no compatibility risk (they
+// do not touch script/style loading the way a Content-Security-Policy
+// would, so they will not fight with the HubSpot/Vimeo/GSAP/Google Maps
+// embeds already used throughout the theme).
+function custom_security_headers() {
+	if ( headers_sent() ) {
+		return;
+	}
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'X-Frame-Options: SAMEORIGIN' );
+	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
 }
 
 // remove rest api
