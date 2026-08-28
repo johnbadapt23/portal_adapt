@@ -8,8 +8,8 @@
                         <div class="text-content-inner">   
 							<a class="kit-back-button" href="/know-your-customer/" target="_self">Back</a>
                             <span class="subtitle text-red"><a href="/know-your-customer/" target="_self"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>              
-                            <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
-                            <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+                            <h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                            <span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                             <span class="links-container">
                                 <!-- Logic for purchased vs non purchased -->
                                 <?php if($purchased == 'yes'){ ?>
@@ -20,9 +20,9 @@
                                         <?php $buttonCounter = 1; ?>
                                         <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
                                             <?php if(get_sub_field( 'button_type' ) == 'video-button') { ?>
-                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo esc_attr( $vimeoCode ) ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } else { ?>
-                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } ?>
                                             <?php $buttonCounter++; ?>
                                         <?php endwhile; ?>
@@ -42,7 +42,7 @@
                                 <?php } ?>                                                                
                                 <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                     <span class="opacity-overlay"></span>
-                                    <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                                    <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                                 <?php } ?>                                
                             </div>
                         </div> 
@@ -100,7 +100,7 @@
                             }
                             ?>
                             <?php if (get_field( 'older_version_question' ) == 'no') { ?> 
-								<span class="one-third kit-item my-kits <?php echo $kitType; ?>">
+								<span class="one-third kit-item my-kits <?php echo esc_attr( $kitType ); ?>">
 									<span class="kit-inner background-white ">
 										<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 										<span class="icon-container">
@@ -110,7 +110,7 @@
 											<?php } ?>
 										</span>
 										<span class="excerpt-container">
-											<?php echo get_field( 'listing_excerpt' ); ?>
+											<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 										</span>
 										<span class="button-container">
 											<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Access Now</a>
@@ -118,7 +118,7 @@
 									</span>
 								</span>
 							<?php } else { ?> 
-								<span class="one-third kit-item my-kits <?php echo $kitType; ?> kit-slider-container">
+								<span class="one-third kit-item my-kits <?php echo esc_attr( $kitType ); ?> kit-slider-container">
 									<span class="kit-slider">
 										<span class="kit-inner background-white">
 											<?php if ( get_field( 'show_new_tag' ) == 1 ) { ?>
@@ -132,7 +132,7 @@
 												<?php } ?>
 											</span>
 											<span class="excerpt-container">
-												<?php echo get_field( 'listing_excerpt' ); ?>
+												<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 											</span>
 											<span class="button-container">
 												<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Access Now</a>
@@ -151,7 +151,7 @@
 															<?php } ?>
 														</span>
 														<span class="excerpt-container">
-															<?php echo get_field( 'listing_excerpt' ); ?>
+															<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 														</span>
 														<span class="button-container">
 															<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Access Now</a>
@@ -204,7 +204,7 @@
                         ?>
                         <?php if(current_user_can('mepr_auth')) {?>
                         <?php } else { ?>
-                            <span class="one-third kit-item <?php echo $kitType; ?>">
+                            <span class="one-third kit-item <?php echo esc_attr( $kitType ); ?>">
                                 <span class="kit-inner background-pink">
                                     <span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
                                     <span class="icon-container">
@@ -214,7 +214,7 @@
                                         <?php } ?>
                                     </span>
                                     <span class="excerpt-container">
-                                        <?php echo get_field( 'listing_excerpt' ); ?>
+                                        <?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
                                     </span>
                                     <span class="button-container">
                                         <a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Preview</a>
