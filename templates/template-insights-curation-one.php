@@ -254,12 +254,12 @@ $filterBy = array();
     <section class="postHeader">
         <div class="container">
             <div class="headerWrapper">
-                <h1><?php echo get_field( 'title_text', 'option' ); ?></h1>
+                <h1><?php echo esc_html( get_field( 'title_text', 'option' ) ); ?></h1>
                 <span class="subTitle">
                     <?php if(current_user_can('mepr-active')) { ?>
                         <?php echo esc_html( get_field( 'sub_title', 'option' ) ); ?>
                     <?php } else { ?>
-                        <?php echo get_field( 'sub_title_logged_out', 'option' ); ?>
+                        <?php echo esc_html( get_field( 'sub_title_logged_out', 'option' ) ); ?>
                     <?php } ?>
                 </span>
             </div>
@@ -267,7 +267,7 @@ $filterBy = array();
                 <div class="formContainer">
                     <div class="ajax-search-container">
                         <?php if($keyword != '') { ?>
-                            <span class="hidden-keyword" style="display: none;"><?php echo $keyword; ?></span>
+                            <span class="hidden-keyword" style="display: none;"><?php echo esc_html( $keyword ); ?></span>
                             <span class="clear-keyword">Clear</span>
                         <?php } ?>
                         <?php echo do_shortcode('[wpdreams_ajaxsearchlite]'); ?>
@@ -277,7 +277,7 @@ $filterBy = array();
 
                         <span class="search">
                             <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo esc_attr( get_field( 'post_search_placeholder_text', 'option' ) ); ?>" />
-                            <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
+                            <input class="searchButton" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" />
                             <input type="hidden" value="1" name="sentence" />
                         </span>
 
@@ -296,8 +296,8 @@ $filterBy = array();
 
                             <span class="radioSlideContainer desktop">
                                 <?php foreach($terms as $term) { ?>
-                                    <span class="radioSlide slide <?php echo $term -> slug; ?>">
-                                        <label style="background-image: url(<?php echo get_field( 'button_image', $term ); ?>);">
+                                    <span class="radioSlide slide <?php echo esc_attr( $term -> slug ); ?>">
+                                        <label style="background-image: url(<?php echo esc_url( get_field( 'button_image', $term ) ); ?>);">
                                           <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                           <span class="overlay"></span>
                                           <span class="checkbox-text">
@@ -399,7 +399,7 @@ $filterBy = array();
 
                             <option value="<?php if ($filterTopics != '' || $sortBy != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>filterType=all">All</option>
                             <?php foreach($terms as $term) { ?>
-                                <option <?php if ($filterType == $term -> slug){?> selected=""<?php } ?>value="<?php if ($filterTopics != '' || $sortBy != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>filterType=<?php echo $term -> slug; ?>"><?php echo esc_html( $term -> name ); ?></option>
+                                <option <?php if ($filterType == $term -> slug){?> selected=""<?php } ?>value="<?php if ($filterTopics != '' || $sortBy != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>filterType=<?php echo esc_attr( $term -> slug ); ?>"><?php echo esc_html( $term -> name ); ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -428,8 +428,8 @@ $filterBy = array();
                                 ?>
                                 <span class="radioSlideContainer mobile">
                                     <?php foreach($terms as $term) { ?>
-                                        <span class="radioSlide slide <?php echo $term -> slug; ?>">
-                                            <label style="background-image: url(<?php echo get_field( 'button_image', $term ); ?>);">
+                                        <span class="radioSlide slide <?php echo esc_attr( $term -> slug ); ?>">
+                                            <label style="background-image: url(<?php echo esc_url( get_field( 'button_image', $term ) ); ?>);">
                                               <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                               <span class="overlay"></span>
                                               <span class="checkbox-text">
@@ -448,7 +448,7 @@ $filterBy = array();
                                 </span>
                             </span>
                             <div class="filter-by-mobile" id="filterBy">
-                                <span class="title select-label">Filter By: <span class="current-value"><?php if($filterType == '') {?>All<?php } else { if ($filterType == 'all') { ?>All<?php } else {?><?php echo $filterType; ?><?php } } ?></span></span>
+                                <span class="title select-label">Filter By: <span class="current-value"><?php if($filterType == '') {?>All<?php } else { if ($filterType == 'all') { ?>All<?php } else {?><?php echo esc_html( $filterType ); ?><?php } } ?></span></span>
                                 <span class="mobile-filter-container mobile">
                                     <?php if($filterTopics != '' || $keyword != '') { ?>
                                        <?php $terms = array(); ?>
@@ -511,7 +511,7 @@ $filterBy = array();
                                 }
                                 ?>
 
-                                <span class="title select-label">Sort By: <span class="current-value"><? echo $sortPostValue; ?></span></span>
+                                <span class="title select-label">Sort By: <span class="current-value"><?php echo esc_html( $sortPostValue ); ?></span></span>
                                 <span class="mobile-sort-container">
                                     <span class="checkboxButton sortItemMobile">
                                         <label>
@@ -739,11 +739,11 @@ $filterBy = array();
                             foreach($filterTypesResults as $typeName => $typeValue){ ?>
                                 <?php if($typeValue == 0){ ?>
                                 <?php } else { ?>
-                                    <?php if ($i == 0) {?> <?php } else if ($i == $len - 1) {?> and <?php } else {?>, <?php }?><a class="articlesButton" href="<?php echo $queryURL; ?>&filterType=<?php echo $typeName; ?>"><?php echo $typeValue; ?> <?php echo $typeName; ?></a>
+                                    <?php if ($i == 0) {?> <?php } else if ($i == $len - 1) {?> and <?php } else {?>, <?php }?><a class="articlesButton" href="<?php echo esc_url( $queryURL ); ?>&filterType=<?php echo esc_attr( $typeName ); ?>"><?php echo esc_html( $typeValue ); ?> <?php echo esc_html( $typeName ); ?></a>
                                     <?php $i++; ?>
                                 <?php }?>
                             <?php } ?>
-                            <?php if(empty($filterTopics)){ ?><?php if($keyword != '') {?> for "<?php echo $keyword;?>" <?php } } else { ?><?php if (count($filterTopics) > 1) {?> <?php } else { ?> for "<?php echo $topic;?>"<?php } ?> <?php } ?>
+                            <?php if(empty($filterTopics)){ ?><?php if($keyword != '') {?> for "<?php echo esc_html( $keyword );?>" <?php } } else { ?><?php if (count($filterTopics) > 1) {?> <?php } else { ?> for "<?php echo esc_html( $topic );?>"<?php } ?> <?php } ?>
                         </span>
 
                     <?php else : ?>
@@ -992,15 +992,15 @@ $filterBy = array();
                 ?>
 
                 <?php if(current_user_can('mepr_auth')) {?>
-                    <span class="postLink layout<?php echo $counter; ?>">
+                    <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                         <div class="linkWrapper">
 
                             <a href="<?php the_permalink(); ?>" class="imageContainer">
                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                     </div>
                                 <?php } else { ?>
-                                    <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                     </div>
                                 <?php } ?>
                             </a>
@@ -1019,7 +1019,7 @@ $filterBy = array();
                                             <?php foreach($terms as $term) { ?>
 
                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                     <a href="<?php echo $queryURL; ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo esc_html( $term -> name ); ?></a>
+                                                     <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo esc_attr( $term -> slug ); ?>"><?php echo esc_html( $term -> name ); ?></a>
                                                 </span>
                                                 <?php $counterTopic++; ?>
                                             <?php } ?>
@@ -1070,10 +1070,10 @@ $filterBy = array();
 
                 <?php } else { ?>
                     <!--  User has no access to post -->
-                        <span class="postLink layout<?php echo $counter; ?> memberContentLock">
+                        <span class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock">
                             <span class="overlay">
                                 <span class="exclusiveContent">
-                                    <span class="overlayText"><?php echo get_field('member_content_post_overlay_text', 'option'); ?></span>
+                                    <span class="overlayText"><?php echo esc_html( get_field('member_content_post_overlay_text', 'option') ); ?></span>
                                     <span class="registerLogin">
                                         <a class="registerLink" href="/researchadvisory">Register</a>
                                         <span>or</span>
@@ -1084,10 +1084,10 @@ $filterBy = array();
                             <div class="linkWrapper">
                                 <div class="imageContainer">
                                     <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                         </a>
                                     <?php } else { ?>
-                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                         </a>
                                     <?php } ?>
                                 </div>
@@ -1106,7 +1106,7 @@ $filterBy = array();
                                                     <?php foreach($terms as $term) { ?>
 
                                                         <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                             <a href="<?php echo $queryURL; ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo $term -> slug; ?>"><?php echo esc_html( $term -> name ); ?></a>
+                                                             <a href="<?php echo esc_url( $queryURL ); ?><?php if ($filterTopics != '' || $filterType != '' || $keyword != '' ) { ?>&<?php } else { ?>?<?php } ?>topics[]=<?php echo esc_attr( $term -> slug ); ?>"><?php echo esc_html( $term -> name ); ?></a>
                                                         </span>
                                                         <?php $counterTopic++; ?>
                                                     <?php } ?>
@@ -1150,13 +1150,13 @@ $filterBy = array();
 
             <div class="formTrigger">
                 <?php if ( get_field ( 'form_title', 'option' ) ) { ?>
-                    <h2><?php echo get_field( 'form_title', 'option' ); ?></h2>
+                    <h2><?php echo esc_html( get_field( 'form_title', 'option' ) ); ?></h2>
                 <?php } ?>
                 <?php if ( get_field ( 'form_subtitle', 'option' ) ) { ?>
-                    <h3><?php echo get_field( 'form_subtitle', 'option' ); ?></h3>
+                    <h3><?php echo esc_html( get_field( 'form_subtitle', 'option' ) ); ?></h3>
                 <?php } ?>
                 <?php if ( get_field ( 'call_to_action_text', 'option' ) ) { ?>
-                    <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
+                    <h4><?php echo esc_html( get_field( 'call_to_action_text', 'option' ) ); ?></h4>
                 <?php } ?>
 
                 <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
