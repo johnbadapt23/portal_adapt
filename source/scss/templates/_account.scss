@@ -503,6 +503,172 @@ section.default .container:has(> .mp_wrapper:nth-child(2)) {
      }
  }
 
+// Subscriptions table (/settings?action=subscriptions) - MemberPress's
+// default markup (memberpress/account/subscriptions.php) ships as a plain
+// bordered table with the plugin's own stock styling, which doesn't match
+// the rest of the account page (rounded 4px controls, $font-base,
+// $color-red accents, uppercase 10-12px bold labels - see
+// input[type="submit"]/.mepr-account-change-password above). Restyled
+// here rather than editing the template, since the template only outputs
+// class names/structure and every visual choice belongs in CSS.
+.mepr-account-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: $font-base;
+    margin-bottom: 24px;
+
+    thead th {
+        text-align: left;
+        padding: 0 16px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: $color-darkGrey-new;
+        border-bottom: 2px solid $color-lightGrey;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid $color-lightGrey;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.mepr-alt-row {
+            background-color: $color-lightGrey;
+        }
+    }
+
+    tbody td {
+        padding: 16px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: $color-black;
+        vertical-align: middle;
+    }
+
+    .mepr-account-product {
+        font-weight: 700;
+        font-size: 14px;
+        color: $color-black;
+    }
+
+    .mepr-account-subscr-id {
+        margin-top: 4px;
+        font-size: 11px;
+        font-style: italic;
+        color: $color-darkGrey-new;
+    }
+
+    .mepr-account-active {
+        font-weight: 700;
+        color: $color-darkGrey-new;
+
+        // $s->active is a MemberPress-generated string carrying a dynamic
+        // "mepr-active-{id}" / "mepr-inactive-{id}" class alongside the
+        // Yes/No text (see the str_contains($s->active, 'mepr-active'/
+        // 'mepr-inactive') checks a few lines up in subscriptions.php) -
+        // matched here with the same substring approach via [class*=]
+        // rather than an exact class name, since the id suffix varies per
+        // row. Harmless no-op if a given install's markup differs.
+        [class*="mepr-active"] {
+            color: #2e7d32;
+        }
+
+        [class*="mepr-inactive"] {
+            color: $color-red;
+        }
+    }
+
+    .mepr-account-created-at,
+    .mepr-account-expires-at {
+        color: $color-darkGrey-new;
+    }
+
+    .mepr-account-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        a {
+            display: inline-block;
+            border: 1px solid $color-red;
+            border-radius: 4px;
+            background-color: $color-red;
+            color: $color-white;
+            font-family: $font-base;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            padding: 0 20px;
+            height: 36px;
+            line-height: 34px;
+            @include transition();
+
+            &:hover {
+                border-color: $color-red-hover;
+                background-color: $color-red-hover;
+                color: $color-white;
+            }
+        }
+    }
+
+    @include responsive(767) {
+        thead {
+            display: none;
+        }
+
+        tbody tr {
+            display: block;
+            padding: 16px 0;
+        }
+
+        tbody td {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            gap: 16px;
+
+            &:before {
+                content: attr(data-label);
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+                color: $color-darkGrey-new;
+                flex-shrink: 0;
+            }
+        }
+
+        .mepr-account-actions {
+            justify-content: flex-end;
+        }
+    }
+}
+
+#mepr-subscriptions-paging {
+    display: flex;
+    justify-content: space-between;
+    font-family: $font-base;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    a {
+        color: $color-darkGrey-new;
+        @include transition();
+
+        &:hover {
+            color: $color-black;
+        }
+    }
+}
+
 body.account .select2-container--default .select2-selection--single .select2-selection__arrow b,
 body.account .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
     // border-color: none !important;
