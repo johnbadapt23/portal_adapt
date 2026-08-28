@@ -19,8 +19,8 @@
                                     $post_type = 'post';
                                     $taxonomy  = 'insights-event';
                                     $terms     =  get_sub_field( 'event' );
+                                    if ( $terms ) :
 
-                                    foreach( $terms as $term ) :
                                         // orderby => rand forces MySQL to scan and randomly sort every
                                         // matching row on every page view of this related-articles carousel -
                                         // a well-known slow-at-scale pattern. Pulling a small pool ordered by
@@ -37,7 +37,8 @@
                                                 array(
                                                     'taxonomy' => $taxonomy,
                                                     'field'    => 'term_id',
-                                                    'terms'    => $term,
+                                                    'terms'    => $terms,
+                                                    'operator' => 'IN',
                                                 ),
                                             ),
                                         );
@@ -221,16 +222,16 @@
                                               </a>
                                           <?php } ?>
                                         <?php endwhile; endif;
-                                    endforeach;
                                     wp_reset_postdata();
+                                    endif;
                                     ?>
                                 <?php } else if (get_sub_field( 'taxonomy_type' ) == 'topic') { ?>
                                     <?php
                                     $post_type = 'post';
                                     $taxonomy  = 'topic';
                                     $terms     =  get_sub_field( 'topic' );
+                                    if ( $terms ) :
 
-                                    foreach( $terms as $term ) :
                                         // orderby => rand forces MySQL to scan and randomly sort every
                                         // matching row on every page view of this related-articles carousel -
                                         // a well-known slow-at-scale pattern. Pulling a small pool ordered by
@@ -247,7 +248,8 @@
                                                 array(
                                                     'taxonomy' => $taxonomy,
                                                     'field'    => 'term_id',
-                                                    'terms'    => $term,
+                                                    'terms'    => $terms,
+                                                    'operator' => 'IN',
                                                 ),
                                             ),
                                         );
@@ -432,16 +434,16 @@
                                               </a>
                                           <?php } ?>
                                         <?php endwhile; endif;
-                                    endforeach;
                                     wp_reset_postdata();
+                                    endif;
                                     ?>
                                 <?php } else if (get_sub_field( 'taxonomy_type' ) == 'filter-type') { ?>
                                     <?php
                                     $post_type = 'post';
                                     $taxonomy  = 'filter-types';
                                     $terms     =  get_sub_field( 'filter_type' );
+                                    if ( $terms ) :
 
-                                    foreach( $terms as $term ) :
                                         // orderby => rand forces MySQL to scan and randomly sort every
                                         // matching row on every page view of this related-articles carousel -
                                         // a well-known slow-at-scale pattern. Pulling a small pool ordered by
@@ -458,7 +460,8 @@
                                                 array(
                                                     'taxonomy' => $taxonomy,
                                                     'field'    => 'term_id',
-                                                    'terms'    => $term,
+                                                    'terms'    => $terms,
+                                                    'operator' => 'IN',
                                                 ),
                                             ),
                                         );
@@ -643,8 +646,8 @@
                                               </a>
                                           <?php } ?>
                                         <?php endwhile; endif;
-                                    endforeach;
                                     wp_reset_postdata();
+                                    endif;
                                     ?>
                                 <?php } else { ?>
                                     <span>No posts</span>
@@ -677,8 +680,8 @@
                             $post_type = 'post';
                             $taxonomy  = 'insights-event';
                             $terms     =  get_sub_field( 'event' );
+                            if ( $terms ) :
 
-                            foreach( $terms as $term ) :
                                 // orderby => rand forces MySQL to scan and randomly sort every
                                 // matching row on every page view of this related-articles carousel -
                                 // a well-known slow-at-scale pattern. Pulling a small pool ordered by
@@ -695,7 +698,8 @@
                                         array(
                                             'taxonomy' => $taxonomy,
                                             'field'    => 'term_id',
-                                            'terms'    => $term,
+                                            'terms'    => $terms,
+                                            'operator' => 'IN',
                                         ),
                                     ),
                                 );
@@ -880,16 +884,16 @@
                                       </a>
                                   <?php } ?>
                                 <?php endwhile; endif;
-                            endforeach;
                             wp_reset_postdata();
+                            endif;
                             ?>
                         <?php } else if (get_sub_field( 'taxonomy_type' ) == 'topic') { ?>
                             <?php
                             $post_type = 'post';
                             $taxonomy  = 'topic';
                             $terms     =  get_sub_field( 'topic' );
+                            if ( $terms ) :
 
-                            foreach( $terms as $term ) :
                                 // orderby => rand forces MySQL to scan and randomly sort every
                                 // matching row on every page view of this related-articles carousel -
                                 // a well-known slow-at-scale pattern. Pulling a small pool ordered by
@@ -906,7 +910,8 @@
                                         array(
                                             'taxonomy' => $taxonomy,
                                             'field'    => 'term_id',
-                                            'terms'    => $term,
+                                            'terms'    => $terms,
+                                            'operator' => 'IN',
                                         ),
                                     ),
                                 );
@@ -1091,16 +1096,16 @@
                                       </a>
                                   <?php } ?>
                                 <?php endwhile; endif;
-                            endforeach;
                             wp_reset_postdata();
+                            endif;
                             ?>
                         <?php } else if (get_sub_field( 'taxonomy_type' ) == 'filter-type') { ?>
                             <?php
                             $post_type = 'post';
                             $taxonomy  = 'filter-types';
                             $terms     =  get_sub_field( 'filter_type' );
+                            if ( $terms ) :
 
-                            foreach( $terms as $term ) :
                                 // orderby => rand forces MySQL to scan and randomly sort every
                                 // matching row on every page view of this related-articles carousel -
                                 // a well-known slow-at-scale pattern. Pulling a small pool ordered by
@@ -1117,7 +1122,8 @@
                                         array(
                                             'taxonomy' => $taxonomy,
                                             'field'    => 'term_id',
-                                            'terms'    => $term,
+                                            'terms'    => $terms,
+                                            'operator' => 'IN',
                                         ),
                                     ),
                                 );
@@ -1301,8 +1307,8 @@
                                       </a>
                                   <?php } ?>
                                 <?php endwhile; endif;
-                            endforeach;
                             wp_reset_postdata();
+                            endif;
                             ?>
                         <?php } else { ?>
                             <span>No posts</span>
