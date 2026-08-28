@@ -20,12 +20,21 @@ get_header();
                     <option value=""><?php echo esc_attr(__('Select Category')); ?></option>
 
                     <?php
-                        $option = '<option value="' . get_option('home') . '/category/">All Categories</option>'; // change category to your custom page slug
+                        // Generic get_categories()/post-category dropdown from the original
+                        // starter theme - never adapted to this site's actual taxonomy
+                        // structure (topic/sector/persona/filter-types, not post categories
+                        // or /category/ URLs), per the "change category to your custom page
+                        // slug" comment that shipped with it. Left in place rather than
+                        // removed outright since that is a content/UX call, not a coding
+                        // standards fix, but the output at least needs to be escaped and
+                        // cat_name/category_count are long-deprecated WP_Term property
+                        // aliases - use name/count directly.
+                        $option = '<option value="' . esc_url( get_option('home') . '/category/' ) . '">' . esc_html__( 'All Categories', 'portal' ) . '</option>';
                         $categories = get_categories();
                         foreach ($categories as $category) {
-                            $option .= '<option value="'.get_option('home').'/category/'.$category->slug.'">';
-                            $option .= $category->cat_name;
-                            $option .= ' ('.$category->category_count.')';
+                            $option .= '<option value="' . esc_url( get_option('home') . '/category/' . $category->slug ) . '">';
+                            $option .= esc_html( $category->name );
+                            $option .= ' (' . (int) $category->count . ')';
                             $option .= '</option>';
                         }
                         echo $option;

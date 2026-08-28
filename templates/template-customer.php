@@ -25,37 +25,47 @@ get_header();
 	<div class="container">
 		<div class="filters-container">
 			<div class="filter-sidebar">
-				<?php 
-					$terms = get_terms( array(
-						'post_type' => 'kyc',
-						'taxonomy' => 'kit-type',
-						'parent' => '0',
-						'hide_empty' => true
-					) ); 
+				<?php
+					// Was two get_terms() calls per parent term (one query for the
+					// parents, then a second query per parent to fetch its children) -
+					// one combined query for the whole kit-type taxonomy instead,
+					// grouping children by parent term ID in PHP. hide_empty was true
+					// for parents and false for children, so that distinction is kept
+					// here by filtering parents on ->count instead of on the query
+					// itself (children are collected regardless of count either way).
+					$all_kit_type_terms = get_terms( array(
+						'post_type'  => 'kyc',
+						'taxonomy'   => 'kit-type',
+						'hide_empty' => false,
+					) );
+					$terms = array();
+					$children_by_parent = array();
+					foreach ( $all_kit_type_terms as $kit_type_term ) {
+						if ( (int) $kit_type_term->parent === 0 ) {
+							if ( $kit_type_term->count > 0 ) {
+								$terms[] = $kit_type_term;
+							}
+						} else {
+							$children_by_parent[ $kit_type_term->parent ][] = $kit_type_term;
+						}
+					}
 				?>
 				<span class="filter-group-listing button-group">
 					<a class="kit-filter is-checked all-filter" data-filter="*"><span class="kit-filter-label">All</span></a>
 				</span>
 				<?php foreach($terms as $term) { ?>
 					<span class="kit-filter-group">
-						<?php
-							$child_terms = get_terms(array(
-								'post_type' => 'kyc',
-								'taxonomy' => 'kit-type',
-								'parent' => $term->term_id, // Get child terms of the current parent term
-								'hide_empty' => false // Set hide_empty to false to include empty terms
-							));
-						?>
-						<span class="filter-group-toggle<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>"><span class="toggle-text"><?php echo esc_html( $term -> name ); ?></span></span>						
+						<?php $child_terms = $children_by_parent[ $term->term_id ] ?? array(); ?>
+						<span class="filter-group-toggle<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>"><span class="toggle-text"><?php echo esc_html( $term -> name ); ?></span></span>
 						<span class="filter-group-listing button-group<?php if (count($child_terms) > 0) { ?> with-buttons<?php } ?>">
-							<?php 
+							<?php
 								foreach ($child_terms as $child_term) { ?>
-									<a class="kit-filter" data-filter=".<?php echo $child_term->slug; ?>"><span class="kit-filter-checkbox"></span><span class="kit-filter-label"><?php echo esc_html( $child_term->name ); ?></span></a>
+									<a class="kit-filter" data-filter=".<?php echo esc_attr( $child_term->slug ); ?>"><span class="kit-filter-checkbox"></span><span class="kit-filter-label"><?php echo esc_html( $child_term->name ); ?></span></a>
 								<?php }
 							?>
 							<span class="opacity-layer"></span>
 						</span>
-					</span>				
+					</span>
 				<?php } ?>
 			</div>
 			<div class="kits-listing grid">
