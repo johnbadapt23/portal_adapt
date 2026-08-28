@@ -18,12 +18,12 @@ $persona = $_GET['persona'];
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
 	        <div class="container">
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/data-insights/persona-mapping/" target="_self">Persona Mapping</a>
 	            </span>
-	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'persona_title', $taxonomy_details )){ ?> (<?php echo get_field( 'persona_title', $taxonomy_details ); ?>)<?php } ?></h1>
+	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'persona_title', $taxonomy_details )){ ?> (<?php echo esc_html( get_field( 'persona_title', $taxonomy_details ) ); ?>)<?php } ?></h1>
 	        </div>
 	    </section>
 	    <section class="portal postListing topicGrid sector-grid persona-grid subTopic sector-container">
@@ -82,7 +82,7 @@ $persona = $_GET['persona'];
 	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
-	                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
 	                                        <span>
 	                                    <?php else : ?>
@@ -125,9 +125,9 @@ $persona = $_GET['persona'];
 	                                            }
 	                                        }
 	                                    }?>
-	                                    <a href="/data-insights/persona-mapping/?persona=<?php echo $persona; ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
+	                                    <a href="/data-insights/persona-mapping/?persona=<?php echo esc_attr( $persona ); ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
 	                                    <?php if($postType){?>
-	                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+	                                        <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 	                                    <?php } ?>
 	                                </span>
 	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -154,7 +154,7 @@ $persona = $_GET['persona'];
 	<?php if ( have_rows( 'banner' ) ) : ?>
 		<?php while ( have_rows( 'banner' ) ) : the_row(); ?>
 			<?php $banner_image = get_sub_field( 'banner_image' ); ?>
-			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo $banner_image['url']; ?>);">
+			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>);">
 				<div class="container">
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
@@ -164,7 +164,7 @@ $persona = $_GET['persona'];
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
+						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -177,12 +177,12 @@ $persona = $_GET['persona'];
 		<section class="explore-section persona-explore-section">
 			<div class="container">
 				<?php while ( have_rows( 'filter_buttons' ) ) : the_row(); ?>
-					<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
+					<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 					<div class="button-container">
 						<?php $sectors_terms = get_sub_field( 'personas' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/data-insights/persona-mapping/?persona=<?php echo $sectors_term->slug; ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'persona_title', $sectors_term )){ ?> (<?php echo get_field( 'persona_title', $sectors_term ); ?>)<?php } ?></a>
+								<a class="sector-button button grey-button" href="/data-insights/persona-mapping/?persona=<?php echo esc_attr( $sectors_term->slug ); ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'persona_title', $sectors_term )){ ?> (<?php echo esc_html( get_field( 'persona_title', $sectors_term ) ); ?>)<?php } ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -280,7 +280,7 @@ $persona = $_GET['persona'];
 							                                    }?>
 							                                    <a href="/data-insights/persona-mapping/" class="topicFilterText">Persona Mapping</a>
 							                                    <?php if($postType){?>
-							                                        <a href="/data-insights/persona-mapping/?persona=<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+							                                        <a href="/data-insights/persona-mapping/?persona=<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 							                                    <?php } ?>
 							                                </span>
 							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
@@ -288,7 +288,7 @@ $persona = $_GET['persona'];
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
-																	   <?php echo get_sub_field( 'overview_text' ); ?>
+																	   <?php echo esc_html( get_sub_field( 'overview_text' ) ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
 												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
@@ -383,7 +383,7 @@ $persona = $_GET['persona'];
 										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
-												 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
 										 <span>
 									 <?php else : ?>
@@ -426,9 +426,9 @@ $persona = $_GET['persona'];
 											 }
 										 }
 									 }?>
-									 <a href="/data-insights/persona-mapping/?persona=<?php echo $persona->slug; ?>" class="topicFilterText"><?php echo esc_html( $persona->name ); ?></a>
+									 <a href="/data-insights/persona-mapping/?persona=<?php echo esc_attr( $persona->slug ); ?>" class="topicFilterText"><?php echo esc_html( $persona->name ); ?></a>
 									 <?php if($postType){?>
-										 <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										 <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									 <?php } ?>
 								 </span>
 								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
