@@ -16,11 +16,11 @@
     // in functions.php for the per-template bundle logic. wp_head() below
     // is what actually prints those <link> tags.
 ?>
-<link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon-16x16.png">
-<link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/assets/images/site.webmanifest">
-<link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon-16x16.png">
+<link rel="manifest" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/site.webmanifest">
+<link rel="mask-icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#000000">
 <meta name="theme-color" content="#000000">
 <?php
@@ -154,17 +154,17 @@ if ($user_data === false) {
     // Please confirm the user properties to be sent with your project owner.
 
     // Required:
-    chmln.identify(<?php echo $user_data['user_ID']; ?>, {
-        uid_hash: '<?php echo $user_data['uid_hash']; ?>',
+    chmln.identify(<?php echo (int) $user_data['user_ID']; ?>, {
+        uid_hash: '<?php echo esc_js( $user_data['uid_hash'] ); ?>',
         email: '<?php echo esc_js($user_info->user_email); ?>',
         name: '<?php echo esc_js($user_data['user_name']); ?>',
         companyname: '<?php echo esc_js($user_info->mepr_company_name); ?>',
         topics: '<?php echo esc_js(implode(", ", $user_data['interests_names'])); ?>',
-        role: '<?php echo $user_data['role']; ?>',
+        role: '<?php echo esc_js( $user_data['role'] ); ?>',
         memberships: '<?php echo esc_js($user_data['memberships']); ?>',
-        registration_date: '<?php echo $user_data['registration_date']; ?>',
-        last_session: '<?php echo $user_data['last_session']; ?>',
-        logins: '<?php echo $user_data['login_count']; ?>'
+        registration_date: '<?php echo esc_js( $user_data['registration_date'] ); ?>',
+        last_session: '<?php echo esc_js( $user_data['last_session'] ); ?>',
+        logins: '<?php echo esc_js( $user_data['login_count'] ); ?>'
     });
     </script>
 <?php } ?>
@@ -180,7 +180,7 @@ function initGoNativeTags() {
             var tags = {
                 name: '<?php echo esc_js($user_data['user_name']); ?>',
                 email: '<?php echo esc_js($user_info->user_email); ?>',
-                user_id: '<?php echo $user_data['user_ID']; ?>',
+                user_id: '<?php echo esc_js( $user_data['user_ID'] ); ?>',
                 subscription: '<?php echo esc_js($user_data['memberships']); ?>',
                 topics: '<?php echo esc_js(implode(", ", $user_data['interests_names'])); ?>',
                 last_session: '<?php echo esc_js($user_data['last_session']); ?>',
