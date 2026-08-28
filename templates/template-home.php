@@ -31,7 +31,7 @@ get_header();
 		<section class="banner">
 			<ul class="slides">
 				<?php foreach($bannerSlides as $slide) { ?>
-					<li style="background-image:url(<?php echo $slide['image']; ?>);">
+					<li style="background-image:url(<?php echo esc_url( $slide['image'] ); ?>);">
 						<?php if( $slide['dark_overlay'] == 'yes') { ?>
 							<span class="dark-overlay"></span>
 						<?php } ?>
@@ -47,7 +47,7 @@ get_header();
 					}
 				?>
 						<div class="container">
-							<div class="content <?php echo $slide['text_layout']; ?>">
+							<div class="content <?php echo esc_attr( $slide['text_layout'] ); ?>">
 								<?php if($slide['title']) { ?>
 									<div class="column title">
 										<span class="title"><?php echo esc_html( $slide['title'] ); ?></span>
@@ -62,19 +62,19 @@ get_header();
 								<?php if($slide['buttons']) { ?>
 									<span class="buttonBlock">
 										<?php foreach($slide['buttons'] as $button) { ?>
-											<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo $button['target']; ?>" class="stdBtn red"><?php echo esc_html( $button['title'] ); ?></a>
+											<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo esc_attr( $button['target'] ); ?>" class="stdBtn red"><?php echo esc_html( $button['title'] ); ?></a>
 										<?php } ?>
 									</span>
 								<?php } ?>
 								<?php if($slide['video']) { ?>
 									<span class="videoLink">
 										<?php if ($slide['video'][0]['vimeo_code_popup']){ ?>
-											<a href="https://vimeo.com/<?php echo $slide['video'][0]['vimeo_code_popup']; ?>" class="image popup-vimeo">
+											<a href="https://vimeo.com/<?php echo esc_attr( $slide['video'][0]['vimeo_code_popup'] ); ?>" class="image popup-vimeo">
 										<?php } else { ?>
 											<a href="#" class="playBtn">
 										<?php }?>
 											<span class="icon">
-												<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
+												<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
 											</span>
 											<span class="text">
 												<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo esc_html( $slide['video'][0]['video_button_text'] ); ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -90,7 +90,7 @@ get_header();
 								<span class="baseButtons">
 									<span>
 									<?php foreach($slide['banner_buttons'] as $button) { ?>
-										<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo $button['target']; ?>">
+										<a href="<?php echo esc_url( $button['link'] ); ?>" target="<?php echo esc_attr( $button['target'] ); ?>">
 											<span class="text"><?php echo esc_html( $button['text'] ); ?></span>
 											<span class="title"><?php echo esc_html( $button['title'] ); ?></span>
 										</a>
@@ -104,7 +104,7 @@ get_header();
 				<?php foreach($bannerSlides as $slide) { ?>
 					<div class="videoPlayerContainer">
 						<?php if($slide['video']) { ?>
-							<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
+							<span class="closeVideo"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
 							<div class="videoWrapper">
 								<video width="100%" id="popupVideo" controls controlsList="nodownload">
 									<source type="video/mp4" src="<?php echo esc_url( $slide['video'][0]['vimeo_code'] ); ?>" />
@@ -117,7 +117,7 @@ get_header();
 		</section>
 	<?php } ?>
 	<?php if ( get_field ( 'hidden_vimeo_embed_for_yoast_home' )) { ?>
-		<span class="hiddenEmbed" style="display: none;"><?php echo get_field ( 'hidden_vimeo_embed_for_yoast_home' );?></span>
+		<span class="hiddenEmbed" style="display: none;"><?php echo get_field ( 'hidden_vimeo_embed_for_yoast_home' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
 	<?php } ?>
 
 	<?php if ( have_rows( 'content_blocks' ) ): ?>
@@ -125,14 +125,14 @@ get_header();
 
 			<?php if ( get_row_layout() == 'logo_grid' ) : ?>
 
-				<section class="logoGrid <?php echo get_sub_field( 'background_colour' ); ?>">
+				<section class="logoGrid <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
 					<div class="container">
 						<div class="titleBlock">
 							<span class="title">
 								<h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
 							</span>
 
-							<span class="description <?php echo get_sub_field( 'top_right_text_position' ); ?>">
+							<span class="description <?php echo esc_attr( get_sub_field( 'top_right_text_position' ) ); ?>">
 								<h3><?php echo esc_html( get_sub_field( 'top_right_text' ) ); ?></h3>
 							</span>
 						</div>
@@ -142,11 +142,11 @@ get_header();
 								<?php while ( have_rows( 'logos' ) ) : the_row(); ?>
 									<div class="logo">
 										<span class="logoContainer">
-											<div class="image" style="background-image: url(<?php echo get_sub_field( 'logo' ); ?>);">
+											<div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'logo' ) ); ?>);">
 											</div>
 										</span>
 										<span class="logoTitle">
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 									</div>
 								<?php endwhile; ?>
@@ -154,7 +154,7 @@ get_header();
 						<?php endif; ?>
 
 						<?php if ( get_sub_field ( 'link_url' ) ) { ?>
-							<a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+							<a class="logoBlockLink <?php echo esc_attr( get_sub_field( 'link_style' ) ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 						<?php } ?>
 					</div>
 				</section>
@@ -165,7 +165,7 @@ get_header();
 						<div class="post-inner">
 							<div class="fullWidth article-content">
 								<div class="articleWrapper">
-									<?php echo get_sub_field( 'article_content' ); ?>
+									<?php echo wp_kses_post( get_sub_field( 'article_content' ) ); ?>
 								</div>
 							</div>
 						</div>
@@ -202,7 +202,7 @@ get_header();
 							 </div>
 						 <?php } else { ?>
 							 <div class="infogram-container">
-								 <?php echo get_sub_field( 'infogram' ); ?>
+								 <?php echo wp_kses_post( get_sub_field( 'infogram' ) ); ?>
 							 </div>
 						 <?php } ?>
 					</div>
@@ -235,18 +235,18 @@ get_header();
 
 	                                            <div class="imageContainer">
 	                                                <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-	                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+	                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
 	                                                        <?php if ( get_field ( 'podcast_file' ) ) { ?>
 	                                                            <span class="podcast">
-	                                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
+	                                                                <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
 	                                                            </span>
 	                                                        <?php } ?>
 	                                                    </div>
 	                                                <?php } else { ?>
-														<div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');" <?php } else { ?>style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');"<?php } ?>>
+														<div class="image" <?php if ( get_field( 'listing_page_grid_image' )) { ?>style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');" <?php } else { ?>style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');"<?php } ?>>
 	                                                        <?php if ( get_field ( 'podcast_file' ) ) { ?>
 	                                                            <span class="podcast">
-	                                                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
+	                                                                <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
 	                                                            </span>
 	                                                        <?php } ?>
 	                                                    </div>
@@ -312,8 +312,8 @@ get_header();
 	                        </div>
 							<?php if ( have_rows( 'button_block' ) ) : ?>
 								<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-									<div class="buttonBlock <?php echo get_sub_field('link_orientation'); ?>">
-										<a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+									<div class="buttonBlock <?php echo esc_attr( get_sub_field('link_orientation') ); ?>">
+										<a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
 									</div>
 								<?php endwhile; ?>
 							<?php endif; ?>
@@ -329,7 +329,7 @@ get_header();
 							<div class="column first">
 								<h2 class="relatedTitle"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
 								<?php if ( get_sub_field ( 'see_more_link' ) ) { ?>
-									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'see_more_link' ) ); ?>" target="_self"><?php echo get_sub_field( 'see_more_link_text' ); ?></a>
+									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'see_more_link' ) ); ?>" target="_self"><?php echo esc_html( get_sub_field( 'see_more_link_text' ) ); ?></a>
 								<?php } ?>
 							</div>
 							<div class="column two">
@@ -391,18 +391,18 @@ get_header();
 
 											<div class="imageContainer">
 												<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-													<div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+													<div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
 														<?php if ( get_field ( 'podcast_file' ) ) { ?>
 															<span class="podcast">
-																<img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
+																<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
 															</span>
 														<?php } ?>
 													</div>
 												<?php } else { ?>
-													<div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+													<div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
 														<?php if ( get_field ( 'podcast_file' ) ) { ?>
 															<span class="podcast">
-																<img src="<?php echo get_template_directory_uri(); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
+																<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/podcast-white.svg" width="19" height="19" loading="lazy" decoding="async" alt="Podcast Available" />
 															</span>
 														<?php } ?>
 													</div>
@@ -443,7 +443,7 @@ get_header();
 						<?php if ( have_rows( 'button_block' ) ) : ?>
                             <div class="buttonBlock">
                 				<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                 <?php endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -451,18 +451,18 @@ get_header();
 				</section>
 
 			<?php elseif ( get_row_layout() == 'two_column_text_block' ) : ?>
-				<section class="twoColumnTextBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+				<section class="twoColumnTextBlock <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
 					<div class="container">
 						<div class="inner">
 							<div class="titleBlock">
-								<h2><?php echo get_sub_field( 'title' ); ?></h2>
+								<h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 								<hr>
 
 							</div>
 							<div class="textBlock">
-								<?php echo get_sub_field( 'text_block' ); ?>
+								<?php echo esc_html( get_sub_field( 'text_block' ) ); ?>
 								<?php if ( get_sub_field ( 'link_url' ) ) { ?>
-									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 								<?php } ?>
 							</div>
 						</div>
@@ -470,33 +470,33 @@ get_header();
 				</section>
 
 			<?php elseif ( get_row_layout() == 'text_image_block' ) : ?>
-				<section class="halfHalfBlock <?php echo get_sub_field( 'background_colour' ); ?>">
-					<div class="textBlock <?php echo get_sub_field( 'image_position' ); ?>">
+				<section class="halfHalfBlock <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
+					<div class="textBlock <?php echo esc_attr( get_sub_field( 'image_position' ) ); ?>">
 						<div class="v-wrap">
 							<div class="v-box">
-								<h2><?php echo get_sub_field( 'title' ); ?></h2>
+								<h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 								<hr>
 								<?php if ( get_sub_field ( 'text_block' ) ) { ?>
-									<span class="desktopText"><?php echo get_sub_field( 'text_block' ); ?></span>
+									<span class="desktopText"><?php echo esc_html( get_sub_field( 'text_block' ) ); ?></span>
 								<?php } ?>
 								<?php if ( get_sub_field ( 'link_url' ) ) { ?>
-									<a class="logoBlockLink desktop <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+									<a class="logoBlockLink desktop <?php echo esc_attr( get_sub_field( 'link_style' ) ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 								<?php } ?>
 							</div>
 						</div>
 					</div>
-					<div class="imageBlock <?php echo get_sub_field( 'image_position' ); ?>">
-						<div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+					<div class="imageBlock <?php echo esc_attr( get_sub_field( 'image_position' ) ); ?>">
+						<div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'image' ) ); ?>);">
 						</div>
 					</div>
 					<div class="textBlock mobile">
 						<div class="container">
 							<div class="inner">
 								<?php if ( get_sub_field ( 'text_block' ) ) { ?>
-									<span class="mobileText"><?php echo get_sub_field( 'text_block' ); ?></span>
+									<span class="mobileText"><?php echo esc_html( get_sub_field( 'text_block' ) ); ?></span>
 								<?php } ?>
 								<?php if ( get_sub_field ( 'link_url' ) ) { ?>
-									<a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+									<a class="logoBlockLink <?php echo esc_attr( get_sub_field( 'link_style' ) ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 								<?php } ?>
 							</div>
 						</div>
@@ -519,7 +519,7 @@ get_header();
 									</span>
 								<?php } ?>
 								<?php if ( get_sub_field ( 'description' ) ) { ?>
-									<h3><?php echo get_sub_field( 'description' ); ?></h3>
+									<h3><?php echo esc_html( get_sub_field( 'description' ) ); ?></h3>
 								<?php } ?>
 							</div>
 
@@ -528,7 +528,7 @@ get_header();
 									<?php while ( have_rows( 'logos' ) ) : the_row(); ?>
 										<div class="item">
 											<div class="imageContainer">
-												<div class="image" style="background-image: url(<?php echo get_sub_field( 'logo' ); ?>);">
+												<div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'logo' ) ); ?>);">
 												</div>
 											</div>
 										</div>
@@ -546,7 +546,7 @@ get_header();
 						<?php if ( have_rows( 'button_block' ) ) : ?>
                             <div class="buttonBlock">
                 				<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                 <?php endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -560,7 +560,7 @@ get_header();
 							<div class="titleBlock">
 								<h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
 								<?php if ( get_sub_field ( 'link_url' ) ) { ?>
-									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 								<?php } ?>
 							</div>
 
@@ -569,7 +569,7 @@ get_header();
 									<?php while ( have_rows( 'item' ) ) : the_row(); ?>
 										<div class="item">
 											<div class="imageContainer">
-												<div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+												<div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'image' ) ); ?>);">
 												</div>
 											</div>
 											<div class="textBlock">
@@ -597,7 +597,7 @@ get_header();
 				<?php get_template_part( 'templates/components/_speaker-cta-block' ); ?>
 
 			<?php elseif ( get_row_layout() == 'quote_block_with_no_image' ) : ?>
-				<section class="quoteBlockNoImage <?php echo get_sub_field( 'background_colour' ); ?>">
+				<section class="quoteBlockNoImage <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
 					<div class="container">
 						<div class="inner">
 
@@ -624,7 +624,7 @@ get_header();
 						<?php if ( have_rows( 'button_block' ) ) : ?>
                             <div class="buttonBlock">
                 				<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                 <?php endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -636,7 +636,7 @@ get_header();
 				<?php get_template_part( 'templates/components/_related-articles-taxonomies-grid' ); ?>
 
 			<?php elseif ( get_row_layout() == 'video_block' ) : ?>
-				<section class="videoBlock" style="background-image: url(<?php echo get_sub_field('video_poster_image'); ?>);">
+				<section class="videoBlock" style="background-image: url(<?php echo esc_url( get_sub_field('video_poster_image') ); ?>);">
 					<?php if( get_sub_field('dark_overlay') == 'yes') { ?>
 						<span class="dark-overlay"></span>
 					<?php } ?>
@@ -644,34 +644,34 @@ get_header();
 						<div class="content">
 							<?php if( get_sub_field ( 'video_title' ) ) { ?>
 								<div class="column title">
-									<span class="title"><?php echo get_sub_field('video_title'); ?></span>
+									<span class="title"><?php echo esc_html( get_sub_field('video_title') ); ?></span>
 								</div>
 								<hr>
 							<?php } ?>
 							<?php if( get_sub_field ( 'video_description' ) ) { ?>
 								<div class="column text">
-									<span class="text"><?php echo get_sub_field('video_description'); ?></span>
+									<span class="text"><?php echo esc_html( get_sub_field('video_description') ); ?></span>
 								</div>
 							<?php } ?>
 							<span class="videoLink">
 								<?php if( get_field('vimeo_code_popup')){ ?>
-				                    <a href="https://vimeo.com/<?php echo get_field('vimeo_code_popup'); ?>" class="image popup-vimeo">
+				                    <a href="https://vimeo.com/<?php echo esc_attr( get_field('vimeo_code_popup') ); ?>" class="image popup-vimeo">
 				                <?php } else { ?>
 									<a href="#" class="playBtnVideoBlock">
 				                <?php } ?>
 									<span class="icon">
-										<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
+										<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
 									</span>
 									<span class="text">
-										<span><?php if( get_sub_field('video_button_text')) { ?><?php echo get_sub_field('video_button_text') ?><?php } else { ?>Watch Video<?php } ?></span>
-										<span><?php echo get_sub_field('video_duration') ?></span>
+										<span><?php if( get_sub_field('video_button_text')) { ?><?php echo esc_html( get_sub_field('video_button_text') ) ?><?php } else { ?>Watch Video<?php } ?></span>
+										<span><?php echo esc_html( get_sub_field('video_duration') ) ?></span>
 									</span>
 								</a>
 							</span>
 						</div>
 					</div>
 					<div class="videoPlayerContainer videoBlock">
-						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
+						<span class="closeVideo"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
 						<div class="videoWrapper">
 							<video width="100%" id="popupVideo" controls controlsList="nodownload">
 								<source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
@@ -689,13 +689,13 @@ get_header();
 						<div class="inner">
 							<div class="column first">
 								<h2>
-									<?php echo get_sub_field( 'title' ); ?>
+									<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 								</h2>
 								<div class="textBlock">
-									<?php echo get_sub_field( 'text_block' ); ?>
+									<?php echo esc_html( get_sub_field( 'text_block' ) ); ?>
 								</div>
 								<?php if ( get_sub_field ( 'link_url' ) ) { ?>
-									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+									<a class="logoBlockLink text" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 								<?php } ?>
 							</div>
 
@@ -717,7 +717,7 @@ get_header();
 						<?php if ( have_rows( 'button_block' ) ) : ?>
                             <div class="buttonBlock">
                 				<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+                                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                                 <?php endwhile; ?>
                             </div>
                         <?php endif; ?>
@@ -736,22 +736,22 @@ get_header();
 									<?php } ?>
 								<?php } ?>
 								<?php if ( get_sub_field ( 'block_description' ) ) { ?>
-									<h3><?php echo get_sub_field('block_description'); ?></h3>
+									<h3><?php echo esc_html( get_sub_field('block_description') ); ?></h3>
 								<?php } ?>
 								<?php if ( get_sub_field ( 'embed' ) == 'embed' ) { ?>
-									<?php echo get_sub_field('form_shortcode'); ?>
+									<?php echo wp_kses_post( get_sub_field('form_shortcode') ); ?>
 								<?php }?>
 								<?php if ( get_sub_field ( 'embed' ) == 'popup' ) { ?>
-									<a class="button popup-modal" href="#<?php echo get_sub_field('form_id'); ?>"><?php echo esc_html( get_sub_field('button_text') ); ?></a>
+									<a class="button popup-modal" href="#<?php echo esc_attr( get_sub_field('form_id') ); ?>"><?php echo esc_html( get_sub_field('button_text') ); ?></a>
 									<div class="formPopup mfp-hide" id="<?php echo esc_attr( get_sub_field('form_id') ); ?>">
 										<a class="popup-modal-dismiss"></a>
 										<?php if ( get_sub_field ( 'block_title' ) ) { ?>
 											<h2><h2><?php echo esc_html( get_sub_field('block_title') ); ?></h2></h2>
 										<?php } ?>
 										<?php if ( get_sub_field ( 'block_description' ) ) { ?>
-											<h3><?php echo get_sub_field('block_description'); ?></h3>
+											<h3><?php echo esc_html( get_sub_field('block_description') ); ?></h3>
 										<?php } ?>
-											<div class="formWrapper register"><?php echo get_sub_field('form_shortcode'); ?></div>
+											<div class="formWrapper register"><?php echo wp_kses_post( get_sub_field('form_shortcode') ); ?></div>
 									</div>
 								<?php }?>
 							</div>
@@ -761,7 +761,7 @@ get_header();
 
 			<?php elseif ( get_row_layout() == 'text_and_image_block' ) : ?>
 
-				<section class="textImageBlock <?php echo get_sub_field( 'background_colour' ); ?>">
+				<section class="textImageBlock <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
 					<div class="container">
 						<div class="inner">
 							<div class="title">
@@ -773,14 +773,14 @@ get_header();
 									<?php while ( have_rows( 'item' ) ) : the_row(); ?>
 										<div class="item">
 											<?php if ( get_sub_field( 'image') ) { ?>
-												<a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" target="<?php echo get_sub_field('link_target'); ?>" class="imageContainer">
-													<div class="image" style="background-image: url(<?php echo get_sub_field( 'image' ); ?>);">
+												<a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>" class="imageContainer">
+													<div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'image' ) ); ?>);">
 													</div>
 												</a>
 											<?php } ?>
-											<span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+											<span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 											<span class="description">
-												<?php echo get_sub_field( 'text' ); ?>
+												<?php echo esc_html( get_sub_field( 'text' ) ); ?>
 											</span>
 										</div>
 									<?php endwhile; ?>
@@ -790,7 +790,7 @@ get_header();
 						<?php if ( have_rows( 'button_block' ) ) : ?>
 							<div class="buttonBlock">
 								<?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-									<a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+									<a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
 								<?php endwhile; ?>
 							</div>
 						<?php endif; ?>
@@ -807,26 +807,26 @@ get_header();
 									<div class="innerWrapper">
 										<?php while ( have_rows( 'first_pricing_block', 'option' ) ) : the_row(); ?>
 											<span class="title">
-												<?php echo get_sub_field( 'title', 'option' ); ?>
+												<?php echo esc_html( get_sub_field( 'title', 'option' ) ); ?>
 												<span class="hrWrapper">
 													<hr>
 												</span>
 											</span>
 											<span class="priceBlockWrapper">
 												<span class="priceBlock">
-													<span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+													<span class="dollar">$</span><?php echo esc_html( get_sub_field( 'price_block', 'option' ) ); ?><span class="month">/month</span>
 												</span>
 											</span>
 											<?php if ( have_rows( 'features', 'option' ) ) : ?>
 												<div class="features">
 													<?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
-														<span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+														<span class="feature"><?php echo esc_html( get_sub_field( 'feature', 'option' ) ); ?></span>
 													<?php endwhile; ?>
 												</div>
 											<?php endif; ?>
 										</div>
 										<span class="pricingButtonWrapper">
-											<a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
+											<a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'button_target', 'option' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
 										</span>
 									<?php endwhile; ?>
 								</div>
@@ -839,27 +839,27 @@ get_header();
 										<div class="innerWrapper">
 											<div class="featuredWrapper">
 												<span class="title">
-													<?php echo get_sub_field( 'title', 'option' ); ?>
+													<?php echo esc_html( get_sub_field( 'title', 'option' ) ); ?>
 													<span class="hrWrapper">
 														<hr>
 													</span>
 												</span>
 												<span class="priceBlockWrapper">
 													<span class="priceBlock">
-														<span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+														<span class="dollar">$</span><?php echo esc_html( get_sub_field( 'price_block', 'option' ) ); ?><span class="month">/month</span>
 													</span>
 												</span>
 												<?php if ( have_rows( 'features', 'option' ) ) : ?>
 													<div class="features">
 														<?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
-															<span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+															<span class="feature"><?php echo esc_html( get_sub_field( 'feature', 'option' ) ); ?></span>
 														<?php endwhile; ?>
 													</div>
 												<?php endif; ?>
 											</div>
 										</div>
 										<span class="pricingButtonWrapper">
-											<a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
+											<a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'button_target', 'option' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
 										</span>
 									<?php endwhile; ?>
 								</div>
@@ -870,26 +870,26 @@ get_header();
 									<?php while ( have_rows( 'last_pricing_block', 'option' ) ) : the_row(); ?>
 										<div class="innerWrapper">
 											<span class="title">
-												<?php echo get_sub_field( 'title', 'option' ); ?>
+												<?php echo esc_html( get_sub_field( 'title', 'option' ) ); ?>
 												<span class="hrWrapper">
 													<hr>
 												</span>
 											</span>
 											<span class="priceBlockWrapper">
 												<span class="priceBlock">
-													<span class="dollar">$</span><?php echo get_sub_field( 'price_block', 'option' ); ?><span class="month">/month</span>
+													<span class="dollar">$</span><?php echo esc_html( get_sub_field( 'price_block', 'option' ) ); ?><span class="month">/month</span>
 												</span>
 											</span>
 											<?php if ( have_rows( 'features', 'option' ) ) : ?>
 												<div class="features">
 													<?php while ( have_rows( 'features', 'option' ) ) : the_row(); ?>
-														<span class="feature"><?php echo get_sub_field( 'feature', 'option' ); ?></span>
+														<span class="feature"><?php echo esc_html( get_sub_field( 'feature', 'option' ) ); ?></span>
 													<?php endwhile; ?>
 												</div>
 											<?php endif; ?>
 										</div>
 										<span class="pricingButtonWrapper">
-											<a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo get_sub_field( 'button_target', 'option' ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
+											<a class="small" href="<?php echo esc_url( get_sub_field( 'button_link', 'option' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'button_target', 'option' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text', 'option' ) ); ?></a>
 										</span>
 									<?php endwhile; ?>
 								</div>
