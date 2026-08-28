@@ -2203,10 +2203,11 @@ function invalidate_visible_terms_cache() {
     global $wpdb;
 
     // Delete visible_terms_* transients
-    $pattern = '_transient_visible_terms_%';
     $transients = $wpdb->get_col(
-        "SELECT option_name FROM {$wpdb->options}
-         WHERE option_name LIKE '{$pattern}'"
+        $wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like( '_transient_visible_terms_' ) . '%'
+        )
     );
 
     if ($transients) {

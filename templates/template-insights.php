@@ -239,7 +239,6 @@ $filterBy = array();
                 );
 
             } else {
-                // print_r($filterType);
                 array_push($args['tax_query'],array(
                         'taxonomy' => 'filter-types',
                         'field' => 'slug',
@@ -680,7 +679,6 @@ $filterBy = array();
                                 );
 
                             } else {
-                                // print_r($filterType);
                                 array_push($args['tax_query'],array(
                                         'taxonomy' => 'filter-types',
                                         'field' => 'slug',
@@ -982,7 +980,6 @@ $filterBy = array();
                                 );
 
                             } else {
-                                // print_r($filterType);
                                 array_push($args['tax_query'],array(
                                         'taxonomy' => 'filter-types',
                                         'field' => 'slug',

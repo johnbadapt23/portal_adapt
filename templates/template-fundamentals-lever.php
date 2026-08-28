@@ -273,7 +273,6 @@ if ( $loop->have_posts() ) :
                             );
 
                         } else {
-                            // print_r($filterType);
                             array_push($args['tax_query'],array(
                                     'taxonomy' => 'evr-maturity-stage',
                                     'field' => 'slug',

@@ -2455,46 +2455,5 @@ if (current_user_can('administrator')) {
 	</div>
 <?php } ?>
 
-<?php
-// if (is_user_logged_in()) {
-//     $user_id = get_current_user_id();
-
-//     // Get all relevant user meta
-//     $logins_30_array      = get_user_meta($user_id, 'mepr_logins_30_days_array', true);
-//     $logins_30_total      = get_user_meta($user_id, 'mepr_logins_thirty_days', true);
-//     $logins_12_array      = get_user_meta($user_id, 'mepr_logins_12_months_array', true);
-//     $logins_12_total      = get_user_meta($user_id, 'mepr_logins_twelve_months', true);
-
-//     $downloads_30_array   = get_user_meta($user_id, 'mepr_downloads_30_days_array', true);
-//     $downloads_30_total   = get_user_meta($user_id, 'mepr_downloads_thirty_days', true);
-//     $downloads_12_array   = get_user_meta($user_id, 'mepr_downloads_12_months_array', true);
-//     $downloads_12_total   = get_user_meta($user_id, 'mepr_downloads_twelve_months', true);
-
-//     $views_30_array       = get_user_meta($user_id, 'mepr_post_views_30_days_array', true);
-//     $views_30_total       = get_user_meta($user_id, 'mepr_post_views_thirty_days', true);
-//     $views_12_array       = get_user_meta($user_id, 'mepr_post_views_12_months_array', true);
-//     $views_12_total       = get_user_meta($user_id, 'mepr_post_views_twelve_months', true);
-
-//     echo '<pre style="background:#fff;color:#000;padding:10px;border:1px solid #000;z-index:9999; margin-top: 150px; display: none">';
-//     echo '<strong>User ID: ' . $user_id . '</strong><br><br>';
-
-//     echo "<strong>Logins 30 Days Array:</strong>\n"; print_r($logins_30_array);
-//     echo "<strong>Logins 30 Days Total:</strong> $logins_30_total\n";
-//     echo "<strong>Logins 12 Months Array:</strong>\n"; print_r($logins_12_array);
-//     echo "<strong>Logins 12 Months Total:</strong> $logins_12_total\n\n";
-
-//     echo "<strong>Downloads 30 Days Array:</strong>\n"; print_r($downloads_30_array);
-//     echo "<strong>Downloads 30 Days Total:</strong> $downloads_30_total\n";
-//     echo "<strong>Downloads 12 Months Array:</strong>\n"; print_r($downloads_12_array);
-//     echo "<strong>Downloads 12 Months Total:</strong> $downloads_12_total\n\n";
-
-//     echo "<strong>Post Views 30 Days Array:</strong>\n"; print_r($views_30_array);
-//     echo "<strong>Post Views 30 Days Total:</strong> $views_30_total\n";
-//     echo "<strong>Post Views 12 Months Array:</strong>\n"; print_r($views_12_array);
-//     echo "<strong>Post Views 12 Months Total:</strong> $views_12_total\n";
-
-//     echo '</pre>';
-// }
-?>
 
 <div class="menu-overlay"></div>

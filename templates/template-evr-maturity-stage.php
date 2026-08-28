@@ -275,7 +275,6 @@ if ( $loop->have_posts() ) :
                             );
 
                         } else {
-                            // print_r($filterType);
                             array_push($args['tax_query'],array(
                                     'taxonomy' => $fund_taxonomy,
                                     'field' => 'slug',
