@@ -46,7 +46,7 @@ if (current_user_can('administrator')) {
 } 
 
 ?>
-<header class="header clear<?php if(get_field( 'remove_main_menu' )){ ?> <?php echo get_field( 'remove_main_menu' ); ?><?php } ?>" role="banner">
+<header class="header clear<?php if(get_field( 'remove_main_menu' )){ ?> <?php echo esc_attr( get_field( 'remove_main_menu' ) ); ?><?php } ?>" role="banner">
 	<div class="top">
 		<div class="container">
 			<span class="logo">
@@ -94,7 +94,7 @@ if (current_user_can('administrator')) {
                 </span>
                 <?php endif; ?>
                 <span class="search">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" decoding="async" alt="search icon" /></span>
+                    <span class="search-toggle"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" decoding="async" alt="search icon" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search" aria-label="Search" placeholder="Search..." value="" />
 					</form>
@@ -141,13 +141,13 @@ if (current_user_can('administrator')) {
                 <?php } else { ?>
                     <span class="user desktop dropdown users-menu">
     					<span class="userIcon"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
-    					<span class="userName"><?php echo $first_name; ?></span>
+    					<span class="userName"><?php echo esc_html( $first_name ); ?></span>
     					<span class="userDropdown"></span>
                         <div class="megaMenu usersMenu" id="users">
                             <div class="userMenuInfo">
                                 <span class="userIconMain"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
-                                <span class="userNameMain"><span><?php echo $first_name; ?> <?php echo $last_name; ?></span></span>
-                                <span class="userEmailMain"><span><?php echo $user_email; ?></span></span>
+                                <span class="userNameMain"><span><?php echo esc_html( $first_name ); ?> <?php echo esc_html( $last_name ); ?></span></span>
+                                <span class="userEmailMain"><span><?php echo esc_html( $user_email ); ?></span></span>
                             </div>
                             <?php if ($membershipType == 'free-trial') { ?>
                             <?php } else { ?>
@@ -159,7 +159,7 @@ if (current_user_can('administrator')) {
                                                     <?php if(get_sub_field( 'link_type' ) == 'advantage' ){ ?>
                                                         <?php if ($membershipType == 'advantage') { ?>
                                                             <?php if(get_sub_field( 'link' ) !== '' ){ ?>                                                            
-                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                             <?php } else { ?> 
                                                                 <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                             <?php } ?>
@@ -167,14 +167,14 @@ if (current_user_can('administrator')) {
                                                     <?php } else if(get_sub_field( 'link_type' ) == 'it-pro' ){ ?>
                                                         <?php if ($membershipType == 'it-pro') { ?>
                                                             <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                                <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                             <?php } else { ?> 
                                                                 <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                             <?php } ?>
                                                         <?php } ?>
                                                     <?php } else { ?> 
                                                         <?php if(get_sub_field( 'link' ) !== '' ){ ?> 
-                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } else { ?> 
                                                             <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                         <?php } ?>
@@ -196,14 +196,14 @@ if (current_user_can('administrator')) {
                                             <?php $userLinkCounter = 1 ?>
                                 			<?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                                 <?php if(get_sub_field('link_type') == 'form-popup'){ ?> 
-                                                    <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                    <a class="userMenuLink formPopupHubspot <?php echo esc_attr( get_sub_field( 'link_class' ) ); ?>" href="#userForm<?php echo esc_attr( $userLinkCounter ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                     <div style="display: none;">         
-                                                        <div class="preview-cta-form login-form-container" id="userForm<?php echo $userLinkCounter; ?>">
-                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?></span>
+                                                        <div class="preview-cta-form login-form-container" id="userForm<?php echo esc_attr( $userLinkCounter ); ?>">
+                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                         </div>
                                                     </div>                                                
                                                 <?php } else { ?> 
-                                                    <a class="userMenuLink <?php echo get_sub_field( 'link_class' ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                    <a class="userMenuLink <?php echo esc_attr( get_sub_field( 'link_class' ) ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                 <?php } ?>
                                                 <?php $userLinkCounter++ ?>
                                 			<?php endwhile; ?>
@@ -228,7 +228,7 @@ if (current_user_can('administrator')) {
 
 	<div class="bottom">
 		<div class="container">
-			<span class="desktopNav <?= $membershipType; ?> <?= $superAdminView ? 'is_admin': 'is_not'; ?>">
+			<span class="desktopNav <?= esc_attr( $membershipType ); ?> <?= $superAdminView ? 'is_admin': 'is_not'; ?>">
                 <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
                     <ul>
                         <?php if ($membershipType == 'kyc') { ?>
@@ -254,7 +254,7 @@ if (current_user_can('administrator')) {
                                 <?php endif; ?>
                             <?php } ?>
                             <?php if ($membershipType == 'free-trial') { ?>
-                                <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo $membersNameMenu; ?></a>
+                                <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( $membersNameMenu ); ?></a>
                             <?php } else { ?>
                                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
                             <?php } ?>
@@ -276,7 +276,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <ul>
                                                                     <?php if ( have_rows( 'link' ) ) : ?>
@@ -316,7 +316,7 @@ if (current_user_can('administrator')) {
                                                             <span class="dropDownSection">
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">                                                                    
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <ul>
                                                                     <?php if ( have_rows( 'link' ) ) : ?>                                                                    
@@ -346,7 +346,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                         </a>
                                                                                     </li>
                                                                                 <?php endif; ?>
@@ -471,7 +471,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
@@ -515,7 +515,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <ul>
                                                                     <?php if ( have_rows( 'link' ) ) : ?>
@@ -545,7 +545,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                         </a>
                                                                                     </li>
                                                                                 <?php endif; ?>
@@ -671,13 +671,13 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
                                                                         <?php while ( have_rows( 'link' ) ) : the_row(); ?>                                                                                                                                                        
                                                                             <li>                                                                                				
-                                                                                <a href="<?php echo esc_url( get_sub_field( 'persona_link' ) ); ?>"><?php echo get_sub_field( 'persona_link_text' ); ?></a>
+                                                                                <a href="<?php echo esc_url( get_sub_field( 'persona_link' ) ); ?>"><?php echo esc_html( get_sub_field( 'persona_link_text' ) ); ?></a>
                                                                             </li>                                                                            
                                                                         <?php endwhile; ?>
                                                                         <?php if(get_sub_field('view_all_link')){ ?>
@@ -711,7 +711,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
@@ -741,7 +741,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                         </a>
                                                                                     </li>
                                                                                 <?php endif; ?>
@@ -858,13 +858,13 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
                                                                         <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                                                             <li>                                                                                				
-                                                                                <a href="<?php echo esc_url( get_sub_field( 'sector_link' ) ); ?>"><?php echo get_sub_field( 'sector_link_text' ); ?></a>
+                                                                                <a href="<?php echo esc_url( get_sub_field( 'sector_link' ) ); ?>"><?php echo esc_html( get_sub_field( 'sector_link_text' ) ); ?></a>
                                                                             </li> 
                                                                         <?php endwhile; ?>
                                                                         <?php if(get_sub_field('view_all_link')){ ?>
@@ -899,7 +899,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
@@ -929,7 +929,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                         </a>
                                                                                     </li>
                                                                                 <?php endif; ?>
@@ -1067,7 +1067,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
-                                                                        <span class="link-title"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                        <span class="link-title"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
@@ -1075,7 +1075,7 @@ if (current_user_can('administrator')) {
                                                                                 <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
                                                                                     <span style="display: none;">         
                                                                                         <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
-                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
+                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
                                                                             <?php } ?>                                                                                
@@ -1117,8 +1117,8 @@ if (current_user_can('administrator')) {
                                                                     <?php } ?>
                                                                 </span>
                                                                 <span class="link-text">
-                                                                    <span class="link-title"><?php echo get_sub_field( 'title' ); ?></span>
-                                                                    <span class="link-text-text"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                    <span class="link-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+                                                                    <span class="link-text-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                 </span>
                                                             </a>
                                                         </li>
@@ -1158,8 +1158,8 @@ if (current_user_can('administrator')) {
                                                                     <?php } ?>
                                                                 </span>
                                                                 <span class="link-text">
-                                                                    <span class="link-title"><?php echo get_sub_field( 'title' ); ?></span>
-                                                                    <span class="link-text-text"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                    <span class="link-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+                                                                    <span class="link-text-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                 </span>
                                                             </a>
                                                         </li>
@@ -1216,7 +1216,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
-                                                                        <span class="link-title"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                        <span class="link-title"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
@@ -1224,7 +1224,7 @@ if (current_user_can('administrator')) {
                                                                                 <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
                                                                                     <span style="display: none;">         
                                                                                         <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
-                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
+                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
                                                                             <?php } ?>                                                                                
@@ -1264,13 +1264,13 @@ if (current_user_can('administrator')) {
                 
     			<span class="user dropdown mobile">
                     <span class="userIcon"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
-                    <span class="userName"><?php echo $first_name; ?></span>
+                    <span class="userName"><?php echo esc_html( $first_name ); ?></span>
                     <span class="userDropdown"></span>
                     <div class="megaMenu usersMenu mobile" id="users-mobile">
                         <div class="userMenuInfo">
                             <span class="userIconMain"><span><?php echo esc_html( $first_name[0] ); ?></span></span>
-                            <span class="userNameMain"><span><?php echo $first_name; ?> <?php echo $last_name; ?></span></span>
-                            <span class="userEmailMain"><span><?php echo $user_email; ?></span></span>
+                            <span class="userNameMain"><span><?php echo esc_html( $first_name ); ?> <?php echo esc_html( $last_name ); ?></span></span>
+                            <span class="userEmailMain"><span><?php echo esc_html( $user_email ); ?></span></span>
                         </div>
                         <?php if ($membershipType == 'free-trial') { ?>
                         <?php } else { ?>
@@ -1282,7 +1282,7 @@ if (current_user_can('administrator')) {
                                                 <?php if(get_sub_field( 'link_type' ) == 'advantage' ){ ?>
                                                     <?php if ($membershipType == 'advantage') { ?>
                                                         <?php if(get_sub_field( 'link' ) !== '' ){ ?>                                                            
-                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } else { ?> 
                                                             <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                         <?php } ?>
@@ -1290,14 +1290,14 @@ if (current_user_can('administrator')) {
                                                 <?php } else if(get_sub_field( 'link_type' ) == 'it-pro' ){ ?>
                                                     <?php if ($membershipType == 'it-pro') { ?>
                                                         <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                            <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                         <?php } else { ?> 
                                                             <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                         <?php } ?>
                                                     <?php } ?>
                                                 <?php } else { ?> 
                                                     <?php if(get_sub_field( 'link' ) !== '' ){ ?> 
-                                                        <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                        <a class="userMenuLink" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                     <?php } else { ?> 
                                                         <span class="userMenuLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                     <?php } ?>
@@ -1319,15 +1319,15 @@ if (current_user_can('administrator')) {
                                         <?php $userLinkCounter = 1 ?>
                                         <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                             <?php if(get_sub_field('link_type') == 'form-popup'){ ?> 
-                                                <a class="userMenuLink formPopupHubspot <?php echo get_sub_field( 'link_class' ); ?>" href="#userForm<?php echo $userLinkCounter; ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                <a class="userMenuLink formPopupHubspot <?php echo esc_attr( get_sub_field( 'link_class' ) ); ?>" href="#userForm<?php echo esc_attr( $userLinkCounter ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                 <div style="display: none;">         
-                                                    <div class="preview-cta-form login-form-container" id="userForm<?php echo $userLinkCounter; ?>">
-                                                        <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?></span>
+                                                    <div class="preview-cta-form login-form-container" id="userForm<?php echo esc_attr( $userLinkCounter ); ?>">
+                                                        <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                     </div>
                                                 </div>
                                             
                                             <?php } else { ?> 
-                                                <a class="userMenuLink <?php echo get_sub_field( 'link_class' ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                                <a class="userMenuLink <?php echo esc_attr( get_sub_field( 'link_class' ) ); ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                             <?php } ?>
                                             <?php $userLinkCounter++ ?>
                                         <?php endwhile; ?>
@@ -1359,11 +1359,11 @@ if (current_user_can('administrator')) {
                     </svg>
                 </span>
                 <span class="search mobile">
-                    <span class="search-toggle"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" decoding="async" alt="Search" /></span>
+                    <span class="search-toggle"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/search-icon.svg" width="16" height="16" loading="lazy" decoding="async" alt="Search" /></span>
 					<form action="/" method="get">
 						<input class="searchInput" type="text" name="s" id="search-mobile" aria-label="Search" placeholder="Search..." value="" />
 					</form>
-                    <span class="search-close-mobile"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" decoding="async" alt="Close search" /></span>
+                    <span class="search-close-mobile"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/search-close-icon.svg" width="12" height="12" loading="lazy" decoding="async" alt="Close search" /></span>
 				</span>
                 <?php if( $is_agent_tester ) : ?>
                 <span class="customgpt-toggle mobile">
@@ -1398,8 +1398,8 @@ if (current_user_can('administrator')) {
 		                            <input type="text" value="<?php echo esc_url( get_permalink() ); ?>" id="postLink" style="display: none;">
 		                            <a onclick="copyJobLink()">
 										<span class="image-icon-container">
-		                                    <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link.svg" width="33" height="32" loading="lazy" decoding="async" alt="Copy link" />
-		                                    <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/copy-link-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Copy link" />
+		                                    <img class="standard" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/copy-link.svg" width="33" height="32" loading="lazy" decoding="async" alt="Copy link" />
+		                                    <img class="hover" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/copy-link-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Copy link" />
 											<span class="job-link-text"></span>
 										</span>
 		                            </a>
@@ -1422,24 +1422,24 @@ if (current_user_can('administrator')) {
 								<span class="share-linked-in share">
 									<a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>&summary=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
-	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" />
-											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/linked-in-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" />
+	                                        <img class="standard" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" />
+											<img class="hover" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/linked-in-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" />
 										</span>
 									</a>
 								</span>
 								<span class="share-twitter share">
 									<a class="twitterShare" href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>&text=<?php the_excerpt(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
-	                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Tweet" />
-											<img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/twitter-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Tweet" />
+	                                        <img class="standard" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/twitter-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Tweet" />
+											<img class="hover" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/twitter-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Tweet" />
 										</span>
 									</a>
 								</span>
 								<span class="share-email share">
-									<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+									<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
 										<span class="image-icon-container">
-                                        <img class="standard" src="<?php echo get_template_directory_uri(); ?>/assets/images/job-email.svg" width="32" height="32" loading="lazy" decoding="async" alt="Share via Email" />
-                                        <img class="hover" src="<?php echo get_template_directory_uri(); ?>/assets/images/email-red-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Email" />
+                                        <img class="standard" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/job-email.svg" width="32" height="32" loading="lazy" decoding="async" alt="Share via Email" />
+                                        <img class="hover" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/email-red-hover.svg" width="24" height="24" loading="lazy" decoding="async" alt="Email" />
 									</a>
 								</span>
 							</span>
@@ -1488,7 +1488,7 @@ if (current_user_can('administrator')) {
                                                                 <?php if ( $icon ) { ?>
                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                 <?php } ?>
-                                                                <?php echo get_sub_field( 'title' ); ?>
+                                                                <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
                                                             <?php if ( have_rows( 'link' ) ) : ?>
                                                                 <ul>
@@ -1523,7 +1523,7 @@ if (current_user_can('administrator')) {
                                                         <span class="dropDownSection">
                                                             <?php $icon = get_sub_field( 'icon' ); ?>
                                                             <span class="columnTitle">                                                                    
-                                                                <?php echo get_sub_field( 'title' ); ?>
+                                                                <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
                                                             <?php if ( have_rows( 'link' ) ) : ?>
                                                                 <ul>
@@ -1553,7 +1553,7 @@ if (current_user_can('administrator')) {
                                                                                                 <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
-                                                                                        <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                        <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                     </a>
                                                                                 </li>
                                                                             <?php endif; ?>
@@ -1675,8 +1675,8 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
-                                                                        <span class="link-title"><?php echo get_sub_field( 'title' ); ?></span>
-                                                                        <span class="link-text-text"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                        <span class="link-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+                                                                        <span class="link-text-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -1714,8 +1714,8 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
-                                                                        <span class="link-title"><?php echo get_sub_field( 'title' ); ?></span>
-                                                                        <span class="link-text-text"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                        <span class="link-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+                                                                        <span class="link-text-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -1774,7 +1774,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
-                                                                        <span class="link-title"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                        <span class="link-title"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
@@ -1782,7 +1782,7 @@ if (current_user_can('administrator')) {
                                                                                 <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
                                                                                     <span style="display: none;">         
                                                                                         <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
-                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
+                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
                                                                             <?php } ?>                                                                                
@@ -1821,7 +1821,7 @@ if (current_user_can('administrator')) {
                                                                 <?php if ( $icon ) { ?>
                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                 <?php } ?>
-                                                                <?php echo get_sub_field( 'title' ); ?>
+                                                                <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
                                                             <?php if ( have_rows( 'link' ) ) : ?>
                                                                 <ul>
@@ -1859,7 +1859,7 @@ if (current_user_can('administrator')) {
                                                                 <?php if ( $icon ) { ?>
                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                 <?php } ?>
-                                                                <?php echo get_sub_field( 'title' ); ?>
+                                                                <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
                                                             <?php if ( have_rows( 'link' ) ) : ?>
                                                                 <ul>
@@ -1889,7 +1889,7 @@ if (current_user_can('administrator')) {
                                                                                                 <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
-                                                                                        <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                        <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                     </a>
                                                                                 </li>
                                                                             <?php endif; ?>
@@ -2010,13 +2010,13 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
                                                                         <?php while ( have_rows( 'link' ) ) : the_row(); ?>                                                                                                                                                        
                                                                             <li>                                                                                				
-                                                                                <a href="<?php echo esc_url( get_sub_field( 'persona_link' ) ); ?>"><?php echo get_sub_field( 'persona_link_text' ); ?></a>
+                                                                                <a href="<?php echo esc_url( get_sub_field( 'persona_link' ) ); ?>"><?php echo esc_html( get_sub_field( 'persona_link_text' ) ); ?></a>
                                                                             </li>                                                                            
                                                                         <?php endwhile; ?>
                                                                     </ul>
@@ -2045,7 +2045,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
@@ -2075,7 +2075,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                         </a>
                                                                                     </li>
                                                                                 <?php endif; ?>
@@ -2194,13 +2194,13 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
                                                                         <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                                                             <li>                                                                                				
-                                                                                <a href="<?php echo esc_url( get_sub_field( 'sector_link' ) ); ?>"><?php echo get_sub_field( 'sector_link_text' ); ?></a>
+                                                                                <a href="<?php echo esc_url( get_sub_field( 'sector_link' ) ); ?>"><?php echo esc_html( get_sub_field( 'sector_link_text' ) ); ?></a>
                                                                             </li> 
                                                                         <?php endwhile; ?>
                                                                     </ul>
@@ -2229,7 +2229,7 @@ if (current_user_can('administrator')) {
                                                                     <?php if ( $icon ) { ?>
                                                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
                                                                     <?php } ?>
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'link' ) ) : ?>
                                                                     <ul>
@@ -2259,7 +2259,7 @@ if (current_user_can('administrator')) {
                                                                                                     <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
-                                                                                            <span class="link-text text-black"><?php echo $other_link; ?></span>
+                                                                                            <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
                                                                                         </a>
                                                                                     </li>
                                                                                 <?php endif; ?>
@@ -2400,7 +2400,7 @@ if (current_user_can('administrator')) {
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
-                                                                        <span class="link-title"><?php echo get_sub_field( 'text' ); ?></span>
+                                                                        <span class="link-title"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
@@ -2408,7 +2408,7 @@ if (current_user_can('administrator')) {
                                                                                 <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
                                                                                     <span style="display: none;">         
                                                                                         <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
-                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); ?></span>
+                                                                                            <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
                                                                             <?php } ?>                                                                                
@@ -2444,13 +2444,13 @@ if (current_user_can('administrator')) {
 	<div class="formPopup mfp-hide" id="form">
 		<a class="popup-modal-dismiss"></a>
 		<?php if ( get_field ( 'form_title', 'option' ) ) { ?>
-			<h2><?php echo get_field( 'form_title', 'option' ); ?></h2>
+			<h2><?php echo esc_html( get_field( 'form_title', 'option' ) ); ?></h2>
 		<?php } ?>
 		<?php if ( get_field ( 'form_subtitle', 'option' ) ) { ?>
-			<h3><?php echo get_field( 'form_subtitle', 'option' ); ?></h3>
+			<h3><?php echo esc_html( get_field( 'form_subtitle', 'option' ) ); ?></h3>
 		<?php } ?>
 		<?php if ( get_field ( 'form_shortcode', 'option' ) ) { ?>
-			<div class="formWrapper register"><?php echo get_field( 'form_shortcode', 'option' ); ?></div>
+			<div class="formWrapper register"><?php echo wp_kses_post( get_field( 'form_shortcode', 'option' ) ); ?></div>
 		<?php } ?>
 	</div>
 <?php } ?>
