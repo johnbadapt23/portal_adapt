@@ -104,7 +104,7 @@ if ( $loop->have_posts() ) :
         <?php foreach($terms as $term) { ?>
             <span class="other-stage-items other-items"><a href="<?php echo esc_url( get_term_link($term) ); ?>" target="_self">
             <?php $icon = get_field( 'icon', $term ); ?>
-            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $term->name; ?> 
+            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $term->name ); ?>
             </a></span>
         <?php } 
         ?>
@@ -134,12 +134,12 @@ if ( $loop->have_posts() ) :
             <form action="" name="postTopicsFilter" class="postTopicsFilter" method="get">
                 <span class="searchField">
                     <span class="search">
-                        <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in <?php echo $q->name; ?>" />
-                        <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
+                        <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in <?php echo esc_attr( $q->name ); ?>" />
+                        <input class="searchButton" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" />
                     </span>
                 </span>
                 <span class="filtersButtonMobile">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />
                     <span class="filterButtonText">Filters</span>
                 </span>
                 <span class="dropDowns">                        
@@ -191,15 +191,15 @@ if ( $loop->have_posts() ) :
             <div class="blockTitle">
                 <h2>
                     <?php if($keyword != '') { ?>
-                        Search Results for <span class="search-word"><?php echo $keyword; ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/reset-search.svg" width="15" height="15" loading="lazy" decoding="async" alt="Reset search" /></a></span>
+                        Search Results for <span class="search-word"><?php echo esc_html( $keyword ); ?> <a class="clear-search" onclick="document.location.href=location.href+'&searchWords=';"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/reset-search.svg" width="15" height="15" loading="lazy" decoding="async" alt="Reset search" /></a></span>
                     <?php } else { ?>
                         <?php if ($filterType != '') { ?>
                             <?php $term = get_term_by('slug', $filterType, $fund_taxonomy); ?>
                             <?php $icon = get_field( 'icon', $term ); ?>
-                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $term->name; ?>                                
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $term->name ); ?>
                         <?php } else { ?>
                             <?php $icon = get_field( 'icon', $q ); ?>
-                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $q->name; ?>
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $q->name ); ?>
                         <?php } ?>
                     <?php } ?>
                 </h2>
@@ -213,8 +213,8 @@ if ( $loop->have_posts() ) :
                     <?php } ?>
                 <?php } ?>   
                 <div class="gridView">
-                    <span class="gridIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/grid-view.svg" width="5" height="4" loading="lazy" decoding="async" alt="Grid View" /></span>
-                    <span class="listIcon"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/list-view.svg" width="5" height="4" loading="lazy" decoding="async" alt="List View" /></span>
+                    <span class="gridIcon"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/grid-view.svg" width="5" height="4" loading="lazy" decoding="async" alt="Grid View" /></span>
+                    <span class="listIcon"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/list-view.svg" width="5" height="4" loading="lazy" decoding="async" alt="List View" /></span>
                 </div>
             </div>
             <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
@@ -352,12 +352,12 @@ if ( $loop->have_posts() ) :
                                     <?php } ?>
                                     <?php if($postType){?>
 
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+                                            <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 
                                     <?php } ?>
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
-                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                 <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                             </div>
                         </div>
@@ -373,11 +373,11 @@ if ( $loop->have_posts() ) :
         <?php while ( have_rows( 'main_topic_content', $q ) ) : the_row(); ?>
             <?php if ( get_row_layout() == 'three_grid_block' ) : ?>
                 <?php $topic_term = get_sub_field( 'fundamental' );?>
-                <section class="topicGrid portal evr-grid <?php echo get_sub_field( 'background_colour' );?>">
+                <section class="topicGrid portal evr-grid <?php echo esc_attr( get_sub_field( 'background_colour' ) );?>">
                     <div class="container">
                         <div class="blockTitle">
                             <?php $icon = get_field( 'icon', $topic_term); ?>
-                            <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo get_sub_field( 'title' ); ?></h2>
+                            <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                             <p><?php echo esc_html( $topic_term->description ); ?></p>
                             <a href="<?php echo esc_url( get_term_link($topic_term) ); ?>" class="viewAll">View All</a>
                         </div>
@@ -472,7 +472,7 @@ if ( $loop->have_posts() ) :
 
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
-                                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                                <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                                 <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                             </div>
                                         </div>
@@ -485,11 +485,11 @@ if ( $loop->have_posts() ) :
                 </section>
             <?php elseif ( get_row_layout() == 'feature_article' ) : ?>
                 <?php if ( $is_evr_live ) { ?>
-                <section class="caseStudiesFeaturedText portal <?php echo get_sub_field( 'background_colour' ); ?>">
+                <section class="caseStudiesFeaturedText portal <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
                     <?php $post_object = get_sub_field( 'article' ); ?>
                     <div class="container">
                         <div class="blockTitle<?php if(get_sub_field('title')){?> margin-top<?php } else { ?> no-border<?php }?>">
-                            <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                            <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                         </div>
                         <?php if ( $post_object ): ?>
                         <?php $post = $post_object; ?>
@@ -557,7 +557,7 @@ if ( $loop->have_posts() ) :
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
-                                    <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                    <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                     <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                     <a href="<?php the_permalink(); ?>" class="readMore">Read More</a>
                                 </div>
@@ -567,7 +567,7 @@ if ( $loop->have_posts() ) :
                     </div>
                 </section> 
                 <?php } else { ?>
-                <section class="caseStudiesFeaturedText evr-featured portal <?php echo get_sub_field( 'background_colour' ); ?>">
+                <section class="caseStudiesFeaturedText evr-featured portal <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
                     <?php $post_object = get_sub_field( 'article' ); ?>
                     <div class="container">                        
                         <?php if ( $post_object ): ?>
@@ -603,7 +603,7 @@ if ( $loop->have_posts() ) :
                                             <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText red-text"><?php echo esc_html( $postTopic->name ); ?></a>
                                         <?php } ?>
                                          <?php if($postType){?>
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText red-text"><?php echo esc_html( $postType->name ); ?></a>
+                                            <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText red-text"><?php echo esc_html( $postType->name ); ?></a>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
