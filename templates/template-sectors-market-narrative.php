@@ -21,12 +21,12 @@ $q_slug = $q->slug ?? '';
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
 	        <div class="container">
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/market-narratives/sector-analysis/" target="_self">Sector Analysis</a>
 	            </span>
-	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'sector_title', $taxonomy_details )){ ?> (<?php echo get_field( 'sector_title', $taxonomy_details ); ?>)<?php } ?></h1>
+	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'sector_title', $taxonomy_details )){ ?> (<?php echo esc_html( get_field( 'sector_title', $taxonomy_details ) ); ?>)<?php } ?></h1>
 	        </div>
 	    </section>
 		<section class="filter margin-bottom">
@@ -36,11 +36,11 @@ $q_slug = $q->slug ?? '';
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Sector Analysis" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span> 
 						<span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
+							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
 							<span class="filterButtonText">Filter</span>
 						</span>
 						<span class="dropDowns">
@@ -193,7 +193,7 @@ $q_slug = $q->slug ?? '';
 	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
-	                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
 	                                        <span>
 	                                    <?php else : ?>
@@ -237,14 +237,14 @@ $q_slug = $q->slug ?? '';
 	                                        }
 	                                    }?>
 										<?php if($sector != '') { ?>
-											<a href="/market-narratives/sector-analysis/?sector=<?php echo $sector; ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
+											<a href="/market-narratives/sector-analysis/?sector=<?php echo esc_attr( $sector ); ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
 										<?php } else { ?> 
 											<?php if($sectorTerm){?>
-												<a href="/market-narratives/sector-analysis/?sector=<?php echo $sectorTerm->slug; ?>" class="topicFilterText"><?php echo esc_html( $sectorTerm->name ); ?></a>
+												<a href="/market-narratives/sector-analysis/?sector=<?php echo esc_attr( $sectorTerm->slug ); ?>" class="topicFilterText"><?php echo esc_html( $sectorTerm->name ); ?></a>
 											<?php } ?>
 										<?php } ?>
 	                                    <?php if($postType){?>
-	                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+	                                        <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 	                                    <?php } ?>
 	                                </span>
 	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -271,7 +271,7 @@ $q_slug = $q->slug ?? '';
 	<?php if ( have_rows( 'banner' ) ) : ?>
 		<?php while ( have_rows( 'banner' ) ) : the_row(); ?>
 			<?php $banner_image = get_sub_field( 'banner_image' ); ?>
-			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo $banner_image['url']; ?>);">
+			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>);">
 				<div class="container">
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
@@ -281,7 +281,7 @@ $q_slug = $q->slug ?? '';
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
+						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -298,11 +298,11 @@ $q_slug = $q->slug ?? '';
 					<span class="searchField">
 						<span class="search">
 							<input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Sector Analysis" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-							<input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+							<input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
 						</span>
 					</span>                     
 					<span class="filtersButtonMobile">                            
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
 						<span class="filterButtonText">Filter</span>
 					</span>
 					<span class="dropDowns">
@@ -373,12 +373,12 @@ $q_slug = $q->slug ?? '';
 		<section class="explore-section persona-explore-section">
 			<div class="container">
 				<?php while ( have_rows( 'filter_buttons' ) ) : the_row(); ?>
-					<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
+					<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 					<div class="button-container">
 						<?php $sectors_terms = get_sub_field( 'sectors' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/market-narratives/sector-analysis/?sector=<?php echo $sectors_term->slug; ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'sector_title', $sectors_term )){ ?> (<?php echo get_field( 'sector_title', $sectors_term ); ?>)<?php } ?></a>
+								<a class="sector-button button grey-button" href="/market-narratives/sector-analysis/?sector=<?php echo esc_attr( $sectors_term->slug ); ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'sector_title', $sectors_term )){ ?> (<?php echo esc_html( get_field( 'sector_title', $sectors_term ) ); ?>)<?php } ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -476,7 +476,7 @@ $q_slug = $q->slug ?? '';
 							                                    }?>
 							                                    <a href="/market-narratives/sector-analysis/" class="topicFilterText">Sector Analysis</a>
 							                                    <?php if($postType){?>
-							                                        <a href="/market-narratives/sector-analysis/?sector=<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+							                                        <a href="/market-narratives/sector-analysis/?sector=<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 							                                    <?php } ?>
 							                                </span>
 							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
@@ -484,7 +484,7 @@ $q_slug = $q->slug ?? '';
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
-																	   <?php echo get_sub_field( 'overview_text' ); ?>
+																	   <?php echo esc_html( get_sub_field( 'overview_text' ) ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
 												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
@@ -579,7 +579,7 @@ $q_slug = $q->slug ?? '';
 										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
-												 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
 										 <span>
 									 <?php else : ?>
@@ -622,9 +622,9 @@ $q_slug = $q->slug ?? '';
 											 }
 										 }
 									 }?>
-									 <a href="/market-narratives/sector-analysis/?sector=<?php echo $sector->slug; ?>" class="topicFilterText"><?php echo esc_html( $sector->name ); ?></a>
+									 <a href="/market-narratives/sector-analysis/?sector=<?php echo esc_attr( $sector->slug ); ?>" class="topicFilterText"><?php echo esc_html( $sector->name ); ?></a>
 									 <?php if($postType){?>
-										 <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										 <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									 <?php } ?>
 								 </span>
 								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
