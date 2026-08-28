@@ -1,7 +1,7 @@
 <section class="customer-kit-image-text <?php echo get_sub_field( 'background_colour' ); ?>">
     <div class="container">
         <div class="title-container">
-            <h3><?php echo get_sub_field( 'title' ); ?></h3>
+            <h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
         </div>
         <div class="column-container">
             <?php if ( have_rows( 'column' ) ) : ?>
@@ -14,7 +14,7 @@
                             <?php } ?>
                         </div>
                         <div class="text-column two-thirds">
-                            <span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                            <span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                             <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
                         </div>
                     </div>

@@ -64,7 +64,7 @@
 									<span class="article-inner">
 										<span class="article-top">
 											<span class="topic cat-tag-text">
-												<?php echo $date->format('l, j F, Y'); ?>
+												<?php echo esc_html( $date->format('l, j F, Y') ); ?>
 											</span>
 											<span class="article-title"><?php echo esc_html(get_the_title($post_id)); ?></span>
 										</span>
@@ -141,7 +141,7 @@
 										<span class="article-inner">
 											<span class="article-top">
 												<span class="topic cat-tag-text">
-													<?php echo $date->format('l, j F, Y'); ?>
+													<?php echo esc_html( $date->format('l, j F, Y') ); ?>
 												</span>
 												<span class="article-title"><?php echo esc_html(get_the_title($post_id)); ?></span>
 											</span>
@@ -316,7 +316,7 @@ $html = ob_get_clean();
 
     <?php if ($visible_count > $posts_per_page) : ?>
 		<div class="past-nav-container page-navi-container post-pagination-container">
-			<a class="std-button red-button small-button" id="load-more-past-sessions" data-offset="<?php echo $shown; ?>" data-perpage="<?php echo $posts_per_page; ?>">Load More</a>
+			<a class="std-button red-button small-button" id="load-more-past-sessions" data-offset="<?php echo esc_attr( $shown ); ?>" data-perpage="<?php echo esc_attr( $posts_per_page ); ?>">Load More</a>
 		</div>
     <?php endif; ?>
 </div>

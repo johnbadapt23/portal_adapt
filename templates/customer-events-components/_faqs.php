@@ -1,7 +1,7 @@
 <section class="customer-events-faqs <?php if( get_sub_field( 'background_colour' )){ ?><?php echo get_sub_field( 'background_colour' ); ?><?php } else { ?>background-black<?php } ?>">
     <div class="container">
         <div class="title-container">
-            <h2 class="white-text"><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2 class="white-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
         </div>
         <div class="faq-container">
             <?php if ( have_rows( 'faq_group' ) ) : ?>
@@ -9,7 +9,7 @@
                     <div class="faq-column <?php if(get_sub_field( 'title' )){ ?><?php } else { ?> no-padding-top<?php } ?>">
                         <?php if(get_sub_field( 'title' )){ ?> 
                             <div class="faq-column-inner">
-                                <h3 class="secondary-text headerXsmall group-title"><?php echo get_sub_field( 'title' ); ?></h3>                            
+                                <h3 class="secondary-text headerXsmall group-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>                            
                                 <?php if ( have_rows( 'faq_item' ) ) : ?>
                                     <?php while ( have_rows( 'faq_item' ) ) : the_row(); ?>
                                         <span class="faq-item">

@@ -58,55 +58,34 @@ if( $posts->have_posts() ): ?>
 
 
 <?php
-if($keyword != '') {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        's' => $keyword,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'filter-types',
-                'field' => 'slug',
-                'terms'    => $q->slug
-            )
-        )
-    );
-} else {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'filter-types',
-                'field' => 'slug',
-                'terms'    => $q->slug
-            )
-        )
-    );
-}
-?>
-
-<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-<?php $args = array(
+// A dead $args build used to sit here (an if($keyword)/else block using
+// $keyword, $q and $paged, none of which are defined anywhere in this file
+// before this point) - $args was immediately overwritten by the simpler
+// array right after it, on the next line, so it was never actually used by
+// any query, and referencing those undefined variables would otherwise
+// throw PHP warnings on every load of this template. Removed.
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
+<?php
+// This loop only reads each post's ID (to populate $displayed_posts) - it
+// never touches title/content/ACF fields, so it doesn't need full WP_Post
+// objects. fields => ids skips that hydration on a query with no result
+// limit.
+$args = array(
     'post_type' => 'post',
     'posts_per_page' => -1,
-    'paged'=> $paged
+    'paged'=> $paged,
+    'fields' => 'ids'
 ); ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
-    while ( $loop->have_posts() ) : $loop->the_post();
+    foreach ( $loop->posts as $id ) :
 ?>
 <?php if(current_user_can('mepr_auth')) {?>
 <?php } else { ?>
-    <?php $id = get_the_ID(); ?>
     <?php $displayed_posts[] = $id; ?>
 <?php }?>
 
-<?php endwhile; else : ?>
+<?php endforeach; else : ?>
 <?php endif; ?>
 <?php wp_reset_postdata(); wp_reset_query();?>
 
@@ -183,7 +162,7 @@ if (
 <?php $q = adjust_term_name_for_membership($q); ?>
 <section class="title-banner filter-title-banner light-theme <?php echo $membershipType; ?>">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo $q->name; ?></h1>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
             echo (term_description($q->term_id, $q->taxonomy));
@@ -204,19 +183,8 @@ if (
                     </span>
 
                     <?php
-                    // ----------------------------------------
-                    // HELPER: get allowed slugs or empty
-                    // ----------------------------------------
-                    function get_allowed_slugs($field_name, $all_field_name, $taxonomy = null) {
-                        if ( get_field($field_name) == 1 && $taxonomy ) {
-                            return []; // all allowed
-                        }
-                        $terms = get_field($all_field_name) ?: [];
-                        if ($taxonomy && get_field($field_name) != 1) {
-                            return array_map(fn($term) => $term->slug, is_array($terms) ? $terms : []);
-                        }
-                        return [];
-                    }
+                    // get_allowed_slugs() now lives in includes/_functions.php
+                    // (shared by the persona/sector/topic/post filter templates).
 
                     // ----------------------------------------
                     // TOPICS
@@ -453,7 +421,7 @@ if (
                         </div>
                     </div>
                     <div class="ajax-loader" style="display: none;">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
                         id="posts-container">

@@ -41,6 +41,7 @@ $interests = $user_info->mepr_interests;
 					<input type="text" name="project" placeholder="project" value="project" />
 					<button style="display:none;">Apply filter</button>
 					<input type="hidden" name="action" value="myfilter">
+					<input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'adapt_ajax_nonce' ) ); ?>">
 				</form>
 				<br />
 				<div id="response"></div>

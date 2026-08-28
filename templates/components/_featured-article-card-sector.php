@@ -5,11 +5,17 @@
 
 ?>
 <?php
+    // Not every call site sets these before including this template -
+    // default them so an unset value degrades gracefully instead of
+    // throwing an undefined-variable notice.
+    $eventtype = $eventtype ?? 'no';
+    $post_slug = $post_slug ?? '';
+
     $is_favourites = get_query_var('is_favourites', false);
     $event = 'no';
     if($eventtype == 'yes'){
         $event = 'yes';
-    } 
+    }
     global $membershipType;
     $advantagePlus = "no";
     $current_user = wp_get_current_user();
@@ -45,7 +51,7 @@
                             }
                         }
                     }?>             
-                    <span class="article-title headerXsmall text-bold text-black"><?php echo $postTopic->name; ?> Sector</span>
+                    <span class="article-title headerXsmall text-bold text-black"><?php echo esc_html( $postTopic->name ); ?> Sector</span>
                     <span class="excerpt text-black">
                         <?php echo esc_html(get_the_excerpt($post_id)); ?>
                     </span>
@@ -102,7 +108,7 @@
 					if ( $inline_img_152_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_152_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_152_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_152_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_152_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                             <?php if($video == 'yes'){ ?>

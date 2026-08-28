@@ -18,11 +18,11 @@ get_header();
 						<span class="divider">/</span>
 						<a class="home-link" href="/data-insights" target="_self">Data & Insights</a>
 						<span class="divider">/</span>
-						<span class="title"><?php the_title();?></span>
+						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
 						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
-						<span class="subtitle"><?php echo get_sub_field( 'sub_title' ); ?></span>
+						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
 			</section>
@@ -39,7 +39,7 @@ get_header();
 						<?php $sectors_terms = get_sub_field( 'sectors' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="<?php echo get_term_link($sectors_term); ?>" target="_self"><?php echo $sectors_term->name; ?></a>
+								<a class="sector-button button grey-button" href="<?php echo esc_url( get_term_link($sectors_term) ); ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -109,7 +109,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																			<?php } ?>
@@ -137,21 +137,21 @@ get_header();
 							                                    }?>
 							                                    <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
 							                                    <?php if($postType){?>
-							                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+							                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 							                                    <?php } ?>
 							                                </span>
-							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
-							                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
+							                                <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
 															<span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
 																	   <?php echo get_sub_field( 'overview_text' ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
-												                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
+												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
 												                <?php endif; ?>
 															</span>
-															<a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+															<a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
 														</span>
 													</span>
 					                            </div>
@@ -254,7 +254,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 	                                        <span class="hover-container">
@@ -290,12 +290,12 @@ get_header();
 	                                    }?>
 	                                    <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
 	                                    <?php if($postType){?>
-	                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+	                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 	                                    <?php } ?>
 	                                </span>
-	                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-	                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
-									<span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+	                                <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
+									<span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
 	                                <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 	                            </div>
 	                        </div>

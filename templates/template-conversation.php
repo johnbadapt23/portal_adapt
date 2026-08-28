@@ -11,8 +11,8 @@ get_header();
 	<section class="filter-title-block ">
 		<div class="container">
 			<div class="title-container">
-				<h1 class="type-title text-black"><?php echo get_field( 'next_conversation_title', 'options' ); ?></h1>
-				<span class="type-description text-black"><?php echo get_field( 'next_conversation_text', 'options' ); ?></span>
+				<h1 class="type-title text-black"><?php echo esc_html( get_field( 'next_conversation_title', 'options' ) ); ?></h1>
+				<span class="type-description text-black"><?php echo esc_html( get_field( 'next_conversation_text', 'options' ) ); ?></span>
 			</div>
 			<div class="topic-button-container-outer">
 				<div class="topic-button-container filter-button-container">
@@ -50,7 +50,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 													<?php } elseif ( get_field( 'video_image' )){ ?>
@@ -60,7 +60,7 @@ get_header();
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 													<?php } else { ?>
@@ -74,7 +74,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 													<?php } ?>
@@ -120,16 +120,16 @@ get_header();
 												}?>
 												
 												<?php if($postType){?>
-														<a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+														<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
 												<?php } ?>
 												<?php if($postSector){?>
-														<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+														<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 												<?php } ?>                                
 												<?php if($postTopic){?>
-													<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+													<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
 												<?php } ?>
 											</span>
-											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
+											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
 										</span>
 										<?php wp_reset_postdata(); ?>
 									<?php endif; ?>
@@ -162,14 +162,14 @@ get_header();
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																					<?php } ?>
 																					<?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
 																						<span class="opacity-overlay"></span>
 																					<?php } ?>
-																					<span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+																					<span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
 																					<?php if ($video_link){ ?>
 																						<span class="video-button">
 																						</span>
@@ -188,7 +188,7 @@ get_header();
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																					<?php } ?>
@@ -233,16 +233,16 @@ get_header();
 																				}
 																			}?>
 																			<?php if($postType){?>
-																					<a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+																					<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
 																			<?php } ?>
 																			<?php if($postSector){?>
-																					<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+																					<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 																			<?php } ?>                                
 																			<?php if($postTopic){?>
-																				<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+																				<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
 																			<?php } ?>
 																		</span>
-																		<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php the_title(); ?></h2></a>
+																		<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php echo esc_html( get_the_title() ); ?></h2></a>
 																	</div>
 																</div>
 															</div>
@@ -295,7 +295,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																<?php } elseif ( get_field( 'video_image' )){ ?>
@@ -305,7 +305,7 @@ get_header();
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																<?php } else { ?>
@@ -319,7 +319,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																<?php } ?>
@@ -363,16 +363,16 @@ get_header();
 																}
 															}?>
 															<?php if($postType){?>
-																	<a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+																	<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
 															<?php } ?>
 															<?php if($postSector){?>
-																	<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+																	<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 															<?php } ?>                                
 															<?php if($postTopic){?>
-																<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+																<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
 															<?php } ?>
 														</span>
-														<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
+														<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
 													</span>
 
 												</div>
@@ -397,14 +397,14 @@ get_header();
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																		<?php } ?>
 																		<?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
 																			<span class="opacity-overlay"></span>
 																		<?php } ?>
-																		<span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+																		<span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
 																		<?php if ($video_link){ ?>
 																			<span class="video-button">
 																			</span>
@@ -423,7 +423,7 @@ get_header();
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																		<?php } ?>
@@ -468,16 +468,16 @@ get_header();
 																	}
 																}?>
 																<?php if($postType){?>
-																		<a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+																		<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
 																<?php } ?>
 																<?php if($postSector){?>
-																		<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+																		<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 																<?php } ?>                                
 																<?php if($postTopic){?>
-																	<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+																	<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
 																<?php } ?>
 															</span>
-															<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php the_title(); ?></h2></a>
+															<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php echo esc_html( get_the_title() ); ?></h2></a>
 														</div>
 													</div>
 												</div>
@@ -523,7 +523,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 												<?php } elseif ( get_field( 'video_image' )){ ?>
@@ -533,7 +533,7 @@ get_header();
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 												<?php } else { ?>
@@ -547,7 +547,7 @@ get_header();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 												<?php } ?>
@@ -593,16 +593,16 @@ get_header();
 													}?>
 												<?php } ?>
 												<?php if($postType){?>
-														<a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+														<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
 												<?php } ?>
 												<?php if($postSector){?>
-														<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+														<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 												<?php } ?>                                
 												<?php if($postTopic){?>
-													<a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+													<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
 												<?php } ?>
 											</span>
-											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
+											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
 										</span>
 									</div>                               
 								<?php endwhile; ?>                        
@@ -618,7 +618,7 @@ get_header();
 				</section>
 			<?php elseif ( get_row_layout() == 'cta_banner' ) : ?>
 				<?php if (!is_paged()) { ?>
-					<section class="conversation-cta <?php echo get_sub_field( 'background_colour' ); ?>">
+					<section class="conversation-cta <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
 						<?php $textcolour = 'text-white'; ?>
 						<?php if (get_sub_field( 'background_colour' ) == 'background-white') {
 							$textcolour = 'text-black';
@@ -629,13 +629,13 @@ get_header();
 						<div class="container">
 							<div class="column-container">
 								<div class="column text-column one-half">
-									<h3 class="<?php echo $textcolour; ?> cta-title"><?php echo get_sub_field( 'title' ); ?></h3>
-									<span class="text labelLarge <?php echo $textcolour; ?>"><?php echo get_sub_field( 'text' ); ?></span>
+									<h3 class="<?php echo esc_attr( $textcolour ); ?> cta-title"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
+									<span class="text labelLarge <?php echo esc_attr( $textcolour ); ?>"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
 									<?php if ( have_rows( 'link' ) ) : ?>
 										<?php while ( have_rows( 'link' ) ) : the_row(); ?>
 											<span class="button-container">
-												<span class="pre-button-text labelLarge <?php echo $textcolour; ?>"><?php echo get_sub_field( 'pre_button_text' ); ?></span>
-												<a class="cta-button button stdBtn red red-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+												<span class="pre-button-text labelLarge <?php echo esc_attr( $textcolour ); ?>"><?php echo esc_html( get_sub_field( 'pre_button_text' ) ); ?></span>
+												<a class="cta-button button stdBtn red red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 											</span>
 										<?php endwhile; ?>
 									<?php else : ?>

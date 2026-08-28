@@ -14,7 +14,7 @@
 					if ( $inline_img_157_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_157_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
 					} elseif ( $inline_img_157_src ) {
-						echo '<img src="' . esc_url( $inline_img_157_src ) . '" loading="lazy" alt="' . esc_attr( 'Adapt' ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_157_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
 				?>
             		</a>
@@ -29,7 +29,7 @@
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -50,7 +50,7 @@
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                             <li>
-                                                <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                             </li>
                                         <?php endwhile; ?>
                                     </ul>
@@ -69,7 +69,7 @@
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                             <li>
-                                                <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                             </li>
                                         <?php endwhile; ?>
                                     </ul>
@@ -90,7 +90,7 @@
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -111,9 +111,9 @@
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                             <li>
                                                 <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                    <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                    <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                                 <?php } else { ?> 
-                                                    <span class="footerLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                    <span class="footerLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                                 <?php } ?>
                                             </li>
                                         <?php endwhile; ?>
@@ -136,9 +136,9 @@
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
                                             <?php if(get_sub_field( 'link' ) !== '' ){ ?>
-                                                <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                                <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                             <?php } else { ?> 
-                                                <span class="footerLink no-link"><?php echo get_sub_field( 'link_text' ); ?></span>
+                                                <span class="footerLink no-link"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></span>
                                             <?php } ?>
                                         </li>
                         			<?php endwhile; ?>
@@ -159,7 +159,7 @@
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo get_sub_field( 'link' ); ?>" class="footerLink <?php echo get_sub_field( 'class' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink <?php echo get_sub_field( 'class' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -172,7 +172,7 @@
                     <?php endif; ?>
                     <span class="social desktop">
                         <?php if(get_field('linkedin_url','options')) { ?>
-                            <a href="<?php echo get_field('linkedin_url','options') ?>" target="_blank" aria-label="LinkedIn (opens in a new tab)">
+                            <a href="<?php echo esc_url( get_field('linkedin_url','options') ); ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)">
                                 <svg version="1.1" id="Group_193" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 	 viewBox="0 0 14.9 15" style="enable-background:new 0 0 14.9 15;" xml:space="preserve">
                                 <style type="text/css">
@@ -193,11 +193,11 @@
                                 	</g>
                                 </g>
                                 </svg>
-                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-nocircle.svg" width="14" height="14" loading="lazy" alt="LinkedIn" /> -->
+                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-nocircle.svg" width="14" height="14" loading="lazy" decoding="async" alt="LinkedIn" /> -->
                             </a>
                         <?php } ?>
                         <?php if(get_field('youtube_url','options')) { ?>
-                            <a href="<?php echo get_field('youtube_url','options') ?>" target="_blank" aria-label="YouTube (opens in a new tab)">
+                            <a href="<?php echo esc_url( get_field('youtube_url','options') ); ?>" target="_blank" rel="noopener noreferrer" aria-label="YouTube (opens in a new tab)">
                                 <svg version="1.1" id="Group_194" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                 	 viewBox="0 0 16.6 11.8" style="enable-background:new 0 0 16.6 11.8;" xml:space="preserve">
                                 <style type="text/css">
@@ -209,7 +209,7 @@
                                 		C6.2-1,6.3-0.9,6.1-0.8C6.2-0.8,6.2-0.8,6.1-0.8z"/>
                                 </g>
                                 </svg>
-                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube-nocircle.svg" width="16" height="11" loading="lazy" alt="YouTube" /> -->
+                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube-nocircle.svg" width="16" height="11" loading="lazy" decoding="async" alt="YouTube" /> -->
                             </a>
                         <?php } ?>
                     </span>
@@ -218,7 +218,17 @@
             <span class="base">
                 <div>
                     <span class="left">
-                        <span>&copy; ADAPT VENTURES PTY LTD <?php echo date('Y'); ?>. All rights reserved</span>
+                        <?php
+                        // date('Y') uses PHP's default timezone (server-
+                        // dependent, usually UTC), not the site's configured
+                        // one under Settings > General - a well-known source
+                        // of the copyright year flipping a few hours early
+                        // or late around New Year's depending on where the
+                        // server and site timezone disagree. wp_date()
+                        // resolves against the site's actual timezone
+                        // setting instead.
+                        ?>
+                        <span>&copy; ADAPT VENTURES PTY LTD <?php echo esc_html( wp_date( 'Y' ) ); ?>. All rights reserved</span>
                     </span>
                     <span class="right">
                         <?php theme_nav('bottom'); ?>
@@ -271,7 +281,7 @@
                             </div>
                             <?php if ( have_rows( 'members_only_button', 'option' ) ) : ?>
                                 <?php while ( have_rows( 'members_only_button', 'option' ) ) : the_row(); ?>
-                                    <a class="button" href="<?php echo get_sub_field( 'button_link' ); ?>" target="_self"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                    <a class="button" href="<?php echo esc_url( get_sub_field( 'button_link' ) ); ?>" target="_self"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                 <?php endwhile; ?>
                             <?php else : ?>
                                 <?php // no rows found ?>
@@ -288,7 +298,7 @@
                                 </span>
                             </span>
                         </div>
-                        <img class="absolute-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/A.svg" width="14" height="24" loading="lazy" alt="Adapt" />
+                        <img class="absolute-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/A.svg" width="14" height="24" loading="lazy" decoding="async" alt="Adapt" />
                     </div>
                 </div>
             </div>

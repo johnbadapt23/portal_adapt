@@ -301,7 +301,8 @@ section.researchArticleTextHeader.preview-module {
                                 margin-bottom: 40px;
 
                                 .image-container {
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                     position: relative;
                                     padding-top: 56.25%;
@@ -521,7 +522,8 @@ section.data-links {
                     margin-bottom: 20px;
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         position: relative;
                         padding-top: 56.25%;
@@ -699,7 +701,8 @@ section.featured-article-slider-data {
                     }
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         position: relative;
                         padding-top: 56.25%;
@@ -782,8 +785,6 @@ section.featured-article-slider-data {
                             text-decoration: underline;
                         }
 
-                        @include responsive(767) {
-                        }
                     }
                 }
 
@@ -835,7 +836,6 @@ section.featured-article-slider-data {
                     height: 42px;
                     line-height: 42px;
                     line-height: 44px;
-                    font-size: 10px;
                     padding: 0 20px;
                     font-weight: bold;
                     font-size: 10px;
@@ -1505,8 +1505,6 @@ section.persona-featured-article {
                             text-decoration: underline;
                         }
 
-                        @include responsive(767) {
-                        }
                     }
                 }
 
@@ -2010,4 +2008,28 @@ body section.persona-featured-article .container .featured-article .textContaine
 }
 body section.persona-filtering .container .filter-link-container a.persona-filter-link {
 	display: block;
+}
+
+// Fix: overlapping text/image on sector-analysis grids. Both
+// templates/template-sector-analysis.php's taxonomy archive and the
+// "sector-grid" ACF flexible-content widget (templates/components/
+// _sector-grid-portal.php and _sector-grid-portal-markets.php, reused by
+// template-sector.php, template-sector-markets.php,
+// template-sectors-data-insights.php and template-sectors-market-narrative.php)
+// render their listing image through the shared global .imageSizeContainer/
+// .bgContainer absolute-fill pattern (global/_styles.scss), but - unlike
+// every other place that pattern is used in the theme - no page-specific
+// rule ever gave .imageSizeContainer an actual height. Since .bgContainer
+// is position:absolute, it contributes nothing to .imageSizeContainer's
+// box height, so .imageSizeContainer collapses to 0px and .textContainer
+// (a normal sibling in the document flow) starts rendering from that same
+// point - directly on top of the still-visible absolutely-positioned
+// image underneath it. Giving .imageSizeContainer a real height via the
+// same padding-top aspect-ratio technique used throughout the rest of the
+// theme (e.g. the 56.25% cards in _post.scss) resolves the overlap.
+section.sector-grid .gridWrapper .item .imageSizeContainer {
+	display: block;
+	width: 100%;
+	padding-top: 56.25%;
+	overflow: hidden;
 }

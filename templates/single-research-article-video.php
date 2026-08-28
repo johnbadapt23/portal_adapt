@@ -15,7 +15,7 @@ get_header();
         <div class="container">
             <div class="column first">
                 <span class="saveInsight">
-                    <img class="insightIcon" src="<?php echo get_template_directory_uri(); ?>/assets/images/save-insight.svg" width="42" height="59" loading="lazy" alt="Save" />
+                    <img class="insightIcon" src="<?php echo get_template_directory_uri(); ?>/assets/images/save-insight.svg" width="42" height="59" loading="lazy" decoding="async" alt="Save" />
                 </span>
             </div>
             <div class="column second">
@@ -28,7 +28,7 @@ get_header();
                     <span class="dateReadTime">JUL 10, 2020  |  10 MIN</span>
 
                     <span class="saveInsight mobile">
-                        <img class="insightIcon" src="<?php echo get_template_directory_uri(); ?>/assets/images/save-insight-landscape.svg" width="69" height="24" loading="lazy" alt="Save" />
+                        <img class="insightIcon" src="<?php echo get_template_directory_uri(); ?>/assets/images/save-insight-landscape.svg" width="69" height="24" loading="lazy" decoding="async" alt="Save" />
                     </span>
 
                     <span class="introGrab">
@@ -49,7 +49,7 @@ get_header();
                         <p><strong>Team alignment on transformation</strong></p>
                         <p>Identify where your customers are providing data and create a platform where they can transact on a range of products and services related to this data. Bring your employees on this digital transformation journey by creating not just a vision and mission, but a ‘dream’ like Tesla’s 12-year vision to create a sustainable vehicle for the mass market.</p>
                         <p>
-                            <img src="" />
+                            <img src="" loading="lazy" decoding="async" alt="" />
                         </p>
                         <h3>Key advice</h3>
                         <ul>
@@ -63,7 +63,7 @@ get_header();
                     <div class="contributor thoughtLeader">
                         <div class="imageSizeContainer">
                             <div class="bgContainer">
-                                <img class="desktop" src="" />
+                                <img class="desktop" src="" loading="lazy" decoding="async" alt="" />
                             </div>
                         </div>
                         <div class="textContainer">
@@ -74,7 +74,7 @@ get_header();
                     <div class="contributor writtenBy">
                         <div class="imageSizeContainer">
                             <div class="bgContainer">
-                                <img class="desktop" src="" />
+                                <img class="desktop" src="" loading="lazy" decoding="async" alt="" />
                             </div>
                         </div>
                         <div class="textContainer">

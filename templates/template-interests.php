@@ -35,8 +35,8 @@ $interests = $user_info->mepr_interests;
                         ?>
                         <?php foreach($terms as $term) { ?>
                             <span class="topic">
-                                <span class="topicTitle"><h2><?php echo $term->name; ?></h2></span>
-                                <span class="topicIntroduction"><?php echo $term->description; ?></span>
+                                <span class="topicTitle"><h2><?php echo esc_html( $term->name ); ?></h2></span>
+                                <span class="topicIntroduction"><?php echo esc_html( $term->description ); ?></span>
                                 <span class="checkbox-container">
                                     <?php if ($interests){ ?>
                                         <input type="checkbox" id="checkbox<?php echo $term->slug;?>" value="on" name="mepr_interests[<?php echo $term->slug; ?>]" <?php if('on'==$interests[$term->slug]){ ?>checked="checked"<?php }?>/>
@@ -49,6 +49,7 @@ $interests = $user_info->mepr_interests;
                             </span>
                         <?php } ?>
                         <input type="hidden" name="action" value="myfilter">
+                        <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'adapt_ajax_nonce' ) ); ?>">
                     </form>
                 </div>
             </div>

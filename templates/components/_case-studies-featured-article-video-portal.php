@@ -5,7 +5,7 @@
     		<?php $post = $post_object; ?>
     		<?php setup_postdata( $post ); ?>
             <div class="item">
-                <a href="<?php the_permalink(); ?>" class="title mobile"><?php the_title(); ?></a>
+                <a href="<?php the_permalink(); ?>" class="title mobile"><?php echo esc_html( get_the_title() ); ?></a>
                 <div class="imageSizeContainer">
                     <span class="overlayGradient"></span>
                     <a href="<?php the_permalink(); ?>" class="postPlayBtn-">
@@ -24,7 +24,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                             <span class="watchIcon"></span>
@@ -32,8 +32,8 @@
                     </a>
                 </div>
                 <div class="textContainer">
-                    <a href="<?php the_permalink(); ?>" class="title desktop"><?php the_title(); ?></a>
-                    <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                    <a href="<?php the_permalink(); ?>" class="title desktop"><?php echo esc_html( get_the_title() ); ?></a>
+                    <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                     <a href="<?php the_permalink(); ?>" class="readMore">Watch Video</a>
                 </div>
             </div>

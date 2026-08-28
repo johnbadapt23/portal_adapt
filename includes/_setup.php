@@ -7,9 +7,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 // theme_setup
 function theme_setup() {
 
+	// Loads languages/portal-{locale}.mo if one is ever added - matches the
+	// "Text Domain: portal" / "Domain Path: /languages" header in style.css.
+	// No .mo files exist yet, so this is currently a no-op, but every
+	// __()/_e() call in the theme already uses the 'portal' domain (or
+	// should - see includes/_menu.php fix), so translations will just work
+	// the moment one is dropped in, with no further code changes needed.
+	load_theme_textdomain( 'portal', get_template_directory() . '/languages' );
+
 	add_editor_style();
-	add_theme_support( 'menus' );
+	// Note: menu support comes from register_nav_menus() in
+	// includes/_menu.php, not add_theme_support() - 'menus' isn't a real
+	// WP theme-support feature (WP core only recognizes a fixed set like
+	// post-thumbnails/title-tag/html5/custom-header/etc.), so the previous
+	// add_theme_support('menus') call here was silently doing nothing.
 	add_theme_support( 'post-thumbnails' );
+	// Lets WP (and Yoast SEO, which is active on this site) manage the
+	// <title> tag via wp_head() instead of the theme hardcoding one with
+	// wp_title() - the standard approach since WP 4.1, and what Yoast's
+	// own "hardcoded title tag" admin notice asks every theme to do.
+	add_theme_support( 'title-tag' );
 
 	if ( function_exists('acf_add_options_page') ) {
     	acf_add_options_page();

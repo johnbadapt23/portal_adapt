@@ -6,6 +6,8 @@
 get_header();
 $topicFilter = $_GET['topic'];
 $keyword = $_GET['searchWords'];
+$q = get_queried_object();
+$q_slug = $q->slug ?? '';
 ?>
 
 
@@ -24,7 +26,7 @@ $keyword = $_GET['searchWords'];
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/market-narratives/technology-trends/" target="_self">Technology Trends</a>
 	            </span>
-	            <h1><?php echo $topic_details->name; ?></h1>
+	            <h1><?php echo esc_html( $topic_details->name ); ?></h1>
 	        </div>
 	    </section>
 		<section class="filter margin-bottom">
@@ -33,12 +35,12 @@ $keyword = $_GET['searchWords'];
                     <form action="" name="postTypesFilter" class="postTypesFilter" method="get">
 						<span class="searchField">
                             <span class="search">
-                                <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Technology Trends" <?php if($keyword != '') {?>value="<?php echo $keyword;?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'workshop-recordings' || $q->slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Technology Trends" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span>                        
                         <span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />                            
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
                             <span class="filterButtonText">Filter</span>
                         </span>
                         <span class="dropDowns">
@@ -68,11 +70,17 @@ $keyword = $_GET['searchWords'];
 										);
 										?>
 									<?php $terms = array(); ?>
+									<?php
+									// This loop only tallies distinct terms for a filter dropdown - it
+									// never reads title/content/ACF fields, so it doesn't need full
+									// WP_Post objects.
+									$argsFilter['fields'] = 'ids';
+									?>
 									<?php $loop = new WP_Query( $argsFilter ); ?>
 									<?php if ( $loop->have_posts() ) : ?>
-										<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+										<?php foreach ( $loop->posts as $result_id ) : ?>
 										<?php
-											$topics = get_the_terms( $post->ID, 'topic' );
+											$topics = get_the_terms( $result_id, 'topic' );
 											if($topics){
 												foreach( $topics as $topic ){
 													if($topic-> parent == 0){
@@ -85,11 +93,11 @@ $keyword = $_GET['searchWords'];
 												}
 											}
 										?>
-										<?php endwhile; ?>
+										<?php endforeach; ?>
 									<?php else : ?>
 									<?php endif; ?>									
 									<?php foreach($terms as $term) { ?>
-										<option value="<?php echo $term->slug; ?>" <?php if($topic_details == '') { } else { if ($term -> slug == $topic_details->slug ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
+										<option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($topic_details == '') { } else { if ($term -> slug == $topic_details->slug ) { ?> selected <?php }}?>><?php echo esc_html( $term -> name ); ?></option>
 									<?php } ?>
 									<?php wp_reset_postdata(); wp_reset_query();?>
 								</select>
@@ -162,6 +170,7 @@ $keyword = $_GET['searchWords'];
                     if( $posts->have_posts() ): ?>
                         <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
 
+	                    <?php if(current_user_can('mepr_auth')) {?>
 	                        <div class="item">
 	                            <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
 	                                <div class="bgContainer">
@@ -200,7 +209,7 @@ $keyword = $_GET['searchWords'];
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 	                                        <span class="hover-container">
@@ -225,19 +234,20 @@ $keyword = $_GET['searchWords'];
 									   <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 									   <?php if ($topicFilter != '') { ?>
 											<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-											<a href="<?php echo get_term_link($term); ?>" class="topicFilterText"><?php echo $term->name; ?></a>
+											<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
 										<?php } else { ?> 
 											<?php if($postType){?>
-												<a href="<?php echo get_term_link($postType); ?>" class="topicFilterText"><?php echo $postType>name; ?></a>
+												<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 											<?php } ?>
 										<?php } ?>
 	                                </span>
-	                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-									<span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
-	                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+									<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
+	                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
 	                                <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 	                            </div>
 	                        </div>
+	                    <?php } ?>
 
 	                        <?php $counter++; ?>
 	                   
@@ -263,11 +273,11 @@ $keyword = $_GET['searchWords'];
 						<span class="divider">/</span>
 						<a class="home-link" href="/market-narratives" target="_self">Market Narratives</a>
 						<span class="divider">/</span>
-						<span class="title"><?php the_title();?></span>
+						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
 						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
-						<span class="subtitle"><?php echo get_sub_field( 'sub_title' ); ?></span>
+						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
 			</section>
@@ -281,12 +291,12 @@ $keyword = $_GET['searchWords'];
 					<form action="" name="postTypesFilter" class="postTypesFilter" method="get">  
 						<span class="searchField">
                             <span class="search">
-                                <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Technology Trends" <?php if($keyword != '') {?>value="<?php echo $keyword;?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'workshop-recordings' || $q->slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Technology Trends" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span>                      
 						<span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />                            
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
 							<span class="filterButtonText">Filter</span>
 						</span>
 						<span class="dropDowns">
@@ -322,11 +332,17 @@ $keyword = $_GET['searchWords'];
 										);
 									?>
 									<?php $terms = array(); ?>
+									<?php
+									// This loop only tallies distinct terms for a filter dropdown - it
+									// never reads title/content/ACF fields, so it doesn't need full
+									// WP_Post objects.
+									$argsFilter['fields'] = 'ids';
+									?>
 									<?php $loop = new WP_Query( $argsFilter ); ?>
 									<?php if ( $loop->have_posts() ) : ?>
-										<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+										<?php foreach ( $loop->posts as $result_id ) : ?>
 										<?php
-											$topics = get_the_terms( $post->ID, 'topic' );
+											$topics = get_the_terms( $result_id, 'topic' );
 											if($topics){
 												foreach( $topics as $topic ){
 													if($topic-> parent == 0){
@@ -339,12 +355,12 @@ $keyword = $_GET['searchWords'];
 												}
 											}
 										?>
-										<?php endwhile; ?>
+										<?php endforeach; ?>
 									<?php else : ?>
 									<?php endif; ?>		
 									<?php wp_reset_query(); ?>							
 									<?php foreach($terms as $term) { ?>
-										<option value="<?php echo $term->slug; ?>" <?php if($topic == '') { } else { if ($term -> slug == $topic ) { ?> selected <?php }}?>><?php echo $term -> name; ?></option>
+										<option value="<?php echo esc_attr( $term->slug ); ?>" <?php if($topic == '') { } else { if ($term -> slug == $topic ) { ?> selected <?php }}?>><?php echo esc_html( $term -> name ); ?></option>
 									<?php } ?>
 								</select>
 							</span>                            
@@ -368,7 +384,7 @@ $keyword = $_GET['searchWords'];
 						<?php $sectors_terms = get_sub_field( 'topic' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/market-narratives/technology-trends/?topic=<?php echo $sectors_term->slug; ?>" target="_self"><?php echo $sectors_term->name; ?></a>
+								<a class="sector-button button grey-button" href="/market-narratives/technology-trends/?topic=<?php echo $sectors_term->slug; ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -438,7 +454,7 @@ $keyword = $_GET['searchWords'];
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 																			<?php } ?>
@@ -466,21 +482,21 @@ $keyword = $_GET['searchWords'];
 															}?>
 															<a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 															<?php if($postType){?>
-																<a href="/topic/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+																<a href="/topic/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 															<?php } ?>
 							                                </span>
-							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
-															<span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
+															<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
 																	   <?php echo get_sub_field( 'overview_text' ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
-												                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
+												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
 												                <?php endif; ?>
 															</span>
-															<a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+															<a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
 														</span>
 													</span>
 					                            </div>
@@ -584,7 +600,7 @@ $keyword = $_GET['searchWords'];
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
 										 <span class="hover-container">
@@ -609,16 +625,16 @@ $keyword = $_GET['searchWords'];
 								 <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 								 <?php if ($topicFilter != '') { ?>
 									<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-									<a href="<?php echo get_term_link($term); ?>" class="topicFilterText"><?php echo $term->name; ?></a>
+									<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
 								<?php } else { ?> 
 									<?php if($postType){?>
-										<a href="<?php echo get_term_link($postType); ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+										<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									<?php } ?>
 								<?php } ?>
 								 </span>
-								 <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-								 <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
-								 <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+								 <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
+								 <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
 								 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
 							 </div>
 						 </div>

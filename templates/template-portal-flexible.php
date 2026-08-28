@@ -70,7 +70,7 @@ if( $is_agent_tester ){
 																if ( $image_attach_id ) {
 																	echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 																} else {
-																	echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+																	echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																}
 																?>
 															<?php } elseif ( get_field( 'video_image' )){  ?>
@@ -87,7 +87,7 @@ if( $is_agent_tester ){
 																	if ( $image_attach_id ) {
 																		echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 																	} else {
-																		echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+																		echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																	}
 																?>
 															<?php } ?>
@@ -119,12 +119,12 @@ if( $is_agent_tester ){
 																	}
 																}?>
 																<?php if($postTopic){?>
-																	<a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+																	<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
 																<?php } ?>
 
 																	<a href="/filter-types/expert-presentations/" class="topicFilterText">Expert Presentations</a>
 															</span>
-															<a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
+															<a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
 														</span>
 													</div>
 												</div>
@@ -186,7 +186,7 @@ if( $is_agent_tester ){
 																			if ( $image_attach_id ) {
 																				echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 																			} else {
-																				echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+																				echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																			}
 																			?>
  		                                                               	<?php } elseif ( get_field( 'video_image' )){  ?>
@@ -203,7 +203,7 @@ if( $is_agent_tester ){
 																				if ( $image_attach_id ) {
 																					echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 																				} else {
-																					echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+																					echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																				}
 																			?>
  		                                                               <?php } ?>
@@ -235,14 +235,14 @@ if( $is_agent_tester ){
  		                                                                   }
  		                                                               }?>
  		                                                               <?php if($postTopic){?>
- 		                                                                   <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+ 		                                                                   <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
  		                                                               <?php } ?>
  		                                                               <a href="/filter-types/expert-presentations/" class="topicFilterText">Expert Presentations</a>
 
  		                                                           </span>
- 		                                                           <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
- 		                                                           <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
- 		                                                           <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+ 		                                                           <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+ 		                                                           <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+ 		                                                           <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
  		                                                       </div>
  		                                                   </div>
 		                                                <?php endwhile; ?>
@@ -264,7 +264,7 @@ if( $is_agent_tester ){
 								        		<?php if ( have_rows( 'button' ) ) : ?>
 								                    <span class="button-container">
 								            			<?php while ( have_rows( 'button' ) ) : the_row(); ?>
-								                            <a class="std-button arrow-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+								                            <a class="std-button arrow-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
 								            			<?php endwhile; ?>
 								                    </span>
 								        		<?php else : ?>

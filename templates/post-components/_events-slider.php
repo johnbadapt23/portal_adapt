@@ -13,13 +13,13 @@
         <div class="title-slider-container">
             <div class="column title-column">
                 <h2 class="headerXsmall text-bold bold-red">
-                    <?php echo get_sub_field( 'title' ); ?>
+                    <?php echo wp_kses_post( get_sub_field( 'title' ) ); ?>
                 </h2>
-                <span class="text-regular white-text"><?php echo get_sub_field( 'text' ); ?></span>
+                <span class="text-regular white-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                         <span class="button-container">
-                            <a class="std-button white-outline small-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                            <a class="std-button white-outline small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         </span>														
                     <?php endwhile; ?>
                 <?php else : ?>

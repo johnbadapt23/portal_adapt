@@ -1,8 +1,8 @@
-<section class="animated-text animated-text-logos <?php if(get_sub_field('background_colour')){ ?><?php echo get_sub_field('background_colour'); ?><?php } else { ?>background-true-black<?php }?>" <?php if(get_sub_field('id')){ ?> id="<?php echo get_sub_field('id');?>"<?php } ?>>
+<section class="animated-text animated-text-logos <?php if(get_sub_field('background_colour')){ ?><?php echo get_sub_field('background_colour'); ?><?php } else { ?>background-true-black<?php }?>" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <div class="inner">
             <div class="animated-text-container">
-                <span id="animatedText"><?php echo get_sub_field( 'text' ); ?></span>
+                <span id="animatedText"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
             </div>
             <div class="logo-container-inner logo-ticker-tape">                
                 <div class="band-container-backwards">

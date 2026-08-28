@@ -5,12 +5,12 @@
 <section class="advisors-carousel dark-theme bg-black">
     <div class="container">
         <div class="title-text-container">
-            <h2 class="headerXsmall text-bold white-text"><?php echo get_sub_field( 'title' ); ?></h2>
-            <span class="text text-regular white-text"><?php echo get_sub_field( 'text' ); ?></span>
+            <h2 class="headerXsmall text-bold white-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+            <span class="text text-regular white-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
             <?php if ( have_rows( 'button' ) ) : ?>
 				<?php while ( have_rows( 'button' ) ) : the_row(); ?>
                     <span class="button-container desktop">
-                        <a class="std-button red-button small-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                     </span>														
 				<?php endwhile; ?>
 			<?php else : ?>
@@ -69,7 +69,7 @@
             <?php if ( have_rows( 'button' ) ) : ?>
 				<?php while ( have_rows( 'button' ) ) : the_row(); ?>
                     <span class="button-container mobile">
-                        <a class="std-button red-button small-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                     </span>														
 				<?php endwhile; ?>
 			<?php else : ?>

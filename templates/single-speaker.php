@@ -18,7 +18,7 @@
                             </div>                            
                             <div class="mobile-title-container">
                                  <span class="advisor-title text-white header-medium"><?php echo get_sub_field( 'title' ); ?></span>
-                                <span class="subtitle text-white labelMedium"><?php echo get_sub_field( 'sub_title' ); ?></span> 
+                                <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span> 
                             </div>
                             <span class="links-container">
                                 <?php $title = get_sub_field( 'title' ); ?>
@@ -42,7 +42,7 @@
                         <div class="column second-column text-column">
                             <div class="text-content-inner">
                                 <h1 class="advisor-title text-white header-large"><?php echo get_sub_field( 'title' ); ?></h1>
-                                <span class="subtitle text-white labelMedium"><?php echo get_sub_field( 'sub_title' ); ?></span>                                              
+                                <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>                                              
                                 <span class="text regular-text text-light-grey"><?php echo get_sub_field( 'text' ); ?></span>                               
                             </div>                            
                         </div>                        
@@ -77,7 +77,7 @@ endif;
             <div class="partners-content-column-container column-container">
                 <div class="column first-column">                    
                     <?php if ( get_field ( 'linked_in_url' ) ) { ?>
-                        <a class="linkedIn" href="<?php echo get_field('linked_in_url'); ?>" target="_blank"></a>
+                        <a class="linkedIn" href="<?php echo esc_url( get_field('linked_in_url') ); ?>" target="_blank" rel="noopener noreferrer"></a>
                     <?php } ?>                  
                 </div>
                 <div class="column second-column content-column">
@@ -130,15 +130,15 @@ endif;
                             <?php // no rows found ?>
                         <?php endif; ?>                        
                         <?php if ( ! empty( $resources_array ) ) : ?>
+                            <?php $per_page = 6; // Number of resources per "page" ?>
                             <div class="switch-content resources<?php if ($contentCounter == 1){ ?> active<?php } ?>" id="resourcesAdvisor">
                                 <div class="resources-column-container gap-16-40 two-column-container resources-advisor tablet-one-column"
                                 data-page="1"
-                                data-per-page="<?php echo $per_page; ?>"
-                                data-total="<?php echo count($resources_array); ?>"
+                                data-per-page="<?php echo esc_attr( $per_page ); ?>"
+                                data-total="<?php echo esc_attr( count($resources_array) ); ?>"
                                 data-post-id="<?php the_ID(); ?>">
 
                                     <?php
-                                    $per_page = 6; // Number of resources per "page"
                                     $page = 1; // Initial page
                                     // Sort featured first
                                     usort($resources_array, function($a, $b){
@@ -166,7 +166,7 @@ endif;
                                 <?php if (count($resources_array) > $per_page): ?>
                                     <a class="resources-load-more std-button red-button small-button">Load More</a>
                                     <div class="ajax-loader" style="display: none;">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                                     </div>
                                 <?php endif; ?>
                             </div>

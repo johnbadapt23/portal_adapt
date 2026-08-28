@@ -24,10 +24,10 @@
           $mpca_class = '';
           if(isset($_POST['userdata'])){
             if(is_array($_POST['userdata'])){
-              $form_data['user_login'] = isset($_POST['userdata']['user_login']) ? $_POST['userdata']['user_login'] : '';
-              $form_data['user_email'] = isset($_POST['userdata']['user_email']) ? $_POST['userdata']['user_email'] : '';
-              $form_data['first_name'] = isset($_POST['userdata']['first_name']) ? $_POST['userdata']['first_name'] : '';
-              $form_data['last_name'] = isset($_POST['userdata']['last_name']) ? $_POST['userdata']['last_name'] : '';
+              $form_data['user_login'] = $_POST['userdata']['user_login'] ?? '';
+              $form_data['user_email'] = $_POST['userdata']['user_email'] ?? '';
+              $form_data['first_name'] = $_POST['userdata']['first_name'] ?? '';
+              $form_data['last_name'] = $_POST['userdata']['last_name'] ?? '';
               $form_data = wp_unslash($form_data);
             }
           }

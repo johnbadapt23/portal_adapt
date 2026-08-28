@@ -24,7 +24,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
 								} else {
-									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>                        
                     <?php } ?>
@@ -44,7 +44,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                     $trimmed_content = wp_trim_words( $text, $num_words = 22 );
                 ?>
                 <span class="published labelSmall text-dark-grey<?php if ( $download ) { ?><?php } else { ?> no-margin-border<?php } ?>">
-                    <?php echo $date->format('j F, Y'); ?>
+                    <?php echo esc_html( $date->format('j F, Y') ); ?>
                 </span>
                 <span class="type-topic labelSmall">
                     <a href="/events/analyst-market-briefings/" class="topic-filter red-text">Analyst Market Briefings</a>
@@ -88,7 +88,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                 <!-- <a href="<?php the_permalink(); ?>"> -->
                     <span class="contributor labelSmall text-black">
                         
-                            <?php the_title(); ?>
+                            <?php echo esc_html( get_the_title() ); ?>
                        
                     </span>
                      <!-- </a> -->

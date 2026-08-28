@@ -15,15 +15,15 @@ $post_types = array ();
             <span class="breadcrumb-container">
                 <a class="home-link" href="/" target="_self">Home</a>
                 <span class="divider">/</span>
-                <span class="title"><?php echo get_field( 'persona_title', $q ); ?></span>
+                <span class="title"><?php echo esc_html( get_field( 'persona_title', $q ) ); ?></span>
             </span>
             <span class="title-container">
                 <h1 clas="h2-style">
                     <?php 
                         if ($persona_title === $taxonomy_name) {
-                            echo get_field( 'persona_title', $q ); 
+                            echo esc_html( get_field( 'persona_title', $q ) );
                         } else {
-                            echo get_field( 'persona_title', $q ). ' (' . $q->name . ')';
+                            echo esc_html( get_field( 'persona_title', $q ) . ' (' . $q->name . ')' );
                         }
                     ?>
                 </h1>
@@ -85,7 +85,7 @@ $post_types = array ();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                             <?php } ?>
@@ -113,21 +113,21 @@ $post_types = array ();
                                                 }?>
                                                 <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
                                                 <?php if($postType){?>
-                                                    <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                                    <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                                 <?php } ?>
                                             </span>
-                                            <a href="<?php the_permalink(); ?>" class="title"><?php echo get_the_title($post->ID); ?></a>
-                                            <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
+                                            <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
+                                            <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
                                             <span class="excerpt">
                                                 <?php if ( have_rows( 'preview_module', $post ) ) : ?>
                                                 <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
-                                                    <?php echo get_sub_field( 'overview_text' ); ?>
+                                                    <?php echo esc_html( get_sub_field( 'overview_text' ) ); ?>
                                                     <?php endwhile; ?>
                                                 <?php else : ?>
-                                                    <?php echo wp_trim_words( get_the_excerpt($post->ID), 25, '...' );?>
+                                                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
                                                 <?php endif; ?>
                                             </span>
-                                            <a href="<?php echo get_permalink(); ?>" class="button red-button">View Dataset</a>
+                                            <a href="<?php echo esc_url( get_permalink() ); ?>" class="button red-button">View Dataset</a>
                                         </span>
                                     </span>
                                 </div>
@@ -146,11 +146,11 @@ $post_types = array ();
             <?php $sub_topic_grid_term = get_sub_field( 'type' ); ?>
             <?php if ( $sub_topic_grid_term ): ?>
                 <?php $topic_term = get_sub_field( 'type' );?>
-                <section class="topicGrid portal <?php echo get_sub_field( 'background_colour' );?>">
+                <section class="topicGrid portal <?php echo esc_attr( get_sub_field( 'background_colour' ) );?>">
                     <div class="container">
                         <div class="blockTitle">
-                            <h2><?php echo get_sub_field( 'title' ); ?></h2>
-                            <a href="<?php echo get_term_link($q); ?>?type=<?php echo $topic_term->slug; ?>" class="viewAll">View All</a>
+                            <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                            <a href="<?php echo esc_url( get_term_link($q) ); ?>?type=<?php echo esc_attr( $topic_term->slug ); ?>" class="viewAll">View All</a>
                         </div>
                         <div class="gridWrapper">
                             <?php
@@ -188,7 +188,7 @@ $post_types = array ();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                     <?php } elseif ( get_field( 'video_image' )){  ?>
@@ -205,7 +205,7 @@ $post_types = array ();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                     <?php } ?>
@@ -237,18 +237,18 @@ $post_types = array ();
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
-                                                    <a href="<?php echo get_term_link($q); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
 
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
+                                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <?php if ($q->slug == 'workshop-recordings' || $q->slug == 'case-studies' || $q->slug == 'best-practices' || $postType->slug == 'market-narratives'){ ?>
-                                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo get_field('read_time'); ?><?php } ?></span>
+                                                    <span class="dateReadTime"><?php if (get_field( 'read_time' )) { ?><?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                                 <?php } else { ?>
-                                                    <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                                                    <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                                 <?php } ?>
-                                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                             </div>
                                         </div>
                                     <?php endwhile; ?>
@@ -269,20 +269,25 @@ $post_types = array ();
     <?php } else { ?>
         <?php $banner_image = get_field( 'persona_mapping_banner_image', 'options' ); ?>
     <?php } ?>
-    <section class="eventsBanner topicBanner personaBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+    <section class="eventsBanner topicBanner personaBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
         <div class="container">
             <span class="back-to-sectors topicFilter">
                 <a href="/persona-mapping/" target="_self">Persona Mapping</a>
             </span>
-            <h1><?php echo get_field( 'persona_title', $q ); ?></h1>
-            <p class="persona-description"><?php echo $q->description; ?></span>
+            <h1><?php echo esc_html( get_field( 'persona_title', $q ) ); ?></h1>
+            <p class="persona-description"><?php echo esc_html( $q->description ); ?></span>
         </div>
     </section>
     <?php
+    // This query only feeds the facet loop below (get_the_terms per post to
+    // build the filter-types dropdown), which never reads title/content/ACF
+    // fields, so it doesn't need full WP_Post objects. fields => ids skips
+    // that hydration on a query with no result limit.
     $args = array(
         'post_type'      => 'post',
         'posts_per_page' => -1,
         'paged'=> $paged,
+        'fields' => 'ids',
         'tax_query'      => array(
             'relation' => 'AND',
             array (
@@ -336,9 +341,9 @@ $post_types = array ();
 
     <?php $posts = new WP_Query( $args );
     if( $posts->have_posts() ): ?>
-        <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
-            <?php if(get_the_terms( $post->ID, 'filter-types' )){
-                $termsType = get_the_terms( $post->ID, 'filter-types' );
+        <?php foreach ( $posts->posts as $post_id ) : ?>
+            <?php if(get_the_terms( $post_id, 'filter-types' )){
+                $termsType = get_the_terms( $post_id, 'filter-types' );
 
                 foreach($termsType as $type) {
                     if(!in_array($type,$post_types)){
@@ -347,7 +352,7 @@ $post_types = array ();
                 }
             }
             ?>
-        <?php endwhile; else : ?>
+        <?php endforeach; else : ?>
     <?php endif; ?>
     <?php wp_reset_query();?>
     <section class="persona-filtering">
@@ -357,9 +362,9 @@ $post_types = array ();
             $terms = $post_types;
             ?>
             <span class="filter-link-container">
-                <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo get_term_link($q); ?>">All</a>
+                <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo esc_url( get_term_link($q) ); ?>">All</a>
                 <?php foreach ($terms as $term){ ?>
-                    <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo get_term_link($q); ?>?type=<?php echo $term->slug;?>"><?php echo $term->name;?></a>
+                    <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo esc_url( get_term_link($q) ); ?>?type=<?php echo esc_attr( $term->slug );?>"><?php echo esc_html( $term->name );?></a>
                 <?php } ?>
             </span>
         </div>
@@ -405,7 +410,6 @@ $post_types = array ();
                             );
 
                         } else {
-                            // print_r($filterType);
                             array_push($args['tax_query'],array(
                                     'taxonomy' => 'filter-types',
                                     'field' => 'slug',
@@ -455,7 +459,7 @@ $post_types = array ();
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                     <?php endif; ?>
@@ -487,15 +491,15 @@ $post_types = array ();
                                         }
                                     }?>
 									<?php if($q){?>
-                                        <a href="<?php echo get_term_link($q); ?>" class="topicFilterText"><?php echo $q->name; ?></a>
+                                        <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
                                     <?php } ?>
                                     <?php if($postType){?>
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                            <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-								<span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
-                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
+                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                             </div>
                         </div>
 

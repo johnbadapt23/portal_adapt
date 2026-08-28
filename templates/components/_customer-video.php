@@ -1,17 +1,18 @@
-<?php $purchasedargs = array(
+<?php
+// This used to loop every 'kyc' post via the_post() just to increment
+// $counter once per post when current_user_can('mepr_auth') - but that
+// capability check doesn't vary per post, so the loop only ever produced
+// either 0 or the total post count. fields => ids skips hydrating full
+// post objects for a query that has no result limit, and post_count
+// gives the same total directly, with no loop needed at all.
+$purchasedargs = array(
     'posts_per_page' => -1,
-    'post_type' => 'kyc'
-);	
-$counter = 0;
-$purchasedLoop = new WP_Query( $purchasedargs  );	
-if ( $purchasedLoop->have_posts() ) :    
-    while ( $purchasedLoop->have_posts() ) : $purchasedLoop->the_post(); ?>
-    <?php if(current_user_can('mepr_auth')) {?>
-        <?php $counter++; ?>
-    <?php } ?>
-    <?php endwhile; else : ?>
-<?php 
-endif; ?>
+    'post_type' => 'kyc',
+    'fields' => 'ids',
+);
+$purchasedLoop = new WP_Query( $purchasedargs );
+$counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
+?>
 
 
 <section class="two-column-services kyc-video-introduction kyc-landing-introduction landing-video-intro background-white">
@@ -20,7 +21,7 @@ endif; ?>
             <div class="column one-half text-column">
                 <div class="text-content-inner">                                  
                     <span class="bannerBreadcrumbs">
-                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><span class="breadcrumb"><?php the_title(); ?></span>
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><span class="breadcrumb"><?php echo esc_html( get_the_title() ); ?></span>
                     </span>              
                     <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
                     <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
@@ -29,9 +30,9 @@ endif; ?>
                             <?php $buttonCounter = 1; ?>
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
-                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } elseif(get_sub_field( 'link_type' ) == 'link')  { ?>
-                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?>
                                     <?php if($counter <= 0){ ?> 
                                         <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">

@@ -11,10 +11,10 @@ get_header();
 			<span class="breadcrumb-container">
 				<a class="home-link" href="/" target="_self">Home</a>
 				<span class="divider">/</span>
-				<span class="title"><?php the_title();?></span>
+				<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 			</span>
 			<span class="title-container">
-				<h1 clas="h2-style"><?php the_title();?></h1>
+				<h1 clas="h2-style"><?php echo esc_html( get_the_title() ); ?></h1>
 			</span>
 			<div class="navigation-container">
 				<?php if ( have_rows( 'topics_column_one', 'option' ) ) : ?>
@@ -36,7 +36,7 @@ get_header();
 													<?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
 													<?php if ( $topic_link_term ): ?>
 														<li>
-															<a href="<?php echo get_term_link($topic_link_term); ?>"><?php echo $topic_link_term->name; ?></a>
+															<a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
 														</li>
 													<?php endif; ?>
 												<?php endwhile; ?>
@@ -74,14 +74,14 @@ get_header();
 														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
 														<?php if ( $type_link_term ): ?>
 															<li>
-																<a href="<?php echo get_term_link($type_link_term); ?>" ><?php echo $type_link_term->name; ?></a>
+																<a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } else { ?>
 														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
 														<?php if ( $other_link ): ?>
 															<li>
-																<a href="<?php echo get_sub_field( 'other_link' ); ?>" ><?php echo $other_link; ?></a>
+																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo $other_link; ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } ?>
@@ -120,14 +120,14 @@ get_header();
 														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
 														<?php if ( $type_link_term ): ?>
 															<li>
-																<a href="<?php echo get_term_link($type_link_term); ?>" ><?php echo $type_link_term->name; ?></a>
+																<a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } else { ?>
 														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
 														<?php if ( $other_link ): ?>
 															<li>
-																<a href="<?php echo get_sub_field( 'other_link' ); ?>" ><?php echo $other_link; ?></a>
+																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo $other_link; ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } ?>

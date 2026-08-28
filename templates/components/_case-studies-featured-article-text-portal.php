@@ -2,8 +2,8 @@
     <?php $post_object = get_sub_field( 'case_study' ); ?>
     <div class="container">
         <div class="blockTitle">
-            <h2><?php echo get_sub_field( 'title' ); ?></h2>
-            <a href="<?php echo get_sub_field( 'view_all_link' ); ?>" class="viewAll">View All</a>
+            <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+            <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="viewAll">View All</a>
         </div>
         <?php if ( $post_object ): ?>
     		<?php $post = $post_object; ?>
@@ -25,7 +25,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                     </div>
@@ -56,12 +56,12 @@
                             }
                         }?>
                         <?php if($postTopic){?>
-                            <a href="<?php echo get_term_link($postTopic); ?>" class="topicFilterText"><?php echo $postTopic->name; ?></a>
+                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
                         <?php } ?>
                     </span>
-                    <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-                    <span class="dateReadTime"><span class="dateRead"><?php echo get_the_date('M j, Y'); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
-                    <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                    <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                    <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+                    <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                     <a href="<?php the_permalink(); ?>" class="readMore">Read More</a>
                 </div>
             </div>

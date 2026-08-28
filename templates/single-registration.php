@@ -23,8 +23,8 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				<?php } else { ?>
 					<a href="/events/analyst-market-briefings" class="text-red banner-sub-title">Analyst Market Briefings</a>
 				<?php } ?>
-				<h1 class="text-white"><?php the_title(); ?></h1>
-				<p class="text-white"><?php echo $date->format('l, j F, Y'); ?> @<?php echo get_field( 'event_start_time' ); ?></p>
+				<h1 class="text-white"><?php echo esc_html( get_the_title() ); ?></h1>
+				<p class="text-white"><?php echo esc_html( $date->format('l, j F, Y') ); ?> @<?php echo esc_html( get_field( 'event_start_time' ) ); ?></p>
 			</div>
 		</div>
 	</div>
@@ -36,11 +36,11 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				<span class="register-container">
 					<span class="sticky-container">
 						<span class="upper-container">
-							<img class="calendar-icon" src="<?php echo get_template_directory_uri(); ?>/assets/images/calendar.svg" width="26" height="26" loading="lazy" alt="Calendar" />
+							<img class="calendar-icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/calendar.svg" width="26" height="26" loading="lazy" decoding="async" alt="Calendar" />
 							<span class="date-title small-text-grey">Date</span>
-							<span class="date text-black"><?php echo $date->format('l, j F, Y'); ?></span>
+							<span class="date text-black"><?php echo esc_html( $date->format('l, j F, Y') ); ?></span>
 							<span class="time-title small-text-grey">Time</span>
-							<span class="time text-black"><?php echo get_field( 'event_start_time' ); ?> -<?php echo get_field( 'event_end_time' ); ?></span>
+							<span class="time text-black"><?php echo esc_html( get_field( 'event_start_time' ) ); ?> -<?php echo esc_html( get_field( 'event_end_time' ) ); ?></span>
 							<span class="location-title small-text-grey">Location</span>
 							<span class="location text-black">Zoom link will be available upon registration.</span>
 							<span class="upper-bar"></span>
@@ -54,28 +54,28 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 								<?php $buttonText =  get_field('button_text'); ?>
 							<?php } ?>
 							<?php if( get_field( 'button' ) =='register' ) { ?>
-								<span class="title"><?php if($preText){ ?><?php echo $preText; ?><?php } else { ?>Register to Attend<?php } ?></span>
-								<a class="registerButton register-scroll-button background-red" href="#registerForm"><?php if($buttonText){ ?><?php echo $buttonText; ?><?php } else { ?>Register<?php } ?></a>
+								<span class="title"><?php if($preText){ ?><?php echo esc_html( $preText ); ?><?php } else { ?>Register to Attend<?php } ?></span>
+								<a class="registerButton register-scroll-button background-red" href="#registerForm"><?php if($buttonText){ ?><?php echo esc_html( $buttonText ); ?><?php } else { ?>Register<?php } ?></a>
 							<?php } else { ?>
-								<?php if($preText){ ?><span class="title"><?php echo $preText; ?></span><?php } ?>
-								<span class="registerButton upcoming background-grey"><?php if($buttonText){ ?><?php echo $buttonText; ?><?php } else { ?>Upcoming<?php } ?></span>
+								<?php if($preText){ ?><span class="title"><?php echo esc_html( $preText ); ?></span><?php } ?>
+								<span class="registerButton upcoming background-grey"><?php if($buttonText){ ?><?php echo esc_html( $buttonText ); ?><?php } else { ?>Upcoming<?php } ?></span>
 							<?php } ?>
 						</span>
 					</span>
 				</span>
 			</div>
 			<div class="column webinar-column first-column">
-				<span class="webinar-subtitle"><?php echo get_field( 'sub_title' ); ?></span>
+				<span class="webinar-subtitle"><?php echo esc_html( get_field( 'sub_title' ) ); ?></span>
 				<span class="webinar-content content">
-					<?php echo get_field( 'content' ); ?>
+					<?php echo wp_kses_post( get_field( 'content' ) ); ?>
 				</span>
 				<?php if ( have_rows( 'takeaways' ) ) : ?>
 					<span class="takeaways-container">
 						<?php while ( have_rows( 'takeaways' ) ) : the_row(); ?>
-							<span class="webinar-subtitle"><?php echo get_sub_field( 'title' ); ?></span>
+							<span class="webinar-subtitle"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 							<?php if ( have_rows( 'key_takeaways' ) ) : ?>
 								<?php while ( have_rows( 'key_takeaways' ) ) : the_row(); ?>
-									<span class="takeaway"><?php echo get_sub_field( 'takeaway' ); ?></span>
+									<span class="takeaway"><?php echo esc_html( get_sub_field( 'takeaway' ) ); ?></span>
 								<?php endwhile; ?>
 							<?php else : ?>
 								<?php // no rows found ?>
@@ -93,15 +93,15 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 <?php if(get_field( 'registration_form_embed' )) { ?>
 	<div style="display: none;">
 		<div class="hidden-fields" style="display: none;">
-			<span class="hidden-name"><?php echo get_field( 'registration_form_event_name_sf' ); ?></span>
-			<span class="hidden-event"><?php the_title(); ?></span>
-			<span class="hidden-date"><?php echo $date->format('l, j F, Y'); ?></span>
-			<span class="hidden-id"><?php echo get_field( 'registration_form_sf_id' ); ?></span>
+			<span class="hidden-name"><?php echo esc_html( get_field( 'registration_form_event_name_sf' ) ); ?></span>
+			<span class="hidden-event"><?php echo esc_html( get_the_title() ); ?></span>
+			<span class="hidden-date"><?php echo esc_html( $date->format('l, j F, Y') ); ?></span>
+			<span class="hidden-id"><?php echo esc_html( get_field( 'registration_form_sf_id' ) ); ?></span>
 		</div>
 		<div class="webinar-register-form" id="registerForm">
 			<div class="container">
-				<span class="webinar-subtitle"><?php echo get_field( 'registration_form_title' ); ?></span>
-				<span class="form-container"><?php echo get_field( 'registration_form_embed' ); ?></span>
+				<span class="webinar-subtitle"><?php echo esc_html( get_field( 'registration_form_title' ) ); ?></span>
+				<span class="form-container"><?php echo get_field( 'registration_form_embed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored registration-form embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></span>
 			</div>
 		</div>
 		<?php if ( have_rows( 'registration_form_fields' ) ) : ?>
@@ -143,7 +143,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					 </style>
 				 <?php } ?>
 				<?php if ( get_sub_field( 'gift_opt_in_to_the_session' ) == 1 ) { ?>
-					<span class="gift-opt-in-text"><?php echo get_sub_field( 'gift_opt_in_text' ); ?></span>
+					<span class="gift-opt-in-text"><?php echo esc_html( get_sub_field( 'gift_opt_in_text' ) ); ?></span>
 				<?php } else { ?>
 	   				<style>
 	   					.hs_gift_opt_in {
@@ -171,7 +171,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					 </style>
 				 <?php } ?>
 				<?php if ( get_sub_field( 'marketing' ) == 1 ) { ?>
-					<span class="marketing-text"><?php echo get_sub_field( 'marketing_text' ); ?></span>
+					<span class="marketing-text"><?php echo esc_html( get_sub_field( 'marketing_text' ) ); ?></span>
 				<?php } else { ?>
 					<style>
 						.hs_single_client_opt_in {
@@ -181,8 +181,8 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 				<?php } ?>
 				<?php if ( get_sub_field( 'help_text_opt_in' ) == 1 ) {
 					?>
-						<span class="umbrella-text"><?php echo get_sub_field( 'umbrella_opt_in_text' ); ?></span>
-						<span class="umbrella-help-text"><?php echo get_sub_field( 'help_text' ); ?></span>
+						<span class="umbrella-text"><?php echo esc_html( get_sub_field( 'umbrella_opt_in_text' ) ); ?></span>
+						<span class="umbrella-help-text"><?php echo esc_html( get_sub_field( 'help_text' ) ); ?></span>
 					<?php
 				} else { ?>
 					<style>
@@ -204,7 +204,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 		<?php if ( get_row_layout() == 'speaker_block' ) : ?>
 			<section class="webinar-speaker-block bg-lightest">
 				<div class="container">
-					<span class="webinar-subtitle"><?php echo get_sub_field( 'title' ); ?></span>
+					<span class="webinar-subtitle"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 					<?php $count = count(get_sub_field('speaker')); ?>
 					<?php if ( have_rows( 'speaker' ) ) : ?>
 						<div class="speaker-container<?php if ($count > 1){ ?> flex-speaker multiple-speakers<?php } ?>">
@@ -222,22 +222,22 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					if ( $inline_img_136_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
 					} elseif ( $inline_img_136_src ) {
-						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
 										</span>
 										<span class="description">
-											<span class="speaker-name"><?php echo the_title(); ?></span>
-											<span class="speaker-role"><?php echo get_field('speaker_description'); ?></span>
+											<span class="speaker-name"><?php echo esc_html( get_the_title() ); ?></span>
+											<span class="speaker-role"><?php echo esc_html( get_field('speaker_description') ); ?></span>
 										</span>
 										<div class="textBlock">
 											<?php
 												 $text = get_field('speaker_details');
 												 $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '... More' );
 											?>
-											<span class="speaker-details-excerpt registration-excerpt"><?php echo $trimmed_content; ?></span>
+											<span class="speaker-details-excerpt registration-excerpt"><?php echo esc_html( $trimmed_content ); ?></span>
 											<span class="speaker-details">
-												<?php echo get_field('speaker_details'); ?>												
+												<?php echo wp_kses_post( get_field('speaker_details') ); ?>
 											</span>
 										</div>
 									</div>
@@ -269,12 +269,12 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 						</div>
 					</div>
 					<div class="column first-column">
-		    			<span class="webinar-subtitle text-white"><?php echo get_sub_field( 'title' ); ?></span>
+		    			<span class="webinar-subtitle text-white"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 		    			<?php if ( have_rows( 'faq_item' ) ) : ?>
 		    				<?php while ( have_rows( 'faq_item' ) ) : the_row(); ?>
 								<span class="faq-item">
-									<span class="faq-title text-white"><?php echo get_sub_field( 'title' ); ?></span>
-			    					<span class="faq-content text-white"><?php echo get_sub_field( 'content' ); ?></span>
+									<span class="faq-title text-white"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+			    					<span class="faq-content text-white"><?php echo wp_kses_post( get_sub_field( 'content' ) ); ?></span>
 								</span>
 		    				<?php endwhile; ?>
 		    			<?php else : ?>

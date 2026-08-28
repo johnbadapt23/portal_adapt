@@ -185,9 +185,6 @@ main.login {
                         width: 100%;
                         text-align: left;
 
-                        a.tour-button {
-
-                        }
                     }
 
                     h3,
@@ -370,10 +367,7 @@ main.login {
                                 &:after {
                                     height: 7px!important;
                                     margin-top: -7px!important;
-                                    border-top-right-radius: 3px;
-                                    border-bottom-right-radius: 3px;
-                                    border-top-left-radius: 3px;
-                                    border-bottom-left-radius: 3px;
+                                    border-radius: 3px;
                                 }
                             }
                         }
@@ -1099,7 +1093,6 @@ main.register-form.login {
         background-color: #fff;
 
         .mp_wrapper .cc-error {
-            position: absolute;
             font-size: 10px;
             position: absolute;
             bottom: -14px;
@@ -1161,9 +1154,6 @@ main.register-form.login.kyc-register-form {
 }
 
 
-main.login.register-thanks {
-
-}
 
 #mpca-add-sub-user-form {
     input[name="userdata[existing_login]"] {

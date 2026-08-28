@@ -107,7 +107,7 @@ if(!empty($subscriptions)) {
                     if( $is_sub && $pm instanceof MeprBaseRealGateway &&
                         ( $s->status == MeprSubscription::$active_str ||
                           $s->status == MeprSubscription::$suspended_str ||
-                          strpos($s->active, 'mepr-active') !== false ) ) {
+                          str_contains($s->active, 'mepr-active') ) ) {
                       $subscription = new MeprSubscription($s->id);
 
                       if(!$subscription->in_grace_period()) { //Don't let people change shiz until a payment has come through yo
@@ -121,10 +121,10 @@ if(!empty($subscriptions)) {
                         <?php
                       }
 
-                      if($txn != false && $txn instanceof MeprTransaction && $group !== false && strpos($s->active, 'mepr-inactive') === false) {
+                      if($txn != false && $txn instanceof MeprTransaction && $group !== false && !str_contains($s->active, 'mepr-inactive')) {
                         MeprAccountHelper::group_link($txn);
                       }
-                      elseif(/*$group !== false &&*/ strpos($s->active, 'mepr-inactive') !== false /*&& !$prd->is_renewable()*/) {
+                      elseif(/*$group !== false &&*/ str_contains($s->active, 'mepr-inactive') /*&& !$prd->is_renewable()*/) {
                         if($prd->can_you_buy_me()) {
                           MeprAccountHelper::purchase_link($prd);
                         }

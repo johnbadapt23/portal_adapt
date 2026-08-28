@@ -17,13 +17,13 @@ get_header();
 					<span class="details">
 						<p><a class="email hvr-underline-from-left" href="mailto:<?php echo get_field( 'email_address', 'option' ); ?>"><?php echo get_field( 'email_address', 'option' ); ?></a><br />
                         <a class="telephone hvr-underline-from-left" href=""><?php echo get_field( 'phone_number', 'option' ); ?></a></p>
-                        <p><a class="directionsLink hvr-underline-from-left" href="<?php echo get_field( 'google_map_link', 'option' ); ?>" target="_blank">Get Directions</a></p>
+                        <p><a class="directionsLink hvr-underline-from-left" href="<?php echo esc_url( get_field( 'google_map_link', 'option' ) ); ?>" target="_blank" rel="noopener noreferrer">Get Directions</a></p>
 					</span>
 					<span class="socials">
-    					<a href="<?php echo get_field( 'facebook_link', 'option' ); ?>"><i class="icon-facebook"></i></a>
-    					<a href="<?php echo get_field( 'twitter_link', 'option' ); ?>"><i class="icon-twitter"></i></a>
-                        <a href="<?php echo get_field( 'trip_advisor_link', 'option' ); ?>"><i class="icon-trip-advisor"></i></a>
-    					<a href="<?php echo get_field( 'instagram_link', 'option' ); ?>"><i class="icon-instagram"></i></a>
+    					<a href="<?php echo esc_url( get_field( 'facebook_link', 'option' ) ); ?>"><i class="icon-facebook"></i></a>
+    					<a href="<?php echo esc_url( get_field( 'twitter_link', 'option' ) ); ?>"><i class="icon-twitter"></i></a>
+                        <a href="<?php echo esc_url( get_field( 'trip_advisor_link', 'option' ) ); ?>"><i class="icon-trip-advisor"></i></a>
+    					<a href="<?php echo esc_url( get_field( 'instagram_link', 'option' ) ); ?>"><i class="icon-instagram"></i></a>
     				</span>
 					<span class="baseBtn map"><a href="#" class="button hvr-underline-from-left white">Show Map</a></span>
 				</span>
@@ -31,7 +31,7 @@ get_header();
 		</span>
 		<span class="mapBlock">
 			<span class="googleMap acf-map">
-                <span class="marker" data-lat="<?php echo $map['lat']; ?>" data-lng="<?php echo $map['lng']; ?>"></span>
+                <span class="marker" data-lat="<?php echo esc_attr( $map['lat'] ); ?>" data-lng="<?php echo esc_attr( $map['lng'] ); ?>"></span>
             </span>
 			<span class="closeMap">
                 <i class="icon-close"></i>

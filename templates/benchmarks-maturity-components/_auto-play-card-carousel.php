@@ -1,7 +1,7 @@
-<section class="auto-play-card-carousel" <?php if(get_sub_field('id')){ ?> id="<?php echo get_sub_field('id');?>"<?php } ?>>
+<section class="auto-play-card-carousel" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <div class="title-container">
-            <span><?php echo get_sub_field( 'title' ); ?></span>
+            <span><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></span>
         </div>
        <div class="auto-card-container-inner">
             <div class="slide-wrapper">
@@ -15,15 +15,15 @@
                                 <?php endif; ?>
                             </span>
                             <span class="text-container">
-                                <span class="white-text labelMedium"><?php echo get_sub_field('title'); ?></span>
+                                <span class="white-text labelMedium"><?php echo wp_kses_post( get_sub_field('title') ); ?></span>
                                 <span class="text text-medium-grey"><?php echo get_sub_field('text'); ?></span>
                                 <?php if( get_sub_field('add_link') == 'yes' && have_rows('link') ): ?>
                                     <span class="link-container">
                                         <?php while( have_rows('link') ): the_row(); ?>
                                             <a class="text-link external-link red-text red-link red-underline-link"
-                                            href="<?php echo get_sub_field('link_url'); ?>"
+                                            href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
                                             target="<?php echo get_sub_field('link_target'); ?>">
-                                            <?php echo get_sub_field('link_text'); ?>
+                                            <?php echo esc_html( get_sub_field('link_text') ); ?>
                                             </a>
                                         <?php endwhile; ?>
                                     </span>
@@ -42,15 +42,15 @@
                                 <?php endif; ?>
                             </span>
                             <span class="text-container">
-                                <span class="white-text labelMedium"><?php echo get_sub_field('title'); ?></span>
+                                <span class="white-text labelMedium"><?php echo wp_kses_post( get_sub_field('title') ); ?></span>
                                 <span class="text text-medium-grey"><?php echo get_sub_field('text'); ?></span>
                                 <?php if( get_sub_field('add_link') == 'yes' && have_rows('link') ): ?>
                                     <span class="link-container">
                                         <?php while( have_rows('link') ): the_row(); ?>
                                             <a class="text-link external-link red-text red-link red-underline-link"
-                                            href="<?php echo get_sub_field('link_url'); ?>"
+                                            href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
                                             target="<?php echo get_sub_field('link_target'); ?>">
-                                            <?php echo get_sub_field('link_text'); ?>
+                                            <?php echo esc_html( get_sub_field('link_text') ); ?>
                                             </a>
                                         <?php endwhile; ?>
                                     </span>

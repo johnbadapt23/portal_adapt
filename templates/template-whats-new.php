@@ -22,7 +22,7 @@ if ($membershipType === 'it-pro') {
 } ?>
 <section class="title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo the_title(); ?></h1>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_the_title() ); ?></h1>
         <?php if ($membershipType == 'advantage') { ?>
             <p><?php echo get_field( 'whats_new_subtitle', 'options' ); ?></p> 
         <?php } else { ?> 
@@ -252,7 +252,7 @@ if ($membershipType === 'it-pro') {
                     </div>
                 </div>
                 <div class="ajax-loader" style="display: none;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40" id="posts-container">
                     <?php adapt_render_filter_posts(); ?>

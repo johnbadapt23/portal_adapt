@@ -139,9 +139,9 @@ class MPCA_Account_Controller {
       $account_url = (is_plugin_active('buddypress/bp-loader.php') && class_exists('MpBuddyPress')) ? bp_core_get_user_domain(get_current_user_id()) . 'mp-membership/' : MeprUtils::get_permalink($post->ID);
       $delim = MeprAppCtrl::get_param_delimiter_char($account_url);
 
-      $perpage = intval(isset($_REQUEST['perpage']) ? $_REQUEST['perpage'] : 10);
-      $currpage = intval(isset($_REQUEST['currpage']) ? $_REQUEST['currpage'] : 1);
-      $search = wp_kses((isset($_REQUEST['search']) ? $_REQUEST['search'] : ''), false);
+      $perpage = intval($_REQUEST['perpage'] ?? 10);
+      $currpage = intval($_REQUEST['currpage'] ?? 1);
+      $search = wp_kses(($_REQUEST['search'] ?? ''), false);
 
       $res = $ca->sub_account_list_table('last_name','ASC',$currpage,$perpage,$search);
 
@@ -307,7 +307,7 @@ class MPCA_Account_Controller {
     if(isset($_REQUEST['ca'])) {
 
       // Add hidden field to the checkout form with CA id as the value
-      echo "<input id='mpca-corporate-account-id' name='mpca_corporate_account_id' value='{$_REQUEST['ca']}' type='hidden' />";
+      echo "<input id='mpca-corporate-account-id' name='mpca_corporate_account_id' value='" . esc_attr( $_REQUEST['ca'] ) . "' type='hidden' />";
     }
   }
 
@@ -367,7 +367,7 @@ class MPCA_Account_Controller {
           update_user_meta($user_id, 'last_name', sanitize_text_field($_REQUEST['userdata']['last_name']));
         }
         foreach($_REQUEST['userdata'] as $key => $val) {
-          if(strpos($key, 'mepr_') !== false) {
+          if(str_contains($key, 'mepr_')) {
             update_user_meta($user_id, $key, sanitize_text_field($val));
           }
         }

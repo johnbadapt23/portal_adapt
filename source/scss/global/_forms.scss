@@ -225,7 +225,6 @@ input.nf-next {
     height: 50px!important;
     width: auto!important;
     background-color: #e7534f!important;
-	border-color: #e7534f!important;
 	border: none!important;
 	text-transform: uppercase;
 	cursor: pointer;
@@ -340,7 +339,6 @@ li.nf-previous-item {
 }
 
 .nf-fu-fileinput-button {
-	height: 40px;
 	border-radius: 3px;
 	border: 1px solid #000;
 	box-shadow: 2px 3px 9px 0 rgba(0,0,0,.1);
@@ -508,10 +506,8 @@ li.nf-previous-item {
 	line-height: 38px;
 	font-size: 12px;
 	font-family: $font-main;
-	border-radius: none;
 	cursor: pointer;
 	border:0px;
-	border-radius:0px;
 	text-transform: uppercase;
 	-webkit-appearance:none;
 	border-radius:0px;

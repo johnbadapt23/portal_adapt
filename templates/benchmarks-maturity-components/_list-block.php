@@ -2,7 +2,7 @@
     <div class="container">
         <?php if ( get_sub_field ('title') ) { ?>
             <div class="title-block">
-                <h2><?php echo get_sub_field('title'); ?></h2>
+                <h2><?php echo wp_kses_post( get_sub_field('title') ); ?></h2>
             </div>
         <?php } ?>
         <?php if ( have_rows( 'list_items' ) ) : ?>

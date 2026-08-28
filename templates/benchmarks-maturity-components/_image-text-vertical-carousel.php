@@ -3,14 +3,14 @@
         <div class="container-inner">
             <div class="title-container bottom-align">
                 <div class="column-container">
-                    <h2 class="white-text"><?php echo get_sub_field( 'title' ); ?></h2>
+                    <h2 class="white-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                     <?php if ( have_rows( 'link' ) ) : ?>
                         <span class="link-container">                        
                             <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                 <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                    <a class="text-link red-link external-link red-arrow-link-external" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="text-link red-link external-link red-arrow-link-external" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else if( get_sub_field( 'link_type' ) =='scroll-to') { ?> 
-                                    <a class="text-link red-link red-arrow-link-external external-link scroll-to-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+                                    <a class="text-link red-link red-arrow-link-external external-link scroll-to-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?> 
                                     <span class="form-popup-container text-link red-link with-red-underline-link with-external-link red-arrow-link-external"><?php echo get_sub_field( 'form_button' ); ?></span>
                                 <?php } ?>
@@ -19,7 +19,7 @@
                     <?php else : ?>
                         <?php if(get_sub_field( 'text' )) { ?> 
                             <span class="text-container">
-                                <span class="white-text p-large"><?php echo get_sub_field( 'text' ); ?></span>
+                                <span class="white-text p-large"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                             </span>
                         <?php } ?>
                     <?php endif; ?>                   
@@ -35,8 +35,8 @@
                                     <span class="progress">
                                         <span class="progress-inner"></span>
                                     </span>
-                                    <h3 class="white-text"><?php echo get_sub_field( 'title' ); ?></h3>
-                                    <p class="p-medium medium-grey"><?php echo get_sub_field( 'text' ); ?></p>
+                                    <h3 class="white-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
+                                    <p class="p-medium medium-grey"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                                 </div>
                                 <?php $speakerCounter++; ?>
                             <?php endwhile; ?>

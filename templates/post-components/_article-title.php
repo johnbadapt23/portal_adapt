@@ -30,7 +30,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                 </div>
@@ -52,7 +52,7 @@
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
                                 <?php $noMargin = 'no'; ?>
-                                <a class="download button red-button" target="_blank" href="<?php echo $download['url']; ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['cxo-buyer-persona-profiles' ], 'filter-types' )){ ?>
@@ -74,7 +74,7 @@
                             <?php $download = 'yes'; ?>
                             <?php $noMargin = 'no'; ?>
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button" target="_blank" href="<?php echo get_sub_field( 'download_url' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a> 
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a> 
                             <?php endwhile; ?>                            
                         <?php else : ?>
                             <?php // no rows found ?>
@@ -158,7 +158,7 @@
                         }?>
                     <?php if ( !empty( $postType ) ) { ?>
                         <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
-                        <a href="<?php echo get_term_link($postType); ?>" class="topic-filter red-text"><?php echo $postType->name; ?> </a>
+                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
                     <?php } ?>
                 </span>
 
@@ -193,7 +193,7 @@
                 <!-- <a href="<?php the_permalink(); ?>"> -->
                     <span class="contributor labelSmall text-black">
                         
-                            <?php the_title(); ?>
+                            <?php echo esc_html( get_the_title() ); ?>
                        
                     </span>
                      <!-- </a> -->
@@ -212,9 +212,9 @@
                         <?php echo do_shortcode('[favorite_button]'); ?>
                     <?php } ?>
                 </span>
-                 <?php if($advantagePlus = "no"){ ?>
+                 <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php the_title(); ?>&body=<?php echo the_permalink(); ?>" target="_blank">
+                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  

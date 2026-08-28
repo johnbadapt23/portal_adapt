@@ -8,7 +8,7 @@
                 <div class="column title-column">
                     <h2 class="headerXsmall text-bold">
                         <span class="h2-inner">
-                            <?php the_title(); ?>
+                            <?php echo esc_html( get_the_title() ); ?>
                         </span>
                     </h2>
                     <span class="text-regular black-text"><?php the_excerpt(); ?></span>
@@ -35,7 +35,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                             </span>

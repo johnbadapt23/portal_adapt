@@ -172,7 +172,6 @@ body.template-insights {
             	font-size: 14px;
                 line-height: 40px;
             	font-family: $font-base;
-            	text-align: center !important;
             	text-transform: uppercase;
             	top: 0px !important;
             	left: 0px;
@@ -478,10 +477,7 @@ body.template-insights {
 
                                 span.overlay {
                                     position: absolute;
-                                    top: 0;
-                                    right: 0;
-                                    bottom: 0;
-                                    left: 0;
+                                    inset: 0;
                                     background-color: rgba(0, 0, 0, 0.5);
                                     mix-blend-mode: multiply;
                                     @include transition(all, 300ms, ease);
@@ -544,7 +540,6 @@ body.template-insights {
                             width: 25px;
                             height: 25px;
                             border: none;
-                            box-shadow: none;
                             z-index: 2;
                             box-shadow: 2px 3px 9px 0 rgba(0, 0, 0, 0.1);
                             border-radius: 50%;
@@ -1039,9 +1034,7 @@ body.template-insights {
                     }
 
                     input[type=submit] {
-                        display: inline-block;
                         float: right;
-                        margin: 0 auto;
                         width: auto;
                     	height: 50px;
                     	padding: 0 44px;
@@ -1189,10 +1182,7 @@ section.blogWrapper {
                     display: none;
 
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     z-index: 5;
                     border-radius: 3px;
                     background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6-15 */
@@ -1839,29 +1829,20 @@ section.blogWrapper {
 
                 .image {
                     position: absolute;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     background-size: cover;
                     background-position: center center;
 
                     .watchIcon {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        left: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-position: center;
                         background-size: contain;
 
                         &:after {
                             content: ' ';
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            left: 0;
-                            bottom: 0;
+                            inset: 0;
                             background-position: center;
                             background-image: url('../images/play.svg');
                             background-repeat: no-repeat;
@@ -1955,7 +1936,6 @@ section.blogWrapper {
                 .tags {
                     position: relative;
                     float: left;
-                    width: 100%;
                     // bottom: 23px;
                     // left: 25px;
                     margin-top: 25px;
@@ -2305,10 +2285,7 @@ section.blogWrapper {
                         display: none;
 
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
+                        inset: 0;
                         z-index: 5;
                         border-radius: 3px;
                         background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 110%); /* FF3.6-15 */
@@ -2429,29 +2406,20 @@ section.blogWrapper {
 
                         .image {
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            left: 0;
-                            bottom: 0;
+                            inset: 0;
                             background-position: center;
                             background-size: cover;
 
                             .watchIcon {
                                 position: absolute;
-                                top: 0;
-                                right: 0;
-                                left: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-position: center;
                                 background-size: contain;
 
                                 &:after {
                                     content: ' ';
                                     position: absolute;
-                                    top: 0;
-                                    right: 0;
-                                    left: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-position: center;
                                     background-image: url('../images/play.svg');
                                     background-repeat: no-repeat;
@@ -2683,7 +2651,6 @@ section.blogWrapper {
 
 .viewContainer.relatedArticles {
     float: right;
-    margin-top: 20px;
     position: relative;
     margin-top: 6px;
 
@@ -2807,7 +2774,6 @@ body.template-insights{
                         top: auto;
                         bottom: auto;
                         right: auto;
-                        padding-right: 0;
                         padding: 0 9px;
                         text-align: center;
                         position: relative;
@@ -2815,9 +2781,7 @@ body.template-insights{
                         margin-bottom: 20px;
 
                         input[type=submit] {
-                            display: inline-block;
                             float: none;
-                            margin: 0 auto;
                             width: auto;
                             height: 50px;
                             padding: 0 44px;
@@ -2886,7 +2850,6 @@ body.template-insights{
                         position: absolute;
                         right: calc(16.6667% + 80px);
                         line-height: 60px;
-                        color: #838383;
                         cursor: pointer;
                         z-index: 4;
                         text-transform: uppercase;
@@ -2905,9 +2868,7 @@ body.template-insights{
                     }
 
                     .ajax-search-button {
-                        display: inline-block;
                         float: right;
-                        margin: 0 auto;
                         width: calc(16.6667% - 18px);
                     	height: 60px;
                     	padding: 0 44px;
@@ -3580,10 +3541,7 @@ body.template-insights {
 
                                             span.overlay {
                                                 position: absolute;
-                                                top: 0;
-                                                right: 0;
-                                                bottom: 0;
-                                                left: 0;
+                                                inset: 0;
                                                 background-color: rgba(0, 0, 0, 0.5);
                                                 mix-blend-mode: multiply;
                                                 @include transition(all, 300ms, ease);
@@ -3749,13 +3707,10 @@ body.template-insights {
                             span.submitContainer {
                                 float: left;
                                 width: 100%;
-                                margin-top: 0;
                                 text-align: center;
                                 margin-top: 20px;
 
                                 input[type=submit] {
-                                    display: inline-block;
-                                    margin: 0 auto;
                                     width: auto;
                                 	height: 50px;
                                 	padding: 0 44px;
@@ -3825,7 +3780,6 @@ body.template-insights {
                 a {
                     float: left;
                     width: 50%;
-                    height: 100%;
                     line-height: 60px;
                     height: 60px;
                     text-align: center;
@@ -4037,9 +3991,6 @@ section.twoColumnCard {
             margin: 0 auto;
             text-align: center;
 
-            h2 {
-
-            }
 
             hr {
                 display: inline-block;
@@ -4080,10 +4031,7 @@ section.twoColumnCard {
 
                     .image {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
+                        inset: 0;
                         background-size: cover;
                         background-position: center;
                     }
@@ -4386,7 +4334,6 @@ section.topicBanner .imageSizeContainer .title-filter-container {
         top: 16px;
         right: 16px;
         cursor: pointer;
-        background-image: url();
         width: 25px;
         height: 25px;
         background-image: url('../images/close-grey.svg');
@@ -4607,10 +4554,7 @@ section.two-column-services.landing-video-intro {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(18, 18, 18, 0.2);
                                 mix-blend-mode: multiply;
                                 @include transition(all, 300ms, ease);
@@ -4618,10 +4562,7 @@ section.two-column-services.landing-video-intro {
 
                             .popup-vimeo {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/careers-video-button.svg');
                                 background-size: 72px 72px;
                                 background-position: center;
@@ -4849,10 +4790,7 @@ section.tnc-featured-post {
             
                     .opacity-overlay {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-color: rgba(0, 0, 0, 0.2);
                     }
             
@@ -4871,10 +4809,7 @@ section.tnc-featured-post {
             
                     .video-button {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-image: url('../images/video-play.svg');
                         background-size: 38px 38px;
                         background-position: center;
@@ -4941,10 +4876,7 @@ section.featured-module {
 
                 .opacity-overlay {
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                    inset: 0;
                     background: #000000;
                     opacity: 0.2;
                     border-radius: 4px;
@@ -4965,10 +4897,7 @@ section.featured-module {
 
                 .video-button {
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                    inset: 0;
                     background-image: url('../images/video-play.svg');
                     background-size: 38px 38px;
                     background-position: center;
@@ -5209,7 +5138,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 position: relative;
                                 overflow: hidden;
@@ -5519,10 +5447,7 @@ section.featured-module {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(0, 0, 0, 0.2);
                             }
 
@@ -5541,10 +5466,7 @@ section.featured-module {
 
                             .video-button {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/video-play.svg');
                                 background-size: 38px 38px;
                                 background-position: center;
@@ -5587,7 +5509,8 @@ section.featured-module {
 
                     &.best-practice-item {
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 110%;
                             margin-bottom: 20px;
@@ -5606,10 +5529,7 @@ section.featured-module {
 
                         .content-container-absolute {
                             position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
+                            inset: 0;
                             padding: 48px;
 
                             @media (max-width: 1200px) {
@@ -5889,10 +5809,7 @@ section.featured-module {
 
                                 .opacity-overlay {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background: #000000;
                                     opacity: 0.2;
                                     border-radius: 4px;
@@ -5914,10 +5831,7 @@ section.featured-module {
 
                                 .video-button {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-image: url('../images/video-play.svg');
                                     background-size: 38px 38px;
                                     background-position: center;
@@ -5974,10 +5888,7 @@ section.featured-module {
 
                     .opacity-overlay {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background: #000000;
                         opacity: 0.2;
                         border-radius: 4px;
@@ -5998,10 +5909,7 @@ section.featured-module {
 
                     .video-button {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-image: url('../images/video-play.svg');
                         background-size: 38px 38px;
                         background-position: center;
@@ -6160,7 +6068,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 overflow: hidden;
                                 border: 1px solid transparent;
@@ -6652,10 +6559,7 @@ section.filter-listing {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(0, 0, 0, 0.2);
                             }
 
@@ -6674,10 +6578,7 @@ section.filter-listing {
 
                             .video-button {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/video-play.svg');
                                 background-size: 38px 38px;
                                 background-position: center;
@@ -7111,7 +7012,8 @@ section.conversation-cta {
 
                 &.image-column {      
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         height: 100%;
                         padding-top: 56.25%;
 
@@ -7803,7 +7705,6 @@ section.topicBanner .imageSizeContainer .title-filter-container {
         top: 16px;
         right: 16px;
         cursor: pointer;
-        background-image: url();
         width: 25px;
         height: 25px;
         background-image: url('../images/close-grey.svg');
@@ -8024,10 +7925,7 @@ section.two-column-services.landing-video-intro {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(18, 18, 18, 0.2);
                                 mix-blend-mode: multiply;
                                 @include transition(all, 300ms, ease);
@@ -8035,10 +7933,7 @@ section.two-column-services.landing-video-intro {
 
                             .popup-vimeo {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/careers-video-button.svg');
                                 background-size: 72px 72px;
                                 background-position: center;
@@ -8266,10 +8161,7 @@ section.tnc-featured-post {
             
                     .opacity-overlay {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-color: rgba(0, 0, 0, 0.2);
                     }
             
@@ -8288,10 +8180,7 @@ section.tnc-featured-post {
             
                     .video-button {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-image: url('../images/video-play.svg');
                         background-size: 38px 38px;
                         background-position: center;
@@ -8358,10 +8247,7 @@ section.featured-module {
 
                 .opacity-overlay {
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                    inset: 0;
                     background: #000000;
                     opacity: 0.2;
                     border-radius: 4px;
@@ -8382,10 +8268,7 @@ section.featured-module {
 
                 .video-button {
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                    inset: 0;
                     background-image: url('../images/video-play.svg');
                     background-size: 38px 38px;
                     background-position: center;
@@ -8626,7 +8509,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 position: relative;
                                 overflow: hidden;
@@ -8936,10 +8818,7 @@ section.featured-module {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(0, 0, 0, 0.2);
                             }
 
@@ -8958,10 +8837,7 @@ section.featured-module {
 
                             .video-button {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/video-play.svg');
                                 background-size: 38px 38px;
                                 background-position: center;
@@ -9004,7 +8880,8 @@ section.featured-module {
 
                     &.best-practice-item {
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 110%;
                             margin-bottom: 20px;
@@ -9023,10 +8900,7 @@ section.featured-module {
 
                         .content-container-absolute {
                             position: absolute;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
+                            inset: 0;
                             padding: 48px;
 
                             @media (max-width: 1200px) {
@@ -9306,10 +9180,7 @@ section.featured-module {
 
                                 .opacity-overlay {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background: #000000;
                                     opacity: 0.2;
                                     border-radius: 4px;
@@ -9331,10 +9202,7 @@ section.featured-module {
 
                                 .video-button {
                                     position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    right: 0;
-                                    bottom: 0;
+                                    inset: 0;
                                     background-image: url('../images/video-play.svg');
                                     background-size: 38px 38px;
                                     background-position: center;
@@ -9391,10 +9259,7 @@ section.featured-module {
 
                     .opacity-overlay {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background: #000000;
                         opacity: 0.2;
                         border-radius: 4px;
@@ -9415,10 +9280,7 @@ section.featured-module {
 
                     .video-button {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
+                        inset: 0;
                         background-image: url('../images/video-play.svg');
                         background-size: 38px 38px;
                         background-position: center;
@@ -9577,7 +9439,6 @@ section.featured-module {
                                 width: 32.7%;
                                 padding-top: 22.8%;
                                 border-radius: 4px;
-                                overflow: hidden;
                                 margin-right: 18px;
                                 overflow: hidden;
                                 border: 1px solid transparent;
@@ -10441,10 +10302,7 @@ section.filter-listing {
 
                             .opacity-overlay {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-color: rgba(0, 0, 0, 0.2);
                             }
 
@@ -10463,10 +10321,7 @@ section.filter-listing {
 
                             .video-button {
                                 position: absolute;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
+                                inset: 0;
                                 background-image: url('../images/video-play.svg');
                                 background-size: 38px 38px;
                                 background-position: center;
@@ -10942,7 +10797,8 @@ section.conversation-cta {
 
                 &.image-column {
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         height: 100%;
                         padding-top: 56.25%;
 

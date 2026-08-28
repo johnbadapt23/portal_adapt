@@ -39,7 +39,7 @@
 					if ( $inline_img_194_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_194_attach_id, 'full', false, array( 'alt' => $image['alt'] ) );
 					} elseif ( $inline_img_194_src ) {
-						echo '<img src="' . esc_url( $inline_img_194_src ) . '" loading="lazy" alt="' . esc_attr( $image['alt'] ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_194_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( $image['alt'] ) . '" />';
 					}
 				?>
                         </div>
@@ -62,19 +62,19 @@
 								if ( $url_attach_id ) {
 									echo wp_get_attachment_image( $url_attach_id, 'full', false, array( 'alt' => $image['alt'] ) );
 								} else {
-									echo '<img src="' . esc_url( $url ) . '" loading="lazy" alt="' . esc_attr( $image['alt'] ) . '" />';
+									echo '<img src="' . esc_url( $url ) . '" loading="lazy" decoding="async" alt="' . esc_attr( $image['alt'] ) . '" />';
 								}
 							?>
 
                                     <figcaption class="snapshot-actions">
                                         <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode($url); ?>"
-                                           target="_blank">Share on LinkedIn</a>
+                                           target="_blank" rel="noopener noreferrer">Share on LinkedIn</a>
 
                                         <a href="mailto:?subject=Shared image&amp;body=<?php echo urlencode($url); ?>">
                                             Share Via Email
                                         </a>
 
-                                        <a href="<?php echo $url; ?>" download>
+                                        <a href="<?php echo esc_url( $url ); ?>" download>
                                             Download Image
                                         </a>
                                     </figcaption>

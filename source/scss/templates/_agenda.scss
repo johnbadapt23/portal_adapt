@@ -350,10 +350,7 @@ div.agendaBlock.single {
 
                     .logo {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
+                        inset: 0;
                         background-size: contain;
                         background-position: center center;
                         background-repeat: no-repeat;
@@ -400,7 +397,6 @@ div.agendaBlock.single {
 
                 .description {
                     float: left;
-                    width: 100%;
                     position: relative;
                     z-index: 15;
                     display: block;
@@ -694,10 +690,7 @@ div.agendaBlock.double {
 
                     .logo {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
+                        inset: 0;
                         background-size: contain;
                         background-position: center center;
                         background-repeat: no-repeat;
@@ -734,7 +727,6 @@ div.agendaBlock.double {
 
                 .description {
                     float: left;
-                    width: 100%;
                     position: relative;
                     z-index: 15;
                     display: block;

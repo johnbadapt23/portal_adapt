@@ -20,7 +20,8 @@ add_action('init', 					'custom_remove_jquery');
 add_action('after_setup_theme', 	'custom_disable_json_api');
 add_action('after_setup_theme', 	'custom_remove_json_api');
 add_action('acf/init',              'custom_acf_init');
-//add_action('init', 				'custom_start_session', 1);
+add_action('send_headers',          'custom_security_headers');
+add_action('template_redirect',     'custom_block_author_enumeration');
 
 remove_action('wp_head', 			'feed_links_extra', 3);
 remove_action('wp_head', 			'feed_links', 2);
@@ -61,5 +62,6 @@ add_filter('gform_confirmation_anchor_1',     '__return_false' );
 //add_filter('gform_validation_message_1',   'custom_form_error_message', 10, 2 );
 
 remove_filter('the_excerpt', 		'wpautop');
+add_filter('rest_authentication_errors', 'custom_restrict_rest_user_enumeration');
 
 ?>

@@ -1,7 +1,7 @@
-<section class="download-block" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="download-block" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <?php if(get_sub_field( 'block_title' )){ ?>
-            <span class="download-block-title"><?php echo get_sub_field( 'block_title' ); ?></span>
+            <span class="download-block-title"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></span>
         <?php } ?>
         <a class="download-popup-button" href="#downloadPopupSingle">
             <span class="download-image-container">
@@ -9,12 +9,12 @@
             </span>
         </a>
         <?php if(get_sub_field( 'listing_title' )){ ?>
-            <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+            <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
         <?php } ?>
         <?php if(get_sub_field( 'listing_text' )){ ?>
-            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
         <?php } ?>
-        <a class="download-popup-button" href="#downloadPopupSingle"><?php echo get_sub_field( 'button_text' ); ?></a>
+        <a class="download-popup-button" href="#downloadPopupSingle"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
     </div>
     <div class="downloadPopupContainer" style="display: none;">
         <div class="downloadPopup" id="downloadPopupSingle">
@@ -29,10 +29,10 @@
                     <?php }?>
                     <div class="description-container desktop">
                         <?php if(get_sub_field( 'listing_title' )){ ?>
-                            <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+                            <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                         <?php } ?>
                         <?php if(get_sub_field( 'listing_text' )){ ?>
-                            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                         <?php } ?>
                     </div>
                 </div>
@@ -52,10 +52,10 @@
                 </div>
                 <div class="description-container mobile">
                     <?php if(get_sub_field( 'listing_title' )){ ?>
-                        <span class="listing-title"><?php echo get_sub_field( 'listing_title' ); ?></span>
+                        <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                     <?php } ?>
                     <?php if(get_sub_field( 'listing_text' )){ ?>
-                        <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                        <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                     <?php } ?>
                 </div>
             </div>

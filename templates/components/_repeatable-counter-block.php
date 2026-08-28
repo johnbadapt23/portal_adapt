@@ -1,12 +1,12 @@
-<section class="logoGrid counter <?php echo get_sub_field( 'background_colour' ); ?> scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="logoGrid counter <?php echo get_sub_field( 'background_colour' ); ?> scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <div class="titleBlock">
             <span class="title">
-                <h2><?php echo get_sub_field( 'block_title' ); ?></h2>
+                <h2><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
             </span>
 
             <span class="description <?php echo get_sub_field( 'top_right_text_position' ); ?>">
-                <h3><?php echo get_sub_field( 'top_right_text' ); ?></h3>
+                <h3><?php echo esc_html( get_sub_field( 'top_right_text' ) ); ?></h3>
             </span>
         </div>
 
@@ -31,7 +31,7 @@
         <?php endif; ?>
 
         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-            <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo get_sub_field( 'link_url' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'link_text' ); ?></a>
+            <a class="logoBlockLink <?php echo get_sub_field( 'link_style' ); ?>" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
         <?php } ?>
     </div>
 </section>

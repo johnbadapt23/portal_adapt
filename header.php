@@ -6,9 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
 
-<title><?php wp_title(); ?></title>
-
 <?php
+    // <title> is no longer hardcoded here - theme_setup() declares
+    // add_theme_support('title-tag'), so WP (and Yoast SEO's own title
+    // template/output) renders it automatically via wp_head() below.
+    //
     // Theme CSS (global/core/tpl-* bundles + the icon font stylesheet) is
     // registered via wp_enqueue_style() - see adapt_enqueue_template_styles()
     // in functions.php for the per-template bundle logic. wp_head() below
@@ -199,8 +201,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <?php endif; ?>
 
 </head>
-<?php $q = get_queried_object(); ?>
-<body <?php body_class(''); ?> <?php if ($q->slug == 'expert-presentations' || $q->slug == 'community-interviews' || $q->slug == 'customer' ){ ?>data-theme-style="dark" <?php } ?> rel="<?php if ( is_404() ): echo 'notFound'; endif; ?>" <?php if(current_user_can('mepr-active')) { ?>id="logged-in"<?php } ?>>
+<?php $q = get_queried_object(); $q_slug = $q->slug ?? ''; ?>
+<body <?php body_class(''); ?> <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'customer' ){ ?>data-theme-style="dark" <?php } ?> rel="<?php if ( is_404() ): echo 'notFound'; endif; ?>" <?php if(current_user_can('mepr-active')) { ?>id="logged-in"<?php } ?>>
+<?php wp_body_open(); // Standard hook (WP 5.2+) so plugins can inject markup right after <body> instead of hacking body_class/the_content filters. ?>
+    <a class="skip-link" href="#main"><?php esc_html_e( 'Skip to main content', 'portal' ); ?></a>
     <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHF4ZRS"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

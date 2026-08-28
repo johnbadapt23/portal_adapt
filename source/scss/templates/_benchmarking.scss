@@ -629,7 +629,6 @@ section.two-column {
                                     overflow: hidden;
                                     opacity: 0;
                                     visibility: hidden;
-                                    transition-property: opacity;
                                     transition: opacity 0.3s ease;
                                     transition-delay: 0.8s;
 
@@ -730,7 +729,6 @@ section.two-column {
 
                                 span.progress {
                                     .progress-inner {
-                                        width: 0;
                                         transition: width 5s ease;
                                         opacity: 1;
                                         width: 100%;
@@ -1123,7 +1121,8 @@ section.two-column {
 
                     &.image-column {
                         .image-container {
-                            float: left;
+                            float: none;
+                            display: block;
                             width: 100%;
                             padding-top: 80%;
                         }
@@ -1197,7 +1196,6 @@ section.animated-text-logos.animated-text {
         .inner {
             max-width: 856px;
 
-            .animated-text-container {}
 
             .logo-container-inner {
                 float: left;
@@ -1242,9 +1240,7 @@ section.animated-text-logos.animated-text {
                     .moving-text {
                         -webkit-animation: move-text 50s linear infinite;
                         animation: move-text 50s linear infinite;
-                        animation-play-state: running;
                         -webkit-animation-play-state: running;
-                        animation-play-state: running;
                         animation-direction: forwards;
                         animation-play-state: paused;
                         white-space: nowrap;
@@ -1264,7 +1260,6 @@ section.animated-text-logos.animated-text {
 
                         .ticker-logo-container {
                             display: inline-block;
-                            margin-bottom: 0px;
                             margin: 0px;
                             width: 140px;
                             height: 64px;
@@ -1277,10 +1272,7 @@ section.animated-text-logos.animated-text {
 
                             .bg-container {
                                 position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
+                                inset: 0;
                                 padding: 0;
                                 overflow: hidden;
 
@@ -1317,9 +1309,7 @@ section.animated-text-logos.animated-text {
                     .moving-text {
                         -webkit-animation: move-text 50s linear infinite;
                         animation: move-text 50s linear infinite;
-                        animation-play-state: running;
                         -webkit-animation-play-state: running;
-                        animation-play-state: running;
                         animation-direction: reverse;
                         -webkit-animation-direction: reverse;
                         animation-play-state: paused;
@@ -1340,7 +1330,6 @@ section.animated-text-logos.animated-text {
 
                         .ticker-logo-container {
                             display: inline-block;
-                            margin-bottom: 0px;
                             margin: 0px;
                             width: 140px;
                             height: 64px;
@@ -1353,10 +1342,7 @@ section.animated-text-logos.animated-text {
 
                             .bg-container {
                                 position: absolute;
-                                top: 0;
-                                right: 0;
-                                bottom: 0;
-                                left: 0;
+                                inset: 0;
                                 padding: 12px 15px;
                                 overflow: hidden;
 
@@ -1432,7 +1418,6 @@ section.fixed-scroller {
         .title-container {
             float: left;
             width: 100%;
-            margin-bottom: 0px;
             position: sticky;
             bottom: calc(100vh - 240px);
             margin-bottom: 20px;
@@ -1825,7 +1810,6 @@ body.template-evr {
 }
 
 section.speaker-text-carousel {
-    background-color: #1c1c1c;
     background: radial-gradient(50% 50% at 50% 50%, #1C1C1C 0%, #121212 100%);
     padding: 144px 0;
 
@@ -1847,7 +1831,6 @@ section.speaker-text-carousel {
             .title-container {
                 float: left;
                 width: 100%;
-                margin-bottom: 0px;
                 text-align: left;
                 margin-bottom: 64px;
 
@@ -1934,10 +1917,7 @@ section.speaker-text-carousel {
 
                         .speaker-slide-image {
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            left: 0;
-                            bottom: 0;
+                            inset: 0;
                             opacity: 0;
                             transition: opacity 0.8s ease;
 
@@ -2437,7 +2417,8 @@ section.full-image-text {
         }
 
         .image-container {
-            float: left;
+            float: none;
+            display: block;
             width: 100%;
             padding-top: 56.25%;
             border-radius: 4px;
@@ -2640,7 +2621,6 @@ section.company-slider {
                 }
             }
 
-            @media (max-width:1400px) {}
 
             .slick-next:after {
                 background-position: -32px -2px;
@@ -2716,10 +2696,7 @@ section.company-slider {
                         .logo-container-colour-mask {
                             opacity: 0;
                             position: absolute;
-                            top: 0;
-                            right: 0;
-                            left: 0;
-                            bottom: 0;
+                            inset: 0;
 
 
                         }
@@ -2891,7 +2868,8 @@ section.infinite-images {
             }
 
             .image-container {
-                float: left;
+                float: none;
+                display: block;
                 width: 100%;
                 padding-top: 56.25%;
             }
@@ -4170,10 +4148,7 @@ section.left-text-links.advisors-centered-text-links {
             .image-container {
                 padding-top: 94%;
                 position: relative;
-                top: auto;
-                bottom: auto;
-                left: auto;
-                right: auto;
+                inset: auto;
                 height: auto;
 
                 img {
@@ -4204,7 +4179,8 @@ section.left-text-links.advisors-centered-text-links {
 
                     .image-container {
                         position: relative;
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         padding-top: 100%;
                     }
@@ -4540,8 +4516,6 @@ section.three-column-icon-text-ecosystems {
                         picture {
                             display: block;
                             position: relative;
-                            width: 100%;
-                            height: 100%;
                             object-fit: contain;
                             object-position: center;
                             float: left;
@@ -4702,7 +4676,8 @@ section.two-column-text-image-cards {
 
                     .image-container {
                         padding-top: 56.25%;
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
 
                         .bg-container {
@@ -4846,7 +4821,8 @@ section.three-column-text-image-cards {
 
                     .image-container {
                         padding-top: 56.25%;
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
 
                         .bg-container {
@@ -4977,7 +4953,6 @@ section.expanding-form-module {
                         height: auto;
                         margin-top: 0px;
                         margin-bottom: 0px;
-                        border-top-left-radius: 2px;
                         min-height: 250px;
                         border-top-left-radius: 32px;
                     }
@@ -5311,7 +5286,7 @@ section.full-suite-slider-module {
 
 
                             .image-container {
-                                float: left;
+                                float: none;
                                 width: 100%;
                                 padding-top: 100%;
                                 display: none;
@@ -5336,7 +5311,8 @@ section.full-suite-slider-module {
                             }
 
                             .image-container {
-                                float: left;
+                                float: none;
+                                display: block;
                                 width: 100%;
                                 padding-top: 100%;
 
@@ -5552,10 +5528,7 @@ section.two-column-logo-carousel {
 
                     .carousel-outer {
                         position: absolute;
-                        top: 0;
-                        left: 0;
-                        bottom: 0;
-                        right: 0;
+                        inset: 0;
                         width: 100%;
                         height: 100%;
                         padding: 0 50px;
@@ -5631,7 +5604,8 @@ section.two-column-logo-carousel {
                                 width: 100%;
 
                                 .image-container {
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                     padding-top: calc(100% - 2px);
                                     background-color: #fbfbfb;
@@ -5858,7 +5832,8 @@ section.sticky-heading-cards {
                     width: 100%;
 
                     .image-container {
-                        float: left;
+                        float: none;
+                        display: block;
                         width: 100%;
                         padding-top: 43%;
 
@@ -6044,7 +6019,8 @@ section.sticky-heading-cards {
 
                                 .image-container {
                                     padding-top: 100%;
-                                    float: left;
+                                    float: none;
+                                    display: block;
                                     width: 100%;
                                 }
                             }
@@ -6398,7 +6374,8 @@ section.sticky-heading-cards {
                             align-items: center;
 
                             .image-container {
-                                float: left;
+                                float: none;
+                                display: block;
                                 width: 100%;
                                 padding-top: 100%;
 
@@ -6423,7 +6400,6 @@ section.sticky-heading-cards {
 
 section.comparison-module {
     padding: 144px 0;
-    background-color: #F8F8F8;
     background: linear-gradient(180deg, #FFF 0%, #F8F8F8 50%);
     border-top: 1px solid #E4E4E4;
 
@@ -6734,7 +6710,6 @@ section.comparison-three-column-text {
                     width: 33px;
                     height: 33px;
                     text-align: center;
-                    border-radius: 0;
                     background-color: $color-red;
                     display: block;
                     line-height: 33px;
@@ -6929,10 +6904,7 @@ section.cards-module.gtm-cards-module.benchmark-card-module {
 
             .background-container {
                 position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
+                inset: 0;
                 overflow: hidden;
                 background-repeat: repeat-y;
                 background-position: top center;
@@ -6986,7 +6958,6 @@ section.cards-module.gtm-cards-module.benchmark-card-module {
                     }
 
                     .content-container {
-                        .card-title {}
 
                         .card-text {
                             .inner-text {
@@ -8278,16 +8249,12 @@ section.quicklinks-with-hover {
 
     .background-card-container {
         width: 100%;
-        display: flex;
         justify-content: center;
         display: flex;
 
         .background-container {
             position: absolute;
-            top: 50%;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            inset: 50% 0 0 0;
             overflow: hidden;
             background-repeat: repeat-y;
             background-position: top center;
@@ -8297,8 +8264,7 @@ section.quicklinks-with-hover {
         .card-container {
             display: flex;
             width: 100%;
-            flex-direction: row;
-            flex-wrap: wrap;
+            flex-flow: row wrap;
             gap: 8px;
             overflow: visible;
 
@@ -8542,7 +8508,6 @@ section.auto-play-card-carousel {
             transform: translate3d(0, 0, 0);
             -webkit-animation: scroll-slides 2s linear infinite;
             animation: scroll-slides 40s linear infinite;
-            animation-play-state: running;
             -webkit-animation-play-state: running;
             animation-play-state: running;
             animation-direction: forwards;

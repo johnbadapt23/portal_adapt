@@ -8,7 +8,7 @@ global $membershipType;
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
-$events = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
+$events = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
 $sector = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
 $has_persona_get = ($persona !== '');
 $persona_term = null;
@@ -64,19 +64,8 @@ if ($membershipType === 'it-pro') {
                 </span>
 
                 <?php
-                // ----------------------------------------
-                // HELPER: get allowed slugs or empty
-                // ----------------------------------------
-                function get_allowed_slugs($field_name, $all_field_name, $taxonomy = null) {
-                    if ( get_field($field_name) == 1 && $taxonomy ) {
-                        return []; // all allowed
-                    }
-                    $terms = get_field($all_field_name) ?: [];
-                    if ($taxonomy && get_field($field_name) != 1) {
-                        return array_map(fn($term) => $term->slug, is_array($terms) ? $terms : []);
-                    }
-                    return [];
-                }
+                // get_allowed_slugs() now lives in includes/_functions.php
+                // (shared by the persona/sector/topic/post filter templates).
 
                 // ----------------------------------------
                 // TOPICS
@@ -188,7 +177,7 @@ if ($membershipType === 'it-pro') {
                                     $all_value = !empty($allowed_topic_slugs) ? wp_json_encode($allowed_topic_slugs) : '[]';
                                     $active_found = false;
                                     ?>
-                                    <a href="#" class="filter-button all <?php $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
+                                    <a href="#" class="filter-button all <?= $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                     <?php foreach($topic_terms as $term) :
                                         $is_active = $term->slug === $topic;
                                         if($is_active) $active_found = true;
@@ -349,7 +338,7 @@ if ($membershipType === 'it-pro') {
                             <?php endif; ?>
                         <?php endif; ?>
 
-                        <a class="research-link" href="<?php echo $researchLink; ?>" target="_self">All research</a>
+                        <a class="research-link" href="<?php echo esc_url( $researchLink ); ?>" target="_self">All research</a>
                         <a class="reset-filters-btn mobile-reset-button labelSmall text-grey font-bold desktop-hide">Reset Filters</a>
                     </div>
 
@@ -363,7 +352,7 @@ if ($membershipType === 'it-pro') {
             <!-- Search -->
             <div class="filter-search">
                 <form class="post-search-form">
-                    <input type="text" class="post-search-input" placeholder="<?php echo get_field('search_help_text'); ?>">
+                    <input type="text" class="post-search-input" placeholder="<?php echo esc_attr( get_field('search_help_text') ); ?>">
                     <input type="image" class="post-search-submit" src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" alt="Search">
                 </form>
                 <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
@@ -447,7 +436,7 @@ if ($membershipType === 'it-pro') {
                         </div>
                     </div>
                     <div class="ajax-loader" style="display: none;">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
                         id="posts-container"></div>
@@ -489,7 +478,7 @@ if ($membershipType === 'it-pro') {
                     </div>
                 </div>
                 <div class="ajax-loader" style="display: none;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40"
                      id="posts-container">

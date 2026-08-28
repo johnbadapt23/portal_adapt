@@ -6,9 +6,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 //current url
 function current_url() {
-	$url = 'http://'; //( 'on' == $_SERVER['HTTPS'] ) ? 'https://' : 'http://';
+	// Was hardcoded to http:// with the is_ssl()-equivalent check
+	// commented out - on an HTTPS site (i.e. every site today) that made
+	// this always return the wrong protocol, which broke
+	// custom_add_parent_url_menu_class()'s strstr() comparison against
+	// menu item URLs (those are saved as https:// via home_url()), so
+	// the "active" class never matched absolute-URL menu items.
+	$is_standard_port = in_array( $_SERVER['SERVER_PORT'], array( '80', '443' ), true );
+	$url  = is_ssl() ? 'https://' : 'http://';
 	$url .= $_SERVER['SERVER_NAME'];
-	$url .= ( '80' == $_SERVER['SERVER_PORT'] ) ? '' : ':' . $_SERVER['SERVER_PORT'];
+	$url .= $is_standard_port ? '' : ':' . $_SERVER['SERVER_PORT'];
 	$url .= $_SERVER['REQUEST_URI'];
 	return trailingslashit( $url );
 }
@@ -79,6 +86,26 @@ function updateQueryString($key, $value){
 // redirect page
 function redirectPage($url){
 	echo '<script type="text/javascript">window.location = "' . $url . '"</script>';
+}
+
+// Shared by the persona/sector/topic/post filter templates: returns the
+// slugs a filter dropdown should restrict to, or an empty array when
+// "all" is allowed for that field. Was previously declared, identically,
+// as an unguarded top-level function inside each of those four template
+// files - harmless today since only one Template Name page loads per
+// request, but a fatal redeclare waiting to happen the moment two of them
+// are ever included in the same request.
+if ( ! function_exists( 'get_allowed_slugs' ) ) {
+	function get_allowed_slugs($field_name, $all_field_name, $taxonomy = null) {
+		if ( get_field($field_name) == 1 && $taxonomy ) {
+			return []; // all allowed
+		}
+		$terms = get_field($all_field_name) ?: [];
+		if ($taxonomy && get_field($field_name) != 1) {
+			return array_map(fn($term) => $term->slug, is_array($terms) ? $terms : []);
+		}
+		return [];
+	}
 }
 
 ?>

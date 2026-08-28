@@ -9,12 +9,12 @@
             <?php $counter++; ?>
         <?php endwhile; ?>
         <?php if(current_user_can('mepr-active','memberships:' . $members)): ?>
-            <section class="twoColumnCard scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+            <section class="twoColumnCard scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
                 <div class="container">
                     <div class="inner">
-                        <h2 class="blockTitle"><?php echo get_sub_field( 'title' ); ?></h2>
+                        <h2 class="blockTitle"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                         <hr>
-                        <p class="blockText"><?php echo get_sub_field( 'text' ); ?></p>
+                        <p class="blockText"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                     </div>
                     <?php if ( have_rows( 'card' ) ) : ?>
                         <div class="cardContainer">
@@ -27,9 +27,9 @@
                                         </span>
                                     </a>
                                     <span class="textContainer">
-                                        <h3 class="cardTitle"><?php echo get_sub_field( 'title' ); ?></h3>
-                                        <span class="cardText"><?php echo get_sub_field( 'text' ); ?></span>
-                                        <a class="button formPopupCardTextButton"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                        <h3 class="cardTitle"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
+                                        <span class="cardText"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
+                                        <a class="button formPopupCardTextButton"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                     </span>
                                     <div class="cardPopupContainer" style="display: none;">
                                         <div class="cardPopup formPopup" id="cardFormPopup">
@@ -56,12 +56,12 @@
             <?php } ?>
         <?php endif; ?>
 <?php else: ?>
-    <section class="twoColumnCard scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+    <section class="twoColumnCard scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
         <div class="container">
             <div class="inner">
-                <h2 class="blockTitle"><?php echo get_sub_field( 'title' ); ?></h2>
+                <h2 class="blockTitle"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                 <hr>
-                <p class="blockText"><?php echo get_sub_field( 'text' ); ?></p>
+                <p class="blockText"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
             </div>
             <?php if ( have_rows( 'card' ) ) : ?>
                 <div class="cardContainer">
@@ -74,9 +74,9 @@
                                 </span>
                             </a>
                             <span class="textContainer">
-                                <h3 class="cardTitle"><?php echo get_sub_field( 'title' ); ?></h3>
-                                <span class="cardText"><?php echo get_sub_field( 'text' ); ?></span>
-                                <a class="button formPopupCardTextButton"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                <h3 class="cardTitle"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
+                                <span class="cardText"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
+                                <a class="button formPopupCardTextButton"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                             </span>
                             <div class="cardPopupContainer" style="display: none;">
                                 <div class="cardPopup formPopup" id="cardFormPopup">

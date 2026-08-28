@@ -43,7 +43,7 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
                                                         <?php the_field('event_short_description_for_listing'); ?>
 
@@ -68,12 +68,12 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
                                                                     <?php the_field( 'read_time' ); ?>
@@ -81,7 +81,7 @@
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
                                                                     <?php the_field( 'read_time' ); ?>
@@ -89,9 +89,9 @@
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -104,7 +104,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -118,7 +118,7 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
                                                         <?php the_field( 'read_time' ); ?>
@@ -167,12 +167,12 @@
                                                         <?php $len = count($terms); ?>
                                                         <?php foreach($terms as $term) { ?>
                                                             <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                 <?php echo $term -> name; ?>
+                                                                 <?php echo esc_html( $term -> name ); ?>
                                                             </span>
                                                             <?php $counterTopic++; ?>
                                                         <?php } ?>
                                                         <span class="date list-info">
-                                                            <?php echo get_the_date('d.m.Y'); ?>
+                                                            <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                         </span>
                                                         <span class="readTime list-info">
                                                             <?php the_field( 'read_time' ); ?>
@@ -180,7 +180,7 @@
 
                                                     <?php } else { ?>
                                                         <span class="date">
-                                                            <?php echo get_the_date('d.m.Y'); ?>
+                                                            <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                         </span>
                                                         <span class="readTime">
                                                             <?php the_field( 'read_time' ); ?>
@@ -188,9 +188,9 @@
                                                     <?php }?>
                                                 </span>
                                             </span>
-                                            <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                            <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                             <span class="excerpt">
-                                                <?php echo the_excerpt(); ?>
+                                                <?php echo esc_html( the_excerpt() ); ?>
                                             </span>
 
                                             <?php
@@ -201,7 +201,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -215,7 +215,7 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
                                                         <?php the_field( 'read_time' ); ?>

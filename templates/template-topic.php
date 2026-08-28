@@ -65,54 +65,34 @@ $filterType = $_GET['filterby'];
 $keyword = $_GET['searchWords'];
 ?>
 <?php
-if($keyword != '') {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        's' => $keyword,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'topic',
-                'field' => 'slug',
-                'terms'    => $q->slug
-            )
-        )
-    );
-} else {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'topic',
-                'field' => 'slug',
-                'terms'    => $q->slug
-            )
-        )
-    );
-}
-?>
-<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-<?php $args = array(
+// A dead $args build used to sit here (an if($keyword)/else block scoped to
+// the topic taxonomy, using $paged before it was even defined below) -
+// $args was immediately overwritten by the simpler array right after it,
+// on the next line, so it was never actually used by any query. Removed -
+// the real keyword-filtered query for this page lives further down this
+// file where $keyword is actually consumed.
+$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
+<?php
+// This loop only reads each post's ID (to populate $displayed_posts) - it
+// never touches title/content/ACF fields, so it doesn't need full WP_Post
+// objects. fields => ids skips that hydration on a query with no result
+// limit.
+$args = array(
     'post_type' => 'post',
     'posts_per_page' => -1,
-    'paged'=> $paged
+    'paged'=> $paged,
+    'fields' => 'ids'
 ); ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
-    while ( $loop->have_posts() ) : $loop->the_post();
+    foreach ( $loop->posts as $id ) :
 ?>
 <?php if(current_user_can('mepr_auth')) {?>
 <?php } else { ?>
-    <?php $id = get_the_ID(); ?>
     <?php $displayed_posts[] = $id; ?>
 <?php }?>
 
-<?php endwhile; else : ?>
+<?php endforeach; else : ?>
 <?php endif; ?>
 <?php wp_reset_postdata(); wp_reset_query();?>
 <?php 
@@ -132,7 +112,7 @@ if ($membershipType === 'it-pro') {
 <?php if($q -> parent == 0){ ?>
 <section class="title-banner filter-title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo $q->name; ?></h1>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
             echo (term_description($q->term_id, $q->taxonomy));
@@ -169,19 +149,8 @@ if ($membershipType === 'it-pro') {
                     </span>
 
                     <?php
-                    // ----------------------------------------
-                                // HELPER: get allowed slugs or empty
-                                // ----------------------------------------
-                                function get_allowed_slugs($field_name, $all_field_name, $taxonomy = null) {
-                                    if ( get_field($field_name) == 1 && $taxonomy ) {
-                                        return []; // all allowed
-                                    }
-                                    $terms = get_field($all_field_name) ?: [];
-                                    if ($taxonomy && get_field($field_name) != 1) {
-                                        return array_map(fn($term) => $term->slug, is_array($terms) ? $terms : []);
-                                    }
-                                    return [];
-                                }
+                    // get_allowed_slugs() now lives in includes/_functions.php
+                    // (shared by the persona/sector/topic/post filter templates).
 
                                 // ----------------------------------------
                                 // TOPICS
@@ -234,7 +203,7 @@ if ($membershipType === 'it-pro') {
                                             $all_value = !empty($allowed_topic_slugs) ? wp_json_encode($allowed_topic_slugs) : '[]';
                                             $active_found = false;
                                             ?>
-                                            <a href="#" class="filter-button all <?php $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
+                                            <a href="#" class="filter-button all <?= $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                             <?php foreach($topic_terms as $term) :
                                                 $is_active = $term->slug === $q->slug;
                                                 if($is_active) $active_found = true;
@@ -356,7 +325,7 @@ if ($membershipType === 'it-pro') {
                         </div>
                     </div>
                     <div class="ajax-loader" style="display: none;">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
                         id="posts-container">

@@ -1,10 +1,22 @@
-<?php $sector_term = get_sub_field( 'sector' ); ?>
+<?php
+// _sector-grid-portal-markets.php is a near-identical component for the
+// market-narratives section - it uses a query-string URL instead of a path
+// segment for the sector link, a different filter-types taxonomy term, and
+// omits the dateReadTime span - rather than maintain two full copies of
+// this markup, it sets $is_markets and includes this file directly.
+$is_markets = $is_markets ?? false;
+$section = $is_markets ? 'market-narratives' : 'data-insights';
+$sector_term = get_sub_field( 'sector' );
+$sector_url = $is_markets
+    ? '/' . $section . '/sector-analysis/?sector=' . $sector_term->slug
+    : '/' . $section . '/sector-analysis/' . $sector_term->slug;
+?>
 
 <section class="topicGrid portal sector-grid">
     <div class="container">
         <div class="blockTitle">
             <h2><?php echo get_sub_field( 'sector_title' ); ?></h2>
-            <a href="/data-insights/sector-analysis/<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
+            <a href="<?php echo esc_url( $sector_url ); ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
             <?php
@@ -16,7 +28,7 @@
                         array (
                             'taxonomy' => 'filter-types',
                             'field' => 'slug',
-                            'terms'    => 'data-insights'
+                            'terms'    => $section
                         ),
                         array(
                             'taxonomy' => 'sector-analysis',
@@ -68,7 +80,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                                         <span class="hover-container">
@@ -79,12 +91,12 @@
                             </a>
                             <div class="textContainer">
                                 <span class="topicFilter">
-                                    <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
-                                    <a href="/data-insights/sector-analysis/<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo $sector_term->name; ?></a>
+                                    <a href="/<?php echo $section; ?>/sector-analysis/" class="topicFilterText">Sector Analysis</a>
+                                    <a href="<?php echo esc_url( $sector_url ); ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
-                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
-                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <?php if ( ! $is_markets ) { ?><span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span><?php } ?>
+                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
                             </div>
                         </div>

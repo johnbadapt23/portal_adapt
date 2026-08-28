@@ -5,6 +5,13 @@
 
 ?>
 <?php
+    // Not every call site sets these before including this template -
+    // default them so an unset value degrades gracefully instead of
+    // throwing an undefined-variable notice.
+    $eventtype     = $eventtype ?? 'no';
+    $post_slug     = $post_slug ?? '';
+    $extra_classes = $extra_classes ?? '';
+
     global $articleCounter;
 
     $articleCounter++;
@@ -264,13 +271,13 @@ $filtered_topic = $filtered_topic ?? null;
 					if ( $inline_img_149_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_149_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title( $post_id ) ), 'class' => 'article-image' ) );
 					} elseif ( $inline_img_149_src ) {
-						echo '<img width="360" height="200" class="article-image" src="' . esc_url( $inline_img_149_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr( get_the_title( $post_id ) ) ) . '" />';
+						echo '<img width="360" height="200" class="article-image" src="' . esc_url( $inline_img_149_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr( get_the_title( $post_id ) ) ) . '" />';
 					}
 				?>
                                 <?php
                             }
                             ?>
-                            <span class="date"><?php echo get_the_date('M j, Y', $post_id); ?></span>
+                            <span class="date"><?php echo esc_html( get_the_date('M j, Y', $post_id) ); ?></span>
                             <?php if($video == 'yes'){ ?>
                                 <span class="video-icon"></span>
                             <?php } ?>

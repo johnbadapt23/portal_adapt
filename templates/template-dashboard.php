@@ -2,6 +2,7 @@
 // echo $current_user;
 if ( 0 == $current_user->ID ) {
     header("Location: https://research.adapt.com.au/login/");
+    exit;
 } ?>
 <?php $banner_image = get_field( 'dashboard_banner_image', 'options'); ?>
     <section class="eventsBanner topicBanner dashboardBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
@@ -37,7 +38,7 @@ if ( 0 == $current_user->ID ) {
                             <div class="linkWrapper">
                                 <span class="blogText">
                                     <span class="top articleTop">
-                                        <span class="articleLink"><?php echo the_title(); ?></span>
+                                        <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
                                     </span>
                                 </span>
                                 <div class="imageContainer">

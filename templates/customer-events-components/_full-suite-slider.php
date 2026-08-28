@@ -31,7 +31,7 @@
                                         </span>
                                         <p class="p-xsmall"><?php echo get_sub_field( 'text' ); ?></p>
                                         <?php if (get_sub_field( 'link' )) { ?>
-                                            <a class="red-text red-underline-link red-arrow external-link text-link" href="<?php echo get_sub_field( 'link' ); ?>" target="_self">Learn more</a>
+                                            <a class="red-text red-underline-link red-arrow external-link text-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Learn more</a>
                                         <?php } ?>
                                     </div>
                                     <div class="column one-half image-column hide-mobile">

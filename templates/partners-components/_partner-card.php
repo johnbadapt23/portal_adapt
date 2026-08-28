@@ -25,7 +25,7 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
 <div class="one-third speaker-item one-quarter column <?php echo esc_attr($partnerslug); ?>"
      data-filter="<?php echo esc_attr($filter_slugs); ?>">
 
-    <a class="slide-out-bio" href="<?php echo get_permalink($post_id); ?>" id="<?php echo esc_attr($post_slug); ?>">
+    <a class="slide-out-bio" href="<?php echo esc_url( get_permalink($post_id) ); ?>" id="<?php echo esc_attr($post_slug); ?>">
 
         <?php if ($partnerslug == 'advisors') : ?>
 
@@ -41,21 +41,21 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
 					if ( $inline_img_168_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_168_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)) ) );
 					} elseif ( $inline_img_168_src ) {
-						echo '<img src="' . esc_url( $inline_img_168_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_168_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                     <?php endif; ?>
                 </span>
 
                 <span class="text-container mobile-hide">
-                    <h5 class="labelMedium"><?php echo get_the_title($post_id); ?></h5>
+                    <h5 class="labelMedium"><?php echo esc_html( get_the_title($post_id) ); ?></h5>
                     <span class="role labelXSmall"><?php echo esc_html(get_field('role', $post_id)); ?></span>
                     <span class="text-link red-text learn-more red-arrow-link arrow-link bold-link uppercase">Learn More</span>
                 </span>
             </span>
 
             <span class="text-container desktop-hide">
-                <span class="labelMedium text-black"><?php echo get_the_title($post_id); ?></span>
+                <span class="labelMedium text-black"><?php echo esc_html( get_the_title($post_id) ); ?></span>
                 <span class="role labelXSmall text-black"><?php echo esc_html(get_field('role', $post_id)); ?></span>
                 <span class="text-link red-text  red-arrow-link arrow-link bold-link uppercase">Learn More</span>
             </span>
@@ -74,18 +74,18 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
 					if ( $inline_img_169_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_169_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)) ) );
 					} elseif ( $inline_img_169_src ) {
-						echo '<img src="' . esc_url( $inline_img_169_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_169_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                     <?php endif; ?>
                 </span>
                 <span class="text-container mobile-hide">
-                    <h5 class="labelMedium"><?php echo get_the_title($post_id); ?></h5>
+                    <h5 class="labelMedium"><?php echo esc_html( get_the_title($post_id) ); ?></h5>
                 </span>
             </span>
 
             <span class="text-container desktop-hide">
-                <span class="labelMedium text-black"><?php echo get_the_title($post_id); ?></span>
+                <span class="labelMedium text-black"><?php echo esc_html( get_the_title($post_id) ); ?></span>
                 <span class="text-link red-text red-arrow-link arrow-link bold-link uppercase">Learn More</span>
             </span>
 

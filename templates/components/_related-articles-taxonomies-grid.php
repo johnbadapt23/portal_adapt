@@ -1,17 +1,17 @@
 
-<section class="blogWrapper relatedArticles post-insights gridModule scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="blogWrapper relatedArticles post-insights gridModule scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
-        <h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>
+        <h2 class="relatedTitle"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
         <div class="viewContainer relatedArticles"><a class="tooltip list"><span class="tooltiptext">Switch to list view</a></div>
         <?php $layout = get_sub_field( 'layout' ); ?>
-            <div id="loop" class="<?php if($layout){ echo $layout; } else { ?>grid<?php } ?>">
+            <div id="loop" class="<?php if($layout){ echo esc_attr( $layout ); } else { ?>grid<?php } ?>">
                 <?php if (get_sub_field( 'taxonomy_type' ) == 'event') { ?>
                     <?php
                     $post_type = 'post';
                     $taxonomy  = 'insights-event';
                     $terms     =  get_sub_field( 'event' );
+                    if ( $terms ) :
 
-                    foreach( $terms as $term ) :
                         $args = array(
                             'post_type'      => $post_type,
                             'posts_per_page' => -1,
@@ -19,7 +19,8 @@
                                 array(
                                     'taxonomy' => $taxonomy,
                                     'field'    => 'term_id',
-                                    'terms'    => $term,
+                                    'terms'    => $terms,
+                                    'operator' => 'IN',
                                 ),
                             ),
                         );
@@ -29,28 +30,28 @@
                          <?php $counter = -1; ?>
                           <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                               <?php if(current_user_can('mepr_auth')) {?>
-                                <span class="postLink layout<?php echo $counter; ?>">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                     <div class="linkWrapper">
                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                             <span class="podcast"></span>
                                         <?php } ?>
                                         <a href="<?php the_permalink(); ?>" class="imageContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                     <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                         <span class="watchIcon"></span>
                                                     <?php } ?>
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                     </div>
                                                 <?php } else { ?>
                                                     <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                         </div>
                                                     <?php } else { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -58,9 +59,9 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
-                                                        <?php echo get_field('event_short_description_for_listing'); ?>
+                                                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                         <style>
                                                             .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -83,30 +84,30 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -119,7 +120,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -133,10 +134,10 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
-                                                        <?php echo get_field( 'read_time' ); ?>
+                                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                     </span>
                                                 </span>
                                             <?php } ?>
@@ -144,28 +145,28 @@
                                     </div>
                                 </span>
                             <?php } else { ?>
-                                <span class="postLink layout<?php echo $counter; ?>">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                     <div class="linkWrapper">
                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                             <span class="podcast"></span>
                                         <?php } ?>
                                         <a href="<?php the_permalink(); ?>" class="imageContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                     <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                         <span class="watchIcon"></span>
                                                     <?php } ?>
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                     </div>
                                                 <?php } else { ?>
                                                     <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                         </div>
                                                     <?php } else { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -173,9 +174,9 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
-                                                        <?php echo get_field('event_short_description_for_listing'); ?>
+                                                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                         <style>
                                                             .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -198,30 +199,30 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -234,7 +235,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -248,10 +249,10 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
-                                                        <?php echo get_field( 'read_time' ); ?>
+                                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                     </span>
                                                 </span>
                                             <?php } ?>
@@ -264,16 +265,16 @@
                             $counter = -1;
                         } ?>
                     <?php endwhile; endif;
-                endforeach;
                 wp_reset_postdata();
+                    endif;
                 ?>
             <?php } else if (get_sub_field( 'taxonomy_type' ) == 'topic') { ?>
                 <?php
                 $post_type = 'post';
                 $taxonomy  = 'topic';
                 $terms     =  get_sub_field( 'topic' );
+                if ( $terms ) :
 
-                foreach( $terms as $term ) :
                     $args = array(
                         'post_type'      => $post_type,
                         'posts_per_page' => -1,
@@ -281,7 +282,8 @@
                             array(
                                 'taxonomy' => $taxonomy,
                                 'field'    => 'term_id',
-                                'terms'    => $term,
+                                'terms'    => $terms,
+                                'operator' => 'IN',
                             ),
                         ),
                     );
@@ -290,28 +292,28 @@
                      <?php $counter = -1; ?>
                       <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                           <?php if(current_user_can('mepr_auth')) {?>
-                            <span class="postLink layout<?php echo $counter; ?>">
+                            <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                 <div class="linkWrapper">
                                     <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                         <span class="podcast"></span>
                                     <?php } ?>
                                     <a href="<?php the_permalink(); ?>" class="imageContainer">
                                         <?php if ( get_field( 'listing_image') ) { ?>
-                                            <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                            <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                 <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                     <span class="watchIcon"></span>
                                                 <?php } ?>
                                             </div>
                                         <?php } else { ?>
                                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                     </div>
                                                 <?php } else { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                     </div>
                                                 <?php } ?>
                                             <?php } ?>
@@ -319,9 +321,9 @@
                                     </a>
                                     <span class="blogText">
                                         <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="excerpt events-excerpt" style="display: block;">
-                                                    <?php echo get_field('event_short_description_for_listing'); ?>
+                                                    <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                     <style>
                                                         .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -344,30 +346,30 @@
                                                             <?php $len = count($terms); ?>
                                                             <?php foreach($terms as $term) { ?>
                                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                     <?php echo $term -> name; ?>
+                                                                     <?php echo esc_html( $term -> name ); ?>
                                                                 </span>
                                                                 <?php $counterTopic++; ?>
                                                             <?php } ?>
                                                             <span class="date list-info">
-                                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                             </span>
                                                             <span class="readTime list-info">
-                                                                <?php echo get_field( 'read_time' ); ?>
+                                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                             </span>
 
                                                         <?php } else { ?>
                                                             <span class="date">
-                                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                             </span>
                                                             <span class="readTime">
-                                                                <?php echo get_field( 'read_time' ); ?>
+                                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                             </span>
                                                         <?php }?>
                                                     </span>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="excerpt">
-                                                    <?php echo the_excerpt(); ?>
+                                                    <?php echo esc_html( the_excerpt() ); ?>
                                                 </span>
                                             <?php } ?>
 
@@ -380,7 +382,7 @@
                                             <div class="tags">
                                                 <?php foreach( $post_tags as $tag ) { ?>
                                                     <span>
-                                                        <?php echo '#' . $tag->name  ; ?>
+                                                        <?php echo esc_html( '#' . $tag->name ); ?>
                                                     </span>
                                                 <?php } ?>
                                             </div>
@@ -394,10 +396,10 @@
                                         <?php if ( $terms ) { ?>
                                             <span class="grid-bottom-details">
                                                 <span class="date grid-info">
-                                                    <?php echo get_the_date('d.m.Y'); ?> |
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                 </span>
                                                 <span class="readTime grid-info">
-                                                    <?php echo get_field( 'read_time' ); ?>
+                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                 </span>
                                             </span>
                                         <?php } ?>
@@ -405,28 +407,28 @@
                                 </div>
                             </span>
                         <?php } else { ?>
-                            <span class="postLink layout<?php echo $counter; ?>">
+                            <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                 <div class="linkWrapper">
                                     <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                         <span class="podcast"></span>
                                     <?php } ?>
                                     <a href="<?php the_permalink(); ?>" class="imageContainer">
                                         <?php if ( get_field( 'listing_image') ) { ?>
-                                            <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                            <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                 <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                     <span class="watchIcon"></span>
                                                 <?php } ?>
                                             </div>
                                         <?php } else { ?>
                                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                     </div>
                                                 <?php } else { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                     </div>
                                                 <?php } ?>
                                             <?php } ?>
@@ -434,9 +436,9 @@
                                     </a>
                                     <span class="blogText">
                                         <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="excerpt events-excerpt" style="display: block;">
-                                                    <?php echo get_field('event_short_description_for_listing'); ?>
+                                                    <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                     <style>
                                                         .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -459,30 +461,30 @@
                                                             <?php $len = count($terms); ?>
                                                             <?php foreach($terms as $term) { ?>
                                                                 <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                     <?php echo $term -> name; ?>
+                                                                     <?php echo esc_html( $term -> name ); ?>
                                                                 </span>
                                                                 <?php $counterTopic++; ?>
                                                             <?php } ?>
                                                             <span class="date list-info">
-                                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                             </span>
                                                             <span class="readTime list-info">
-                                                                <?php echo get_field( 'read_time' ); ?>
+                                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                             </span>
 
                                                         <?php } else { ?>
                                                             <span class="date">
-                                                                <?php echo get_the_date('d.m.Y'); ?>
+                                                                <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                             </span>
                                                             <span class="readTime">
-                                                                <?php echo get_field( 'read_time' ); ?>
+                                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                             </span>
                                                         <?php }?>
                                                     </span>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                 <span class="excerpt">
-                                                    <?php echo the_excerpt(); ?>
+                                                    <?php echo esc_html( the_excerpt() ); ?>
                                                 </span>
                                             <?php } ?>
 
@@ -495,7 +497,7 @@
                                             <div class="tags">
                                                 <?php foreach( $post_tags as $tag ) { ?>
                                                     <span>
-                                                        <?php echo '#' . $tag->name  ; ?>
+                                                        <?php echo esc_html( '#' . $tag->name ); ?>
                                                     </span>
                                                 <?php } ?>
                                             </div>
@@ -509,10 +511,10 @@
                                         <?php if ( $terms ) { ?>
                                             <span class="grid-bottom-details">
                                                 <span class="date grid-info">
-                                                    <?php echo get_the_date('d.m.Y'); ?> |
+                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                 </span>
                                                 <span class="readTime grid-info">
-                                                    <?php echo get_field( 'read_time' ); ?>
+                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                 </span>
                                             </span>
                                         <?php } ?>
@@ -525,16 +527,16 @@
                             $counter = -1;
                         } ?>
                         <?php endwhile; endif;
-                    endforeach;
                     wp_reset_postdata();
+                endif;
                     ?>
                 <?php } else if (get_sub_field( 'taxonomy_type' ) == 'filter-type') { ?>
                     <?php
                     $post_type = 'post';
                     $taxonomy  = 'filter-types';
                     $terms     =  get_sub_field( 'filter_type' );
+                    if ( $terms ) :
 
-                    foreach( $terms as $term ) :
                         $args = array(
                             'post_type'      => $post_type,
                             'posts_per_page' => -1,
@@ -542,7 +544,8 @@
                                 array(
                                     'taxonomy' => $taxonomy,
                                     'field'    => 'term_id',
-                                    'terms'    => $term,
+                                    'terms'    => $terms,
+                                    'operator' => 'IN',
                                 ),
                             ),
                         );
@@ -551,28 +554,28 @@
                          <?php $counter = -1; ?>
                           <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                               <?php if(current_user_can('mepr_auth')) {?>
-                                <span class="postLink layout<?php echo $counter; ?>">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                     <div class="linkWrapper">
                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                             <span class="podcast"></span>
                                         <?php } ?>
                                         <a href="<?php the_permalink(); ?>" class="imageContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                     <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                         <span class="watchIcon"></span>
                                                     <?php } ?>
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                     </div>
                                                 <?php } else { ?>
                                                     <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                         </div>
                                                     <?php } else { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -580,9 +583,9 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
-                                                        <?php echo get_field('event_short_description_for_listing'); ?>
+                                                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                         <style>
                                                             .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -605,30 +608,30 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -641,7 +644,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -655,10 +658,10 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
-                                                        <?php echo get_field( 'read_time' ); ?>
+                                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                     </span>
                                                 </span>
                                             <?php } ?>
@@ -666,28 +669,28 @@
                                     </div>
                                 </span>
                             <?php } else { ?>
-                                <span class="postLink layout<?php echo $counter; ?>">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                     <div class="linkWrapper">
                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                             <span class="podcast"></span>
                                         <?php } ?>
                                         <a href="<?php the_permalink(); ?>" class="imageContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                     <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                         <span class="watchIcon"></span>
                                                     <?php } ?>
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                     </div>
                                                 <?php } else { ?>
                                                     <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                         </div>
                                                     <?php } else { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -695,9 +698,9 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
-                                                        <?php echo get_field('event_short_description_for_listing'); ?>
+                                                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                         <style>
                                                             .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -720,30 +723,30 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -756,7 +759,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -770,10 +773,10 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
-                                                        <?php echo get_field( 'read_time' ); ?>
+                                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                     </span>
                                                 </span>
                                             <?php } ?>
@@ -786,8 +789,8 @@
                                 $counter = -1;
                             } ?>
                             <?php endwhile; endif;
-                        endforeach;
                         wp_reset_postdata();
+                    endif;
                         ?>
                     <?php } else { ?>
                         <span>No posts</span>
@@ -798,7 +801,7 @@
         <?php if ( have_rows( 'button_block' ) ) : ?>
             <div class="buttonBlock">
                 <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                    <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                 <?php endwhile; ?>
             </div>
         <?php endif; ?>

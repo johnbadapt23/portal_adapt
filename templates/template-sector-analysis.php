@@ -10,7 +10,7 @@
             <span class="back-to-sectors topicFilter">
                 <a href="/data-insights/sector-analysis/" target="_self">Sector Analysis</a>
             </span>
-            <h1><?php echo $q->name;?></h1>
+            <h1><?php echo esc_html( $q->name );?></h1>
         </div>
     </section>
     <section class="portal postListing topicGrid sector-grid subTopic sector-container">
@@ -80,7 +80,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <span class="hover-container">
@@ -116,11 +116,11 @@
                                     }?>
                                     <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
                                     <?php if($postType){?>
-                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo $postType->name; ?></a>
+                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title(); ?></a>
-                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
                             </div>
                         </div>

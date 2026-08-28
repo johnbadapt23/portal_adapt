@@ -1,4 +1,4 @@
-<section class="videoBlock scrollPos" style="background-image: url(<?php echo get_sub_field('video_poster_image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="videoBlock scrollPos" style="background-image: url(<?php echo get_sub_field('video_poster_image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <?php if( get_sub_field('dark_overlay') == 'yes') { ?>
         <span class="dark-overlay"></span>
     <?php } ?>
@@ -6,7 +6,7 @@
         <div class="content">
             <?php if( get_sub_field ( 'video_title' ) ) { ?>
                 <div class="column title">
-                    <span class="title"><?php echo get_sub_field('video_title'); ?></span>
+                    <span class="title"><?php echo esc_html( get_sub_field('video_title') ); ?></span>
                 </div>
                 <hr>
             <?php } ?>
@@ -22,21 +22,21 @@
                     <a href="#" class="playBtnVideoBlock">
                 <?php } ?>                
                     <span class="icon">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" alt="Play Icon" />
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
                     </span>
                     <span class="text">
-                        <span><?php if( get_sub_field('video_button_text')) { ?><?php echo get_sub_field('video_button_text') ?><?php } else { ?>Watch Video<?php } ?></span>
-                        <span><?php echo get_sub_field('video_duration') ?></span>
+                        <span><?php if( get_sub_field('video_button_text')) { ?><?php echo esc_html( get_sub_field('video_button_text') ) ?><?php } else { ?>Watch Video<?php } ?></span>
+                        <span><?php echo esc_html( get_sub_field('video_duration') ) ?></span>
                     </span>
                 </a>
             </span>
         </div>
     </div>
     <div class="videoPlayerContainer videoBlock">
-        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" alt="Close" /></span>
+        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
         <div class="videoWrapper">
             <video width="100%" id="popupVideo" controls controlsList="nodownload">
-                <source type="video/mp4" src="<?php echo get_sub_field('vimeo_code'); ?>" />
+                <source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />
             </video>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <span class="events-card-image column <?php echo $extra_classes; ?>">
      <?php if (get_field('external_link')) { ?>
-        <a href="<?php echo get_field('external_link'); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
+        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
     <?php } else { ?>
         <a href="<?php the_permalink(); ?>" class="event-link" target="_self">
     <?php }?>
@@ -13,17 +13,17 @@
 					if ( $inline_img_150_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_150_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ) ) );
 					} elseif ( $inline_img_150_src ) {
-						echo '<img src="' . esc_url( $inline_img_150_src ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+						echo '<img src="' . esc_url( $inline_img_150_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
                 </span>
                 <span class="events-text">
-                    <span class="labelXLarge"><?php echo the_title(); ?></span>
+                    <span class="labelXLarge"><?php echo esc_html( get_the_title() ); ?></span>
                     <span class="labelXXsmall date text-red">
-                        <span><?php echo get_field('event_date'); ?></span>
+                        <span><?php echo esc_html( get_field('event_date') ); ?></span>
                     </span>
                     <span class="excerpt">
-                        <?php echo get_field('event_short_description_for_listing'); ?>
+                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
                     </span>
                     <span class="link-container">
                         <span class="text-link red-text learn-more red-arrow-link arrow-link bold-link uppercase">Learn More</span>

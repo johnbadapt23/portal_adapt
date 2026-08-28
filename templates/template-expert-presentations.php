@@ -21,7 +21,7 @@ get_header();
                     </span>
                 </span>
                 <span class="filtersButtonMobile">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" alt="Filters" />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />
                     <span class="filterButtonText">Filters</span>
                 </span>
                 <span class="dropDowns">

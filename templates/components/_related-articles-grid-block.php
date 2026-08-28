@@ -1,7 +1,7 @@
 
-<section class="blogWrapper relatedArticles post-insights gridModule scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo get_sub_field('id'); ?>"<?php } ?>>
+<section class="blogWrapper relatedArticles post-insights gridModule scrollPos" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
-        <h2 class="relatedTitle"><?php echo get_sub_field( 'block_title' ); ?></h2>
+        <h2 class="relatedTitle"><?php echo esc_html( get_sub_field( 'block_title' ) ); ?></h2>
         <div class="viewContainer relatedArticles"><a class="tooltip list"><span class="tooltiptext">Switch to list view</a></div>
         <?php $layout = get_sub_field( 'layout' ); ?>
         <?php if ( have_rows( 'related_articles' ) ) : ?>
@@ -46,9 +46,9 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
-                                                        <?php echo get_field('event_short_description_for_listing'); ?>
+                                                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                         <style>
                                                             .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -71,30 +71,30 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -107,7 +107,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -121,10 +121,10 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
-                                                        <?php echo get_field( 'read_time' ); ?>
+                                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                     </span>
                                                 </span>
                                             <?php } ?>
@@ -174,9 +174,9 @@
                                         </a>
                                         <span class="blogText">
                                             <?php if(get_field('event_short_description_for_listing')) { ?>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt events-excerpt" style="display: block;">
-                                                        <?php echo get_field('event_short_description_for_listing'); ?>
+                                                        <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
 
                                                         <style>
                                                             .blogWrapper .layout1 .excerpt.events-excerpt,
@@ -199,30 +199,30 @@
                                                                 <?php $len = count($terms); ?>
                                                                 <?php foreach($terms as $term) { ?>
                                                                     <span class="topic<?php if ($counterTopic == $len - 1) { ?> last<?php } ?>">
-                                                                         <?php echo $term -> name; ?>
+                                                                         <?php echo esc_html( $term -> name ); ?>
                                                                     </span>
                                                                     <?php $counterTopic++; ?>
                                                                 <?php } ?>
                                                                 <span class="date list-info">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime list-info">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
 
                                                             <?php } else { ?>
                                                                 <span class="date">
-                                                                    <?php echo get_the_date('d.m.Y'); ?>
+                                                                    <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                                                 </span>
                                                                 <span class="readTime">
-                                                                    <?php echo get_field( 'read_time' ); ?>
+                                                                    <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                                 </span>
                                                             <?php }?>
                                                         </span>
                                                     </span>
-                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo the_title(); ?></a>
+                                                    <a href="<?php the_permalink(); ?>" class="articleLink"><?php echo esc_html( get_the_title() ); ?></a>
                                                     <span class="excerpt">
-                                                        <?php echo the_excerpt(); ?>
+                                                        <?php echo esc_html( the_excerpt() ); ?>
                                                     </span>
                                                 <?php } ?>
 
@@ -235,7 +235,7 @@
                                                 <div class="tags">
                                                     <?php foreach( $post_tags as $tag ) { ?>
                                                         <span>
-                                                            <?php echo '#' . $tag->name  ; ?>
+                                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                                         </span>
                                                     <?php } ?>
                                                 </div>
@@ -249,10 +249,10 @@
                                             <?php if ( $terms ) { ?>
                                                 <span class="grid-bottom-details">
                                                     <span class="date grid-info">
-                                                        <?php echo get_the_date('d.m.Y'); ?> |
+                                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?> |
                                                     </span>
                                                     <span class="readTime grid-info">
-                                                        <?php echo get_field( 'read_time' ); ?>
+                                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                                     </span>
                                                 </span>
                                             <?php } ?>
@@ -277,7 +277,7 @@
         <?php if ( have_rows( 'button_block' ) ) : ?>
             <div class="buttonBlock">
                 <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                    <a href="<?php echo get_sub_field('link_url'); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo get_sub_field('link_text'); ?></a>
+                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                 <?php endwhile; ?>
             </div>
         <?php endif; ?>

@@ -40,9 +40,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
 <section class="resources-featured highlights-featured featured-module <?php echo $membershipType; ?>">
     <div class="container">
          <div class="blockTitle">
-            <h2 class="headerXsmall text-bold"><?php echo get_sub_field( 'title' ); ?></h2>
+            <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
             <?php if(get_sub_field( 'view_all_link' )){ ?> 
-                <a href="<?php echo get_sub_field( 'view_all_link' ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
+                <a href="<?php echo esc_url( get_sub_field( 'view_all_link' ) ); ?>" class="text-link red-text-link uppercase arrow-link">View All</a>
             <?php } ?>            
         </div>
     </div>
@@ -132,7 +132,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_172_attach_id, 'article-hero', false, $inline_img_172_attrs );
 					} elseif ( $inline_img_172_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_172_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_172_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>
@@ -157,7 +157,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_173_attach_id, 'article-card', false, $inline_img_173_attrs );
 					} elseif ( $inline_img_173_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_173_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_173_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>
@@ -186,7 +186,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 </span>
 
                                                 <a href="<?php the_permalink(); ?>" class="title text-black">
-                                                    <h2 class="title text-black headerXsmall text-bold"><?php the_title(); ?></h2>
+                                                    <h2 class="title text-black headerXsmall text-bold"><?php echo esc_html( get_the_title() ); ?></h2>
                                                 </a>
                                             </div>
 
@@ -268,7 +268,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_174_attach_id, 'article-hero', false, $inline_img_174_attrs );
 					} elseif ( $inline_img_174_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_174_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_174_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                 <?php endif; ?>
@@ -293,7 +293,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_175_attach_id, 'article-card', false, $inline_img_175_attrs );
 					} elseif ( $inline_img_175_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_175_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_175_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                                 <?php endif; ?>
@@ -322,7 +322,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     </span>
 
                                                     <a href="<?php the_permalink(); ?>" class="title text-black">
-                                                        <h2 class="title text-black headerXsmall text-bold"><?php the_title(); ?></h2>
+                                                        <h2 class="title text-black headerXsmall text-bold"><?php echo esc_html( get_the_title() ); ?></h2>
                                                     </a>
                                                 </div>
 
@@ -425,7 +425,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_176_attach_id, 'article-hero', false, $inline_img_176_attrs );
 					} elseif ( $inline_img_176_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_176_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_176_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>                                                           
@@ -451,7 +451,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_177_attach_id, 'article-card', false, $inline_img_177_attrs );
 					} elseif ( $inline_img_177_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_177_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_177_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>
@@ -473,10 +473,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -574,7 +574,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_178_attach_id, 'article-hero', false, $inline_img_178_attrs );
 					} elseif ( $inline_img_178_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_178_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_178_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>                                                           
@@ -600,7 +600,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_179_attach_id, 'article-card', false, $inline_img_179_attrs );
 					} elseif ( $inline_img_179_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_179_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_179_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>
@@ -622,10 +622,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>
@@ -709,7 +709,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_180_attach_id, 'article-hero', false, $inline_img_180_attrs );
 					} elseif ( $inline_img_180_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_180_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_180_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>                                                           
@@ -735,7 +735,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 						}
 						echo wp_get_attachment_image( $inline_img_181_attach_id, 'article-card', false, $inline_img_181_attrs );
 					} elseif ( $inline_img_181_src ) {
-						echo '<img class="article-image" src="' . esc_url( $inline_img_181_src ) . '" loading="lazy" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
+						echo '<img class="article-image" src="' . esc_url( $inline_img_181_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
 				?>
                                                             <?php endif; ?>
@@ -757,10 +757,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo $postTopic->name; ?></a>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
-                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php the_title(); ?></h3></a>
+                                                <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
                                             </div>
                                         </div>
                                     </div>

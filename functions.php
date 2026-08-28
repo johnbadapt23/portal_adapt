@@ -9,7 +9,6 @@ require('includes/_widgets.php');
 require('includes/_shortcodes.php');
 require('includes/_functions.php');
 require('includes/_customisations.php');
-require('includes/_instagram.php');
 require('includes/_welcome-popup.php');
 require('includes/_feedback-survey.php');
 
@@ -22,8 +21,8 @@ function cc_mime_types($mimes) {
 function adapt_is_staging() {
     return (
         wp_get_environment_type() === 'staging' ||
-        strpos($_SERVER['HTTP_HOST'] ?? '', 'staging') !== false ||
-        strpos($_SERVER['HTTP_HOST'] ?? '', 'devstage') !== false
+        str_contains($_SERVER['HTTP_HOST'] ?? '', 'staging') ||
+        str_contains($_SERVER['HTTP_HOST'] ?? '', 'devstage')
     );
 }
 
@@ -58,7 +57,7 @@ add_filter('user_has_cap', function ($allcaps, $required_caps, $args, $user) {
     }
 
     foreach ((array) $required_caps as $cap) {
-        if ($cap === 'memberpress_authorized' || strpos($cap, 'mepr-active') === 0) {
+        if ($cap === 'memberpress_authorized' || str_starts_with($cap, 'mepr-active')) {
             $allcaps[$cap] = true;
         }
     }
@@ -209,17 +208,15 @@ add_action('wp', function() {
         set_transient('membership_ids', $membership_ids, HOUR_IN_SECONDS);
     }
 
-    $active_subscriptions = $member ? $member->active_product_subscriptions('ids') : [];
+    $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
 
-    if (array_intersect($membership_ids['adv'], $active_subscriptions)) {
-        $membershipType = 'advantage';
-    } elseif (array_intersect($membership_ids['it'], $active_subscriptions)) {
-        $membershipType = 'it-pro';
-    } elseif (array_intersect($membership_ids['free'], $active_subscriptions)) {
-        $membershipType = 'free-trial';
-    } elseif (array_intersect($membership_ids['kyc'], $active_subscriptions)) {
-        $membershipType = 'kyc';
-    }
+    $membershipType = match (true) {
+        (bool) array_intersect($membership_ids['adv'], $active_subscriptions)  => 'advantage',
+        (bool) array_intersect($membership_ids['it'], $active_subscriptions)   => 'it-pro',
+        (bool) array_intersect($membership_ids['free'], $active_subscriptions) => 'free-trial',
+        (bool) array_intersect($membership_ids['kyc'], $active_subscriptions)  => 'kyc',
+        default => 'default',
+    };
 
     // ------------------------------
     // 7. Set advantageType specifically
@@ -296,6 +293,7 @@ add_action('wp_ajax_myfilter', 'ajaxtest_function'); // wp_ajax_{ACTION HERE}
 add_action('wp_ajax_nopriv_myfilter', 'ajaxtest_function');
 
 function ajaxtest_function() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     // Ensure 'mepr_interests' is set and valid
     if (isset($_POST['mepr_interests']) && !empty($_POST['mepr_interests'])) {
         global $current_user;
@@ -362,6 +360,9 @@ function track_displayed_posts($url) {
 }
 
 function remove_already_displayed_posts($query) {
+ if ( is_admin() ) {
+     return;
+ }
  global $displayed_posts;
  $query->set('post__not_in', $displayed_posts);
 }
@@ -442,6 +443,7 @@ function mepr_update_monthly_count($user_id, $meta_key_array, $meta_key_total) {
 add_action('wp_ajax_update_download_counter', 'update_download_counter');
 add_action('wp_ajax_nopriv_update_download_counter', 'update_download_counter');
 function update_download_counter() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     if (!is_user_logged_in()) wp_die();
 
     $user_id = get_current_user_id();
@@ -544,6 +546,7 @@ function update_user_activity_info() {
 
     foreach ($users as $user) {
         $user_id = $user->ID;
+        $member  = null;
 
         if (class_exists('MeprUser')) {
             $member = new MeprUser($user_id);
@@ -580,9 +583,16 @@ function update_user_activity_info() {
 
         // Update active membership info
         if (user_can($user_id, 'mepr-active')) {
-            $member = new MeprUser($user_id);
-            update_user_meta($user_id, 'mepr_logins', $member->login_count);
-            update_user_meta($user_id, 'mepr_subscriptions', $member->get_active_subscription_titles(', '));
+            // $member was already instantiated above for this same user
+            // when the mepr-active check passed - reuse it instead of
+            // re-querying MemberPress a second time per user, per run.
+            if (!$member) {
+                $member = class_exists('MeprUser') ? new MeprUser($user_id) : null;
+            }
+            if ($member) {
+                update_user_meta($user_id, 'mepr_logins', $member->login_count);
+                update_user_meta($user_id, 'mepr_subscriptions', $member->get_active_subscription_titles(', '));
+            }
             update_user_meta($user_id, 'mepr_active_status', 'active');
         } else {
             update_user_meta($user_id, 'mepr_active_status', 'inactive');
@@ -778,15 +788,12 @@ function custom_subscription_update_action($user_id) {
         return;
     }
 
-    // Update subscriptions and active status
-    if (user_can($user_id, 'mepr-active')) {
-        $member = new MeprUser($user_id);
-        $subscriptions = $member->get_active_subscription_titles(", ");
-        update_user_meta($user_id, 'mepr_subscriptions', $subscriptions);
-        update_user_meta($user_id, 'mepr_active_status', 'active');
-    } else {
-        update_user_meta($user_id, 'mepr_active_status', 'inactive');
-    }
+    // mepr-active is already confirmed true above (otherwise we'd have
+    // returned), so reuse $member instead of re-instantiating MeprUser
+    // for the same user in the same request.
+    $subscriptions = $member->get_active_subscription_titles(", ");
+    update_user_meta($user_id, 'mepr_subscriptions', $subscriptions);
+    update_user_meta($user_id, 'mepr_active_status', 'active');
 
     // Clear transient
     delete_transient('user_activity_' . $user_id);
@@ -817,7 +824,7 @@ add_action('mepr-validate-signup', function($errors) {
         $blocked_keywords = ['gmail', 'hotmail', 'outlook', 'yahoo', 'icloud'];
 
         foreach ($blocked_keywords as $keyword) {
-            if (strpos($domain, $keyword) !== false) {
+            if (str_contains($domain, $keyword)) {
                 $errors[] = __("Please use your work email.", 'memberpress');
                 break;
             }
@@ -1120,19 +1127,41 @@ function my_enqueue_scripts() {
 
 
     // GSAP & ScrollTrigger
+    //
+    // Neither has any inline script attached (wp_add_inline_script /
+    // wp_localize_script) and their only real dependency is on each other
+    // (ScrollTrigger is a GSAP plugin, needs gsap.min.js already loaded -
+    // now declared explicitly instead of relying on enqueue call order),
+    // so both are safe to mark 'defer' per WP 6.3's script loading
+    // strategy: the browser can keep parsing the rest of the page while
+    // these download, and they're still guaranteed by spec to finish
+    // executing, in this relative order, before DOMContentLoaded fires -
+    // i.e. before main-js's $(document).ready() callback (which is what
+    // actually calls into gsap/ScrollTrigger) ever runs. main-js itself
+    // can't get the same treatment: it depends on jquery, which core
+    // doesn't register with a defer-compatible strategy, so WP's own
+    // dependency-aware negotiation would just silently downgrade it back
+    // to blocking anyway (see the strategy negotiation rules in WP's
+    // Make Core post announcing this feature in 6.3).
     wp_enqueue_script(
         'gsap-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js',
         array(),
         null,
-        true
+        array(
+            'strategy'  => 'defer',
+            'in_footer' => true,
+        )
     );
     wp_enqueue_script(
         'scrolltrigger-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js',
-        array(),
+        array('gsap-js'),
         null,
-        true
+        array(
+            'strategy'  => 'defer',
+            'in_footer' => true,
+        )
     );
 
     // Main JS
@@ -1163,7 +1192,8 @@ function my_enqueue_scripts() {
     );
 
     wp_localize_script('main-js', 'ajaxobject', array(
-        'ajax_url' => admin_url('admin-ajax.php')
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('adapt_ajax_nonce'),
     ));
 
     // HubSpot deferred loader
@@ -1369,7 +1399,7 @@ function adapt_defer_noncritical_styles( $html, $handle ) {
         return $html;
     }
 
-    if ( strpos( $html, 'onload=' ) !== false ) {
+    if ( str_contains( $html, 'onload=' ) ) {
         return $html;
     }
 
@@ -1396,6 +1426,7 @@ add_action('wp_ajax_load_partners', 'ajax_load_partners');
 add_action('wp_ajax_nopriv_load_partners', 'ajax_load_partners');
 
 function ajax_load_partners() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     // Get AJAX POST data
     $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
     $partner_type_id = isset($_POST['partner_type_id']) ? intval($_POST['partner_type_id']) : 0;
@@ -1459,7 +1490,6 @@ function ajax_load_partners() {
         while ($query->have_posts()) {
             $query->the_post();
             $post_id = get_the_ID();
-            $eventtype = $has_event_filter ? 'yes' : 'no';
             include locate_template('/templates/partners-components/_partner-card.php');
         }
     }
@@ -1499,11 +1529,10 @@ function get_membership_type_for_user($user_id = null) {
     if (!$user_id) $user_id = get_current_user_id();
     if (!$user_id) return '';
 
-    $current_user = wp_get_current_user();
     $member = class_exists('MeprUser') ? new MeprUser($user_id) : null;
 
     // get active subscription IDs
-    $active_subscriptions = $member ? $member->active_product_subscriptions('ids') : [];
+    $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
 
     // get all membership IDs from ACF
     $get_membership_ids = function($field) {
@@ -1516,17 +1545,18 @@ function get_membership_type_for_user($user_id = null) {
         return $ids;
     };
 
-    $free_ids = $get_membership_ids('free_trial_memberships');
     $adv_ids  = $get_membership_ids('advantage_memberships');
     $it_ids   = $get_membership_ids('it_pro_memberships');
+    $free_ids = $get_membership_ids('free_trial_memberships');
     $kyc_ids  = $get_membership_ids('kyc_memberships');
 
-    if (array_intersect($adv_ids, $active_subscriptions)) return 'advantage';
-    if (array_intersect($it_ids, $active_subscriptions)) return 'it-pro';
-    if (array_intersect($free_ids, $active_subscriptions)) return 'free-trial';
-    if (array_intersect($kyc_ids, $active_subscriptions)) return 'kyc';
-
-    return 'default';
+    return match (true) {
+        (bool) array_intersect($adv_ids, $active_subscriptions)  => 'advantage',
+        (bool) array_intersect($it_ids, $active_subscriptions)   => 'it-pro',
+        (bool) array_intersect($free_ids, $active_subscriptions) => 'free-trial',
+        (bool) array_intersect($kyc_ids, $active_subscriptions)  => 'kyc',
+        default => 'default',
+    };
 }
 
 function get_allowed_subscriptions_for_user($membershipType = null) {
@@ -1567,6 +1597,7 @@ function get_visible_terms_cache_version() {
 // AJAX function
 // -------------------------
 function ajax_load_filtered_posts() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     // -------------------------
     // Detect membership
     // -------------------------
@@ -1575,7 +1606,7 @@ function ajax_load_filtered_posts() {
     $current_user_id = get_current_user_id();
 
     $member = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
-    $active_subscriptions = $member ? $member->active_product_subscriptions('ids') : [];
+    $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
     // -------------------------
     // Pagination + basic data
     // -------------------------
@@ -1862,6 +1893,7 @@ add_action('wp_ajax_nopriv_load_filtered_posts', 'ajax_load_filtered_posts');
 // Persona and Sector Featured
 
 function ajax_load_featured_post() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
     $type      = sanitize_text_field($_POST['type'] ?? '');
     $term_slug = sanitize_text_field($_POST['term_slug'] ?? '');
@@ -1938,6 +1970,7 @@ add_action('wp_ajax_load_favourite_posts', 'ajax_load_favourite_posts');
 add_action('wp_ajax_nopriv_load_favourite_posts', 'ajax_load_favourite_posts');
 
 function ajax_load_favourite_posts() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
     $favorites = get_user_favorites();
 
@@ -2009,6 +2042,7 @@ add_action('wp_ajax_load_more_resources', 'load_more_resources');
 add_action('wp_ajax_nopriv_load_more_resources', 'load_more_resources');
 
 function load_more_resources() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
     global $post; // ← THIS is what you're missing
 
@@ -2100,6 +2134,7 @@ add_action('wp_ajax_load_past_sessions_unique', 'load_past_sessions_unique');
 add_action('wp_ajax_nopriv_load_past_sessions_unique', 'load_past_sessions_unique');
 
 function load_past_sessions_unique() {
+    check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
     $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
     $posts_per_page = isset($_POST['perpage']) ? intval($_POST['perpage']) : 18;
     $soft_limit = $posts_per_page * 5; // fetch extra to guarantee 18 visible posts
@@ -2157,7 +2192,7 @@ function load_past_sessions_unique() {
 
     wp_reset_postdata();
 
-    echo $html;
+    echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- pre-rendered markup captured via ob_start()/ob_get_clean() from the local _article-card.php template, whose own dynamic values are already escaped at output; not user-controllable input, and wp_kses_post() would strip the card's structural markup.
     wp_die();
 }
 
@@ -2168,10 +2203,11 @@ function invalidate_visible_terms_cache() {
     global $wpdb;
 
     // Delete visible_terms_* transients
-    $pattern = '_transient_visible_terms_%';
     $transients = $wpdb->get_col(
-        "SELECT option_name FROM {$wpdb->options}
-         WHERE option_name LIKE '{$pattern}'"
+        $wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like( '_transient_visible_terms_' ) . '%'
+        )
     );
 
     if ($transients) {
@@ -2255,7 +2291,9 @@ add_action( 'after_setup_theme', function() {
 // ─────────────────────────────────────────────────────────────────────────────
 function adapt_render_filter_posts() {
  
-    $is_admin = current_user_can('manage_options');
+    // User 584 is an administrator but should still see posts filtered by
+    // their own subscription, not bypass gating like other admins.
+    $is_admin = current_user_can('manage_options') && get_current_user_id() != 584;
 
     // -------------------------
     // Membership detection
@@ -2273,7 +2311,7 @@ function adapt_render_filter_posts() {
         $membershipType        = get_membership_type_for_user();
         $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
         $member                = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
-        $active_subscriptions  = $member ? $member->active_product_subscriptions('ids') : [];
+        $active_subscriptions  = $member?->active_product_subscriptions('ids') ?? [];
  
         set_transient($mem_cache_key, [
             'membershipType'        => $membershipType,
@@ -2286,8 +2324,8 @@ function adapt_render_filter_posts() {
     // Membership allowed IDs + allowed type slugs (server-side, same logic as adapt_render_filter_dropdowns)
     // -------------------------
     $q          = get_queried_object();
-    $q_slug     = isset($q->slug)     ? $q->slug     : '';
-    $q_taxonomy = isset($q->taxonomy) ? $q->taxonomy : '';
+    $q_slug     = $q->slug ?? '';
+    $q_taxonomy = $q->taxonomy ?? '';
  
     $acf_cache_key          = 'filter_types_allowed_ids_' . md5($membershipType);
     $membership_allowed_ids = $is_admin ? [] : get_transient($acf_cache_key);
@@ -2295,12 +2333,11 @@ function adapt_render_filter_posts() {
     if (!$is_admin && $membership_allowed_ids === false) {
         $it_pro_types_ids    = get_field('it_pro_types',    'options') ?: [];
         $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
-        $membership_allowed_ids = [];
-        if ($membershipType === 'it-pro') {
-            $membership_allowed_ids = $it_pro_types_ids;
-        } elseif ($membershipType === 'advantage') {
-            $membership_allowed_ids = $advantage_types_ids;
-        }
+        $membership_allowed_ids = match ($membershipType) {
+            'it-pro'    => $it_pro_types_ids,
+            'advantage' => $advantage_types_ids,
+            default     => [],
+        };
         set_transient($acf_cache_key, $membership_allowed_ids, HOUR_IN_SECONDS);
     }
  
@@ -2538,3 +2575,117 @@ function adapt_render_filter_posts() {
         include locate_template('/templates/components/_article-card.php');
     }
 }
+
+function adapt_register_agent_tester_role() {
+    if ( ! get_role( 'agent_tester' ) ) {
+        add_role( 'agent_tester', 'Agent Tester', array(
+            'read' => true,
+        ) );
+    }
+}
+add_action( 'init', 'adapt_register_agent_tester_role' );
+
+// One-time bulk role assignment for a fixed list of existing users - already
+// ran successfully (agent_tester role added to all 232 users below without
+// touching their existing roles). Only the add_action() below is commented
+// out, not the function itself - a commented-out add_action() means nothing
+// ever calls this function, since hooking it to 'init' was the only thing
+// that invoked it in the first place, so this is just as inert as wrapping
+// the whole thing in a block comment, but faster to re-enable later (one
+// line, no un-nesting a /* */ block). To re-run: uncomment the add_action()
+// call below and clear the option flag first via
+// delete_option('adapt_agent_tester_role_assigned'), since it already ran
+// once.
+function adapt_assign_agent_tester_role_once() {
+    if ( get_option( 'adapt_agent_tester_role_assigned' ) ) {
+        return;
+    }
+
+    $user_ids = array(
+        1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
+        1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
+        1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
+        1596, 1825, 1824, 1288, 1375, 1306, 1653, 1630, 1286, 1536,
+        959,  1021, 973,  967,  962,  960,  899,  151,  1724, 988,
+        965,  970,  961,  1611, 1365, 1550, 1566, 1629, 1556, 1564,
+        1377, 1554, 1547, 1565, 1558, 1567, 1552, 1283, 1716, 1652,
+        1712, 1655, 1654, 1656, 1400, 1572, 1557, 1562, 1553, 1563,
+        1561, 1560, 1559, 1551, 1555, 1657, 1659, 1397, 1380, 1392,
+        1390, 1389, 1386, 1387, 1385, 1384, 1383, 1374, 1364, 467,
+        1366, 1658, 1729, 1393, 1367, 1422, 1011, 1140, 1860, 1590,
+        1430, 154,  1183, 1231, 1136, 1141, 1134, 1165, 1150, 1147,
+        1146, 1133, 1144, 1137, 1428, 1135, 1010, 344,  1139, 1145,
+        1143, 1142, 1138, 1864, 1867, 1172, 1265, 1802, 1723, 1761,
+        1680, 1421, 1316, 1372, 1368, 1312, 1308, 1307, 1305, 1300,
+        1299, 1298, 1295, 1291, 1290, 1289, 1287, 1681, 1890, 1793,
+        1727, 1710, 1722, 1757, 1589, 1726, 1835, 1808, 1788, 1758,
+        1591, 1709, 1683, 1704, 1711, 1691, 1705, 1702, 1707, 1701,
+        1696, 1706, 1689, 1685, 1717, 1693, 1679, 1725, 1687, 1697,
+        1684, 1719, 1713, 1692, 1434, 1433, 1432, 1311, 1240, 1180,
+        912,  1047, 1045, 409,  392,  391,  929,  389,  921,  914,
+        911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
+        1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
+        913,  1721,
+    );
+
+    // $user_ids = array(421, 1811, 1179, 1189, 1317, 1178, 1181, 1171, 1177, 1176, 1175, 1173, 1174);
+
+    foreach ( $user_ids as $user_id ) {
+        $user = get_user_by( 'id', $user_id );
+        if ( $user ) {
+            $user->add_role( 'agent_tester' );
+        }
+    }
+
+    update_option( 'adapt_agent_tester_role_assigned', 1 );
+}
+// add_action( 'init', 'adapt_assign_agent_tester_role_once', 20 );
+
+// One-time bulk removal: strips the agent_tester role from the same 232
+// users above, using WP_User::remove_role() so only that one role is taken
+// off - any other role(s) each user has stay exactly as they are. Same
+// pattern as above - the add_action() below is commented out rather than
+// the function itself, so it will not run until that line is uncommented.
+// Does not unregister the agent_tester role itself, just stops applying it.
+function adapt_remove_agent_tester_role_once() {
+    if ( get_option( 'adapt_agent_tester_role_removed' ) ) {
+        return;
+    }
+
+    $user_ids = array(
+        1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
+        1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
+        1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
+        1596, 1825, 1824, 1288, 1375, 1306, 1653, 1630, 1286, 1536,
+        959,  1021, 973,  967,  962,  960,  899,  151,  1724, 988,
+        965,  970,  961,  1611, 1365, 1550, 1566, 1629, 1556, 1564,
+        1377, 1554, 1547, 1565, 1558, 1567, 1552, 1283, 1716, 1652,
+        1712, 1655, 1654, 1656, 1400, 1572, 1557, 1562, 1553, 1563,
+        1561, 1560, 1559, 1551, 1555, 1657, 1659, 1397, 1380, 1392,
+        1390, 1389, 1386, 1387, 1385, 1384, 1383, 1374, 1364, 467,
+        1366, 1658, 1729, 1393, 1367, 1422, 1011, 1140, 1860, 1590,
+        1430, 154,  1183, 1231, 1136, 1141, 1134, 1165, 1150, 1147,
+        1146, 1133, 1144, 1137, 1428, 1135, 1010, 344,  1139, 1145,
+        1143, 1142, 1138, 1864, 1867, 1172, 1265, 1802, 1723, 1761,
+        1680, 1421, 1316, 1372, 1368, 1312, 1308, 1307, 1305, 1300,
+        1299, 1298, 1295, 1291, 1290, 1289, 1287, 1681, 1890, 1793,
+        1727, 1710, 1722, 1757, 1589, 1726, 1835, 1808, 1788, 1758,
+        1591, 1709, 1683, 1704, 1711, 1691, 1705, 1702, 1707, 1701,
+        1696, 1706, 1689, 1685, 1717, 1693, 1679, 1725, 1687, 1697,
+        1684, 1719, 1713, 1692, 1434, 1433, 1432, 1311, 1240, 1180,
+        912,  1047, 1045, 409,  392,  391,  929,  389,  921,  914,
+        911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
+        1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
+        913,  1721,
+    );
+
+    foreach ( $user_ids as $user_id ) {
+        $user = get_user_by( 'id', $user_id );
+        if ( $user ) {
+            $user->remove_role( 'agent_tester' );
+        }
+    }
+
+    update_option( 'adapt_agent_tester_role_removed', 1 );
+}
+// add_action( 'init', 'adapt_remove_agent_tester_role_once', 20 );

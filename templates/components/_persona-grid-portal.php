@@ -1,10 +1,17 @@
-<?php $sector_term = get_sub_field( 'persona' ); ?>
+<?php
+// _persona-grid-portal-markets.php is a near-identical component that only
+// differs in the data-insights vs market-narratives URL prefix and
+// filter-types taxonomy term used below - rather than maintain two full
+// copies of this markup, it sets $section and includes this file directly.
+$section = $section ?? 'data-insights';
+$sector_term = get_sub_field( 'persona' );
+?>
 
 <section class="topicGrid portal sector-grid">
     <div class="container">
         <div class="blockTitle">
             <h2><?php echo get_sub_field( 'persona_title' ); ?></h2>
-            <a href="/data-insights/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
+            <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
             <?php
@@ -21,7 +28,7 @@
                         array(
                             'taxonomy' => 'filter-types',
                             'field'    => 'slug',
-                            'terms'    => 'data-insights'
+                            'terms'    => $section
                         ),
                     ),
                 );
@@ -67,7 +74,7 @@
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="' . esc_attr( get_the_title() ) . '" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                                         <span class="hover-container">
@@ -78,12 +85,12 @@
                             </a>
                             <div class="textContainer">
                                 <span class="topicFilter">
-                                    <a href="/data-insights/persona-mapping/" class="topicFilterText">Persona Mapping</a>
-                                    <a href="/data-insights/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo $sector_term->name; ?></a>
+                                    <a href="/<?php echo $section; ?>/persona-mapping/" class="topicFilterText">Persona Mapping</a>
+                                    <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
                                 </span>
-                                <a href="<?php the_permalink(); ?>" class="title"><?php the_title();?></a>
-                                <span class="dateReadTime"><?php echo get_the_date('M j, Y'); ?></span>
-                                <span class="excerpt"><?php echo wp_trim_words( get_the_excerpt(), 25, '...' );?></span>
+                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
+                                <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
+                                <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                                 <a href="<?php the_permalink(); ?>" class="button data-set-button">View Dataset</a>
                             </div>
                         </div>

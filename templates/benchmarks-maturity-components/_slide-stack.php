@@ -6,7 +6,7 @@
             if ( have_rows( 'slide' ) ) : ?>
                 <div class="slider-track">
                     <?php while ( have_rows( 'slide' ) ) : the_row(); ?>
-                        <div class="slide" data-slide-number="<?php echo $counter; ?>">
+                        <div class="slide" data-slide-number="<?php echo esc_attr( $counter ); ?>">
                             <?php $slide_image = get_sub_field( 'slide_image' ); ?>
                             <?php if ( $slide_image ) { ?>
                                 <span class="image-container">
@@ -24,7 +24,7 @@
             if ( have_rows( 'slide' ) ) : ?>
                 <div class="slider-content">
                     <?php while ( have_rows( 'slide' ) ) : the_row(); ?>
-                        <div class="slide" data-slide-number="<?php echo $counter; ?>">
+                        <div class="slide" data-slide-number="<?php echo esc_attr( $counter ); ?>">
                             <span class="title-block">
                                 <span class="title">
                                     <?php $icon = get_sub_field( 'icon' ); ?>

@@ -1,0 +1,60 @@
+# This repo has a long-standing CRLF-vs-LF drift problem: several files
+# carry CRLF in the working tree but LF in git HEAD (or vice versa),
+# so touching them at all makes `git diff`/`git status` show the whole
+# file as changed even when only one real line was edited. There was no
+# .gitattributes at all before this, so git had no rule to normalize
+# line endings on checkin - whatever the editor/OS/checkout happened to
+# produce is what got committed.
+#
+# This only affects files as they're next added/committed - it does NOT
+# retroactively rewrite anything already in the working tree or git
+# history. Existing drifted files stay as-is until they're next edited
+# and re-added; from that point on they'll normalize to LF instead of
+# drifting again. A one-time `git add --renormalize .` would fix
+# everything immediately, but that touches nearly every file in the repo
+# in one commit - left for whoever owns the repo to decide on, not done
+# here.
+
+* text=auto eol=lf
+
+# Explicit text types (belt-and-suspenders on top of text=auto's
+# content-based detection).
+*.php text
+*.js text
+*.css text
+*.scss text
+*.html text
+*.htm text
+*.json text
+*.md text
+*.txt text
+*.xml text
+*.svg text
+*.yml text
+*.yaml text
+.gitattributes text
+.gitignore text
+.nvmrc text
+
+# Windows-specific scripts, if any ever get added, should keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets - never touch these, line-ending normalization on a
+# binary file corrupts it.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+*.pdf binary
+*.zip binary
+*.mp4 binary
+*.mov binary
+*.gz binary

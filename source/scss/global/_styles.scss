@@ -100,12 +100,6 @@ body {
 		float:left;
 		width:100%;
 		//@include transition(all, 600ms, ease);
-		@include responsive(mobile) {
-
-		}
-		@include responsive(small) {
-
-		}
 	}
 }
 
@@ -452,9 +446,6 @@ h3 p {
 	line-height: $h3-line-height;
 	color: $heading-color;
 
-	@include responsive(767) {
-
-	}
 
 	@media (max-width: 640px) {
 		font-size: 20px;
@@ -619,7 +610,6 @@ blockquote {
 
 p {
 	font-size: $p-font-size;
-	font-size: $p-font-size;
 	font-weight: $p-font-weight;
 	line-height: $p-line-height;
 	margin: 0 0 $p-margin;
@@ -675,7 +665,6 @@ main ol {
 }
 
 li {
-	font-size: $p-font-size;
 	font-size: $p-font-size;
 	font-weight: $p-font-weight;
 	line-height: $p-line-height;
@@ -1036,7 +1025,6 @@ a.logoBlockLink {
 
 	&.text {
 		position: relative;
-		color: #000;
 		font-family: $font-light;
 		font-size: 14px;
 		line-height: 1.21;
@@ -1903,7 +1891,6 @@ textarea.hs-input {
 	label {
 		color: $color-darkGrey-new !important;
 		float: left;
-		width: 100%;
 		margin-bottom: 8px;
 		font-size: 12px;
 		font-family: $font-base !important;
@@ -1926,7 +1913,6 @@ textarea.hs-input {
 	legend {
 		color: $color-darkGrey-new !important;
 		float: right;
-		width: 100%;
 		margin-bottom: 8px;
 		font-size: 12px;
 		font-family: $font-base !important;
@@ -1972,7 +1958,6 @@ textarea.hs-input {
 }
 
 .hbspt-form span.select2 {
-	width:100% !important;
 	float: left;
 	position: relative;
 	background: none;
@@ -1997,7 +1982,6 @@ textarea.hs-input {
 		.select2-selection {
 			// background-color: #fafafa !important;
 			// background: #fafafa !important;
-			background-color: #fff;
 			background: #fff;
 		}
 	}
@@ -2038,7 +2022,6 @@ textarea.hs-input {
 		border-color: transparent !important;
 
 		&:after {
-			position: absolute;
 			content: '';
 			background-image: url(../images/arrow-down-black.svg);
 			background-size: 6px 4px;
@@ -2223,7 +2206,6 @@ a.post-popup {
 	label {
 		color: $color-darkGrey-new !important;
 		float: left;
-		width: 100%;
 		margin-bottom: 8px;
 		margin-top: 5px;
 		font-size: 12px;
@@ -2614,7 +2596,6 @@ a.post-popup {
 
 	legend {
 		color: $color-darkGrey-new !important;
-		width: 100%;
 		margin-bottom: 8px;
 		font-size: 12px;
 		font-family: $font-base !important;
@@ -2689,7 +2670,6 @@ a.post-popup {
 }
 
 .hbspt-form span.select2 {
-	width:100% !important;
 	float: left;
 	position: relative;
 	background: none;
@@ -2714,7 +2694,6 @@ a.post-popup {
 		.select2-selection {
 			// background-color: #fafafa !important;
 			// background: #fafafa !important;
-			background-color: #fff;
 			background: #fff;
 		}
 	}
@@ -2755,7 +2734,6 @@ a.post-popup {
 		border-color: transparent !important;
 
 		&:after {
-			position: absolute;
 			content: '';
 			background-image: url(../images/arrow-down-black.svg);
 			background-size: 6px 4px;
@@ -2924,7 +2902,6 @@ a.post-popup {
 					height: 42px;
 					line-height: 42px;
 					line-height: 44px;
-		            font-size: 10px;
 		            padding: 0 20px;
 		            font-weight: bold;
 		            font-size: 10px;
@@ -2947,10 +2924,7 @@ a.post-popup {
 				bottom: -40px;
 
 				@include responsive(767) {
-					bottom: auto;
-					top: 0;
-					right: auto;
-					left: calc(50% - 7px);
+					inset: 0 auto auto calc(50% - 7px);
 				}
 			}
 		}
@@ -3010,7 +2984,8 @@ a.post-popup {
 .image-container {
 	position: relative;
 	width: 100%;
-	float: left;
+	float: none;
+	display: block;
 
 	.bg-container {
 		position: absolute;
@@ -3128,7 +3103,6 @@ span.std-button-span {
 			padding-left: 60px;
 
 			@media (max-width:767px) {
-				padding-left: 24px;
 				display: flex;
 				gap: 15px;
 				padding-left: 24px;
@@ -3165,7 +3139,6 @@ span.std-button-span {
 		padding-left: 60px;
 
 		@media (max-width:767px) {
-			padding-left: 24px;
 			display: flex;
 			gap: 15px;
 			padding-left: 24px;
@@ -3287,7 +3260,6 @@ span.std-button-span {
 				position: absolute;
 				right: 32px;
 				top: 21px;
-				background-image: url('../images/arrow-forward.svg');
 				background-size: 20px 20px;
 				width: 20px;
 				height: 20px;

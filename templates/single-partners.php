@@ -42,7 +42,7 @@ endif;
 									if ( $listing_icon_attach_id ) {
 										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
 									} else {
-										echo '<img src="' . esc_url( $listing_icon ) . '" loading="lazy" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
+										echo '<img src="' . esc_url( $listing_icon ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
 								?>
                                             <?php } ?>
@@ -62,7 +62,7 @@ endif;
 									if ( $listing_avatar_attach_id ) {
 										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
 									} else {
-										echo '<img src="' . esc_url( $listing_avatar ) . '" loading="lazy" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
+										echo '<img src="' . esc_url( $listing_avatar ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
 								?>
                                             <?php } ?>
@@ -72,7 +72,7 @@ endif;
                             <?php } ?>
                             <div class="mobile-title-container">
                                  <span class="advisor-title text-white header-medium"><?php echo get_sub_field( 'title' ); ?></span>
-                                <span class="subtitle text-white labelMedium"><?php echo get_sub_field( 'sub_title' ); ?></span> 
+                                <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span> 
                             </div>
                             <span class="links-container">
                                 <?php $title = get_sub_field( 'title' ); ?>
@@ -96,7 +96,7 @@ endif;
                         <div class="column second-column text-column">
                             <div class="text-content-inner">
                                 <h1 class="advisor-title text-white header-large"><?php echo get_sub_field( 'title' ); ?></h1>
-                                <span class="subtitle text-white labelMedium"><?php echo get_sub_field( 'sub_title' ); ?></span>                                              
+                                <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>                                              
                                 <span class="text regular-text text-light-grey"><?php echo get_sub_field( 'text' ); ?></span>                               
                             </div>                            
                         </div>                        
@@ -300,14 +300,14 @@ endif;
 								if ( $speaker_image_attach_id ) {
 									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, array( 'alt' => '' ) );
 								} else {
-									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" alt="" />';
+									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>                                                                                                                          
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">
-                                                            <span class="labelMedium name"><?php the_title(); ?></span>
-                                                            <span class="text-dark-grey text-grey"><?php echo get_field('speaker_description'); ?></span>
+                                                            <span class="labelMedium name"><?php echo esc_html( get_the_title() ); ?></span>
+                                                            <span class="text-dark-grey text-grey"><?php echo esc_html( get_field('speaker_description') ); ?></span>
                                                         </span>
                                                     </span>                                             
                                                 <?php endforeach; ?>
@@ -352,15 +352,15 @@ endif;
                             <?php endif; ?>
                         <?php } ?>
                         <?php if ( ! empty( $resources_array ) ) : ?>
+                            <?php $per_page = 6; // Number of resources per "page" ?>
                             <div class="switch-content resources<?php if ($contentCounter == 1){ ?> active<?php } ?>" id="resourcesAdvisor">
                                 <div class="resources-column-container gap-16-40 two-column-container resources-advisor tablet-one-column"
                                 data-page="1"
-                                data-per-page="<?php echo $per_page; ?>"
-                                data-total="<?php echo count($resources_array); ?>"
+                                data-per-page="<?php echo esc_attr( $per_page ); ?>"
+                                data-total="<?php echo esc_attr( count($resources_array) ); ?>"
                                 data-post-id="<?php the_ID(); ?>">
 
                                     <?php
-                                    $per_page = 6; // Number of resources per "page"
                                     $page = 1; // Initial page
                                     // Sort featured first
                                     usort($resources_array, function($a, $b){
@@ -388,7 +388,7 @@ endif;
                                 <?php if (count($resources_array) > $per_page): ?>
                                     <a class="resources-load-more std-button red-button small-button">Load More</a>
                                     <div class="ajax-loader" style="display: none;">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" alt="Loading..." />
+                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                                     </div>
                                 <?php endif; ?>
                             </div>

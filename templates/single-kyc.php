@@ -21,10 +21,10 @@
                                 }
                             }
                         ?> 
-                        <a class="kit-back-button" href="<?php echo get_term_link($postTopic); ?>" target="_self">Back</a>
+                        <a class="kit-back-button" href="<?php echo esc_url( get_term_link($postTopic) ); ?>" target="_self">Back</a>
                         <div class="text-content-inner">
                             
-                            <span class="subtitle text-red"><a href="<?php echo get_term_link($postTopic); ?>"><?php echo get_sub_field( 'sub_title' ); ?></a></span>              
+                            <span class="subtitle text-red"><a href="<?php echo esc_url( get_term_link($postTopic) ); ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>              
                             <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
                             <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
                             <span class="links-container">
@@ -37,9 +37,9 @@
                                         <?php $buttonCounter = 1; ?>
                                         <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
                                             <?php if(get_sub_field( 'button_type' ) == 'video-button') { ?>
-                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } elseif(get_sub_field( 'button_type' ) == 'link')  { ?>
-                                                <a class="link stdBtn red-outline-button" href="<?php echo get_sub_field( 'link' ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo get_sub_field( 'button_text' ); ?></a>
+                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } else { ?>
                                                 <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">
                                                     <a class="form-popup popup-modal" href="#talkform"><?php echo get_sub_field( 'form_button' ); ?></a>
@@ -160,7 +160,7 @@
                                                         <ul class="resources-container">
                                                             <?php while ( have_rows( 'resource' ) ) : the_row(); ?>
                                                                 <li>
-                                                                    <a class="resource-link" href="<?php echo get_sub_field( 'link' ); ?>" target="_blank"><?php echo get_sub_field( 'title' ); ?></a>                                                                                                                        
+                                                                    <a class="resource-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'title' ); ?></a>                                                                                                                        
                                                                 </li>
                                                             <?php endwhile; ?>
                                                         </ul>

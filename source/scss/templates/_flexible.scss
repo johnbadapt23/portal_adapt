@@ -14,10 +14,7 @@ section.banner {
 
         .image {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
             background-size: cover;
             background-position: center center;
 
@@ -180,10 +177,7 @@ section.relatedArticlesThreeColumn {
 
                     .image {
                         position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
+                        inset: 0;
                         background-size: cover;
                         background-position: center center;
                         border-radius: 3px 3px 0px 0px;
@@ -438,7 +432,6 @@ section.halfHalfBlock {
 
             &.desktopText {
                 display: block;
-                font-size: $p-font-size;
             	font-size: $p-font-size;
             	font-weight: $p-font-weight;
             	line-height: $p-line-height;
@@ -502,10 +495,7 @@ section.halfHalfBlock {
 
         .image {
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
             background-size: cover;
             background-position: center center;
         }
@@ -581,10 +571,7 @@ section.fullWidthTextBlock {
             width: 100%;
             text-align: center;
             display: block;
-            top: auto;
-            left: auto;
-            right: auto;
-            bottom: auto;
+            inset: auto;
             height: auto;
             z-index: 1;
 
@@ -758,10 +745,7 @@ body section.fullWidthTextBlock {
 
             .image {
                 position: absolute;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                left: 0;
+                inset: 0;
                 background-size: cover;
                 background-position: center center;
                 border-radius: 3px 0 0 3px;
@@ -783,12 +767,8 @@ body section.fullWidthTextBlock {
                 padding: 83px 53px 45px 58px;
             }
 
-            @include responsive(mobile) {
-
-            }
 
             .quoteBlock {
-                position: relative;
                 float: left;
                 width: 100%;
                 position: relative;
@@ -815,7 +795,6 @@ body section.fullWidthTextBlock {
             }
 
             .quoteAuthor {
-                position: relative;
                 float: left;
                 width: 100%;
                 position: relative;
@@ -913,7 +892,6 @@ section.quoteBlockNoImage {
         }
 
         .quoteBlock {
-            position: relative;
             float: left;
             width: 100%;
             position: relative;
@@ -940,7 +918,6 @@ section.quoteBlockNoImage {
         }
 
         .quoteAuthor {
-            position: relative;
             float: left;
             width: 100%;
             position: relative;
@@ -1023,7 +1000,6 @@ section.twoColumnWithTextAndFeaturedQuote {
                 }
 
                 .quoteBlock {
-                    position: relative;
                     float: left;
                     width: 100%;
                     position: relative;
@@ -1050,7 +1026,6 @@ section.twoColumnWithTextAndFeaturedQuote {
                 }
 
                 .quoteAuthor {
-                    position: relative;
                     float: left;
                     width: 100%;
                     position: relative;
@@ -1565,7 +1540,6 @@ section.pricingBlock {
         .title {
             float: left;
             width: 100%;
-            text-align: center;
             font-size: 34px;
             font-family: $font-main;
             line-height: 1.2;
@@ -1844,7 +1818,6 @@ section.navigation.fixed-menu {
             position: fixed!important;
 
             &.open {
-                top: auto;
                 top: auto!important;
             }
         }
@@ -2121,10 +2094,7 @@ section.download-block {
 
             .image {
                 position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                inset: 0;
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -2204,8 +2174,7 @@ section.download-block {
 body section.download-block .container {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 0;
-    column-gap: 18px;
+    gap: 0 18px;
 
     .download-block-title,
     .listing-title,
@@ -2295,10 +2264,7 @@ body section.download-block .container {
 
                         .image {
                             position: absolute;
-                            top: 0;
-                            bottom: 0;
-                            left: 0;
-                            right: 0;
+                            inset: 0;
                             background-position: center;
                             background-size: cover;
                             background-repeat: no-repeat;
@@ -2561,7 +2527,6 @@ body .mfp-wrap.download-container .mfp-content .downloadPopup .container {
         padding: 0px!important;
         padding-bottom: 5px!important;
         display: inline-block;
-        padding: 0;
         text-align: center;
         color: #838383;
 		border-radius: 0px;
@@ -2713,10 +2678,7 @@ section.video-grid-block {
 
             .image {
                 position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
+                inset: 0;
                 background-position: center;
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -2853,8 +2815,7 @@ body section.video-grid-block .container {
     .video-grid-block-container {
         display: flex;
         flex-wrap: wrap;
-        row-gap: 0;
-        column-gap: 18px;
+        gap: 0 18px;
     }
 
     .video-image-container {
@@ -3006,7 +2967,6 @@ section.resources-cta-block {
                     margin-top: 20px;
 
                     .std-button {
-                        padding-right: 52px;
                         position: relative;
                         border: 1px solid #e7534f;
                         border-radius: 4px;

@@ -1,8 +1,8 @@
 <span class="events-card column <?php echo $extra_classes; ?>">
      <?php if (get_field('external_link')) { ?>
-        <a href="<?php echo get_field('external_link'); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
+        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
     <?php } else { ?>
-        <a href="<?= get_post_type() === 'event' ? '' : get_the_permalink(); ?>" class="event-link" target="_self">
+        <a href="<?= esc_url( get_post_type() === 'event' ? '' : get_the_permalink() ); ?>" class="event-link" target="_self">
     <?php }?>
         <span class="events-card-inner">
             <span class="image-container">
@@ -27,7 +27,7 @@
 					if ( $inline_img_151_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_151_attach_id, 'full', false, $inline_img_151_attrs );
 					} elseif ( $inline_img_151_src ) {
-						$fallback_loading = isset( $inline_img_151_attrs['loading'] ) ? $inline_img_151_attrs['loading'] : 'lazy';
+						$fallback_loading = $inline_img_151_attrs['loading'] ?? 'lazy';
 						$fallback_class = isset( $inline_img_151_attrs['class'] ) ? ' class="' . esc_attr( $inline_img_151_attrs['class'] ) . '"' : '';
 						$fallback_fetchpriority = isset( $inline_img_151_attrs['fetchpriority'] ) ? ' fetchpriority="' . esc_attr( $inline_img_151_attrs['fetchpriority'] ) . '"' : '';
 						echo '<img' . $fallback_class . ' src="' . esc_url( $inline_img_151_src ) . '" loading="' . esc_attr( $fallback_loading ) . '"' . $fallback_fetchpriority . ' alt="' . esc_attr( get_the_title() ) . '" />';
@@ -36,12 +36,12 @@
                 </span>
             </span>
             <span class="events-text">
-                <span class="labelXLarge"><?php echo the_title(); ?></span>
+                <span class="labelXLarge"><?php echo esc_html( get_the_title() ); ?></span>
                 <span class="labelXXsmall date text-red">
-                    <span><?php echo get_field('event_date'); ?></span>
+                    <span><?php echo esc_html( get_field('event_date') ); ?></span>
                 </span>
                 <span class="excerpt text-small">
-                    <?php echo get_field('event_short_description_for_listing'); ?>
+                    <?php echo esc_html( get_field('event_short_description_for_listing') ); ?>
                 </span>
                 <?php if( empty(get_field('external_link')) && get_post_type() === 'event' ) : ?>
                 <?php else : ?>

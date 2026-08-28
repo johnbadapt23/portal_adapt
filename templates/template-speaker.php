@@ -20,12 +20,21 @@ get_header();
                     <option value=""><?php echo esc_attr(__('Select Category')); ?></option>
 
                     <?php
-                        $option = '<option value="' . get_option('home') . '/category/">All Categories</option>'; // change category to your custom page slug
+                        // Generic get_categories()/post-category dropdown from the original
+                        // starter theme - never adapted to this site's actual taxonomy
+                        // structure (topic/sector/persona/filter-types, not post categories
+                        // or /category/ URLs), per the "change category to your custom page
+                        // slug" comment that shipped with it. Left in place rather than
+                        // removed outright since that is a content/UX call, not a coding
+                        // standards fix, but the output at least needs to be escaped and
+                        // cat_name/category_count are long-deprecated WP_Term property
+                        // aliases - use name/count directly.
+                        $option = '<option value="' . esc_url( get_option('home') . '/category/' ) . '">' . esc_html__( 'All Categories', 'portal' ) . '</option>';
                         $categories = get_categories();
                         foreach ($categories as $category) {
-                            $option .= '<option value="'.get_option('home').'/category/'.$category->slug.'">';
-                            $option .= $category->cat_name;
-                            $option .= ' ('.$category->category_count.')';
+                            $option .= '<option value="' . esc_url( get_option('home') . '/category/' . $category->slug ) . '">';
+                            $option .= esc_html( $category->name );
+                            $option .= ' (' . (int) $category->count . ')';
                             $option .= '</option>';
                         }
                         echo $option;
@@ -66,16 +75,16 @@ get_header();
                             <span class="postDetails">
                                 <span class="info">
                                     <span class="date">
-                                        <?php echo get_the_date('d.m.Y'); ?>
+                                        <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                     </span>
                                     <span class="readTime">
-                                        <?php echo get_field( 'read_time' ); ?>
+                                        <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                     </span>
                                 </span>
                             </span>
-                            <span class="articleLink"><?php echo the_title(); ?></span>
+                            <span class="articleLink"><?php echo esc_html( get_the_title() ); ?></span>
                             <span class="excerpt">
-                                <?php echo the_excerpt(); ?>
+                                <?php echo esc_html( the_excerpt() ); ?>
                             </span>
 
                             <?php
@@ -86,7 +95,7 @@ get_header();
                                 <div class="tags">
                                     <?php foreach( $post_tags as $tag ) { ?>
                                         <span>
-                                            <?php echo '#' . $tag->name  ; ?>
+                                            <?php echo esc_html( '#' . $tag->name ); ?>
                                         </span>
                                     <?php } ?>
                                 </div>
@@ -117,7 +126,7 @@ get_header();
                 <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
             <?php } ?>
 
-            <a class="logoBlockLink button popup-modal" href="#form"><?php echo get_field( 'button_text', 'option' ); ?></a>
+            <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
         </div>
 
     </div>

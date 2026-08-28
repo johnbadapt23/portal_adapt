@@ -5,28 +5,10 @@ $displayed_posts = array (); ?>
 
 $q = get_queried_object();
 
-if($keyword != '') {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        's' => $keyword,
-        'paged'=> $paged,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array (
-                'taxonomy' => 'filter-types',
-                'field' => 'slug',
-                'terms'    => 'tnc'
-            )
-        )
-    );
-} else {
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => -1,
-        'paged'=> $paged
-    );
-}
+// A dead $args build used to sit here (an if($keyword)/else block using
+// $keyword and $paged, neither defined anywhere in this file before this
+// point) - $args was never read by any query before being reassigned
+// fresh further down this file for the actual queries it uses. Removed.
 ?>
 
 <section class="filter-title-block ">
@@ -45,7 +27,7 @@ if($keyword != '') {
                     ) ); 
                 ?>
                 <?php foreach($terms as $term) { ?>
-                    <a href="<?php echo get_term_link( $term );?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo $term -> name; ?></a>
+                    <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo esc_html( $term -> name ); ?></a>
                 <?php } ?>
             </div>
         </div>           
@@ -73,7 +55,7 @@ if($keyword != '') {
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } elseif ( get_field( 'video_image' )){ ?>
@@ -90,7 +72,7 @@ if($keyword != '') {
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } ?>
@@ -136,16 +118,16 @@ if($keyword != '') {
                                             }?>
                                         <?php } ?>
                                         <?php if($postType){?>
-                                                <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+                                                <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                         <?php } ?>
                                         <?php if($postSector){?>
-                                                <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+                                                <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                         <?php } ?>                                
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
                                         <?php } ?>
                                     </span>
-                                    <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php the_title(); ?></a>
+                                    <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                 </span>         
                             </div>
                         <?php wp_reset_postdata(); ?>
@@ -179,7 +161,7 @@ if($keyword != '') {
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                             <?php } elseif ( get_field( 'video_image' )){ ?>
@@ -196,7 +178,7 @@ if($keyword != '') {
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                             <?php } ?>
@@ -242,16 +224,16 @@ if($keyword != '') {
                                                 }?>
                                             <?php } ?>
                                             <?php if($postType){?>
-                                                    <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+                                                    <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                             <?php } ?>
                                             <?php if($postSector){?>
-                                                    <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+                                                    <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                             <?php } ?>                                
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
                                             <?php } ?>
                                         </span>
-                                        <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php the_title(); ?></a>
+                                        <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                                     </span>                                    
                                 </div>
                             <?php endwhile; ?>
@@ -293,7 +275,7 @@ if($keyword != '') {
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                 <?php } elseif ( get_field( 'video_image' )){ ?>
@@ -310,7 +292,7 @@ if($keyword != '') {
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
 								} else {
-									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" alt="" />';
+									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                 <?php } ?>
@@ -356,16 +338,16 @@ if($keyword != '') {
                                     }?>
                                 <?php } ?>
                                  <?php if($postType){?>
-                                        <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postType->name; ?></a>
+                                        <a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
                                 <?php } ?>
                                 <?php if($postSector){?>
-                                        <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo $postSector->name; ?></a>
+                                        <a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                 <?php } ?>                                
                                 <?php if($postTopic){?>
-                                    <a href="<?php echo get_term_link($postTopic); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
                                 <?php } ?>
                             </span>
-                            <a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php the_title(); ?></a>
+                            <a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
                         </span>
                     </div>                               
                 <?php endwhile; ?>                        

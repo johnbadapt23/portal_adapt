@@ -133,10 +133,7 @@ header {
 
 	.search.mobile {
 		position: relative;
-		position: relative;
 		float: right;
-		width: 16px;
-		height: 16px;
 		width: 34px;
 		height: 34px;
 		margin-top: 7px;
@@ -404,7 +401,6 @@ header {
 				}
 
 				.userEmailMain {
-					float: left;
 					font-family: $font-base;
 					font-weight: 400;
 					color: #838383;
@@ -1688,7 +1684,8 @@ header {
 				.image-container {
 					aspect-ratio: 1/1;
 					margin-bottom: 16px;
-					float: left;
+					float: none;
+					display: block;
 					width: 100%;
 				}
 
@@ -1732,10 +1729,7 @@ header {
 
 				.image {
 					position: absolute;
-					top: 0;
-					right: 0;
-					bottom: 0;
-					left: 0;
+					inset: 0;
 					background-size: cover;
 					background-position: center center;
 				}
@@ -2332,10 +2326,7 @@ nav.mobileMenu {
 
 								.image {
 									position: absolute;
-									top: 0;
-									right: 0;
-									bottom: 0;
-									left: 0;
+									inset: 0;
 									background-size: cover;
 									background-position: center center;
 								}
@@ -2787,7 +2778,6 @@ body.event {
 
 .single-post-sticky {
 	float: left;
-	width: 100%;
 	position: absolute;
 	height: 64px;
 	top: -160px;
