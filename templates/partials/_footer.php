@@ -24,7 +24,7 @@
                 <div class="column first">
                     <?php if ( have_rows( 'column_one', 'options' ) ) : ?>
                     	<?php while ( have_rows( 'column_one', 'options' ) ) : the_row(); ?>
-                    		<span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                    		<span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                     		<?php if ( have_rows( 'links' ) ) : ?>
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
@@ -45,7 +45,7 @@
                     <?php if ($membershipType == 'advantage') { ?>
                         <?php if ( have_rows( 'column_two', 'options' ) ) : ?>
                             <?php while ( have_rows( 'column_two', 'options' ) ) : the_row(); ?>
-                                <span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                                <span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                                 <?php if ( have_rows( 'links' ) ) : ?>
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
@@ -64,7 +64,7 @@
                     <?php } else { ?>
                         <?php if ( have_rows( 'column_two_it', 'options' ) ) : ?>
                             <?php while ( have_rows( 'column_two_it', 'options' ) ) : the_row(); ?>
-                                <span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                                <span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                                 <?php if ( have_rows( 'links' ) ) : ?>
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
@@ -85,7 +85,7 @@
                 <div class="column third">
                     <?php if ( have_rows( 'column_three', 'options' ) ) : ?>
                     	<?php while ( have_rows( 'column_three', 'options' ) ) : the_row(); ?>
-                    		<span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                    		<span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                     		<?php if ( have_rows( 'links' ) ) : ?>
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
@@ -105,7 +105,7 @@
                 <?php if ( have_rows( 'column_four', 'options' ) ) : ?>
                     <div class="column fourth">
                             <?php while ( have_rows( 'column_four', 'options' ) ) : the_row(); ?>
-                                <span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                                <span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                                 <?php if ( have_rows( 'links' ) ) : ?>
                                     <ul class="footerLinks">
                                         <?php while ( have_rows( 'links' ) ) : the_row(); ?>
@@ -130,7 +130,7 @@
                 <div class="column fifth">
                     <?php if ( have_rows( 'column_five', 'options' ) ) : ?>
                     	<?php while ( have_rows( 'column_five', 'options' ) ) : the_row(); ?>
-                    		<span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                    		<span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                     		<?php if ( have_rows( 'links' ) ) : ?>
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
@@ -154,12 +154,12 @@
                 <div class="column sixth">
                     <?php if ( have_rows( 'column_six', 'options' ) ) : ?>
                     	<?php while ( have_rows( 'column_six', 'options' ) ) : the_row(); ?>
-                    		<span class="title"><?php echo get_sub_field( 'title' ); ?></span>
+                    		<span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                     		<?php if ( have_rows( 'links' ) ) : ?>
                                 <ul class="footerLinks">
                         			<?php while ( have_rows( 'links' ) ) : the_row(); ?>
                                         <li>
-                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink <?php echo get_sub_field( 'class' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                            <a href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" class="footerLink <?php echo esc_attr( get_sub_field( 'class' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                         </li>
                         			<?php endwhile; ?>
                                 </ul>
@@ -193,7 +193,7 @@
                                 	</g>
                                 </g>
                                 </svg>
-                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-nocircle.svg" width="14" height="14" loading="lazy" decoding="async" alt="LinkedIn" /> -->
+                                <!-- <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/linkedin-nocircle.svg" width="14" height="14" loading="lazy" decoding="async" alt="LinkedIn" /> -->
                             </a>
                         <?php } ?>
                         <?php if(get_field('youtube_url','options')) { ?>
@@ -209,7 +209,7 @@
                                 		C6.2-1,6.3-0.9,6.1-0.8C6.2-0.8,6.2-0.8,6.1-0.8z"/>
                                 </g>
                                 </svg>
-                                <!-- <img src="<?php echo get_template_directory_uri(); ?>/assets/images/youtube-nocircle.svg" width="16" height="11" loading="lazy" decoding="async" alt="YouTube" /> -->
+                                <!-- <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/youtube-nocircle.svg" width="16" height="11" loading="lazy" decoding="async" alt="YouTube" /> -->
                             </a>
                         <?php } ?>
                     </span>
@@ -267,8 +267,8 @@
                 <div class="members-popup" id="membersPopup">
                     <div class="members-popup-inner">
                         <div class="members-popup-content">
-                            <h3><?php echo get_field( 'members_only_title', 'option' ); ?></h3>
-                            <p><?php echo get_field( 'members_only_text', 'option' ); ?></p>
+                            <h3><?php echo esc_html( get_field( 'members_only_title', 'option' ) ); ?></h3>
+                            <p><?php echo esc_html( get_field( 'members_only_text', 'option' ) ); ?></p>
                             <div class="image-content-mobile">
                                 <?php $members_only_image_mobile = get_field( 'members_only_image_mobile', 'option' ); ?>
                                 <span class="image-container">
@@ -298,7 +298,7 @@
                                 </span>
                             </span>
                         </div>
-                        <img class="absolute-image" src="<?php echo get_template_directory_uri(); ?>/assets/images/A.svg" width="14" height="24" loading="lazy" decoding="async" alt="Adapt" />
+                        <img class="absolute-image" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/A.svg" width="14" height="24" loading="lazy" decoding="async" alt="Adapt" />
                     </div>
                 </div>
             </div>
@@ -355,7 +355,7 @@ if($user !== false) {
       }
 
       if(!empty($ca) && isset($ca->id) && !empty($ca->id)) { ?>
-          <span class="memberpress-subaccount-url" style="display: none"><?php echo $ca->signup_url(); ?></span>
+          <span class="memberpress-subaccount-url" style="display: none"><?php echo esc_url( $ca->signup_url() ); ?></span>
         <?php
       }
     }
