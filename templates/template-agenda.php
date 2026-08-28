@@ -15,7 +15,7 @@ get_header();
     	<section class="banner">
     		<ul class="slides">
     			<?php foreach($bannerSlides as $slide) { ?>
-    				<li style="background-image:url(<?php echo $slide['image']; ?>);">
+    				<li style="background-image:url(<?php echo esc_url( $slide['image'] ); ?>);">
     					<?php if( $slide['dark_overlay'] == 'yes') { ?>
     						<span class="dark-overlay"></span>
     					<?php } ?>
@@ -34,7 +34,7 @@ get_header();
     						<div class="content">
     							<?php if($slide['inset_image']) { ?>
     								<div class="insetImage">
-    									<div class="image" style="background-image:url(<?php echo $slide['inset_image']; ?>);">
+    									<div class="image" style="background-image:url(<?php echo esc_url( $slide['inset_image'] ); ?>);">
     									</div>
     									<?php
 					$slide_inset_image_attach_id = attachment_url_to_postid( $slide['inset_image'] );
@@ -63,7 +63,7 @@ get_header();
     								<span class="videoLink">
     									<a href="#" class="playBtn">
     										<span class="icon">
-    											<img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
+    											<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
     										</span>
     										<span class="text">
     											<span><?php if($slide['video'][0]['video_button_text']) { ?><?php echo esc_html( $slide['video'][0]['video_button_text'] ); ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -79,7 +79,7 @@ get_header();
     			<?php foreach($bannerSlides as $slide) { ?>
     				<?php if($slide['video']) { ?>
     					<div class="videoPlayerContainer">
-    						<span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="close" /></span>
+    						<span class="closeVideo"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="close" /></span>
     						<div class="videoWrapper">
     							<video width="100%" id="popupVideo" controls controlsList="nodownload">
     								<source type="video/mp4" src="<?php echo esc_url( $slide['video'][0]['vimeo_code'] ); ?>" />
@@ -99,7 +99,7 @@ get_header();
                     <ul>
                         <?php while ( have_rows( 'day' ) ) : the_row(); ?>
                             <li>
-                                <a class="scroll-button" href="#day<?php echo $counter; ?>"><?php if ($counter == 0) {?>Pre Event<?php } else {?>Day <?php echo $counter; }?></a>
+                                <a class="scroll-button" href="#day<?php echo esc_attr( $counter ); ?>"><?php if ($counter == 0) {?>Pre Event<?php } else {?>Day <?php echo esc_html( $counter ); }?></a>
                             </li>
                         <?php $counter ++; endwhile;  ?>
                         <li class="register">
@@ -112,7 +112,7 @@ get_header();
                     <ul>
                         <?php while ( have_rows( 'day' ) ) : the_row(); ?>
                             <li>
-                                <a class="scroll-button" href="#day<?php echo $counter; ?>">Day <?php echo $counter; ?></a>
+                                <a class="scroll-button" href="#day<?php echo esc_attr( $counter ); ?>">Day <?php echo esc_html( $counter ); ?></a>
                             </li>
                         <?php $counter ++; endwhile;  ?>
                         <li class="register">
@@ -127,8 +127,8 @@ get_header();
     	<div class="container">
             <div class="inner">
         		<div class="share">
-        			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" decoding="async" alt="Share via Email" /><span>Email</span></a>
-                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" /><span>Share</span></a>
+        			<a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=I%20thought%20you%20might%20be%20interested%20in%20this%20article%20<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/email.svg" width="25" height="25" loading="lazy" decoding="async" alt="Share via Email" /><span>Email</span></a>
+                    <a class="liShare" href="https://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php echo esc_html( get_the_title() ); ?>" target="_blank" rel="noopener noreferrer"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/linkedin-black.svg" width="24" height="24" loading="lazy" decoding="async" alt="Share on LinkedIn" /><span>Share</span></a>
         		</div>
             </div>
     	</div>
@@ -137,14 +137,14 @@ get_header();
     <?php if ( have_rows( 'day' ) ) : if( get_field('pre_event') == 'yes') { $counter = 0; } else { $counter = 1; } ?>
 
         <?php while ( have_rows( 'day' ) ) : the_row(); ?>
-            <section id="day<?php echo $counter; ?>" class="dayWrapper day<?php echo $counter; ?> active">
+            <section id="day<?php echo esc_attr( $counter ); ?>" class="dayWrapper day<?php echo esc_attr( $counter ); ?> active">
                 <div class="container">
                     <div class="inner">
                         <div class="titleBlock">
                             <h1 class="pageTitleLine"><?php echo esc_html( get_the_title() ); ?></h1>
                             <div class="top">
                                 <span class="left">
-                                    <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                                    <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                                     <hr>
                                 </span>
                                 <span class="right">
@@ -156,8 +156,8 @@ get_header();
                                 </span>
                             </div>
                             <div class="bottom">
-                                <h3><?php echo get_sub_field( 'date' ); ?></h3>
-                        		<h4><?php echo get_sub_field( 'day' ); ?></h4>
+                                <h3><?php echo esc_html( get_sub_field( 'date' ) ); ?></h3>
+                        		<h4><?php echo esc_html( get_sub_field( 'day' ) ); ?></h4>
                                 <a class="button popup-modal mobile registerInterest" href="#form">Register Interest</a>
                             </div>
                         </div>
@@ -189,7 +189,7 @@ get_header();
                                     					<?php while ( have_rows( 'logos' ) ) : the_row(); ?>
 
                                                             <span class="logoContainer">
-                                                                <span class="logo" style="background-image: url(<?php echo get_sub_field('logo'); ?>);">
+                                                                <span class="logo" style="background-image: url(<?php echo esc_url( get_sub_field('logo') ); ?>);">
                                                                 </span>
                                                             </span>
 
@@ -200,7 +200,7 @@ get_header();
                                                     <div class="v-wrap">
                                                         <div class="v-box left">
                         									<span class="title">
-                        										<?php echo get_sub_field( 'title' ); ?>
+                        										<?php echo esc_html( get_sub_field( 'title' ) ); ?>
                         									</span>
                                                             <?php if ( have_rows( 'speakers' ) ) : ?>
                                             					<?php while ( have_rows( 'speakers' ) ) : the_row(); ?>
@@ -220,7 +220,7 @@ get_header();
                                             <?php if ( get_sub_field ( 'detailed_text' ) ) { ?>
                                                 <div class="hidden">
                                                     <span class="detail">
-                                                        <?php echo get_sub_field( 'detailed_text' ); ?>
+                                                        <?php echo wp_kses_post( get_sub_field( 'detailed_text' ) ); ?>
                                                     </span>
                                                 </div>
                                                 <span class="read-more-container">
@@ -240,16 +240,16 @@ get_header();
                                     			<?php while ( have_rows( 'double_track_details' ) ) : the_row(); ?>
                                                     <div class="column">
                                                         <span class="trackTitle">
-                            				                <?php echo get_sub_field( 'track_title' ); ?>
+                            				                <?php echo esc_html( get_sub_field( 'track_title' ) ); ?>
                                                         </span>
                                                         <span class="hrWrapper">
                                                             <hr>
                                                         </span>
                                                         <span class="facilitator">
-                                            				<?php echo get_sub_field( 'facilitator' ); ?>
+                                            				<?php echo esc_html( get_sub_field( 'facilitator' ) ); ?>
                                                         </span>
                                                         <span class="facilitatorTitle">
-                                                            <?php echo get_sub_field( 'facilitator_title' ); ?>
+                                                            <?php echo esc_html( get_sub_field( 'facilitator_title' ) ); ?>
                                                         </span>
                                                     </div>
                                     			<?php endwhile; ?>
@@ -276,7 +276,7 @@ get_header();
                                                             <div class="v-wrap">
                                                                 <div class="v-box left">
                                 									<span class="title">
-                                										<?php echo get_sub_field( 'title' ); ?>
+                                										<?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                 									</span>
                                                                     <?php if ( have_rows( 'speakers' ) ) : ?>
                                                     					<?php while ( have_rows( 'speakers' ) ) : the_row(); ?>
@@ -294,7 +294,7 @@ get_header();
                                                                         <div class="logoWrapper">
                                                         					<?php while ( have_rows( 'logos' ) ) : the_row(); ?>
                                                                                 <span class="logoContainer">
-                                                                                    <span class="logo" style="background-image: url(<?php echo get_sub_field('logo'); ?>);">
+                                                                                    <span class="logo" style="background-image: url(<?php echo esc_url( get_sub_field('logo') ); ?>);">
                                                                                     </span>
                                                                                 </span>
                                                         					<?php endwhile; ?>
@@ -307,7 +307,7 @@ get_header();
                                                     <?php if ( get_sub_field ( 'detailed_text' ) ) { ?>
                                                         <div class="hidden">
                                                             <span class="detail">
-                                                                <?php echo get_sub_field( 'detailed_text' ); ?>
+                                                                <?php echo wp_kses_post( get_sub_field( 'detailed_text' ) ); ?>
                                                             </span>
                                                         </div>
                                                         <span class="read-more-container">
@@ -322,7 +322,7 @@ get_header();
                                                             <div class="v-wrap">
                                                                 <div class="v-box left">
                                 									<span class="title">
-                                										<?php echo get_sub_field( 'title_track_two' ); ?>
+                                										<?php echo esc_html( get_sub_field( 'title_track_two' ) ); ?>
                                 									</span>
                                                                     <?php if ( have_rows( 'speakers_track_two' ) ) : ?>
                                                     					<?php while ( have_rows( 'speakers_track_two' ) ) : the_row(); ?>
@@ -339,7 +339,7 @@ get_header();
                                                                         <div class="logoWrapper">
                                                         					<?php while ( have_rows( 'logos_track_two' ) ) : the_row(); ?>
                                                                                 <span class="logoContainer">
-                                                                                    <span class="logo" style="background-image: url(<?php echo get_sub_field('logo'); ?>);">
+                                                                                    <span class="logo" style="background-image: url(<?php echo esc_url( get_sub_field('logo') ); ?>);">
                                                                                     </span>
                                                                                 </span>
                                                         					<?php endwhile; ?>
@@ -352,7 +352,7 @@ get_header();
                                                     <?php if ( get_sub_field ( 'detailed_text' ) ) { ?>
                                                         <div class="hidden">
                                                             <span class="detail">
-                                                                <?php echo get_sub_field( 'detailed_text_track_two' ); ?>
+                                                                <?php echo wp_kses_post( get_sub_field( 'detailed_text_track_two' ) ); ?>
                                                             </span>
                                                         </div>
                                                         <span class="read-more-container">
@@ -393,10 +393,10 @@ get_header();
             <div class="titleBlock">
                 <div class="container">
 
-                    <h2><?php echo get_sub_field( 'title' ); ?></h2>
+                    <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 
 
-                    <h3><?php echo get_sub_field( 'day' ); ?> <?php echo get_sub_field( 'date' ); ?></h3>
+                    <h3><?php echo esc_html( get_sub_field( 'day' ) ); ?> <?php echo esc_html( get_sub_field( 'date' ) ); ?></h3>
 
                 </div>
 
@@ -433,7 +433,7 @@ get_header();
                                             <div class="rightColumn">
                                                 <div class="detailWrapPrint">
                                                     <span class="title">
-                                                        <?php echo get_sub_field( 'title' ); ?>
+                                                        <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                     </span>
                                                     <?php if ( have_rows( 'speakers' ) ) : ?>
                                                         <?php while ( have_rows( 'speakers' ) ) : the_row(); ?>
@@ -449,7 +449,7 @@ get_header();
                                                 </div>
                                                 <?php if ( get_sub_field ( 'detailed_text' ) ) { ?>
                                                     <span class="detail">
-                                                        <?php echo get_sub_field( 'detailed_text' ); ?>
+                                                        <?php echo wp_kses_post( get_sub_field( 'detailed_text' ) ); ?>
                                                     </span>
                                                 <?php } ?>
                                             </div>
@@ -466,16 +466,16 @@ get_header();
                                             <?php while ( have_rows( 'double_track_details' ) ) : the_row(); ?>
                                                 <div class="column">
                                                     <span class="trackTitle">
-                                                        <?php echo get_sub_field( 'track_title' ); ?>
+                                                        <?php echo esc_html( get_sub_field( 'track_title' ) ); ?>
                                                     </span>
                                                     <span class="hrWrapper">
                                                         <hr>
                                                     </span>
                                                     <span class="facilitator">
-                                                        <?php echo get_sub_field( 'facilitator' ); ?>
+                                                        <?php echo esc_html( get_sub_field( 'facilitator' ) ); ?>
                                                     </span>
                                                     <span class="facilitatorTitle">
-                                                        <?php echo get_sub_field( 'facilitator_title' ); ?>
+                                                        <?php echo esc_html( get_sub_field( 'facilitator_title' ) ); ?>
                                                     </span>
                                                 </div>
                                             <?php endwhile; ?>
@@ -501,7 +501,7 @@ get_header();
                                                         <div class="v-wrap">
                                                             <div class="v-box left">
                                                                 <span class="title">
-                                                                    <?php echo get_sub_field( 'title' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'speakers' ) ) : ?>
                                                                     <?php while ( have_rows( 'speakers' ) ) : the_row(); ?>
@@ -537,7 +537,7 @@ get_header();
                                                 <?php if ( get_sub_field ( 'detailed_text' ) ) { ?>
 
                                                     <span class="detail">
-                                                        <?php echo get_sub_field( 'detailed_text' ); ?>
+                                                        <?php echo wp_kses_post( get_sub_field( 'detailed_text' ) ); ?>
                                                     </span>
 
                                                 <?php } ?>
@@ -549,7 +549,7 @@ get_header();
                                                         <div class="v-wrap">
                                                             <div class="v-box left">
                                                                 <span class="title">
-                                                                    <?php echo get_sub_field( 'title_track_two' ); ?>
+                                                                    <?php echo esc_html( get_sub_field( 'title_track_two' ) ); ?>
                                                                 </span>
                                                                 <?php if ( have_rows( 'speakers_track_two' ) ) : ?>
                                                                     <?php while ( have_rows( 'speakers_track_two' ) ) : the_row(); ?>
@@ -584,7 +584,7 @@ get_header();
                                                 <?php if ( get_sub_field ( 'detailed_text' ) ) { ?>
 
                                                     <span class="detail">
-                                                        <?php echo get_sub_field( 'detailed_text_track_two' ); ?>
+                                                        <?php echo wp_kses_post( get_sub_field( 'detailed_text_track_two' ) ); ?>
                                                     </span>
 
                                                 <?php } ?>
