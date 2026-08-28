@@ -218,7 +218,17 @@
             <span class="base">
                 <div>
                     <span class="left">
-                        <span>&copy; ADAPT VENTURES PTY LTD <?php echo date('Y'); ?>. All rights reserved</span>
+                        <?php
+                        // date('Y') uses PHP's default timezone (server-
+                        // dependent, usually UTC), not the site's configured
+                        // one under Settings > General - a well-known source
+                        // of the copyright year flipping a few hours early
+                        // or late around New Year's depending on where the
+                        // server and site timezone disagree. wp_date()
+                        // resolves against the site's actual timezone
+                        // setting instead.
+                        ?>
+                        <span>&copy; ADAPT VENTURES PTY LTD <?php echo esc_html( wp_date( 'Y' ) ); ?>. All rights reserved</span>
                     </span>
                     <span class="right">
                         <?php theme_nav('bottom'); ?>

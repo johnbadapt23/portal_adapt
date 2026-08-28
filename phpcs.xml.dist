@@ -45,6 +45,15 @@
     <rule ref="WordPress.WP.DeprecatedParameterValues"/>
     <rule ref="WordPress.PHP.DiscouragedPHPFunctions"/>
 
+    <!-- Flags raw date()/gmdate()/etc. in favor of wp_date()/current_time() -
+         a real, live issue in this codebase (functions.php batch/cron dedup
+         keys, several date-cutoff checks in templates use date() directly),
+         but left as a flag rather than an auto-fix: some of those call
+         sites may deliberately want UTC-consistent date buckets regardless
+         of the site's configured timezone, which only whoever wrote that
+         cron logic can confirm. -->
+    <rule ref="WordPress.DateTime.RestrictedFunctions"/>
+
     <!-- Text domain is 'portal' (see style.css "Text Domain" header and
          includes/_setup.php's load_theme_textdomain() call). -->
     <rule ref="WordPress.WP.I18n">
