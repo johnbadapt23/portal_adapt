@@ -11,8 +11,8 @@ get_header();
 	<section class="filter-title-block ">
 		<div class="container">
 			<div class="title-container">
-				<h1 class="type-title text-black"><?php echo get_field( 'next_conversation_title', 'options' ); ?></h1>
-				<span class="type-description text-black"><?php echo get_field( 'next_conversation_text', 'options' ); ?></span>
+				<h1 class="type-title text-black"><?php echo esc_html( get_field( 'next_conversation_title', 'options' ) ); ?></h1>
+				<span class="type-description text-black"><?php echo esc_html( get_field( 'next_conversation_text', 'options' ) ); ?></span>
 			</div>
 			<div class="topic-button-container-outer">
 				<div class="topic-button-container filter-button-container">
@@ -113,10 +113,10 @@ get_header();
 										}
 									}?>									
 									<?php if($postType){?>
-											<a href="/persona-mapping/<?php echo $postType->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
-									<?php } ?>                              
+											<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
+									<?php } ?>
 									<?php if($postTopic){?>
-										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
 									<?php } ?>
 								</span>
 								<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
