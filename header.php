@@ -51,7 +51,6 @@
 ?>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" defer></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@1.6.2/dist/lottie-interactivity.min.js" defer></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
 <?php
     // Falls back to the site icon when a page has no featured_image/video_poster
     // ACF field set (e.g. the homepage) - previously this echoed an empty

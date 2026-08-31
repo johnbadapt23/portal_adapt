@@ -6,8 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // actions
 add_action('after_setup_theme', 	'theme_setup' );
-add_action('init', 					'theme_scripts');
-add_action('wp_enqueue_scripts', 	'theme_styles');
 add_action('init', 					'theme_menus');
 add_action('widgets_init', 			'theme_widgets' );
 add_action('init', 					'custom_theme_pagination');
