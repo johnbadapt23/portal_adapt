@@ -1,7 +1,7 @@
 <section class="title-banner dark-theme">
 	<div class="container">
 		<h1 class="header-large mobile-header-medium">Analyst Market Briefings</h1>
-		<p><?php echo get_field( 'webinar_listing_banner_subtitle', 'option' ); ?></p>
+		<p><?php echo esc_html( get_field( 'webinar_listing_banner_subtitle', 'option' ) ); ?></p>
 	</div>
 </section>
 <section class="register-listing dark-theme">
@@ -311,6 +311,7 @@ $html = ob_get_clean();
 
 <div id="past-sessions-container" class="register-listing-container past-sessions active">
     <div class="upcoming-listing resources-column-container three-column-container gap-16-40">
+        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $html is captured via ob_get_clean() from included template partials (e.g. _article-card.php) that already escape their own output. ?>
         <?php echo $html; ?>
     </div>
 
