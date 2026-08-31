@@ -27,7 +27,7 @@
                         $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : array();
                         ?>
                         <?php
-                        $terms = get_terms( $term_m, array(
+                        $terms = get_terms( array( 'taxonomy' => $term_m,
                             'hide_empty' => true,
                         ) );
                         ?>
