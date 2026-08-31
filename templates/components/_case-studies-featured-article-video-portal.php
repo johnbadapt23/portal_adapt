@@ -1,4 +1,4 @@
-<section class="caseStudiesFeaturedVideo portal bg-dark <?php echo get_sub_field('add_margin_bottom'); ?>">
+<section class="caseStudiesFeaturedVideo portal bg-dark <?php echo esc_attr( get_sub_field('add_margin_bottom') ); ?>">
     <div class="container">
         <?php $post_object = get_sub_field( 'case_study' ); ?>
         <?php if ( $post_object ): ?>
