@@ -38,7 +38,7 @@ $q_slug = $q->slug ?? '';
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Sector Analysis" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if (in_array($q_slug, ['expert-presentations', 'community-interviews', 'workshop-recordings', 'customer'], true)){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span> 
 						<span class="filtersButtonMobile">                            
@@ -300,7 +300,7 @@ $q_slug = $q->slug ?? '';
 					<span class="searchField">
 						<span class="search">
 							<input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Sector Analysis" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-							<input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
+							<input class="searchButton" type="image" alt="Search" <?php if (in_array($q_slug, ['expert-presentations', 'community-interviews', 'workshop-recordings', 'customer'], true)){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
 						</span>
 					</span>                     
 					<span class="filtersButtonMobile">                            

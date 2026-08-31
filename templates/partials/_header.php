@@ -229,7 +229,7 @@ if (current_user_can('administrator')) {
 	<div class="bottom">
 		<div class="container">
 			<span class="desktopNav <?= esc_attr( $membershipType ); ?> <?= $superAdminView ? 'is_admin': 'is_not'; ?>">
-                <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
+                <?php if (in_array($membershipType, ['tnc', 'kyc'])) { ?>
                     <ul>
                         <?php if ($membershipType == 'kyc') { ?>
                             <li>
@@ -1455,7 +1455,7 @@ if (current_user_can('administrator')) {
 <nav class="mobileMenu">
     <div class="mobileMenuItems">
         <span class="menuTop">
-                <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
+                <?php if (in_array($membershipType, ['tnc', 'kyc'])) { ?>
                 <ul>
                     <?php if ($membershipType == 'kyc') { ?>
                         <li>

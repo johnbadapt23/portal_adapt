@@ -56,18 +56,15 @@ $filterBy = [];
             $orderBy = 'menu_order';
             $order = 'ASC';
         } else {
-            if ($sortPosts == 'newest') {
-                $orderBy = 'date';
-                $order = 'DESC';
-            } else if ($sortPosts == 'oldest') {
-                $orderBy = 'date';
-                $order = 'ASC';
-            } else if ($sortPosts == 'titleASC') {
-                $orderBy = 'title';
-                $order = 'ASC';
-            } else if ($sortPosts == 'titleDESC') {
-                $orderBy = 'title';
-                $order = 'DESC';
+            $sort_map = match ($sortPosts) {
+                'newest'    => ['date', 'DESC'],
+                'oldest'    => ['date', 'ASC'],
+                'titleASC'  => ['title', 'ASC'],
+                'titleDESC' => ['title', 'DESC'],
+                default     => null,
+            };
+            if ($sort_map !== null) {
+                [$orderBy, $order] = $sort_map;
             }
         }
     } else {
@@ -499,14 +496,15 @@ $filterBy = [];
                             <div class="sort-by-mobile" id="sortby">
                                 <?php
                                 if ($sortPosts != '') {
-                                    if ($sortPosts == 'newest') {
-                                        $sortPostValue = 'Newest';
-                                    } else if ($sortPosts == 'oldest') {
-                                        $sortPostValue = 'Oldest';
-                                    } else if ($sortPosts == 'titleASC') {
-                                        $sortPostValue = 'Title A - Z';
-                                    } else if ($sortPosts == 'titleDESC') {
-                                        $sortPostValue = 'Title Z - A';
+                                    $sort_post_value_map = match ($sortPosts) {
+                                        'newest'    => 'Newest',
+                                        'oldest'    => 'Oldest',
+                                        'titleASC'  => 'Title A - Z',
+                                        'titleDESC' => 'Title Z - A',
+                                        default     => null,
+                                    };
+                                    if ($sort_post_value_map !== null) {
+                                        $sortPostValue = $sort_post_value_map;
                                     }
                                 } else {
                                     $sortPostValue = 'Newest';
@@ -790,18 +788,15 @@ $filterBy = [];
                             $orderBy = 'date';
                             $order = 'DESC';
                         } else {
-                            if ($sortPosts == 'newest') {
-                                $orderBy = 'date';
-                                $order = 'DESC';
-                            } else if ($sortPosts == 'oldest') {
-                                $orderBy = 'date';
-                                $order = 'ASC';
-                            } else if ($sortPosts == 'titleASC') {
-                                $orderBy = 'title';
-                                $order = 'ASC';
-                            } else if ($sortPosts == 'titleDESC') {
-                                $orderBy = 'title';
-                                $order = 'DESC';
+                            $sort_map = match ($sortPosts) {
+                                'newest'    => ['date', 'DESC'],
+                                'oldest'    => ['date', 'ASC'],
+                                'titleASC'  => ['title', 'ASC'],
+                                'titleDESC' => ['title', 'DESC'],
+                                default     => null,
+                            };
+                            if ($sort_map !== null) {
+                                [$orderBy, $order] = $sort_map;
                             }
                         }
                     } else {

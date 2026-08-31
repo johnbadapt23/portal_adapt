@@ -15,11 +15,11 @@ $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
 
 $membership_allowed_ids = [];
 
-if ($membershipType === 'it-pro') {
-    $membership_allowed_ids = $it_pro_types_ids;
-} elseif ($membershipType === 'advantage') {
-    $membership_allowed_ids = $advantage_types_ids;
-} ?>
+$membership_allowed_ids = match ($membershipType) {
+    'it-pro'    => $it_pro_types_ids,
+    'advantage' => $advantage_types_ids,
+    default     => $membership_allowed_ids,
+}; ?>
 <section class="title-banner light-theme">
     <div class="container">
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_the_title() ); ?></h1>
