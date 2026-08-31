@@ -5,7 +5,7 @@
         </div>
         <div class="background-card-container">
             <?php $background_image = get_sub_field( 'background_image' ); ?>
-            <div class="background-container" style="background-image:url(<?php echo $background_image['url']; ?>)">
+            <div class="background-container" style="background-image:url(<?php echo esc_url( $background_image['url'] ); ?>)">
 			</div>
             <div class="card-container">
                 <?php if ( have_rows( 'quicklinks' ) ) : ?>
@@ -22,7 +22,7 @@
                                 </span>
                             <?php } ?>
                             <span class="text labelMedium">
-                                <?php echo get_sub_field( 'text' ); ?>
+                                <?php echo esc_html( get_sub_field( 'text' ) ); ?>
                             </span>
                         <?php if ( get_sub_field('link_url') !== '' && get_sub_field('link_url') !== null ) { ?>
                             </a>
