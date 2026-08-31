@@ -55,7 +55,7 @@
 
                 <?php if ( get_field ( 'member_content' ) == 'yes' ) { ?>
                     <?php if(current_user_can('mepr-active','membership:26')) { ?>
-                        <span class="postLink layout<?php echo $counter; ?>">
+                        <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
 
                             <div class="linkWrapper">
                                 <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
@@ -103,7 +103,7 @@
                             </div>
                         </span>
                     <?php } else { ?>
-                        <span href="<?php the_permalink(); ?>" class="postLink layout<?php echo $counter; ?> memberContentLock" target="_self">
+                        <span href="<?php the_permalink(); ?>" class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock" target="_self">
                             <span class="overlay">
                                 <span class="exclusiveContent">
                                     <span class="overlayText"><?php the_field('member_content_post_overlay_text', 'option'); ?></span>
@@ -166,7 +166,7 @@
                         </span>
                     <?php } ?>
                 <?php } else { ?>
-                    <span class="postLink layout<?php echo $counter; ?>">
+                    <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
 
                         <div class="linkWrapper">
                             <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
