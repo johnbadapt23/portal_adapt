@@ -56,7 +56,7 @@ if ($membershipType === 'it-pro') {
                                 'posts_per_page' => -1,
                                 'fields'         => 'ids',
                                 'date_query'     => [[
-                                    'after' => date('Y-m-01', strtotime('-2 months')),
+                                    'after' => wp_date('Y-m-01', strtotime('-2 months')),
                                 ]],
                             ]);
 
@@ -93,8 +93,8 @@ if ($membershipType === 'it-pro') {
                             for ($i = 0; $i < 3; $i++) {
                                 $timestamp = strtotime("-{$i} months");
                                 $months[] = [
-                                    'label' => date('F Y', $timestamp),
-                                    'value' => date('Y-m', $timestamp),
+                                    'label' => wp_date('F Y', $timestamp),
+                                    'value' => wp_date('Y-m', $timestamp),
                                 ];
                             }
 
