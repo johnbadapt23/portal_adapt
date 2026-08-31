@@ -40,7 +40,7 @@ if ( is_user_logged_in() && isset($_GET['redirect_to']) ) {
 		<div class="container">
 			<div class="login-container-inner">
 				<div class="introduction-text">
-					<h2><?php echo esc_html( get_field( 'introduction_text' ) ); ?></h2>
+					<h2><?php echo wp_kses_post( get_field( 'introduction_text' ) ); ?></h2>
 				</div>
 				<div class="login-form-container">
 					<span class="form-title"><?php echo esc_html( get_field( 'login_form_title' ) ); ?></span>
