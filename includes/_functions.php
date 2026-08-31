@@ -85,7 +85,7 @@ function updateQueryString($key, $value){
 
 // redirect page
 function redirectPage($url){
-	echo '<script type="text/javascript">window.location = "' . $url . '"</script>';
+	echo '<script type="text/javascript">window.location = "' . esc_js( esc_url( $url ) ) . '"</script>';
 }
 
 // Shared by the persona/sector/topic/post filter templates: returns the
