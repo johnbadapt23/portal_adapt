@@ -2259,6 +2259,21 @@ add_filter( 'rocket_delay_js_exclusions', function( $exclusions ) {
         $exclusions[] = 'gsap.min.js';
         $exclusions[] = 'mediaelement-and-player.min.js';
         $exclusions[] = '/themes/adapt/assets/js/main.min.js';
+        // The homepage's embedded [customgpt_chat mode="embedded"] widget
+        // (.cgpt-hero-card) is meant to load eagerly here - see footer.php's
+        // `if (!is_front_page())` gate, which deliberately skips our own
+        // lazy CustomGPT.init() wrapper on this page because this widget
+        // already self-initializes on load. WP Rocket's Delay JS was still
+        // deferring this widget's own bundle regardless, rewriting its
+        // inline handlers to replay on first user interaction - and since
+        // the widget hadn't rendered yet at that point, the replayed click
+        // landed on stale/wrong DOM (its file-attach control instead of the
+        // textarea), submitting the form and reloading the page. Confirmed
+        // live: typing into the textarea reliably triggered a full page
+        // reload, wiping whatever was typed. Excluding the widget's own
+        // script bundle (served from customgpt-chat-widget/dist/widget/)
+        // stops Delay JS from touching it, matching the eager-load intent.
+        $exclusions[] = 'customgpt-chat-widget';
     }
 
     return $exclusions;
