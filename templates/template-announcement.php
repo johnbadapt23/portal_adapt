@@ -178,7 +178,7 @@ if (user_can($current_user, 'administrator')) {
             <?php } ?>
 
             <?php endwhile; else : ?>
-                <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
+                <p><?php esc_html_e( 'Sorry, no posts matched your criteria.', 'portal' ); ?></p>
             <?php endif; ?>
             <?php wp_reset_postdata(); wp_reset_query();?>
         </div>
