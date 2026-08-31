@@ -5,11 +5,13 @@
 
 get_header();
 global $membershipType;
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter params for a bookmarkable, shareable sector-listing URL; each value is sanitized via sanitize_text_field()/wp_unslash() before use, no state change.
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
 $events = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
 $sector = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 $has_persona_get = ($persona !== '');
 $persona_term = null;
 

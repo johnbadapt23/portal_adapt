@@ -4,6 +4,7 @@
  */
 
 get_header();
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable listing URL; no state change results from reading it.
 $topic = $_GET['topic'];
 ?>
 

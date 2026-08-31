@@ -2,6 +2,7 @@
 // ------------------------------
 // GET PARAMS
 // ------------------------------
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET search/filter params for a bookmarkable, shareable search URL; each value is sanitized via sanitize_text_field()/wp_unslash() before use, no state change.
 $search  = isset($_GET['s']) ? sanitize_text_field(wp_unslash($_GET['s'])) : '';
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $sectors = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
@@ -9,6 +10,7 @@ $type    = isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type']))
 $topic   = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
 $event   = isset($_GET['eventType']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
 $themes  = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 
 
