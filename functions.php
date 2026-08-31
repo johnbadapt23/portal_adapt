@@ -2263,17 +2263,23 @@ add_filter( 'rocket_delay_js_exclusions', function( $exclusions ) {
         // (.cgpt-hero-card) is meant to load eagerly here - see footer.php's
         // `if (!is_front_page())` gate, which deliberately skips our own
         // lazy CustomGPT.init() wrapper on this page because this widget
-        // already self-initializes on load. WP Rocket's Delay JS was still
-        // deferring this widget's own bundle regardless, rewriting its
-        // inline handlers to replay on first user interaction - and since
-        // the widget hadn't rendered yet at that point, the replayed click
-        // landed on stale/wrong DOM (its file-attach control instead of the
-        // textarea), submitting the form and reloading the page. Confirmed
-        // live: typing into the textarea reliably triggered a full page
-        // reload, wiping whatever was typed. Excluding the widget's own
-        // script bundle (served from customgpt-chat-widget/dist/widget/)
-        // stops Delay JS from touching it, matching the eager-load intent.
-        $exclusions[] = 'customgpt-chat-widget';
+        // already self-initializes on load. The previous exclusion entry
+        // here, customgpt-chat-widget, matched only the widget's lazily
+        // loaded chunk files (served from the plugin's dist/widget/
+        // directory) - those are fetched indirectly by the widget's own
+        // loader script after it runs, so WP Rocket's Delay JS was never
+        // able to touch them in the first place, and that exclusion had no
+        // real effect. The script actually being delayed is the widget's
+        // loader tag itself, printed directly in footer.php as
+        // https://cdn.customgpt.ai/js/chat.js. Delaying that script pushes
+        // its entire cold-start sequence (fetching project info/settings,
+        // creating a conversation) out of normal page load and into the
+        // exact moment of the user's first click or keystroke, where it
+        // shows up as a jarring full-widget blank-and-reload flash instead
+        // of something that happens quietly while the page is loading.
+        // Excluding the loader itself lets it run eagerly like the rest of
+        // this list, so that init finishes before the user ever interacts.
+        $exclusions[] = 'cdn.customgpt.ai';
     }
 
     return $exclusions;
