@@ -18,7 +18,7 @@
 		
 		<div class="register-listing-container upcoming active">
 			<?php
-			$today = date('Ymd');
+			$today = wp_date('Ymd');
 			$args = array(
 				'post_type' => 'registration',
 				'meta_key'  => 'event_date',
@@ -96,7 +96,7 @@
 				wp_reset_postdata();
 				?>
 				<?php
-				$today = date('Ymd');
+				$today = wp_date('Ymd');
 				$args = array(
 					'post_type' => 'registration',
 					'meta_key'  => 'event_date',
@@ -174,7 +174,7 @@
 		</div>
 		<div class="register-listing-container past-sessions active">
     <?php
-    $today = date('Ymd');
+    $today = wp_date('Ymd');
     $paged = max( 1, get_query_var('paged') ?: get_query_var('page') );
 
     $posts_per_page = 18;      // Number of visible posts per page
@@ -209,7 +209,7 @@
 
 <div class="register-listing-container past-sessions active">
     <?php
-    $today = date('Ymd');
+    $today = wp_date('Ymd');
     $paged = max( 1, get_query_var('paged') ?: get_query_var('page') );
     $posts_per_page = 18;
     $soft_limit = $posts_per_page * 3; // fetch extra to account for MemberPress filtering
@@ -248,7 +248,7 @@
 
 $posts_per_page = 18;
 $soft_limit     = $posts_per_page * 5; // fetch extra to account for blocked posts
-$today = date('Ymd');
+$today = wp_date('Ymd');
 
 // First page load
 $paged = 1;
