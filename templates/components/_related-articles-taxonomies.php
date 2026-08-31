@@ -51,6 +51,7 @@
                                         		'post__in'       => $related_ids,
                                         		'orderby'        => 'post__in',
                                         		'posts_per_page' => 8,
+                                        		'no_found_rows'  => true,
                                         	] )
                                         	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                                          if( $posts->have_posts() ): ?>
@@ -262,6 +263,7 @@
                                         		'post__in'       => $related_ids,
                                         		'orderby'        => 'post__in',
                                         		'posts_per_page' => 8,
+                                        		'no_found_rows'  => true,
                                         	] )
                                         	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                                          if( $posts->have_posts() ): ?>
@@ -474,6 +476,7 @@
                                         		'post__in'       => $related_ids,
                                         		'orderby'        => 'post__in',
                                         		'posts_per_page' => 8,
+                                        		'no_found_rows'  => true,
                                         	] )
                                         	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                                          if( $posts->have_posts() ): ?>
@@ -712,6 +715,7 @@
                                 		'post__in'       => $related_ids,
                                 		'orderby'        => 'post__in',
                                 		'posts_per_page' => 8,
+                                		'no_found_rows'  => true,
                                 	] )
                                 	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                                  if( $posts->have_posts() ): ?>
@@ -924,6 +928,7 @@
                                 		'post__in'       => $related_ids,
                                 		'orderby'        => 'post__in',
                                 		'posts_per_page' => 8,
+                                		'no_found_rows'  => true,
                                 	] )
                                 	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                                  if( $posts->have_posts() ): ?>
@@ -1136,6 +1141,7 @@
                                 		'post__in'       => $related_ids,
                                 		'orderby'        => 'post__in',
                                 		'posts_per_page' => 8,
+                                		'no_found_rows'  => true,
                                 	] )
                                 	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                                  if( $posts->have_posts() ): ?>
