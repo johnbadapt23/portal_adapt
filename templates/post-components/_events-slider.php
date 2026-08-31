@@ -8,7 +8,7 @@
     <?php $background = 'dark-theme bg-black'; ?>
 <?php } ?>
 
-<section class="upcoming-events-slider-section <?php echo $background; ?>">
+<section class="upcoming-events-slider-section <?php echo esc_attr( $background ); ?>">
     <div class="container">
         <div class="title-slider-container">
             <div class="column title-column">
@@ -19,7 +19,7 @@
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                         <span class="button-container">
-                            <a class="std-button white-outline small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                            <a class="std-button white-outline small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         </span>														
                     <?php endwhile; ?>
                 <?php else : ?>
