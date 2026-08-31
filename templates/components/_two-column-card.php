@@ -22,7 +22,7 @@
                                 <div class="twoColumnCard">
                                     <a class="formPopupCardButton">
                                         <span class="imageContainer">
-                                            <span class="image" style="background-image:url(<?php echo get_sub_field( 'image' ); ?>);">
+                                            <span class="image" style="background-image:url(<?php echo esc_url( get_sub_field( 'image' ) ); ?>);">
                                             </span>
                                         </span>
                                     </a>
@@ -34,6 +34,7 @@
                                     <div class="cardPopupContainer" style="display: none;">
                                         <div class="cardPopup formPopup" id="cardFormPopup">
                                             <div class="formWrapper cardFormWrapper">
+                                                <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?>
                                                 <?php echo get_sub_field( 'form' ); ?>
                                             </div>
                                         </div>
@@ -69,7 +70,7 @@
                         <div class="twoColumnCard">
                             <a class="formPopupCardButton">
                                 <span class="imageContainer">
-                                    <span class="image" style="background-image:url(<?php echo get_sub_field( 'image' ); ?>);">
+                                    <span class="image" style="background-image:url(<?php echo esc_url( get_sub_field( 'image' ) ); ?>);">
                                     </span>
                                 </span>
                             </a>
@@ -81,6 +82,7 @@
                             <div class="cardPopupContainer" style="display: none;">
                                 <div class="cardPopup formPopup" id="cardFormPopup">
                                     <div class="formWrapper cardFormWrapper">
+                                        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?>
                                         <?php echo get_sub_field( 'form' ); ?>
                                     </div>
                                 </div>
