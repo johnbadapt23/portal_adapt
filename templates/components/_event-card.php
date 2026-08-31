@@ -1,6 +1,6 @@
-<span class="events-card column <?php echo $extra_classes; ?>">
+<span class="events-card column <?php echo esc_attr( $extra_classes ); ?>">
      <?php if (get_field('external_link')) { ?>
-        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
+        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo esc_attr( get_field('external_link_target') ); ?>">
     <?php } else { ?>
         <a href="<?= esc_url( get_post_type() === 'event' ? '' : get_the_permalink() ); ?>" class="event-link" target="_self">
     <?php }?>
@@ -30,6 +30,7 @@
 						$fallback_loading = $inline_img_151_attrs['loading'] ?? 'lazy';
 						$fallback_class = isset( $inline_img_151_attrs['class'] ) ? ' class="' . esc_attr( $inline_img_151_attrs['class'] ) . '"' : '';
 						$fallback_fetchpriority = isset( $inline_img_151_attrs['fetchpriority'] ) ? ' fetchpriority="' . esc_attr( $inline_img_151_attrs['fetchpriority'] ) . '"' : '';
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $fallback_class and $fallback_fetchpriority are pre-built attribute-string fragments assembled above from esc_attr()-wrapped values; the surrounding markup is static.
 						echo '<img' . $fallback_class . ' src="' . esc_url( $inline_img_151_src ) . '" loading="' . esc_attr( $fallback_loading ) . '"' . $fallback_fetchpriority . ' alt="' . esc_attr( get_the_title() ) . '" />';
 					}
 				?>
