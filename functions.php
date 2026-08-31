@@ -26,10 +26,6 @@ function adapt_is_staging() {
     );
 }
 
-function my_acf_init() {
-	acf_update_setting('google_api_key', 'AIzaSyDss6XUuPFsJgunJJ6dZZjzuR9d39WtjRU');
-}
-
 /**
  * Crawler content unlock.
  * While adapt_content_unlocked() returns true, grant the MemberPress
@@ -267,7 +263,6 @@ add_action('wp', function() {
 }, 20);
 
 
-add_action('acf/init', 'my_acf_init');
 add_filter('upload_mimes', 'cc_mime_types');
 
 add_image_size( 'gallery-landscape', 1280, 800, true );
