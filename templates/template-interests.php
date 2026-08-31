@@ -15,15 +15,15 @@ $interests = $user_info->mepr_interests;
     <section class="updateInterests">
         <div class="container">
             <div class="introductionTextContainer">
-                <h1><?php echo get_field( 'title' ); ?></h1>
+                <h1><?php echo esc_html( get_field( 'title' ) ); ?></h1>
                 <span class="introductionText">
-                    <?php echo get_field( 'introduction_text' ); ?>
+                    <?php echo esc_html( get_field( 'introduction_text' ) ); ?>
                 </span>
             </div>
             <div class="topicsContainer">
                 <span class="hidden" id="responseText"></span>
                 <div class="formContainer">
-                    <form action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="POST" id="updateUserInterests">
+                    <form action="<?php echo esc_url( site_url() ) ?>/wp-admin/admin-ajax.php" method="POST" id="updateUserInterests">
                         <?php
                         $term_m = 'topic';
                         ?>
@@ -39,11 +39,11 @@ $interests = $user_info->mepr_interests;
                                 <span class="topicIntroduction"><?php echo esc_html( $term->description ); ?></span>
                                 <span class="checkbox-container">
                                     <?php if ($interests){ ?>
-                                        <input type="checkbox" id="checkbox<?php echo $term->slug;?>" value="on" name="mepr_interests[<?php echo $term->slug; ?>]" <?php if('on'==$interests[$term->slug]){ ?>checked="checked"<?php }?>/>
-                                        <label for="checkbox<?php echo $term->slug;?>" ><?php if('on'==$interests[$term->slug]){ ?>Following<?php } else { ?>Follow<?php } ?></label>
+                                        <input type="checkbox" id="checkbox<?php echo esc_attr( $term->slug );?>" value="on" name="mepr_interests[<?php echo esc_attr( $term->slug ); ?>]" <?php if('on'==$interests[$term->slug]){ ?>checked="checked"<?php }?>/>
+                                        <label for="checkbox<?php echo esc_attr( $term->slug );?>" ><?php if('on'==$interests[$term->slug]){ ?>Following<?php } else { ?>Follow<?php } ?></label>
                                     <?php } else { ?>
-                                        <input type="checkbox" id="checkbox<?php echo $term->slug;?>" value="on" name="mepr_interests[<?php echo $term->slug; ?>]"/>
-                                        <label for="checkbox<?php echo $term->slug;?>">Follow</label>
+                                        <input type="checkbox" id="checkbox<?php echo esc_attr( $term->slug );?>" value="on" name="mepr_interests[<?php echo esc_attr( $term->slug ); ?>]"/>
+                                        <label for="checkbox<?php echo esc_attr( $term->slug );?>">Follow</label>
                                     <?php } ?>
                                 </span>
                             </span>
