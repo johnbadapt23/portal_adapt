@@ -83,12 +83,12 @@ global $membershipType;
             }
 
             // Get the current timestamp
-            $current_timestamp = date('Ymd');
+            $current_timestamp = wp_date('Ymd');
 
             // Remove views older than 30 days
-            // $thirty_days_ago_date = date('Ymd', strtotime('-30 days'));
+            // $thirty_days_ago_date = wp_date('Ymd', strtotime('-30 days'));
             // test it with one day
-            $thirty_days_ago_date = date('Ymd', strtotime('-30 days'));
+            $thirty_days_ago_date = wp_date('Ymd', strtotime('-30 days'));
 
             $new_post_views_array = array();
             foreach ($post_views_array as $view) {
