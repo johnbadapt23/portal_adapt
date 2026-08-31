@@ -30,17 +30,17 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                             <?php $buttonCounter = 1; ?>
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
-                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo esc_attr( get_sub_field( 'scroll_to_id' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } elseif(get_sub_field( 'link_type' ) == 'link')  { ?>
-                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?>
-                                    <?php if($counter <= 0){ ?> 
+                                    <?php if($counter <= 0){ ?>
                                         <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">
-                                            <a class="form-popup popup-modal" href="#talkform"><?php echo get_sub_field( 'form_button' ); ?></a>
+                                            <a class="form-popup popup-modal" href="#talkform"><?php echo esc_html( get_sub_field( 'form_button' ) ); ?></a>
                                         </span>
                                         <div class="formPopup talk-form mfp-hide" id="talkform">
 				                            <a class="popup-modal-dismiss"></a>
-                                            <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); ?></div>
+                                            <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored raw form-embed markup requires unescaped HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                         </div>
                                     <?php } ?>                                    
                                 <?php } ?>
@@ -63,7 +63,7 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                         <?php } ?>  
                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                             <span class="opacity-overlay"></span>
-                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                         <?php } ?>
                     </div>
                 </div> 
