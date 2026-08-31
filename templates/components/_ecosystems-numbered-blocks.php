@@ -8,12 +8,12 @@
             <?php $counter = 1; ?>
                 <?php while ( have_rows( 'steps' ) ) : the_row(); ?>
                     <span class="stages-item"> 
-                        <span class="stages-counter"><?php echo $counter; ?></span>                                              
+                        <span class="stages-counter"><?php echo esc_html( $counter ); ?></span>                                              
                         <span class="stages-title-container">
                             <h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
                         </span>
                         <span class="stages-text-container">
-                            <p><?php echo get_sub_field( 'text' ); ?></p>
+                            <p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                         </span>
                     </span>
                     <?php $counter++; ?>
