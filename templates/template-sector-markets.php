@@ -178,7 +178,7 @@ get_header();
 		<section class="portal postListing topicGrid sector-grid subTopic sector-container">
 	        <div class="container">
 				<?php $term_m = 'sector-analysis';
-                $terms = get_terms( $term_m, array(
+                $terms = get_terms( array( 'taxonomy' => $term_m,
                     'hide_empty' => false,
                 ) );
 
