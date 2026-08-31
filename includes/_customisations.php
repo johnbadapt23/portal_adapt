@@ -309,6 +309,7 @@ function custom_block_author_enumeration() {
 		return;
 	}
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET probe check used only to redirect anonymous author-ID enumeration attempts; no state change, and requiring a nonce here would defeat the purpose (a real anonymous visitor won't have one).
 	if ( isset( $_GET['author'] ) && preg_match( '/^\d+$/', wp_unslash( $_GET['author'] ) ) ) {
 		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;
