@@ -9,9 +9,9 @@ get_header();
 <section class="postHeader">
     <div class="container">
         <div class="headerWrapper">
-            <h1><?php echo get_field( 'members_area_title_text', 'option' ); ?></h1>
+            <h1><?php echo esc_html( get_field( 'members_area_title_text', 'option' ) ); ?></h1>
             <span class="subTitle">
-                <?php echo get_field( 'members_area_sub_title', 'option' ); ?>
+                <?php echo esc_html( get_field( 'members_area_sub_title', 'option' ) ); ?>
             </span>
         </div>
         <div class="filter">
@@ -37,7 +37,7 @@ get_header();
                             $option .= ' (' . (int) $category->count . ')';
                             $option .= '</option>';
                         }
-                        echo $option;
+                        echo $option; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $option is a pre-built HTML string assembled entirely from esc_url()/esc_html()/esc_html__()-wrapped and (int)-cast fragments above; each fragment is already escaped individually.
                     ?>
                 </select>
             </span>
@@ -57,17 +57,17 @@ get_header();
                 while ( $loop->have_posts() ) : $loop->the_post();
             ?>
 
-                <a href="<?php the_permalink(); ?>" class="postLink layout<?php echo $counter; ?>" target="_self">
+                <a href="<?php the_permalink(); ?>" class="postLink layout<?php echo esc_attr( $counter ); ?>" target="_self">
                     <div class="linkWrapper">
                         <?php if ( get_field ( 'podcast_file' ) ) { ?>
                             <span class="podcast"></span>
                         <?php } ?>
                         <div class="imageContainer">
                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                 </div>
                             <?php } else { ?>
-                                <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                 </div>
                             <?php } ?>
                         </div>
@@ -117,13 +117,13 @@ get_header();
 
         <div class="formTrigger">
             <?php if ( get_field ( 'form_title', 'option' ) ) { ?>
-                <h2><?php echo get_field( 'form_title', 'option' ); ?></h2>
+                <h2><?php echo esc_html( get_field( 'form_title', 'option' ) ); ?></h2>
             <?php } ?>
             <?php if ( get_field ( 'form_subtitle', 'option' ) ) { ?>
-                <h3><?php echo get_field( 'form_subtitle', 'option' ); ?></h3>
+                <h3><?php echo esc_html( get_field( 'form_subtitle', 'option' ) ); ?></h3>
             <?php } ?>
             <?php if ( get_field ( 'call_to_action_text', 'option' ) ) { ?>
-                <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
+                <h4><?php echo esc_html( get_field( 'call_to_action_text', 'option' ) ); ?></h4>
             <?php } ?>
 
             <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
