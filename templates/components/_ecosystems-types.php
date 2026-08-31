@@ -26,7 +26,7 @@
                             </span>
                         <?php } ?>
                         <span class="stages-button-container">
-                            <a class="stdBtn red data-set-button" href="/ecosystem-partners/search/?partner-types[]=<?php echo $stage_term->slug;?>" target="_self">View All</a>
+                            <a class="stdBtn red data-set-button" href="/ecosystem-partners/search/?partner-types[]=<?php echo esc_attr( $stage_term->slug );?>" target="_self">View All</a>
                         </span>
                     </span>
                 <?php endif; ?>
