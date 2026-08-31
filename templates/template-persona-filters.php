@@ -46,8 +46,8 @@ if ($membershipType === 'it-pro') {
 } ?>
 <section class="title-banner filter-title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo get_field( 'title' ); ?></h1>
-        <p><?php echo get_field( 'subtitle' ); ?></p>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_field( 'title' ) ); ?></h1>
+        <p><?php echo esc_html( get_field( 'subtitle' ) ); ?></p>
     </div>
 </section>
 
@@ -321,7 +321,7 @@ if ($membershipType === 'it-pro') {
             <div class="filter-search">
                 <form class="post-search-form">
                     <input type="text" class="post-search-input" placeholder="<?php echo esc_attr( get_field('search_help_text') ); ?>">
-                    <input type="image" class="post-search-submit" src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" alt="Search">
+                    <input type="image" class="post-search-submit" src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" alt="Search">
                 </form>
                 <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
             </div>
@@ -373,7 +373,7 @@ if ($membershipType === 'it-pro') {
                         </div>
                     </div>
                     <div class="ajax-loader" style="display: none;">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                        <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
                         id="posts-container">
