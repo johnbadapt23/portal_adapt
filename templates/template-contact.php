@@ -7,16 +7,16 @@ get_header();
 ?>
 <?php $map = get_field('google_map','options'); ?>
 <main id="main" class="main" role="main">
-	<section class="contactUs" style="background-image: url(<?php echo get_field( 'background_image' ); ?>);">
+	<section class="contactUs" style="background-image: url(<?php echo esc_url( get_field( 'background_image' ) ); ?>);">
 		<span class="overlay"></span>
 		<span class="inner">
 			<span class="v-wrap">
 				<span class="v-box">
 					<h1>Contact Us</h1>
-					<h2><?php echo get_field( 'address', 'option' ); ?></h2>
+					<h2><?php echo esc_html( get_field( 'address', 'option' ) ); ?></h2>
 					<span class="details">
-						<p><a class="email hvr-underline-from-left" href="mailto:<?php echo get_field( 'email_address', 'option' ); ?>"><?php echo get_field( 'email_address', 'option' ); ?></a><br />
-                        <a class="telephone hvr-underline-from-left" href=""><?php echo get_field( 'phone_number', 'option' ); ?></a></p>
+						<p><a class="email hvr-underline-from-left" href="mailto:<?php echo esc_attr( get_field( 'email_address', 'option' ) ); ?>"><?php echo esc_html( get_field( 'email_address', 'option' ) ); ?></a><br />
+                        <a class="telephone hvr-underline-from-left" href=""><?php echo esc_html( get_field( 'phone_number', 'option' ) ); ?></a></p>
                         <p><a class="directionsLink hvr-underline-from-left" href="<?php echo esc_url( get_field( 'google_map_link', 'option' ) ); ?>" target="_blank" rel="noopener noreferrer">Get Directions</a></p>
 					</span>
 					<span class="socials">
