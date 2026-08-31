@@ -124,9 +124,9 @@ if (user_can($current_user, 'administrator')) {
 <section class="announcementsContainer">
     <div class="container">
         <div class="introductionTextContainer">
-            <h1><?php echo get_field( 'announcements_title', 'option' ); ?></h1>
+            <h1><?php echo esc_html( get_field( 'announcements_title', 'option' ) ); ?></h1>
             <span class="introductionText">
-                <?php echo get_field( 'announcements_introduction_text', 'option' ); ?>
+                <?php echo esc_html( get_field( 'announcements_introduction_text', 'option' ) ); ?>
             </span>
         </div>
         <div class="announcements-loop">
@@ -154,7 +154,7 @@ if (user_can($current_user, 'administrator')) {
                                 $text = get_field( 'content' );
                                 $trimmed_content = wp_trim_words( $text, $num_words = 40, $more = '...' );
                            ?>
-                           <?php echo $trimmed_content; ?>
+                           <?php echo esc_html( $trimmed_content ); ?>
                        </span>
                        <span class="read-more">Read More</span>
                        <?php if ( have_rows( 'contributors' ) ) : ?>
