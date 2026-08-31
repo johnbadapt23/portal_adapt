@@ -253,7 +253,7 @@ $q_slug = $q->slug ?? '';
 	                   
 
 	                <?php endwhile; else : ?>
-	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 	                <?php endif; ?>
 
 	                <?php wp_reset_postdata(); wp_reset_query();?>
@@ -643,7 +643,7 @@ $q_slug = $q->slug ?? '';
 					 <?php } ?>
 
 				 <?php endwhile; else : ?>
-					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 				 <?php endif; ?>
 
 				 <?php wp_reset_postdata(); wp_reset_query();?>
