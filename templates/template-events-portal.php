@@ -10,8 +10,8 @@ get_header();
 <?php $keyword = $_GET['searchWords']; ?>
     <section class="title-banner dark-theme">
         <div class="container">
-            <h1 class="header-large mobile-header-medium"><?php echo get_field( 'title' ); ?></h1>
-            <p><?php echo get_field( 'subtitle' ); ?></p>
+            <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_field( 'title' ) ); ?></h1>
+            <p><?php echo esc_html( get_field( 'subtitle' ) ); ?></p>
         </div>
     </section>
 
