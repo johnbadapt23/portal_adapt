@@ -19,9 +19,12 @@
                         <span class="stages-text">
                             <p><?php echo esc_html( $stage_term->description ); ?></p>               
                         </span>
+                        <?php $stage_term_link = get_term_link( $stage_term ); ?>
+                        <?php if ( ! is_wp_error( $stage_term_link ) ) : ?>
                         <span class="stages-button-container">
-                            <a class="button data-set-button" href="<?php echo esc_url( get_term_link($stage_term) ); ?>" target="_self">View All</a>
+                            <a class="button data-set-button" href="<?php echo esc_url( $stage_term_link ); ?>" target="_self">View All</a>
                         </span>
+                        <?php endif; ?>
                     </span>
                 <?php endif; ?>
             <?php endwhile; ?>
