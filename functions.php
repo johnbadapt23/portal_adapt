@@ -1187,6 +1187,21 @@ function my_enqueue_scripts() {
         true
     );
 
+    // Isotope filtering - moved out of main.min.js into its own bundle
+    // (see source/gulp/paths.js's isotopeScripts and scripts.js's
+    // build:scripts:isotope) since its only call site, .kits-listing.grid,
+    // is exclusive to these two templates. No reason to ship the isotope
+    // library or its filtering glue on every other page on the site.
+    if ( is_page_template( [ 'templates/template-kit-type.php', 'templates/template-customer.php' ] ) ) {
+        wp_enqueue_script(
+            'isotope-js',
+            get_template_directory_uri() . '/assets/js/isotope.min.js',
+            ['jquery', 'main-js'],
+            adapt_asset_version( '/assets/js/isotope.min.js' ),
+            true
+        );
+    }
+
     wp_localize_script('main-js', 'ajaxobject', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('adapt_ajax_nonce'),

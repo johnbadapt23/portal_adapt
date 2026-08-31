@@ -21,3 +21,16 @@ gulp.task('build:scripts', function () {
         .pipe(gulp.dest(path.build.scripts))
         .pipe(reload({stream: true}));
 });
+
+// Isotope, bundled separately from main.min.js since it's only needed on
+// the two kits/customer templates - see path.src.isotopeScripts in
+// paths.js and the conditional wp_enqueue_script() in functions.php's
+// my_enqueue_scripts().
+gulp.task('build:scripts:isotope', function () {
+    return gulp.src(path.src.isotopeScripts)
+        .pipe(terser())
+        .on('error', error.handler)
+        .pipe(concat('isotope.min.js'))
+        .pipe(gulp.dest(path.build.scripts))
+        .pipe(reload({stream: true}));
+});

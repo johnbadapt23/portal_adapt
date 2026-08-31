@@ -16,11 +16,15 @@ module.exports = {
         // ACF field, or other JS (confirmed via repo-wide grep). Dead
         // weight on every single page load; the handler and its matching
         // dead SCSS in _kits.scss were removed alongside this.
+        //
+        // isotope-layout also moved out of this always-loaded bundle - see
+        // isotopeScripts below - since it's only ever used against
+        // .kits-listing.grid, exclusive to templates/template-kit-type.php
+        // and templates/template-customer.php.
         scripts: [
             'node_modules/owl.carousel/dist/owl.carousel.js',
             'node_modules/jquery-match-height/dist/jquery.matchHeight.js',
             'node_modules/magnific-popup/dist/jquery.magnific-popup.js',
-            'node_modules/isotope-layout/dist/isotope.pkgd.js',
             'node_modules/mediaelement/build/mediaelement.js',
             'node_modules/slick-carousel/slick/slick.js',
             'node_modules/js-cookie/dist/js.cookie.js',
@@ -29,6 +33,17 @@ module.exports = {
             'node_modules/select2/dist/js/select2.js',
             'node_modules/flexslider/jquery.flexslider.js',
             'source/js/main.js'
+        ],
+
+        // Isotope + its filtering glue (source/js/includes/_isotope.js),
+        // concatenated into its own assets/js/isotope.min.js - see
+        // build:scripts:isotope in scripts.js and the conditional enqueue
+        // in functions.php's my_enqueue_scripts(). Kept out of the
+        // sitewide main.min.js bundle above; only the two kits/customer
+        // templates need it.
+        isotopeScripts: [
+            'node_modules/isotope-layout/dist/isotope.pkgd.js',
+            'source/js/includes/_isotope.js'
         ],
 
         // Vendor CSS, concatenated into global.min.css alongside
