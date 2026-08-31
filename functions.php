@@ -1192,7 +1192,14 @@ function my_enqueue_scripts() {
     // build:scripts:isotope) since its only call site, .kits-listing.grid,
     // is exclusive to these two templates. No reason to ship the isotope
     // library or its filtering glue on every other page on the site.
-    if ( is_page_template( [ 'templates/template-kit-type.php', 'templates/template-customer.php' ] ) ) {
+    //
+    // template-kit-type.php is not a selectable Page template (no
+    // "Template Name:" header) - it's the taxonomy archive template for
+    // the kit-type taxonomy, reached via index.php's is_tax() branch
+    // (get_template_part('templates/template-' . $taxonomy)), so
+    // is_page_template() never matches it. is_tax('kit-type') is the
+    // correct conditional for that half of this pair.
+    if ( is_page_template( 'templates/template-customer.php' ) || is_tax( 'kit-type' ) ) {
         wp_enqueue_script(
             'isotope-js',
             get_template_directory_uri() . '/assets/js/isotope.min.js',
