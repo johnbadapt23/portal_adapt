@@ -15,7 +15,7 @@ $sector_url = $is_markets
 <section class="topicGrid portal sector-grid">
     <div class="container">
         <div class="blockTitle">
-            <h2><?php echo get_sub_field( 'sector_title' ); ?></h2>
+            <h2><?php echo esc_html( get_sub_field( 'sector_title' ) ); ?></h2>
             <a href="<?php echo esc_url( $sector_url ); ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
@@ -71,7 +71,7 @@ $sector_url = $is_markets
                                         <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) ); ?>
                                         <span class="hover-container">
                                             <?php if ($imageCounter) { ?>
-                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
                                             <?php } ?>
                                         <span>
                                     <?php else : ?>
@@ -91,7 +91,7 @@ $sector_url = $is_markets
                             </a>
                             <div class="textContainer">
                                 <span class="topicFilter">
-                                    <a href="/<?php echo $section; ?>/sector-analysis/" class="topicFilterText">Sector Analysis</a>
+                                    <a href="/<?php echo esc_attr( $section ); ?>/sector-analysis/" class="topicFilterText">Sector Analysis</a>
                                     <a href="<?php echo esc_url( $sector_url ); ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
