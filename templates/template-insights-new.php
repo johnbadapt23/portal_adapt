@@ -52,7 +52,7 @@ $sort = $_GET['order'];
                             $term_m = 'category';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
@@ -74,7 +74,7 @@ $sort = $_GET['order'];
                             $term_m = 'article-type';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
@@ -92,7 +92,7 @@ $sort = $_GET['order'];
                             $term_m = 'insights-event';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
@@ -110,7 +110,7 @@ $sort = $_GET['order'];
                             $term_m = 'article-duration';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
