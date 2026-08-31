@@ -163,7 +163,7 @@ if ($partner_type_id) {
                                 placeholder="Find a firm" 
                             <?php endif; ?>
                         />
-                        <input class="partner-search-submit" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" />
+                        <input class="partner-search-submit" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" />
                     </form>
                     <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
                 </div>
@@ -181,7 +181,7 @@ if ($partner_type_id) {
                     </div>                   
                 </div>
                 <div class="ajax-loader">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                 </div>
                 <div class="speakers" id="partners-container">
                     <!-- AJAX results will render here -->
