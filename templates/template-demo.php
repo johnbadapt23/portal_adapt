@@ -20,7 +20,7 @@ $interests = $user_info->mepr_interests;
 			<div class="container">
 				<span class="hidden" id="responseText">Text</span>
 				<h3>Ajax Test</h3>
-				<form action="<?php echo site_url() ?>/wp-admin/admin-ajax.php" method="POST" id="updateUserInterests">
+				<form action="<?php echo esc_url( site_url() ) ?>/wp-admin/admin-ajax.php" method="POST" id="updateUserInterests">
 					<?php
 					$term_m = 'topic';
 					?>
@@ -33,8 +33,8 @@ $interests = $user_info->mepr_interests;
 					<?php foreach($terms as $term) { ?>
 						<span class="topic">
 							<span class="checkbox-container">
-								<input type="checkbox" id="checkbox<?php echo $term->slug;?>" value="on" name="mepr_interests[<?php echo $term->slug; ?>]" <?php if('on'==$interests[$term->slug]) echo 'checked="checked"'; ?>/>
-								<label for="checkbox<?php echo $term->slug;?>" class="<?php if('on'==$interests[$term->slug]){ ?>following<?php } else { ?>follow<?php } ?>"><?php if('on'==$interests[$term->slug]){ ?>Following<?php } else { ?>Follow<?php } ?></label>
+								<input type="checkbox" id="checkbox<?php echo esc_attr( $term->slug );?>" value="on" name="mepr_interests[<?php echo esc_attr( $term->slug ); ?>]" <?php if('on'==$interests[$term->slug]) echo 'checked="checked"'; ?>/>
+								<label for="checkbox<?php echo esc_attr( $term->slug );?>" class="<?php if('on'==$interests[$term->slug]){ ?>following<?php } else { ?>follow<?php } ?>"><?php if('on'==$interests[$term->slug]){ ?>Following<?php } else { ?>Follow<?php } ?></label>
 							</span>
 						</span>
 					<?php } ?>
