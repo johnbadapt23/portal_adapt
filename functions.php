@@ -376,9 +376,11 @@ function adapt_filter_insights_by_category( $query ) {
     if ( is_admin() || ! $query->is_main_query() || ! $query->is_home() ) {
         return;
     }
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable blog-archive URL; sanitized immediately below and only used to adjust the read-only main query.
     if ( empty( $_GET['categories'] ) ) {
         return;
     }
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- same read-only GET filter param, sanitized on this line.
     $categories = array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) );
     $categories = array_filter( $categories );
     if ( empty( $categories ) ) {
@@ -816,6 +818,7 @@ add_filter('intermediate_image_sizes_advanced', function($sizes) {
 });
 
 add_action('mepr-validate-signup', function($errors) {
+    // phpcs:disable WordPress.Security.NonceVerification.Missing -- MemberPress core handles CSRF/nonce verification for its own signup form submission before this validation filter runs; this only reads user_email to enforce a work-email domain policy, it doesn't perform any state-changing action itself.
     if (isset($_POST['user_email'])) {
         $email = sanitize_email($_POST['user_email']);
         $domain = strtolower(substr(strrchr($email, "@"), 1));
@@ -830,6 +833,7 @@ add_action('mepr-validate-signup', function($errors) {
             }
         }
     }
+    // phpcs:enable WordPress.Security.NonceVerification.Missing
     return $errors;
 });
 
@@ -2414,6 +2418,7 @@ function adapt_render_filter_posts() {
     // -------------------------
     // Pagination + basic data
     // -------------------------
+    // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL (topic/type/persona/sector/date/search); every value is sanitized below (sanitize_text_field/array_map) before use, and no state-changing action results from this request.
     $page      = 1;
     $post_type = 'post';
     $search    = '';
@@ -2496,7 +2501,8 @@ function adapt_render_filter_posts() {
     $has_topic_filter    = !empty($_GET['topic']);
     $filtered_topic      = $has_topic_filter ? sanitize_text_field($_GET['topic'][0]) : null;
     $card_filtered_topic = $filtered_topic;
- 
+    // phpcs:enable WordPress.Security.NonceVerification.Recommended
+
     // -------------------------
     // WP_Query args
     // -------------------------
