@@ -28,7 +28,7 @@ get_header();
 											<?php if ( $icon ) { ?>
 												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
 											<?php } ?>
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 										<?php if ( have_rows( 'link' ) ) : ?>
 											<ul>
@@ -65,7 +65,7 @@ get_header();
 											<?php if ( $icon ) { ?>
 												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
 											<?php } ?>
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 										<?php if ( have_rows( 'link' ) ) : ?>
 											<ul>
@@ -81,7 +81,7 @@ get_header();
 														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
 														<?php if ( $other_link ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo $other_link; ?></a>
+																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo esc_html( $other_link ); ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } ?>
@@ -111,7 +111,7 @@ get_header();
 											<?php if ( $icon ) { ?>
 												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
 											<?php } ?>
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 										<?php if ( have_rows( 'link' ) ) : ?>
 											<ul>
@@ -127,7 +127,7 @@ get_header();
 														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
 														<?php if ( $other_link ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo $other_link; ?></a>
+																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo esc_html( $other_link ); ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } ?>
