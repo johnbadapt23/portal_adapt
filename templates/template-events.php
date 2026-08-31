@@ -7,6 +7,7 @@ get_header();
 ?>
 
 <main id="main" role="main" class="events">
+<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET search param for a bookmarkable, shareable events-listing URL (method="get" form below); echoed only via esc_attr(). ?>
 <?php $keyword = $_GET['searchWords']; ?>
     <section class="postHeader post-events">
         <div class="container">
@@ -28,6 +29,7 @@ get_header();
                             <span class="more">More</span>
                             <?php
                             $term_m = 'event-category';
+                            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
                             $filterCat = $_GET['categories'];
                             ?>
                             <?php
@@ -51,6 +53,7 @@ get_header();
                             <span class="title">Type</span>
                             <?php
                             $term_m = 'event-type';
+                            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
                             $filterType = $_GET['types'];
                             ?>
                             <?php
@@ -71,6 +74,7 @@ get_header();
                             <span class="title">Duration</span>
                             <?php
                             $term_m = 'event-duration';
+                            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
                             $filterDuration = $_GET['duration'];
                             ?>
                             <?php

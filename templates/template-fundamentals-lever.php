@@ -53,8 +53,10 @@ $user_info = wp_get_current_user();
 $first_name = $user_info->first_name;
 $interests = $user_info->mepr_interests;
 
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
 $filterType = $_GET['filterby'];
 $keyword = $_GET['searchWords'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 ?>
 <?php
 // A dead $args build used to sit here (an if($keyword)/else block scoped to

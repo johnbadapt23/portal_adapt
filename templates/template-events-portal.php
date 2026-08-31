@@ -7,6 +7,7 @@ get_header();
 ?>
 
 <main id="main" role="main" class="events">
+<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET search param for a bookmarkable, shareable events-listing URL, used only as a WP_Query 's' search term below; no state change. ?>
 <?php $keyword = $_GET['searchWords']; ?>
     <section class="title-banner dark-theme">
         <div class="container">

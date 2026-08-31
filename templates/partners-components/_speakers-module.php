@@ -2,9 +2,11 @@
 $partner_type_id = get_sub_field('partner_type'); // single ID
 $partner_term = get_term($partner_type_id, 'partner-type');
 $partnerslug = ($partner_term && !is_wp_error($partner_term)) ? $partner_term->slug  : '';
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter params for a bookmarkable, shareable partner-listing URL; each value is sanitized via sanitize_text_field() before use and no state change results.
 $preselected_expertise  = isset($_GET['expertise']) ? sanitize_text_field($_GET['expertise']) : '';
 $preselected_capability = isset($_GET['capability']) ? sanitize_text_field($_GET['capability']) : '';
 $preselected_industry   = isset($_GET['industry']) ? sanitize_text_field($_GET['industry']) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 ?>
 <section class="speaker-module partner-module background-white" data-page-id="<?php the_ID(); ?>" data-partner-type-id="<?php echo esc_attr($partner_type_id); ?>">

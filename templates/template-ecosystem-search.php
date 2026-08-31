@@ -5,23 +5,24 @@
 
 get_header();
 ?>
-<?php 
+<?php
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable partner-listing URL; each value is only used for checkbox pre-check comparisons or echoed via esc_attr(), with no state change.
 if (isset($_GET['capabilities'])) {
     $capabilities = $_GET['capabilities'];
 } else {
-   
-} 
+
+}
 
 if (isset($_GET['partner-types'])) {
     $partnerTypes= $_GET['partner-types'];
 } else {
-   
+
 }
 
 if (isset($_GET['partner-industries'])) {
     $partnerIndustries= $_GET['partner-industries'];
 } else {
-   
+
 }
 
 if (isset($_GET['partner-search'])) {
@@ -29,6 +30,7 @@ if (isset($_GET['partner-search'])) {
 } else {
     $searchTerms = '';
 }
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 ?>
 
