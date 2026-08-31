@@ -34,3 +34,16 @@ gulp.task('build:scripts:isotope', function () {
         .pipe(gulp.dest(path.build.scripts))
         .pipe(reload({stream: true}));
 });
+
+// Select2, bundled separately from main.min.js since only 13 of roughly
+// 180 templates render a <select> - see path.src.select2Scripts in
+// paths.js and the conditional wp_enqueue_script() in functions.php's
+// my_enqueue_scripts().
+gulp.task('build:scripts:select2', function () {
+    return gulp.src(path.src.select2Scripts)
+        .pipe(terser())
+        .on('error', error.handler)
+        .pipe(concat('select2.min.js'))
+        .pipe(gulp.dest(path.build.scripts))
+        .pipe(reload({stream: true}));
+});

@@ -105,7 +105,7 @@
 
 		resize();
 		matchHeightInit();
-		select2();
+		if (typeof select2 === 'function') select2();
 		outsideContainer();
 		scrollMobile();
 
@@ -3086,7 +3086,7 @@ if ($containerPast.length && $buttonPast.length) {
 		$('#user_pass').attr('placeholder', 'Password');
 
 		multipartBreadcrumb();
-		select2();
+		if (typeof select2 === 'function') select2();
 		matchHeightInit();
 		outsideContainer();
 		if($('input[name="redirect_to"]').length ){
@@ -3471,7 +3471,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 	$(window).on('resize',function (){
 		resize();
-		select2();
+		if (typeof select2 === 'function') select2();
 		matchHeightInit();
 		outsideContainer();
 		scrollMobile();
@@ -3612,16 +3612,11 @@ if ($containerPast.length && $buttonPast.length) {
 		$('.megaMenu .column').matchHeight();
 	}
 
-	function select2(){
-		if($('form').hasClass('hs-form')){
-		} else {
-			if($('form').hasClass('mepr-form')){
-				$('select').select2();
-			} else {
-				$('select').select2({minimumResultsForSearch: -1});
-			}
-		}
-	}
+	// select2() itself now lives in source/js/includes/_select2.js, built
+	// separately into assets/js/select2.min.js and only enqueued on
+	// templates with a <select> - see the typeof guards at each of its
+	// three call sites below, needed since window.select2 won't exist at
+	// all on the ~167 templates that don't load that bundle.
 
 	function popupInit() {
 		if(Cookies.get('popup') === 'displayed') {

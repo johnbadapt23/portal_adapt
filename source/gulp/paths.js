@@ -17,10 +17,12 @@ module.exports = {
         // weight on every single page load; the handler and its matching
         // dead SCSS in _kits.scss were removed alongside this.
         //
-        // isotope-layout also moved out of this always-loaded bundle - see
-        // isotopeScripts below - since it's only ever used against
-        // .kits-listing.grid, exclusive to templates/template-kit-type.php
-        // and templates/template-customer.php.
+        // isotope-layout and select2 also moved out of this always-loaded
+        // bundle - see isotopeScripts/select2Scripts below. isotope-layout
+        // is only ever used against .kits-listing.grid, exclusive to
+        // templates/template-kit-type.php and templates/template-customer.php.
+        // select2 only ever targets $('select'), and only 13 of roughly
+        // 180 templates render a <select> at all.
         scripts: [
             'node_modules/owl.carousel/dist/owl.carousel.js',
             'node_modules/jquery-match-height/dist/jquery.matchHeight.js',
@@ -30,7 +32,6 @@ module.exports = {
             'node_modules/js-cookie/dist/js.cookie.js',
             'node_modules/jquery.scrollto/jquery.scrollTo.js',
             'node_modules/jquery.localscroll/jquery.localScroll.js',
-            'node_modules/select2/dist/js/select2.js',
             'node_modules/flexslider/jquery.flexslider.js',
             'source/js/main.js'
         ],
@@ -44,6 +45,17 @@ module.exports = {
         isotopeScripts: [
             'node_modules/isotope-layout/dist/isotope.pkgd.js',
             'source/js/includes/_isotope.js'
+        ],
+
+        // select2 + its init glue (source/js/includes/_select2.js),
+        // concatenated into its own assets/js/select2.min.js - see
+        // build:scripts:select2 in scripts.js and the conditional enqueue
+        // in functions.php's my_enqueue_scripts(). Only enqueued on
+        // templates with a <select> - see the typeof guards in main.js at
+        // each of the three places it used to call select2() directly.
+        select2Scripts: [
+            'node_modules/select2/dist/js/select2.js',
+            'source/js/includes/_select2.js'
         ],
 
         // Vendor CSS, concatenated into global.min.css alongside

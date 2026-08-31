@@ -1209,6 +1209,38 @@ function my_enqueue_scripts() {
         );
     }
 
+    // Select2 - moved out of main.min.js into its own bundle (see
+    // source/gulp/paths.js's select2Scripts and scripts.js's
+    // build:scripts:select2) since it only ever targets $('select'), and
+    // only these 13 templates (of roughly 180 in the theme) render one.
+    // template-evr-maturity-stage.php and template-fundamentals-lever.php
+    // are, like template-kit-type.php above, taxonomy archive templates
+    // rather than selectable Page templates - see the is_tax() note above.
+    if (
+        is_page_template( [
+            'templates/template-events.php',
+            'templates/template-expert-presentations.php',
+            'templates/template-insights-curation-one.php',
+            'templates/template-insights-new.php',
+            'templates/template-insights.php',
+            'templates/template-persona-market-narratives.php',
+            'templates/template-saved-insights.php',
+            'templates/template-sectors-market-narrative.php',
+            'templates/template-speaker.php',
+            'templates/template-technology-trends-markets.php',
+            'templates/template-topic-portal.php',
+        ] )
+        || is_tax( [ 'evr-maturity-stage', 'fundamentals-lever' ] )
+    ) {
+        wp_enqueue_script(
+            'select2-js',
+            get_template_directory_uri() . '/assets/js/select2.min.js',
+            ['jquery', 'main-js'],
+            adapt_asset_version( '/assets/js/select2.min.js' ),
+            true
+        );
+    }
+
     wp_localize_script('main-js', 'ajaxobject', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('adapt_ajax_nonce'),

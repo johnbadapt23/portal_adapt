@@ -33,6 +33,7 @@ gulp.task('_build', gulp.series(
     gulp.parallel(
         'build:scripts',
         'build:scripts:isotope',
+        'build:scripts:select2',
         'build:styles'
     ),
     'build:php'
