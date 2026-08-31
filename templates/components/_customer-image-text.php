@@ -1,4 +1,4 @@
-<section class="customer-kit-image-text <?php echo get_sub_field( 'background_colour' ); ?>">
+<section class="customer-kit-image-text <?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?>">
     <div class="container">
         <div class="title-container">
             <h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
@@ -15,7 +15,7 @@
                         </div>
                         <div class="text-column two-thirds">
                             <span class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
-                            <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+                            <span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                         </div>
                     </div>
                 <?php endwhile; ?>
