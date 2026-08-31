@@ -789,35 +789,6 @@ header {
 	background-color: #fff !important;
 }
 
-@-webkit-keyframes bounce_smooth {
-    0% {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0)
-    }
-    50% {
-        -webkit-transform: translate3d(0, 10px, 0);
-        transform: translate3d(0, 10px, 0)
-    }
-    0% {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0)
-    }
-}
-@keyframes bounce_smooth {
-    0% {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0)
-    }
-    50% {
-        -webkit-transform: translate3d(0, 10px, 0);
-        transform: translate3d(0, 10px, 0)
-    }
-    0% {
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0)
-    }
-}
-
 input[type=submit] {
 	border-radius: 3px;
 	background-color: rgba(255, 255, 255, 0.1);
@@ -3034,7 +3005,7 @@ a.std-button,
 span.std-button-span {
 	position: relative;
 	display: inline-block;
-	font-family: 'Helvetica';
+	font-family: 'Helvetica', 'Arial', sans-serif;
 	text-transform: none;
 	font-weight: 700;
 	font-size: 16px;

@@ -57,7 +57,7 @@ ul.flex-direction-nav {
 
 			&:before {
 				display: block;
-			    font-family: 'icons';
+			    font-family: 'icons', sans-serif;
 				font-weight: normal;
 				font-size: $slider-arrow-font-size;
 				color: $slider-arrow-color;
