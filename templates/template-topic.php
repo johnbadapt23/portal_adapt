@@ -115,7 +115,7 @@ if ($membershipType === 'it-pro') {
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
-            echo (term_description($q->term_id, $q->taxonomy));
+            echo (term_description($q->term_id));
             ?>
         </p>
     </div>
