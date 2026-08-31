@@ -58,7 +58,7 @@ if( $is_agent_tester ){
 										<?php setup_postdata ( $post ); ?>
 											<section class="expertPresentationFeatured trial-featured bg-dark">
 												<div class="container">
-													<h2><?php echo get_sub_field( 'title' ); ?></h2>
+													<h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 													<div class="imageSizeContainer">
 														<span class="overlayGradient"></span>
 														<a href="<?php the_permalink(); ?>" target="_self" class="bgContainer">
@@ -142,8 +142,8 @@ if( $is_agent_tester ){
 							                <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
 							            </div>
 							            <div class="container">
-							                <h1><?php echo get_sub_field( 'title' ); ?></h1>
-							                <p><?php echo get_sub_field( 'description' ); ?></p>
+							                <h1><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+							                <p><?php echo esc_html( get_sub_field( 'description' ) ); ?></p>
 							            </div>
 							        </div>
 							    </section>
@@ -154,7 +154,7 @@ if( $is_agent_tester ){
 									<section class="portal topicGrid bg-dark trial-grid">
 		                                <div class="container">
 		                                    <div class="blockTitle">
-		                                        <h2><?php echo get_sub_field( 'title' ); ?></h2>
+		                                        <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 		                                    </div>
 		                                    <div class="gridWrapper">
 		                                        <?php
@@ -241,7 +241,7 @@ if( $is_agent_tester ){
 
  		                                                           </span>
  		                                                           <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
- 		                                                           <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+ 		                                                           <span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
  		                                                           <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
  		                                                       </div>
  		                                                   </div>
@@ -259,12 +259,12 @@ if( $is_agent_tester ){
 								    <div class="container">
 								        <div class="cta-content">
 								            <div class="column text-column one-half">
-								        		<span class="cta-title"><?php echo get_sub_field( 'title' ); ?></span>
-								        		<span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+								        		<span class="cta-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
+								        		<span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
 								        		<?php if ( have_rows( 'button' ) ) : ?>
 								                    <span class="button-container">
 								            			<?php while ( have_rows( 'button' ) ) : the_row(); ?>
-								                            <a class="std-button arrow-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+								                            <a class="std-button arrow-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
 								            			<?php endwhile; ?>
 								                    </span>
 								        		<?php else : ?>
