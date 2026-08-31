@@ -76,6 +76,7 @@ $filtered_topic = $filtered_topic ?? null;
 >
     <?php if ($is_favourites && function_exists('get_favorites_button')) : ?>
         <span class="removePostButton">
+            <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- get_favorites_button() is a third-party plugin function that returns its own pre-built HTML markup. ?>
             <?php echo get_favorites_button(get_the_ID()); ?>
         </span>
     <?php endif; ?>
@@ -225,7 +226,7 @@ $filtered_topic = $filtered_topic ?? null;
                     
                     ?>
                     <?php if ($image) : ?>
-                        <span class="bg-container <?= $articleCounter; ?>">
+                        <span class="bg-container <?= esc_attr( $articleCounter ); ?>">
                             <?php
                             $attachment_id = attachment_url_to_postid( $image );
 
@@ -313,7 +314,7 @@ $filtered_topic = $filtered_topic ?? null;
                             }
                         }
                         ?>
-                    <span class="text-link red-text-link uppercase arrow-link"><?php echo $button_text; ?></span>
+                    <span class="text-link red-text-link uppercase arrow-link"><?php echo esc_html( $button_text ); ?></span>
                 </span>
             </span>
         </span>
