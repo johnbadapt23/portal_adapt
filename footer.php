@@ -198,6 +198,140 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
         setTimeout(function() { inputObserver.disconnect(); }, 45000);
     }
 })();
+(function() {
+    // The embedded hero card's own textarea (.cgpt-hero-card textarea) runs
+    // the widget's full cold-start sequence - creating a conversation,
+    // fetching project settings - the moment it gets focus or a keystroke,
+    // regardless of how early its own scripts loaded (confirmed live: even
+    // with every widget script loading eagerly on page load, focusing this
+    // field still blanks and remounts the whole card and drops whatever the
+    // user had already typed). That's the widget's own internal behavior,
+    // not something WP Rocket or script load timing controls, so it can't
+    // be fixed by adjusting when scripts load - only by keeping this field
+    // from ever reaching the real widget until the user actually commits.
+    //
+    // This places a plain, uncontrolled textarea directly on top of the
+    // real one. Users type into this one - completely inert, no widget
+    // behind it, so nothing can blank or reset it. Only on Enter (without
+    // Shift, matching the widget's own send shortcut) does this forward the
+    // typed text into the real textarea and click its real send button,
+    // which is the one moment the widget's own "AI is thinking" loading
+    // state is expected and correct - the question pills are untouched by
+    // any of this, since they sit outside this textarea's rect and already
+    // matched the desired click-to-send-and-show-loader behavior.
+    var shim = null;
+    var real = null;
+
+    function nativeSetValue(el, value) {
+        var setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
+        setter.call(el, value);
+    }
+
+    function syncShimPosition() {
+        if (!shim || !real) return;
+        var r = real.getBoundingClientRect();
+        shim.style.left = (r.left + window.scrollX) + 'px';
+        shim.style.top = (r.top + window.scrollY) + 'px';
+        shim.style.width = r.width + 'px';
+        shim.style.height = r.height + 'px';
+    }
+
+    function findSendButton() {
+        var card = real ? real.closest('.cgpt-hero-card') : null;
+        return card ? card.querySelector('form button[type="submit"]') : null;
+    }
+
+    function forwardAndSend(text) {
+        if (!real || !text) return;
+        real.focus();
+        nativeSetValue(real, text);
+        real.dispatchEvent(new Event('input', { bubbles: true }));
+        setTimeout(function() {
+            var btn = findSendButton();
+            if (btn && !btn.disabled) {
+                btn.click();
+            }
+            if (shim) {
+                shim.value = '';
+                shim.style.height = 'auto';
+            }
+        }, 50);
+    }
+
+    function createShim() {
+        if (shim || !real) return;
+        shim = document.createElement('textarea');
+        shim.id = 'cgpt-hero-textarea-shim';
+        shim.rows = 1;
+        shim.placeholder = real.placeholder;
+        var ariaLabel = real.getAttribute('aria-label') || real.placeholder;
+        if (ariaLabel) {
+            shim.setAttribute('aria-label', ariaLabel);
+        }
+        var cs = getComputedStyle(real);
+        shim.style.cssText = [
+            'position:absolute', 'z-index:1', 'box-sizing:border-box',
+            'font:' + cs.font, 'padding:' + cs.padding, 'border:0',
+            'background:transparent', 'resize:none', 'outline:none',
+            'color:' + cs.color, 'line-height:' + cs.lineHeight
+        ].join(';');
+        document.body.appendChild(shim);
+        syncShimPosition();
+
+        // Keeps a keyboard user from tabbing into the now-hidden real
+        // field behind this one; the shim takes its place in the tab flow.
+        real.tabIndex = -1;
+
+        shim.addEventListener('input', function() {
+            shim.style.height = 'auto';
+            shim.style.height = shim.scrollHeight + 'px';
+        });
+
+        shim.addEventListener('keydown', function(e) {
+            // keyCode 13 fallback alongside e.key for older browsers/input
+            // methods that report one but not the other on Enter.
+            var isEnter = e.key === 'Enter' || e.keyCode === 13;
+            if (isEnter && !e.shiftKey) {
+                e.preventDefault();
+                forwardAndSend(shim.value.trim());
+            }
+        });
+
+        window.addEventListener('resize', syncShimPosition);
+        window.addEventListener('scroll', syncShimPosition, true);
+    }
+
+    // A direct click on the real send button, rather than pressing Enter in
+    // the shim, would otherwise submit on the real textarea's still-empty
+    // value, since typed text only lives in the shim until forwarded.
+    document.addEventListener('click', function(e) {
+        if (!shim || !shim.value.trim()) return;
+        var btn = e.target.closest && e.target.closest('.cgpt-hero-card form button[type="submit"]');
+        if (btn) {
+            e.preventDefault();
+            e.stopPropagation();
+            forwardAndSend(shim.value.trim());
+        }
+    }, true);
+
+    function tryInit() {
+        if (shim) return true;
+        real = document.querySelector('.cgpt-hero-card textarea');
+        if (!real) return false;
+        createShim();
+        return true;
+    }
+
+    if (!tryInit()) {
+        var shimObserver = new MutationObserver(function() {
+            if (tryInit()) shimObserver.disconnect();
+        });
+        shimObserver.observe(document.body, { childList: true, subtree: true });
+        // See the matching comment on heroObserver's timeout above - same
+        // widget, same slow-render cause, same 45s fix.
+        setTimeout(function() { shimObserver.disconnect(); }, 45000);
+    }
+})();
 (function($) {
     var added = false;
 
