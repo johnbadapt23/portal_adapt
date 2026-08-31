@@ -1,4 +1,4 @@
-<section class="animated-text animated-text-logos <?php if(get_sub_field('background_colour')){ ?><?php echo get_sub_field('background_colour'); ?><?php } else { ?>background-true-black<?php }?>" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
+<section class="animated-text animated-text-logos <?php if(get_sub_field('background_colour')){ ?><?php echo esc_attr( get_sub_field('background_colour') ); ?><?php } else { ?>background-true-black<?php }?>" <?php if(get_sub_field('id')){ ?> id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <div class="container">
         <div class="inner">
             <div class="animated-text-container">
