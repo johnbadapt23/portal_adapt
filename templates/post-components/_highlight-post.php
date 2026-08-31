@@ -19,7 +19,7 @@
                 <div class="column video-column">
                     <?php if(current_user_can('memberpress_authorized')) { ?>
                         <?php if( get_field('vimeo_code')){ ?>
-                            <a href="https://vimeo.com/<?php echo get_field('vimeo_code'); ?>" class="image popup-vimeo">
+                            <a href="https://vimeo.com/<?php echo esc_attr( get_field('vimeo_code') ); ?>" class="image popup-vimeo">
                         <?php } else { ?>
                             <a href="" class="image postPlayBtn">
                         <?php }?>
