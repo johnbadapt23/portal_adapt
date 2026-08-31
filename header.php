@@ -7,6 +7,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
 
 <?php
+    // Resource hints for third-party origins loaded on every page load
+    // (GTM inline below, unpkg.com's lottie-player scripts inline below,
+    // and gsap-js/scrolltrigger-js from cdnjs.cloudflare.com enqueued
+    // unconditionally in my_enqueue_scripts() in functions.php) - starting
+    // the DNS/TCP/TLS handshake for these now, before the browser
+    // otherwise discovers the actual <script> tags, shaves that latency
+    // off the eventual request. js.hs-scripts.com (HubSpot) is
+    // dns-prefetch only rather than preconnect: main-js's inline loader
+    // defers it until the visitor's first interaction, so a full
+    // preconnect could sit open and unused (and get dropped by the
+    // browser after ~10s) for anyone who never interacts.
+?>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="dns-prefetch" href="https://js.hs-scripts.com">
+<?php
     // <title> is no longer hardcoded here - theme_setup() declares
     // add_theme_support('title-tag'), so WP (and Yoast SEO's own title
     // template/output) renders it automatically via wp_head() below.
@@ -121,7 +138,17 @@ if ($user_data === false) {
     }
 
     // Prepare secure UID hash
-    $secret = 'VD1gPpnwTbsGm2DjfTJewSTJJksS-1JWuTR-Ceb2BabRyazdJyAc';
+    //
+    // SECURITY: this value has been committed to version control, which
+    // defeats its purpose - anyone with repo access (past or present) can
+    // forge a valid uid_hash for any user_id, impersonating any member to
+    // Chameleon. Rotate this secret with Chameleon and set it via a
+    // CHAMELEON_HMAC_SECRET constant in wp-config.php (outside the repo)
+    // instead of relying on the fallback below, which only exists so
+    // nothing breaks before that rotation happens.
+    $secret = defined( 'CHAMELEON_HMAC_SECRET' )
+        ? CHAMELEON_HMAC_SECRET
+        : 'VD1gPpnwTbsGm2DjfTJewSTJJksS-1JWuTR-Ceb2BabRyazdJyAc';
     $now = time();
     $uid_hash = hash_hmac('sha256', $user_ID . '-' . $now, $secret) . '-' . $now;
 
