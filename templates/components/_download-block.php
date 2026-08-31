@@ -5,7 +5,7 @@
         <?php } ?>
         <a class="download-popup-button" href="#downloadPopupSingle">
             <span class="download-image-container">
-                <span class="image" style="background-image: url(<?php echo get_sub_field( 'listing_image' ); ?>);"></span>
+                <span class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'listing_image' ) ); ?>);"></span>
             </span>
         </a>
         <?php if(get_sub_field( 'listing_title' )){ ?>
@@ -21,10 +21,10 @@
             <div class="container">
                 <div class="preview-container">
                     <?php if (get_sub_field('pdf_flip_embed')) { ?>
-                        <?php echo get_sub_field('pdf_flip_embed'); ?>
+                        <?php echo wp_kses_post( get_sub_field('pdf_flip_embed') ); ?>
                     <?php } else { ?>
                         <div class="download-image-container">
-                            <div class="image" style="background-image: url(<?php echo get_sub_field( 'listing_image' ); ?>);"></div>
+                            <div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'listing_image' ) ); ?>);"></div>
                         </div>
                     <?php }?>
                     <div class="description-container desktop">
@@ -43,7 +43,7 @@
                     <span class="downloads">
                         <?php if ( have_rows( 'download' ) ) : ?>
                             <?php while ( have_rows( 'download' ) ) : the_row(); ?>
-                                <?php echo get_sub_field( 'download' ); ?>
+                                <?php echo wp_kses_post( get_sub_field( 'download' ) ); ?>
                             <?php endwhile; ?>
                         <?php else : ?>
                             <?php // no rows found ?>
