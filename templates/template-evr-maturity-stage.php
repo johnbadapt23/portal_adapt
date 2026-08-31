@@ -10,7 +10,7 @@
 $is_evr_live = $is_evr_live ?? false;
 $fund_taxonomy = $is_evr_live ? 'fundamentals-levers' : 'fundamentals-lever';
 
-$today = date('Ymd');
+$today = wp_date('Ymd');
 $args = array(
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
