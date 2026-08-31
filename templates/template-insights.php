@@ -86,7 +86,7 @@ $filterBy = array();
         }
     } else {
         $term_m = 'topic';
-        $terms = get_terms( $term_m, array(
+        $terms = get_terms( array( 'taxonomy' => $term_m,
             'hide_empty' => false,
         ) );
 
@@ -222,7 +222,7 @@ $filterBy = array();
         } else {
             if($filterType == 'all') {
                 $term_m = 'filter-types';
-                $terms = get_terms( $term_m, array(
+                $terms = get_terms( array( 'taxonomy' => $term_m,
                     'hide_empty' => false,
                 ) );
 
@@ -286,7 +286,7 @@ $filterBy = array();
                             $term_m = 'topic';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => false,
                             ) );
                             ?>
@@ -388,7 +388,7 @@ $filterBy = array();
                                     $term_m = 'filter-types';
                                     ?>
                                     <?php
-                                    $terms = get_terms( $term_m, array(
+                                    $terms = get_terms( array( 'taxonomy' => $term_m,
                                      'hide_empty' => true,
                                     ) );
                                     ?>
@@ -419,7 +419,7 @@ $filterBy = array();
                                 $term_m = 'topic';
                                 ?>
                                 <?php
-                                $terms = get_terms( $term_m, array(
+                                $terms = get_terms( array( 'taxonomy' => $term_m,
                                     'hide_empty' => false,
                                 ) );
                                 ?>
@@ -473,7 +473,7 @@ $filterBy = array();
                                            $term_m = 'filter-types';
                                            ?>
                                            <?php
-                                           $terms = get_terms( $term_m, array(
+                                           $terms = get_terms( array( 'taxonomy' => $term_m,
                                             'hide_empty' => true,
                                            ) );
                                            ?>
@@ -554,7 +554,7 @@ $filterBy = array();
                     $term_m = 'filter-types'
                     ?>
                     <?php
-                    $terms = get_terms( $term_m, array(
+                    $terms = get_terms( array( 'taxonomy' => $term_m,
                      'hide_empty' => true,
                     ) );
                     ?>
@@ -570,7 +570,7 @@ $filterBy = array();
                             }
                         } else {
                             $term_m = 'topic';
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => false,
                             ) );
 
@@ -662,7 +662,7 @@ $filterBy = array();
                         } else {
                             if($filterType == 'all') {
                                 $term_m = 'filter-types';
-                                $terms = get_terms( $term_m, array(
+                                $terms = get_terms( array( 'taxonomy' => $term_m,
                                     'hide_empty' => false,
                                 ) );
 
@@ -827,7 +827,7 @@ $filterBy = array();
                         }
                     } else {
                         $term_m = 'topic';
-                        $terms = get_terms( $term_m, array(
+                        $terms = get_terms( array( 'taxonomy' => $term_m,
                             'hide_empty' => false,
                         ) );
 
@@ -963,7 +963,7 @@ $filterBy = array();
                         } else {
                             if($filterType == 'all') {
                                 $term_m = 'filter-types';
-                                $terms = get_terms( $term_m, array(
+                                $terms = get_terms( array( 'taxonomy' => $term_m,
                                     'hide_empty' => false,
                                 ) );
 
