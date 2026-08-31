@@ -31,7 +31,7 @@ get_header();
                             $filterCat = $_GET['categories'];
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
@@ -54,7 +54,7 @@ get_header();
                             $filterType = $_GET['types'];
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
@@ -74,7 +74,7 @@ get_header();
                             $filterDuration = $_GET['duration'];
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => true,
                             ) );
                             ?>
