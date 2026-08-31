@@ -41,7 +41,7 @@ get_header();
 						array (
 							'taxonomy' => 'persona-mapping',
 							'field' => 'id', 
-							'terms' => get_terms('persona-mapping', array('fields' => 'ids'))
+							'terms' => get_terms(array('taxonomy' => 'persona-mapping', 'fields' => 'ids'))
 						),
 					)
 				);
