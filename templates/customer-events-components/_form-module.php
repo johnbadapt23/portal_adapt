@@ -53,6 +53,7 @@ $youtubeLink = get_field( 'you_tube', 'options'  );
             </div>
             <div class="column form-column">
                 <span class="form-embed">
+                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- form_embed is an admin-authored form-builder embed field (e.g. HubSpot/FormCrafts) that wp_kses_post() would strip. ?>
                     <?php echo get_sub_field( 'form_embed' ); ?>
                 </span>
                 <span class="text white-text hide-desktop p-small"><?php echo wp_kses_post( get_sub_field( 'text' ) ); ?></span>
