@@ -94,7 +94,7 @@ if ( $loop->have_posts() ) :
         $term_m = $taxonomy;
         ?>
         <?php
-        $terms = get_terms( $term_m, array(
+        $terms = get_terms( array( 'taxonomy' => $term_m,
             'hide_empty' => false,
             'parent' => 0
         ) );
@@ -256,7 +256,7 @@ if ( $loop->have_posts() ) :
                     } else {
                         if($filterType == 'all') {
                             $term_m = 'evr-maturity-stage';
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( array( 'taxonomy' => $term_m,
                                 'hide_empty' => false,
                             ) );
 
