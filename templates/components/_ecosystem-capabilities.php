@@ -12,9 +12,9 @@
                                 <?php $fundamental_term = get_sub_field( 'capabilitity' ); ?>
                                 <?php if ( $fundamental_term ): ?>
                                     <span class="other-fundamentals-items capabilities-items other-items">
-                                        <a href="/ecosystem-partners/search/?capabilities[]=<?php echo $fundamental_term->slug;?>" target="_self">
+                                        <a href="/ecosystem-partners/search/?capabilities[]=<?php echo esc_attr( $fundamental_term->slug );?>" target="_self">
                                             <?php $icon = get_field( 'icon', $fundamental_term ); ?>
-                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo $fundamental_term->name; ?> 
+                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $fundamental_term->name ); ?> 
                                         </a>
                                     </span>
                                 <?php endif; ?>
