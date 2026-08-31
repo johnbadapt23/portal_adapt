@@ -31,7 +31,7 @@ get_header();
 		<div class="container">
 			<div class="login-container-inner register-container-inner">
 				<div class="login-form-container">
-					<span class="form-title"><?php echo get_field( 'login_form_title' ); ?></span>
+					<span class="form-title"><?php echo esc_html( get_field( 'login_form_title' ) ); ?></span>
 					<span class="form">
 						<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			                <?php the_content(); ?>
