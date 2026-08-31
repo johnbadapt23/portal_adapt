@@ -59,7 +59,7 @@ if ( 0 == $current_user->ID ) {
                     <?php } ?>
 
                 <?php endwhile; else : ?>
-                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
                 <?php endif; ?>
 
                 <?php wp_reset_postdata(); wp_reset_query();?>
