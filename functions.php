@@ -2421,7 +2421,9 @@ function adapt_render_filter_posts() {
     // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL (topic/type/persona/sector/date/search); every value is sanitized below (sanitize_text_field/array_map) before use, and no state-changing action results from this request.
     $page      = 1;
     $post_type = 'post';
-    $search    = '';
+    $search = sanitize_text_field(
+        wp_unslash($_GET['s'] ?? $_GET['search'] ?? '')
+    );
     $sort      = 'featured';
  
     // -------------------------

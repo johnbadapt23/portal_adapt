@@ -2118,6 +2118,7 @@ $('.post-filtering-module').each(function(){
             }
         }
         url.searchParams.delete('search');
+        url.searchParams.delete('s');
 
         for (const fKey in filters) {
             if (filters.hasOwnProperty(fKey) && queryMap.hasOwnProperty(fKey)) {
