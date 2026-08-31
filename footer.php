@@ -243,6 +243,7 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
 
     function forwardAndSend(text) {
         if (!real || !text) return;
+        real.style.visibility = '';
         real.focus();
         nativeSetValue(real, text);
         real.dispatchEvent(new Event('input', { bubbles: true }));
@@ -254,6 +255,7 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
             if (shim) {
                 shim.value = '';
                 shim.style.height = 'auto';
+                shim.style.display = 'none';
             }
         }, 50);
     }
@@ -278,9 +280,32 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
         document.body.appendChild(shim);
         syncShimPosition();
 
+        // A plain textarea's placeholder picks up this site's generic
+        // input::placeholder default (uppercase, smaller, lighter grey),
+        // while the real widget's own placeholder overrides that back to
+        // sentence case - copying its actual placeholder style here so the
+        // shim reads identically instead of visibly mismatching it.
+        var realPh = getComputedStyle(real, '::placeholder');
+        var phStyle = document.createElement('style');
+        phStyle.textContent = '#cgpt-hero-textarea-shim::placeholder {' +
+            'text-transform:' + realPh.textTransform + ';' +
+            'color:' + realPh.color + ';' +
+            'font-size:' + realPh.fontSize + ';' +
+            'letter-spacing:' + realPh.letterSpacing + ';' +
+            '}';
+        document.head.appendChild(phStyle);
+
         // Keeps a keyboard user from tabbing into the now-hidden real
         // field behind this one; the shim takes its place in the tab flow.
         real.tabIndex = -1;
+
+        // Without this, the real textarea's own placeholder text still
+        // paints underneath the shim's, showing as doubled/ghosted text
+        // before anything is typed. visibility (not display) keeps its
+        // layout box intact, so the card's size and the shim's synced
+        // position don't shift. Restored once a message is actually sent,
+        // at which point the widget replaces this whole layout anyway.
+        real.style.visibility = 'hidden';
 
         shim.addEventListener('input', function() {
             shim.style.height = 'auto';
