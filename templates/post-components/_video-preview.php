@@ -18,12 +18,12 @@ $advantagePlus = "no";
 <section class="expertPresentationFeatured bg-black singleResearch">
     <div class="container">  
         <span style="display: none;">
-            <?php echo $membershipType; echo $advantageType; ?>
+            <?php echo esc_html( $membershipType ); echo esc_html( $advantageType ); ?>
         </span>
         <div class="item">                      
             <?php if(current_user_can('memberpress_authorized')) { ?>
                 <?php if( get_field('vimeo_code')){ ?>
-                    <a href="https://vimeo.com/<?php echo get_field('vimeo_code'); ?>" class="image popup-vimeo">
+                    <a href="https://vimeo.com/<?php echo esc_attr( get_field('vimeo_code') ); ?>" class="image popup-vimeo">
                 <?php } else { ?>
                     <a href="" class="image postPlayBtn">
                 <?php }?>
@@ -90,7 +90,7 @@ $advantagePlus = "no";
                     <?php $download = get_sub_field( 'download' ); ?>
                     <?php if ( $download ) { ?>  
                         <?php $downloadButtonText = get_field('request_download_button_text'); ?>  
-                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>                                       
+                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo esc_html( $downloadButtonText ); ?><?php } else { ?>Request to Download<?php } ?></a>                                       
                     <?php } ?>
                 <?php } ?>
                 <span class="published labelSmall text-dark-grey<?php if ( $download ) { ?><?php } else { ?> no-margin-border<?php } ?>">
@@ -208,7 +208,7 @@ $advantagePlus = "no";
                 </span>
                  <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  
@@ -217,7 +217,7 @@ $advantagePlus = "no";
         </div>
     </div>   
     <div class="videoPlayerContainer print-no">
-        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
+        <span class="closeVideo"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
         <div class="videoWrapper">
             <video width="100%" id="popupVideo" controls controlsList="nodownload">
                 <source type="video/mp4" src="<?php echo esc_url( get_field('featured_video_vimeo_code') ); ?>" />
