@@ -15,14 +15,14 @@ get_header();
         <div class="container">
             <div class="column first">
                 <span class="saveInsight">
-                    <img class="insightIcon" src="<?php echo get_template_directory_uri(); ?>/assets/images/save-insight.svg" width="42" height="59" loading="lazy" decoding="async" alt="Save" />
+                    <img class="insightIcon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/save-insight.svg" width="42" height="59" loading="lazy" decoding="async" alt="Save" />
                 </span>
             </div>
             <div class="column second">
                 <div class="article">
 
                     <span class="saveInsight mobile">
-                        <img class="insightIcon" src="<?php echo get_template_directory_uri(); ?>/assets/images/save-insight-landscape.svg" width="69" height="24" loading="lazy" decoding="async" alt="Save" />
+                        <img class="insightIcon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/save-insight-landscape.svg" width="69" height="24" loading="lazy" decoding="async" alt="Save" />
                     </span>
 
                     <span class="introGrab">
