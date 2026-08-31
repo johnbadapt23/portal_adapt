@@ -17,7 +17,7 @@
                     <?php while ( have_rows( 'column' ) ) : the_row(); ?>
                         <div class="column one-quarter">
                             <span class="headerXL text-white"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
-                            <span class="labelMedium text-medium-grey"><?php echo get_sub_field( 'text' ); ?></span>
+                            <span class="labelMedium text-medium-grey"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                         </div>
                     <?php endwhile; ?>
                 <?php else : ?>
