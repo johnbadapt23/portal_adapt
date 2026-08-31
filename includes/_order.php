@@ -33,7 +33,7 @@ function custom_populate_orderform( $form ) {
 			$choices = array();
 
 			foreach( range(0,6) as $cnt ){
-				$day = strtolower( date('l j F',strtotime( "today + $cnt day") ) );
+				$day = strtolower( wp_date('l j F',strtotime( "today + $cnt day") ) );
                 if($cnt == 0) {
                     $time = strtotime("15:15");
                     $now = strtotime("now");
@@ -59,7 +59,7 @@ function custom_populate_orderform( $form ) {
             foreach($range as $time){
                 $diff = $time - $now;
                 if ($diff > (60*15)){
-                    $choices[] = array( 'text' => date('g:i A',$time), 'value' => date('g:i A',$time) );
+                    $choices[] = array( 'text' => wp_date('g:i A',$time), 'value' => wp_date('g:i A',$time) );
                 }
             }
 
