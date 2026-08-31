@@ -8,7 +8,7 @@
 // vars before either file is loaded), so it correctly reflects whichever
 // of the two taxonomies is actually being viewed with no extra wiring.
 
-$today = date('Ymd');
+$today = wp_date('Ymd');
 $args = array(
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
