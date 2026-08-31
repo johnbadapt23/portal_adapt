@@ -33,7 +33,7 @@ $first_name = $user_info->first_name;
 			<div class="login-container-inner register-container-inner">
 				<div class="login-form-container">
 					<span class="form">
-						<h3>Thanks <?php echo $first_name; ?>, you're all set</h3>
+						<h3>Thanks <?php echo esc_html( $first_name ); ?>, you're all set</h3>
 						<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			                <?php the_content(); ?>
 			            <?php endwhile; endif;  ?>
