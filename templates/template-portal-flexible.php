@@ -12,11 +12,6 @@ not this page. Screen readers and search engines had no heading that
 actually identifies the page. Visually hidden so the design is unaffected. -->
 <h1 class="sr-only"><?php echo esc_html( get_the_title() ?: 'Portal Home' ); ?></h1>
 
-<style>
-.cgptcb-chat-bubble, .cgptcb-tooltip{
-	display: none !important;
-}
-</style>
 <!-- <div class="custom-gpt-wrapper-header">
 	<h2><span>ADAPT</span> Intelligence</h2>
 	<p>Find the insight. Frame your message. All in one place.</p>
@@ -33,9 +28,27 @@ actually identifies the page. Visually hidden so the design is unaffected. -->
 $user = wp_get_current_user();
 $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
 
-if( $is_agent_tester ){
-	echo do_shortcode('[customgpt_chat mode="embedded"]');
-}
+// Disabled: this embedded [customgpt_chat mode="embedded"] card was only
+// ever shown to the agent_tester role, never live to real visitors, but
+// it reliably reproduced a bug where clicking or typing into its textarea
+// triggered the widget's own cold-start flow (it creates a conversation
+// and fetches project settings on first interaction) mid-interaction,
+// which blanks and remounts the whole card and drops whatever the user
+// had just typed. Confirmed live that this is the widget's own client-
+// side React remount, not a CSS-driven show/hide we can override, and not
+// something a WP Rocket Delay JS exclusion can guarantee against either,
+// since the remount is tied to the widget's own conversation-creation
+// call, not to when its script happened to load. Left disabled here until
+// there's either a fix from CustomGPT support or a way to confirm the
+// cold-start finishes before the card can be interacted with. The corner
+// chat bubble (.customgpt-toggle / .cgptcb-chat-bubble, previously hidden
+// on this page via the inline style above since this card was meant to be
+// the primary entry point here) is unaffected by this bug - it uses the
+// separate, already-lazy ensureCustomGptInit() flow in footer.php - and
+// is left visible so agent_tester still has a working way to reach chat.
+// if ( $is_agent_tester ) {
+// 	echo do_shortcode( '[customgpt_chat mode="embedded"]' );
+// }
 
 
 ?>
