@@ -21,11 +21,11 @@ get_header();
                 <span class="searchField">
                     <span class="search">
                         <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find Saved Insights" />
-                        <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" />
+                        <input class="searchButton" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" />
                     </span>
                 </span>
                 <span class="filtersButtonMobile">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />
                     <span class="filterButtonText">Filters</span>
                 </span>
                 <span class="dropDowns">
