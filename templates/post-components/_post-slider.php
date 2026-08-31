@@ -29,7 +29,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
     ];
 }
 ?>
-<section class="portal-post-slider portal <?php echo get_sub_field('background_colour'); ?>">
+<section class="portal-post-slider portal <?php echo esc_attr( get_sub_field('background_colour') ); ?>">
     <div class="container">
         <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
