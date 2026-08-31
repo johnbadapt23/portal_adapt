@@ -6,10 +6,37 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
 ?>
 
 <?php if( $is_agent_tester ) : ?>
-<script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
+<script defer src="https://cdn.customgpt.ai/js/chat.js" data-no-optimize="1"></script>
 <script>
 	window.__cgptConfig = { p_id: '98865', p_key: 'f12d51cc482847f28a6333cf7f6a5c9d' };
 </script>
+<?php
+/**
+ * data-no-optimize="1" above is WP Rocket's own escape hatch: any script
+ * tag carrying it is skipped by every JS optimization WP Rocket does
+ * (Delay JS, Minify, Combine, Defer) unconditionally, checked live against
+ * the tag on every page render. Unlike the rocket_delay_js_exclusions
+ * filter elsewhere in this theme, this needs no WP Rocket cache clear to
+ * take effect after deploy - the exclusion filter approach depends on WP
+ * Rocket regenerating its own cached delayed-script list, which isn't
+ * something we can trigger or verify from here.
+ *
+ * Without this, WP Rocket delays this script until the visitor's first
+ * interaction. That's fine for scripts that just need to be present
+ * before use, but this one runs the widget's full cold start on first
+ * execution (create a conversation, fetch project settings), and that
+ * cold start blanks and remounts the whole embedded card, dropping
+ * whatever the user had already typed - confirmed live, directly, by
+ * watching this script only fetch for the first time on the user's first
+ * click into the textarea, and the card go blank and reset right after.
+ * Loading it unconditionally lets that cold start finish quietly while
+ * the page is loading, well before anyone reaches the textarea, so a
+ * plain click or keystroke there never has anything to interrupt. It
+ * should not affect the corner chat bubble's separate lazy CustomGPT.init()
+ * wrapper below, which only ever runs after an explicit click on the
+ * header toggle regardless of when this script tag itself loads.
+ */
+?>
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'98043', p_key:'8c7e9ac540d9dd825d6cf4eab0ade038' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'97474', p_key:'b53f0fe49da7c1843edb69e542282c3d' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
 <script>
