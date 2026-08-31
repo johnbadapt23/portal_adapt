@@ -1789,7 +1789,7 @@ function ajax_load_filtered_posts() {
     // Visible terms caching
     // -------------------------
     $cache_version = get_visible_terms_cache_version();
-    $cache_key = 'visible_terms_' . $cache_version . '_' . md5(serialize([
+    $cache_key = 'visible_terms_' . $cache_version . '_' . md5(wp_json_encode([
         'args' => $args,
         'membership' => $membershipType,
     ]));
@@ -1830,12 +1830,12 @@ function ajax_load_filtered_posts() {
 
             // Date terms
             global $wpdb;
-            $dates = $wpdb->get_results("
+            $dates = $wpdb->get_results($wpdb->prepare("
                 SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
                 FROM {$wpdb->posts}
-                WHERE ID IN (" . implode(',', array_map('intval', $post_ids)) . ")
+                WHERE ID IN (" . implode(',', array_fill(0, count($post_ids), '%d')) . ")
                 ORDER BY y DESC, m DESC
-            ");
+            ", $post_ids));
             foreach ($dates as $d) {
                 $visible_terms['date'][] = sprintf('%04d-%02d', $d->y, $d->m);
             }
@@ -2366,7 +2366,7 @@ function adapt_render_filter_posts() {
     // Load all taxonomy terms (from warm transient when available)
     // Used to validate page-slug fallbacks AND build allowed_type_slugs
     // -------------------------
-    $terms_cache_key = 'filter_types_terms_' . md5(serialize($membership_allowed_ids));
+    $terms_cache_key = 'filter_types_terms_' . md5(wp_json_encode($membership_allowed_ids));
     $cached_terms    = get_transient($terms_cache_key);
  
     if ($cached_terms !== false) {

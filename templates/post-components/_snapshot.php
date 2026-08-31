@@ -67,10 +67,10 @@
 							?>
 
                                     <figcaption class="snapshot-actions">
-                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo urlencode($url); ?>"
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=<?php echo rawurlencode($url); ?>"
                                            target="_blank" rel="noopener noreferrer">Share on LinkedIn</a>
 
-                                        <a href="mailto:?subject=Shared image&amp;body=<?php echo urlencode($url); ?>">
+                                        <a href="mailto:?subject=Shared image&amp;body=<?php echo rawurlencode($url); ?>">
                                             Share Via Email
                                         </a>
 
