@@ -7,7 +7,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
         <div class="item">
             <?php if(current_user_can('memberpress_authorized')) { ?>
                 <?php if( get_field('replay_vimeo_code')){ ?>
-                    <a href="https://vimeo.com/<?php echo get_field('replay_vimeo_code'); ?>" class="image popup-vimeo">
+                    <a href="https://vimeo.com/<?php echo esc_attr( get_field('replay_vimeo_code') ); ?>" class="image popup-vimeo">
                 <?php } else { ?>
                     <a href="" class="image postPlayBtn">
                 <?php }?>
@@ -50,11 +50,11 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                     <a href="/events/analyst-market-briefings/" class="topic-filter red-text">Analyst Market Briefings</a>
                 </span>
                 <?php if ( $trimmed_content ) : ?>
-                    <span class="text text-white"><?php echo $trimmed_content; ?></span>
+                    <span class="text text-white"><?php echo esc_html( $trimmed_content ); ?></span>
                 <?php endif; ?>
                 <?php if(current_user_can('memberpress_authorized')) { ?>
                     <span class="replay-button-container">
-                        <a class="replay-button popup-vimeo" href="https://vimeo.com/<?php echo get_field('replay_vimeo_code'); ?>">Watch Replay</a>
+                        <a class="replay-button popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_field('replay_vimeo_code') ); ?>">Watch Replay</a>
                     </span>                                
                 <?php } ?>                
                 
