@@ -10,7 +10,7 @@
             <?php if ( have_rows( 'button' ) ) : ?>
 				<?php while ( have_rows( 'button' ) ) : the_row(); ?>
                     <span class="button-container desktop">
-                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                     </span>														
 				<?php endwhile; ?>
 			<?php else : ?>
@@ -52,7 +52,7 @@
         if ($speakers_count > 0): ?>
             <div class="carousel-wrapper" style="overflow: hidden;">
                 <div class="carousel-container" 
-                     style="width: <?php echo $carousel_width; ?>px; animation-duration: <?php echo $animation_duration; ?>s;">
+                     style="width: <?php echo esc_attr( $carousel_width ); ?>px; animation-duration: <?php echo esc_attr( $animation_duration ); ?>s;">
                         <?php foreach ($carousel_posts as $post) : ?>
                             <?php
                             setup_postdata($post);
@@ -69,7 +69,7 @@
             <?php if ( have_rows( 'button' ) ) : ?>
 				<?php while ( have_rows( 'button' ) ) : the_row(); ?>
                     <span class="button-container mobile">
-                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                     </span>														
 				<?php endwhile; ?>
 			<?php else : ?>
