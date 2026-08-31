@@ -17,7 +17,7 @@ get_header();
         <div class="filter">
             <span class="dropDown">
                 <select name="event-dropdown" onchange='document.location.href=this.options[this.selectedIndex].value;'>
-                    <option value=""><?php echo esc_attr(__('Select Category')); ?></option>
+                    <option value=""><?php echo esc_attr(__('Select Category', 'portal')); ?></option>
 
                     <?php
                         // Generic get_categories()/post-category dropdown from the original
