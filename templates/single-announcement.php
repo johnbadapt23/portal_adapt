@@ -102,7 +102,7 @@ if (user_can($current_user, 'administrator')) {
                     </span>
                     <?php else : ?>
                     <?php if ( $textcontributors ) { ?>
-                        <span class="author">by <span class="authorName"><?php echo $textcontributors; ?></span></span>
+                        <span class="author">by <span class="authorName"><?php echo esc_html( $textcontributors ); ?></span></span>
                     <?php } ?>
                 <?php endif; ?>
                 <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
@@ -124,7 +124,7 @@ if (user_can($current_user, 'administrator')) {
 							?>
                         </div>
                         <?php if ( get_field ( 'image_caption' )) { ?>
-                            <div class="caption"><?php echo get_field ( 'image_caption' ); ?></div>
+                            <div class="caption"><?php echo esc_html( get_field ( 'image_caption' ) ); ?></div>
                         <?php } ?>
                     </div>
                 </div>
@@ -135,13 +135,13 @@ if (user_can($current_user, 'administrator')) {
 <section class="webinar-article announcement-article contained-article bg-white">
     <div class="container">
         <div class="announcement-content">
-            <span class="webinar-content content <?php echo $membershipType; ?>">
+            <span class="webinar-content content <?php echo esc_attr( $membershipType ); ?>">
                 <?php if ($membershipType == 'advantage') { ?>
                 <?php echo wp_kses_post( get_field( 'content' ) ); ?>
-                <?php } ?> 
+                <?php } ?>
                 <?php if ($membershipType == 'it-pro') { ?>
-                    <?php if( get_field('content_it_pro')){ ?> 
-                        <?php echo get_field( 'content_it_pro' ); ?>
+                    <?php if( get_field('content_it_pro')){ ?>
+                        <?php echo wp_kses_post( get_field( 'content_it_pro' ) ); ?>
                     <?php } else { ?>
                         <?php echo wp_kses_post( get_field( 'content' ) ); ?>
                     <?php } ?>
@@ -181,7 +181,7 @@ if (user_can($current_user, 'administrator')) {
                                      $text = get_field( 'content' );
                                      $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '...' );
                                 ?>
-                                <a class="text-dark" href="<?php the_permalink(); ?>"><span class="text-dark excerpt announcement-excerpt"><?php echo $trimmed_content; ?></span></a>
+                                <a class="text-dark" href="<?php the_permalink(); ?>"><span class="text-dark excerpt announcement-excerpt"><?php echo esc_html( $trimmed_content ); ?></span></a>
                             </div>
                         </div>
                     <?php endwhile; ?>
