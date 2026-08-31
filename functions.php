@@ -825,7 +825,7 @@ add_action('mepr-validate-signup', function($errors) {
 
         foreach ($blocked_keywords as $keyword) {
             if (str_contains($domain, $keyword)) {
-                $errors[] = __("Please use your work email.", 'memberpress');
+                $errors[] = __("Please use your work email.", 'portal');
                 break;
             }
         }
