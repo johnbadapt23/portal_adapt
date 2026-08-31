@@ -21,7 +21,7 @@
 										<?php } ?>
 									</span>
 									<span class="hover-container background-black">
-										<span class="hover-text"><?php echo get_sub_field( 'hover_text' ); ?></span>
+										<span class="hover-text"><?php echo esc_html( get_sub_field( 'hover_text' ) ); ?></span>
 										<?php if (get_sub_field( 'link' )) { ?>
 											<a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
 										<?php } ?>
