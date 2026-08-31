@@ -10,7 +10,7 @@
 		</div>
 		<div class="background-card-container">
 			<?php $background_image = get_sub_field( 'background_image' ); ?>
-			<div class="background-container" style="background-image:url(<?php echo $background_image['url']; ?>)">
+			<div class="background-container" style="background-image:url(<?php echo esc_url( $background_image['url'] ); ?>)">
 			</div>
 			<div class="card-container desktop">
 				<?php if ( have_rows( 'cards' ) ) : ?>
@@ -28,9 +28,9 @@
 							</span>
 							<span class="content-container">
 								<span class="content-container-inner">
-									<span class="card-title labelXL"><?php echo get_sub_field( 'card_title' ); ?></span>
+									<span class="card-title labelXL"><?php echo esc_html( get_sub_field( 'card_title' ) ); ?></span>
 									<span class="card-text">
-										<span class="inner-text"><?php echo get_sub_field( 'card_text' ); ?></span>
+										<span class="inner-text"><?php echo esc_html( get_sub_field( 'card_text' ) ); ?></span>
 										<?php if ( get_sub_field( 'current_page' ) == 1 ) { ?> 
 											<span class="current-page-tag labelXsmall">Currently viewing</span>
 										<?php } else { ?>
@@ -65,9 +65,9 @@
 							</span>
 							<span class="content-container">
 								<span class="content-container-inner">
-									<span class="card-title labelXL"><?php echo get_sub_field( 'card_title' ); ?></span>
+									<span class="card-title labelXL"><?php echo esc_html( get_sub_field( 'card_title' ) ); ?></span>
 									<span class="card-text">
-										<span class="inner-text"><?php echo get_sub_field( 'card_text' ); ?></span>
+										<span class="inner-text"><?php echo esc_html( get_sub_field( 'card_text' ) ); ?></span>
 										<?php if ( get_sub_field( 'current_page' ) == 1 ) { ?> 
 											<span class="current-page-tag labelXsmall">Currently viewing</span>
 										<?php } else { ?>
