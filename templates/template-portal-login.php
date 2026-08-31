@@ -10,6 +10,7 @@ get_header();
 <!-- End of HubSpot Embed Code -->
 <?php
 // Check if the user is logged in and a redirect_to parameter exists
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET redirect target, same pattern WP core's own login form uses; validated by wp_safe_redirect() (only allows same-site/allowed-host URLs), no state change.
 if ( is_user_logged_in() && isset($_GET['redirect_to']) ) {
 
     // Sanitize and redirect
@@ -17,6 +18,7 @@ if ( is_user_logged_in() && isset($_GET['redirect_to']) ) {
     wp_safe_redirect($redirect_to);
     exit;
 }
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 ?>
 <header class="login-header">
 	<div class="top">

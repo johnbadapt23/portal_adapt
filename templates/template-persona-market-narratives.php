@@ -4,8 +4,10 @@
  */
 
 get_header();
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
 $persona = $_GET['persona'];
 $keyword = $_GET['searchWords'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 $q = get_queried_object();
 $q_slug = $q->slug ?? '';
 ?>

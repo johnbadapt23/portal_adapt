@@ -1,5 +1,8 @@
-<?php $filterType = $_GET['type'];
+<?php
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/preview-toggle params for a bookmarkable, shareable persona URL; no state change results from reading them.
+$filterType = $_GET['type'];
 $preview = $_GET['new'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 global $displayed_posts;
 $displayed_posts = array ();
 $post_types = array ();

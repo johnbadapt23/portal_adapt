@@ -24,6 +24,7 @@
                     <span class="categories">
                         <?php
                         $term_m = 'category';
+                        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable listing URL (method="get" form above); sanitized via sanitize_text_field()/wp_unslash() before use.
                         $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : array();
                         ?>
                         <?php
