@@ -499,6 +499,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                     }
 
                                     $args = [
+                                        'no_found_rows'  => true,
                                         'post_type'      => 'post',
                                         'posts_per_page' => 3,
                                         'tax_query'      => $tax_query,
@@ -648,6 +649,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 }
 
                                 $args = [
+                                    'no_found_rows'  => true,
                                     'post_type'      => 'post',
                                     'posts_per_page' => 3,
                                     'tax_query'      => $tax_query,
@@ -782,6 +784,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php
                             $args = [
+                                'no_found_rows'  => true,
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'meta_key'       => 'post_views_count',

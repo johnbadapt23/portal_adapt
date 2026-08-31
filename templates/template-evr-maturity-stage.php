@@ -12,6 +12,7 @@ $fund_taxonomy = $is_evr_live ? 'fundamentals-levers' : 'fundamentals-lever';
 
 $today = wp_date('Ymd');
 $args = [
+    'no_found_rows'  => true,
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
     'orderby'   => 'meta_value_num',

@@ -20,6 +20,7 @@
 			<?php
 			$today = wp_date('Ymd');
 			$args = [
+				'no_found_rows'  => true,
 				'post_type' => 'registration',
 				'meta_key'  => 'event_date',
 			    'orderby'   => 'meta_value_num',
@@ -98,6 +99,7 @@
 				<?php
 				$today = wp_date('Ymd');
 				$args = [
+					'no_found_rows'  => true,
 					'post_type' => 'registration',
 					'meta_key'  => 'event_date',
 				    'orderby'   => 'meta_value_num',

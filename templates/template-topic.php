@@ -18,6 +18,7 @@ if (
 }
 $today = wp_date('Ymd');
 $args = [
+    'no_found_rows'  => true,
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
     'orderby'   => 'meta_value_num',
