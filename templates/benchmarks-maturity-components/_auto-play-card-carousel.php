@@ -16,13 +16,13 @@
                             </span>
                             <span class="text-container">
                                 <span class="white-text labelMedium"><?php echo wp_kses_post( get_sub_field('title') ); ?></span>
-                                <span class="text text-medium-grey"><?php echo get_sub_field('text'); ?></span>
+                                <span class="text text-medium-grey"><?php echo esc_html( get_sub_field('text') ); ?></span>
                                 <?php if( get_sub_field('add_link') == 'yes' && have_rows('link') ): ?>
                                     <span class="link-container">
                                         <?php while( have_rows('link') ): the_row(); ?>
                                             <a class="text-link external-link red-text red-link red-underline-link"
                                             href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
-                                            target="<?php echo get_sub_field('link_target'); ?>">
+                                            target="<?php echo esc_attr( get_sub_field('link_target') ); ?>">
                                             <?php echo esc_html( get_sub_field('link_text') ); ?>
                                             </a>
                                         <?php endwhile; ?>
@@ -43,13 +43,13 @@
                             </span>
                             <span class="text-container">
                                 <span class="white-text labelMedium"><?php echo wp_kses_post( get_sub_field('title') ); ?></span>
-                                <span class="text text-medium-grey"><?php echo get_sub_field('text'); ?></span>
+                                <span class="text text-medium-grey"><?php echo esc_html( get_sub_field('text') ); ?></span>
                                 <?php if( get_sub_field('add_link') == 'yes' && have_rows('link') ): ?>
                                     <span class="link-container">
                                         <?php while( have_rows('link') ): the_row(); ?>
                                             <a class="text-link external-link red-text red-link red-underline-link"
                                             href="<?php echo esc_url( get_sub_field('link_url') ); ?>"
-                                            target="<?php echo get_sub_field('link_target'); ?>">
+                                            target="<?php echo esc_attr( get_sub_field('link_target') ); ?>">
                                             <?php echo esc_html( get_sub_field('link_text') ); ?>
                                             </a>
                                         <?php endwhile; ?>
