@@ -11,7 +11,7 @@
 
 
 
-<main class="<?php if ( is_home() ): echo 'blog'; else: echo $postType; endif; ?><?php if (is_tax() ) {?> main-topic<?php }?><?php if ( is_search() ): echo ' search'; endif; ?><?php if ( is_404() ): echo ' notFound'; endif; ?>" id="main" >
+<main class="<?php if ( is_home() ): echo 'blog'; else: echo esc_attr( $postType ); endif; ?><?php if (is_tax() ) {?> main-topic<?php }?><?php if ( is_search() ): echo ' search'; endif; ?><?php if ( is_404() ): echo ' notFound'; endif; ?>" id="main" >
 	<?php
 
 		if ( is_home() || is_post_type_archive()  ) {
