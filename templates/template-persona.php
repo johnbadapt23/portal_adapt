@@ -169,7 +169,7 @@ get_header();
 				<?php
 					// Get all term ID's in a given taxonomy
 					$taxonomy = 'persona-mapping';
-					$taxonomy_terms = get_terms( $taxonomy, array(
+					$taxonomy_terms = get_terms( array( 'taxonomy' => $taxonomy,
 					    'hide_empty' => 0,
 					    'fields' => 'ids'
 					) );
