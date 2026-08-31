@@ -14,21 +14,21 @@ $video_variant = $video_variant ?? 'two';
             <div class="video-grid-block-container">
                 <?php $counter = 0; ?>
 				<?php while ( have_rows( 'video_columns' ) ) : the_row(); ?>
-                    <div class="column <?php echo $video_variant; ?>-column <?php echo $counter; ?>">
+                    <div class="column <?php echo esc_attr( $video_variant ); ?>-column <?php echo esc_attr( $counter ); ?>">
                         <div class="video-image-container">
-                            <div class="image" style="background-image: url(<?php echo get_sub_field( 'listing_image' ); ?>);"></div>
+                            <div class="image" style="background-image: url(<?php echo esc_url( get_sub_field( 'listing_image' ) ); ?>);"></div>
                             <span class="videoLink">
                                 <?php if( get_sub_field('vimeo_code_popup')){ ?>
-                                    <a href="https://vimeo.com/<?php echo get_sub_field('vimeo_code_popup'); ?>" class="image popup-vimeo">
+                                    <a href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code_popup') ); ?>" class="image popup-vimeo">
                                 <?php } else { ?>
                                     <a href="#" class="playBtnGrid">
-                                <?php } ?>                                
+                                <?php } ?>
                                     <span class="icon">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
+                                        <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
                                     </span>
                                     <span class="text">
                                         <span><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></span>
-                                        <span><?php echo get_sub_field( 'duration' ); ?></span>
+                                        <span><?php echo esc_html( get_sub_field( 'duration' ) ); ?></span>
                                     </span>
                                 </a>
                             </span>
@@ -37,7 +37,7 @@ $video_variant = $video_variant ?? 'two';
                             <span class="listing-title"><?php echo esc_html( get_sub_field( 'listing_title' ) ); ?></span>
                         <?php } ?>
                         <?php if(get_sub_field( 'listing_text' )){ ?>
-                            <span class="listing-details"><?php echo get_sub_field( 'listing_text' ); ?></span>
+                            <span class="listing-details"><?php echo wp_kses_post( get_sub_field( 'listing_text' ) ); ?></span>
                         <?php } ?>
                     </div>
                     <?php $counter++; ?>
@@ -51,7 +51,7 @@ $video_variant = $video_variant ?? 'two';
         <?php $counter = 0; ?>
             <?php while ( have_rows( 'video_columns' ) ) : the_row(); ?>
                 <div class="videoPlayerContainerGrid">
-                    <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
+                    <span class="closeVideo"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
                     <div class="videoWrapper">
                         <video width="100%" id="popupVideo" controls controlsList="nodownload">
                             <source type="video/mp4" src="<?php echo esc_url( get_sub_field( 'vimeo_code' ) ); ?>" />
