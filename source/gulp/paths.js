@@ -10,6 +10,12 @@ module.exports = {
     src: {
         html: '**/*.html',
         php: '**/*.php',
+        // perfect-scrollbar (JS + CSS, see vendorStyles below) removed -
+        // its only call site was main.js's "Ecosystem team popup" handler
+        // on a.speaker-popup, which doesn't exist in any current template,
+        // ACF field, or other JS (confirmed via repo-wide grep). Dead
+        // weight on every single page load; the handler and its matching
+        // dead SCSS in _kits.scss were removed alongside this.
         scripts: [
             'node_modules/owl.carousel/dist/owl.carousel.js',
             'node_modules/jquery-match-height/dist/jquery.matchHeight.js',
@@ -19,7 +25,6 @@ module.exports = {
             'node_modules/slick-carousel/slick/slick.js',
             'node_modules/js-cookie/dist/js.cookie.js',
             'node_modules/jquery.scrollto/jquery.scrollTo.js',
-            'node_modules/perfect-scrollbar/dist/perfect-scrollbar.js',
             'node_modules/jquery.localscroll/jquery.localScroll.js',
             'node_modules/select2/dist/js/select2.js',
             'node_modules/flexslider/jquery.flexslider.js',
@@ -33,7 +38,6 @@ module.exports = {
         // point) is superseded by main-global.scss / main-core.scss /
         // main-tpl-*.scss - see the comments at the top of styles.js.
         vendorStyles: [
-            'node_modules/perfect-scrollbar/css/perfect-scrollbar.css',
             'node_modules/owl.carousel/dist/assets/owl.carousel.css',
             'node_modules/magnific-popup/dist/magnific-popup.css',
             'node_modules/slick-carousel/slick/slick.scss',

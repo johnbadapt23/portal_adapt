@@ -812,38 +812,6 @@
 			$(this).parents('.partners-help-details').hide();			
 		});
 
-		// Ecosystem team popup 
-
-		$('a.speaker-popup').magnificPopup({
-			type: 'inline',
-			mainClass: 'mfp-speakers',
-			preloader: false,
-			gallery: {
-				enabled: $('a.speaker-popup').length > 1
-			},
-			callbacks: {
-				change: function () {
-				const $about = this.content.find('.about-text');
-				if ($about.length && typeof PerfectScrollbar !== 'undefined') {
-					try {
-						if ($about[0]._perfectScrollbar) {
-							$about[0]._perfectScrollbar.destroy();
-							$about[0]._perfectScrollbar = null;
-						}
-					} catch(e) {}
-					setTimeout(function(){
-						try { $about[0]._perfectScrollbar = new PerfectScrollbar($about[0]); } catch(e) {}
-					}, 1);
-				}
-				},
-				buildControls: function () {
-				if (this.arrowLeft && this.arrowRight) {
-					this.contentContainer.append(this.arrowLeft.add(this.arrowRight));
-				}
-				}
-			}
-			});
-
 
 		// KYC switchers 
 		$('.chapters-container .chapter-selector').on('click', function(e) {
