@@ -56,7 +56,7 @@ if (isset($_GET['partner-search'])) {
                             <span class="search">
 								<input class="searchInput" type="text" name="partner-search" id="search" value="<?php echo esc_attr( $searchTerms ); ?>" placeholder="Search"/>
 								<input type="hidden" value="1" name="sentence" />
-								<input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg"/>
+								<input class="searchButton" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg"/>
 							</span>
                         </span>
 						<span class="partner-filter-group types">
@@ -200,7 +200,7 @@ if (isset($_GET['partner-search'])) {
 									<?php }	?>
 									<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>										
 									<span class="excerpt-container">
-										<?php echo get_field( 'listing_excerpt' ); ?>
+										<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 									</span>
 									<span class="capabilities-container">
 										<span class="capabilities-overflow-container">
