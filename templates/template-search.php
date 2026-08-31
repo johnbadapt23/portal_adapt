@@ -208,7 +208,7 @@ $sort_terms($trending_terms);
            placeholder="<?= esc_attr(get_field('search_help_text')); ?>">
     <input type="image"
            class="post-search-submit"
-           src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg"
+           src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg"
            alt="Search">
 </form>
 <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
@@ -241,7 +241,7 @@ $sort_terms($trending_terms);
 </div>
 
 <div class="ajax-loader" style="display: none;">
-    <img src="<?= get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading">
+    <img src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading">
 </div>
 
 <div class="whats-new resources-column-container three-column-container gap-16-40"
