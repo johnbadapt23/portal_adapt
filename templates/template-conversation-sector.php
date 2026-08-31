@@ -41,7 +41,7 @@ get_header();
 						array (
 							'taxonomy' => 'sector-analysis',
 							'field' => 'id', 
-							'terms' => get_terms('sector-analysis', array('fields' => 'ids'))
+							'terms' => get_terms(array('taxonomy' => 'sector-analysis', 'fields' => 'ids'))
 						),
 					)
 				);
