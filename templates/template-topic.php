@@ -16,7 +16,7 @@ if (
 ) {
     $advantageType = "yes";
 }
-$today = date('Ymd');
+$today = wp_date('Ymd');
 $args = array(
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
