@@ -5,7 +5,7 @@
     <?php } else { ?>
         <?php $banner_image = get_field( 'sector_analysis_banner_image', 'options' ); ?>
     <?php }?>
-    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
         <div class="container">
             <span class="back-to-sectors topicFilter">
                 <a href="/data-insights/sector-analysis/" target="_self">Sector Analysis</a>
@@ -71,7 +71,7 @@
                                         <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
                                         <span class="hover-container">
                                             <?php if ($imageCounter) { ?>
-                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
                                             <?php } ?>
                                         <span>
                                     <?php else : ?>
@@ -116,7 +116,7 @@
                                     }?>
                                     <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
                                     <?php if($postType){?>
-                                        <a href="/data-insights/sector-analysis/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+                                        <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
