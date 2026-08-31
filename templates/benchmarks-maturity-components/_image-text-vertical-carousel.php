@@ -8,11 +8,11 @@
                         <span class="link-container">                        
                             <?php while ( have_rows( 'link' ) ) : the_row(); ?>
                                 <?php if( get_sub_field( 'link_type' ) == 'link'){ ?> 
-                                    <a class="text-link red-link external-link red-arrow-link-external" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                                <?php } else if( get_sub_field( 'link_type' ) =='scroll-to') { ?> 
-                                    <a class="text-link red-link red-arrow-link-external external-link scroll-to-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                                <?php } else { ?> 
-                                    <span class="form-popup-container text-link red-link with-red-underline-link with-external-link red-arrow-link-external"><?php echo get_sub_field( 'form_button' ); ?></span>
+                                    <a class="text-link red-link external-link red-arrow-link-external" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                <?php } else if( get_sub_field( 'link_type' ) =='scroll-to') { ?>
+                                    <a class="text-link red-link red-arrow-link-external external-link scroll-to-button" href="#<?php echo esc_attr( get_sub_field( 'scroll_to_id' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                <?php } else { ?>
+                                    <span class="form-popup-container text-link red-link with-red-underline-link with-external-link red-arrow-link-external"><?php echo esc_html( get_sub_field( 'form_button' ) ); ?></span>
                                 <?php } ?>
                             <?php endwhile; ?>
                         </span>
@@ -59,8 +59,8 @@
                                     </span> 
                                     <?php if(get_sub_field( 'name' )) { ?> 
                                         <span class="bottom-text-container">
-                                            <span class="label-XL white-text"><?php echo get_sub_field( 'name' ); ?></span>
-                                            <span class="label-Xsmall"><?php echo get_sub_field( 'role' ); ?></span>                                    
+                                            <span class="label-XL white-text"><?php echo esc_html( get_sub_field( 'name' ) ); ?></span>
+                                            <span class="label-Xsmall"><?php echo esc_html( get_sub_field( 'role' ) ); ?></span>
                                         </span>                                   
                                     <?php } ?>
                                 </div>
