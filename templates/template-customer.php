@@ -94,7 +94,7 @@ get_header();
 							}
 							?>
 							<?php if (get_field( 'older_version_question' ) == 'no') { ?> 
-								<span class="one-third kit-item <?php echo $kitType; ?>">
+								<span class="one-third kit-item <?php echo esc_attr( $kitType ); ?>">
 									<span class="kit-inner background-white ">
 										<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 										<span class="icon-container">
@@ -104,7 +104,7 @@ get_header();
 											<?php } ?>
 										</span>
 										<span class="excerpt-container">
-											<?php echo get_field( 'listing_excerpt' ); ?>
+											<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 										</span>
 										<span class="button-container">
 											<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Access Now</a>
@@ -112,7 +112,7 @@ get_header();
 									</span>
 								</span>
 							<?php } else { ?> 
-								<span class="one-third kit-item <?php echo $kitType; ?> kit-slider-container">
+								<span class="one-third kit-item <?php echo esc_attr( $kitType ); ?> kit-slider-container">
 									<span class="kit-slider">
 										<span class="kit-inner background-white">
 											<?php if ( get_field( 'show_new_tag' ) == 1 ) { ?>
@@ -126,7 +126,7 @@ get_header();
 												<?php } ?>
 											</span>
 											<span class="excerpt-container">
-												<?php echo get_field( 'listing_excerpt' ); ?>
+												<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 											</span>
 											<span class="button-container">
 												<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Access Now</a>
@@ -145,7 +145,7 @@ get_header();
 															<?php } ?>
 														</span>
 														<span class="excerpt-container">
-															<?php echo get_field( 'listing_excerpt' ); ?>
+															<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 														</span>
 														<span class="button-container">
 															<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Access Now</a>
@@ -190,7 +190,7 @@ get_header();
 					<?php if(current_user_can('mepr_auth')) {?>
 					<?php } else { ?>
 						<?php if ( get_field( 'this_older_version' ) == 0 ) { ?>
-							<span class="one-third kit-item <?php echo $kitType; ?>">
+							<span class="one-third kit-item <?php echo esc_attr( $kitType ); ?>">
 								<span class="kit-inner background-pink">
 									<span class="listing-title"><?php echo esc_html( get_field( 'listing_title' ) ); ?></span>
 									<span class="icon-container">
@@ -200,7 +200,7 @@ get_header();
 										<?php } ?>
 									</span>
 									<span class="excerpt-container">
-										<?php echo get_field( 'listing_excerpt' ); ?>
+										<?php echo esc_html( get_field( 'listing_excerpt' ) ); ?>
 									</span>
 									<span class="button-container">
 										<a class="stdBtn black-outline-button" href="<?php the_permalink(); ?>" target="_self">Preview</a>
