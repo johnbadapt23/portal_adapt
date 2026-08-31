@@ -15,7 +15,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
 <section class="title-banner light-theme">
     <div class="container">
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_the_title() ); ?></h1>
-        <p><?php echo get_field('whats_new_subtitle', 'options'); ?></p>
+        <p><?php echo esc_html( get_field('whats_new_subtitle', 'options') ); ?></p>
     </div>
 </section>
 
@@ -123,7 +123,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
                         <input type="text" class="post-search-input" placeholder="e.g. - State of the Nation">
                         <input type="image"
                                class="post-search-submit"
-                               src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg"
+                               src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg"
                                alt="Search">
                     </form>
                     <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
@@ -138,7 +138,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
         <div class="whats-new-container-outer">
             <div class="whats-new-filter-inner">
                 <div class="ajax-loader" style="display: none;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40"
                      id="posts-container">
