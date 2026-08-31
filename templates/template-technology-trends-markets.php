@@ -524,7 +524,7 @@ $q_slug = $q->slug ?? '';
 		 <div class="container">
 			 <div id="loop" class="gridWrapper">
 				 <?php $term_m = 'topic';
-				  $terms = get_terms( $term_m, array(
+				  $terms = get_terms( array( 'taxonomy' => $term_m,
 					  'hide_empty' => false,
 				  ) );
 
