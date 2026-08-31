@@ -77,6 +77,28 @@ jobs:
         run: npx gulp _build
 
       - name: Deploy over SFTP
+        # Pinned to a specific release tag (not @master, a floating ref)
+        # for two reasons: (1) supply-chain safety - a third-party action
+        # on @master can change or break under us with no corresponding
+        # change on our side; (2) this exact class of failure already
+        # happened once: this action's own action.yml unconditionally
+        # embeds ${{ github.event.head_commit.message }} into a
+        # double-quoted string inside its bash script (used to build a
+        # webhook payload we don't even use - the "webhook" input below
+        # is never set). If a commit message contains a literal `"`
+        # (breaking out of that quoted string) followed later by an
+        # unquoted `<` or `>` (e.g. mentioning an HTML tag like "<br>"),
+        # bash's parser sees a stray redirection operator and the whole
+        # step fails with "syntax error near unexpected token '<'" -
+        # this is a parse-time failure of the *generated script itself*,
+        # so it happens regardless of whether the run actually reaches
+        # the deploy logic. Pinning to 1.18 doesn't fix that upstream
+        # issue (it's present there too), but it does stop this step
+        # from silently changing behavior on us independent of this
+        # repo's own commits. The practical mitigation is on our side:
+        # avoid literal `"` and `<`/`>` characters in commit messages
+        # that reach `dev`/`main` (e.g. write "the br tag" or use single
+        # quotes instead of double quotes around quoted snippets).
         # Deploys straight from the repo root (not a staged copy) because
         # delta sync's change detection is `git diff <prev commit>..<head>`,
         # which only means anything against an actual git working tree.
@@ -93,7 +115,7 @@ jobs:
         # what git diff reports. (CSS used to be one main.min.css bundle;
         # it's now split per-template so a page only loads what it needs -
         # see header.php and source/scss/main-core.scss.)
-        uses: milanmk/actions-file-deployer@master
+        uses: milanmk/actions-file-deployer@1.18
         with:
           remote-protocol: sftp
           remote-host: ${{ vars.PRODUCTION_HOST }}
