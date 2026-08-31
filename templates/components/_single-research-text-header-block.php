@@ -80,7 +80,10 @@
 
                     <!-- <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a> -->
                     <!-- <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a> -->
-                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText">Cloud</a>
+                    <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                    <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                    <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText">Cloud</a>
+                    <?php endif; ?>
                     <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText">Research</a>
                 </span>
                 <span class="title"><?php echo esc_html( get_the_title() ); ?></span>

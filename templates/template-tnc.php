@@ -27,7 +27,10 @@ $q = get_queried_object();
                     ] ); 
                 ?>
                 <?php foreach($terms as $term) { ?>
-                    <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo esc_html( $term -> name ); ?></a>
+                    <?php $term_link = get_term_link( $term ); ?>
+                    <?php if ( ! is_wp_error( $term_link ) ) : ?>
+                    <a href="<?php echo esc_url( $term_link ); ?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo esc_html( $term -> name ); ?></a>
+                    <?php endif; ?>
                 <?php } ?>
             </div>
         </div>           
@@ -124,7 +127,10 @@ $q = get_queried_object();
                                                 <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                         <?php } ?>                                
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                            <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php endif; ?>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -230,7 +236,10 @@ $q = get_queried_object();
                                                     <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                             <?php } ?>                                
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php endif; ?>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title labelXXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -344,7 +353,10 @@ $q = get_queried_object();
                                         <a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
                                 <?php } ?>                                
                                 <?php if($postTopic){?>
-                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                    <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                    <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                    <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                    <?php endif; ?>
                                 <?php } ?>
                             </span>
                             <a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>

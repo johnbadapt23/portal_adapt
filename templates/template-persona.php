@@ -36,8 +36,13 @@ get_header();
 					<div class="persona-button-container">
 						<?php $persona_terms = get_sub_field( 'personas' ); ?>
 						<?php if ( $persona_terms ): ?>
-							<?php foreach ( $persona_terms as $persona_term ): ?>
-								<a class="persona-button" href="<?php echo esc_url( get_term_link($persona_term) ); ?>" target="_self">
+							<?php foreach ( $persona_terms as $persona_term ):
+								$persona_term_link = get_term_link( $persona_term );
+								if ( is_wp_error( $persona_term_link ) ) {
+									continue;
+								}
+							?>
+								<a class="persona-button" href="<?php echo esc_url( $persona_term_link ); ?>" target="_self">
 									<span class="persona-button-inner">
 										<span class="persona-text-container">
 											<span class="v-wrap">
@@ -139,7 +144,10 @@ get_header();
 										}
 									}?>
 									<?php if($postTopic){?>
-										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+										<?php $postTopic_link = get_term_link( $postTopic ); ?>
+										<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+										<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+										<?php endif; ?>
 									<?php } ?>
 									<?php if($postType){?>
 											<a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
@@ -257,7 +265,10 @@ get_header();
                                         }
                                     }?>
 									<?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php endif; ?>
                                     <?php } ?>
                                     <?php if($postType){?>
                                             <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>

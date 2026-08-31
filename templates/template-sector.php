@@ -39,7 +39,10 @@ get_header();
 						<?php $sectors_terms = get_sub_field( 'sectors' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="<?php echo esc_url( get_term_link($sectors_term) ); ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
+								<?php $sectors_term_link = get_term_link( $sectors_term ); ?>
+								<?php if ( ! is_wp_error( $sectors_term_link ) ) : ?>
+								<a class="sector-button button grey-button" href="<?php echo esc_url( $sectors_term_link ); ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
+								<?php endif; ?>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>

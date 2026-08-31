@@ -103,7 +103,10 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php endif; ?>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -182,7 +185,10 @@
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                            <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php endif; ?>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -273,7 +279,10 @@
                                                     }
                                                 }?>
                                                 <?php if($postTopic){?>
-                                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                    <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                    <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                    <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                    <?php endif; ?>
                                                 <?php } ?>
                                             </span>
                                             <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -352,7 +361,10 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php endif; ?>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>

@@ -101,12 +101,17 @@ if ( $loop->have_posts() ) :
             'parent' => 0
         ] );
         ?>
-        <?php foreach($terms as $term) { ?>
-            <span class="other-fundamentals-items other-items"><a href="<?php echo esc_url( get_term_link($term) ); ?>" target="_self">
+        <?php foreach($terms as $term) {
+            $term_link = get_term_link( $term );
+            if ( is_wp_error( $term_link ) ) {
+                continue;
+            }
+        ?>
+            <span class="other-fundamentals-items other-items"><a href="<?php echo esc_url( $term_link ); ?>" target="_self">
             <?php $icon = get_field( 'icon', $term ); ?>
             <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( $term->name ); ?>
             </a></span>
-        <?php } 
+        <?php }
         ?>
     </div>
     <span class="close-dropdown"></span>
@@ -348,7 +353,10 @@ if ( $loop->have_posts() ) :
                                         }
                                     }?>
                                     <?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php endif; ?>
                                     <?php } ?>
                                     <?php if($postType){?>
 
@@ -379,7 +387,10 @@ if ( $loop->have_posts() ) :
                             <?php $icon = get_field( 'icon', $topic_term); ?>
                             <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                             <p><?php echo esc_html( $topic_term->description ); ?></p>
-                            <a href="<?php echo esc_url( get_term_link($topic_term) ); ?>" class="viewAll">View All</a>
+                            <?php $topic_term_link = get_term_link( $topic_term ); ?>
+                            <?php if ( ! is_wp_error( $topic_term_link ) ) : ?>
+                            <a href="<?php echo esc_url( $topic_term_link ); ?>" class="viewAll">View All</a>
+                            <?php endif; ?>
                         </div>
                         <div class="gridWrapper">
                             <?php
@@ -466,9 +477,15 @@ if ( $loop->have_posts() ) :
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
-                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
+                                                    <?php $q_link = get_term_link( $q ); ?>
+                                                    <?php if ( ! is_wp_error( $q_link ) ) : ?>
+                                                    <a href="<?php echo esc_url( $q_link ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
+                                                    <?php endif; ?>
 
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -517,7 +534,10 @@ if ( $loop->have_posts() ) :
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText red-text"><?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                            <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText red-text"><?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php endif; ?>
                                         <?php } ?>
                                          <?php if($postType){?>
                                             <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText red-text"><?php echo esc_html( $postType->name ); ?></a>

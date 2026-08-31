@@ -116,7 +116,10 @@ get_header();
 											<a href="/persona-mapping/<?php echo esc_attr( $postType->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postType->name ); ?></a>
 									<?php } ?>
 									<?php if($postTopic){?>
-										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+										<?php $postTopic_link = get_term_link( $postTopic ); ?>
+										<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+										<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+										<?php endif; ?>
 									<?php } ?>
 								</span>
 								<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>

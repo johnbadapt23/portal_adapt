@@ -178,8 +178,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     }
                                                     ?>
 
-                                                    <?php if ( $postTopic ) : ?>
-                                                        <a href="<?php echo esc_url( get_term_link( $postTopic ) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
+                                                    <?php $postTopic_link = $postTopic ? get_term_link( $postTopic ) : null; ?>
+                                                    <?php if ( $postTopic && ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
                                                             <?php echo esc_html( $postTopic->name ); ?>
                                                         </a>
                                                     <?php endif; ?>
@@ -314,8 +315,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                         ?>
 
-                                                        <?php if ( $postTopic ) : ?>
-                                                            <a href="<?php echo esc_url( get_term_link( $postTopic ) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
+                                                        <?php $postTopic_link = $postTopic ? get_term_link( $postTopic ) : null; ?>
+                                                        <?php if ( $postTopic && ! is_wp_error( $postTopic_link ) ) : ?>
+                                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
                                                                 <?php echo esc_html( $postTopic->name ); ?>
                                                             </a>
                                                         <?php endif; ?>
@@ -473,7 +475,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -622,7 +627,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -757,7 +765,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>

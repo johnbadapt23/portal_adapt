@@ -652,8 +652,13 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                         }
 
                         // 4. Output (max 2 guaranteed)
-                        foreach ($topics as $topic) : ?>
-                            <a href="<?php echo esc_url(get_term_link($topic)); ?>" class="topic-filter red-text">
+                        foreach ($topics as $topic) :
+                            $topic_link = get_term_link( $topic );
+                            if ( is_wp_error( $topic_link ) ) {
+                                continue;
+                            }
+                        ?>
+                            <a href="<?php echo esc_url($topic_link); ?>" class="topic-filter red-text">
                                 <?php echo esc_html($topic->name); ?>
                             </a>
                         <?php endforeach; ?>
@@ -678,7 +683,10 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                     ?>
                     <?php if ( !empty( $postType ) ) { ?>
                         <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
-                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
+                        <?php $postType_link = get_term_link( $postType ); ?>
+                        <?php if ( ! is_wp_error( $postType_link ) ) : ?>
+                        <a href="<?php echo esc_url( $postType_link ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
+                        <?php endif; ?>
                     <?php } ?>
                 </span>
                 <?php } ?>            

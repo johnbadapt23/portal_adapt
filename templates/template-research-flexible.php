@@ -36,7 +36,10 @@ get_header();
 													<?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
 													<?php if ( $topic_link_term ): ?>
 														<li>
-															<a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+															<?php $topic_link_term_link = get_term_link( $topic_link_term ); ?>
+															<?php if ( ! is_wp_error( $topic_link_term_link ) ) : ?>
+															<a href="<?php echo esc_url( $topic_link_term_link ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+															<?php endif; ?>
 														</li>
 													<?php endif; ?>
 												<?php endwhile; ?>
@@ -74,7 +77,10 @@ get_header();
 														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
 														<?php if ( $type_link_term ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php $type_link_term_link = get_term_link( $type_link_term ); ?>
+																<?php if ( ! is_wp_error( $type_link_term_link ) ) : ?>
+																<a href="<?php echo esc_url( $type_link_term_link ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php endif; ?>
 															</li>
 														<?php endif; ?>
 													<?php } else { ?>
@@ -120,7 +126,10 @@ get_header();
 														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
 														<?php if ( $type_link_term ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php $type_link_term_link = get_term_link( $type_link_term ); ?>
+																<?php if ( ! is_wp_error( $type_link_term_link ) ) : ?>
+																<a href="<?php echo esc_url( $type_link_term_link ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php endif; ?>
 															</li>
 														<?php endif; ?>
 													<?php } else { ?>

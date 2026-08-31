@@ -236,10 +236,16 @@ $q_slug = $q->slug ?? '';
 									   <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 									   <?php if ($topicFilter != '') { ?>
 											<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-											<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+											<?php $term_link = get_term_link( $term ); ?>
+											<?php if ( ! is_wp_error( $term_link ) ) : ?>
+											<a href="<?php echo esc_url( $term_link ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+											<?php endif; ?>
 										<?php } else { ?> 
 											<?php if($postType){?>
-												<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+												<?php $postType_link = get_term_link( $postType ); ?>
+												<?php if ( ! is_wp_error( $postType_link ) ) : ?>
+												<a href="<?php echo esc_url( $postType_link ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+												<?php endif; ?>
 											<?php } ?>
 										<?php } ?>
 	                                </span>
@@ -627,10 +633,16 @@ $q_slug = $q->slug ?? '';
 								 <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 								 <?php if ($topicFilter != '') { ?>
 									<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-									<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+									<?php $term_link = get_term_link( $term ); ?>
+									<?php if ( ! is_wp_error( $term_link ) ) : ?>
+									<a href="<?php echo esc_url( $term_link ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+									<?php endif; ?>
 								<?php } else { ?> 
 									<?php if($postType){?>
-										<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										<?php $postType_link = get_term_link( $postType ); ?>
+										<?php if ( ! is_wp_error( $postType_link ) ) : ?>
+										<a href="<?php echo esc_url( $postType_link ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										<?php endif; ?>
 									<?php } ?>
 								<?php } ?>
 								 </span>

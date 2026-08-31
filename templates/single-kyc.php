@@ -21,10 +21,15 @@
                                 }
                             }
                         ?> 
-                        <a class="kit-back-button" href="<?php echo esc_url( get_term_link($postTopic) ); ?>" target="_self">Back</a>
+                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                        <a class="kit-back-button" href="<?php echo esc_url( $postTopic_link ); ?>" target="_self">Back</a>
+                        <?php endif; ?>
                         <div class="text-content-inner">
-                            
-                            <span class="subtitle text-red"><a href="<?php echo esc_url( get_term_link($postTopic) ); ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>              
+
+                            <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                            <span class="subtitle text-red"><a href="<?php echo esc_url( $postTopic_link ); ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>
+                            <?php endif; ?>
                             <h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                             <span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                             <span class="links-container">

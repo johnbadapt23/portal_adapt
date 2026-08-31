@@ -153,7 +153,10 @@ $post_types =  [];
                     <div class="container">
                         <div class="blockTitle">
                             <h2><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
-                            <a href="<?php echo esc_url( get_term_link($q) ); ?>?type=<?php echo esc_attr( $topic_term->slug ); ?>" class="viewAll">View All</a>
+                            <?php $q_link = get_term_link( $q ); ?>
+                            <?php if ( ! is_wp_error( $q_link ) ) : ?>
+                            <a href="<?php echo esc_url( $q_link ); ?>?type=<?php echo esc_attr( $topic_term->slug ); ?>" class="viewAll">View All</a>
+                            <?php endif; ?>
                         </div>
                         <div class="gridWrapper">
                             <?php
@@ -240,9 +243,15 @@ $post_types =  [];
                                                         }
                                                     }?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
-                                                    <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
+                                                    <?php $q_link = get_term_link( $q ); ?>
+                                                    <?php if ( ! is_wp_error( $q_link ) ) : ?>
+                                                    <a href="<?php echo esc_url( $q_link ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
+                                                    <?php endif; ?>
 
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -365,9 +374,15 @@ $post_types =  [];
             $terms = $post_types;
             ?>
             <span class="filter-link-container">
-                <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo esc_url( get_term_link($q) ); ?>">All</a>
+                <?php $q_link = get_term_link( $q ); ?>
+                <?php if ( ! is_wp_error( $q_link ) ) : ?>
+                <a class="persona-filter-link all<?php if($filterType == '') { ?> active<?php } ?>" href="<?php echo esc_url( $q_link ); ?>">All</a>
+                <?php endif; ?>
                 <?php foreach ($terms as $term){ ?>
-                    <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo esc_url( get_term_link($q) ); ?>?type=<?php echo esc_attr( $term->slug );?>"><?php echo esc_html( $term->name );?></a>
+                    <?php $q_link = get_term_link( $q ); ?>
+                    <?php if ( ! is_wp_error( $q_link ) ) : ?>
+                    <a class="persona-filter-link<?php if($filterType == $term->slug) { ?> active<?php } ?>" href="<?php echo esc_url( $q_link ); ?>?type=<?php echo esc_attr( $term->slug );?>"><?php echo esc_html( $term->name );?></a>
+                    <?php endif; ?>
                 <?php } ?>
             </span>
         </div>
@@ -494,7 +509,10 @@ $post_types =  [];
                                         }
                                     }?>
 									<?php if($q){?>
-                                        <a href="<?php echo esc_url( get_term_link($q) ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
+                                        <?php $q_link = get_term_link( $q ); ?>
+                                        <?php if ( ! is_wp_error( $q_link ) ) : ?>
+                                        <a href="<?php echo esc_url( $q_link ); ?>" class="topicFilterText"><?php echo esc_html( $q->name ); ?></a>
+                                        <?php endif; ?>
                                     <?php } ?>
                                     <?php if($postType){?>
                                             <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
