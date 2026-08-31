@@ -60,7 +60,7 @@
                                                     <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                         <span class="opacity-overlay"></span>
                                                     <?php } ?>
-                                                    <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                    <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                     <?php if ($video_link){ ?>
                                                         <span class="video-button">
                                                         </span>
@@ -103,7 +103,7 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -141,7 +141,7 @@
                                                 <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                     <span class="opacity-overlay"></span>
                                                 <?php } ?>
-                                                <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                 <?php if ($video_link){ ?>
                                                     <span class="video-button">
                                                     </span>
@@ -182,7 +182,7 @@
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -230,7 +230,7 @@
                                                         <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                             <span class="opacity-overlay"></span>
                                                         <?php } ?>
-                                                        <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                        <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                         <?php if ($video_link){ ?>
                                                             <span class="video-button">
                                                             </span>
@@ -273,7 +273,7 @@
                                                     }
                                                 }?>
                                                 <?php if($postTopic){?>
-                                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                                 <?php } ?>
                                             </span>
                                             <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -311,7 +311,7 @@
                                                     <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                         <span class="opacity-overlay"></span>
                                                     <?php } ?>
-                                                    <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                    <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                     <?php if ($video_link){ ?>
                                                         <span class="video-button">
                                                         </span>
@@ -352,7 +352,7 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
