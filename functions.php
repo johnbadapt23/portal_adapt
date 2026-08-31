@@ -402,7 +402,7 @@ function adapt_filter_insights_by_category( $query ) {
  * Update the monthly count meta for users
  */
 function mepr_update_monthly_count($user_id, $meta_key_array, $meta_key_total) {
-    $current_month = date('Ym'); // e.g., 202510
+    $current_month = wp_date('Ym'); // e.g., 202510
     $data = get_user_meta($user_id, $meta_key_array, true);
 
     if (!is_array($data)) $data = [];
@@ -423,7 +423,7 @@ function mepr_update_monthly_count($user_id, $meta_key_array, $meta_key_total) {
     }
 
     // Keep only last 12 months
-    $twelve_months_ago = date('Ym', strtotime('-12 months'));
+    $twelve_months_ago = wp_date('Ym', strtotime('-12 months'));
     $new_data = array_filter($data, fn($entry) => $entry['month'] >= $twelve_months_ago);
 
     // Update stored array
@@ -463,10 +463,10 @@ function update_download_counter() {
     $download_array = get_user_meta($user_id, 'mepr_downloads_30_days_array', true);
     if (!is_array($download_array)) $download_array = [];
 
-    $current_date = date('Ymd');
+    $current_date = wp_date('Ymd');
     $download_array[] = ['date' => $current_date];
 
-    $thirty_days_ago = date('Ymd', strtotime('-30 days'));
+    $thirty_days_ago = wp_date('Ymd', strtotime('-30 days'));
     $download_array = array_filter($download_array, fn($d) => $d['date'] >= $thirty_days_ago);
 
     update_user_meta($user_id, 'mepr_downloads_30_days_array', array_values($download_array));
@@ -489,7 +489,7 @@ function update_download_counter() {
 function mepr_add_to_monthly_count($user_id, $meta_key_array, $meta_key_total, $increment = 0) {
     if ($increment <= 0) return;
 
-    $current_month = date('Ym');
+    $current_month = wp_date('Ym');
     $data = get_user_meta($user_id, $meta_key_array, true);
     if (!is_array($data)) $data = [];
 
@@ -507,7 +507,7 @@ function mepr_add_to_monthly_count($user_id, $meta_key_array, $meta_key_total, $
         $data[] = ['month' => $current_month, 'count' => $increment];
     }
 
-    $twelve_months_ago = date('Ym', strtotime('-12 months'));
+    $twelve_months_ago = wp_date('Ym', strtotime('-12 months'));
     $new_data = array_filter($data, fn($entry) => $entry['month'] >= $twelve_months_ago);
 
     update_user_meta($user_id, $meta_key_array, array_values($new_data));
@@ -520,12 +520,12 @@ function mepr_add_to_monthly_count($user_id, $meta_key_array, $meta_key_total, $
  * Trim last year's same month on the 1st day of each month
  */
 function mepr_trim_last_year_month($user_id, $meta_key_array, $meta_key_total) {
-    if (date('d') !== '01') return;
+    if (wp_date('d') !== '01') return;
 
     $data = get_user_meta($user_id, $meta_key_array, true);
     if (!is_array($data)) return;
 
-    $last_year_month = date('Ym', strtotime('-12 months'));
+    $last_year_month = wp_date('Ym', strtotime('-12 months'));
     $new_data = array_filter($data, fn($entry) => $entry['month'] !== $last_year_month);
 
     update_user_meta($user_id, $meta_key_array, array_values($new_data));
@@ -553,7 +553,7 @@ function update_user_activity_info() {
             if (!user_can($user_id, 'mepr-active') || $member->is_already_subscribed_to(9811)) continue;
         }
 
-        $thirty_days_ago = date('Ymd', strtotime('-30 days'));
+        $thirty_days_ago = wp_date('Ymd', strtotime('-30 days'));
 
         // Post views
         $post_views_array = get_user_meta($user_id, 'mepr_post_views_30_days_array', true);
@@ -631,8 +631,8 @@ function track_user_logins($user_login, $user) {
         }
     }
 
-    $today = date('Ymd');
-    $thirty_days_ago = date('Ymd', strtotime('-30 days'));
+    $today = wp_date('Ymd');
+    $thirty_days_ago = wp_date('Ymd', strtotime('-30 days'));
 
     $login_array = get_user_meta($user_id, 'mepr_logins_30_days_array', true);
     if (!is_array($login_array)) $login_array = [];
@@ -2138,7 +2138,7 @@ function load_past_sessions_unique() {
     $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
     $posts_per_page = isset($_POST['perpage']) ? intval($_POST['perpage']) : 18;
     $soft_limit = $posts_per_page * 5; // fetch extra to guarantee 18 visible posts
-    $today = date('Ymd');
+    $today = wp_date('Ymd');
 
     $args = array(
         'post_type'      => 'post',
