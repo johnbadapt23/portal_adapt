@@ -33,9 +33,9 @@ get_header();
                             $filterCat = $_GET['categories'];
                             ?>
                             <?php
-                            $terms = get_terms( array( 'taxonomy' => $term_m,
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <?php if ($term -> slug == 'private-events') { ?>
@@ -57,9 +57,9 @@ get_header();
                             $filterType = $_GET['types'];
                             ?>
                             <?php
-                            $terms = get_terms( array( 'taxonomy' => $term_m,
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <?php $image = get_field('icon', $term); ?>
@@ -78,9 +78,9 @@ get_header();
                             $filterDuration = $_GET['duration'];
                             ?>
                             <?php
-                            $terms = get_terms( array( 'taxonomy' => $term_m,
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
@@ -118,75 +118,75 @@ get_header();
 
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
                     if($keyword != '') {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             's' => $keyword,
                             'posts_per_page' => 9,
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
-                            'tax_query' => array(
-                                array(
+                            'tax_query' => [
+                                [
                                     'taxonomy' => 'event-category',
                                     'field' => 'slug',
                                     'terms' => 'private-events',
                                     'operator' => 'NOT IN',
-                                ),
+                                ],
                                 'relation' => '&'
-                            )
-                        );
+                            ]
+                        ];
                     } else {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             'posts_per_page' => 9,
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
-                            'tax_query' => array(
-                                array(
+                            'tax_query' => [
+                                [
                                     'taxonomy' => 'event-category',
                                     'field' => 'slug',
                                     'terms' => 'private-events',
                                     'operator' => 'NOT IN',
-                                ),
+                                ],
                                 'relation' => '&'
-                            )
-                        );
+                            ]
+                        ];
                     }
 
 
                     if($filterCat != '') {
                         foreach( $filterCat as $filter){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'event-category',
                                     'field' => 'slug',
                                     'terms' => $filter,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterType != '') {
                         foreach( $filterType as $type){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'event-type',
                                     'field' => 'slug',
                                     'terms' => $type,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterDuration != '') {
                         foreach( $filterDuration as $duration){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'event-duration',
                                     'field' => 'slug',
                                     'terms' => $duration,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }

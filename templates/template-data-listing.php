@@ -40,12 +40,12 @@ get_header();
 											<?php $offsetimage = get_sub_field( 'image_two' ); ?>
 											<span class="bg-container offset-image-container">
 												<?php if ( $offsetimage ) { ?>
-													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 											<span class="bg-container">
 												<?php if ( $image ) { ?>
-													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 										</span>
@@ -98,12 +98,12 @@ get_header();
 											<?php $offsetimage = get_sub_field( 'image_two' ); ?>
 											<span class="bg-container offset-image-container">
 												<?php if ( $offsetimage ) { ?>
-													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 											<span class="bg-container">
 												<?php if ( $image ) { ?>
-													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 										</span>

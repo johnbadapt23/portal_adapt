@@ -29,7 +29,7 @@
                         <?php $image = get_sub_field('poster_image'); ?>
                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                         <?php if ( $poster_image ) { ?>
-                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                         <?php } ?>  
                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                             <span class="opacity-overlay"></span>

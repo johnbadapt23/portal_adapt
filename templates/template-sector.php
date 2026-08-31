@@ -77,14 +77,14 @@ get_header();
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -107,7 +107,7 @@ get_header();
 																				<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -178,38 +178,38 @@ get_header();
 		<section class="portal postListing topicGrid sector-grid subTopic sector-container">
 	        <div class="container">
 				<?php $term_m = 'sector-analysis';
-                $terms = get_terms( array( 'taxonomy' => $term_m,
+                $terms = get_terms( [ 'taxonomy' => $term_m,
                     'hide_empty' => false,
-                ) );
+                ] );
 
-                $sectors = array();
+                $sectors = [];
                 foreach( $terms as $term){
                     $sectors[] = $term->slug;
                 } ?>
 	            <div id="loop" class="gridWrapper">
-					<?php $args = array(
+					<?php $args = [
 	                    'post_type'      => 'post',
 	                    'posts_per_page' => -1,
-	                    'tax_query'      => array(
+	                    'tax_query'      => [
 							'relation' => 'AND',
-							array (
+							 [
 							 'taxonomy' => 'filter-types',
 							 'field' => 'slug',
 							 'terms'    => 'data-insights'
-						 	),
-							array (
+						 	],
+							 [
 								'taxonomy' => 'data-insights-subcategories',
 								'field' => 'slug',
 								'terms'    => 'sector-analysis'
-							)	                        
+							]	                        
 	                        // array(
 	                        //     'taxonomy' => 'sector-analysis',
 	                        //     'field'    => 'slug',
 	                        //     'terms' => $sectors,
 		                    //     'operator' => 'IN'
 	                        // )
-	                    ),
-	                );
+	                    ],
+	                ];
 
 	                $posts = new WP_Query( $args );
 	                if( $posts->have_posts() ): ?>
@@ -242,7 +242,7 @@ get_header();
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
@@ -252,7 +252,7 @@ get_header();
 	                                        <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}

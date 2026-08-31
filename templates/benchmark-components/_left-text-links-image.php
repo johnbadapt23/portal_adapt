@@ -23,7 +23,7 @@
                         <div class="bg-container">
                             <?php $image = get_sub_field( 'image' ); ?>
                             <?php if ( $image ) { ?>
-                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                             <?php } ?>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                     <div class="bg-container">
                         <?php $image = get_sub_field( 'image' ); ?>
                         <?php if ( $image ) { ?>
-                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                         <?php } ?>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                             <span class="bullet-icon-container">
                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                 <?php if ( $icon ) { ?>
-                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                 <?php } ?>
                             </span>
                             <span class="bullet-text labelLarge"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>

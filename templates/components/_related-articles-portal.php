@@ -26,18 +26,18 @@ if (!$postTopic) {
         <div class="resources-column-container gap-16-40 three-column-container">
 
         <?php
-        $args = array(
+        $args = [
             'post_type' => 'post',
             'posts_per_page' => 3,
-            'post__not_in' => array(get_the_ID()),
-            'tax_query' => array(
-                array(
+            'post__not_in' => [get_the_ID()],
+            'tax_query' => [
+                [
                     'taxonomy' => 'topic',
                     'field' => 'term_id',
                     'terms' => $postTopic->term_id
-                )
-            )
-        );
+                ]
+            ]
+        ];
 
         $posts = new WP_Query($args);
 

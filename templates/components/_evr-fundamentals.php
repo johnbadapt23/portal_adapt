@@ -13,7 +13,7 @@
                                 <?php if ( $fundamental_term ): ?>
                                     <span class="other-fundamentals-items other-items"><a href="<?php echo esc_url( get_term_link($fundamental_term) ); ?>" target="_self">
                                     <?php $icon = get_field( 'icon', $fundamental_term ); ?>
-                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $fundamental_term->name ); ?> 
+                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( $fundamental_term->name ); ?> 
                                     </a></span>
                                 <?php endif; ?>
                             <?php endwhile; ?>
@@ -34,7 +34,7 @@
                                 <?php if ( $fundamental_term ): ?>
                                     <span class="other-fundamentals-items other-items"><a href="<?php echo esc_url( get_term_link($fundamental_term) ); ?>" target="_self">
                                         <?php $icon = get_field( 'icon', $fundamental_term ); ?>
-                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?>Value from <?php echo esc_html( $fundamental_term->name ); ?> 
+                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?>Value from <?php echo esc_html( $fundamental_term->name ); ?> 
                                     </a></span>
                                 <?php endif; ?>
                             <?php endwhile; ?>

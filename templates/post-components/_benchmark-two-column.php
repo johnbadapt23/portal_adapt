@@ -12,7 +12,7 @@
                                     <span class="icon-container">
                                         <?php $icon = get_sub_field( 'icon' ); ?>
                                         <?php if ( $icon ) { ?>
-                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                         <?php } ?>
                                     </span>
                                     <span class="link-title text-regular medium-weight"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
@@ -55,7 +55,7 @@
             <div class="column image-column">
                 <?php $image = get_sub_field( 'image' ); ?>
                 <?php if ( $image ) { ?>
-                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                 <?php } ?>
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <span class="button-container desktop">

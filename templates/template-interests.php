@@ -28,10 +28,10 @@ $interests = $user_info->mepr_interests;
                         $term_m = 'topic';
                         ?>
                         <?php
-                        $terms = get_terms( array( 'taxonomy' => $term_m,
+                        $terms = get_terms( [ 'taxonomy' => $term_m,
                             'hide_empty' => false,
                             'parent' => 0
-                        ) );
+                        ] );
                         ?>
                         <?php foreach($terms as $term) { ?>
                             <span class="topic">

@@ -9,30 +9,30 @@
 // of the two taxonomies is actually being viewed with no extra wiring.
 
 $today = wp_date('Ymd');
-$args = array(
+$args = [
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
     'orderby'   => 'meta_value_num',
     'order'     => 'ASC',
-    'tax_query' => array(
+    'tax_query' => [
         'relation' => 'AND',
-        array (
+         [
             'taxonomy' => 'replay',
             'field' => 'slug',
             'terms' => 'replay_event_date',
             'operator' => 'IN',
-        ),
-    ),
-    'meta_query' => array(
-        array(
+        ],
+    ],
+    'meta_query' => [
+        [
             'key'     => 'replay_event_date',
             'compare' => '<=',
             'value'   => $today,
-        ),
-    ),
-);
+        ],
+    ],
+];
 global $displayed_posts;
-$displayed_posts = array ();
+$displayed_posts =  [];
 $posts = new WP_Query( $args );
 if( $posts->have_posts() ): ?>
     <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -71,12 +71,12 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 // never touches title/content/ACF fields, so it doesn't need full WP_Post
 // objects. fields => ids skips that hydration on a query with no result
 // limit.
-$args = array(
+$args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
     'paged'=> $paged,
     'fields' => 'ids'
-); ?>
+]; ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
     foreach ( $loop->posts as $id ) :
@@ -96,15 +96,15 @@ if ( $loop->have_posts() ) :
         $term_m = $taxonomy;
         ?>
         <?php
-        $terms = get_terms( array( 'taxonomy' => $term_m,
+        $terms = get_terms( [ 'taxonomy' => $term_m,
             'hide_empty' => false,
             'parent' => 0
-        ) );
+        ] );
         ?>
         <?php foreach($terms as $term) { ?>
             <span class="other-fundamentals-items other-items"><a href="<?php echo esc_url( get_term_link($term) ); ?>" target="_self">
             <?php $icon = get_field( 'icon', $term ); ?>
-            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $term->name ); ?>
+            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( $term->name ); ?>
             </a></span>
         <?php } 
         ?>
@@ -117,7 +117,7 @@ if ( $loop->have_posts() ) :
     <div class="imageSizeContainer">
         <div class="bgContainer">
             <?php $banner_image = get_field( 'banner_image', $q ); ?>
-            <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
+            <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, [ 'alt' => $banner_image['alt'], 'class' => 'desktop' ] ); ?>
         </div>
         <div class="container">
             <span class="bannerBreadcrumbs">
@@ -147,7 +147,7 @@ if ( $loop->have_posts() ) :
                         <label for="filterby">Explore By</label>
                         <select name="filterby" id="" onchange="this.form.submit()">
                             <option value="">All Stages</option>
-                            <?php $terms = array(); ?>
+                            <?php $terms = []; ?>
                             <?php $loop = new WP_Query( $args ); ?>
                             <?php if ( $loop->have_posts() ) : ?>
                                 <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
@@ -196,10 +196,10 @@ if ( $loop->have_posts() ) :
                         <?php if ($filterType != '') { ?>
                             <?php $term = get_term_by('slug', $filterType, 'evr-maturity-stage'); ?>
                             <?php $icon = get_field( 'icon', $term ); ?>
-                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $term->name ); ?>
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( $term->name ); ?>
                         <?php } else { ?>
                             <?php $icon = get_field( 'icon', $q ); ?>
-                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( $q->name ); ?>
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( $q->name ); ?>
                         <?php } ?>
                     <?php } ?>
                 </h2>
@@ -222,34 +222,34 @@ if ( $loop->have_posts() ) :
 
                 <?php
                 if($keyword != '') {
-                    $args = array(
+                    $args = [
                         'post_type' => 'post',
                         'posts_per_page' => 9,
                         's' => $keyword,
                         'paged'=> $paged,
-                        'tax_query' => array(
+                        'tax_query' => [
                             'relation' => 'AND',
-                            array (
+                             [
                                 'taxonomy' => $taxonomy,
                                 'field' => 'slug',
                                 'terms'    => $q->slug
-                            )
-                        )
-                    );
+                            ]
+                        ]
+                    ];
                 } else {
-                    $args = array(
+                    $args = [
                         'post_type' => 'post',
                         'posts_per_page' => 9,
                         'paged'=> $paged,
-                        'tax_query' => array(
+                        'tax_query' => [
                             'relation' => 'AND',
-                            array (
+                             [
                                 'taxonomy' => $taxonomy,
                                 'field' => 'slug',
                                 'terms'    => $q->slug
-                            )
-                        )
-                    );
+                            ]
+                        ]
+                    ];
                 }
 
                 if($filterType != '') {
@@ -258,29 +258,29 @@ if ( $loop->have_posts() ) :
                     } else {
                         if($filterType == 'all') {
                             $term_m = 'evr-maturity-stage';
-                            $terms = get_terms( array( 'taxonomy' => $term_m,
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => false,
-                            ) );
+                            ] );
 
-                            $types = array();
+                            $types = [];
                             foreach( $terms as $term){
                                 $types[] = $term->slug;
                             }
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'evr-maturity-stage',
                                     'field' => 'slug',
                                     'terms' => $types,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
 
                         } else {
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'evr-maturity-stage',
                                     'field' => 'slug',
                                     'terms' => $filterType,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
@@ -297,14 +297,14 @@ if ( $loop->have_posts() ) :
                                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                     <?php } elseif ( get_field( 'video_image' )){  ?>
                                         <?php $video_image = get_field( 'video_image' ); ?>
-                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                     <?php } else { ?>
                                         <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                             <?php $image = get_field( 'video_poster'); ?>
@@ -314,7 +314,7 @@ if ( $loop->have_posts() ) :
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -363,7 +363,7 @@ if ( $loop->have_posts() ) :
                         </div>
                     <?php endwhile; ?>
                 <?php endif;?>
-                <?php wp_pagenavi( array( 'query' => $posts ) ); ?>
+                <?php wp_pagenavi( [ 'query' => $posts ] ); ?>
             <?php wp_reset_query(); ?>
             </div>
         </div>
@@ -377,32 +377,32 @@ if ( $loop->have_posts() ) :
                     <div class="container">
                         <div class="blockTitle">
                             <?php $icon = get_field( 'icon', $topic_term); ?>
-                            <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                            <h2><?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                             <p><?php echo esc_html( $topic_term->description ); ?></p>
                             <a href="<?php echo esc_url( get_term_link($topic_term) ); ?>" class="viewAll">View All</a>
                         </div>
                         <div class="gridWrapper">
                             <?php
                                 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                                $args = array(
+                                $args = [
                                     'post_type'      => 'post',
                                     'posts_per_page' => 3,
                                     'offset' => 0,
                                     'paged'=> $paged,
-                                    'tax_query'      => array(
+                                    'tax_query'      => [
                                         'relation' => 'AND',
-                                        array (
+                                         [
                                             'taxonomy' => $taxonomy,
                                             'field' => 'slug',
                                             'terms'    => $q->slug
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                             'taxonomy' => 'evr-maturity-stage',
                                             'field'    => 'slug',
                                             'terms'    => $topic_term->slug
-                                        )
-                                    ),
-                                );
+                                        ]
+                                    ],
+                                ];
 
                                 $posts = new WP_Query( $args );
                                 if( $posts->have_posts() ): ?>
@@ -415,14 +415,14 @@ if ( $loop->have_posts() ) :
                                                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                     <?php } elseif ( get_field( 'video_image' )){  ?>
                                                         <?php $video_image = get_field( 'video_image' ); ?>
-                                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                                     <?php } else { ?>
                                                         <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                             <?php $image = get_field( 'video_poster'); ?>
@@ -432,7 +432,7 @@ if ( $loop->have_posts() ) :
                                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -534,14 +534,14 @@ if ( $loop->have_posts() ) :
                                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } elseif ( get_field( 'video_image' )){  ?>
                                             <?php $video_image = get_field( 'video_image' ); ?>
-                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                         <?php } else { ?>
                                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                 <?php $image = get_field( 'video_poster'); ?>
@@ -551,7 +551,7 @@ if ( $loop->have_posts() ) :
                                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}

@@ -12,13 +12,13 @@ global $displayed_posts;
 // real query) and its result was never read anywhere in this file - a
 // dead, fully unbounded WP_Query on every load of this template. Removed.
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-<?php $args = array(
+<?php $args = [
     'post_type' => 'announcement',
     'posts_per_page' => -1,
     'paged'=> $paged,
     'orderby' => 'date',
     'order' => 'DESC'
-); ?>
+]; ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
     while ( $loop->have_posts() ) : $loop->the_post();
@@ -48,7 +48,7 @@ if ( $loop->have_posts() ) :
 <?php if(current_user_can('mepr-active','memberships:48815')){
     $membershipType = 'tnc';
 } ?>
-<?php $kycMemberships = array('49569', '49567', '49565', '49563', '49561', '49559', '49557'); ?>
+<?php $kycMemberships = ['49569', '49567', '49565', '49563', '49561', '49559', '49557']; ?>
 <?php if(current_user_can('mepr-active','memberships:' .$kycMemberships)){
     $membershipType = 'kyc';
 } ?>
@@ -131,13 +131,13 @@ if (user_can($current_user, 'administrator')) {
         </div>
         <div class="announcements-loop">
             <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-            <?php $args = array(
+            <?php $args = [
                 'post_type' => 'announcement',
                 'posts_per_page' => -1,
                 'paged'=> $paged,
                 'orderby' => 'date',
                 'order' => 'DESC'
-            ); ?>
+            ]; ?>
             <?php $loop = new WP_Query( $args );
             if ( $loop->have_posts() ) :
                 while ( $loop->have_posts() ) : $loop->the_post();

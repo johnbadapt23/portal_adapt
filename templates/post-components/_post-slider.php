@@ -107,17 +107,17 @@ if ( ! empty( $membership_allowed_ids ) ) {
                     <?php } else if(get_sub_field( 'taxonomy' ) == 'types'){ ?>
                         <?php $type_term = get_sub_field( 'type' ); ?>
                         <?php if ( $type_term ): 
-                            $args = array(
+                            $args = [
                                 'post_type'      => 'post',
                                 'posts_per_page' => 6,
-                                'tax_query'      => array(
-                                    array(
+                                'tax_query'      => [
+                                    [
                                         'taxonomy' => 'filter-types',
                                         'field'    => 'slug',
                                         'terms'    => $type_term->slug,
-                                    )
-                                )
-                            );
+                                    ]
+                                ]
+                            ];
                         
                         endif; ?>
                     <?php } else { ?> 

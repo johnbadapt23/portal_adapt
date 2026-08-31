@@ -52,7 +52,7 @@ get_header();
             <?php
 
                 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                $args = array( 'post_type' => 'speaker', 'posts_per_page' => 9, 'paged'=> $paged );
+                $args = [ 'post_type' => 'speaker', 'posts_per_page' => 9, 'paged'=> $paged ];
                 $loop = new WP_Query( $args );
                 while ( $loop->have_posts() ) : $loop->the_post();
             ?>

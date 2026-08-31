@@ -35,7 +35,7 @@ get_header();
 									<span class="bg-container">
 										<?php $image = get_sub_field( 'image' ); ?>
 										<?php if ( $image ) { ?>
-											<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+											<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 										<?php } ?>
 									</span>
 								</span>
@@ -69,7 +69,7 @@ get_header();
 							<div class="bg-container">
 								<?php $poster_image = get_sub_field( 'poster_image' ); ?>
 								<?php if ( $poster_image ) { ?>
-									<?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+									<?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
 								<?php } ?>                                                                
 								<?php if( get_sub_field( 'vimeo_code' )) { ?>
 									<span class="opacity-overlay"></span>
@@ -92,7 +92,7 @@ get_header();
 						<span class="icon-container">
 							<?php $icon = get_sub_field( 'icon' ); ?>
 							<?php if ( $icon ) { ?>
-								<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+								<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
 							<?php } ?>
 						</span>
 						<span class="text-container">
@@ -115,7 +115,7 @@ get_header();
 							<div class="mobile-image">
 								<?php $image = get_sub_field( 'image' ); ?>
 								<?php if ( $image ) { ?>
-									<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+									<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 								<?php } ?>
 							</div>
 							<?php if ( have_rows( 'list_items' ) ) : ?>
@@ -133,7 +133,7 @@ get_header();
 						<div class="column image-column">
 							<?php $image = get_sub_field( 'image' ); ?>
 							<?php if ( $image ) { ?>
-								<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+								<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 							<?php } ?>
 						</div>
 					</div>
@@ -157,7 +157,7 @@ get_header();
 									<div class="image-column one-third">
 										<?php $image = get_sub_field( 'image' ); ?>
 										<?php if ( $image ) { ?>
-											<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+											<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 										<?php } ?>
 									</div>
 									<div class="text-column two-thirds">

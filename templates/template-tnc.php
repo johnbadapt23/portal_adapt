@@ -1,5 +1,5 @@
 <?php global $displayed_posts;
-$displayed_posts = array (); ?>
+$displayed_posts =  []; ?>
 
 <?php
 
@@ -21,10 +21,10 @@ $q = get_queried_object();
             <div class="topic-button-container filter-button-container">
                 <a class="all filter-button" href="/tnc/">All</a>
                  <?php 
-                    $terms = get_terms( array(
+                    $terms = get_terms( [
                         'post_type' => 'post',
                         'taxonomy' => 'tnc'
-                    ) ); 
+                    ] ); 
                 ?>
                 <?php foreach($terms as $term) { ?>
                     <a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="filter-button<?php if ($term -> slug == $q -> slug ) { ?> selected<?php } ?>"><?php echo esc_html( $term -> name ); ?></a>
@@ -53,14 +53,14 @@ $q = get_queried_object();
                                                 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                         <?php } elseif ( get_field( 'video_image' )){ ?>
                                             <?php $video_image = get_field( 'video_image' ); ?>
-                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                            <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                         <?php } else { ?>
                                             <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                 <?php $image = get_field( 'video_poster'); ?>
@@ -70,7 +70,7 @@ $q = get_queried_object();
                                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -135,19 +135,19 @@ $q = get_queried_object();
                 <?php } else { ?>
                     <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
                     <?php
-                        $args = array(
+                        $args = [
                             'post_type' => 'post',
                             'posts_per_page' => 1,
                             'paged'=> $paged,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'tnc',
                                     'field' => 'slug',
                                     'terms'    => $q->slug
-                                )
-                            )
-                        );
+                                ]
+                            ]
+                        ];
                         $posts = new WP_Query( $args ); ?>
                         <?php if( $posts->have_posts() ): ?>
                             <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -159,14 +159,14 @@ $q = get_queried_object();
                                                     <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                             <?php } elseif ( get_field( 'video_image' )){ ?>
                                                 <?php $video_image = get_field( 'video_image' ); ?>
-                                                <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                                <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                     <?php $image = get_field( 'video_poster'); ?>
@@ -176,7 +176,7 @@ $q = get_queried_object();
                                                 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -249,19 +249,19 @@ $q = get_queried_object();
     <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
     <div class="container">
         <div class="grid-wrapper" id="loop">
-            <?php $args = array(
+            <?php $args = [
                 'post_type' => 'post',
                 'posts_per_page' => 9,
                 'paged'=> $paged,
-                'tax_query' => array(
+                'tax_query' => [
                     'relation' => 'AND',
-                    array (
+                     [
                         'taxonomy' => 'tnc',
                         'field' => 'slug',
                         'terms'    => $q->slug
-                    ),
-                )
-            );
+                    ],
+                ]
+            ];
             $posts = new WP_Query( $args ); ?>
             <?php if( $posts->have_posts() ): ?>
                 <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -273,14 +273,14 @@ $q = get_queried_object();
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                 <?php } elseif ( get_field( 'video_image' )){ ?>
                                     <?php $video_image = get_field( 'video_image' ); ?>
-                                    <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                    <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                 <?php } else { ?>
                                     <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                         <?php $image = get_field( 'video_poster'); ?>
@@ -290,7 +290,7 @@ $q = get_queried_object();
                                     <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -354,7 +354,7 @@ $q = get_queried_object();
             <?php endif;?>
         </div>
         <div class="page-navi-container">
-            <?php wp_pagenavi( array( 'query' => $posts ) ); ?>
+            <?php wp_pagenavi( [ 'query' => $posts ] ); ?>
                 <?php wp_reset_postdata(); ?>
             <?php wp_reset_query(); ?>
         </div>

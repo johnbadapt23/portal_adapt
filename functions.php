@@ -271,7 +271,7 @@ add_filter( 'https_ssl_verify', '__return_false' );
 add_action('wp_enqueue_scripts', 'my_register_javascript', 100);
 
 function my_register_javascript() {
-  wp_register_script('mediaelement', plugins_url('wp-mediaelement.min.js', __FILE__), array('jquery'), '4.8.2', true);
+  wp_register_script('mediaelement', plugins_url('wp-mediaelement.min.js', __FILE__), ['jquery'], '4.8.2', true);
   wp_enqueue_script('mediaelement');
 }
 
@@ -302,7 +302,7 @@ function ajaxtest_function() {
             // was posted. Anything not matching that pattern is dropped
             // rather than stored.
             $raw_interests = wp_unslash($_POST['mepr_interests']);
-            $interests = array();
+            $interests = [];
             if (is_array($raw_interests)) {
                 foreach ($raw_interests as $slug => $value) {
                     $slug = sanitize_title($slug);
@@ -378,13 +378,13 @@ function adapt_filter_insights_by_category( $query ) {
     if ( empty( $categories ) ) {
         return;
     }
-    $query->set( 'tax_query', array(
-        array(
+    $query->set( 'tax_query', [
+        [
             'taxonomy' => 'category',
             'field'    => 'slug',
             'terms'    => $categories,
-        ),
-    ) );
+        ],
+    ] );
 }
 
 /**
@@ -722,15 +722,15 @@ function send_webhook_batch() {
     $batch      = array_slice( $queued, 0, $batch_size, true );
 
     foreach ( $batch as $key => $user ) {
-        $response = wp_remote_post( $url, array(
+        $response = wp_remote_post( $url, [
             'method'      => 'POST',
             'body'        => wp_json_encode( $user ),
-            'headers'     => array(
+            'headers'     => [
                 'Content-Type' => 'application/json',
-            ),
+            ],
             'timeout'     => 2,
             'redirection' => 2,
-        ) );
+        ] );
 
         if ( is_wp_error( $response ) ) {
             error_log( 'Webhook error for user ' . ( $user['user_id'] ?? 'unknown' ) . ': ' . $response->get_error_message() );
@@ -1021,7 +1021,7 @@ function adapt_enqueue_template_styles() {
     wp_enqueue_style(
         'adapt-global',
         $theme_uri . '/assets/css/global.min.css',
-        array(),
+        [],
         adapt_asset_version( '/assets/css/global.min.css' )
     );
 
@@ -1029,48 +1029,48 @@ function adapt_enqueue_template_styles() {
         wp_enqueue_style(
             'adapt-tpl-agenda',
             $theme_uri . '/assets/css/tpl-agenda.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-agenda.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-events.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-events',
             $theme_uri . '/assets/css/tpl-events.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-events.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-events-portal.php' ) ) {
         wp_enqueue_style(
             'adapt-core',
             $theme_uri . '/assets/css/core.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/core.min.css' )
         );
         wp_enqueue_style(
             'adapt-tpl-events',
             $theme_uri . '/assets/css/tpl-events.min.css',
-            array( 'adapt-core' ),
+            [ 'adapt-core' ],
             adapt_asset_version( '/assets/css/tpl-events.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-flexible.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-flexible',
             $theme_uri . '/assets/css/tpl-flexible.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-flexible.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-home.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-home',
             $theme_uri . '/assets/css/tpl-home.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-home.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-portal-flexible.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-portal-flexible',
             $theme_uri . '/assets/css/tpl-portal-flexible.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-portal-flexible.min.css' )
         );
     } elseif ( is_singular( 'post' ) ) {
@@ -1085,14 +1085,14 @@ function adapt_enqueue_template_styles() {
         wp_enqueue_style(
             'adapt-tpl-single-post',
             $theme_uri . '/assets/css/tpl-single-post.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-single-post.min.css' )
         );
     } else {
         wp_enqueue_style(
             'adapt-core',
             $theme_uri . '/assets/css/core.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/core.min.css' )
         );
     }
@@ -1102,7 +1102,7 @@ function adapt_enqueue_template_styles() {
     wp_enqueue_style(
         'adapt-skelet-icons',
         $theme_uri . '/assets/fonts/skelet-icons-master/style.css',
-        array(),
+        [],
         adapt_asset_version( '/assets/fonts/skelet-icons-master/style.css' )
     );
 }
@@ -1142,22 +1142,22 @@ function my_enqueue_scripts() {
     wp_enqueue_script(
         'gsap-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js',
-        array(),
+        [],
         null,
-        array(
+        [
             'strategy'  => 'defer',
             'in_footer' => true,
-        )
+        ]
     );
     wp_enqueue_script(
         'scrolltrigger-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js',
-        array('gsap-js'),
+        ['gsap-js'],
         null,
-        array(
+        [
             'strategy'  => 'defer',
             'in_footer' => true,
-        )
+        ]
     );
 
     // Main JS
@@ -1182,15 +1182,15 @@ function my_enqueue_scripts() {
     wp_enqueue_script(
         'main-js',
         get_template_directory_uri() . '/assets/js/main.min.js',
-        array('jquery'),
+        ['jquery'],
         adapt_asset_version( '/assets/js/main.min.js' ),
         true
     );
 
-    wp_localize_script('main-js', 'ajaxobject', array(
+    wp_localize_script('main-js', 'ajaxobject', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('adapt_ajax_nonce'),
-    ));
+    ]);
 
     // HubSpot deferred loader
     wp_add_inline_script(
@@ -1296,10 +1296,10 @@ function adapt_render_hubspot_embed( $raw_html ) {
 function adapt_main_slide_image_attrs( $alt ) {
     static $first_slide_rendered = false;
 
-    $attr = array(
+    $attr = [
         'alt'   => $alt,
         'sizes' => '(max-width: 767px) 100vw, 812px',
-    );
+    ];
 
     if ( ! $first_slide_rendered ) {
         $attr['fetchpriority'] = 'high';
@@ -1383,13 +1383,13 @@ function adapt_defer_noncritical_styles( $html, $handle ) {
     // and this filter silently no-ops for every handle, which is exactly
     // what was happening in production (confirmed via a cache-bypassed
     // live fetch: none of the 5 handles were getting the onload swap).
-    $defer_handles = array(
+    $defer_handles = [
         'jquery-magnific-popup',
         'jquery-ui-timepicker-addon',
         'wp-pagenavi',
         'tablepress-default',
         'wordfenceAJAXcss',
-    );
+    ];
 
     if ( ! in_array( $handle, $defer_handles, true ) ) {
         return $html;
@@ -2136,7 +2136,7 @@ function load_past_sessions_unique() {
     $soft_limit = $posts_per_page * 5; // fetch extra to guarantee 18 visible posts
     $today = wp_date('Ymd');
 
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => $soft_limit,
         'offset'         => $offset,
@@ -2144,21 +2144,21 @@ function load_past_sessions_unique() {
         'orderby'        => 'meta_value_num',
         'order'          => 'DESC',
         'post_status'      => 'publish',
-        'tax_query'      => array(
-            array(
+        'tax_query'      => [
+            [
                 'taxonomy' => 'filter-types',
                 'field'    => 'slug',
                 'terms'    => 'analyst-market-briefings',
-            ),
-        ),
-        'meta_query' => array(
-            array(
+            ],
+        ],
+        'meta_query' => [
+            [
                 'key'     => 'replay_event_date',
                 'compare' => '<=',
                 'value'   => $today,
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     $query = new WP_Query($args);
     $shown = 0;
@@ -2233,11 +2233,11 @@ add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment
 
     $mime_type = get_post_mime_type( $attachment_id );
 
-    $blocked_mime_types = array(
+    $blocked_mime_types = [
         'application/pdf',
         'application/vnd.ms-powerpoint', // .ppt
         'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
-    );
+    ];
 
     return ! in_array( $mime_type, $blocked_mime_types, true );
 }, 10, 3 );
@@ -2578,9 +2578,9 @@ function adapt_render_filter_posts() {
 
 function adapt_register_agent_tester_role() {
     if ( ! get_role( 'agent_tester' ) ) {
-        add_role( 'agent_tester', 'Agent Tester', array(
+        add_role( 'agent_tester', 'Agent Tester', [
             'read' => true,
-        ) );
+        ] );
     }
 }
 add_action( 'init', 'adapt_register_agent_tester_role' );
@@ -2601,7 +2601,7 @@ function adapt_assign_agent_tester_role_once() {
         return;
     }
 
-    $user_ids = array(
+    $user_ids = [
         1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
         1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
         1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
@@ -2626,7 +2626,7 @@ function adapt_assign_agent_tester_role_once() {
         911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
         1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
         913,  1721,
-    );
+    ];
 
     // $user_ids = array(421, 1811, 1179, 1189, 1317, 1178, 1181, 1171, 1177, 1176, 1175, 1173, 1174);
 
@@ -2652,7 +2652,7 @@ function adapt_remove_agent_tester_role_once() {
         return;
     }
 
-    $user_ids = array(
+    $user_ids = [
         1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
         1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
         1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
@@ -2677,7 +2677,7 @@ function adapt_remove_agent_tester_role_once() {
         911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
         1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
         913,  1721,
-    );
+    ];
 
     foreach ( $user_ids as $user_id ) {
         $user = get_user_by( 'id', $user_id );

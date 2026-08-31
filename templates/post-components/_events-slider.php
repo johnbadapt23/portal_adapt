@@ -52,22 +52,22 @@
                     <?php } else { ?> 
                         <?php
                             $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                            $args = array(
+                            $args = [
                                 'post_type' => 'event',
                                 'posts_per_page' => -1,
                                 'paged'=> $paged ,
                                 'orderby'=> 'menu_order',
                                 'order'=> 'ASC',
-                                'tax_query' => array(
+                                'tax_query' => [
                                     'relation' => 'AND',
-                                    array (
+                                     [
                                         'taxonomy' => 'event-type',
                                         'field' => 'slug',
                                         'terms'    => 'upcoming-events',
                                         'operator' => 'IN'
-                                    )
-                                )
-                            );
+                                    ]
+                                ]
+                            ];
                             
 
                             $loop = new WP_Query( $args );

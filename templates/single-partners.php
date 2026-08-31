@@ -35,12 +35,12 @@ endif;
                                         <div class="bg-container">
                                             <?php $head_shot = get_sub_field( 'poster_image' ); ?>
                                             <?php if ( $head_shot ) { ?>
-                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_icon) { ?>
                                                 <?php
 									$listing_icon_attach_id = attachment_url_to_postid( $listing_icon );
 									if ( $listing_icon_attach_id ) {
-										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
+										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
 										echo '<img src="' . esc_url( $listing_icon ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
@@ -55,12 +55,12 @@ endif;
                                         <div class="bg-container">
                                             <?php $head_shot = get_sub_field( 'head_shot' ); ?>
                                             <?php if ( $head_shot ) { ?>
-                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_avatar) { ?>
                                                 <?php
 									$listing_avatar_attach_id = attachment_url_to_postid( $listing_avatar );
 									if ( $listing_avatar_attach_id ) {
-										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
+										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
 										echo '<img src="' . esc_url( $listing_avatar ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
@@ -286,7 +286,7 @@ endif;
                                             <div class="team-container column-container">
                                                 <?php 
                                                 if ($post_objects && !is_array($post_objects)) {
-                                                    $post_objects = array($post_objects);
+                                                    $post_objects = [$post_objects];
                                                 }
                                                 ?>
                                                 <?php foreach ($post_objects as $post): ?>
@@ -298,7 +298,7 @@ endif;
                                                                 <?php
 								$speaker_image_attach_id = attachment_url_to_postid( $speaker_image );
 								if ( $speaker_image_attach_id ) {
-									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -331,7 +331,7 @@ endif;
                                                     <div class="bg-container">
                                                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                                         <?php if ( $poster_image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                                                         <?php } ?>                                                                
                                                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                             <span class="opacity-overlay"></span>
@@ -407,7 +407,7 @@ endif;
                                                         <span class="logo-container">
                                                             <?php $logo = get_sub_field( 'logo' ); ?>
                                                             <?php if ( $logo ) { ?>
-                                                                <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
+                                                                <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, [ 'alt' => $logo['alt'] ] ); ?>
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">

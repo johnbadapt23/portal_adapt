@@ -18,30 +18,30 @@ if (
 }
 
 $today = wp_date('Ymd');
-$args = array(
+$args = [
     'post_type' => 'post',
     'meta_key'  => 'replay_event_date',
     'orderby'   => 'meta_value_num',
     'order'     => 'ASC',
-    'tax_query' => array(
+    'tax_query' => [
         'relation' => 'AND',
-        array (
+         [
             'taxonomy' => 'filter-types',
             'field' => 'slug',
             'terms' => 'workshop-recordings',
             'operator' => 'IN',
-        ),
-    ),
-    'meta_query' => array(
-        array(
+        ],
+    ],
+    'meta_query' => [
+        [
             'key'     => 'replay_event_date',
             'compare' => '<=',
             'value'   => $today,
-        ),
-    ),
-);
+        ],
+    ],
+];
 global $displayed_posts;
-$displayed_posts = array ();
+$displayed_posts =  [];
 
 $posts = new WP_Query( $args );
 if( $posts->have_posts() ): ?>
@@ -70,12 +70,12 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 // never touches title/content/ACF fields, so it doesn't need full WP_Post
 // objects. fields => ids skips that hydration on a query with no result
 // limit.
-$args = array(
+$args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
     'paged'=> $paged,
     'fields' => 'ids'
-); ?>
+]; ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
     foreach ( $loop->posts as $id ) :

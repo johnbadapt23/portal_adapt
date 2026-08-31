@@ -22,19 +22,19 @@
         <span class="rightslideCover"></span>
         <div class="slider">
             <?php
-                $args = array(
+                $args = [
                     'post_type'      => 'post',
                     'posts_per_page' => 6,
-                    'post__not_in' => array( $post->ID ),
-                    'tax_query'      => array(
+                    'post__not_in' => [ $post->ID ],
+                    'tax_query'      => [
                         'relation' => 'AND',
-                        array(
+                        [
                             'taxonomy' => 'filter-types',
                             'field'    => 'slug',
                             'terms'    => $postType -> slug
-                        )
-                    )
-                );
+                        ]
+                    ]
+                ];
 
                 $posts = new WP_Query( $args );
                 if( $posts->have_posts() ): ?>
@@ -54,7 +54,7 @@
                                     <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}

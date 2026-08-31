@@ -19,24 +19,24 @@
 		<div class="register-listing-container upcoming active">
 			<?php
 			$today = wp_date('Ymd');
-			$args = array(
+			$args = [
 				'post_type' => 'registration',
 				'meta_key'  => 'event_date',
 			    'orderby'   => 'meta_value_num',
 			    'order'     => 'ASC',
-				'meta_query' => array(
-					array(
+				'meta_query' => [
+					[
 						'key'     => 'event_date',
 						'compare' => '>=',
 						'value'   => $today,
-					),
-					array(
+					],
+					[
 						'key'     => 'button',
 						'compare' => '==',
 						'value'   => 'register',
-					),
-				),
-			);
+					],
+				],
+			];
 			?>
 			<div class="upcoming-listing resources-column-container three-column-container gap-16-40">
 				<?php $posts = new WP_Query( $args );
@@ -73,7 +73,7 @@
 												<?php $image = get_field( 'listing_image' ); ?>
 												<?php if ($image) : ?>
 													<span class="bg-container">
-														<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ) ); ?>
+														<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ] ); ?>
 													</span>
 												<?php endif; ?>
 											</span>
@@ -97,24 +97,24 @@
 				?>
 				<?php
 				$today = wp_date('Ymd');
-				$args = array(
+				$args = [
 					'post_type' => 'registration',
 					'meta_key'  => 'event_date',
 				    'orderby'   => 'meta_value_num',
 				    'order'     => 'ASC',
-					'meta_query' => array(
-						array(
+					'meta_query' => [
+						[
 							'key'     => 'event_date',
 							'compare' => '>=',
 							'value'   => $today,
-						),
-						array(
+						],
+						[
 							'key'     => 'button',
 							'compare' => '==',
 							'value'   => 'upcoming',
-						),
-					),
-				);
+						],
+					],
+				];
 				?>
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
@@ -150,7 +150,7 @@
 													<?php $image = get_field( 'listing_image' ); ?>
 													<?php if ($image) : ?>
 														<span class="bg-container">
-															<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ) ); ?>
+															<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ] ); ?>
 														</span>
 													<?php endif; ?>
 												</span>
@@ -180,28 +180,28 @@
     $posts_per_page = 18;      // Number of visible posts per page
     $soft_limit     = $posts_per_page * 3; // Query more to account for locked posts
 
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => $soft_limit,
         'paged'          => $paged,
         'meta_key'       => 'replay_event_date',
         'orderby'        => 'meta_value_num',
         'order'          => 'DESC',
-        'tax_query'      => array(
-            array(
+        'tax_query'      => [
+            [
                 'taxonomy' => 'filter-types',
                 'field'    => 'slug',
                 'terms'    => 'analyst-market-briefings',
-            ),
-        ),
-        'meta_query' => array(
-            array(
+            ],
+        ],
+        'meta_query' => [
+            [
                 'key'     => 'replay_event_date',
                 'compare' => '<=',
                 'value'   => $today,
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     $posts = new WP_Query( $args );
     $shown = 0; // Count of visible posts
@@ -215,28 +215,28 @@
     $soft_limit = $posts_per_page * 3; // fetch extra to account for MemberPress filtering
 
     // Query posts
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => $soft_limit,
         'paged'          => $paged,
         'meta_key'       => 'replay_event_date',
         'orderby'        => 'meta_value_num',
         'order'          => 'DESC',
-        'tax_query'      => array(
-            array(
+        'tax_query'      => [
+            [
                 'taxonomy' => 'filter-types',
                 'field'    => 'slug',
                 'terms'    => 'analyst-market-briefings',
-            ),
-        ),
-        'meta_query' => array(
-            array(
+            ],
+        ],
+        'meta_query' => [
+            [
                 'key'     => 'replay_event_date',
                 'compare' => '<=',
                 'value'   => $today,
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     $query = new WP_Query( $args );
     $shown = 0;
@@ -254,7 +254,7 @@ $today = wp_date('Ymd');
 $paged = 1;
 $offset = 0; // first batch starts at 0
 
-$args = array(
+$args = [
     'post_type'      => 'post',
     'posts_per_page' => $soft_limit,
     'paged'          => $paged,
@@ -262,21 +262,21 @@ $args = array(
     'meta_key'       => 'replay_event_date',
     'orderby'        => 'meta_value_num',
     'order'          => 'DESC',
-    'tax_query'      => array(
-        array(
+    'tax_query'      => [
+        [
             'taxonomy' => 'filter-types',
             'field'    => 'slug',
             'terms'    => 'analyst-market-briefings',
-        ),
-    ),
-    'meta_query' => array(
-        array(
+        ],
+    ],
+    'meta_query' => [
+        [
             'key'     => 'replay_event_date',
             'compare' => '<=',
             'value'   => $today,
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 $query = new WP_Query($args);
 $shown = 0;

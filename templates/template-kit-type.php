@@ -38,7 +38,7 @@
                             <div class="bg-container">
                                 <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                 <?php if ( $poster_image ) { ?>
-                                    <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                                    <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                                 <?php } ?>                                                                
                                 <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                     <span class="opacity-overlay"></span>
@@ -68,18 +68,18 @@
 			</div>
 			<div class="kits-listing grid">
 				<?php 
-				$purchasedargs = array(
+				$purchasedargs = [
 					'posts_per_page' => -1,
 					'post_type' => 'kyc',
-					'tax_query' => array(
+					'tax_query' => [
 						'relation' => 'AND',
-						array (
+						 [
 							'taxonomy' => 'kit-type',
 							'field' => 'slug',
 							'terms'    => $q->slug
-						)
-					)
-				);	
+						]
+					]
+				];	
 				$purchasedLoop = new WP_Query( $purchasedargs  );	
 				if ( $purchasedLoop->have_posts() ) :
 					$counter = 0;
@@ -106,7 +106,7 @@
 										<span class="icon-container">
 											<?php $listing_icon = get_field( 'listing_icon' ); ?>
 											<?php if ( $listing_icon ) { ?>
-												<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
+												<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, [ 'alt' => $listing_icon['alt'] ] ); ?>
 											<?php } ?>
 										</span>
 										<span class="excerpt-container">
@@ -128,7 +128,7 @@
 											<span class="icon-container">
 												<?php $listing_icon = get_field( 'listing_icon' ); ?>
 												<?php if ( $listing_icon ) { ?>
-													<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, [ 'alt' => $listing_icon['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 											<span class="excerpt-container">
@@ -147,7 +147,7 @@
 														<span class="icon-container">
 															<?php $listing_icon = get_field( 'listing_icon' ); ?>
 															<?php if ( $listing_icon ) { ?>
-																<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
+																<?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, [ 'alt' => $listing_icon['alt'] ] ); ?>
 															<?php } ?>
 														</span>
 														<span class="excerpt-container">
@@ -172,18 +172,18 @@
 				endif; ?>
 				<?php wp_reset_postdata(); ?> 	
 				<?php 
-				$nonpurchasedargs = array(
+				$nonpurchasedargs = [
 					'posts_per_page' => -1,
 					'post_type' => 'kyc',
-					'tax_query' => array(
+					'tax_query' => [
 						'relation' => 'AND',
-						array (
+						 [
 							'taxonomy' => 'kit-type',
 							'field' => 'slug',
 							'terms'    => $q->slug
-						)
-					)
-				);	
+						]
+					]
+				];	
 				$nonpurchasedLoop = new WP_Query( $nonpurchasedargs  );	
 				if ( $nonpurchasedLoop->have_posts() ) :
 					$counter = 0;
@@ -210,7 +210,7 @@
                                     <span class="icon-container">
                                         <?php $listing_icon = get_field( 'listing_icon' ); ?>
                                         <?php if ( $listing_icon ) { ?>
-                                            <?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, array( 'alt' => $listing_icon['alt'] ) ); ?>
+                                            <?php echo wp_get_attachment_image( $listing_icon['ID'], 'full', false, [ 'alt' => $listing_icon['alt'] ] ); ?>
                                         <?php } ?>
                                     </span>
                                     <span class="excerpt-container">

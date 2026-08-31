@@ -17,7 +17,7 @@
 					// template-events-portal.php before this loop starts;
 					// isset() guards this component being included from
 					// somewhere that doesn't declare it.
-					$inline_img_151_attrs = array( 'alt' => esc_attr( get_the_title() ) );
+					$inline_img_151_attrs = [ 'alt' => esc_attr( get_the_title() ) ];
 					if ( empty( $hero_fetchpriority_used ) ) {
 						$inline_img_151_attrs['class'] = 'skip-lazy';
 						$inline_img_151_attrs['fetchpriority'] = 'high';

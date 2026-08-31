@@ -37,7 +37,7 @@ get_header();
                     // WP_Query runs by default to support pagination is pure
                     // overhead on every load - skip it.
                     if($keyword != '') {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             's' => $keyword,
                             'posts_per_page' => -1,
@@ -45,34 +45,34 @@ get_header();
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
                             'no_found_rows' => true,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'event-type',
                                     'field' => 'slug',
                                     'terms'    => 'upcoming-events',
                                     'operator' => 'IN'
-                                )
-                            )
-                        );
+                                ]
+                            ]
+                        ];
                     } else {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             'posts_per_page' => -1,
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
                             'no_found_rows' => true,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'event-type',
                                     'field' => 'slug',
                                     'terms'    => 'upcoming-events',
                                     'operator' => 'IN'
-                                )
-                            )
-                        );
+                                ]
+                            ]
+                        ];
                     }
 
                     $loop = new WP_Query( $args );

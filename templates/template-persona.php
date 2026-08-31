@@ -50,7 +50,7 @@ get_header();
 										<span class="persona-image-container">
 											<?php $persona_icon = get_field( 'persona_icon', $persona_term ); ?>
 											<?php if ( $persona_icon ) { ?>
-												<?php echo wp_get_attachment_image( $persona_icon['ID'], 'full', false, array( 'alt' => $persona_icon['alt'] ) ); ?>
+												<?php echo wp_get_attachment_image( $persona_icon['ID'], 'full', false, [ 'alt' => $persona_icon['alt'] ] ); ?>
 											<?php } ?>
 										</span>
 									</span>
@@ -100,12 +100,12 @@ get_header();
 											   <?php // no rows found ?>
 										   <?php endif; ?>
 										<?php endwhile; ?>
-										<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 									<?php else : ?>
 										<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -169,25 +169,25 @@ get_header();
 				<?php
 					// Get all term ID's in a given taxonomy
 					$taxonomy = 'persona-mapping';
-					$taxonomy_terms = get_terms( array( 'taxonomy' => $taxonomy,
+					$taxonomy_terms = get_terms( [ 'taxonomy' => $taxonomy,
 					    'hide_empty' => 0,
 					    'fields' => 'ids'
-					) );
+					] );
 				?>
 				<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-	            <?php $args = array(
+	            <?php $args = [
 	                'post_type' => 'post',
 	                'posts_per_page' => -1,
 	                'paged'=> $paged,
-					'tax_query' => array(
-				        array(
+					'tax_query' => [
+				        [
 				            'taxonomy' => $taxonomy,
 				            'field' => 'id',
 				            'terms' => $taxonomy_terms,
-				        ),
-				    ),
+				        ],
+				    ],
 
-	            ); ?>
+	            ]; ?>
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -218,12 +218,12 @@ get_header();
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
                                     <?php else : ?>
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}

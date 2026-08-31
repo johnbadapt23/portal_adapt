@@ -21,10 +21,10 @@
     </div>
         <?php $partner_type_id = get_sub_field( 'partner_type' ); ?>
         <?php 
-        $carousel_posts = array(); // Store all posts for output & width calculation
+        $carousel_posts = []; // Store all posts for output & width calculation
 
         // ---------- LOOP 1: Checked adapt_analyst ----------
-        $checked_args = array(
+        $checked_args = [
             'post_type'      => 'partners',
             'posts_per_page' => -1,
             'tax_query'      => [[
@@ -34,7 +34,7 @@
             ]],
             'orderby' => 'menu_order',
             'order'   => 'ASC',
-        );
+        ];
 
         $checked_query = new WP_Query($checked_args);
         if ($checked_query->have_posts()):

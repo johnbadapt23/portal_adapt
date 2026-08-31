@@ -17,7 +17,7 @@
                             <a href="#"
                                class="snapshot-popup-trigger"
                                data-index="<?php echo esc_attr($i); ?>">
-                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                             </a>
                         </div>
                     <?php
@@ -37,7 +37,7 @@
 					$inline_img_194_src = $image['sizes']['medium'];
 					$inline_img_194_attach_id = $inline_img_194_src ? attachment_url_to_postid( $inline_img_194_src ) : 0;
 					if ( $inline_img_194_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_194_attach_id, 'full', false, array( 'alt' => $image['alt'] ) );
+						echo wp_get_attachment_image( $inline_img_194_attach_id, 'full', false, [ 'alt' => $image['alt'] ] );
 					} elseif ( $inline_img_194_src ) {
 						echo '<img src="' . esc_url( $inline_img_194_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( $image['alt'] ) . '" />';
 					}
@@ -60,7 +60,7 @@
                                     <?php
 								$url_attach_id = attachment_url_to_postid( $url );
 								if ( $url_attach_id ) {
-									echo wp_get_attachment_image( $url_attach_id, 'full', false, array( 'alt' => $image['alt'] ) );
+									echo wp_get_attachment_image( $url_attach_id, 'full', false, [ 'alt' => $image['alt'] ] );
 								} else {
 									echo '<img src="' . esc_url( $url ) . '" loading="lazy" decoding="async" alt="' . esc_attr( $image['alt'] ) . '" />';
 								}

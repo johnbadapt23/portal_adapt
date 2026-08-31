@@ -22,10 +22,10 @@ get_header();
     					<?php
 					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
 					if ( $slide_image_attach_id ) {
-						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, array(
+						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
-						) );
+						] );
 					} else {
 						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -39,10 +39,10 @@ get_header();
     									<?php
 					$slide_inset_image_attach_id = attachment_url_to_postid( $slide['inset_image'] );
 					if ( $slide_inset_image_attach_id ) {
-						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, array(
+						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
-						) );
+						] );
 					} else {
 						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -380,7 +380,7 @@ get_header();
 					$inline_img_137_src = get_field( 'print_header' );
 					$inline_img_137_attach_id = $inline_img_137_src ? attachment_url_to_postid( $inline_img_137_src ) : 0;
 					if ( $inline_img_137_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, array( 'alt' => 'Adapt - ' . get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, [ 'alt' => 'Adapt - ' . get_the_title() ] );
 					} elseif ( $inline_img_137_src ) {
 						echo '<img src="' . esc_url( $inline_img_137_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt - ' . get_the_title() ) . '" />';
 					}
@@ -421,7 +421,7 @@ get_header();
 					$inline_img_138_src = get_sub_field( 'logo' );
 					$inline_img_138_attach_id = $inline_img_138_src ? attachment_url_to_postid( $inline_img_138_src ) : 0;
 					if ( $inline_img_138_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_138_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
+						echo wp_get_attachment_image( $inline_img_138_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '100' ] );
 					} elseif ( $inline_img_138_src ) {
 						echo '<img src="' . esc_url( $inline_img_138_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -522,7 +522,7 @@ get_header();
 					$inline_img_139_src = get_sub_field( 'logo' );
 					$inline_img_139_attach_id = $inline_img_139_src ? attachment_url_to_postid( $inline_img_139_src ) : 0;
 					if ( $inline_img_139_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_139_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
+						echo wp_get_attachment_image( $inline_img_139_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '100' ] );
 					} elseif ( $inline_img_139_src ) {
 						echo '<img src="' . esc_url( $inline_img_139_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -569,7 +569,7 @@ get_header();
 					$inline_img_140_src = get_sub_field( 'logo' );
 					$inline_img_140_attach_id = $inline_img_140_src ? attachment_url_to_postid( $inline_img_140_src ) : 0;
 					if ( $inline_img_140_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_140_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '100' ) );
+						echo wp_get_attachment_image( $inline_img_140_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '100' ] );
 					} elseif ( $inline_img_140_src ) {
 						echo '<img src="' . esc_url( $inline_img_140_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}

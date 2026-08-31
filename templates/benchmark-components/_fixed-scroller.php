@@ -23,7 +23,7 @@
                                     <span class="bg-container">
                                         <?php $image = get_sub_field( 'image' ); ?>
                                         <?php if ( $image ) { ?>
-                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                         <?php } ?>
                                     </span>
                                 </span>

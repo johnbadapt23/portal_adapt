@@ -27,24 +27,24 @@ get_header();
 		<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 		<div class="container">
 			<div class="grid-wrapper" id="loop">
-				<?php $args = array(
+				<?php $args = [
 					'post_type' => 'post',
 					'posts_per_page' => 9,
 					'paged'=> $paged,
-					'tax_query' => array(
+					'tax_query' => [
 						'relation' => 'AND',
-						array (
+						 [
 							'taxonomy' => 'filter-types',
 							'field' => 'slug',
 							'terms' => 'tnc'
-						),
-						array (
+						],
+						 [
 							'taxonomy' => 'persona-mapping',
 							'field' => 'id', 
-							'terms' => get_terms(array('taxonomy' => 'persona-mapping', 'fields' => 'ids'))
-						),
-					)
-				);
+							'terms' => get_terms(['taxonomy' => 'persona-mapping', 'fields' => 'ids'])
+						],
+					]
+				];
 				$posts = new WP_Query( $args ); ?>
 				<?php if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -56,7 +56,7 @@ get_header();
 											<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -66,7 +66,7 @@ get_header();
 										<?php
 								$video_image_attach_id = attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
-									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -80,7 +80,7 @@ get_header();
 										<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -126,7 +126,7 @@ get_header();
 				<?php endif;?>
 			</div>
 			<div class="page-navi-container">
-				<?php wp_pagenavi( array( 'query' => $posts ) ); ?>
+				<?php wp_pagenavi( [ 'query' => $posts ] ); ?>
 					<?php wp_reset_postdata(); ?>
 				<?php wp_reset_query(); ?>
 			</div>

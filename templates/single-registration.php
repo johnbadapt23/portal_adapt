@@ -12,7 +12,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 	<div class="imageSizeContainer">
 		<div class="bgContainer">
 			<?php $banner_image = get_field( 'webinar_banner_image', 'option' ); ?>
-			<?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
+			<?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, [ 'alt' => $banner_image['alt'], 'class' => 'desktop' ] ); ?>
 		</div>
 		<div class="container">
 			<div class="column webinar-column first-column">
@@ -220,7 +220,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 					$inline_img_136_src = get_field( 'speaker_image' );
 					$inline_img_136_attach_id = $inline_img_136_src ? attachment_url_to_postid( $inline_img_136_src ) : 0;
 					if ( $inline_img_136_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_136_src ) {
 						echo '<img src="' . esc_url( $inline_img_136_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -258,13 +258,13 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 						<?php $image = get_sub_field( 'image' ); ?>
 						<div class="overlay-image-container desktop">
 			    			<?php if ( $image ) { ?>
-			    				<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+			    				<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 			    			<?php } ?>
 						</div>
 						<?php $mobileImage = get_sub_field( 'mobile_image' ); ?>
 						<div class="overlay-image-container mobile">
 			    			<?php if ( $mobileImage ) { ?>
-			    				<?php echo wp_get_attachment_image( $mobileImage['ID'], 'full', false, array( 'alt' => $mobileImage['alt'] ) ); ?>
+			    				<?php echo wp_get_attachment_image( $mobileImage['ID'], 'full', false, [ 'alt' => $mobileImage['alt'] ] ); ?>
 			    			<?php } ?>
 						</div>
 					</div>

@@ -12,18 +12,18 @@
                     $terms     =  get_sub_field( 'event' );
                     if ( $terms ) :
 
-                        $args = array(
+                        $args = [
                             'post_type'      => $post_type,
                             'posts_per_page' => -1,
-                            'tax_query'      => array(
-                                array(
+                            'tax_query'      => [
+                                [
                                     'taxonomy' => $taxonomy,
                                     'field'    => 'term_id',
                                     'terms'    => $terms,
                                     'operator' => 'IN',
-                                ),
-                            ),
-                        );
+                                ],
+                            ],
+                        ];
 
                         $posts = new WP_Query( $args );
                          if( $posts->have_posts() ): ?>
@@ -275,18 +275,18 @@
                 $terms     =  get_sub_field( 'topic' );
                 if ( $terms ) :
 
-                    $args = array(
+                    $args = [
                         'post_type'      => $post_type,
                         'posts_per_page' => -1,
-                        'tax_query'      => array(
-                            array(
+                        'tax_query'      => [
+                            [
                                 'taxonomy' => $taxonomy,
                                 'field'    => 'term_id',
                                 'terms'    => $terms,
                                 'operator' => 'IN',
-                            ),
-                        ),
-                    );
+                            ],
+                        ],
+                    ];
                     $posts = new WP_Query( $args );
                      if( $posts->have_posts() ): ?>
                      <?php $counter = -1; ?>
@@ -537,18 +537,18 @@
                     $terms     =  get_sub_field( 'filter_type' );
                     if ( $terms ) :
 
-                        $args = array(
+                        $args = [
                             'post_type'      => $post_type,
                             'posts_per_page' => -1,
-                            'tax_query'      => array(
-                                array(
+                            'tax_query'      => [
+                                [
                                     'taxonomy' => $taxonomy,
                                     'field'    => 'term_id',
                                     'terms'    => $terms,
                                     'operator' => 'IN',
-                                ),
-                            ),
-                        );
+                                ],
+                            ],
+                        ];
                         $posts = new WP_Query( $args );
                          if( $posts->have_posts() ): ?>
                          <?php $counter = -1; ?>

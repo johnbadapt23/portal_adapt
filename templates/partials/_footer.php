@@ -12,7 +12,7 @@
 					$inline_img_157_src = get_field( 'logo','options' );
 					$inline_img_157_attach_id = $inline_img_157_src ? attachment_url_to_postid( $inline_img_157_src ) : 0;
 					if ( $inline_img_157_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_157_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_157_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_157_src ) {
 						echo '<img src="' . esc_url( $inline_img_157_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -274,7 +274,7 @@
                                 <span class="image-container">
                                     <span class="bg-container">
                                         <?php if ( $members_only_image_mobile ) { ?>
-                                            <?php echo wp_get_attachment_image( $members_only_image_mobile['ID'], 'full', false, array( 'alt' => $members_only_image_mobile['alt'] ) ); ?>
+                                            <?php echo wp_get_attachment_image( $members_only_image_mobile['ID'], 'full', false, [ 'alt' => $members_only_image_mobile['alt'] ] ); ?>
                                         <?php } ?>
                                     </span>
                                 </span>
@@ -293,7 +293,7 @@
                             <span class="image-container">
                                 <span class="bg-container">
                                     <?php if ( $members_only_image ) { ?>
-                                        <?php echo wp_get_attachment_image( $members_only_image['ID'], 'full', false, array( 'alt' => $members_only_image['alt'] ) ); ?>
+                                        <?php echo wp_get_attachment_image( $members_only_image['ID'], 'full', false, [ 'alt' => $members_only_image['alt'] ] ); ?>
                                     <?php } ?>
                                 </span>
                             </span>

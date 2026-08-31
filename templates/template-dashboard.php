@@ -21,13 +21,13 @@ if ( 0 == $current_user->ID ) {
                 <?php $counter = -1; ?>
                 <?php
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                    $args = array(
+                    $args = [
                         'post_type' => 'dashboard',
                         'posts_per_page' => -1,
                         'paged'=> $paged ,
                         'orderby'=> 'menu_order',
                         'order'=> 'ASC'
-                    );
+                    ];
 
                     $loop = new WP_Query( $args );
                     if ( $loop->have_posts() ) :

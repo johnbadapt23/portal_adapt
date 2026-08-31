@@ -20,24 +20,24 @@ $sector_url = $is_markets
         </div>
         <div class="gridWrapper">
             <?php
-                $args = array(
+                $args = [
                     'post_type'      => 'post',
                     'posts_per_page' => 3,
-                    'tax_query'      => array(
+                    'tax_query'      => [
                         'relation' => 'AND',
-                        array (
+                         [
                             'taxonomy' => 'filter-types',
                             'field' => 'slug',
                             'terms'    => $section
-                        ),
-                        array(
+                        ],
+                        [
                             'taxonomy' => 'sector-analysis',
                             'field'    => 'slug',
                             'terms'    => $sector_term->slug,
                             'operator' => 'IN'
-                        )
-                    )
-                );
+                        ]
+                    ]
+                ];
 
                 $posts = new WP_Query( $args );
                 if( $posts->have_posts() ): ?>
@@ -68,7 +68,7 @@ $sector_url = $is_markets
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) ); ?>
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] ); ?>
                                         <span class="hover-container">
                                             <?php if ($imageCounter) { ?>
                                                 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
@@ -78,7 +78,7 @@ $sector_url = $is_markets
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}

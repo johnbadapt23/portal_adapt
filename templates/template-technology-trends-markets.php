@@ -52,26 +52,26 @@ $q_slug = $q->slug ?? '';
 									<option value="">All Topics</option>
 									<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 									 <?php
-										$argsFilter = array(
+										$argsFilter = [
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'paged'=> $paged,
-											'tax_query'      => array(
+											'tax_query'      => [
 												'relation' => 'AND',
-												array (
+												 [
 													'taxonomy' => 'filter-types',
 													'field' => 'slug',
 													'terms'    => 'market-narratives'
-												),
-												array (
+												],
+												 [
 													'taxonomy' => 'market-narratives-subcategories',
 													'field' => 'slug',
 													'terms'    => 'technology-trends'
-												)
-											),
-										);
+												]
+											],
+										];
 										?>
-									<?php $terms = array(); ?>
+									<?php $terms = []; ?>
 									<?php
 									// This loop only tallies distinct terms for a filter dropdown - it
 									// never reads title/content/ACF fields, so it doesn't need full
@@ -121,51 +121,51 @@ $q_slug = $q->slug ?? '';
 					<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 					<?php
 					if($keyword != '') {
-						$args = array(
+						$args = [
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							's' => $keyword,
 							'paged'=> $paged,
-							'tax_query'      => array(
+							'tax_query'      => [
 								'relation' => 'AND',
-								array (
+								 [
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
-								),
-								array (
+								],
+								 [
 									'taxonomy' => 'market-narratives-subcategories',
 									'field' => 'slug',
 									'terms'    => 'technology-trends'
-								)								
-							),
-						);
+								]								
+							],
+						];
 					} else {
-						$args = array(
+						$args = [
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							'paged'=> $paged,
-							'tax_query'      => array(
+							'tax_query'      => [
 								'relation' => 'AND',
-								array (
+								 [
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
-								),
-								array (
+								],
+								 [
 									'taxonomy' => 'market-narratives-subcategories',
 									'field' => 'slug',
 									'terms'    => 'technology-trends'
-								)								
-							),
-						);
+								]								
+							],
+						];
 					}
 					if ($topicFilter != '') {
-						$args['tax_query'][] = array(
+						$args['tax_query'][] = [
 							'taxonomy' => 'topic',
 							'field'    => 'slug',
 							'terms'    => $topicFilter
-						);
+						];
 					}
 					?>
 					<?php $posts = new WP_Query( $args );
@@ -199,7 +199,7 @@ $q_slug = $q->slug ?? '';
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
@@ -209,7 +209,7 @@ $q_slug = $q->slug ?? '';
 	                                        <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -308,32 +308,32 @@ $q_slug = $q->slug ?? '';
 									<option value="">All Topics</option>
 									<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 									 <?php
-										$argsFilter = array(
+										$argsFilter = [
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'paged'=> $paged,
-											'tax_query'      => array(
+											'tax_query'      => [
 												'relation' => 'AND',
-												array (
+												 [
 													'taxonomy' => 'filter-types',
 													'field' => 'slug',
 													'terms'    => 'market-narratives'
-												),
-												array (
+												],
+												 [
 													'taxonomy' => 'market-narratives-subcategories',
 													'field' => 'slug',
 													'terms'    => 'technology-trends'
-												)
+												]
 												//  array(
 												// 	 'taxonomy' => 'topic',
 												// 	 'field'    => 'slug',
 												// 	 'terms'    => $personas,
 												// 	 'operator' => 'IN'
 												//  )
-											),
-										);
+											],
+										];
 									?>
-									<?php $terms = array(); ?>
+									<?php $terms = []; ?>
 									<?php
 									// This loop only tallies distinct terms for a filter dropdown - it
 									// never reads title/content/ACF fields, so it doesn't need full
@@ -424,14 +424,14 @@ $q_slug = $q->slug ?? '';
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -454,7 +454,7 @@ $q_slug = $q->slug ?? '';
 																				<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -526,38 +526,38 @@ $q_slug = $q->slug ?? '';
 		 <div class="container">
 			 <div id="loop" class="gridWrapper">
 				 <?php $term_m = 'topic';
-				  $terms = get_terms( array( 'taxonomy' => $term_m,
+				  $terms = get_terms( [ 'taxonomy' => $term_m,
 					  'hide_empty' => false,
-				  ) );
+				  ] );
 
-				  $personas = array();
+				  $personas = [];
 				  foreach( $terms as $term){
 					  $personas[] = $term->slug;
 				  } ?>
 				 <?php
-				 $args = array(
+				 $args = [
 					 'post_type'      => 'post',
 					 'posts_per_page' => -1,
-					 'tax_query'      => array(
+					 'tax_query'      => [
 						 'relation' => 'AND',
-						 array (
+						  [
 							 'taxonomy' => 'filter-types',
 							 'field' => 'slug',
 							 'terms'    => 'market-narratives'
-						 ),
-						 array (
+						 ],
+						  [
 							 'taxonomy' => 'market-narratives-subcategories',
 							 'field' => 'slug',
 							 'terms'    => 'technology-trends'
-						 )
+						 ]
 						//  array(
 						// 	 'taxonomy' => 'topic',
 						// 	 'field'    => 'slug',
 						// 	 'terms'    => $personas,
 						// 	 'operator' => 'IN'
 						//  )
-					 ),
-				 );
+					 ],
+				 ];
 				 ?>
 				 <?php $posts = new WP_Query( $args );
 					if( $posts->have_posts() ): ?>
@@ -590,7 +590,7 @@ $q_slug = $q->slug ?? '';
 												<?php // no rows found ?>
 											<?php endif; ?>
 										 <?php endwhile; ?>
-										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
@@ -600,7 +600,7 @@ $q_slug = $q->slug ?? '';
 										 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}

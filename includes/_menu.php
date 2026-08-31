@@ -6,19 +6,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // theme_menus
 function theme_menus() {
-    register_nav_menus(array(
+    register_nav_menus([
         'main-menu' => __('Main Menu', 'portal'),
         'new-menu' => __('New Menu', 'portal'),
         'bottom-menu' => __('Bottom Menu', 'portal'),
         'mobile-menu' => __('Mobile Menu', 'portal'),
         'footer-menu' => __('Footer Menu', 'portal')
-    ));
+    ]);
 }
 
 // theme_nav
 function theme_nav($name){
 	wp_nav_menu(
-		array(
+		[
 			'theme_location'  => $name . '-menu',
 			'container'       => '',
 			'container_class' => false,
@@ -34,14 +34,14 @@ function theme_nav($name){
 			'items_wrap'      => '<ul>%3$s</ul>',
 			'depth'           => 0,
 			'walker'          => ''
-		)
+		]
 	);
 }
 
 // theme_nav
 function theme_nav_mobile($name){
 	wp_nav_menu(
-		array(
+		[
 			'theme_location'  => $name . '-menu',
 			'container'       => '',
 			'container_class' => false,
@@ -57,7 +57,7 @@ function theme_nav_mobile($name){
 			'items_wrap'      => '<ul>%3$s</ul>',
 			'depth'           => 0,
 			'walker'          => ''
-		)
+		]
 	);
 }
 

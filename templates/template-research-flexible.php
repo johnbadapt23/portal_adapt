@@ -26,7 +26,7 @@ get_header();
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<span class="columnTitle">
 											<?php if ( $icon ) { ?>
-												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
 											<?php } ?>
 											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
@@ -63,7 +63,7 @@ get_header();
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<span class="columnTitle">
 											<?php if ( $icon ) { ?>
-												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
 											<?php } ?>
 											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
@@ -109,7 +109,7 @@ get_header();
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<span class="columnTitle">
 											<?php if ( $icon ) { ?>
-												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
 											<?php } ?>
 											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>

@@ -14,10 +14,10 @@
 					<?php
 					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
 					if ( $slide_image_attach_id ) {
-						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, array(
+						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
-						) );
+						] );
 					} else {
 						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -31,10 +31,10 @@
 									<?php
 					$slide_inset_image_attach_id = attachment_url_to_postid( $slide['inset_image'] );
 					if ( $slide_inset_image_attach_id ) {
-						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, array(
+						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
-						) );
+						] );
 					} else {
 						echo '<img src="' . esc_url( $slide['inset_image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -360,7 +360,7 @@
 					$inline_img_45_src = get_field( 'logo' );
 					$inline_img_45_attach_id = $inline_img_45_src ? attachment_url_to_postid( $inline_img_45_src ) : 0;
 					if ( $inline_img_45_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_45_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_45_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_45_src ) {
 						echo '<img src="' . esc_url( $inline_img_45_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -549,7 +549,7 @@
 					$inline_img_46_src = get_sub_field( 'logo' );
 					$inline_img_46_attach_id = $inline_img_46_src ? attachment_url_to_postid( $inline_img_46_src ) : 0;
 					if ( $inline_img_46_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_46_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_46_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_46_src ) {
 						echo '<img src="' . esc_url( $inline_img_46_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}

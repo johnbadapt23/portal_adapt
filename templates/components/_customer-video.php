@@ -5,11 +5,11 @@
 // either 0 or the total post count. fields => ids skips hydrating full
 // post objects for a query that has no result limit, and post_count
 // gives the same total directly, with no loop needed at all.
-$purchasedargs = array(
+$purchasedargs = [
     'posts_per_page' => -1,
     'post_type' => 'kyc',
     'fields' => 'ids',
-);
+];
 $purchasedLoop = new WP_Query( $purchasedargs );
 $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
 ?>
@@ -56,7 +56,7 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                         <?php $image = get_sub_field('poster_image'); ?>
                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                         <?php if ( $poster_image ) { ?>
-                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                         <?php } ?>  
                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                             <span class="opacity-overlay"></span>

@@ -8,29 +8,29 @@
         </div>
         <div class="gridWrapper">
             <?php
-                $args = array(
+                $args = [
                     'post_type'      => 'post',
                     'posts_per_page' => 6,
-                    'tax_query'      => array(
-                        array(
+                    'tax_query'      => [
+                        [
                             'taxonomy' => 'topic',
                             'field'    => 'slug',
                             'terms'    => $topic_term->slug
-                        ),
-                         array(
+                        ],
+                         [
                             'taxonomy' => 'filter-types',
                             'field' => 'slug',
-                            'terms' => array('workshop-recordings', 'expert-presentations', 'community-interviews', 'customer', 'tnc'),
+                            'terms' => ['workshop-recordings', 'expert-presentations', 'community-interviews', 'customer', 'tnc'],
                             'operator' => 'NOT IN'
-                        )
-                    ),
+                        ]
+                    ],
                     'meta_query' => [
                         [
                             'key' => '_yoast_wpseo_primary_topic',
                             'value' => $topic_term->term_id
                         ]
                     ],
-                );
+                ];
 
                 $posts = new WP_Query( $args );
                 if( $posts->have_posts() ): ?>
@@ -50,7 +50,7 @@
                                     <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}

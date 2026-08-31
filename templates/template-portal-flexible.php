@@ -68,14 +68,14 @@ if( $is_agent_tester ){
 
 																$image_attach_id = attachment_url_to_postid( $image );
 																if ( $image_attach_id ) {
-																	echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+																	echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 																} else {
 																	echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																}
 																?>
 															<?php } elseif ( get_field( 'video_image' )){  ?>
 																<?php $video_image = get_field( 'video_image' ); ?>
-																<?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+																<?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
 															<?php } else { ?>
 																<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
 																	<?php $image = get_field( 'video_poster'); ?>
@@ -85,7 +85,7 @@ if( $is_agent_tester ){
 																<?php
 																	$image_attach_id = attachment_url_to_postid( $image );
 																	if ( $image_attach_id ) {
-																		echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+																		echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 																	} else {
 																		echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																	}
@@ -139,7 +139,7 @@ if( $is_agent_tester ){
 							        <div class="imageSizeContainer">
 							            <div class="bgContainer">
 							    			<?php $banner_image =  get_sub_field( 'background_image' ); ?>
-							                <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, array( 'alt' => $banner_image['alt'], 'class' => 'desktop' ) ); ?>
+							                <?php echo wp_get_attachment_image( $banner_image['ID'], 'full', false, [ 'alt' => $banner_image['alt'], 'class' => 'desktop' ] ); ?>
 							            </div>
 							            <div class="container">
 							                <h1><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
@@ -159,18 +159,18 @@ if( $is_agent_tester ){
 		                                    <div class="gridWrapper">
 		                                        <?php
 		                                            $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-		                                            $args = array(
+		                                            $args = [
 		                                                'post_type'      => 'post',
 		                                                'posts_per_page' => -1,
 		                                                'paged'=> $paged,
-		                                                'tax_query'      => array(
-		                                                    array(
+		                                                'tax_query'      => [
+		                                                    [
 		                                                        'taxonomy' => 'subscription',
 		                                                        'field'    => 'slug',
 		                                                        'terms'    => $subscription_term->slug
-		                                                    )
-		                                                ),
-		                                            );
+		                                                    ]
+		                                                ],
+		                                            ];
 
 		                                            $posts = new WP_Query( $args );
 		                                            if( $posts->have_posts() ): ?>
@@ -184,14 +184,14 @@ if( $is_agent_tester ){
 
 																			$image_attach_id = attachment_url_to_postid( $image );
 																			if ( $image_attach_id ) {
-																				echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+																				echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 																			} else {
 																				echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																			}
 																			?>
  		                                                               	<?php } elseif ( get_field( 'video_image' )){  ?>
  		                                                                   <?php $video_image = get_field( 'video_image' ); ?>
- 		                                                                   <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+ 		                                                                   <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
  		                                                               	<?php } else { ?>
  		                                                                   	<?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
  		                                                                       <?php $image = get_field( 'video_poster'); ?>
@@ -201,7 +201,7 @@ if( $is_agent_tester ){
  		                                                                   	<?php
 																				$image_attach_id = attachment_url_to_postid( $image );
 																				if ( $image_attach_id ) {
-																					echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+																					echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 																				} else {
 																					echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 																				}
@@ -276,13 +276,13 @@ if( $is_agent_tester ){
 								            		<?php $image = get_sub_field( 'image' ); ?>
 								                    <div class="main-image-container">
 								                		<?php if ( $image ) { ?>
-								                			<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+								                			<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 								                		<?php } ?>
 								                    </div>
 								                    <span class="overlay-image-container">
 								                        <?php $overlay_image = get_sub_field( 'overlay_image' ); ?>
 								            			<?php if ( $overlay_image ) { ?>
-								            				<?php echo wp_get_attachment_image( $overlay_image['ID'], 'full', false, array( 'alt' => $overlay_image['alt'] ) ); ?>
+								            				<?php echo wp_get_attachment_image( $overlay_image['ID'], 'full', false, [ 'alt' => $overlay_image['alt'] ] ); ?>
 								            			<?php } ?>
 								                    </span>
 								                </div>

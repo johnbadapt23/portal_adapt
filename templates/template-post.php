@@ -25,12 +25,12 @@
                         <?php
                         $term_m = 'category';
                         // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable listing URL (method="get" form above); sanitized via sanitize_text_field()/wp_unslash() before use.
-                        $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : array();
+                        $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : [];
                         ?>
                         <?php
-                        $terms = get_terms( array( 'taxonomy' => $term_m,
+                        $terms = get_terms( [ 'taxonomy' => $term_m,
                             'hide_empty' => true,
-                        ) );
+                        ] );
                         ?>
                         <?php foreach($terms as $term) { ?>
                             <span class="checkboxButton">

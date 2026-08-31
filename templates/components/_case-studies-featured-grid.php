@@ -5,7 +5,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                 </a>
                 <div class="textContainer">
@@ -21,7 +21,7 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                 </a>
                 <div class="textContainer">

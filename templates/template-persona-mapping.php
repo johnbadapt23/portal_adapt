@@ -4,8 +4,8 @@ $filterType = $_GET['type'];
 $preview = $_GET['new'];
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 global $displayed_posts;
-$displayed_posts = array ();
-$post_types = array ();
+$displayed_posts =  [];
+$post_types =  [];
 ?>
 <?php $q = get_queried_object(); ?>
 <?php if($preview == 'yes') { ?> 
@@ -56,14 +56,14 @@ $post_types = array ();
                                                                         <span class="bg-container offset-image-container">
                                                                         <?php $offsetimage = get_sub_field( 'image'); ?>
                                                                         <?php if ( $offsetimage ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <?php } else if ($imageCounter == 1){ ?>
                                                                         <span class="bg-container">
                                                                         <?php $imageSlideOne = get_sub_field( 'image'); ?>
                                                                         <?php if (  $imageSlideOne ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <?php } $imageCounter++; ?>
@@ -86,7 +86,7 @@ $post_types = array ();
                                                                 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -158,25 +158,25 @@ $post_types = array ();
                         <div class="gridWrapper">
                             <?php
                                 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                                $args = array(
+                                $args = [
                                     'post_type'      => 'post',
                                     'posts_per_page' => 6,
                                     'offset' => 0,
                                     'paged'=> $paged,
-                                    'tax_query'      => array(
+                                    'tax_query'      => [
                                         'relation' => 'AND',
-                                        array (
+                                         [
                                             'taxonomy' => 'persona-mapping',
                                             'field' => 'slug',
                                             'terms'    => $q->slug
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                             'taxonomy' => 'filter-types',
                                             'field'    => 'slug',
                                             'terms'    => $topic_term->slug
-                                        )
-                                    ),
-                                );
+                                        ]
+                                    ],
+                                ];
 
                                 $posts = new WP_Query( $args );
                                 if( $posts->have_posts() ): ?>
@@ -189,14 +189,14 @@ $post_types = array ();
                                                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                                                     <?php } elseif ( get_field( 'video_image' )){  ?>
                                                         <?php $video_image = get_field( 'video_image' ); ?>
-                                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, array( 'alt' => $video_image['alt'], 'class' => 'desktop' ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $video_image['ID'], 'full', false, [ 'alt' => $video_image['alt'], 'class' => 'desktop' ] ); ?>
                                                     <?php } else { ?>
                                                         <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
                                                             <?php $image = get_field( 'video_poster'); ?>
@@ -206,7 +206,7 @@ $post_types = array ();
                                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -286,57 +286,57 @@ $post_types = array ();
     // build the filter-types dropdown), which never reads title/content/ACF
     // fields, so it doesn't need full WP_Post objects. fields => ids skips
     // that hydration on a query with no result limit.
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => -1,
         'paged'=> $paged,
         'fields' => 'ids',
-        'tax_query'      => array(
+        'tax_query'      => [
             'relation' => 'AND',
-            array (
+             [
                 'taxonomy' => 'persona-mapping',
                 'field' => 'slug',
                 'terms'    => $q->slug
-            )
-        ),
-    ); ?>
+            ]
+        ],
+    ]; ?>
 
     <?php if($filterType != '') {
         if(empty($filterType)){
         } else {
             if($filterType == 'all') {
                 $term_m = 'filter-types';
-                $terms = get_terms( array( 'taxonomy' => $term_m,
+                $terms = get_terms( [ 'taxonomy' => $term_m,
                     'hide_empty' => false,
-                ) );
+                ] );
 
-                $types = array();
+                $types = [];
                 foreach( $terms as $term){
                     $types[] = $term->slug;
                 }
-                array_push($args['tax_query'],array(
+                array_push($args['tax_query'],[
                         'taxonomy' => 'filter-types',
                         'field' => 'slug',
                         'terms' => $types,
                         'operator' => 'IN'
-                    )
+                    ]
                 );
             } else {
                 $term_m = 'filter-types';
-                $terms = get_terms( array( 'taxonomy' => $term_m,
+                $terms = get_terms( [ 'taxonomy' => $term_m,
                     'hide_empty' => false,
-                ) );
+                ] );
 
-                $types = array();
+                $types = [];
                 foreach( $terms as $term){
                     $types[] = $term->slug;
                 }
-                array_push($args['tax_query'],array(
+                array_push($args['tax_query'],[
                         'taxonomy' => 'filter-types',
                         'field' => 'slug',
                         'terms' => $types,
                         'operator' => 'IN'
-                    )
+                    ]
                 );
             }
         }
@@ -376,19 +376,19 @@ $post_types = array ();
         <div class="container">
             <div id="loop" class="gridWrapper listWrapper list">
                 <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                $args = array(
+                $args = [
                     'post_type'      => 'post',
                     'posts_per_page' => 9,
                     'paged'=> $paged,
-                    'tax_query'      => array(
+                    'tax_query'      => [
                         'relation' => 'AND',
-                        array (
+                         [
                             'taxonomy' => 'persona-mapping',
                             'field' => 'slug',
                             'terms'    => $q->slug
-                        )
-                    ),
-                ); ?>
+                        ]
+                    ],
+                ]; ?>
 
                 <?php if($filterType != '') {
                     if(empty($filterType)){
@@ -396,29 +396,29 @@ $post_types = array ();
                     } else {
                         if($filterType == 'all') {
                             $term_m = 'filter-types';
-                            $terms = get_terms( array( 'taxonomy' => $term_m,
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => false,
-                            ) );
+                            ] );
 
-                            $types = array();
+                            $types = [];
                             foreach( $terms as $term){
                                 $types[] = $term->slug;
                             }
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'filter-types',
                                     'field' => 'slug',
                                     'terms' => $types,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
 
                         } else {
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'filter-types',
                                     'field' => 'slug',
                                     'terms' => $filterType,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
@@ -455,12 +455,12 @@ $post_types = array ();
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
                                     <?php else : ?>
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -512,7 +512,7 @@ $post_types = array ();
                 <?php endwhile; else : ?>
                 	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
                 <?php endif; ?>
-                <?php wp_pagenavi( array( 'query' => $posts ) ); ?>
+                <?php wp_pagenavi( [ 'query' => $posts ] ); ?>
                 <?php wp_reset_query();?>
 
             </div>

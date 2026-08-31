@@ -2,7 +2,7 @@
 <?php if(current_user_can('mepr-active','memberships:48815')){
     $membershipType = 'tnc';
 } ?>
-<?php $kycMemberships = array('49569', '49567', '49565', '49563', '49561', '49559', '49557'); ?>
+<?php $kycMemberships = ['49569', '49567', '49565', '49563', '49561', '49559', '49557']; ?>
 <?php if(current_user_can('mepr-active','memberships:' .$kycMemberships)){
     $membershipType = 'kyc';
 } ?>
@@ -117,7 +117,7 @@ if (user_can($current_user, 'administrator')) {
                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -162,11 +162,11 @@ if (user_can($current_user, 'administrator')) {
             <?php $displayed_posts[] = $currentPostID; ?>
             <?php
                 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                $args = array(
+                $args = [
                     'post_type'      => 'announcement',
                     'posts_per_page' => 3,
                     'paged' => $paged
-                );
+                ];
                 ?>
 
                 <?php $loop = new WP_Query( $args);

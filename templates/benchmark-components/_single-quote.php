@@ -14,7 +14,7 @@
                         <span class="logo-text-container<?php if ( $logo ) { ?><?php } else { ?> no-logo<?php } ?>">	                            
                             <?php if ( $logo ) { ?>
                                 <span class="logo-container">
-                                    <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
+                                    <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, [ 'alt' => $logo['alt'] ] ); ?>
                                 </span>
                             <?php } ?>		
                             <span class="quote-name-container">	

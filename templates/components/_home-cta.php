@@ -4,11 +4,11 @@
             <div class="image-column column one-half <?php echo esc_attr( get_sub_field( 'image_orientation' ) ); ?>">
                 <?php $image = get_sub_field( 'image' ); ?>
                 <?php if ( $image ) { ?>
-                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop-image' ) ); ?>
+                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop-image' ] ); ?>
                 <?php } ?>
                 <?php $image_mobile = get_sub_field( 'image_mobile' ); ?>
     			<?php if ( $image_mobile ) { ?>
-    				<?php echo wp_get_attachment_image( $image_mobile['ID'], 'full', false, array( 'alt' => $image_mobile['alt'], 'class' => 'mobile-image' ) ); ?>
+    				<?php echo wp_get_attachment_image( $image_mobile['ID'], 'full', false, [ 'alt' => $image_mobile['alt'], 'class' => 'mobile-image' ] ); ?>
     			<?php } ?>
             </div>
             <div class="text-column column one-half <?php echo esc_attr( get_sub_field( 'image_orientation' ) ); ?>">
