@@ -37,7 +37,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 }
 ?>
 
-<section class="resources-featured highlights-featured featured-module <?php echo $membershipType; ?>">
+<section class="resources-featured highlights-featured featured-module <?php echo esc_attr( $membershipType ); ?>">
     <div class="container">
          <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
