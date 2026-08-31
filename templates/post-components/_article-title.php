@@ -35,7 +35,7 @@
 							?>
                 </div>
                 <?php if ( get_field ( 'image_caption' )) { ?>
-                    <div class="caption"><?php echo get_field ( 'image_caption' ); ?></div>
+                    <div class="caption"><?php echo esc_html( get_field ( 'image_caption' ) ); ?></div>
                 <?php } ?>
             </div>
             <div class="textContainer test">                
@@ -86,13 +86,13 @@
                     
                     <?php if ( $download ) { ?>  
                         <?php $downloadButtonText = get_field('request_download_button_text'); ?>  
-                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>                                       
+                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo esc_html( $downloadButtonText ); ?><?php } else { ?>Request to Download<?php } ?></a>                                       
                         <?php $noMargin = 'no'; ?>
                     <?php } else { ?> 
                         <?php if ( have_rows( 'download_link' ) ) : ?>
                             <?php $downloadButtonText = get_field('request_download_button_text'); ?> 
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>      
+                                <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo esc_html( $downloadButtonText ); ?><?php } else { ?>Request to Download<?php } ?></a>      
                                 <?php $noMargin = 'no'; ?>                                 
                             <?php endwhile; ?>                            
                         <?php else : ?>
@@ -214,7 +214,7 @@
                 </span>
                  <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  
