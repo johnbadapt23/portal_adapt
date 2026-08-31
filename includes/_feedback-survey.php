@@ -278,6 +278,7 @@ add_action( 'wp_footer', function() {
 				<p><?php echo nl2br( esc_html( $intro ) ); ?></p>
 			<?php endif; ?>
 			<div class="feedbackSurvey-form">
+				<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode() output of an admin-authored form-plugin shortcode (CF7/WPForms/Gravity Forms/etc.); wp_kses_post() would strip required form markup. ?>
 				<?php echo adapt_get_feedback_survey_form_html(); ?>
 			</div>
 		</div>
