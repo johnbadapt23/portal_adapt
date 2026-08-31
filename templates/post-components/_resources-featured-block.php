@@ -37,7 +37,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 }
 ?>
 
-<section class="resources-featured featured-module <?php echo $membershipType; ?>">
+<section class="resources-featured featured-module <?php echo esc_attr( $membershipType ); ?>">
     <div class="container">
         <div class="slider-column one-half">
 
