@@ -1,6 +1,6 @@
-<span class="events-card-image column <?php echo $extra_classes; ?>">
+<span class="events-card-image column <?php echo esc_attr( $extra_classes ); ?>">
      <?php if (get_field('external_link')) { ?>
-        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo get_field('external_link_target'); ?>">
+        <a href="<?php echo esc_url( get_field('external_link') ); ?>" class="event-link" target="<?php echo esc_attr( get_field('external_link_target') ); ?>">
     <?php } else { ?>
         <a href="<?php the_permalink(); ?>" class="event-link" target="_self">
     <?php }?>
