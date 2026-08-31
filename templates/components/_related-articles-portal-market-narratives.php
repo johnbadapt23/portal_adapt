@@ -99,7 +99,7 @@
                                     <?php if($postType->slug == 'market-insights'){?>
                                         <a href="/market-insights/" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } else { ?>
-                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+                                        <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 <?php } ?>
                             </span>
