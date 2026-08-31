@@ -97,9 +97,7 @@ global $membershipType;
                 }
             }
 
-            if (!isset($post_id)) {
-                $post_id = get_the_ID(); // Replace with the appropriate method to get the current post ID
-            }
+            $post_id ??= get_the_ID(); // Replace with the appropriate method to get the current post ID
 
             // Increment the post count by one and add the current view with timestamp
             $new_post_views_array[] = ['post_id' => $post_id, 'date' => $current_timestamp];
