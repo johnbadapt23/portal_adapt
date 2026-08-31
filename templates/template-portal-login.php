@@ -38,11 +38,12 @@ if ( is_user_logged_in() && isset($_GET['redirect_to']) ) {
 		<div class="container">
 			<div class="login-container-inner">
 				<div class="introduction-text">
-					<h2><?php echo get_field( 'introduction_text' ); ?></h2>
+					<h2><?php echo esc_html( get_field( 'introduction_text' ) ); ?></h2>
 				</div>
 				<div class="login-form-container">
-					<span class="form-title"><?php echo get_field( 'login_form_title' ); ?></span>
+					<span class="form-title"><?php echo esc_html( get_field( 'login_form_title' ) ); ?></span>
 					<span class="form">
+						<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?>
 						<?php echo get_field( 'login_form' ); ?>
 					</span>
 					<span class="get-in-touch">
