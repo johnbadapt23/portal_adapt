@@ -17,7 +17,7 @@
                                 </div>
                             </div>                            
                             <div class="mobile-title-container">
-                                 <span class="advisor-title text-white header-medium"><?php echo get_sub_field( 'title' ); ?></span>
+                                 <span class="advisor-title text-white header-medium"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                                 <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span> 
                             </div>
                             <span class="links-container">
@@ -28,8 +28,8 @@
                                         <span style="display: none;">
                                             <span class="form-popup" id="formPopupAdvisor">
                                                 <span class="popup-form-container">
-                                                    <span class="popup-form-title">Request an Introduction with <?php echo $title; ?></span>
-                                                        <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?>
+                                                    <span class="popup-form-title">Request an Introduction with <?php echo esc_html( $title ); ?></span>
+                                                        <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?>
                                                     </span>
                                             </span>
                                         </span>
@@ -41,9 +41,9 @@
                         </div>
                         <div class="column second-column text-column">
                             <div class="text-content-inner">
-                                <h1 class="advisor-title text-white header-large"><?php echo get_sub_field( 'title' ); ?></h1>
+                                <h1 class="advisor-title text-white header-large"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
                                 <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>                                              
-                                <span class="text regular-text text-light-grey"><?php echo get_sub_field( 'text' ); ?></span>                               
+                                <span class="text regular-text text-light-grey"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>                               
                             </div>                            
                         </div>                        
                     </div>
@@ -103,7 +103,7 @@ endif;
                         <?php if ( have_rows( 'about_advisor' ) ) : ?>
                             <div class="switch-content about about-advisor<?php if ($contentCounter == 1){?> active<?php } ?>" id="aboutAdvisor">
                                 <?php while ( have_rows( 'about_advisor' ) ) : the_row(); ?>
-                                    <h2 class="title overview-title"><?php echo get_sub_field( 'title' ); ?></h2>
+                                    <h2 class="title overview-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                                     <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                         <div class="advisor-video">
                                             <div class="image-container video-container">                            
@@ -114,14 +114,14 @@ endif;
                                                     <?php } ?>                                                                
                                                     <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                         <span class="opacity-overlay"></span>
-                                                        <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                                                        <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                                                     <?php } ?>                                
                                                 </div>
                                             </div> 
                                         </div>
                                     <?php } ?> 
                                     <div class="text description-container text-regular">
-                                        <?php echo get_sub_field( 'descriptions' ); ?>
+                                        <?php echo wp_kses_post( get_sub_field( 'descriptions' ) ); ?>
                                     </div>
                                     <?php $contentCounter++; ?>
                                 <?php endwhile; ?>
@@ -166,7 +166,7 @@ endif;
                                 <?php if (count($resources_array) > $per_page): ?>
                                     <a class="resources-load-more std-button red-button small-button">Load More</a>
                                     <div class="ajax-loader" style="display: none;">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                                        <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                                     </div>
                                 <?php endif; ?>
                             </div>
