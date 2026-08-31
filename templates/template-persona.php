@@ -273,7 +273,7 @@ get_header();
                     <?php } ?>
 
                 <?php endwhile; else : ?>
-                	<h3><?php esc_html_e( 'Sorry, no results found.' ); ?></h3>
+                	<h3><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h3>
                 <?php endif; ?>
 
                 <?php wp_reset_postdata(); wp_reset_query();?>
