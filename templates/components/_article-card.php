@@ -299,7 +299,7 @@ $filtered_topic = $filtered_topic ?? null;
                         <?php echo esc_html(get_the_excerpt($post_id)); ?>
                     </span>
                     <?php
-                        $today = date('Ymd');
+                        $today = wp_date('Ymd');
                         $replay_date = get_field('replay_event_date', $post_id);
 
                         $button_text = 'Read More';
