@@ -16,6 +16,7 @@ $sector_term = get_sub_field( 'persona' );
         <div class="gridWrapper">
             <?php
                 $args = [
+                    'no_found_rows'  => true,
                     'post_type'      => 'post',
                     'posts_per_page' => 3,
                     'tax_query'      => [

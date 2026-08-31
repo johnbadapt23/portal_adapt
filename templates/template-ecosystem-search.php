@@ -140,6 +140,7 @@ if (isset($_GET['partner-search'])) {
 				<div class="partners-listing">
 					<?php 
 					$args = [
+						'no_found_rows'  => true,
 						'posts_per_page' => -1,
 						'post_type' => 'partners',
 						 's' => $searchTerms,

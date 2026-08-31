@@ -13,6 +13,7 @@
                     if ( $terms ) :
 
                         $args = [
+                            'no_found_rows'  => true,
                             'post_type'      => $post_type,
                             'posts_per_page' => -1,
                             'tax_query'      => [
@@ -276,6 +277,7 @@
                 if ( $terms ) :
 
                     $args = [
+                        'no_found_rows'  => true,
                         'post_type'      => $post_type,
                         'posts_per_page' => -1,
                         'tax_query'      => [
@@ -538,6 +540,7 @@
                     if ( $terms ) :
 
                         $args = [
+                            'no_found_rows'  => true,
                             'post_type'      => $post_type,
                             'posts_per_page' => -1,
                             'tax_query'      => [

@@ -191,6 +191,7 @@ get_header();
                 } ?>
 	            <div id="loop" class="gridWrapper">
 					<?php $args = [
+	                    'no_found_rows'  => true,
 	                    'post_type'      => 'post',
 	                    'posts_per_page' => -1,
 	                    'tax_query'      => [

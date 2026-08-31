@@ -6,6 +6,7 @@
 // post objects for a query that has no result limit, and post_count
 // gives the same total directly, with no loop needed at all.
 $purchasedargs = [
+    'no_found_rows'  => true,
     'posts_per_page' => -1,
     'post_type' => 'kyc',
     'fields' => 'ids',

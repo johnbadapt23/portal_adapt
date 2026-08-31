@@ -52,6 +52,7 @@ $q_slug = $q->slug ?? '';
 									<option value="">All Sectors</option>
 									<?php
 										$argsFilter = [
+											'no_found_rows'  => true,
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'tax_query'      => [
@@ -136,6 +137,7 @@ $q_slug = $q->slug ?? '';
 						];
 					} else {
 						$args = [
+							'no_found_rows'  => true,
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							'tax_query'      => [
@@ -314,6 +316,7 @@ $q_slug = $q->slug ?? '';
 								<option value="">All Sectors</option>
 								<?php
 									$argsFilter = [
+										'no_found_rows'  => true,
 										'post_type'      => 'post',
 										'posts_per_page' => -1,
 										'tax_query'      => [
@@ -530,6 +533,7 @@ $q_slug = $q->slug ?? '';
 				  } ?>
 				 <?php
 				 $args = [
+					 'no_found_rows'  => true,
 					 'post_type'      => 'post',
 					 'posts_per_page' => -1,
 					 'tax_query'      => [

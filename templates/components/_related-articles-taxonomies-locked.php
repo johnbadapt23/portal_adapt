@@ -36,6 +36,7 @@
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
                             	? new WP_Query( [
+                            		'no_found_rows'  => true,
                             		'post_type'      => $post_type,
                             		'post__in'       => $related_ids,
                             		'orderby'        => 'post__in',
@@ -248,6 +249,7 @@
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
                             	? new WP_Query( [
+                            		'no_found_rows'  => true,
                             		'post_type'      => $post_type,
                             		'post__in'       => $related_ids,
                             		'orderby'        => 'post__in',
@@ -460,6 +462,7 @@
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
                             	? new WP_Query( [
+                            		'no_found_rows'  => true,
                             		'post_type'      => $post_type,
                             		'post__in'       => $related_ids,
                             		'orderby'        => 'post__in',

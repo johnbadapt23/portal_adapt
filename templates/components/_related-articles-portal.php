@@ -27,6 +27,7 @@ if (!$postTopic) {
 
         <?php
         $args = [
+            'no_found_rows'  => true,
             'post_type' => 'post',
             'posts_per_page' => 3,
             'post__not_in' => [get_the_ID()],

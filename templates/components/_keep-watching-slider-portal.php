@@ -23,6 +23,7 @@
         <div class="slider">
             <?php
                 $args = [
+                    'no_found_rows'  => true,
                     'post_type'      => 'post',
                     'posts_per_page' => 6,
                     'post__not_in' => [ $post->ID ],

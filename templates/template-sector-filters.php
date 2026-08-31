@@ -372,6 +372,7 @@ if ($membershipType === 'it-pro') {
         if ($sector_term && !is_wp_error($sector_term)) {
 
             $featured_query = new WP_Query([
+                'no_found_rows'  => true,
                 'post_type'      => 'post',
                 'posts_per_page' => 1,
                 'tax_query'      => [

@@ -69,6 +69,7 @@
 			<div class="kits-listing grid">
 				<?php 
 				$purchasedargs = [
+					'no_found_rows'  => true,
 					'posts_per_page' => -1,
 					'post_type' => 'kyc',
 					'tax_query' => [
@@ -173,6 +174,7 @@
 				<?php wp_reset_postdata(); ?> 	
 				<?php 
 				$nonpurchasedargs = [
+					'no_found_rows'  => true,
 					'posts_per_page' => -1,
 					'post_type' => 'kyc',
 					'tax_query' => [

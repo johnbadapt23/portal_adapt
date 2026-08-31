@@ -140,6 +140,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 }
 
                                 $args = [
+                                    'no_found_rows'  => true,
                                     'post_type'      => 'post',
                                     'posts_per_page' => 6,
                                     'tax_query'      => $tax_query,

@@ -25,6 +25,7 @@
 
         // ---------- LOOP 1: Checked adapt_analyst ----------
         $checked_args = [
+            'no_found_rows'  => true,
             'post_type'      => 'partners',
             'posts_per_page' => -1,
             'tax_query'      => [[
