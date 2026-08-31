@@ -8,12 +8,14 @@ get_header();
 
 <main id="main" role="main" class="events">
 <?php
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/sort/search params for a bookmarkable, shareable insights-listing URL; no state change results from reading them.
 $filterTopics = $_GET['topics'];
 $filterType = $_GET['filterType'];
 $keyword = $_GET['searchWords'];
 $sortBy = $_GET['orderby'];
 $sort = $_GET['order'];
 $sortPosts = $_GET['sortPost'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 $filterBy = array();
 ?>
 
