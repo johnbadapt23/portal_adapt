@@ -20,6 +20,7 @@ function custom_theme_pagination() {
 		 } else {
 			 $format = '&paged=%#%';
 		 }
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links() is a core WP function that returns its own pre-escaped HTML.
 		echo '<span class="current">PAGE </span>' . paginate_links(array(
 			'base'			=> str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'format'		=> $format,
@@ -205,7 +206,7 @@ function custom_form_error_message( $message, $form ) {
 
 // change logo on wp login
 function custom_wp_login_logo() {
-    echo '<style  type="text/css"> h1 a { display:block !important; width: 100% !important; height: 108px !important; background-size: 90% !important; background-image:url(' . get_bloginfo('template_directory') . '/assets/images/logo-admin.png)  !important; } </style>';
+    echo '<style  type="text/css"> h1 a { display:block !important; width: 100% !important; height: 108px !important; background-size: 90% !important; background-image:url(' . esc_url( get_bloginfo('template_directory') ) . '/assets/images/logo-admin.png)  !important; } </style>';
 }
 
 // change url on wp login
