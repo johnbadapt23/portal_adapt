@@ -34,7 +34,7 @@
     }
 ?>
 
-<div class="featured-article-card plus-<?php echo $advantagePlus; ?>">
+<div class="featured-article-card plus-<?php echo esc_attr( $advantagePlus ); ?>">
     <a class="article-link" href="<?php echo esc_url(get_permalink($post_id)); ?>" id="<?php echo esc_attr($post_slug); ?>">
         <span class="article-column-container">
             <span class="article-text-column">
