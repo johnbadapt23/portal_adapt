@@ -2681,8 +2681,19 @@ function adapt_render_filter_posts() {
     // -------------------------
     // Topic for card rendering
     // -------------------------
-    $has_topic_filter    = !empty($_GET['topic']);
-    $filtered_topic      = $has_topic_filter ? sanitize_text_field($_GET['topic'][0]) : null;
+    // The actual topic filter is read from $_GET['topicType'] above (it
+    // matches queryMap.topic in main.js) - this used to read $_GET['topic']
+    // instead, a key nothing ever sets, so $has_topic_filter was always
+    // false and the card badge never got the AJAX path's "topic filter
+    // active" treatment. It also indexed the raw value with [0] as if it
+    // were already an array; $_GET['topicType'] is a plain string here (a
+    // URL query param, not a JS-submitted array like $_POST['topic'] on the
+    // AJAX side), so string[0] was silently returning just the first
+    // character instead of the topic slug.
+    $has_topic_filter    = !empty($_GET['topicType']);
+    $filtered_topic      = $has_topic_filter
+        ? sanitize_text_field( is_array( $_GET['topicType'] ) ? reset( $_GET['topicType'] ) : $_GET['topicType'] )
+        : null;
     $card_filtered_topic = $filtered_topic;
     // phpcs:enable WordPress.Security.NonceVerification.Recommended
 

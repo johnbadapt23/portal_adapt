@@ -376,6 +376,15 @@ if ($membershipType === 'it-pro') {
 
         if ($sector_term && !is_wp_error($sector_term)) {
 
+            // remove_already_displayed_posts (hooked globally on
+            // pre_get_posts) would exclude this post if an earlier
+            // component on the page already linked to it via
+            // get_permalink(), populating $displayed_posts. The AJAX
+            // version of this query (ajax_load_featured_post()) never sees
+            // that exclusion since it runs as its own request with no
+            // prior $displayed_posts, so disable the hook here too so this
+            // query isn't the only one of the two subject to it.
+            remove_action('pre_get_posts', 'remove_already_displayed_posts');
             $featured_query = new WP_Query([
                 'no_found_rows'  => true,
                 'post_type'      => 'post',
@@ -400,6 +409,7 @@ if ($membershipType === 'it-pro') {
                     ],
                 ],
             ]);
+            add_action('pre_get_posts', 'remove_already_displayed_posts');
 
             if ($featured_query->have_posts()) {
                 ob_start();
