@@ -79,30 +79,28 @@ global $membershipType;
 
             // If the meta field doesn't exist or it's not an array, initialize an empty array
             if (!is_array($post_views_array)) {
-                $post_views_array = array();
+                $post_views_array = [];
             }
 
             // Get the current timestamp
-            $current_timestamp = date('Ymd');
+            $current_timestamp = wp_date('Ymd');
 
             // Remove views older than 30 days
-            // $thirty_days_ago_date = date('Ymd', strtotime('-30 days'));
+            // $thirty_days_ago_date = wp_date('Ymd', strtotime('-30 days'));
             // test it with one day
-            $thirty_days_ago_date = date('Ymd', strtotime('-30 days'));
+            $thirty_days_ago_date = wp_date('Ymd', strtotime('-30 days'));
 
-            $new_post_views_array = array();
+            $new_post_views_array = [];
             foreach ($post_views_array as $view) {
                 if ($view['date'] >= $thirty_days_ago_date) {
                     $new_post_views_array[] = $view;
                 }
             }
 
-            if (!isset($post_id)) {
-                $post_id = get_the_ID(); // Replace with the appropriate method to get the current post ID
-            }
+            $post_id ??= get_the_ID(); // Replace with the appropriate method to get the current post ID
 
             // Increment the post count by one and add the current view with timestamp
-            $new_post_views_array[] = array('post_id' => $post_id, 'date' => $current_timestamp);
+            $new_post_views_array[] = ['post_id' => $post_id, 'date' => $current_timestamp];
 
             // Update the meta field 'mepr_post_views_30_days' with the new array
             update_user_meta($user_id, 'mepr_post_views_30_days_array', $new_post_views_array);
@@ -447,7 +445,7 @@ if (
 					$inline_img_110_src = get_field( 'speaker_image' );
 					$inline_img_110_attach_id = $inline_img_110_src ? attachment_url_to_postid( $inline_img_110_src ) : 0;
 					if ( $inline_img_110_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_110_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_110_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_110_src ) {
 						echo '<img src="' . esc_url( $inline_img_110_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -472,7 +470,7 @@ if (
                     <div class="column-image-container desktop">
                         <?php $side_image = get_field( 'side_image' ); ?>
                         <?php if ( $side_image ) { ?>
-                        	<?php echo wp_get_attachment_image( $side_image['ID'], 'full', false, array( 'alt' => $side_image['alt'] ) ); ?>
+                        	<?php echo wp_get_attachment_image( $side_image['ID'], 'full', false, [ 'alt' => $side_image['alt'] ] ); ?>
                         <?php } ?>
                     </div>
                 <?php }?>
@@ -499,7 +497,7 @@ if (
 					$inline_img_111_src = get_field( 'speaker_image' );
 					$inline_img_111_attach_id = $inline_img_111_src ? attachment_url_to_postid( $inline_img_111_src ) : 0;
 					if ( $inline_img_111_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_111_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_111_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_111_src ) {
 						echo '<img src="' . esc_url( $inline_img_111_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -765,7 +763,7 @@ if (
 					$inline_img_112_src = get_sub_field( 'infogram_image' );
 					$inline_img_112_attach_id = $inline_img_112_src ? attachment_url_to_postid( $inline_img_112_src ) : 0;
 					if ( $inline_img_112_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_112_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+						echo wp_get_attachment_image( $inline_img_112_attach_id, 'full', false, [ 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ] );
 					} elseif ( $inline_img_112_src ) {
 						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_112_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -787,7 +785,7 @@ if (
 					$inline_img_113_src = get_sub_field( 'image' );
 					$inline_img_113_attach_id = $inline_img_113_src ? attachment_url_to_postid( $inline_img_113_src ) : 0;
 					if ( $inline_img_113_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_113_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+						echo wp_get_attachment_image( $inline_img_113_attach_id, 'full', false, [ 'alt' => '', 'class' => 'featureImage' ] );
 					} elseif ( $inline_img_113_src ) {
 						echo '<img class="featureImage" src="' . esc_url( $inline_img_113_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -801,7 +799,7 @@ if (
 					$inline_img_114_src = get_sub_field( 'infogram_image' );
 					$inline_img_114_attach_id = $inline_img_114_src ? attachment_url_to_postid( $inline_img_114_src ) : 0;
 					if ( $inline_img_114_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_114_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+						echo wp_get_attachment_image( $inline_img_114_attach_id, 'full', false, [ 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ] );
 					} elseif ( $inline_img_114_src ) {
 						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_114_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -838,7 +836,7 @@ if (
 					$inline_img_115_src = get_sub_field( 'logo' );
 					$inline_img_115_attach_id = $inline_img_115_src ? attachment_url_to_postid( $inline_img_115_src ) : 0;
 					if ( $inline_img_115_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_115_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_115_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_115_src ) {
 						echo '<img src="' . esc_url( $inline_img_115_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -937,7 +935,7 @@ if (
 					$inline_img_116_src = get_field( 'logo' );
 					$inline_img_116_attach_id = $inline_img_116_src ? attachment_url_to_postid( $inline_img_116_src ) : 0;
 					if ( $inline_img_116_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_116_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_116_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_116_src ) {
 						echo '<img src="' . esc_url( $inline_img_116_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -1320,7 +1318,7 @@ if (
 					$inline_img_117_src = get_sub_field( 'video_poster_image' );
 					$inline_img_117_attach_id = $inline_img_117_src ? attachment_url_to_postid( $inline_img_117_src ) : 0;
 					if ( $inline_img_117_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_117_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+						echo wp_get_attachment_image( $inline_img_117_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 					} elseif ( $inline_img_117_src ) {
 						echo '<img class="desktop" src="' . esc_url( $inline_img_117_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -1412,7 +1410,7 @@ if (
 					$inline_img_118_src = get_field( 'speaker_image' );
 					$inline_img_118_attach_id = $inline_img_118_src ? attachment_url_to_postid( $inline_img_118_src ) : 0;
 					if ( $inline_img_118_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_118_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_118_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_118_src ) {
 						echo '<img src="' . esc_url( $inline_img_118_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -1425,7 +1423,7 @@ if (
 					$inline_img_119_src = $url;
 					$inline_img_119_attach_id = $inline_img_119_src ? attachment_url_to_postid( $inline_img_119_src ) : 0;
 					if ( $inline_img_119_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_119_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_119_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_119_src ) {
 						echo '<img src="' . esc_url( $inline_img_119_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -1540,7 +1538,7 @@ if (
                                                             <?php if ( $preview_image ) { ?>
                                                                 <span class="download-image-container <?php echo esc_attr( get_sub_field( 'image_orientation' ) ); ?>">
                                                                     <span class="bg-container">
-                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, [ 'alt' => $preview_image['alt'] ] ); ?>
                                                                     </span>
                                                                 </span>
                                                             <?php } ?>
@@ -1565,7 +1563,7 @@ if (
                                                         <?php if ( $preview_image ) { ?>
                                                             <span class="download-image-container <?php echo esc_attr( get_sub_field( 'image_orientation' ) ); ?>">
                                                                 <span class="bg-container">
-                                                                    <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
+                                                                    <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, [ 'alt' => $preview_image['alt'] ] ); ?>
                                                                 </span>
                                                             </span>
                                                         <?php } ?>
@@ -1599,45 +1597,46 @@ if (
                             }
                         }?>
                         <?php $type_terms = get_field( 'you_may_also_like' ); ?>
-                        <?php $types = array(); ?>
+                        <?php $types = []; ?>
                         <?php if ( $type_terms ){ ?>
                             <?php foreach ( $type_terms as $type_term ): ?>
                                 <?php $types[] =  $type_term->slug; ?>
                             <?php endforeach; ?>
                         <?php
-                            $args = array(
+                            $args = [
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
-                                'post__not_in' => array( $post->ID ),
-                                'tax_query'      => array(
+                                'post__not_in' => [ $post->ID ],
+                                'tax_query'      => [
                                     'relation' => 'AND',
-                                    array (
+                                     [
                                         'taxonomy' => 'topic',
                                         'field' => 'slug',
                                         'terms'    => $postTopic->slug
-                                    ),
-                                    array(
+                                    ],
+                                    [
                                         'taxonomy' => 'filter-types',
                                         'field'    => 'slug',
                                         'terms' => $types,
                                         'operator' => 'IN',
-                                    )
-                                )
-                            );?>
+                                    ]
+                                ]
+                            ];?>
                         <?php } else {
-                            $args = array(
+                            $args = [
+                                'no_found_rows'  => true,
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
-                                'post__not_in' => array( $post->ID ),
-                                'tax_query'      => array(
+                                'post__not_in' => [ $post->ID ],
+                                'tax_query'      => [
                                     'relation' => 'AND',
-                                    array (
+                                     [
                                         'taxonomy' => 'topic',
                                         'field' => 'slug',
                                         'terms'    => $postTopic->slug
-                                    )
-                                )
-                            );?>
+                                    ]
+                                ]
+                            ];?>
                         <?php }
 
                             $posts = new WP_Query( $args );
@@ -1674,7 +1673,10 @@ if (
                                                 }
                                                 ?>
                                                 <?php if($postTopic){?>
-                                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                    <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                    <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                    <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                    <?php endif; ?>
                                                 <?php } ?>
                                                 <?php if($postType){?>
                                                     <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>

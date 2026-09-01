@@ -1,13 +1,13 @@
-<section class="fixed-scroller partner-fixed-scroller <?php if(get_sub_field( 'background_colour' )) { ?><?php echo get_sub_field( 'background_colour' ); ?><?php } ?>">
+<section class="fixed-scroller partner-fixed-scroller <?php if(get_sub_field( 'background_colour' )) { ?><?php echo esc_attr( get_sub_field( 'background_colour' ) ); ?><?php } ?>">
     <div class="container">        
         <div class="fixed-scroller-container">
             <div class="title-container sticky-container">
                 <div class="column-container bottom-align">
                     <?php if(get_sub_field('pre_title')){ ?>
-                        <span class="pre-title font-ibm medium-grey labelIBMSmall"><?php echo get_sub_field('pre_title'); ?></span>
+                        <span class="pre-title font-ibm medium-grey labelIBMSmall"><?php echo esc_html( get_sub_field('pre_title') ); ?></span>
                     <?php } ?>                    
                     <?php if(get_sub_field('title_pixel_max_width')){ ?>
-                        <h2 class="bold-red white-text" style="max-width:<?php echo get_sub_field('title_pixel_max_width'); ?>"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
+                        <h2 class="bold-red white-text" style="max-width:<?php echo esc_attr( get_sub_field('title_pixel_max_width') ); ?>"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                     <?php } else { ?> 
                         <h2 class="bold-red white-text"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h2>
                     <?php } ?>                    
@@ -23,7 +23,7 @@
                                     <span class="bg-container">
                                         <?php $image = get_sub_field( 'image' ); ?>
                                         <?php if ( $image ) { ?>
-                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                         <?php } ?>
                                     </span>
                                 </span>

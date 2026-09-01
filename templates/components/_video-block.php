@@ -1,4 +1,4 @@
-<section class="videoBlock scrollPos" style="background-image: url(<?php echo get_sub_field('video_poster_image'); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
+<section class="videoBlock scrollPos" style="background-image: url(<?php echo esc_url( get_sub_field('video_poster_image') ); ?>);" <?php if( get_sub_field('id')){?>id="<?php echo esc_attr( get_sub_field('id') ); ?>"<?php } ?>>
     <?php if( get_sub_field('dark_overlay') == 'yes') { ?>
         <span class="dark-overlay"></span>
     <?php } ?>
@@ -12,17 +12,17 @@
             <?php } ?>
             <?php if( get_sub_field ( 'video_description' ) ) { ?>
                 <div class="column text">
-                    <span class="text"><?php echo get_sub_field('video_description'); ?></span>
+                    <span class="text"><?php echo esc_html( get_sub_field('video_description') ); ?></span>
                 </div>
             <?php } ?>
             <span class="videoLink">
                 <?php if( get_sub_field('vimeo_code_popup')){ ?>
-                    <a href="https://vimeo.com/<?php echo get_sub_field('vimeo_code_popup'); ?>" class="image popup-vimeo">
+                    <a href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code_popup') ); ?>" class="image popup-vimeo">
                 <?php } else { ?>
                     <a href="#" class="playBtnVideoBlock">
                 <?php } ?>                
                     <span class="icon">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
+                        <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/play.svg" width="51" height="51" loading="lazy" decoding="async" alt="Play Icon" />
                     </span>
                     <span class="text">
                         <span><?php if( get_sub_field('video_button_text')) { ?><?php echo esc_html( get_sub_field('video_button_text') ) ?><?php } else { ?>Watch Video<?php } ?></span>
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="videoPlayerContainer videoBlock">
-        <span class="closeVideo"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
+        <span class="closeVideo"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/close-grey.svg" width="25" height="25" loading="lazy" decoding="async" alt="Close" /></span>
         <div class="videoWrapper">
             <video width="100%" id="popupVideo" controls controlsList="nodownload">
                 <source type="video/mp4" src="<?php echo esc_url( get_sub_field('vimeo_code') ); ?>" />

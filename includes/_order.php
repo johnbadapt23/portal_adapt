@@ -15,35 +15,35 @@ function custom_populate_orderform( $form ) {
     foreach ( $form['fields'] as &$field ) {
 
 		if ($field->type == 'select' && strstr( $field->cssClass, 'populate-locations' )) {
-	        $posts = get_posts(array(
+	        $posts = get_posts([
             	'numberposts'	=> -1,
             	'post_type'		=> 'location',
             	'meta_key'		=> 'online_ordering',
             	'meta_value'	=> '1'
-            ));
-	        $choices = array();
+            ]);
+	        $choices = [];
 
 	        foreach ( $posts as $post ) {
-               $choices[] = array( 'text' => $post->post_title, 'value' => $post->post_title . '|' . get_post_meta($post->ID, 'email', true) );
+               $choices[] = [ 'text' => $post->post_title, 'value' => $post->post_title . '|' . get_post_meta($post->ID, 'email', true) ];
 	        }
 
 	        $field->placeholder = 'Select a location';
 	        $field->choices = $choices;
 		} else if ($field->type == 'select' && strstr( $field->cssClass, 'populate-dates' )) {
-			$choices = array();
+			$choices = [];
 
 			foreach( range(0,6) as $cnt ){
-				$day = strtolower( date('l j F',strtotime( "today + $cnt day") ) );
+				$day = strtolower( wp_date('l j F',strtotime( "today + $cnt day") ) );
                 if($cnt == 0) {
                     $time = strtotime("15:15");
                     $now = strtotime("now");
                     $diff = $time - $now;
                     if ($diff > (60*15) && (strlen(strstr($day,'saturday')) == 0 && strlen(strstr($day,'sunday')) == 0)){
-    				    $choices[] = array( 'text' => $day, 'value' => $day );
+    				    $choices[] = [ 'text' => $day, 'value' => $day ];
                     }
                 } else {
                     if (strlen(strstr($day,'saturday')) == 0 && strlen(strstr($day,'sunday')) == 0){
-    				    $choices[] = array( 'text' => $day, 'value' => $day );
+    				    $choices[] = [ 'text' => $day, 'value' => $day ];
                     }
                 }
 			}
@@ -51,7 +51,7 @@ function custom_populate_orderform( $form ) {
 	        $field->placeholder = 'Select a day';
 	        $field->choices = $choices;
 		} else if ($field->type == 'select' && strstr( $field->cssClass, 'populate-times' )) {
-			$choices = array();
+			$choices = [];
 
             $range = range(strtotime("07:00"),strtotime("15:30"),15*60);
             $now = strtotime("now");
@@ -59,7 +59,7 @@ function custom_populate_orderform( $form ) {
             foreach($range as $time){
                 $diff = $time - $now;
                 if ($diff > (60*15)){
-                    $choices[] = array( 'text' => date('g:i A',$time), 'value' => date('g:i A',$time) );
+                    $choices[] = [ 'text' => wp_date('g:i A',$time), 'value' => wp_date('g:i A',$time) ];
                 }
             }
 

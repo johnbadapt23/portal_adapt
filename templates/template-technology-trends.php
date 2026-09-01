@@ -4,6 +4,7 @@
  */
 
 get_header();
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable listing URL; no state change results from reading it.
 $topic = $_GET['topic'];
 ?>
 
@@ -18,7 +19,7 @@ $topic = $_GET['topic'];
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
 	        <div class="container">
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/data-insights/technology-trends/" target="_self">Technology Trends</a>
@@ -30,23 +31,24 @@ $topic = $_GET['topic'];
 	        <div class="container">
 	            <div id="loop" class="gridWrapper">
 					<?php
-					$args = array(
+					$args = [
+	                    'no_found_rows'  => true,
 	                    'post_type'      => 'post',
 	                    'posts_per_page' => -1,
-	                    'tax_query'      => array(
+	                    'tax_query'      => [
 	                        'relation' => 'AND',
-	                        array (
+	                         [
 	                            'taxonomy' => 'data-insights-subcategories',
 	                            'field' => 'slug',
 	                            'terms'    => 'technology-trends'
-	                        ),
-	                        array(
+	                        ],
+	                        [
 	                            'taxonomy' => 'topic',
 	                            'field'    => 'slug',
 	                            'terms'    => $topic_details->slug
-	                        )
-	                    ),
-	                );
+	                        ]
+	                    ],
+	                ];
 					?>
 					<?php $posts = new WP_Query( $args );
                     if( $posts->have_posts() ): ?>
@@ -79,17 +81,17 @@ $topic = $_GET['topic'];
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
-	                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
 	                                        <span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -114,7 +116,7 @@ $topic = $_GET['topic'];
  		                                   }
  		                               }?>
 									   <a href="/data-insights/technology-trends" class="topicFilterText">Technology Trends</a>
-									   <a href="/topic/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+									   <a href="/topic/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 	                                </span>
 	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
 									<span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
@@ -127,7 +129,7 @@ $topic = $_GET['topic'];
 	                    <?php } ?>
 
 	                <?php endwhile; else : ?>
-	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 	                <?php endif; ?>
 
 	                <?php wp_reset_postdata(); wp_reset_query();?>
@@ -140,7 +142,7 @@ $topic = $_GET['topic'];
 	<?php if ( have_rows( 'banner' ) ) : ?>
 		<?php while ( have_rows( 'banner' ) ) : the_row(); ?>
 			<?php $banner_image = get_sub_field( 'banner_image' ); ?>
-			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo $banner_image['url']; ?>);">
+			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>);">
 				<div class="container">
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
@@ -150,7 +152,7 @@ $topic = $_GET['topic'];
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
+						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -163,12 +165,12 @@ $topic = $_GET['topic'];
 		<section class="explore-section">
 			<div class="container">
 				<?php while ( have_rows( 'topic_buttons' ) ) : the_row(); ?>
-					<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
+					<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 					<div class="button-container">
 						<?php $sectors_terms = get_sub_field( 'topic' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/data-insights/technology-trends/?topic=<?php echo $sectors_term->slug; ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
+								<a class="sector-button button grey-button" href="/data-insights/technology-trends/?topic=<?php echo esc_attr( $sectors_term->slug ); ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -206,14 +208,14 @@ $topic = $_GET['topic'];
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -236,7 +238,7 @@ $topic = $_GET['topic'];
 																				<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -266,7 +268,7 @@ $topic = $_GET['topic'];
 															}?>
 															<a href="/data-insights/technology-trends" class="topicFilterText">Technology Trends</a>
 															<?php if($postType){?>
-																<a href="/topic/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+																<a href="/topic/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 															<?php } ?>
 							                                </span>
 							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
@@ -274,7 +276,7 @@ $topic = $_GET['topic'];
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
-																	   <?php echo get_sub_field( 'overview_text' ); ?>
+																	   <?php echo esc_html( get_sub_field( 'overview_text' ) ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
 												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
@@ -308,38 +310,39 @@ $topic = $_GET['topic'];
 		 <div class="container">
 			 <div id="loop" class="gridWrapper">
 				 <?php $term_m = 'topic';
-				  $terms = get_terms( $term_m, array(
+				  $terms = get_terms( [ 'taxonomy' => $term_m,
 					  'hide_empty' => false,
-				  ) );
+				  ] );
 
-				  $personas = array();
+				  $personas = [];
 				  foreach( $terms as $term){
 					  $personas[] = $term->slug;
 				  } ?>
 				 <?php
-				 $args = array(
+				 $args = [
+					 'no_found_rows'  => true,
 					 'post_type'      => 'post',
 					 'posts_per_page' => -1,
-					 'tax_query'      => array(
+					 'tax_query'      => [
 						 'relation' => 'AND',
-						 array (
+						  [
 							 'taxonomy' => 'filter-types',
 							 'field' => 'slug',
 							 'terms'    => 'data-insights'
-						 ),
-						 array (
+						 ],
+						  [
 							 'taxonomy' => 'data-insights-subcategories',
 							 'field' => 'slug',
 							 'terms'    => 'technology-trends'
-						 )
+						 ]
 						//  array(
 						// 	 'taxonomy' => 'topic',
 						// 	 'field'    => 'slug',
 						// 	 'terms'    => $personas,
 						// 	 'operator' => 'IN'
 						//  )
-					 ),
-				 );
+					 ],
+				 ];
 				 ?>
 				 <?php $posts = new WP_Query( $args );
 					if( $posts->have_posts() ): ?>
@@ -372,17 +375,17 @@ $topic = $_GET['topic'];
 												<?php // no rows found ?>
 											<?php endif; ?>
 										 <?php endwhile; ?>
-										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
-												 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
 										 <span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -408,7 +411,7 @@ $topic = $_GET['topic'];
 								 }?>
 								 <a href="/data-insights/technology-trends" class="topicFilterText">Technology Trends</a>
 								 <?php if($postType){?>
-									 <a href="/topic/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+									 <a href="/topic/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 								 <?php } ?>
 								 </span>
 								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -422,7 +425,7 @@ $topic = $_GET['topic'];
 					 <?php } ?>
 
 				 <?php endwhile; else : ?>
-					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 				 <?php endif; ?>
 
 				 <?php wp_reset_postdata(); wp_reset_query();?>

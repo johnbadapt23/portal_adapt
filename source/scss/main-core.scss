@@ -1,23 +1,29 @@
 // Default bundle for every page template EXCEPT the ones that have been
 // verified safe to split out into their own exclusive bundle (see
-// main-tpl-agenda.scss / main-tpl-events.scss / main-tpl-flexible.scss /
-// main-tpl-home.scss / main-tpl-portal-flexible.scss and
-// adapt_enqueue_template_styles() in functions.php). This is intentionally
-// everything templates/**/*.scss would have
-// pulled in before the split, MINUS _agenda.scss and _events.scss, so every
-// template not explicitly special-cased keeps getting exactly the CSS it
-// already relies on today - zero behaviour change for those pages.
+// main-tpl-agenda.scss / main-tpl-benchmarking.scss / main-tpl-events.scss /
+// main-tpl-flexible.scss / main-tpl-home.scss / main-tpl-portal-flexible.scss
+// and adapt_enqueue_template_styles() in functions.php). This is
+// intentionally everything templates/**/*.scss would have pulled in before
+// the split, MINUS _agenda.scss, _benchmarking.scss, and _events.scss, so
+// every template not explicitly special-cased keeps getting exactly the CSS
+// it already relies on today - zero behaviour change for those pages.
 //
 // _agenda.scss and _events.scss were verified (grepped for cross-usage of
 // their selectors across every template/component .php file) to be truly
 // exclusive to templates/template-agenda.php and templates/template-events.php
 // respectively, with no shared component partials pulling in their classes
-// elsewhere - safe to omit here. Every other templates/*.scss file is either
-// known to be shared across multiple templates via reusable component
-// partials (get_template_part), or hasn't been verified exclusive yet, so
-// it stays in this default/core bundle rather than risk a page silently
-// losing styles it needs. See the CSS-split follow-up notes in README.md
-// for the templates still worth investigating.
+// elsewhere - safe to omit here. _benchmarking.scss was verified the same
+// way (see main-tpl-benchmarking.scss) to be exclusive to
+// templates/template-benchmarking.php and templates/template-benchmarks-maturity.php -
+// despite its size (was ~10,000 lines, the single largest file in this
+// bundle) it's a self-contained flexible-content component library those
+// two templates alone pull in, not shared "core" styling. Every other
+// templates/*.scss file is either known to be shared across multiple
+// templates via reusable component partials (get_template_part), or hasn't
+// been verified exclusive yet, so it stays in this default/core bundle
+// rather than risk a page silently losing styles it needs. See the
+// CSS-split follow-up notes in README.md for the templates still worth
+// investigating.
 @import 'global/_mixins';
 @import 'global/_variables';
 // Some of these files reference $p-font-size / $h3-font-size / etc, which
@@ -31,7 +37,6 @@
 @import 'templates/_account';
 @import 'templates/_advantage-styling';
 @import 'templates/_announcements';
-@import 'templates/_benchmarking';
 @import 'templates/_contact';
 @import 'templates/_data-insights';
 @import 'templates/_default';

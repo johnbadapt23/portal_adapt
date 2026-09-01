@@ -8,19 +8,19 @@
 
         <div class="gridWrapper">
             <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-            <?php $args = array(
+            <?php $args = [
                 'post_type' => 'post',
                 'posts_per_page' => 4,
                 'paged'=> $paged,
-                'tax_query' => array(
+                'tax_query' => [
                     'relation' => 'AND',
-                    array (
+                     [
                         'taxonomy' => 'filter-types',
                         'field' => 'slug',
                         'terms'    => 'market-narratives'
-                    ),
-                )
-            );
+                    ],
+                ]
+            ];
 
             $posts = new WP_Query( $args );
             if( $posts->have_posts() ): ?>
@@ -44,7 +44,7 @@
                                            <?php // no rows found ?>
                                        <?php endif; ?>
                                     <?php endwhile; ?>
-                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop slide-preview' ) ); ?>
+                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop slide-preview' ] ); ?>
                                 <?php else : ?>
                                     <?php if ( get_field( 'listing_image') ) { ?>
                                         <?php $image = get_field( 'listing_image'); ?>
@@ -58,7 +58,7 @@
                                     <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
@@ -93,13 +93,16 @@
                                     }
                                 }?>
                                 <?php if($postTopic){?>
-                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                    <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                    <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                    <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                    <?php endif; ?>
                                 <?php } ?>
                                 <?php if($postType){?>
                                     <?php if($postType->slug == 'market-insights'){?>
                                         <a href="/market-insights/" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } else { ?>
-                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+                                        <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 <?php } ?>
                             </span>

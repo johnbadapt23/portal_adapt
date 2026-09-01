@@ -26,9 +26,9 @@ get_header();
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<span class="columnTitle">
 											<?php if ( $icon ) { ?>
-												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
 											<?php } ?>
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 										<?php if ( have_rows( 'link' ) ) : ?>
 											<ul>
@@ -36,7 +36,10 @@ get_header();
 													<?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
 													<?php if ( $topic_link_term ): ?>
 														<li>
-															<a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+															<?php $topic_link_term_link = get_term_link( $topic_link_term ); ?>
+															<?php if ( ! is_wp_error( $topic_link_term_link ) ) : ?>
+															<a href="<?php echo esc_url( $topic_link_term_link ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+															<?php endif; ?>
 														</li>
 													<?php endif; ?>
 												<?php endwhile; ?>
@@ -63,9 +66,9 @@ get_header();
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<span class="columnTitle">
 											<?php if ( $icon ) { ?>
-												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
 											<?php } ?>
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 										<?php if ( have_rows( 'link' ) ) : ?>
 											<ul>
@@ -74,14 +77,17 @@ get_header();
 														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
 														<?php if ( $type_link_term ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php $type_link_term_link = get_term_link( $type_link_term ); ?>
+																<?php if ( ! is_wp_error( $type_link_term_link ) ) : ?>
+																<a href="<?php echo esc_url( $type_link_term_link ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php endif; ?>
 															</li>
 														<?php endif; ?>
 													<?php } else { ?>
 														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
 														<?php if ( $other_link ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo $other_link; ?></a>
+																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo esc_html( $other_link ); ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } ?>
@@ -109,9 +115,9 @@ get_header();
 										<?php $icon = get_sub_field( 'icon' ); ?>
 										<span class="columnTitle">
 											<?php if ( $icon ) { ?>
-												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+												<?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
 											<?php } ?>
-											<?php echo get_sub_field( 'title' ); ?>
+											<?php echo esc_html( get_sub_field( 'title' ) ); ?>
 										</span>
 										<?php if ( have_rows( 'link' ) ) : ?>
 											<ul>
@@ -120,14 +126,17 @@ get_header();
 														<?php $type_link_term = get_sub_field( 'type_link' ); ?>
 														<?php if ( $type_link_term ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php $type_link_term_link = get_term_link( $type_link_term ); ?>
+																<?php if ( ! is_wp_error( $type_link_term_link ) ) : ?>
+																<a href="<?php echo esc_url( $type_link_term_link ); ?>" ><?php echo esc_html( $type_link_term->name ); ?></a>
+																<?php endif; ?>
 															</li>
 														<?php endif; ?>
 													<?php } else { ?>
 														<?php $other_link = get_sub_field( 'other_link_text' ); ?>
 														<?php if ( $other_link ): ?>
 															<li>
-																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo $other_link; ?></a>
+																<a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" ><?php echo esc_html( $other_link ); ?></a>
 															</li>
 														<?php endif; ?>
 													<?php } ?>

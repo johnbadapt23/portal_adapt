@@ -3,10 +3,7 @@
 // Includes
 require('includes/_hooks.php');
 require('includes/_setup.php');
-require('includes/_head.php');
 require('includes/_menu.php');
-require('includes/_widgets.php');
-require('includes/_shortcodes.php');
 require('includes/_functions.php');
 require('includes/_customisations.php');
 require('includes/_welcome-popup.php');
@@ -24,10 +21,6 @@ function adapt_is_staging() {
         str_contains($_SERVER['HTTP_HOST'] ?? '', 'staging') ||
         str_contains($_SERVER['HTTP_HOST'] ?? '', 'devstage')
     );
-}
-
-function my_acf_init() {
-	acf_update_setting('google_api_key', 'AIzaSyDss6XUuPFsJgunJJ6dZZjzuR9d39WtjRU');
 }
 
 /**
@@ -267,7 +260,6 @@ add_action('wp', function() {
 }, 20);
 
 
-add_action('acf/init', 'my_acf_init');
 add_filter('upload_mimes', 'cc_mime_types');
 
 add_image_size( 'gallery-landscape', 1280, 800, true );
@@ -279,7 +271,7 @@ add_filter( 'https_ssl_verify', '__return_false' );
 add_action('wp_enqueue_scripts', 'my_register_javascript', 100);
 
 function my_register_javascript() {
-  wp_register_script('mediaelement', plugins_url('wp-mediaelement.min.js', __FILE__), array('jquery'), '4.8.2', true);
+  wp_register_script('mediaelement', plugins_url('wp-mediaelement.min.js', __FILE__), ['jquery'], '4.8.2', true);
   wp_enqueue_script('mediaelement');
 }
 
@@ -310,7 +302,7 @@ function ajaxtest_function() {
             // was posted. Anything not matching that pattern is dropped
             // rather than stored.
             $raw_interests = wp_unslash($_POST['mepr_interests']);
-            $interests = array();
+            $interests = [];
             if (is_array($raw_interests)) {
                 foreach ($raw_interests as $slug => $value) {
                     $slug = sanitize_title($slug);
@@ -376,21 +368,23 @@ function adapt_filter_insights_by_category( $query ) {
     if ( is_admin() || ! $query->is_main_query() || ! $query->is_home() ) {
         return;
     }
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable blog-archive URL; sanitized immediately below and only used to adjust the read-only main query.
     if ( empty( $_GET['categories'] ) ) {
         return;
     }
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- same read-only GET filter param, sanitized on this line.
     $categories = array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) );
     $categories = array_filter( $categories );
     if ( empty( $categories ) ) {
         return;
     }
-    $query->set( 'tax_query', array(
-        array(
+    $query->set( 'tax_query', [
+        [
             'taxonomy' => 'category',
             'field'    => 'slug',
             'terms'    => $categories,
-        ),
-    ) );
+        ],
+    ] );
 }
 
 /**
@@ -402,7 +396,7 @@ function adapt_filter_insights_by_category( $query ) {
  * Update the monthly count meta for users
  */
 function mepr_update_monthly_count($user_id, $meta_key_array, $meta_key_total) {
-    $current_month = date('Ym'); // e.g., 202510
+    $current_month = wp_date('Ym'); // e.g., 202510
     $data = get_user_meta($user_id, $meta_key_array, true);
 
     if (!is_array($data)) $data = [];
@@ -423,7 +417,7 @@ function mepr_update_monthly_count($user_id, $meta_key_array, $meta_key_total) {
     }
 
     // Keep only last 12 months
-    $twelve_months_ago = date('Ym', strtotime('-12 months'));
+    $twelve_months_ago = wp_date('Ym', strtotime('-12 months'));
     $new_data = array_filter($data, fn($entry) => $entry['month'] >= $twelve_months_ago);
 
     // Update stored array
@@ -463,10 +457,10 @@ function update_download_counter() {
     $download_array = get_user_meta($user_id, 'mepr_downloads_30_days_array', true);
     if (!is_array($download_array)) $download_array = [];
 
-    $current_date = date('Ymd');
+    $current_date = wp_date('Ymd');
     $download_array[] = ['date' => $current_date];
 
-    $thirty_days_ago = date('Ymd', strtotime('-30 days'));
+    $thirty_days_ago = wp_date('Ymd', strtotime('-30 days'));
     $download_array = array_filter($download_array, fn($d) => $d['date'] >= $thirty_days_ago);
 
     update_user_meta($user_id, 'mepr_downloads_30_days_array', array_values($download_array));
@@ -489,7 +483,7 @@ function update_download_counter() {
 function mepr_add_to_monthly_count($user_id, $meta_key_array, $meta_key_total, $increment = 0) {
     if ($increment <= 0) return;
 
-    $current_month = date('Ym');
+    $current_month = wp_date('Ym');
     $data = get_user_meta($user_id, $meta_key_array, true);
     if (!is_array($data)) $data = [];
 
@@ -507,7 +501,7 @@ function mepr_add_to_monthly_count($user_id, $meta_key_array, $meta_key_total, $
         $data[] = ['month' => $current_month, 'count' => $increment];
     }
 
-    $twelve_months_ago = date('Ym', strtotime('-12 months'));
+    $twelve_months_ago = wp_date('Ym', strtotime('-12 months'));
     $new_data = array_filter($data, fn($entry) => $entry['month'] >= $twelve_months_ago);
 
     update_user_meta($user_id, $meta_key_array, array_values($new_data));
@@ -520,12 +514,12 @@ function mepr_add_to_monthly_count($user_id, $meta_key_array, $meta_key_total, $
  * Trim last year's same month on the 1st day of each month
  */
 function mepr_trim_last_year_month($user_id, $meta_key_array, $meta_key_total) {
-    if (date('d') !== '01') return;
+    if (wp_date('d') !== '01') return;
 
     $data = get_user_meta($user_id, $meta_key_array, true);
     if (!is_array($data)) return;
 
-    $last_year_month = date('Ym', strtotime('-12 months'));
+    $last_year_month = wp_date('Ym', strtotime('-12 months'));
     $new_data = array_filter($data, fn($entry) => $entry['month'] !== $last_year_month);
 
     update_user_meta($user_id, $meta_key_array, array_values($new_data));
@@ -553,7 +547,7 @@ function update_user_activity_info() {
             if (!user_can($user_id, 'mepr-active') || $member->is_already_subscribed_to(9811)) continue;
         }
 
-        $thirty_days_ago = date('Ymd', strtotime('-30 days'));
+        $thirty_days_ago = wp_date('Ymd', strtotime('-30 days'));
 
         // Post views
         $post_views_array = get_user_meta($user_id, 'mepr_post_views_30_days_array', true);
@@ -631,8 +625,8 @@ function track_user_logins($user_login, $user) {
         }
     }
 
-    $today = date('Ymd');
-    $thirty_days_ago = date('Ymd', strtotime('-30 days'));
+    $today = wp_date('Ymd');
+    $thirty_days_ago = wp_date('Ymd', strtotime('-30 days'));
 
     $login_array = get_user_meta($user_id, 'mepr_logins_30_days_array', true);
     if (!is_array($login_array)) $login_array = [];
@@ -728,15 +722,15 @@ function send_webhook_batch() {
     $batch      = array_slice( $queued, 0, $batch_size, true );
 
     foreach ( $batch as $key => $user ) {
-        $response = wp_remote_post( $url, array(
+        $response = wp_remote_post( $url, [
             'method'      => 'POST',
             'body'        => wp_json_encode( $user ),
-            'headers'     => array(
+            'headers'     => [
                 'Content-Type' => 'application/json',
-            ),
+            ],
             'timeout'     => 2,
             'redirection' => 2,
-        ) );
+        ] );
 
         if ( is_wp_error( $response ) ) {
             error_log( 'Webhook error for user ' . ( $user['user_id'] ?? 'unknown' ) . ': ' . $response->get_error_message() );
@@ -816,6 +810,7 @@ add_filter('intermediate_image_sizes_advanced', function($sizes) {
 });
 
 add_action('mepr-validate-signup', function($errors) {
+    // phpcs:disable WordPress.Security.NonceVerification.Missing -- MemberPress core handles CSRF/nonce verification for its own signup form submission before this validation filter runs; this only reads user_email to enforce a work-email domain policy, it doesn't perform any state-changing action itself.
     if (isset($_POST['user_email'])) {
         $email = sanitize_email($_POST['user_email']);
         $domain = strtolower(substr(strrchr($email, "@"), 1));
@@ -825,11 +820,12 @@ add_action('mepr-validate-signup', function($errors) {
 
         foreach ($blocked_keywords as $keyword) {
             if (str_contains($domain, $keyword)) {
-                $errors[] = __("Please use your work email.", 'memberpress');
+                $errors[] = __("Please use your work email.", 'portal');
                 break;
             }
         }
     }
+    // phpcs:enable WordPress.Security.NonceVerification.Missing
     return $errors;
 });
 
@@ -1025,7 +1021,7 @@ function adapt_enqueue_template_styles() {
     wp_enqueue_style(
         'adapt-global',
         $theme_uri . '/assets/css/global.min.css',
-        array(),
+        [],
         adapt_asset_version( '/assets/css/global.min.css' )
     );
 
@@ -1033,48 +1029,58 @@ function adapt_enqueue_template_styles() {
         wp_enqueue_style(
             'adapt-tpl-agenda',
             $theme_uri . '/assets/css/tpl-agenda.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-agenda.min.css' )
+        );
+    } elseif ( is_page_template( [
+        'templates/template-benchmarking.php',
+        'templates/template-benchmarks-maturity.php',
+    ] ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-benchmarking',
+            $theme_uri . '/assets/css/tpl-benchmarking.min.css',
+            [ 'adapt-global' ],
+            adapt_asset_version( '/assets/css/tpl-benchmarking.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-events.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-events',
             $theme_uri . '/assets/css/tpl-events.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-events.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-events-portal.php' ) ) {
         wp_enqueue_style(
             'adapt-core',
             $theme_uri . '/assets/css/core.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/core.min.css' )
         );
         wp_enqueue_style(
             'adapt-tpl-events',
             $theme_uri . '/assets/css/tpl-events.min.css',
-            array( 'adapt-core' ),
+            [ 'adapt-core' ],
             adapt_asset_version( '/assets/css/tpl-events.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-flexible.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-flexible',
             $theme_uri . '/assets/css/tpl-flexible.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-flexible.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-home.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-home',
             $theme_uri . '/assets/css/tpl-home.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-home.min.css' )
         );
     } elseif ( is_page_template( 'templates/template-portal-flexible.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-portal-flexible',
             $theme_uri . '/assets/css/tpl-portal-flexible.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-portal-flexible.min.css' )
         );
     } elseif ( is_singular( 'post' ) ) {
@@ -1089,14 +1095,14 @@ function adapt_enqueue_template_styles() {
         wp_enqueue_style(
             'adapt-tpl-single-post',
             $theme_uri . '/assets/css/tpl-single-post.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-single-post.min.css' )
         );
     } else {
         wp_enqueue_style(
             'adapt-core',
             $theme_uri . '/assets/css/core.min.css',
-            array( 'adapt-global' ),
+            [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/core.min.css' )
         );
     }
@@ -1106,7 +1112,7 @@ function adapt_enqueue_template_styles() {
     wp_enqueue_style(
         'adapt-skelet-icons',
         $theme_uri . '/assets/fonts/skelet-icons-master/style.css',
-        array(),
+        [],
         adapt_asset_version( '/assets/fonts/skelet-icons-master/style.css' )
     );
 }
@@ -1146,22 +1152,22 @@ function my_enqueue_scripts() {
     wp_enqueue_script(
         'gsap-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js',
-        array(),
+        [],
         null,
-        array(
+        [
             'strategy'  => 'defer',
             'in_footer' => true,
-        )
+        ]
     );
     wp_enqueue_script(
         'scrolltrigger-js',
         'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js',
-        array('gsap-js'),
+        ['gsap-js'],
         null,
-        array(
+        [
             'strategy'  => 'defer',
             'in_footer' => true,
-        )
+        ]
     );
 
     // Main JS
@@ -1186,15 +1192,69 @@ function my_enqueue_scripts() {
     wp_enqueue_script(
         'main-js',
         get_template_directory_uri() . '/assets/js/main.min.js',
-        array('jquery'),
+        ['jquery'],
         adapt_asset_version( '/assets/js/main.min.js' ),
         true
     );
 
-    wp_localize_script('main-js', 'ajaxobject', array(
+    // Isotope filtering - moved out of main.min.js into its own bundle
+    // (see source/gulp/paths.js's isotopeScripts and scripts.js's
+    // build:scripts:isotope) since its only call site, .kits-listing.grid,
+    // is exclusive to these two templates. No reason to ship the isotope
+    // library or its filtering glue on every other page on the site.
+    //
+    // template-kit-type.php is not a selectable Page template (no
+    // "Template Name:" header) - it's the taxonomy archive template for
+    // the kit-type taxonomy, reached via index.php's is_tax() branch
+    // (get_template_part('templates/template-' . $taxonomy)), so
+    // is_page_template() never matches it. is_tax('kit-type') is the
+    // correct conditional for that half of this pair.
+    if ( is_page_template( 'templates/template-customer.php' ) || is_tax( 'kit-type' ) ) {
+        wp_enqueue_script(
+            'isotope-js',
+            get_template_directory_uri() . '/assets/js/isotope.min.js',
+            ['jquery', 'main-js'],
+            adapt_asset_version( '/assets/js/isotope.min.js' ),
+            true
+        );
+    }
+
+    // Select2 - moved out of main.min.js into its own bundle (see
+    // source/gulp/paths.js's select2Scripts and scripts.js's
+    // build:scripts:select2) since it only ever targets $('select'), and
+    // only these 13 templates (of roughly 180 in the theme) render one.
+    // template-evr-maturity-stage.php and template-fundamentals-lever.php
+    // are, like template-kit-type.php above, taxonomy archive templates
+    // rather than selectable Page templates - see the is_tax() note above.
+    if (
+        is_page_template( [
+            'templates/template-events.php',
+            'templates/template-expert-presentations.php',
+            'templates/template-insights-curation-one.php',
+            'templates/template-insights-new.php',
+            'templates/template-insights.php',
+            'templates/template-persona-market-narratives.php',
+            'templates/template-saved-insights.php',
+            'templates/template-sectors-market-narrative.php',
+            'templates/template-speaker.php',
+            'templates/template-technology-trends-markets.php',
+            'templates/template-topic-portal.php',
+        ] )
+        || is_tax( [ 'evr-maturity-stage', 'fundamentals-lever' ] )
+    ) {
+        wp_enqueue_script(
+            'select2-js',
+            get_template_directory_uri() . '/assets/js/select2.min.js',
+            ['jquery', 'main-js'],
+            adapt_asset_version( '/assets/js/select2.min.js' ),
+            true
+        );
+    }
+
+    wp_localize_script('main-js', 'ajaxobject', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('adapt_ajax_nonce'),
-    ));
+    ]);
 
     // HubSpot deferred loader
     wp_add_inline_script(
@@ -1300,10 +1360,10 @@ function adapt_render_hubspot_embed( $raw_html ) {
 function adapt_main_slide_image_attrs( $alt ) {
     static $first_slide_rendered = false;
 
-    $attr = array(
+    $attr = [
         'alt'   => $alt,
         'sizes' => '(max-width: 767px) 100vw, 812px',
-    );
+    ];
 
     if ( ! $first_slide_rendered ) {
         $attr['fetchpriority'] = 'high';
@@ -1387,13 +1447,13 @@ function adapt_defer_noncritical_styles( $html, $handle ) {
     // and this filter silently no-ops for every handle, which is exactly
     // what was happening in production (confirmed via a cache-bypassed
     // live fetch: none of the 5 handles were getting the onload swap).
-    $defer_handles = array(
+    $defer_handles = [
         'jquery-magnific-popup',
         'jquery-ui-timepicker-addon',
         'wp-pagenavi',
         'tablepress-default',
         'wordfenceAJAXcss',
-    );
+    ];
 
     if ( ! in_array( $handle, $defer_handles, true ) ) {
         return $html;
@@ -1571,13 +1631,63 @@ function get_allowed_subscriptions_for_user($membershipType = null) {
     return []; // fallback → no access
 }
 
-function get_visible_terms_cache_version() {
-    $version = get_option('visible_terms_cache_version');
-    if (!$version) {
-        $version = time();
-        update_option('visible_terms_cache_version', $version);
+// Which taxonomy term slugs (and year-month date buckets) actually have at
+// least one matching post for a given filter query, so the filter UI can
+// dim/hide buttons that would return zero results. Shared by
+// ajax_load_filtered_posts() (every AJAX filter/search/sort/page request)
+// and adapt_render_filter_posts() (the initial PHP-rendered page load) so
+// both compute this identically instead of maintaining separate copies that
+// can drift apart. Computed fresh on every call - no transient. The site
+// already sits behind WP Rocket's page cache, and an additional PHP-level
+// cache here (that ajax_load_filtered_posts() never shared) was one more
+// way the first-load render and a live AJAX call could end up disagreeing.
+function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
+    $visible_terms = [];
+    foreach ( $taxonomies as $taxonomy => $_ ) {
+        $visible_terms[ $taxonomy ] = [];
     }
-    return $version;
+    $visible_terms['date'] = [];
+
+    // Lightweight ALL posts query (IDs only)
+    $all_posts_args = $args;
+    unset( $all_posts_args['paged'] );
+    $all_posts_args['fields']                 = 'ids';
+    $all_posts_args['posts_per_page']         = 1000;
+    $all_posts_args['no_found_rows']          = true;
+    $all_posts_args['update_post_meta_cache'] = false;
+    $all_posts_args['update_post_term_cache'] = false;
+
+    $all_ids_query = new WP_Query( $all_posts_args );
+    $post_ids      = $all_ids_query->posts;
+
+    if ( ! empty( $post_ids ) ) {
+        // Taxonomy terms
+        foreach ( array_keys( $taxonomies ) as $taxonomy ) {
+            $terms = get_terms( [
+                'taxonomy'   => $taxonomy,
+                'hide_empty' => true,
+                'object_ids' => $post_ids,
+                'fields'     => 'slugs',
+            ] );
+            if ( ! is_wp_error( $terms ) ) {
+                $visible_terms[ $taxonomy ] = $terms;
+            }
+        }
+
+        // Date terms
+        global $wpdb;
+        $dates = $wpdb->get_results( $wpdb->prepare( "
+            SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
+            FROM {$wpdb->posts}
+            WHERE ID IN (" . implode( ',', array_fill( 0, count( $post_ids ), '%d' ) ) . ")
+            ORDER BY y DESC, m DESC
+        ", $post_ids ) );
+        foreach ( $dates as $d ) {
+            $visible_terms['date'][] = sprintf( '%04d-%02d', $d->y, $d->m );
+        }
+    }
+
+    return $visible_terms;
 }
 
 // $all_posts = get_posts([
@@ -1604,6 +1714,12 @@ function ajax_load_filtered_posts() {
     $membershipType = get_membership_type_for_user();
     $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
     $current_user_id = get_current_user_id();
+
+    // Mirrors adapt_render_filter_posts()'s admin bypass so the list a
+    // filter click fetches doesn't shrink relative to what first loaded.
+    // User 584 is an administrator but should still see posts filtered by
+    // their own subscription, not bypass gating like other admins.
+    $is_admin = current_user_can('manage_options') && $current_user_id != 584;
 
     $member = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
     $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
@@ -1717,9 +1833,17 @@ function ajax_load_filtered_posts() {
                 'type' => 'EXISTS',
             ],
         ];
+        // ID is a final tiebreaker for posts that tie on date (e.g. bulk
+        // imports sharing the same post_date to the second) - without one,
+        // MySQL's row order for ties isn't guaranteed, and this query's
+        // posts_per_page/LIMIT differs from adapt_render_filter_posts()'s
+        // (12 vs 13), which can be enough for the optimizer to pick a
+        // different plan and therefore a different tie order between the
+        // two, even though the filters are identical.
         $args['orderby'] = [
-            'research_type_order_clause' => 'DESC', 
+            'research_type_order_clause' => 'DESC',
             'date'                       => 'DESC',
+            'ID'                         => 'DESC',
         ];
     } else {
         // Sorting
@@ -1733,9 +1857,10 @@ function ajax_load_filtered_posts() {
             $args['orderby'] = [
                 'featured_clause' => 'DESC',
                 'date'            => 'DESC',
+                'ID'              => 'DESC',
             ];
         } else {
-            $args['orderby'] = ['date' => 'DESC'];
+            $args['orderby'] = ['date' => 'DESC', 'ID' => 'DESC'];
         }
     }
 
@@ -1763,8 +1888,8 @@ function ajax_load_filtered_posts() {
         }
     }
 
-    // Subscription filter
-    if (!empty($allowed_subscriptions)) {
+    // Subscription filter — admins bypass entirely (see $is_admin above).
+    if (!$is_admin && !empty($allowed_subscriptions)) {
         $tax_query[] = [
             'taxonomy' => 'subscription',
             'field'    => 'term_id',
@@ -1788,61 +1913,7 @@ function ajax_load_filtered_posts() {
     // -------------------------
     // Visible terms caching
     // -------------------------
-    $cache_version = get_visible_terms_cache_version();
-    $cache_key = 'visible_terms_' . $cache_version . '_' . md5(serialize([
-        'args' => $args,
-        'membership' => $membershipType,
-    ]));
-
-    $visible_terms = get_transient($cache_key);
-    if (is_admin()) {
-        $visible_terms = false;
-    }
-
-    if (false === $visible_terms) {
-        $visible_terms = [];
-        foreach ($taxonomies as $taxonomy => $_) $visible_terms[$taxonomy] = [];
-        $visible_terms['date'] = [];
-
-        // Lightweight ALL posts query (IDs only)
-        $all_posts_args = $args;
-        unset($all_posts_args['paged']);
-        $all_posts_args['fields'] = 'ids';
-        $all_posts_args['posts_per_page'] = 1000;
-        $all_posts_args['no_found_rows'] = true;
-        $all_posts_args['update_post_meta_cache'] = false;
-        $all_posts_args['update_post_term_cache'] = false;
-
-        $all_ids_query = new WP_Query($all_posts_args);
-        $post_ids = $all_ids_query->posts;
-
-        if (!empty($post_ids)) {
-            // Taxonomy terms
-            foreach (array_keys($taxonomies) as $taxonomy) {
-                $terms = get_terms([
-                    'taxonomy'   => $taxonomy,
-                    'hide_empty' => true,
-                    'object_ids' => $post_ids,
-                    'fields'     => 'slugs',
-                ]);
-                if (!is_wp_error($terms)) $visible_terms[$taxonomy] = $terms;
-            }
-
-            // Date terms
-            global $wpdb;
-            $dates = $wpdb->get_results("
-                SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
-                FROM {$wpdb->posts}
-                WHERE ID IN (" . implode(',', array_map('intval', $post_ids)) . ")
-                ORDER BY y DESC, m DESC
-            ");
-            foreach ($dates as $d) {
-                $visible_terms['date'][] = sprintf('%04d-%02d', $d->y, $d->m);
-            }
-        }
-
-        set_transient($cache_key, $visible_terms, HOUR_IN_SECONDS);
-    }
+    $visible_terms = adapt_get_visible_terms($args, $taxonomies, $membershipType);
 
     wp_reset_postdata();
 
@@ -1969,6 +2040,86 @@ add_action('wp_ajax_nopriv_load_featured_post', 'ajax_load_featured_post');
 add_action('wp_ajax_load_favourite_posts', 'ajax_load_favourite_posts');
 add_action('wp_ajax_nopriv_load_favourite_posts', 'ajax_load_favourite_posts');
 
+/**
+ * Shared query + render logic for the Favourites listing, used by BOTH the
+ * first-paint PHP render in template-favourites.php and the AJAX handler
+ * below (ajax_load_favourite_posts()), so the two can never drift into
+ * showing different posts for "the same" filters. Previously the template
+ * called the unrelated adapt_render_filter_posts() directly, which has no
+ * concept of favourites-scoping (no post__in) and would render unfiltered,
+ * site-wide posts on first load instead of the user's favourited posts.
+ *
+ * Deliberately mirrors ajax_load_favourite_posts()'s original query exactly:
+ * no membership/subscription gating and no featured-sort meta_query, since
+ * those only apply to the general filter-listing system, not favourites.
+ */
+function adapt_render_favourite_posts($params = []) {
+    $favorites = get_user_favorites();
+
+    // CRITICAL SAFETY CHECK
+    if (empty($favorites)) {
+        $GLOBALS['adapt_has_more_posts']      = false;
+        $GLOBALS['adapt_favourite_max_pages'] = 0;
+        return;
+    }
+
+    $defaults = [
+        'page'   => 1,
+        'search' => '',
+        'topic'  => '',
+        'type'   => '',
+    ];
+    $params = array_merge($defaults, $params);
+    $page   = max(1, (int) $params['page']);
+
+    $args = [
+        'post_type'      => 'post',
+        'post__in'       => $favorites,
+        'post_status'    => 'publish',
+        'posts_per_page' => 12,
+        'paged'          => $page,
+    ];
+
+    if ($params['search'] !== '') {
+        $args['s'] = $params['search'];
+    }
+
+    $tax_query = [];
+
+    if ($params['topic'] !== '') {
+        $tax_query[] = [
+            'taxonomy' => 'topic',
+            'field'    => 'slug',
+            'terms'    => $params['topic'],
+        ];
+    }
+
+    if ($params['type'] !== '') {
+        $tax_query[] = [
+            'taxonomy' => 'filter-types',
+            'field'    => 'slug',
+            'terms'    => $params['type'],
+        ];
+    }
+
+    if ($tax_query) {
+        $args['tax_query'] = array_merge(['relation' => 'AND'], $tax_query);
+    }
+
+    $query = new WP_Query($args);
+
+    $GLOBALS['adapt_has_more_posts']      = $query->max_num_pages > $page;
+    $GLOBALS['adapt_favourite_max_pages'] = $query->max_num_pages;
+
+    while ($query->have_posts()) {
+        $query->the_post();
+        set_query_var('is_favourites', true);
+        include locate_template('/templates/components/_article-card.php');
+    }
+
+    wp_reset_postdata();
+}
+
 function ajax_load_favourite_posts() {
     check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
@@ -1982,59 +2133,18 @@ function ajax_load_favourite_posts() {
         ]);
     }
 
-    $page   = intval($_POST['page'] ?? 1);
-    $search = sanitize_text_field($_POST['search'] ?? '');
-    $topic  = sanitize_text_field($_POST['topic'] ?? '');
-    $type   = sanitize_text_field($_POST['type'] ?? '');
-    $args = [
-        'post_type'      => 'post',
-        'post__in'       => $favorites,
-        'post_status'    => 'publish',
-        'posts_per_page' => 12,
-        'paged'          => $page,
-    ];
-
-    if ($search) {
-        $args['s'] = $search;
-    }
-
-    $tax_query = [];
-
-    if ($topic) {
-        $tax_query[] = [
-            'taxonomy' => 'topic',
-            'field'    => 'slug',
-            'terms'    => $topic,
-        ];
-    }
-
-    if ($type) {
-        $tax_query[] = [
-            'taxonomy' => 'filter-types',
-            'field'    => 'slug',
-            'terms'    => $type,
-        ];
-    }
-
-    if ($tax_query) {
-        $args['tax_query'] = array_merge(['relation' => 'AND'], $tax_query);
-    }
-
-    $query = new WP_Query($args);
-
     ob_start();
-
-    while ($query->have_posts()) {
-        $query->the_post();
-        set_query_var('is_favourites', true);
-        include locate_template('/templates/components/_article-card.php');
-    }
-
-    wp_reset_postdata();
+    adapt_render_favourite_posts([
+        'page'   => intval($_POST['page'] ?? 1),
+        'search' => sanitize_text_field($_POST['search'] ?? ''),
+        'topic'  => sanitize_text_field($_POST['topic'] ?? ''),
+        'type'   => sanitize_text_field($_POST['type'] ?? ''),
+    ]);
+    $html = ob_get_clean();
 
     wp_send_json_success([
-        'html'      => ob_get_clean(),
-        'max_pages' => $query->max_num_pages,
+        'html'      => $html,
+        'max_pages' => $GLOBALS['adapt_favourite_max_pages'] ?? 0,
     ]);
 }
 
@@ -2138,9 +2248,9 @@ function load_past_sessions_unique() {
     $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
     $posts_per_page = isset($_POST['perpage']) ? intval($_POST['perpage']) : 18;
     $soft_limit = $posts_per_page * 5; // fetch extra to guarantee 18 visible posts
-    $today = date('Ymd');
+    $today = wp_date('Ymd');
 
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => $soft_limit,
         'offset'         => $offset,
@@ -2148,21 +2258,21 @@ function load_past_sessions_unique() {
         'orderby'        => 'meta_value_num',
         'order'          => 'DESC',
         'post_status'      => 'publish',
-        'tax_query'      => array(
-            array(
+        'tax_query'      => [
+            [
                 'taxonomy' => 'filter-types',
                 'field'    => 'slug',
                 'terms'    => 'analyst-market-briefings',
-            ),
-        ),
-        'meta_query' => array(
-            array(
+            ],
+        ],
+        'meta_query' => [
+            [
                 'key'     => 'replay_event_date',
                 'compare' => '<=',
                 'value'   => $today,
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     $query = new WP_Query($args);
     $shown = 0;
@@ -2199,36 +2309,78 @@ function load_past_sessions_unique() {
 /**
  * Invalidate visible terms cache when posts or terms change
  */
-function invalidate_visible_terms_cache() {
-    global $wpdb;
-
-    // Delete visible_terms_* transients
-    $transients = $wpdb->get_col(
-        $wpdb->prepare(
-            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
-            $wpdb->esc_like( '_transient_visible_terms_' ) . '%'
-        )
-    );
-
-    if ($transients) {
-        foreach ($transients as $transient) {
-            $key = str_replace('_transient_', '', $transient);
-            delete_transient($key);
-        }
-    }
-}
-
-// Clear when posts are saved
-add_action('save_post', 'invalidate_visible_terms_cache');
-
-// Clear when terms are edited/created/deleted
-add_action('created_term', 'invalidate_visible_terms_cache');
-add_action('edited_term', 'invalidate_visible_terms_cache');
-add_action('delete_term', 'invalidate_visible_terms_cache');
+// adapt_get_visible_terms() no longer caches its result (see that function),
+// so there's nothing left for this to invalidate. Removed rather than left
+// as dead weight running on every save_post/term change.
 add_action('mepr-event-transaction-completed', function() {
     delete_transient('membership_ids');
 });
 
+/**
+ * Cache the result of a get_posts() "candidate pool" query in a short-lived
+ * transient, keyed by the query args themselves.
+ *
+ * Built for the related-article/carousel components (templates/components/
+ * _related-articles-taxonomies.php and _related-articles-taxonomies-locked.php)
+ * that pull a pool of up to 20 posts by taxonomy/post_type ordered by date,
+ * then shuffle a small slice of that pool per-request for a randomized
+ * carousel. This pool query runs on every load of a single-post or topic-
+ * archive page - pages MemberPress's own membership-gating logic keeps out
+ * of WP Rocket's full-page cache entirely (confirmed live: these pages come
+ * back with cache-control: no-store, private, while the homepage - not
+ * membership-gated the same way - is served from cache) - so unlike most of
+ * this theme's other queries, this one pays its full DB cost on every
+ * single visit from every visitor.
+ *
+ * The candidate pool itself doesn't depend on the viewing user though - only
+ * the locked-vs-unlocked render decision made later, per-post, in the
+ * template's own current_user_can('mepr_auth') check does - so the pool is
+ * safe to share across every visitor regardless of membership. shuffle()
+ * still runs fresh on every request against the cached pool (a small
+ * in-memory array, not a query), so visitors still see genuine per-request
+ * variety in which posts surface; only the expensive tax_query JOIN itself
+ * is cached.
+ */
+function adapt_cached_post_pool( $args, $ttl = 10 * MINUTE_IN_SECONDS ) {
+    $cache_key = 'adapt_pool_' . md5( wp_json_encode( $args ) );
+
+    $pool = get_transient( $cache_key );
+    if ( false !== $pool ) {
+        return $pool;
+    }
+
+    $pool = get_posts( $args );
+    set_transient( $cache_key, $pool, $ttl );
+
+    return $pool;
+}
+
+/**
+ * Invalidate every adapt_pool_* transient when posts or terms change - same
+ * pattern as invalidate_visible_terms_cache() above, since get_posts() args
+ * vary per ACF block instance and there's no single predictable cache key
+ * to delete_transient() directly.
+ */
+function adapt_invalidate_pool_cache() {
+    global $wpdb;
+
+    $transients = $wpdb->get_col(
+        $wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like( '_transient_adapt_pool_' ) . '%'
+        )
+    );
+
+    if ( $transients ) {
+        foreach ( $transients as $transient ) {
+            delete_transient( str_replace( '_transient_', '', $transient ) );
+        }
+    }
+}
+add_action( 'save_post', 'adapt_invalidate_pool_cache' );
+add_action( 'created_term', 'adapt_invalidate_pool_cache' );
+add_action( 'edited_term', 'adapt_invalidate_pool_cache' );
+add_action( 'delete_term', 'adapt_invalidate_pool_cache' );
 
 add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment_id, $metadata ) {
     if ( ! $optimize ) {
@@ -2237,11 +2389,11 @@ add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment
 
     $mime_type = get_post_mime_type( $attachment_id );
 
-    $blocked_mime_types = array(
+    $blocked_mime_types = [
         'application/pdf',
         'application/vnd.ms-powerpoint', // .ppt
         'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
-    );
+    ];
 
     return ! in_array( $mime_type, $blocked_mime_types, true );
 }, 10, 3 );
@@ -2297,40 +2449,28 @@ function adapt_render_filter_posts() {
 
     // -------------------------
     // Membership detection
-    // Cached per user for 5 min — avoids repeated MeprUser DB calls.
+    // Computed fresh on every call - no transient here. A cache in this
+    // one path (but not in ajax_load_filtered_posts(), which always
+    // computes this live) is exactly the kind of asymmetry that can make
+    // the first-load render and an AJAX filter click disagree on a
+    // subscription-gated post set. Page-level caching (WP Rocket) already
+    // handles the performance side for anonymous/cacheable requests.
     // -------------------------
-    $current_user_id = get_current_user_id();
-    $mem_cache_key   = 'adapt_render_mem_' . $current_user_id;
-    $mem_cache       = get_transient($mem_cache_key);
- 
-    if ($mem_cache !== false) {
-        $membershipType        = $mem_cache['membershipType'];
-        $allowed_subscriptions = $mem_cache['allowed_subscriptions'];
-        $active_subscriptions  = $mem_cache['active_subscriptions'];
-    } else {
-        $membershipType        = get_membership_type_for_user();
-        $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
-        $member                = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
-        $active_subscriptions  = $member?->active_product_subscriptions('ids') ?? [];
- 
-        set_transient($mem_cache_key, [
-            'membershipType'        => $membershipType,
-            'allowed_subscriptions' => $allowed_subscriptions,
-            'active_subscriptions'  => $active_subscriptions,
-        ], 5 * MINUTE_IN_SECONDS);
-    }
- 
+    $current_user_id       = get_current_user_id();
+    $membershipType        = get_membership_type_for_user();
+    $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
+    $member                = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
+    $active_subscriptions  = $member?->active_product_subscriptions('ids') ?? [];
+
     // -------------------------
     // Membership allowed IDs + allowed type slugs (server-side, same logic as adapt_render_filter_dropdowns)
     // -------------------------
     $q          = get_queried_object();
     $q_slug     = $q->slug ?? '';
     $q_taxonomy = $q->taxonomy ?? '';
- 
-    $acf_cache_key          = 'filter_types_allowed_ids_' . md5($membershipType);
-    $membership_allowed_ids = $is_admin ? [] : get_transient($acf_cache_key);
- 
-    if (!$is_admin && $membership_allowed_ids === false) {
+
+    $membership_allowed_ids = [];
+    if (!$is_admin) {
         $it_pro_types_ids    = get_field('it_pro_types',    'options') ?: [];
         $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
         $membership_allowed_ids = match ($membershipType) {
@@ -2338,9 +2478,8 @@ function adapt_render_filter_posts() {
             'advantage' => $advantage_types_ids,
             default     => [],
         };
-        set_transient($acf_cache_key, $membership_allowed_ids, HOUR_IN_SECONDS);
     }
- 
+
     // Apply page_allowed_ids intersection (same as template + dropdown function)
     $page_allowed_ids    = [];
     $grouped_types_terms = get_field('grouped_types', $q);
@@ -2363,26 +2502,39 @@ function adapt_render_filter_posts() {
     }
  
     // -------------------------
-    // Load all taxonomy terms (from warm transient when available)
-    // Used to validate page-slug fallbacks AND build allowed_type_slugs
+    // Load all taxonomy terms - computed fresh every call (no transient).
+    // Used to validate page-slug fallbacks AND build allowed_type_slugs.
     // -------------------------
-    $terms_cache_key = 'filter_types_terms_' . md5(serialize($membership_allowed_ids));
-    $cached_terms    = get_transient($terms_cache_key);
- 
-    if ($cached_terms !== false) {
-        $type_terms     = $cached_terms['types']    ?? [];
-        $topic_terms    = $cached_terms['topic']    ?? [];
-        $trending_terms = $cached_terms['trending'] ?? [];
-        $persona_terms  = $cached_terms['persona']  ?? [];
-        $sector_terms   = $cached_terms['sector']   ?? [];
-    } else {
-        $type_terms     = get_terms(['taxonomy' => 'filter-types',    'hide_empty' => true, 'parent' => 0]);
-        $topic_terms    = get_terms(['taxonomy' => 'topic',           'hide_empty' => true, 'parent' => 0]);
-        $trending_terms = get_terms(['taxonomy' => 'trending-themes', 'hide_empty' => true, 'parent' => 0]);
-        $persona_terms  = get_terms(['taxonomy' => 'persona-mapping', 'hide_empty' => true, 'parent' => 0]);
-        $sector_terms   = get_terms(['taxonomy' => 'sector-analysis', 'hide_empty' => true, 'parent' => 0]);
-    }
- 
+    $type_terms = get_terms([
+        'taxonomy'   => 'filter-types',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
+
+    $topic_terms = get_terms([
+        'taxonomy'   => 'topic',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
+
+    $trending_terms = get_terms([
+        'taxonomy'   => 'trending-themes',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
+
+    $persona_terms = get_terms([
+        'taxonomy'   => 'persona-mapping',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
+
+    $sector_terms = get_terms([
+        'taxonomy'   => 'sector-analysis',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
+
     // Safe slug extractor
     $term_slugs = fn($terms) => (is_array($terms) && !is_wp_error($terms))
         ? array_column($terms, 'slug') : [];
@@ -2414,9 +2566,12 @@ function adapt_render_filter_posts() {
     // -------------------------
     // Pagination + basic data
     // -------------------------
+    // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL (topic/type/persona/sector/date/search); every value is sanitized below (sanitize_text_field/array_map) before use, and no state-changing action results from this request.
     $page      = 1;
     $post_type = 'post';
-    $search    = '';
+    $search = sanitize_text_field(
+        wp_unslash($_GET['s'] ?? $_GET['search'] ?? '')
+    );
     $sort      = 'featured';
  
     // -------------------------
@@ -2493,10 +2648,22 @@ function adapt_render_filter_posts() {
     // -------------------------
     // Topic for card rendering
     // -------------------------
-    $has_topic_filter    = !empty($_GET['topic']);
-    $filtered_topic      = $has_topic_filter ? sanitize_text_field($_GET['topic'][0]) : null;
+    // The actual topic filter is read from $_GET['topicType'] above (it
+    // matches queryMap.topic in main.js) - this used to read $_GET['topic']
+    // instead, a key nothing ever sets, so $has_topic_filter was always
+    // false and the card badge never got the AJAX path's "topic filter
+    // active" treatment. It also indexed the raw value with [0] as if it
+    // were already an array; $_GET['topicType'] is a plain string here (a
+    // URL query param, not a JS-submitted array like $_POST['topic'] on the
+    // AJAX side), so string[0] was silently returning just the first
+    // character instead of the topic slug.
+    $has_topic_filter    = !empty($_GET['topicType']);
+    $filtered_topic      = $has_topic_filter
+        ? sanitize_text_field( is_array( $_GET['topicType'] ) ? reset( $_GET['topicType'] ) : $_GET['topicType'] )
+        : null;
     $card_filtered_topic = $filtered_topic;
- 
+    // phpcs:enable WordPress.Security.NonceVerification.Recommended
+
     // -------------------------
     // WP_Query args
     // -------------------------
@@ -2510,16 +2677,37 @@ function adapt_render_filter_posts() {
     ];
  
     if (!empty($search)) $args['s'] = $search;
- 
-    if ($sort === 'featured') {
+
+    // research_type_order mirrors ajax_load_filtered_posts()'s own check of
+    // the same ACF field (rendered into the page as a hidden input and read
+    // from $_POST there) so the first-load order matches what a subsequent
+    // AJAX filter click would fetch instead of silently re-sorting.
+    if (get_field('research_type_order', $q)) {
+        $args['meta_query'] = [
+            'research_type_order_clause' => [
+                'key'  => 'is_research_type_order',
+                'type' => 'EXISTS',
+            ],
+        ];
+        // ID is a final tiebreaker for posts that tie on date - see the
+        // matching comment in ajax_load_filtered_posts(). This query uses
+        // posts_per_page 13 (vs. that function's 12) specifically to detect
+        // a next page, and a LIMIT difference is enough for MySQL to settle
+        // ties differently without an explicit tiebreaker column.
+        $args['orderby'] = [
+            'research_type_order_clause' => 'DESC',
+            'date'                       => 'DESC',
+            'ID'                         => 'DESC',
+        ];
+    } elseif ($sort === 'featured') {
         $args['meta_query'] = [
             'featured_clause' => ['key' => 'is_featured', 'compare' => 'EXISTS'],
         ];
-        $args['orderby'] = ['featured_clause' => 'DESC', 'date' => 'DESC'];
+        $args['orderby'] = ['featured_clause' => 'DESC', 'date' => 'DESC', 'ID' => 'DESC'];
     } else {
-        $args['orderby'] = ['date' => 'DESC'];
+        $args['orderby'] = ['date' => 'DESC', 'ID' => 'DESC'];
     }
- 
+
     // -------------------------
     // Tax query
     // -------------------------
@@ -2562,10 +2750,15 @@ function adapt_render_filter_posts() {
         $query = new WP_Query($args);
     }
     add_action('pre_get_posts', 'remove_already_displayed_posts');
- 
+
     // If we got 13 results, a next page exists — set global for the template to use.
     $GLOBALS['adapt_has_more_posts'] = $query->post_count > 12;
- 
+
+    // Same visible-terms computation loadPosts() gets back on every AJAX
+    // call, exposed here so the template can dim/hide empty filter buttons
+    // on first paint instead of waiting for the user's first interaction.
+    $GLOBALS['adapt_visible_terms'] = adapt_get_visible_terms($args, $taxonomies, $membershipType);
+
     $rendered = 0;
     while ($query->have_posts() && $rendered < 12) {
         $query->the_post();
@@ -2574,13 +2767,24 @@ function adapt_render_filter_posts() {
         $filtered_topic = $card_filtered_topic;
         include locate_template('/templates/components/_article-card.php');
     }
+
+    // Feeds main.js's hideEmptyFilters() the same data loadPosts() would
+    // hand it after an AJAX call, so filter buttons that would return zero
+    // results are dimmed from the very first paint instead of only after
+    // the visitor's first interaction. Emitted here (rather than in every
+    // calling template) so it can't be forgotten on a template that adopts
+    // this render function later.
+    printf(
+        '<script>window.adaptInitialVisibleTerms = %s;</script>',
+        wp_json_encode( $GLOBALS['adapt_visible_terms'] )
+    );
 }
 
 function adapt_register_agent_tester_role() {
     if ( ! get_role( 'agent_tester' ) ) {
-        add_role( 'agent_tester', 'Agent Tester', array(
+        add_role( 'agent_tester', 'Agent Tester', [
             'read' => true,
-        ) );
+        ] );
     }
 }
 add_action( 'init', 'adapt_register_agent_tester_role' );
@@ -2601,7 +2805,7 @@ function adapt_assign_agent_tester_role_once() {
         return;
     }
 
-    $user_ids = array(
+    $user_ids = [
         1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
         1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
         1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
@@ -2626,7 +2830,7 @@ function adapt_assign_agent_tester_role_once() {
         911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
         1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
         913,  1721,
-    );
+    ];
 
     // $user_ids = array(421, 1811, 1179, 1189, 1317, 1178, 1181, 1171, 1177, 1176, 1175, 1173, 1174);
 
@@ -2652,7 +2856,7 @@ function adapt_remove_agent_tester_role_once() {
         return;
     }
 
-    $user_ids = array(
+    $user_ids = [
         1897, 1294, 1896, 1284, 1895, 1438, 1612, 1373, 1573, 1281,
         1379, 1894, 1839, 1893, 1838, 1809, 1892, 1885, 1292, 1370,
         1610, 1296, 1827, 1297, 1371, 1832, 1830, 1833, 1829, 1828,
@@ -2677,7 +2881,7 @@ function adapt_remove_agent_tester_role_once() {
         911,  908,  707,  406,  390,  400,  405,  1700, 1884, 909,
         1682, 910,  1694, 1190, 1784, 1792, 1688, 1686, 1695, 1690,
         913,  1721,
-    );
+    ];
 
     foreach ( $user_ids as $user_id ) {
         $user = get_user_by( 'id', $user_id );

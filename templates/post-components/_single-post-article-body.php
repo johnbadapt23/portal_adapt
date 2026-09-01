@@ -32,7 +32,10 @@
                                     }
                                     ?>
                                     <?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php endif; ?>
                                     <?php } ?>
                                     <?php if($postType){?>
                                         <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
@@ -237,7 +240,7 @@
                                         <?php $image = get_sub_field( 'image' ); ?>                                
                                         <?php if ( $image ) { ?>
                                             <div class="preview-image-container">
-                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                             </div>
                                         <?php } ?>
                                         <?php if ( have_rows( 'cta' ) ) : ?>
@@ -249,7 +252,7 @@
                                                                 <span class="bg-container">
                                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                                     <?php if ( $image ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                                     <?php } ?>
                                                                 </span>
                                                             </span>                                                    
@@ -262,7 +265,7 @@
                                                                     <span class="bg-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                 </span>                                                    
@@ -320,7 +323,7 @@
 					$inline_img_128_src = get_sub_field( 'infogram_image' );
 					$inline_img_128_attach_id = $inline_img_128_src ? attachment_url_to_postid( $inline_img_128_src ) : 0;
 					if ( $inline_img_128_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_128_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+						echo wp_get_attachment_image( $inline_img_128_attach_id, 'full', false, [ 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ] );
 					} elseif ( $inline_img_128_src ) {
 						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_128_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -342,7 +345,7 @@
 					$inline_img_129_src = get_sub_field( 'image' );
 					$inline_img_129_attach_id = $inline_img_129_src ? attachment_url_to_postid( $inline_img_129_src ) : 0;
 					if ( $inline_img_129_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_129_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+						echo wp_get_attachment_image( $inline_img_129_attach_id, 'full', false, [ 'alt' => '', 'class' => 'featureImage' ] );
 					} elseif ( $inline_img_129_src ) {
 						echo '<img class="featureImage" src="' . esc_url( $inline_img_129_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -356,7 +359,7 @@
 					$inline_img_130_src = get_sub_field( 'infogram_image' );
 					$inline_img_130_attach_id = $inline_img_130_src ? attachment_url_to_postid( $inline_img_130_src ) : 0;
 					if ( $inline_img_130_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_130_attach_id, 'full', false, array( 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ) );
+						echo wp_get_attachment_image( $inline_img_130_attach_id, 'full', false, [ 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ] );
 					} elseif ( $inline_img_130_src ) {
 						echo '<img class="delete-no" style="display: none;" src="' . esc_url( $inline_img_130_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -393,7 +396,7 @@
 					$inline_img_131_src = get_sub_field( 'logo' );
 					$inline_img_131_attach_id = $inline_img_131_src ? attachment_url_to_postid( $inline_img_131_src ) : 0;
 					if ( $inline_img_131_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_131_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_131_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_131_src ) {
 						echo '<img src="' . esc_url( $inline_img_131_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -492,7 +495,7 @@
 					$inline_img_132_src = get_field( 'logo' );
 					$inline_img_132_attach_id = $inline_img_132_src ? attachment_url_to_postid( $inline_img_132_src ) : 0;
 					if ( $inline_img_132_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_132_attach_id, 'full', false, array( 'alt' => 'Adapt' ) );
+						echo wp_get_attachment_image( $inline_img_132_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_132_src ) {
 						echo '<img src="' . esc_url( $inline_img_132_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -875,7 +878,7 @@
 					$inline_img_133_src = get_sub_field( 'video_poster_image' );
 					$inline_img_133_attach_id = $inline_img_133_src ? attachment_url_to_postid( $inline_img_133_src ) : 0;
 					if ( $inline_img_133_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_133_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+						echo wp_get_attachment_image( $inline_img_133_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 					} elseif ( $inline_img_133_src ) {
 						echo '<img class="desktop" src="' . esc_url( $inline_img_133_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}
@@ -1034,7 +1037,7 @@
 					$inline_img_134_src = get_field( 'speaker_image' );
 					$inline_img_134_attach_id = $inline_img_134_src ? attachment_url_to_postid( $inline_img_134_src ) : 0;
 					if ( $inline_img_134_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_134_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_134_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_134_src ) {
 						echo '<img src="' . esc_url( $inline_img_134_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -1047,7 +1050,7 @@
 					$inline_img_135_src = $url;
 					$inline_img_135_attach_id = $inline_img_135_src ? attachment_url_to_postid( $inline_img_135_src ) : 0;
 					if ( $inline_img_135_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_135_attach_id, 'full', false, array( 'alt' => get_the_title() ) );
+						echo wp_get_attachment_image( $inline_img_135_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_135_src ) {
 						echo '<img src="' . esc_url( $inline_img_135_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -1162,7 +1165,7 @@
                                                                 <?php if ( $preview_image ) { ?>
                                                                     <span class="download-image-container <?php echo esc_attr( get_sub_field( 'image_orientation' ) ); ?>">
                                                                         <span class="bg-container">
-                                                                            <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, [ 'alt' => $preview_image['alt'] ] ); ?>
                                                                         </span>
                                                                     </span>
                                                                 <?php } ?>
@@ -1206,7 +1209,7 @@
                                                             <?php if ( $preview_image ) { ?>
                                                                 <span class="download-image-container <?php echo esc_attr( get_sub_field( 'image_orientation' ) ); ?>">
                                                                     <span class="bg-container">
-                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, array( 'alt' => $preview_image['alt'] ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $preview_image['ID'], 'full', false, [ 'alt' => $preview_image['alt'] ] ); ?>
                                                                     </span>
                                                                 </span>
                                                             <?php } ?>
@@ -1241,45 +1244,46 @@
                                 }
                             }?>
                             <?php $type_terms = get_field( 'you_may_also_like' ); ?>
-                            <?php $types = array(); ?>
+                            <?php $types = []; ?>
                             <?php if ( $type_terms ){ ?>
                                 <?php foreach ( $type_terms as $type_term ): ?>
                                     <?php $types[] =  $type_term->slug; ?>
                                 <?php endforeach; ?>
                             <?php
-                                $args = array(
+                                $args = [
                                     'post_type'      => 'post',
                                     'posts_per_page' => 3,
-                                    'post__not_in' => array( $post->ID ),
-                                    'tax_query'      => array(
+                                    'post__not_in' => [ $post->ID ],
+                                    'tax_query'      => [
                                         'relation' => 'AND',
-                                        array (
+                                         [
                                             'taxonomy' => 'topic',
                                             'field' => 'slug',
                                             'terms'    => $postTopic->slug
-                                        ),
-                                        array(
+                                        ],
+                                        [
                                             'taxonomy' => 'filter-types',
                                             'field'    => 'slug',
                                             'terms' => $types,
                                             'operator' => 'IN',
-                                        )
-                                    )
-                                );?>
+                                        ]
+                                    ]
+                                ];?>
                             <?php } else {
-                                $args = array(
+                                $args = [
+                                    'no_found_rows'  => true,
                                     'post_type'      => 'post',
                                     'posts_per_page' => 3,
-                                    'post__not_in' => array( $post->ID ),
-                                    'tax_query'      => array(
+                                    'post__not_in' => [ $post->ID ],
+                                    'tax_query'      => [
                                         'relation' => 'AND',
-                                        array (
+                                         [
                                             'taxonomy' => 'topic',
                                             'field' => 'slug',
                                             'terms'    => $postTopic->slug
-                                        )
-                                    )
-                                );?>
+                                        ]
+                                    ]
+                                ];?>
                             <?php }
 
                                 $posts = new WP_Query( $args );
@@ -1316,7 +1320,10 @@
                                                     }
                                                     ?>
                                                     <?php if($postTopic){?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                     <?php if($postType){?>
                                                         <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>

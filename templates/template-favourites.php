@@ -8,6 +8,23 @@ get_header();
 $favorites        = get_user_favorites();
 $favouritesCount  = get_user_favorites_count();
 $filterMin        = get_field('favourite_filtering_minimum', 'options');
+
+// Rendered here (before the filter dropdowns below), same as every other
+// filtering template, via adapt_render_favourite_posts() - NOT
+// adapt_render_filter_posts(), which has no favourites-scoping (no
+// post__in) and would show unfiltered, site-wide posts on first load
+// instead of the user's favourited posts. See adapt_render_favourite_posts()
+// in functions.php, which is shared with ajax_load_favourite_posts() so the
+// two can never drift apart.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET search/filter params for a bookmarkable, shareable favourites URL; sanitized before use, no state change.
+ob_start();
+adapt_render_favourite_posts([
+    'search' => sanitize_text_field(wp_unslash($_GET['search'] ?? '')),
+    'topic'  => sanitize_text_field(wp_unslash($_GET['topic'] ?? '')),
+    'type'   => sanitize_text_field(wp_unslash($_GET['type'] ?? '')),
+]);
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
+$favourite_posts_html = ob_get_clean();
 ?>
 
 <main id="main" role="main" class="default whats-new">
@@ -15,7 +32,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
 <section class="title-banner light-theme">
     <div class="container">
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_the_title() ); ?></h1>
-        <p><?php echo get_field('whats_new_subtitle', 'options'); ?></p>
+        <p><?php echo esc_html( get_field('whats_new_subtitle', 'options') ); ?></p>
     </div>
 </section>
 
@@ -123,7 +140,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
                         <input type="text" class="post-search-input" placeholder="e.g. - State of the Nation">
                         <input type="image"
                                class="post-search-submit"
-                               src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg"
+                               src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg"
                                alt="Search">
                     </form>
                     <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
@@ -138,11 +155,11 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
         <div class="whats-new-container-outer">
             <div class="whats-new-filter-inner">
                 <div class="ajax-loader" style="display: none;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40"
                      id="posts-container">
-                    <?php adapt_render_filter_posts(); ?>
+                    <?= $favourite_posts_html; ?>
                     </div>
 
                 <div class="page-navi-container post-pagination-container">

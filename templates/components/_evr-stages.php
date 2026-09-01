@@ -11,7 +11,7 @@
                     <span class="stages-item">                       
                         <span class="stages-icon-container">
                                 <?php $icon = get_field( 'icon', $stage_term ); ?>
-                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'width' => '24' ) ); ?> 
+                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'width' => '24' ] ); ?> 
                         </span>
                         <span class="stages-title-container">
                             <h3><?php echo esc_html( $stage_term->name ); ?></h3>
@@ -19,9 +19,12 @@
                         <span class="stages-text">
                             <p><?php echo esc_html( $stage_term->description ); ?></p>               
                         </span>
+                        <?php $stage_term_link = get_term_link( $stage_term ); ?>
+                        <?php if ( ! is_wp_error( $stage_term_link ) ) : ?>
                         <span class="stages-button-container">
-                            <a class="button data-set-button" href="<?php echo esc_url( get_term_link($stage_term) ); ?>" target="_self">View All</a>
+                            <a class="button data-set-button" href="<?php echo esc_url( $stage_term_link ); ?>" target="_self">View All</a>
                         </span>
+                        <?php endif; ?>
                     </span>
                 <?php endif; ?>
             <?php endwhile; ?>

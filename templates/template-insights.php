@@ -8,13 +8,15 @@ get_header();
 
 <main id="main" role="main" class="events">
 <?php
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/sort/search params for a bookmarkable, shareable insights-listing URL; no state change results from reading them.
 $filterTopics = $_GET['topics'];
 $filterType = $_GET['filterType'];
 $keyword = $_GET['searchWords'];
 $sortBy = $_GET['orderby'];
 $sort = $_GET['order'];
 $sortPosts = $_GET['sortPost'];
-$filterBy = array();
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
+$filterBy = [];
 ?>
 
 <?php
@@ -53,18 +55,15 @@ $filterBy = array();
             $orderBy = 'menu_order';
             $order = 'ASC';
         } else {
-            if ($sortPosts == 'newest') {
-                $orderBy = 'date';
-                $order = 'DESC';
-            } else if ($sortPosts == 'oldest') {
-                $orderBy = 'date';
-                $order = 'ASC';
-            } else if ($sortPosts == 'titleASC') {
-                $orderBy = 'title';
-                $order = 'ASC';
-            } else if ($sortPosts == 'titleDESC') {
-                $orderBy = 'title';
-                $order = 'DESC';
+            $sort_map = match ($sortPosts) {
+                'newest'    => ['date', 'DESC'],
+                'oldest'    => ['date', 'ASC'],
+                'titleASC'  => ['title', 'ASC'],
+                'titleDESC' => ['title', 'DESC'],
+                default     => null,
+            };
+            if ($sort_map !== null) {
+                [$orderBy, $order] = $sort_map;
             }
         }
     } else {
@@ -80,17 +79,17 @@ $filterBy = array();
     }
 
     if($filterTopics != '') {
-        $output = array();
+        $output = [];
         foreach( $filterTopics as $topic){
             $output[] = $topic;
         }
     } else {
         $term_m = 'topic';
-        $terms = get_terms( $term_m, array(
+        $terms = get_terms( [ 'taxonomy' => $term_m,
             'hide_empty' => false,
-        ) );
+        ] );
 
-        $output = array();
+        $output = [];
         foreach( $terms as $term){
             $output[] = $term->slug;
         }
@@ -99,96 +98,96 @@ $filterBy = array();
     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
     if($filterTopics != '') {
         if($keyword != '') {
-            $args = array(
+            $args = [
                 'post_type' => 'post',
                 's' => $keyword,
                 'posts_per_page' => 9,
                 'paged'=> $paged,
-                'tax_query' => array(
+                'tax_query' => [
                     'relation' => 'AND',
-                    array (
+                     [
                         'taxonomy' => 'topic',
                         'field' => 'slug',
                         'terms' => $output,
                         'operator' => 'IN',
-                    ),
-                    array(
+                    ],
+                    [
                         'relation' => 'AND',
-                        array(
+                        [
                             'taxonomy' => 'category',
                             'field' => 'slug',
                             'terms' => 'private-post',
                             'operator' => 'NOT IN',
-                        ),
-                    ),
+                        ],
+                    ],
 
-                ),
+                ],
                 'orderby'   => $orderBy,
                 'order' => $order
-            );
+            ];
         } else {
-            $args = array(
+            $args = [
                 'post_type' => 'post',
                 'posts_per_page' => 9,
                 'paged'=> $paged,
                 'orderby'   => $orderBy,
                 'order' => $order,
-                'tax_query' => array(
+                'tax_query' => [
                     'relation' => 'AND',
-                    array (
+                     [
                         'taxonomy' => 'topic',
                         'field' => 'slug',
                         'terms' => $output,
                         'operator' => 'IN',
-                    ),
-                    array(
+                    ],
+                    [
                         'relation' => 'AND',
-                        array(
+                        [
                             'taxonomy' => 'category',
                             'field' => 'slug',
                             'terms' => 'private-post',
                             'operator' => 'NOT IN',
-                        ),
-                    ),
-                )
-            );
+                        ],
+                    ],
+                ]
+            ];
         }
     } else {
         if($keyword != '') {
-            $args = array(
+            $args = [
                 'post_type' => 'post',
                 's' => $keyword,
                 'posts_per_page' => 9,
                 'paged'=> $paged,
-                'tax_query' => array(
-                    array(
+                'tax_query' => [
+                    [
                         'taxonomy' => 'category',
                         'field' => 'slug',
                         'terms' => 'private-post',
                         'operator' => 'NOT IN',
-                    ),
+                    ],
                     'relation' => 'AND',
-                ),
+                ],
                 'orderby'   => $orderBy,
                 'order' => $order
-            );
+            ];
         } else {
-            $args = array(
+            $args = [
                 'post_type' => 'post',
                 'posts_per_page' => 9,
                 'paged'=> $paged,
-                'tax_query' => array(
-                    array(
+                'tax_query' => [
+                    [
                         'taxonomy' => 'category',
                         'field' => 'slug',
                         'terms' => 'private-post',
                         'operator' => 'NOT IN',
-                    ),
+                    ],
                     'relation' => 'AND',
-                ),
+                ],
                 'orderby'   => $orderBy,
                 'order' => $order
-            );
+            ];
         }
     }
 
@@ -207,12 +206,12 @@ $filterBy = array();
     if(current_user_can('mepr-active','memberships: 9811')) {
 
     } else {
-        array_push($args['tax_query'],array(
+        array_push($args['tax_query'],[
                 'taxonomy' => 'category',
                 'field' => 'slug',
                 'terms' => 'adapt-only',
                 'operator' => 'NOT IN',
-            )
+            ]
         );
     }
 
@@ -222,29 +221,29 @@ $filterBy = array();
         } else {
             if($filterType == 'all') {
                 $term_m = 'filter-types';
-                $terms = get_terms( $term_m, array(
+                $terms = get_terms( [ 'taxonomy' => $term_m,
                     'hide_empty' => false,
-                ) );
+                ] );
 
-                $types = array();
+                $types = [];
                 foreach( $terms as $term){
                     $types[] = $term->slug;
                 }
-                array_push($args['tax_query'],array(
+                array_push($args['tax_query'],[
                         'taxonomy' => 'filter-types',
                         'field' => 'slug',
                         'terms' => $types,
                         'operator' => 'IN'
-                    )
+                    ]
                 );
 
             } else {
-                array_push($args['tax_query'],array(
+                array_push($args['tax_query'],[
                         'taxonomy' => 'filter-types',
                         'field' => 'slug',
                         'terms' => $filterType,
                         'operator' => 'IN'
-                    )
+                    ]
                 );
             }
         }
@@ -286,9 +285,9 @@ $filterBy = array();
                             $term_m = 'topic';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => false,
-                            ) );
+                            ] );
                             ?>
 
                             <span class="radioSlideContainer desktop">
@@ -364,7 +363,7 @@ $filterBy = array();
                         <span class="select-label">Filter By:</span>
                         <select class="dropdown-class" name="filter-posts" id="filterBox" onchange="document.location.href=location.href+this.options[this.selectedIndex].value;">
                              <?php if($filterTopics != '' || $keyword != '') { ?>
-                                <?php $terms = array(); ?>
+                                <?php $terms = []; ?>
                                 <?php $loop = new WP_Query( $args ); ?>
                                 <?php if ( $loop->have_posts() ) : ?>
                                    <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
@@ -388,9 +387,9 @@ $filterBy = array();
                                     $term_m = 'filter-types';
                                     ?>
                                     <?php
-                                    $terms = get_terms( $term_m, array(
+                                    $terms = get_terms( [ 'taxonomy' => $term_m,
                                      'hide_empty' => true,
-                                    ) );
+                                    ] );
                                     ?>
                                <?php }  ?>
 
@@ -419,9 +418,9 @@ $filterBy = array();
                                 $term_m = 'topic';
                                 ?>
                                 <?php
-                                $terms = get_terms( $term_m, array(
+                                $terms = get_terms( [ 'taxonomy' => $term_m,
                                     'hide_empty' => false,
-                                ) );
+                                ] );
                                 ?>
                                 <span class="radioSlideContainer mobile">
                                     <?php foreach($terms as $term) { ?>
@@ -449,7 +448,7 @@ $filterBy = array();
                                 <span class="title select-label">Filter By: <span class="current-value"><?php if($filterType == '') {?>All<?php } else { if ($filterType == 'all') { ?>All<?php } else {?><?php echo esc_html( $filterType ); ?><?php } } ?></span></span>
                                 <span class="mobile-filter-container mobile">
                                     <?php if($filterTopics != '' || $keyword != '') { ?>
-                                       <?php $terms = array(); ?>
+                                       <?php $terms = []; ?>
                                        <?php $loop = new WP_Query( $args ); ?>
                                        <?php if ( $loop->have_posts() ) : ?>
                                           <?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
@@ -473,9 +472,9 @@ $filterBy = array();
                                            $term_m = 'filter-types';
                                            ?>
                                            <?php
-                                           $terms = get_terms( $term_m, array(
+                                           $terms = get_terms( [ 'taxonomy' => $term_m,
                                             'hide_empty' => true,
-                                           ) );
+                                           ] );
                                            ?>
                                       <?php }  ?>
                                       <span class="checkboxButton filterItemMobile">
@@ -495,14 +494,15 @@ $filterBy = array();
                             <div class="sort-by-mobile" id="sortby">
                                 <?php
                                 if ($sortPosts != '') {
-                                    if ($sortPosts == 'newest') {
-                                        $sortPostValue = 'Newest';
-                                    } else if ($sortPosts == 'oldest') {
-                                        $sortPostValue = 'Oldest';
-                                    } else if ($sortPosts == 'titleASC') {
-                                        $sortPostValue = 'Title A - Z';
-                                    } else if ($sortPosts == 'titleDESC') {
-                                        $sortPostValue = 'Title Z - A';
+                                    $sort_post_value_map = match ($sortPosts) {
+                                        'newest'    => 'Newest',
+                                        'oldest'    => 'Oldest',
+                                        'titleASC'  => 'Title A - Z',
+                                        'titleDESC' => 'Title Z - A',
+                                        default     => null,
+                                    };
+                                    if ($sort_post_value_map !== null) {
+                                        $sortPostValue = $sort_post_value_map;
                                     }
                                 } else {
                                     $sortPostValue = 'Newest';
@@ -550,13 +550,13 @@ $filterBy = array();
                     <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 
                     <?php
-                    $filterTypesResults = array();
+                    $filterTypesResults = [];
                     $term_m = 'filter-types'
                     ?>
                     <?php
-                    $terms = get_terms( $term_m, array(
+                    $terms = get_terms( [ 'taxonomy' => $term_m,
                      'hide_empty' => true,
-                    ) );
+                    ] );
                     ?>
 
                     <?php foreach($terms as $term){
@@ -564,17 +564,17 @@ $filterBy = array();
                     } ?>
 
                     <?php if($filterTopics != '') {
-                            $output = array();
+                            $output = [];
                             foreach( $filterTopics as $topic){
                                 $output[] = $topic;
                             }
                         } else {
                             $term_m = 'topic';
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => false,
-                            ) );
+                            ] );
 
-                            $output = array();
+                            $output = [];
                             foreach( $terms as $term){
                                 $output[] = $term->slug;
                             }
@@ -582,55 +582,55 @@ $filterBy = array();
                     ?>
 
                     <?php if($keyword != '') {
-                        $args = array(
+                        $args = [
                             'post_type' => 'post',
                             's' => $keyword,
                             'posts_per_page' => -1,
                             'paged'=> $paged,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'topic',
                                     'field' => 'slug',
                                     'terms' => $output,
                                     'operator' => 'IN',
-                                ),
-                                array(
+                                ],
+                                [
                                     'relation' => 'AND',
-                                    array(
+                                    [
                                         'taxonomy' => 'category',
                                         'field' => 'slug',
                                         'terms' => 'private-post',
                                         'operator' => 'NOT IN',
-                                    ),
-                                ),
+                                    ],
+                                ],
 
-                            )
-                        );
+                            ]
+                        ];
                     } else {
-                        $args = array(
+                        $args = [
                             'post_type' => 'post',
                             'posts_per_page' => -1,
                             'paged'=> $paged,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'topic',
                                     'field' => 'slug',
                                     'terms' => $output,
                                     'operator' => 'IN',
-                                ),
-                                array(
+                                ],
+                                [
                                     'relation' => 'AND',
-                                    array(
+                                    [
                                         'taxonomy' => 'category',
                                         'field' => 'slug',
                                         'terms' => 'private-post',
                                         'operator' => 'NOT IN',
-                                    ),
-                                ),
-                            )
-                        );
+                                    ],
+                                ],
+                            ]
+                        ];
                     }
                     // if(current_user_can('mepr-active','memberships: 3829')) {
                     //
@@ -647,12 +647,12 @@ $filterBy = array();
                     if(current_user_can('mepr-active','memberships: 9811')) {
 
                     } else {
-                        array_push($args['tax_query'],array(
+                        array_push($args['tax_query'],[
                                 'taxonomy' => 'category',
                                 'field' => 'slug',
                                 'terms' => 'adapt-only',
                                 'operator' => 'NOT IN',
-                            )
+                            ]
                         );
                     }
 
@@ -662,29 +662,29 @@ $filterBy = array();
                         } else {
                             if($filterType == 'all') {
                                 $term_m = 'filter-types';
-                                $terms = get_terms( $term_m, array(
+                                $terms = get_terms( [ 'taxonomy' => $term_m,
                                     'hide_empty' => false,
-                                ) );
+                                ] );
 
-                                $types = array();
+                                $types = [];
                                 foreach( $terms as $term){
                                     $types[] = $term->slug;
                                 }
-                                array_push($args['tax_query'],array(
+                                array_push($args['tax_query'],[
                                         'taxonomy' => 'filter-types',
                                         'field' => 'slug',
                                         'terms' => $types,
                                         'operator' => 'IN'
-                                    )
+                                    ]
                                 );
 
                             } else {
-                                array_push($args['tax_query'],array(
+                                array_push($args['tax_query'],[
                                         'taxonomy' => 'filter-types',
                                         'field' => 'slug',
                                         'terms' => $filterType,
                                         'operator' => 'IN'
-                                    )
+                                    ]
                                 );
                             }
                         }
@@ -794,18 +794,15 @@ $filterBy = array();
                             $orderBy = 'date';
                             $order = 'DESC';
                         } else {
-                            if ($sortPosts == 'newest') {
-                                $orderBy = 'date';
-                                $order = 'DESC';
-                            } else if ($sortPosts == 'oldest') {
-                                $orderBy = 'date';
-                                $order = 'ASC';
-                            } else if ($sortPosts == 'titleASC') {
-                                $orderBy = 'title';
-                                $order = 'ASC';
-                            } else if ($sortPosts == 'titleDESC') {
-                                $orderBy = 'title';
-                                $order = 'DESC';
+                            $sort_map = match ($sortPosts) {
+                                'newest'    => ['date', 'DESC'],
+                                'oldest'    => ['date', 'ASC'],
+                                'titleASC'  => ['title', 'ASC'],
+                                'titleDESC' => ['title', 'DESC'],
+                                default     => null,
+                            };
+                            if ($sort_map !== null) {
+                                [$orderBy, $order] = $sort_map;
                             }
                         }
                     } else {
@@ -821,17 +818,17 @@ $filterBy = array();
                     }
 
                     if($filterTopics != '') {
-                        $output = array();
+                        $output = [];
                         foreach( $filterTopics as $topic){
                             $output[] = $topic;
                         }
                     } else {
                         $term_m = 'topic';
-                        $terms = get_terms( $term_m, array(
+                        $terms = get_terms( [ 'taxonomy' => $term_m,
                             'hide_empty' => false,
-                        ) );
+                        ] );
 
-                        $output = array();
+                        $output = [];
                         foreach( $terms as $term){
                             $output[] = $term->slug;
                         }
@@ -840,96 +837,96 @@ $filterBy = array();
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
                     if($filterTopics != '') {
                         if($keyword != '') {
-                            $args = array(
+                            $args = [
                                 'post_type' => 'post',
                                 's' => $keyword,
                                 'posts_per_page' => 9,
                                 'paged'=> $paged,
-                                'tax_query' => array(
+                                'tax_query' => [
                                     'relation' => 'AND',
-                                    array (
+                                     [
                                         'taxonomy' => 'topic',
                                         'field' => 'slug',
                                         'terms' => $output,
                                         'operator' => 'IN',
-                                    ),
-                                    array(
+                                    ],
+                                    [
                                         'relation' => 'AND',
-                                        array(
+                                        [
                                             'taxonomy' => 'category',
                                             'field' => 'slug',
                                             'terms' => 'private-post',
                                             'operator' => 'NOT IN',
-                                        ),
-                                    ),
+                                        ],
+                                    ],
 
-                                ),
+                                ],
                                 'orderby'   => $orderBy,
                                 'order' => $order
-                            );
+                            ];
                         } else {
-                            $args = array(
+                            $args = [
                                 'post_type' => 'post',
                                 'posts_per_page' => 9,
                                 'paged'=> $paged,
                                 'orderby'   => $orderBy,
                                 'order' => $order,
-                                'tax_query' => array(
+                                'tax_query' => [
                                     'relation' => 'AND',
-                                    array (
+                                     [
                                         'taxonomy' => 'topic',
                                         'field' => 'slug',
                                         'terms' => $output,
                                         'operator' => 'IN',
-                                    ),
-                                    array(
+                                    ],
+                                    [
                                         'relation' => 'AND',
-                                        array(
+                                        [
                                             'taxonomy' => 'category',
                                             'field' => 'slug',
                                             'terms' => 'private-post',
                                             'operator' => 'NOT IN',
-                                        ),
-                                    ),
-                                )
-                            );
+                                        ],
+                                    ],
+                                ]
+                            ];
                         }
                     } else {
                         if($keyword != '') {
-                            $args = array(
+                            $args = [
                                 'post_type' => 'post',
                                 's' => $keyword,
                                 'posts_per_page' => 9,
                                 'paged'=> $paged,
-                                'tax_query' => array(
-                                    array(
+                                'tax_query' => [
+                                    [
                                         'taxonomy' => 'category',
                                         'field' => 'slug',
                                         'terms' => 'private-post',
                                         'operator' => 'NOT IN',
-                                    ),
+                                    ],
                                     'relation' => 'AND',
-                                ),
+                                ],
                                 'orderby'   => $orderBy,
                                 'order' => $order
-                            );
+                            ];
                         } else {
-                            $args = array(
+                            $args = [
                                 'post_type' => 'post',
                                 'posts_per_page' => 9,
                                 'paged'=> $paged,
-                                'tax_query' => array(
-                                    array(
+                                'tax_query' => [
+                                    [
                                         'taxonomy' => 'category',
                                         'field' => 'slug',
                                         'terms' => 'private-post',
                                         'operator' => 'NOT IN',
-                                    ),
+                                    ],
                                     'relation' => 'AND',
-                                ),
+                                ],
                                 'orderby'   => $orderBy,
                                 'order' => $order
-                            );
+                            ];
                         }
                     }
 
@@ -948,12 +945,12 @@ $filterBy = array();
                     if(current_user_can('mepr-active','memberships: 9811')) {
 
                     } else {
-                        array_push($args['tax_query'],array(
+                        array_push($args['tax_query'],[
                                 'taxonomy' => 'category',
                                 'field' => 'slug',
                                 'terms' => 'adapt-only',
                                 'operator' => 'NOT IN',
-                            )
+                            ]
                         );
                     }
 
@@ -963,29 +960,29 @@ $filterBy = array();
                         } else {
                             if($filterType == 'all') {
                                 $term_m = 'filter-types';
-                                $terms = get_terms( $term_m, array(
+                                $terms = get_terms( [ 'taxonomy' => $term_m,
                                     'hide_empty' => false,
-                                ) );
+                                ] );
 
-                                $types = array();
+                                $types = [];
                                 foreach( $terms as $term){
                                     $types[] = $term->slug;
                                 }
-                                array_push($args['tax_query'],array(
+                                array_push($args['tax_query'],[
                                         'taxonomy' => 'filter-types',
                                         'field' => 'slug',
                                         'terms' => $types,
                                         'operator' => 'IN'
-                                    )
+                                    ]
                                 );
 
                             } else {
-                                array_push($args['tax_query'],array(
+                                array_push($args['tax_query'],[
                                         'taxonomy' => 'filter-types',
                                         'field' => 'slug',
                                         'terms' => $filterType,
                                         'operator' => 'IN'
-                                    )
+                                    ]
                                 );
                             }
                         }
@@ -1176,9 +1173,9 @@ $filterBy = array();
 
             <?php endwhile; ?>
             <?php else : ?>
-                    <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+                    <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
                 <?php endif; ?>
-                <?php wp_pagenavi( array( 'query' => $loop ) ); ?>
+                <?php wp_pagenavi( [ 'query' => $loop ] ); ?>
                 <?php wp_reset_query(); ?>
                 </div>
 

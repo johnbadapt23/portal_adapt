@@ -8,6 +8,7 @@ get_header();
 
 <main id="main" role="main" class="events">
 <?php
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/sort/search params for a bookmarkable, shareable insights-listing URL; no state change results from reading them.
 $filterCat = $_GET['categories'];
 $filterType = $_GET['types'];
 $filterEvent = $_GET['events'];
@@ -15,6 +16,7 @@ $filterDuration = $_GET['duration'];
 $keyword = $_GET['searchWords'];
 $sortBy = $_GET['orderby'];
 $sort = $_GET['order'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 ?>
     <section class="postHeader">
@@ -52,9 +54,9 @@ $sort = $_GET['order'];
                             $term_m = 'category';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <?php if ($term -> slug == 'private-post') { ?>
@@ -74,9 +76,9 @@ $sort = $_GET['order'];
                             $term_m = 'article-type';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton <?php echo esc_attr( $term -> slug ); ?>">
@@ -92,9 +94,9 @@ $sort = $_GET['order'];
                             $term_m = 'insights-event';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
@@ -110,9 +112,9 @@ $sort = $_GET['order'];
                             $term_m = 'article-duration';
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
@@ -204,37 +206,37 @@ $sort = $_GET['order'];
                     }
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
-                    $args2 = array(
+                    $args2 = [
                         'post_type' => 'post',
                         'posts_per_page' => 9,
                         'paged'=> $paged,
-                        'meta_query' => array(
-                            array(
+                        'meta_query' => [
+                            [
                                'key' => 'author_search_names',
                                'value' => $keyword,
                                'compare' => 'LIKE'
-                            )
-                        )
-                    );
+                            ]
+                        ]
+                    ];
 
-                    $args = array(
+                    $args = [
                         'post_type' => 'post',
                         's' => $keyword,
                         'posts_per_page' => 9,
                         'paged'=> $paged,
                         'post_status' => 'publish',
-                        'tax_query' => array(
-                            array(
+                        'tax_query' => [
+                            [
                                 'taxonomy' => 'category',
                                 'field' => 'slug',
                                 'terms' => 'private-post',
                                 'operator' => 'NOT IN',
-                            ),
+                            ],
                             'relation' => '&'
-                        ),
+                        ],
                         'orderby'   => $orderBy,
                         'order' => $order
-                    );
+                    ];
 
                     $loop = new WP_Query( $args );
                     $loop2 = new WP_Query( $args2 );
@@ -244,48 +246,48 @@ $sort = $_GET['order'];
 
                     if($filterCat != '') {
                         foreach( $filterCat as $filter){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'category',
                                     'field' => 'slug',
                                     'terms' => $filter,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterType != '') {
                         foreach( $filterType as $type){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'article-type',
                                     'field' => 'slug',
                                     'terms' => $type,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterDuration != '') {
                         foreach( $filterDuration as $duration){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'article-duration',
                                     'field' => 'slug',
                                     'terms' => $duration,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterEvent != '') {
                         foreach( $filterEvent as $event){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'insights-event',
                                     'field' => 'slug',
                                     'terms' => $event,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
@@ -451,7 +453,7 @@ $sort = $_GET['order'];
                 <?php $counter++; ?>
 
                 <?php endwhile; else : ?>
-                    <h3><?php esc_html_e( 'Sorry, no results found.' ); ?></h3>
+                    <h3><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h3>
                 <?php endif; ?>
 
                 </div>

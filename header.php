@@ -7,6 +7,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
 
 <?php
+    // Resource hints for third-party origins loaded on every page load
+    // (GTM inline below, unpkg.com's lottie-player scripts inline below,
+    // and gsap-js/scrolltrigger-js from cdnjs.cloudflare.com enqueued
+    // unconditionally in my_enqueue_scripts() in functions.php) - starting
+    // the DNS/TCP/TLS handshake for these now, before the browser
+    // otherwise discovers the actual <script> tags, shaves that latency
+    // off the eventual request. js.hs-scripts.com (HubSpot) is
+    // dns-prefetch only rather than preconnect: main-js's inline loader
+    // defers it until the visitor's first interaction, so a full
+    // preconnect could sit open and unused (and get dropped by the
+    // browser after ~10s) for anyone who never interacts.
+?>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="dns-prefetch" href="https://js.hs-scripts.com">
+<?php
     // <title> is no longer hardcoded here - theme_setup() declares
     // add_theme_support('title-tag'), so WP (and Yoast SEO's own title
     // template/output) renders it automatically via wp_head() below.
@@ -16,11 +33,11 @@
     // in functions.php for the per-template bundle logic. wp_head() below
     // is what actually prints those <link> tags.
 ?>
-<link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/assets/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon-16x16.png">
-<link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/assets/images/site.webmanifest">
-<link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicon-16x16.png">
+<link rel="manifest" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/site.webmanifest">
+<link rel="mask-icon" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#000000">
 <meta name="theme-color" content="#000000">
 <?php
@@ -34,7 +51,6 @@
 ?>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" defer></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@1.6.2/dist/lottie-interactivity.min.js" defer></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
 <?php
     // Falls back to the site icon when a page has no featured_image/video_poster
     // ACF field set (e.g. the homepage) - previously this echoed an empty
@@ -121,7 +137,17 @@ if ($user_data === false) {
     }
 
     // Prepare secure UID hash
-    $secret = 'VD1gPpnwTbsGm2DjfTJewSTJJksS-1JWuTR-Ceb2BabRyazdJyAc';
+    //
+    // SECURITY: this value has been committed to version control, which
+    // defeats its purpose - anyone with repo access (past or present) can
+    // forge a valid uid_hash for any user_id, impersonating any member to
+    // Chameleon. Rotate this secret with Chameleon and set it via a
+    // CHAMELEON_HMAC_SECRET constant in wp-config.php (outside the repo)
+    // instead of relying on the fallback below, which only exists so
+    // nothing breaks before that rotation happens.
+    $secret = defined( 'CHAMELEON_HMAC_SECRET' )
+        ? CHAMELEON_HMAC_SECRET
+        : 'VD1gPpnwTbsGm2DjfTJewSTJJksS-1JWuTR-Ceb2BabRyazdJyAc';
     $now = time();
     $uid_hash = hash_hmac('sha256', $user_ID . '-' . $now, $secret) . '-' . $now;
 
@@ -154,17 +180,17 @@ if ($user_data === false) {
     // Please confirm the user properties to be sent with your project owner.
 
     // Required:
-    chmln.identify(<?php echo $user_data['user_ID']; ?>, {
-        uid_hash: '<?php echo $user_data['uid_hash']; ?>',
+    chmln.identify(<?php echo (int) $user_data['user_ID']; ?>, {
+        uid_hash: '<?php echo esc_js( $user_data['uid_hash'] ); ?>',
         email: '<?php echo esc_js($user_info->user_email); ?>',
         name: '<?php echo esc_js($user_data['user_name']); ?>',
         companyname: '<?php echo esc_js($user_info->mepr_company_name); ?>',
         topics: '<?php echo esc_js(implode(", ", $user_data['interests_names'])); ?>',
-        role: '<?php echo $user_data['role']; ?>',
+        role: '<?php echo esc_js( $user_data['role'] ); ?>',
         memberships: '<?php echo esc_js($user_data['memberships']); ?>',
-        registration_date: '<?php echo $user_data['registration_date']; ?>',
-        last_session: '<?php echo $user_data['last_session']; ?>',
-        logins: '<?php echo $user_data['login_count']; ?>'
+        registration_date: '<?php echo esc_js( $user_data['registration_date'] ); ?>',
+        last_session: '<?php echo esc_js( $user_data['last_session'] ); ?>',
+        logins: '<?php echo esc_js( $user_data['login_count'] ); ?>'
     });
     </script>
 <?php } ?>
@@ -180,7 +206,7 @@ function initGoNativeTags() {
             var tags = {
                 name: '<?php echo esc_js($user_data['user_name']); ?>',
                 email: '<?php echo esc_js($user_info->user_email); ?>',
-                user_id: '<?php echo $user_data['user_ID']; ?>',
+                user_id: '<?php echo esc_js( $user_data['user_ID'] ); ?>',
                 subscription: '<?php echo esc_js($user_data['memberships']); ?>',
                 topics: '<?php echo esc_js(implode(", ", $user_data['interests_names'])); ?>',
                 last_session: '<?php echo esc_js($user_data['last_session']); ?>',

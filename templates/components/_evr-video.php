@@ -12,15 +12,15 @@
                         <?php if ( have_rows( 'button' ) ) : ?>
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
-                                    <a class="scroll-to-button button red-button" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="scroll-to-button button red-button" href="#<?php echo esc_attr( get_sub_field( 'scroll_to_id' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?>
-                                    <a class="link button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="link button red-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } ?>
                             <?php endwhile; ?>
                         <?php else : ?>
                             <?php // no rows found ?>
                         <?php endif; ?>
-                        <a class="text-link video-popup popup-vimeo video-link black-text" href="https://vimeo.com/<?php echo get_sub_field( 'vimeo_code' ); ?>">Watch Video</a>
+                        <a class="text-link video-popup popup-vimeo video-link black-text" href="https://vimeo.com/<?php echo esc_attr( get_sub_field( 'vimeo_code' ) ); ?>">Watch Video</a>
                     </span>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                     <span class="frame"></span>
                     <div class="bg-container">
                         <?php $image = get_sub_field('poster_image'); ?>
-                        <video width="100%" autoplay loop muted playsinline poster="<?php echo $image['url']; ?>">
+                        <video width="100%" autoplay loop muted playsinline poster="<?php echo esc_url( $image['url'] ); ?>">
                             <source type="video/mp4" src="<?php echo esc_url( get_sub_field( 'auto_play_video' ) ); ?>" />
                         </video>
                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                             <span class="opacity-overlay"></span>
-                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                         <?php } ?>
                     </div>
                 </div> 

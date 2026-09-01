@@ -7,7 +7,7 @@
                 <?php $title_icon = get_sub_field( 'title_icon' ); ?>
                 <span class="icon-container">
                     <?php if ( $title_icon ) { ?>
-                        <?php echo wp_get_attachment_image( $title_icon['ID'], 'full', false, array( 'alt' => $title_icon['alt'] ) ); ?>
+                        <?php echo wp_get_attachment_image( $title_icon['ID'], 'full', false, [ 'alt' => $title_icon['alt'] ] ); ?>
                     <?php } ?>
                 </span>
                 <span class="title-text font-ibm text-red"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
@@ -17,7 +17,7 @@
                     <?php while ( have_rows( 'column' ) ) : the_row(); ?>
                         <div class="column one-quarter">
                             <span class="headerXL text-black"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
-                            <span class="labelMedium secondary-dark"><?php echo get_sub_field( 'text' ); ?></span>
+                            <span class="labelMedium secondary-dark"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                         </div>
                     <?php endwhile; ?>
                 <?php endif; ?>

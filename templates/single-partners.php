@@ -35,12 +35,12 @@ endif;
                                         <div class="bg-container">
                                             <?php $head_shot = get_sub_field( 'poster_image' ); ?>
                                             <?php if ( $head_shot ) { ?>
-                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_icon) { ?>
                                                 <?php
 									$listing_icon_attach_id = attachment_url_to_postid( $listing_icon );
 									if ( $listing_icon_attach_id ) {
-										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
+										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
 										echo '<img src="' . esc_url( $listing_icon ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
@@ -55,12 +55,12 @@ endif;
                                         <div class="bg-container">
                                             <?php $head_shot = get_sub_field( 'head_shot' ); ?>
                                             <?php if ( $head_shot ) { ?>
-                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, array( 'alt' => $head_shot['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_avatar) { ?>
                                                 <?php
 									$listing_avatar_attach_id = attachment_url_to_postid( $listing_avatar );
 									if ( $listing_avatar_attach_id ) {
-										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, array( 'alt' => get_sub_field( 'title' ) ) );
+										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
 										echo '<img src="' . esc_url( $listing_avatar ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_sub_field( 'title' ) ) . '" />';
 									}
@@ -71,7 +71,7 @@ endif;
                                 </div>                            
                             <?php } ?>
                             <div class="mobile-title-container">
-                                 <span class="advisor-title text-white header-medium"><?php echo get_sub_field( 'title' ); ?></span>
+                                 <span class="advisor-title text-white header-medium"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                                 <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span> 
                             </div>
                             <span class="links-container">
@@ -82,8 +82,8 @@ endif;
                                         <span style="display: none;">
                                             <span class="form-popup" id="formPopupAdvisor">
                                                 <span class="popup-form-container">
-                                                    <span class="popup-form-title">Request an Introduction with <?php echo $title; ?></span>
-                                                        <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); ?>
+                                                    <span class="popup-form-title">Request an Introduction with <?php echo esc_html( $title ); ?></span>
+                                                        <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?>
                                                     </span>
                                             </span>
                                         </span>
@@ -95,9 +95,9 @@ endif;
                         </div>
                         <div class="column second-column text-column">
                             <div class="text-content-inner">
-                                <h1 class="advisor-title text-white header-large"><?php echo get_sub_field( 'title' ); ?></h1>
+                                <h1 class="advisor-title text-white header-large"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
                                 <span class="subtitle text-white labelMedium"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>                                              
-                                <span class="text regular-text text-light-grey"><?php echo get_sub_field( 'text' ); ?></span>                               
+                                <span class="text regular-text text-light-grey"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>                               
                             </div>                            
                         </div>                        
                     </div>
@@ -198,7 +198,7 @@ endif;
                                         <?php if ( have_rows( 'region' ) ) : ?>
                                             <div class="tag-container">
                                                 <?php while ( have_rows( 'region' ) ) : the_row(); ?>
-                                                    <span class="tag"><?php echo get_sub_field( 'region_name' ); ?></span>
+                                                    <span class="tag"><?php echo esc_html( get_sub_field( 'region_name' ) ); ?></span>
                                                 <?php endwhile; ?>
                                             </div>
                                         <?php else : ?>
@@ -268,9 +268,9 @@ endif;
                             <?php if ( have_rows( 'about_company' ) ) : ?>
                                 <div class="switch-content about about-company<?php if ($contentCounter == 1){?> active<?php } ?>" id="aboutCompany">
                                     <?php while ( have_rows( 'about_company' ) ) : the_row(); ?>
-                                        <h2 class="h3 title overview-title"><?php echo get_sub_field( 'title' ); ?></h2>
+                                        <h2 class="h3 title overview-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
                                         <div class="text description-container text-regular">
-                                            <?php echo get_sub_field( 'descriptions' ); ?>
+                                            <?php echo wp_kses_post( get_sub_field( 'descriptions' ) ); ?>
                                         </div>                                            
                                     <?php endwhile; ?>
                                     <?php $contentCounter++; ?>
@@ -286,7 +286,7 @@ endif;
                                             <div class="team-container column-container">
                                                 <?php 
                                                 if ($post_objects && !is_array($post_objects)) {
-                                                    $post_objects = array($post_objects);
+                                                    $post_objects = [$post_objects];
                                                 }
                                                 ?>
                                                 <?php foreach ($post_objects as $post): ?>
@@ -298,7 +298,7 @@ endif;
                                                                 <?php
 								$speaker_image_attach_id = attachment_url_to_postid( $speaker_image );
 								if ( $speaker_image_attach_id ) {
-									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $speaker_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -324,25 +324,25 @@ endif;
                             <?php if ( have_rows( 'about_advisor' ) ) : ?>
                                 <div class="switch-content about about-advisor<?php if ($contentCounter == 1){?> active<?php } ?>" id="aboutAdvisor">
                                     <?php while ( have_rows( 'about_advisor' ) ) : the_row(); ?>
-                                        <h3 class="title overview-title"><?php echo get_sub_field( 'title' ); ?></h3>
+                                        <h3 class="title overview-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
                                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                             <div class="advisor-video">
                                                 <div class="image-container video-container">                            
                                                     <div class="bg-container">
                                                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                                         <?php if ( $poster_image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                                                         <?php } ?>                                                                
                                                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                             <span class="opacity-overlay"></span>
-                                                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                                                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                                                         <?php } ?>                                
                                                     </div>
                                                 </div> 
                                             </div>
                                         <?php } ?> 
                                         <div class="text description-container text-regular">
-                                            <?php echo get_sub_field( 'descriptions' ); ?>
+                                            <?php echo wp_kses_post( get_sub_field( 'descriptions' ) ); ?>
                                         </div>
                                         <?php $contentCounter++; ?>
                                     <?php endwhile; ?>
@@ -388,7 +388,7 @@ endif;
                                 <?php if (count($resources_array) > $per_page): ?>
                                     <a class="resources-load-more std-button red-button small-button">Load More</a>
                                     <div class="ajax-loader" style="display: none;">
-                                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                                        <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -407,7 +407,7 @@ endif;
                                                         <span class="logo-container">
                                                             <?php $logo = get_sub_field( 'logo' ); ?>
                                                             <?php if ( $logo ) { ?>
-                                                                <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, array( 'alt' => $logo['alt'] ) ); ?>
+                                                                <?php echo wp_get_attachment_image( $logo['ID'], 'full', false, [ 'alt' => $logo['alt'] ] ); ?>
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">

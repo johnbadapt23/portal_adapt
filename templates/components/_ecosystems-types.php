@@ -12,7 +12,7 @@
                         <?php $icon = get_sub_field( 'icon' ); ?>                        
                         <?php if ( $icon ) { ?>
                             <span class="stages-icon-container">                                
-                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                             </span>
                         <?php } ?>                                            
                         <span class="stages-title-container">
@@ -26,7 +26,7 @@
                             </span>
                         <?php } ?>
                         <span class="stages-button-container">
-                            <a class="stdBtn red data-set-button" href="/ecosystem-partners/search/?partner-types[]=<?php echo $stage_term->slug;?>" target="_self">View All</a>
+                            <a class="stdBtn red data-set-button" href="/ecosystem-partners/search/?partner-types[]=<?php echo esc_attr( $stage_term->slug );?>" target="_self">View All</a>
                         </span>
                     </span>
                 <?php endif; ?>

@@ -10,20 +10,52 @@ module.exports = {
     src: {
         html: '**/*.html',
         php: '**/*.php',
+        // perfect-scrollbar (JS + CSS, see vendorStyles below) removed -
+        // its only call site was main.js's "Ecosystem team popup" handler
+        // on a.speaker-popup, which doesn't exist in any current template,
+        // ACF field, or other JS (confirmed via repo-wide grep). Dead
+        // weight on every single page load; the handler and its matching
+        // dead SCSS in _kits.scss were removed alongside this.
+        //
+        // isotope-layout and select2 also moved out of this always-loaded
+        // bundle - see isotopeScripts/select2Scripts below. isotope-layout
+        // is only ever used against .kits-listing.grid, exclusive to
+        // templates/template-kit-type.php and templates/template-customer.php.
+        // select2 only ever targets $('select'), and only 13 of roughly
+        // 180 templates render a <select> at all.
         scripts: [
             'node_modules/owl.carousel/dist/owl.carousel.js',
             'node_modules/jquery-match-height/dist/jquery.matchHeight.js',
             'node_modules/magnific-popup/dist/jquery.magnific-popup.js',
-            'node_modules/isotope-layout/dist/isotope.pkgd.js',
             'node_modules/mediaelement/build/mediaelement.js',
             'node_modules/slick-carousel/slick/slick.js',
             'node_modules/js-cookie/dist/js.cookie.js',
             'node_modules/jquery.scrollto/jquery.scrollTo.js',
-            'node_modules/perfect-scrollbar/dist/perfect-scrollbar.js',
             'node_modules/jquery.localscroll/jquery.localScroll.js',
-            'node_modules/select2/dist/js/select2.js',
             'node_modules/flexslider/jquery.flexslider.js',
             'source/js/main.js'
+        ],
+
+        // Isotope + its filtering glue (source/js/includes/_isotope.js),
+        // concatenated into its own assets/js/isotope.min.js - see
+        // build:scripts:isotope in scripts.js and the conditional enqueue
+        // in functions.php's my_enqueue_scripts(). Kept out of the
+        // sitewide main.min.js bundle above; only the two kits/customer
+        // templates need it.
+        isotopeScripts: [
+            'node_modules/isotope-layout/dist/isotope.pkgd.js',
+            'source/js/includes/_isotope.js'
+        ],
+
+        // select2 + its init glue (source/js/includes/_select2.js),
+        // concatenated into its own assets/js/select2.min.js - see
+        // build:scripts:select2 in scripts.js and the conditional enqueue
+        // in functions.php's my_enqueue_scripts(). Only enqueued on
+        // templates with a <select> - see the typeof guards in main.js at
+        // each of the three places it used to call select2() directly.
+        select2Scripts: [
+            'node_modules/select2/dist/js/select2.js',
+            'source/js/includes/_select2.js'
         ],
 
         // Vendor CSS, concatenated into global.min.css alongside
@@ -33,7 +65,6 @@ module.exports = {
         // point) is superseded by main-global.scss / main-core.scss /
         // main-tpl-*.scss - see the comments at the top of styles.js.
         vendorStyles: [
-            'node_modules/perfect-scrollbar/css/perfect-scrollbar.css',
             'node_modules/owl.carousel/dist/assets/owl.carousel.css',
             'node_modules/magnific-popup/dist/magnific-popup.css',
             'node_modules/slick-carousel/slick/slick.scss',

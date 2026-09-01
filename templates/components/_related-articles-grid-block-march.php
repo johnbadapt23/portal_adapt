@@ -6,7 +6,7 @@
         <?php $layout = get_sub_field( 'layout' ); ?>
         <?php if ( have_rows( 'related_articles' ) ) : ?>
 
-            <div id="loop" class="<?php if($layout){ echo $layout; } else { ?>grid<?php } ?>">
+            <div id="loop" class="<?php if($layout){ echo esc_attr( $layout ); } else { ?>grid<?php } ?>">
                 <?php $counter = -1; ?>
                 <?php while ( have_rows( 'related_articles' ) ) : the_row(); ?>
                     <?php $post_object = get_sub_field( 'article' ); ?>
@@ -14,7 +14,7 @@
                         <?php $post = $post_object; ?>
                         <?php setup_postdata( $post ); ?>
                             <?php if(current_user_can('mepr_auth')) {?>
-                                <span class="postLink layout<?php echo $counter; ?>">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                     <div class="linkWrapper">
                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                             <span class="podcast"></span>
@@ -129,7 +129,7 @@
                                     </div>
                                 </span>
                             <?php } else { ?>
-                                <a href="<?php the_permalink(); ?>" class="postLink layout<?php echo $counter; ?> memberContentLock" target="_self">
+                                <a href="<?php the_permalink(); ?>" class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock" target="_self">
                                     <span class="overlay">
                                         <span class="exclusiveContent">
                                             <span class="overlayText"><?php the_field('member_content_post_overlay_text', 'option'); ?></span>

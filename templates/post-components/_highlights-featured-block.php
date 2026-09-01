@@ -37,7 +37,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 }
 ?>
 
-<section class="resources-featured highlights-featured featured-module <?php echo $membershipType; ?>">
+<section class="resources-featured highlights-featured featured-module <?php echo esc_attr( $membershipType ); ?>">
     <div class="container">
          <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
@@ -60,11 +60,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
                             <?php
                             $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
-                            $args = array(
+                            $args = [
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
-                            );
+                            ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
                             }
@@ -125,7 +125,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_172_attach_id = $inline_img_172_src ? attachment_url_to_postid( $inline_img_172_src ) : 0;
 					if ( $inline_img_172_attach_id ) {
 						$inline_img_172_is_lcp = adapt_is_first_hero_image();
-						$inline_img_172_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_172_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_172_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_172_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_172_is_lcp ) {
 							$inline_img_172_attrs['fetchpriority'] = 'high';
 							$inline_img_172_attrs['loading'] = 'eager';
@@ -150,7 +150,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_173_attach_id = $inline_img_173_src ? attachment_url_to_postid( $inline_img_173_src ) : 0;
 					if ( $inline_img_173_attach_id ) {
 						$inline_img_173_is_lcp = adapt_is_first_hero_image();
-						$inline_img_173_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_173_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_173_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_173_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_173_is_lcp ) {
 							$inline_img_173_attrs['fetchpriority'] = 'high';
 							$inline_img_173_attrs['loading'] = 'eager';
@@ -178,8 +178,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     }
                                                     ?>
 
-                                                    <?php if ( $postTopic ) : ?>
-                                                        <a href="<?php echo esc_url( get_term_link( $postTopic ) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
+                                                    <?php $postTopic_link = $postTopic ? get_term_link( $postTopic ) : null; ?>
+                                                    <?php if ( $postTopic && ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
                                                             <?php echo esc_html( $postTopic->name ); ?>
                                                         </a>
                                                     <?php endif; ?>
@@ -261,7 +262,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_174_attach_id = $inline_img_174_src ? attachment_url_to_postid( $inline_img_174_src ) : 0;
 					if ( $inline_img_174_attach_id ) {
 						$inline_img_174_is_lcp = adapt_is_first_hero_image();
-						$inline_img_174_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_174_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_174_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_174_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_174_is_lcp ) {
 							$inline_img_174_attrs['fetchpriority'] = 'high';
 							$inline_img_174_attrs['loading'] = 'eager';
@@ -286,7 +287,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_175_attach_id = $inline_img_175_src ? attachment_url_to_postid( $inline_img_175_src ) : 0;
 					if ( $inline_img_175_attach_id ) {
 						$inline_img_175_is_lcp = adapt_is_first_hero_image();
-						$inline_img_175_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_175_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_175_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_175_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_175_is_lcp ) {
 							$inline_img_175_attrs['fetchpriority'] = 'high';
 							$inline_img_175_attrs['loading'] = 'eager';
@@ -314,8 +315,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                         ?>
 
-                                                        <?php if ( $postTopic ) : ?>
-                                                            <a href="<?php echo esc_url( get_term_link( $postTopic ) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
+                                                        <?php $postTopic_link = $postTopic ? get_term_link( $postTopic ) : null; ?>
+                                                        <?php if ( $postTopic && ! is_wp_error( $postTopic_link ) ) : ?>
+                                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
                                                                 <?php echo esc_html( $postTopic->name ); ?>
                                                             </a>
                                                         <?php endif; ?>
@@ -354,11 +356,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
                         <?php if ( get_sub_field( 'most_recent_or_most_popular' ) === 'most-recent' ) : ?>
 
                             <?php
-                            $args = array(
+                            $args = [
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
-                            );
+                            ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
                             }
@@ -418,7 +420,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_176_attach_id = $inline_img_176_src ? attachment_url_to_postid( $inline_img_176_src ) : 0;
 					if ( $inline_img_176_attach_id ) {
 						$inline_img_176_is_lcp = adapt_is_first_hero_image();
-						$inline_img_176_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_176_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_176_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_176_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_176_is_lcp ) {
 							$inline_img_176_attrs['fetchpriority'] = 'high';
 							$inline_img_176_attrs['loading'] = 'eager';
@@ -444,7 +446,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_177_attach_id = $inline_img_177_src ? attachment_url_to_postid( $inline_img_177_src ) : 0;
 					if ( $inline_img_177_attach_id ) {
 						$inline_img_177_is_lcp = adapt_is_first_hero_image();
-						$inline_img_177_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_177_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_177_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_177_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_177_is_lcp ) {
 							$inline_img_177_attrs['fetchpriority'] = 'high';
 							$inline_img_177_attrs['loading'] = 'eager';
@@ -473,7 +475,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -490,24 +495,25 @@ if ( ! empty( $membership_allowed_ids ) ) {
                             $type_term = get_sub_field( 'type' );                            
                                 if ( $type_term ) {
 
-                                    $tax_query = array(
-                                        array(
+                                    $tax_query = [
+                                        [
                                             'taxonomy' => 'filter-types',
                                             'field'    => 'slug',
                                             'terms'    => $type_term->slug,
-                                        )
-                                    );
+                                        ]
+                                    ];
 
                                     // Merge membership query properly
                                     if ( ! empty( $membership_tax_query ) ) {
                                         $tax_query = array_merge( $tax_query, $membership_tax_query );
                                     }
 
-                                    $args = array(
+                                    $args = [
+                                        'no_found_rows'  => true,
                                         'post_type'      => 'post',
                                         'posts_per_page' => 3,
                                         'tax_query'      => $tax_query,
-                                    );
+                                    ];
 
                                     $sidebar_posts = new WP_Query( $args );
                                 }
@@ -567,7 +573,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_178_attach_id = $inline_img_178_src ? attachment_url_to_postid( $inline_img_178_src ) : 0;
 					if ( $inline_img_178_attach_id ) {
 						$inline_img_178_is_lcp = adapt_is_first_hero_image();
-						$inline_img_178_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_178_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_178_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_178_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_178_is_lcp ) {
 							$inline_img_178_attrs['fetchpriority'] = 'high';
 							$inline_img_178_attrs['loading'] = 'eager';
@@ -593,7 +599,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_179_attach_id = $inline_img_179_src ? attachment_url_to_postid( $inline_img_179_src ) : 0;
 					if ( $inline_img_179_attach_id ) {
 						$inline_img_179_is_lcp = adapt_is_first_hero_image();
-						$inline_img_179_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_179_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_179_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_179_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_179_is_lcp ) {
 							$inline_img_179_attrs['fetchpriority'] = 'high';
 							$inline_img_179_attrs['loading'] = 'eager';
@@ -622,7 +628,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -636,13 +645,14 @@ if ( ! empty( $membership_allowed_ids ) ) {
                         <?php else : ?>
 
                             <?php
-                            $args = array(
+                            $args = [
+                                'no_found_rows'  => true,
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'meta_key'       => 'post_views_count',
                                 'orderby'        => 'meta_value_num',
                                 'order'          => 'DESC',
-                            );
+                            ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
                             }
@@ -702,7 +712,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_180_attach_id = $inline_img_180_src ? attachment_url_to_postid( $inline_img_180_src ) : 0;
 					if ( $inline_img_180_attach_id ) {
 						$inline_img_180_is_lcp = adapt_is_first_hero_image();
-						$inline_img_180_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_180_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_180_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_180_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_180_is_lcp ) {
 							$inline_img_180_attrs['fetchpriority'] = 'high';
 							$inline_img_180_attrs['loading'] = 'eager';
@@ -728,7 +738,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_181_attach_id = $inline_img_181_src ? attachment_url_to_postid( $inline_img_181_src ) : 0;
 					if ( $inline_img_181_attach_id ) {
 						$inline_img_181_is_lcp = adapt_is_first_hero_image();
-						$inline_img_181_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_181_is_lcp ? ' skip-lazy' : '' ) );
+						$inline_img_181_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_181_is_lcp ? ' skip-lazy' : '' ) ];
 						if ( $inline_img_181_is_lcp ) {
 							$inline_img_181_attrs['fetchpriority'] = 'high';
 							$inline_img_181_attrs['loading'] = 'eager';
@@ -757,7 +767,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
+                                                        <?php endif; ?>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>

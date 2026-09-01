@@ -35,7 +35,7 @@
     }
 ?>
 
-<div class="featured-article-card plus-<?php echo $advantagePlus; ?>">
+<div class="featured-article-card plus-<?php echo esc_attr( $advantagePlus ); ?>">
     <a class="article-link" href="<?php echo esc_url(get_permalink($post_id)); ?>" id="<?php echo esc_attr($post_slug); ?>">
         <span class="article-column-container">
             <span class="article-text-column">
@@ -106,7 +106,7 @@
 					$inline_img_152_src = $image;
 					$inline_img_152_attach_id = $inline_img_152_src ? attachment_url_to_postid( $inline_img_152_src ) : 0;
 					if ( $inline_img_152_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_152_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_152_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_152_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_152_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}

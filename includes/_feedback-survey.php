@@ -48,21 +48,21 @@ add_action( 'acf/init', function() {
 		return;
 	}
 
-	$shown_if_enabled = array(
-		array(
-			array(
+	$shown_if_enabled = [
+		[
+			[
 				'field'    => 'field_adapt_feedback_survey_enabled',
 				'operator' => '==',
 				'value'    => '1',
-			),
-		),
-	);
+			],
+		],
+	];
 
-	acf_add_local_field_group( array(
+	acf_add_local_field_group( [
 		'key'    => 'group_adapt_feedback_survey',
 		'title'  => 'Feedback Survey',
-		'fields' => array(
-			array(
+		'fields' => [
+			[
 				'key'           => 'field_adapt_feedback_survey_enabled',
 				'label'         => 'Enabled',
 				'name'          => 'feedback_survey_enabled',
@@ -70,8 +70,8 @@ add_action( 'acf/init', function() {
 				'instructions'  => 'Show a one-time feedback survey popup to logged-in users, starting from the date below.',
 				'default_value' => 0,
 				'ui'            => 1,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_feedback_survey_start_date',
 				'label'             => 'Start showing from',
 				'name'              => 'feedback_survey_start_date',
@@ -82,16 +82,16 @@ add_action( 'acf/init', function() {
 				'first_day'         => 1,
 				'default_value'     => '20260827',
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_feedback_survey_shortcode',
 				'label'             => 'Form shortcode',
 				'name'              => 'feedback_survey_shortcode',
 				'type'              => 'text',
 				'instructions'      => 'The shortcode for the form to show - works with any form plugin\'s shortcode, e.g. [contact-form-7 id="123" title="Feedback"] or [gravityform id="4"]. Build/edit the actual survey questions in that plugin, not here.',
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_feedback_survey_target_selector',
 				'label'             => 'Target element (CSS selector)',
 				'name'              => 'feedback_survey_target_selector',
@@ -99,16 +99,16 @@ add_action( 'acf/init', function() {
 				'instructions'      => 'Same idea as the welcome popup\'s equivalent field - the element to highlight behind the survey dialog. Defaults to the homepage AI Assistant box, matching the welcome popup it follows on from. If the element is not found on a given page (not loaded yet, or this page does not have it), the survey silently does not show and the user is not counted as having seen it - they will still get it on a page where the element does appear. Leave blank to always show the survey without any target check or highlight.',
 				'default_value'     => '.cgpt-hero-card',
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_feedback_survey_heading',
 				'label'             => 'Heading',
 				'name'              => 'feedback_survey_heading',
 				'type'              => 'text',
 				'default_value'     => "We'd love your feedback",
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_feedback_survey_intro',
 				'label'             => 'Intro text',
 				'name'              => 'feedback_survey_intro',
@@ -116,8 +116,8 @@ add_action( 'acf/init', function() {
 				'rows'              => 3,
 				'instructions'      => 'Optional - shown above the form itself.',
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_feedback_survey_force_redisplay',
 				'label'             => 'Show again to everyone',
 				'name'              => 'feedback_survey_force_redisplay',
@@ -126,18 +126,18 @@ add_action( 'acf/init', function() {
 				'default_value'     => 0,
 				'ui'                => 1,
 				'conditional_logic' => $shown_if_enabled,
-			),
-		),
-		'location' => array(
-			array(
-				array(
+			],
+		],
+		'location' => [
+			[
+				[
 					'param'    => 'options_page',
 					'operator' => '==',
 					'value'    => 'acf-options',
-				),
-			),
-		),
-	) );
+				],
+			],
+		],
+	] );
 } );
 
 /**
@@ -278,6 +278,7 @@ add_action( 'wp_footer', function() {
 				<p><?php echo nl2br( esc_html( $intro ) ); ?></p>
 			<?php endif; ?>
 			<div class="feedbackSurvey-form">
+				<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- do_shortcode() output of an admin-authored form-plugin shortcode (CF7/WPForms/Gravity Forms/etc.); wp_kses_post() would strip required form markup. ?>
 				<?php echo adapt_get_feedback_survey_form_html(); ?>
 			</div>
 		</div>

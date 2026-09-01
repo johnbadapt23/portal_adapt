@@ -38,10 +38,10 @@ get_header();
 						<?php
 					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
 					if ( $slide_image_attach_id ) {
-						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, array(
+						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
 							'style' => 'visibility:hidden; position:absolute; top:-10000px; left:-10000px;',
-						) );
+						] );
 					} else {
 						echo '<img src="' . esc_url( $slide['image'] ) . '" style="visibility:hidden; position:absolute; top:-10000px; left:-10000px;" loading="lazy" decoding="async" alt="Adapt - ' . esc_attr( get_the_title() ) . '" />';
 					}
@@ -194,7 +194,7 @@ get_header();
 					$inline_img_148_src = get_sub_field( 'image' );
 					$inline_img_148_attach_id = $inline_img_148_src ? attachment_url_to_postid( $inline_img_148_src ) : 0;
 					if ( $inline_img_148_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_148_attach_id, 'full', false, array( 'alt' => '', 'class' => 'featureImage' ) );
+						echo wp_get_attachment_image( $inline_img_148_attach_id, 'full', false, [ 'alt' => '', 'class' => 'featureImage' ] );
 					} elseif ( $inline_img_148_src ) {
 						echo '<img class="featureImage" src="' . esc_url( $inline_img_148_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( '' ) . '" />';
 					}

@@ -10,28 +10,29 @@ $sector_term = get_sub_field( 'persona' );
 <section class="topicGrid portal sector-grid">
     <div class="container">
         <div class="blockTitle">
-            <h2><?php echo get_sub_field( 'persona_title' ); ?></h2>
-            <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="viewAll">View All</a>
+            <h2><?php echo esc_html( get_sub_field( 'persona_title' ) ); ?></h2>
+            <a href="/<?php echo esc_attr( $section ); ?>/persona-mapping/?persona=<?php echo esc_attr( $sector_term->slug ); ?>" class="viewAll">View All</a>
         </div>
         <div class="gridWrapper">
             <?php
-                $args = array(
+                $args = [
+                    'no_found_rows'  => true,
                     'post_type'      => 'post',
                     'posts_per_page' => 3,
-                    'tax_query'      => array(
+                    'tax_query'      => [
                         'relation'    => 'AND',
-                        array(
+                        [
                             'taxonomy' => 'persona-mapping',
                             'field'    => 'slug',
                             'terms'    => $sector_term->slug
-                        ),
-                        array(
+                        ],
+                        [
                             'taxonomy' => 'filter-types',
                             'field'    => 'slug',
                             'terms'    => $section
-                        ),
-                    ),
-                );
+                        ],
+                    ],
+                ];
 
                 $posts = new WP_Query( $args );
                 if( $posts->have_posts() ): ?>
@@ -62,17 +63,17 @@ $sector_term = get_sub_field( 'persona' );
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) ); ?>
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] ); ?>
                                         <span class="hover-container">
                                             <?php if ($imageCounter) { ?>
-                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
                                             <?php } ?>
                                         <span>
                                     <?php else : ?>
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
@@ -85,8 +86,8 @@ $sector_term = get_sub_field( 'persona' );
                             </a>
                             <div class="textContainer">
                                 <span class="topicFilter">
-                                    <a href="/<?php echo $section; ?>/persona-mapping/" class="topicFilterText">Persona Mapping</a>
-                                    <a href="/<?php echo $section; ?>/persona-mapping/?persona=<?php echo $sector_term->slug; ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
+                                    <a href="/<?php echo esc_attr( $section ); ?>/persona-mapping/" class="topicFilterText">Persona Mapping</a>
+                                    <a href="/<?php echo esc_attr( $section ); ?>/persona-mapping/?persona=<?php echo esc_attr( $sector_term->slug ); ?>" class="topicFilterText"><?php echo esc_html( $sector_term->name ); ?></a>
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
                                 <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>

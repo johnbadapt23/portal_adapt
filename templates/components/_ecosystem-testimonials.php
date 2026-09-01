@@ -7,7 +7,7 @@
 					<div class="quote-slide">
 						<div class="quote-slider-inner">
 							<h4 class="quote text-black"><?php echo esc_html( get_sub_field( 'quote' ) ); ?></h4>
-							<span class="quote-title text-black"><?php echo get_sub_field( 'quoter' ); ?></span>
+							<span class="quote-title text-black"><?php echo esc_html( get_sub_field( 'quoter' ) ); ?></span>
 						</div>
 					</div>
 				<?php endwhile; ?>

@@ -1,7 +1,7 @@
 <section class="title-banner dark-theme">
 	<div class="container">
 		<h1 class="header-large mobile-header-medium">Analyst Market Briefings</h1>
-		<p><?php echo get_field( 'webinar_listing_banner_subtitle', 'option' ); ?></p>
+		<p><?php echo esc_html( get_field( 'webinar_listing_banner_subtitle', 'option' ) ); ?></p>
 	</div>
 </section>
 <section class="register-listing dark-theme">
@@ -18,25 +18,26 @@
 		
 		<div class="register-listing-container upcoming active">
 			<?php
-			$today = date('Ymd');
-			$args = array(
+			$today = wp_date('Ymd');
+			$args = [
+				'no_found_rows'  => true,
 				'post_type' => 'registration',
 				'meta_key'  => 'event_date',
 			    'orderby'   => 'meta_value_num',
 			    'order'     => 'ASC',
-				'meta_query' => array(
-					array(
+				'meta_query' => [
+					[
 						'key'     => 'event_date',
 						'compare' => '>=',
 						'value'   => $today,
-					),
-					array(
+					],
+					[
 						'key'     => 'button',
 						'compare' => '==',
 						'value'   => 'register',
-					),
-				),
-			);
+					],
+				],
+			];
 			?>
 			<div class="upcoming-listing resources-column-container three-column-container gap-16-40">
 				<?php $posts = new WP_Query( $args );
@@ -53,7 +54,7 @@
 						           <?php $counter++; ?>
 						       <?php endwhile; ?>
 						   <?php endif; ?>
-						   <?php if(current_user_can('mepr-active','memberships:' . $members)) { ?>
+						   <?php if( empty(get_field('membership_ids')) || current_user_can('mepr-active','memberships:' . $members)) { ?>
 							   <?php
 							   $date_string = get_field('event_date');
 							   $date = DateTime::createFromFormat('Ymd', $date_string);
@@ -73,7 +74,7 @@
 												<?php $image = get_field( 'listing_image' ); ?>
 												<?php if ($image) : ?>
 													<span class="bg-container">
-														<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ) ); ?>
+														<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ] ); ?>
 													</span>
 												<?php endif; ?>
 											</span>
@@ -96,25 +97,26 @@
 				wp_reset_postdata();
 				?>
 				<?php
-				$today = date('Ymd');
-				$args = array(
+				$today = wp_date('Ymd');
+				$args = [
+					'no_found_rows'  => true,
 					'post_type' => 'registration',
 					'meta_key'  => 'event_date',
 				    'orderby'   => 'meta_value_num',
 				    'order'     => 'ASC',
-					'meta_query' => array(
-						array(
+					'meta_query' => [
+						[
 							'key'     => 'event_date',
 							'compare' => '>=',
 							'value'   => $today,
-						),
-						array(
+						],
+						[
 							'key'     => 'button',
 							'compare' => '==',
 							'value'   => 'upcoming',
-						),
-					),
-				);
+						],
+					],
+				];
 				?>
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
@@ -150,7 +152,7 @@
 													<?php $image = get_field( 'listing_image' ); ?>
 													<?php if ($image) : ?>
 														<span class="bg-container">
-															<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ) ); ?>
+															<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'class' => 'article-image', 'alt' => esc_attr( get_the_title( $post_id ) ) ] ); ?>
 														</span>
 													<?php endif; ?>
 												</span>
@@ -174,34 +176,34 @@
 		</div>
 		<div class="register-listing-container past-sessions active">
     <?php
-    $today = date('Ymd');
+    $today = wp_date('Ymd');
     $paged = max( 1, get_query_var('paged') ?: get_query_var('page') );
 
     $posts_per_page = 18;      // Number of visible posts per page
     $soft_limit     = $posts_per_page * 3; // Query more to account for locked posts
 
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => $soft_limit,
         'paged'          => $paged,
         'meta_key'       => 'replay_event_date',
         'orderby'        => 'meta_value_num',
         'order'          => 'DESC',
-        'tax_query'      => array(
-            array(
+        'tax_query'      => [
+            [
                 'taxonomy' => 'filter-types',
                 'field'    => 'slug',
                 'terms'    => 'analyst-market-briefings',
-            ),
-        ),
-        'meta_query' => array(
-            array(
+            ],
+        ],
+        'meta_query' => [
+            [
                 'key'     => 'replay_event_date',
                 'compare' => '<=',
                 'value'   => $today,
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     $posts = new WP_Query( $args );
     $shown = 0; // Count of visible posts
@@ -209,34 +211,34 @@
 
 <div class="register-listing-container past-sessions active">
     <?php
-    $today = date('Ymd');
+    $today = wp_date('Ymd');
     $paged = max( 1, get_query_var('paged') ?: get_query_var('page') );
     $posts_per_page = 18;
     $soft_limit = $posts_per_page * 3; // fetch extra to account for MemberPress filtering
 
     // Query posts
-    $args = array(
+    $args = [
         'post_type'      => 'post',
         'posts_per_page' => $soft_limit,
         'paged'          => $paged,
         'meta_key'       => 'replay_event_date',
         'orderby'        => 'meta_value_num',
         'order'          => 'DESC',
-        'tax_query'      => array(
-            array(
+        'tax_query'      => [
+            [
                 'taxonomy' => 'filter-types',
                 'field'    => 'slug',
                 'terms'    => 'analyst-market-briefings',
-            ),
-        ),
-        'meta_query' => array(
-            array(
+            ],
+        ],
+        'meta_query' => [
+            [
                 'key'     => 'replay_event_date',
                 'compare' => '<=',
                 'value'   => $today,
-            ),
-        ),
-    );
+            ],
+        ],
+    ];
 
     $query = new WP_Query( $args );
     $shown = 0;
@@ -248,13 +250,13 @@
 
 $posts_per_page = 18;
 $soft_limit     = $posts_per_page * 5; // fetch extra to account for blocked posts
-$today = date('Ymd');
+$today = wp_date('Ymd');
 
 // First page load
 $paged = 1;
 $offset = 0; // first batch starts at 0
 
-$args = array(
+$args = [
     'post_type'      => 'post',
     'posts_per_page' => $soft_limit,
     'paged'          => $paged,
@@ -262,21 +264,21 @@ $args = array(
     'meta_key'       => 'replay_event_date',
     'orderby'        => 'meta_value_num',
     'order'          => 'DESC',
-    'tax_query'      => array(
-        array(
+    'tax_query'      => [
+        [
             'taxonomy' => 'filter-types',
             'field'    => 'slug',
             'terms'    => 'analyst-market-briefings',
-        ),
-    ),
-    'meta_query' => array(
-        array(
+        ],
+    ],
+    'meta_query' => [
+        [
             'key'     => 'replay_event_date',
             'compare' => '<=',
             'value'   => $today,
-        ),
-    ),
-);
+        ],
+    ],
+];
 
 $query = new WP_Query($args);
 $shown = 0;
@@ -311,6 +313,7 @@ $html = ob_get_clean();
 
 <div id="past-sessions-container" class="register-listing-container past-sessions active">
     <div class="upcoming-listing resources-column-container three-column-container gap-16-40">
+        <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $html is captured via ob_get_clean() from included template partials (e.g. _article-card.php) that already escape their own output. ?>
         <?php echo $html; ?>
     </div>
 

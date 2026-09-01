@@ -24,12 +24,13 @@
                     <span class="categories">
                         <?php
                         $term_m = 'category';
-                        $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : array();
+                        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable listing URL (method="get" form above); sanitized via sanitize_text_field()/wp_unslash() before use.
+                        $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : [];
                         ?>
                         <?php
-                        $terms = get_terms( $term_m, array(
+                        $terms = get_terms( [ 'taxonomy' => $term_m,
                             'hide_empty' => true,
-                        ) );
+                        ] );
                         ?>
                         <?php foreach($terms as $term) { ?>
                             <span class="checkboxButton">
@@ -55,7 +56,7 @@
 
                 <?php if ( get_field ( 'member_content' ) == 'yes' ) { ?>
                     <?php if(current_user_can('mepr-active','membership:26')) { ?>
-                        <span class="postLink layout<?php echo $counter; ?>">
+                        <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
 
                             <div class="linkWrapper">
                                 <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
@@ -103,7 +104,7 @@
                             </div>
                         </span>
                     <?php } else { ?>
-                        <span href="<?php the_permalink(); ?>" class="postLink layout<?php echo $counter; ?> memberContentLock" target="_self">
+                        <span href="<?php the_permalink(); ?>" class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock" target="_self">
                             <span class="overlay">
                                 <span class="exclusiveContent">
                                     <span class="overlayText"><?php the_field('member_content_post_overlay_text', 'option'); ?></span>
@@ -166,7 +167,7 @@
                         </span>
                     <?php } ?>
                 <?php } else { ?>
-                    <span class="postLink layout<?php echo $counter; ?>">
+                    <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
 
                         <div class="linkWrapper">
                             <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>

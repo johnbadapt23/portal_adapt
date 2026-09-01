@@ -8,7 +8,7 @@
     <?php $background = 'dark-theme bg-black'; ?>
 <?php } ?>
 
-<section class="upcoming-events-slider-section <?php echo $background; ?>">
+<section class="upcoming-events-slider-section <?php echo esc_attr( $background ); ?>">
     <div class="container">
         <div class="title-slider-container">
             <div class="column title-column">
@@ -19,7 +19,7 @@
                 <?php if ( have_rows( 'button' ) ) : ?>
                     <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                         <span class="button-container">
-                            <a class="std-button white-outline small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                            <a class="std-button white-outline small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                         </span>														
                     <?php endwhile; ?>
                 <?php else : ?>
@@ -52,22 +52,22 @@
                     <?php } else { ?> 
                         <?php
                             $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                            $args = array(
+                            $args = [
                                 'post_type' => 'event',
                                 'posts_per_page' => -1,
                                 'paged'=> $paged ,
                                 'orderby'=> 'menu_order',
                                 'order'=> 'ASC',
-                                'tax_query' => array(
+                                'tax_query' => [
                                     'relation' => 'AND',
-                                    array (
+                                     [
                                         'taxonomy' => 'event-type',
                                         'field' => 'slug',
                                         'terms'    => 'upcoming-events',
                                         'operator' => 'IN'
-                                    )
-                                )
-                            );
+                                    ]
+                                ]
+                            ];
                             
 
                             $loop = new WP_Query( $args );
@@ -82,7 +82,7 @@
                             ?>
                             <?php $counter++; ?>
                         <?php endwhile; else : ?>
-                            <h3><?php esc_html_e( 'Sorry, no results found.' ); ?></h3>
+                            <h3><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h3>
                         <?php endif; ?>
 
                         <?php wp_reset_postdata(); wp_reset_query();?>

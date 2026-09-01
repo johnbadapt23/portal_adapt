@@ -32,7 +32,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
             <?php if(current_user_can('memberpress_authorized')) { ?>
                 <?php if ( has_term( ['sector-outlooks', 'cxo-buyer-persona-profiles',  ], 'filter-types' ) && $advantageType == 'yes' ) { ?>
                     <?php if( $advantagePlus == 'yes') { ?> 
-                        <div class="slide-preview-container advantagePlus-<?php echo $advantagePlus; ?>">
+                        <div class="slide-preview-container advantagePlus-<?php echo esc_attr( $advantagePlus ); ?>">
                             <?php if ( have_rows( 'slider_images' ) ) : ?>
                                 <div class="preview-main-slider">
                                     <?php while ( have_rows( 'slider_images' ) ) : the_row(); ?>
@@ -52,7 +52,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                             <span class="bg-container">
                                                 <?php $image = get_sub_field( 'image' ); ?>
                                                 <?php if ( $image ) { ?>
-                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                 <?php } ?>
                                             </span>
                                         </span>
@@ -114,7 +114,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -132,7 +132,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                         <span class="bg-container">
                                                             <?php $image = get_sub_field( 'image' ); ?>
                                                             <?php if ( $image ) { ?>
-                                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                             <?php } ?>
                                                         </span>
                                                     </span>
@@ -204,7 +204,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -222,7 +222,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                         <span class="bg-container">
                                                             <?php $image = get_sub_field( 'image' ); ?>
                                                             <?php if ( $image ) { ?>
-                                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                             <?php } ?>
                                                         </span>
                                                     </span>
@@ -266,7 +266,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                         <span class="bg-container">
                                             <?php $image = get_sub_field( 'image' ); ?>
                                             <?php if ( $image ) { ?>
-                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                             <?php } ?>
                                         </span>
                                     </span>
@@ -338,7 +338,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                 <span class="bg-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                     <?php } ?>
                                                 </span>
                                             </span>
@@ -356,7 +356,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -428,7 +428,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                 <span class="bg-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                     <?php } ?>
                                                 </span>
                                             </span>
@@ -446,7 +446,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                     <span class="bg-container">
                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                         <?php if ( $image ) { ?>
-                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                         <?php } ?>
                                                     </span>
                                                 </span>
@@ -519,7 +519,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                             <span class="bg-container">
                                                 <?php $image = get_sub_field( 'image' ); ?>
                                                 <?php if ( $image ) { ?>
-                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                 <?php } ?>
                                             </span>
                                         </span>
@@ -537,7 +537,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                                                 <span class="bg-container">
                                                     <?php $image = get_sub_field( 'image' ); ?>
                                                     <?php if ( $image ) { ?>
-                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                     <?php } ?>
                                                 </span>
                                             </span>
@@ -592,7 +592,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                     <?php $download = get_sub_field( 'download' ); ?>
                     <?php if ( $download ) { ?>  
                         <?php $downloadButtonText = get_field('request_download_button_text'); ?>  
-                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>                                       
+                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo esc_html( $downloadButtonText ); ?><?php } else { ?>Request to Download<?php } ?></a>                                       
                     <?php } ?>
                 <?php } ?>
                 <span class="published labelSmall text-dark-grey">
@@ -614,7 +614,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                             }
                         }?>
                         <?php if ( !empty( $postTopic ) ) { ?>
-                            <a href="/persona-insights/?persona=<?php echo $postTopic->slug; ?>" class="topic-filter red-text"><?php echo esc_html( $postTopic->name ); ?> Buyer Persona Profile</a>
+                            <a href="/persona-insights/?persona=<?php echo esc_attr( $postTopic->slug ); ?>" class="topic-filter red-text"><?php echo esc_html( $postTopic->name ); ?> Buyer Persona Profile</a>
                         <?php } ?>
                     </span>
                 <?php } else { ?>
@@ -652,8 +652,13 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                         }
 
                         // 4. Output (max 2 guaranteed)
-                        foreach ($topics as $topic) : ?>
-                            <a href="<?php echo esc_url(get_term_link($topic)); ?>" class="topic-filter red-text">
+                        foreach ($topics as $topic) :
+                            $topic_link = get_term_link( $topic );
+                            if ( is_wp_error( $topic_link ) ) {
+                                continue;
+                            }
+                        ?>
+                            <a href="<?php echo esc_url($topic_link); ?>" class="topic-filter red-text">
                                 <?php echo esc_html($topic->name); ?>
                             </a>
                         <?php endforeach; ?>
@@ -678,7 +683,10 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                     ?>
                     <?php if ( !empty( $postType ) ) { ?>
                         <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
-                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
+                        <?php $postType_link = get_term_link( $postType ); ?>
+                        <?php if ( ! is_wp_error( $postType_link ) ) : ?>
+                        <a href="<?php echo esc_url( $postType_link ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
+                        <?php endif; ?>
                     <?php } ?>
                 </span>
                 <?php } ?>            
@@ -734,7 +742,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                 </span>
                 <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  

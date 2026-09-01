@@ -4,6 +4,7 @@
  */
 
 get_header();
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable sector-listing URL; no state change results from reading it.
 $sector = $_GET['sector'];
 ?>
 
@@ -18,35 +19,36 @@ $sector = $_GET['sector'];
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
 	        <div class="container">
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/data-insights/sector-analysis/" target="_self">Sector Analysis</a>
 	            </span>
-	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'sector_title', $taxonomy_details )){ ?> (<?php echo get_field( 'sector_title', $taxonomy_details ); ?>)<?php } ?></h1>
+	            <h1><?php echo esc_html( $taxonomy_details->name ); ?><?php if(get_field( 'sector_title', $taxonomy_details )){ ?> (<?php echo esc_html( get_field( 'sector_title', $taxonomy_details ) ); ?>)<?php } ?></h1>
 	        </div>
 	    </section>
 	    <section class="portal postListing topicGrid sector-grid persona-grid subTopic sector-container">
 	        <div class="container">
 	            <div id="loop" class="gridWrapper">
 					<?php
-					$args = array(
+					$args = [
+	                    'no_found_rows'  => true,
 	                    'post_type'      => 'post',
 	                    'posts_per_page' => -1,
-	                    'tax_query'      => array(
+	                    'tax_query'      => [
 	                        'relation' => 'AND',
-	                        array (
+	                         [
 	                            'taxonomy' => 'filter-types',
 	                            'field' => 'slug',
 	                            'terms'    => 'data-insights'
-	                        ),
-	                        array(
+	                        ],
+	                        [
 	                            'taxonomy' => 'sector-analysis',
 	                            'field'    => 'slug',
 	                            'terms'    => $taxonomy_details->slug
-	                        )
-	                    ),
-	                );
+	                        ]
+	                    ],
+	                ];
 					?>
 					<?php $posts = new WP_Query( $args );
                     if( $posts->have_posts() ): ?>
@@ -79,17 +81,17 @@ $sector = $_GET['sector'];
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
-	                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
 	                                        <span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -125,9 +127,9 @@ $sector = $_GET['sector'];
 	                                            }
 	                                        }
 	                                    }?>
-	                                    <a href="/data-insights/sector-analysis/?sector=<?php echo $sector; ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
+	                                    <a href="/data-insights/sector-analysis/?sector=<?php echo esc_attr( $sector ); ?>" class="topicFilterText"><?php echo esc_html( $taxonomy_details->name ); ?></a>
 	                                    <?php if($postType){?>
-	                                        <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+	                                        <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 	                                    <?php } ?>
 	                                </span>
 	                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -141,7 +143,7 @@ $sector = $_GET['sector'];
 	                    <?php } ?>
 
 	                <?php endwhile; else : ?>
-	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 	                <?php endif; ?>
 
 	                <?php wp_reset_postdata(); wp_reset_query();?>
@@ -154,7 +156,7 @@ $sector = $_GET['sector'];
 	<?php if ( have_rows( 'banner' ) ) : ?>
 		<?php while ( have_rows( 'banner' ) ) : the_row(); ?>
 			<?php $banner_image = get_sub_field( 'banner_image' ); ?>
-			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo $banner_image['url']; ?>);">
+			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>);">
 				<div class="container">
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
@@ -164,7 +166,7 @@ $sector = $_GET['sector'];
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
+						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -177,12 +179,12 @@ $sector = $_GET['sector'];
 		<section class="explore-section persona-explore-section">
 			<div class="container">
 				<?php while ( have_rows( 'filter_buttons' ) ) : the_row(); ?>
-					<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
+					<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 					<div class="button-container">
 						<?php $sectors_terms = get_sub_field( 'sectors' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/data-insights/sector-analysis/?sector=<?php echo $sectors_term->slug; ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'sector_title', $sectors_term )){ ?> (<?php echo get_field( 'sector_title', $sectors_term ); ?>)<?php } ?></a>
+								<a class="sector-button button grey-button" href="/data-insights/sector-analysis/?sector=<?php echo esc_attr( $sectors_term->slug ); ?>" target="_self"><strong><?php echo esc_html( $sectors_term->name ); ?></strong><?php if(get_field( 'sector_title', $sectors_term )){ ?> (<?php echo esc_html( get_field( 'sector_title', $sectors_term ) ); ?>)<?php } ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -220,14 +222,14 @@ $sector = $_GET['sector'];
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -250,7 +252,7 @@ $sector = $_GET['sector'];
 																				<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -280,7 +282,7 @@ $sector = $_GET['sector'];
 							                                    }?>
 							                                    <a href="/data-insights/sector-analysis/" class="topicFilterText">Sector Analysis</a>
 							                                    <?php if($postType){?>
-							                                        <a href="/data-insights/sector-analysis/?persona=<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+							                                        <a href="/data-insights/sector-analysis/?persona=<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 							                                    <?php } ?>
 							                                </span>
 							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
@@ -288,7 +290,7 @@ $sector = $_GET['sector'];
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
-																	   <?php echo get_sub_field( 'overview_text' ); ?>
+																	   <?php echo esc_html( get_sub_field( 'overview_text' ) ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
 												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
@@ -322,32 +324,33 @@ $sector = $_GET['sector'];
 		 <div class="container">
 			 <div id="loop" class="gridWrapper">
 				 <?php $term_m = 'sector-analysis';
-				  $terms = get_terms( $term_m, array(
+				  $terms = get_terms( [ 'taxonomy' => $term_m,
 					  'hide_empty' => false,
-				  ) );
+				  ] );
 
-				  $sectors = array();
+				  $sectors = [];
 				  foreach( $terms as $term){
 					  $sectors[] = $term->slug;
 				  } ?>
 				 <?php
-				 $args = array(
+				 $args = [
+					 'no_found_rows'  => true,
 					 'post_type'      => 'post',
 					 'posts_per_page' => -1,
-					 'tax_query'      => array(
+					 'tax_query'      => [
 						 'relation' => 'AND',
-						 array (
+						  [
 							 'taxonomy' => 'filter-types',
 							 'field' => 'slug',
 							 'terms'    => 'data-insights'
-						 ),
-						 array(
+						 ],
+						 [
 							 'taxonomy' => 'data-insights-subcategories',
 							 'field'    => 'slug',
 							 'terms'    => 'sector-analysis'							
-						 )
-					 ),
-				 );
+						 ]
+					 ],
+				 ];
 				 ?>
 				 <?php $posts = new WP_Query( $args );
 					if( $posts->have_posts() ): ?>
@@ -380,17 +383,17 @@ $sector = $_GET['sector'];
 												<?php // no rows found ?>
 											<?php endif; ?>
 										 <?php endwhile; ?>
-										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
-												 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
 										 <span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -426,9 +429,9 @@ $sector = $_GET['sector'];
 											 }
 										 }
 									 }?>
-									 <a href="/data-insights/sector-analysis/?sector=<?php echo $sector->slug; ?>" class="topicFilterText"><?php echo esc_html( $sector->name ); ?></a>
+									 <a href="/data-insights/sector-analysis/?sector=<?php echo esc_attr( $sector->slug ); ?>" class="topicFilterText"><?php echo esc_html( $sector->name ); ?></a>
 									 <?php if($postType){?>
-										 <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										 <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									 <?php } ?>
 								 </span>
 								 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
@@ -442,7 +445,7 @@ $sector = $_GET['sector'];
 					 <?php } ?>
 
 				 <?php endwhile; else : ?>
-					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 				 <?php endif; ?>
 
 				 <?php wp_reset_postdata(); wp_reset_query();?>

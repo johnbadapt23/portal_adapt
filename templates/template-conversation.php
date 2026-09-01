@@ -48,7 +48,7 @@ get_header();
 															<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -58,7 +58,7 @@ get_header();
 														<?php
 								$video_image_attach_id = attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
-									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -72,7 +72,7 @@ get_header();
 														<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -126,7 +126,10 @@ get_header();
 														<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 												<?php } ?>                                
 												<?php if($postTopic){?>
-													<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+													<?php $postTopic_link = get_term_link( $postTopic ); ?>
+													<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+													<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+													<?php endif; ?>
 												<?php } ?>
 											</span>
 											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -160,7 +163,7 @@ get_header();
 																						<?php
 								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
-									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -186,7 +189,7 @@ get_header();
 																						<?php
 								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
-									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -239,7 +242,10 @@ get_header();
 																					<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 																			<?php } ?>                                
 																			<?php if($postTopic){?>
-																				<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+																				<?php $postTopic_link = get_term_link( $postTopic ); ?>
+																				<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+																				<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+																				<?php endif; ?>
 																			<?php } ?>
 																		</span>
 																		<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php echo esc_html( get_the_title() ); ?></h2></a>
@@ -261,19 +267,19 @@ get_header();
 							<?php } else { ?>
 								<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 								<?php
-									$args = array(
+									$args = [
 										'post_type' => 'post',
 										'posts_per_page' => 4,
 										'paged'=> $paged,
-										'tax_query' => array(
+										'tax_query' => [
 											'relation' => 'AND',
-											array (
+											 [
 												'taxonomy' => 'filter-types',
 												'field' => 'slug',
 												'terms' => 'tnc',
-											)
-										)
-									);
+											]
+										]
+									];
 									$posts = new WP_Query( $args ); ?>
 									<?php if( $posts->have_posts() ): ?>
 										<?php $peerCounter = 1; ?>
@@ -293,7 +299,7 @@ get_header();
 																		<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -303,7 +309,7 @@ get_header();
 																	<?php
 								$video_image_attach_id = attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
-									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -317,7 +323,7 @@ get_header();
 																	<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -369,7 +375,10 @@ get_header();
 																	<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 															<?php } ?>                                
 															<?php if($postTopic){?>
-																<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+																<?php $postTopic_link = get_term_link( $postTopic ); ?>
+																<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+																<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+																<?php endif; ?>
 															<?php } ?>
 														</span>
 														<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -395,7 +404,7 @@ get_header();
 																			<?php
 								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
-									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -421,7 +430,7 @@ get_header();
 																			<?php
 								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
-									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -474,7 +483,10 @@ get_header();
 																		<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 																<?php } ?>                                
 																<?php if($postTopic){?>
-																	<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+																	<?php $postTopic_link = get_term_link( $postTopic ); ?>
+																	<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+																	<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+																	<?php endif; ?>
 																<?php } ?>
 															</span>
 															<a href="<?php the_permalink(); ?>" class="title text-black"><h2 class="title text-black labelLarge"><?php echo esc_html( get_the_title() ); ?></h2></a>
@@ -497,19 +509,19 @@ get_header();
 					<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 					<div class="container">
 						<div class="grid-wrapper" id="loop">
-							<?php $args = array(
+							<?php $args = [
 								'post_type' => 'post',
 								'posts_per_page' => 9,
 								'paged'=> $paged,
-								'tax_query' => array(
+								'tax_query' => [
 									'relation' => 'AND',
-									array (
+									 [
 										'taxonomy' => 'filter-types',
 										'field' => 'slug',
 										'terms' => 'tnc'
-									),
-								)
-							);
+									],
+								]
+							];
 							$posts = new WP_Query( $args ); ?>
 							<?php if( $posts->have_posts() ): ?>
 								<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -521,7 +533,7 @@ get_header();
 														<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -531,7 +543,7 @@ get_header();
 													<?php
 								$video_image_attach_id = attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
-									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -545,7 +557,7 @@ get_header();
 													<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -599,7 +611,10 @@ get_header();
 														<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
 												<?php } ?>                                
 												<?php if($postTopic){?>
-													<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+													<?php $postTopic_link = get_term_link( $postTopic ); ?>
+													<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+													<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+													<?php endif; ?>
 												<?php } ?>
 											</span>
 											<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -609,7 +624,7 @@ get_header();
 							<?php endif;?>
 						</div>
 						<div class="page-navi-container">
-							<?php wp_pagenavi( array( 'query' => $posts ) ); ?>
+							<?php wp_pagenavi( [ 'query' => $posts ] ); ?>
 								<?php wp_reset_postdata(); ?>
 							<?php wp_reset_query(); ?>
 						</div>
@@ -647,7 +662,7 @@ get_header();
 										<div class="bg-container">
 											<?php $image = get_sub_field( 'image' ); ?>
 											<?php if ( $image ) { ?>
-												<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+												<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 											<?php } ?>
 										</div>
 									</div>

@@ -5,11 +5,12 @@
 // either 0 or the total post count. fields => ids skips hydrating full
 // post objects for a query that has no result limit, and post_count
 // gives the same total directly, with no loop needed at all.
-$purchasedargs = array(
+$purchasedargs = [
+    'no_found_rows'  => true,
     'posts_per_page' => -1,
     'post_type' => 'kyc',
     'fields' => 'ids',
-);
+];
 $purchasedLoop = new WP_Query( $purchasedargs );
 $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
 ?>
@@ -30,17 +31,17 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                             <?php $buttonCounter = 1; ?>
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
-                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo esc_attr( get_sub_field( 'scroll_to_id' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } elseif(get_sub_field( 'link_type' ) == 'link')  { ?>
-                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?>
-                                    <?php if($counter <= 0){ ?> 
+                                    <?php if($counter <= 0){ ?>
                                         <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">
-                                            <a class="form-popup popup-modal" href="#talkform"><?php echo get_sub_field( 'form_button' ); ?></a>
+                                            <a class="form-popup popup-modal" href="#talkform"><?php echo esc_html( get_sub_field( 'form_button' ) ); ?></a>
                                         </span>
                                         <div class="formPopup talk-form mfp-hide" id="talkform">
 				                            <a class="popup-modal-dismiss"></a>
-                                            <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); ?></div>
+                                            <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored raw form-embed markup requires unescaped HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                         </div>
                                     <?php } ?>                                    
                                 <?php } ?>
@@ -59,11 +60,11 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                         <?php $image = get_sub_field('poster_image'); ?>
                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                         <?php if ( $poster_image ) { ?>
-                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                         <?php } ?>  
                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                             <span class="opacity-overlay"></span>
-                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                         <?php } ?>
                     </div>
                 </div> 

@@ -7,13 +7,14 @@ get_header();
 ?>
 
 <main id="main" role="main" class="events">
+<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET search param for a bookmarkable, shareable events-listing URL (method="get" form below); echoed only via esc_attr(). ?>
 <?php $keyword = $_GET['searchWords']; ?>
     <section class="postHeader post-events">
         <div class="container">
             <div class="headerWrapper">
-                <h1><?php echo get_field( 'events_listing_title_text', 'option' ); ?></h1>
+                <h1><?php echo esc_html( get_field( 'events_listing_title_text', 'option' ) ); ?></h1>
                 <span class="subTitle">
-                    <?php echo get_field( 'events_listing_sub_title', 'option' ); ?>
+                    <?php echo esc_html( get_field( 'events_listing_sub_title', 'option' ) ); ?>
                 </span>
             </div>
             <div class="filter">
@@ -21,19 +22,20 @@ get_header();
                     <form action="" name="insightsFilter" class="insightsFilter" method="get">
                         <span class="search">
                             <input class="searchInput" type="text" name="searchWords" id="search" <?php if ($keyword != ''){?> value="<?php echo esc_attr( $keyword ); ?>" <?php } else { ?>value=""<?php } ?> placeholder="<?php echo esc_attr( get_field( 'events_search_placeholder_text', 'option' ) ); ?>" />
-                            <input class="searchButton" type="image" alt="Search" src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" />
+                            <input class="searchButton" type="image" alt="Search" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" />
                         </span>
                         <span class="spacer"></span>
                         <span class="categories">
                             <span class="more">More</span>
                             <?php
                             $term_m = 'event-category';
+                            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
                             $filterCat = $_GET['categories'];
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <?php if ($term -> slug == 'private-events') { ?>
@@ -51,12 +53,13 @@ get_header();
                             <span class="title">Type</span>
                             <?php
                             $term_m = 'event-type';
+                            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
                             $filterType = $_GET['types'];
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <?php $image = get_field('icon', $term); ?>
@@ -71,12 +74,13 @@ get_header();
                             <span class="title">Duration</span>
                             <?php
                             $term_m = 'event-duration';
+                            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
                             $filterDuration = $_GET['duration'];
                             ?>
                             <?php
-                            $terms = get_terms( $term_m, array(
+                            $terms = get_terms( [ 'taxonomy' => $term_m,
                                 'hide_empty' => true,
-                            ) );
+                            ] );
                             ?>
                             <?php foreach($terms as $term) { ?>
                                 <span class="checkboxButton">
@@ -114,75 +118,75 @@ get_header();
 
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
                     if($keyword != '') {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             's' => $keyword,
                             'posts_per_page' => 9,
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
-                            'tax_query' => array(
-                                array(
+                            'tax_query' => [
+                                [
                                     'taxonomy' => 'event-category',
                                     'field' => 'slug',
                                     'terms' => 'private-events',
                                     'operator' => 'NOT IN',
-                                ),
+                                ],
                                 'relation' => '&'
-                            )
-                        );
+                            ]
+                        ];
                     } else {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             'posts_per_page' => 9,
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
-                            'tax_query' => array(
-                                array(
+                            'tax_query' => [
+                                [
                                     'taxonomy' => 'event-category',
                                     'field' => 'slug',
                                     'terms' => 'private-events',
                                     'operator' => 'NOT IN',
-                                ),
+                                ],
                                 'relation' => '&'
-                            )
-                        );
+                            ]
+                        ];
                     }
 
 
                     if($filterCat != '') {
                         foreach( $filterCat as $filter){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'event-category',
                                     'field' => 'slug',
                                     'terms' => $filter,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterType != '') {
                         foreach( $filterType as $type){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'event-type',
                                     'field' => 'slug',
                                     'terms' => $type,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
 
                     if($filterDuration != '') {
                         foreach( $filterDuration as $duration){
-                            array_push($args['tax_query'],array(
+                            array_push($args['tax_query'],[
                                     'taxonomy' => 'event-duration',
                                     'field' => 'slug',
                                     'terms' => $duration,
                                     'operator' => 'IN'
-                                )
+                                ]
                             );
                         }
                     }
@@ -192,11 +196,11 @@ get_header();
                     while ( $loop->have_posts() ) : $loop->the_post();
                 ?>
 
-                    <a href="<?php the_permalink(); ?>" class="postLink layout<?php echo $counter; ?>" target="_self">
+                    <a href="<?php the_permalink(); ?>" class="postLink layout<?php echo esc_attr( $counter ); ?>" target="_self">
                         <div class="linkWrapper">
 
                             <div class="imageContainer">
-                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                 </div>
                             </div>
                             <span class="blogText">
@@ -228,7 +232,7 @@ get_header();
                     </a>
                     <?php $counter++; ?>
                 <?php endwhile; else : ?>
-                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
                 <?php endif; ?>
 
                 <?php wp_reset_postdata(); wp_reset_query();?>
@@ -243,13 +247,13 @@ get_header();
 
             <div class="formTrigger">
                 <?php if ( get_field ( 'form_title', 'option' ) ) { ?>
-                    <h2><?php echo get_field( 'form_title', 'option' ); ?></h2>
+                    <h2><?php echo esc_html( get_field( 'form_title', 'option' ) ); ?></h2>
                 <?php } ?>
                 <?php if ( get_field ( 'form_subtitle', 'option' ) ) { ?>
-                    <h3><?php echo get_field( 'form_subtitle', 'option' ); ?></h3>
+                    <h3><?php echo esc_html( get_field( 'form_subtitle', 'option' ) ); ?></h3>
                 <?php } ?>
                 <?php if ( get_field ( 'call_to_action_text', 'option' ) ) { ?>
-                    <h4><?php echo get_field( 'call_to_action_text', 'option' ); ?></h4>
+                    <h4><?php echo esc_html( get_field( 'call_to_action_text', 'option' ) ); ?></h4>
                 <?php } ?>
 
                 <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>

@@ -10,7 +10,7 @@
             <?php if ( have_rows( 'button' ) ) : ?>
 				<?php while ( have_rows( 'button' ) ) : the_row(); ?>
                     <span class="button-container desktop">
-                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                     </span>														
 				<?php endwhile; ?>
 			<?php else : ?>
@@ -21,10 +21,11 @@
     </div>
         <?php $partner_type_id = get_sub_field( 'partner_type' ); ?>
         <?php 
-        $carousel_posts = array(); // Store all posts for output & width calculation
+        $carousel_posts = []; // Store all posts for output & width calculation
 
         // ---------- LOOP 1: Checked adapt_analyst ----------
-        $checked_args = array(
+        $checked_args = [
+            'no_found_rows'  => true,
             'post_type'      => 'partners',
             'posts_per_page' => -1,
             'tax_query'      => [[
@@ -34,7 +35,7 @@
             ]],
             'orderby' => 'menu_order',
             'order'   => 'ASC',
-        );
+        ];
 
         $checked_query = new WP_Query($checked_args);
         if ($checked_query->have_posts()):
@@ -52,7 +53,7 @@
         if ($speakers_count > 0): ?>
             <div class="carousel-wrapper" style="overflow: hidden;">
                 <div class="carousel-container" 
-                     style="width: <?php echo $carousel_width; ?>px; animation-duration: <?php echo $animation_duration; ?>s;">
+                     style="width: <?php echo esc_attr( $carousel_width ); ?>px; animation-duration: <?php echo esc_attr( $animation_duration ); ?>s;">
                         <?php foreach ($carousel_posts as $post) : ?>
                             <?php
                             setup_postdata($post);
@@ -69,7 +70,7 @@
             <?php if ( have_rows( 'button' ) ) : ?>
 				<?php while ( have_rows( 'button' ) ) : the_row(); ?>
                     <span class="button-container mobile">
-                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                        <a class="std-button red-button small-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                     </span>														
 				<?php endwhile; ?>
 			<?php else : ?>

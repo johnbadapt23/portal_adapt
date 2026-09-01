@@ -5,12 +5,14 @@
 
 get_header();
 global $membershipType;
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter params for a bookmarkable, shareable listing URL; each value is sanitized via sanitize_text_field()/wp_unslash() before use, no state change.
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $sectors = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
 $event = isset($_GET['eventType']) ? sanitize_text_field(wp_unslash($_GET['eventType'])) : '';
 $themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 ?>
 
 
@@ -34,10 +36,26 @@ if ($membershipType === 'it-pro') {
     $researchLink = $researchLinkAdv;
 } ?>
 
+<?php
+// Rendered here (before the filter dropdowns below) rather than inline in
+// the Results section further down, so adapt_render_filter_posts()'s
+// visible-terms data is available in time to bake empty-filter dimming
+// directly into the dropdown buttons, and so the active-filter pills
+// reflect the exact same state instead of relying on main.js reading it
+// back out of the DOM after the fact (see buildActiveFilterPills() /
+// hideEmptyFilters() in main.js - both are now first-paint no-ops here).
+$active_filter_pills = [];
+ob_start();
+adapt_render_filter_posts();
+$posts_container_html = ob_get_clean();
+wp_reset_postdata();
+$adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
+?>
+
 <section class="title-banner filter-title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo get_field( 'title' ); ?></h1>
-        <p><?php echo get_field( 'subtitle' ); ?></p>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_field( 'title' ) ); ?></h1>
+        <p><?php echo esc_html( get_field( 'subtitle' ) ); ?></p>
     </div>
 </section>
 
@@ -165,8 +183,14 @@ if ($membershipType === 'it-pro') {
                 <div class="dropdown-list">
                     <?php $all_value = !empty($allowed_events_slugs) ? wp_json_encode($allowed_events_slugs) : '[]'; ?>
                     <a href="#" class="filter-button all <?= empty($event) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All Edge Events</a>
-                    <?php foreach($events_terms as $term) : ?>
-                        <a href="#" class="filter-button <?= ($term->slug === ($event ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                    <?php foreach($events_terms as $term) :
+                        $is_active = ($term->slug === ($event ?? ''));
+                        if ($is_active) {
+                            $active_filter_pills[] = ['filter' => 'event', 'label' => $term->name];
+                        }
+                        $is_visible = in_array($term->slug, $adapt_visible_terms['insights-event'] ?? [], true);
+                    ?>
+                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -178,8 +202,14 @@ if ($membershipType === 'it-pro') {
                 <div class="dropdown-list">
                     <?php $all_value = !empty($allowed_topic_slugs) ? wp_json_encode($allowed_topic_slugs) : '[]'; ?>
                     <a href="#" class="filter-button all <?= empty($topic) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                    <?php foreach($topic_terms as $term) : ?>
-                        <a href="#" class="filter-button <?= ($term->slug === ($topic ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                    <?php foreach($topic_terms as $term) :
+                        $is_active = ($term->slug === ($topic ?? ''));
+                        if ($is_active) {
+                            $active_filter_pills[] = ['filter' => 'topic', 'label' => $term->name];
+                        }
+                        $is_visible = in_array($term->slug, $adapt_visible_terms['topic'] ?? [], true);
+                    ?>
+                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -190,8 +220,14 @@ if ($membershipType === 'it-pro') {
                 <div class="dropdown-list">
                     <?php $all_value = !empty($allowed_type_slugs) ? wp_json_encode($allowed_type_slugs) : '[]'; ?>
                     <a href="#" class="filter-button all <?= empty($type) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                    <?php foreach($type_terms as $term) : ?>
-                        <a href="#" class="filter-button <?= ($term->slug === ($type ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                    <?php foreach($type_terms as $term) :
+                        $is_active = ($term->slug === ($type ?? ''));
+                        if ($is_active) {
+                            $active_filter_pills[] = ['filter' => 'type', 'label' => $term->name];
+                        }
+                        $is_visible = in_array($term->slug, $adapt_visible_terms['filter-types'] ?? [], true);
+                    ?>
+                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -203,8 +239,14 @@ if ($membershipType === 'it-pro') {
                 <div class="dropdown-list">
                     <?php $all_value = !empty($allowed_persona_slugs) ? wp_json_encode($allowed_persona_slugs) : '[]'; ?>
                     <a href="#" class="filter-button all <?= empty($persona) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                    <?php foreach ($persona_terms as $term) : ?>
-                        <a href="#" class="filter-button <?= ($term->slug === ($persona ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                    <?php foreach ($persona_terms as $term) :
+                        $is_active = ($term->slug === ($persona ?? ''));
+                        if ($is_active) {
+                            $active_filter_pills[] = ['filter' => 'persona', 'label' => $term->name];
+                        }
+                        $is_visible = in_array($term->slug, $adapt_visible_terms['persona-mapping'] ?? [], true);
+                    ?>
+                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -213,12 +255,26 @@ if ($membershipType === 'it-pro') {
             <!-- Sectors -->
             <?php if(!empty($sector_terms)) : ?>
             <div class="filter-dropdown" data-filter="sector" data-allowed='<?= esc_attr(wp_json_encode($allowed_sector_slugs)); ?>'>
-                <span class="dropdown-title <?= !empty($sector) ? 'filter-active' : ''; ?>">Sectors</span>
+                <?php
+                // $sectors (not $sector - nothing sets that name) holds the
+                // sanitized $_GET['sector'] value parsed at the top of this
+                // file; using the undefined $sector here meant a bookmarked
+                // ?sector=slug URL never marked the right button active (and
+                // "All" was *always* considered active, since empty() on an
+                // undefined variable is true).
+                ?>
+                <span class="dropdown-title <?= !empty($sectors) ? 'filter-active' : ''; ?>">Sectors</span>
                 <div class="dropdown-list">
                     <?php $all_value = !empty($allowed_sector_slugs) ? wp_json_encode($allowed_sector_slugs) : '[]'; ?>
-                    <a href="#" class="filter-button all <?= empty($sector) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                    <?php foreach($sector_terms as $term) : ?>
-                        <a href="#" class="filter-button <?= ($term->slug === ($sector ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                    <a href="#" class="filter-button all <?= empty($sectors) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
+                    <?php foreach($sector_terms as $term) :
+                        $is_active = ($term->slug === ($sectors ?? ''));
+                        if ($is_active) {
+                            $active_filter_pills[] = ['filter' => 'sector', 'label' => $term->name];
+                        }
+                        $is_visible = in_array($term->slug, $adapt_visible_terms['sector-analysis'] ?? [], true);
+                    ?>
+                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -231,8 +287,14 @@ if ($membershipType === 'it-pro') {
                 <div class="dropdown-list">
                     <?php $all_value = !empty($allowed_trend_slugs) ? wp_json_encode($allowed_trend_slugs) : '[]'; ?>
                     <a href="#" class="filter-button all <?= empty($themes) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                    <?php foreach($trending_terms as $term) : ?>
-                        <a href="#" class="filter-button <?= ($term->slug === ($themes ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                    <?php foreach($trending_terms as $term) :
+                        $is_active = ($term->slug === ($themes ?? ''));
+                        if ($is_active) {
+                            $active_filter_pills[] = ['filter' => 'trending-themes', 'label' => $term->name];
+                        }
+                        $is_visible = in_array($term->slug, $adapt_visible_terms['trending-themes'] ?? [], true);
+                    ?>
+                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -253,7 +315,7 @@ if ($membershipType === 'it-pro') {
             <div class="filter-search">
                 <form class="post-search-form">
                     <input type="text" class="post-search-input" placeholder="<?php echo esc_attr( get_field('search_help_text') ); ?>">
-                    <input type="image" class="post-search-submit" src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" alt="Search">
+                    <input type="image" class="post-search-submit" src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" alt="Search">
                 </form>
                 <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
             </div>
@@ -263,6 +325,16 @@ if ($membershipType === 'it-pro') {
 
 
 
+    <?php
+        // Built from the active-state each dropdown loop above already
+        // computed, so the pills can never disagree with which buttons are
+        // shown as active.
+        $pills_html = '';
+        foreach ($active_filter_pills as $pill) {
+            $pills_html .= '<button type="button" class="filter-pill" data-filter="' . esc_attr($pill['filter']) . '"><span>' . esc_html($pill['label']) . '</span><span class="pill-close">&times;</span></button>';
+        }
+    ?>
+    <script>window.adaptFilterUIServerRendered = true;</script>
     <!-- Results -->
     <div class="container">
         <div class="whats-new-container-outer">
@@ -270,7 +342,7 @@ if ($membershipType === 'it-pro') {
                 <div class="sort-pills-container">
                     <div class="results-container">
                         <span class="search-results-label" style="display:none;"></span>
-                        <div class="active-filter-pills" style="display:none;"></div>
+                        <div class="active-filter-pills"<?= empty($active_filter_pills) ? ' style="display:none;"' : ''; ?>><?= $pills_html; ?></div>
                     </div>
                     <div class="sort-dropdown<?php if ($membershipType === 'advantage') { ?> hide<?php } ?>">
                         <div class="filter-dropdown" data-filter="sort" data-allowed="[]">
@@ -293,11 +365,11 @@ if ($membershipType === 'it-pro') {
                     </div>
                 </div>
                 <div class="ajax-loader" style="display: none;">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40"
                      id="posts-container">
-                    <?php adapt_render_filter_posts(); ?>
+                    <?= $posts_container_html; ?>
                     </div>
 
                 <div class="page-navi-container post-pagination-container">

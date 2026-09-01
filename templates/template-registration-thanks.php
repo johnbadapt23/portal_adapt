@@ -19,7 +19,7 @@ $first_name = $user_info->first_name;
 			<div class="login-header-logo">
 				<?php $header_logo = get_field( 'registration_header_logo', 'option' ); ?>
 				<?php if ( $header_logo ) { ?>
-					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, array( 'alt' => $header_logo['alt'], 'width' => '360', 'height' => '20' ) ); ?>
+					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, [ 'alt' => $header_logo['alt'], 'width' => '360', 'height' => '20' ] ); ?>
 				<?php } ?>
 			</div>
 		</div>
@@ -33,7 +33,7 @@ $first_name = $user_info->first_name;
 			<div class="login-container-inner register-container-inner">
 				<div class="login-form-container">
 					<span class="form">
-						<h3>Thanks <?php echo $first_name; ?>, you're all set</h3>
+						<h3>Thanks <?php echo esc_html( $first_name ); ?>, you're all set</h3>
 						<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			                <?php the_content(); ?>
 			            <?php endwhile; endif;  ?>

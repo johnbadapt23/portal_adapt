@@ -3,14 +3,14 @@
         <section class="full-suite-slider-module background-true-black">
             <div class="container">
                 <div class="title-container">
-                    <h2 class="white-text"><?php echo get_sub_field( 'title' ); ?></h2>
-                    <span class="p-small text dark-grey-text"><?php echo get_sub_field( 'text' ); ?></p>
+                    <h2 class="white-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                    <span class="p-small text dark-grey-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                 </div>
                 <div class="slider-outer">
                     <?php if ( have_rows( 'slides' ) ) : ?>
                         <span class="slide-link-container">
                             <?php while ( have_rows( 'slides' ) ) : the_row(); ?>
-                                <a class="slide-link" href="#"><?php echo get_sub_field( 'slide_link_title' ); ?></a>
+                                <a class="slide-link" href="#"><?php echo esc_html( get_sub_field( 'slide_link_title' ) ); ?></a>
                             <?php endwhile; ?>
                         </span>
                     <?php else : ?>
@@ -20,16 +20,16 @@
                             <?php while ( have_rows( 'slides' ) ) : the_row(); ?>
                                 <div class="full-suite-slide">
                                     <div class="column one-half text-column">
-                                        <h3 class="white-text labelXXL"><?php echo get_sub_field( 'title' ); ?></h3>
+                                        <h3 class="white-text labelXXL"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
                                         <span class="image-container hide-desktop">
                                             <span class="bg-container">
                                                 <?php $image = get_sub_field( 'image' ); ?>
                                                 <?php if ( $image ) { ?>
-                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                 <?php } ?>
                                             </span>
                                         </span>
-                                        <p class="p-xsmall"><?php echo get_sub_field( 'text' ); ?></p>
+                                        <p class="p-xsmall"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
                                         <?php if (get_sub_field( 'link' )) { ?>
                                             <a class="red-text red-underline-link red-arrow external-link text-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Learn more</a>
                                         <?php } ?>
@@ -39,7 +39,7 @@
                                             <span class="bg-container">
                                                 <?php $image = get_sub_field( 'image' ); ?>
                                                 <?php if ( $image ) { ?>
-                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                    <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                 <?php } ?>
                                             </span>
                                         </span>

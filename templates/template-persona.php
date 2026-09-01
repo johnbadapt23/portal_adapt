@@ -11,7 +11,7 @@ get_header();
 	<?php if ( have_rows( 'banner' ) ) : ?>
 		<?php while ( have_rows( 'banner' ) ) : the_row(); ?>
 			<?php $banner_image = get_sub_field( 'banner_image' ); ?>
-			<section class="topicBanner persona-mapping-banner sector-topic-banner" style="background-image:url(<?php echo $banner_image['url']; ?>);">
+			<section class="topicBanner persona-mapping-banner sector-topic-banner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>);">
 				<div class="container">
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
@@ -19,7 +19,7 @@ get_header();
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
+						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -32,25 +32,30 @@ get_header();
 		<div class="container">
 			<?php if ( have_rows( 'filter_buttons' ) ) : ?>
 				<?php while ( have_rows( 'filter_buttons' ) ) : the_row(); ?>
-					<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
+					<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 					<div class="persona-button-container">
 						<?php $persona_terms = get_sub_field( 'personas' ); ?>
 						<?php if ( $persona_terms ): ?>
-							<?php foreach ( $persona_terms as $persona_term ): ?>
-								<a class="persona-button" href="<?php echo esc_url( get_term_link($persona_term) ); ?>" target="_self">
+							<?php foreach ( $persona_terms as $persona_term ):
+								$persona_term_link = get_term_link( $persona_term );
+								if ( is_wp_error( $persona_term_link ) ) {
+									continue;
+								}
+							?>
+								<a class="persona-button" href="<?php echo esc_url( $persona_term_link ); ?>" target="_self">
 									<span class="persona-button-inner">
 										<span class="persona-text-container">
 											<span class="v-wrap">
 												<span class="v-box">
 													<span class="persona-name"><?php echo esc_html( $persona_term->name ); ?></span>
-													<span class="persona-full-name"><?php echo get_field( 'persona_title', $persona_term ); ?></span>
+													<span class="persona-full-name"><?php echo esc_html( get_field( 'persona_title', $persona_term ) ); ?></span>
 												</span>
 											</span>
 										</span>
 										<span class="persona-image-container">
 											<?php $persona_icon = get_field( 'persona_icon', $persona_term ); ?>
 											<?php if ( $persona_icon ) { ?>
-												<?php echo wp_get_attachment_image( $persona_icon['ID'], 'full', false, array( 'alt' => $persona_icon['alt'] ) ); ?>
+												<?php echo wp_get_attachment_image( $persona_icon['ID'], 'full', false, [ 'alt' => $persona_icon['alt'] ] ); ?>
 											<?php } ?>
 										</span>
 									</span>
@@ -100,12 +105,12 @@ get_header();
 											   <?php // no rows found ?>
 										   <?php endif; ?>
 										<?php endwhile; ?>
-										<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 									<?php else : ?>
 										<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -139,14 +144,17 @@ get_header();
 										}
 									}?>
 									<?php if($postTopic){?>
-										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+										<?php $postTopic_link = get_term_link( $postTopic ); ?>
+										<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+										<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+										<?php endif; ?>
 									<?php } ?>
 									<?php if($postType){?>
-											<a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+											<a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 									<?php } ?>
 								</span>
 								<a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
-								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
 								<span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
 								<a href="<?php the_permalink(); ?>" class="read-more">Read more</a>
 							</div>
@@ -169,25 +177,25 @@ get_header();
 				<?php
 					// Get all term ID's in a given taxonomy
 					$taxonomy = 'persona-mapping';
-					$taxonomy_terms = get_terms( $taxonomy, array(
+					$taxonomy_terms = get_terms( [ 'taxonomy' => $taxonomy,
 					    'hide_empty' => 0,
 					    'fields' => 'ids'
-					) );
+					] );
 				?>
 				<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-	            <?php $args = array(
+	            <?php $args = [
 	                'post_type' => 'post',
 	                'posts_per_page' => -1,
 	                'paged'=> $paged,
-					'tax_query' => array(
-				        array(
+					'tax_query' => [
+				        [
 				            'taxonomy' => $taxonomy,
 				            'field' => 'id',
 				            'terms' => $taxonomy_terms,
-				        ),
-				    ),
+				        ],
+				    ],
 
-	            ); ?>
+	            ]; ?>
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -218,12 +226,12 @@ get_header();
                                                <?php // no rows found ?>
                                            <?php endif; ?>
                                         <?php endwhile; ?>
-                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
                                     <?php else : ?>
                                         <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -257,14 +265,17 @@ get_header();
                                         }
                                     }?>
 									<?php if($postTopic){?>
-                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topicFilterText"><?php echo esc_html( $postTopic->name ); ?></a>
+                                        <?php endif; ?>
                                     <?php } ?>
                                     <?php if($postType){?>
-                                            <a href="/filter-types/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+                                            <a href="/filter-types/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
                                     <?php } ?>
                                 </span>
                                 <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title() ); ?></a>
-								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo get_field('read_time'); ?><?php } ?></span>
+								<span class="dateReadTime"><span class="dateRead"><?php echo esc_html( get_the_date('M j, Y') ); ?>  </span><?php if (get_field( 'read_time' )) { ?>| <?php echo esc_html( get_field('read_time') ); ?><?php } ?></span>
                                 <span class="excerpt"><?php echo esc_html( wp_trim_words( get_the_excerpt(), 25, '...' ) );?></span>
                             </div>
                         </div>
@@ -273,7 +284,7 @@ get_header();
                     <?php } ?>
 
                 <?php endwhile; else : ?>
-                	<h3><?php esc_html_e( 'Sorry, no results found.' ); ?></h3>
+                	<h3><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h3>
                 <?php endif; ?>
 
                 <?php wp_reset_postdata(); wp_reset_query();?>

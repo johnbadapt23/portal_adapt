@@ -28,14 +28,14 @@
                     <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="' . esc_attr( get_the_title() ) . '" />';
 								}
 							?>
                 </div>
                 <?php if ( get_field ( 'image_caption' )) { ?>
-                    <div class="caption"><?php echo get_field ( 'image_caption' ); ?></div>
+                    <div class="caption"><?php echo esc_html( get_field ( 'image_caption' ) ); ?></div>
                 <?php } ?>
             </div>
             <div class="textContainer test">                
@@ -86,13 +86,13 @@
                     
                     <?php if ( $download ) { ?>  
                         <?php $downloadButtonText = get_field('request_download_button_text'); ?>  
-                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>                                       
+                        <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo esc_html( $downloadButtonText ); ?><?php } else { ?>Request to Download<?php } ?></a>                                       
                         <?php $noMargin = 'no'; ?>
                     <?php } else { ?> 
                         <?php if ( have_rows( 'download_link' ) ) : ?>
                             <?php $downloadButtonText = get_field('request_download_button_text'); ?> 
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo $downloadButtonText; ?><?php } else { ?>Request to Download<?php } ?></a>      
+                                <a class="download button red-button disabled-button locked-request" href="#requestdownload"><?php if($downloadButtonText){ ?><?php echo esc_html( $downloadButtonText ); ?><?php } else { ?>Request to Download<?php } ?></a>      
                                 <?php $noMargin = 'no'; ?>                                 
                             <?php endwhile; ?>                            
                         <?php else : ?>
@@ -139,8 +139,13 @@
                         }
 
                         // 4. Output (max 2 guaranteed)
-                        foreach ($topics as $topic) : ?>
-                            <a href="<?php echo esc_url(get_term_link($topic)); ?>" class="topic-filter red-text">
+                        foreach ($topics as $topic) :
+                            $topic_link = get_term_link( $topic );
+                            if ( is_wp_error( $topic_link ) ) {
+                                continue;
+                            }
+                        ?>
+                            <a href="<?php echo esc_url($topic_link); ?>" class="topic-filter red-text">
                                 <?php echo esc_html($topic->name); ?>
                             </a>
                         <?php endforeach; ?>
@@ -158,7 +163,10 @@
                         }?>
                     <?php if ( !empty( $postType ) ) { ?>
                         <span class="published labelSmall text-dark-grey tytpe-label">Type</span>
-                        <a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
+                        <?php $postType_link = get_term_link( $postType ); ?>
+                        <?php if ( ! is_wp_error( $postType_link ) ) : ?>
+                        <a href="<?php echo esc_url( $postType_link ); ?>" class="topic-filter red-text"><?php echo esc_html( $postType->name ); ?> </a>
+                        <?php endif; ?>
                     <?php } ?>
                 </span>
 
@@ -214,7 +222,7 @@
                 </span>
                  <?php if($advantagePlus == "no"){ ?>
                     <span class="shareArticle">
-                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php echo the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
+                        <a class="emailShare" href="mailto:?&subject=<?php echo esc_html( get_the_title() ); ?>&body=<?php the_permalink(); ?>" target="_blank" rel="noopener noreferrer">
                             <?php if($advantageType == 'yes'){ ?>SHARE WITH A COLLEAGUE<?php } else { ?>SHARE THIS ARTICLE<?php } ?>	
                         </a>
                     </span>  

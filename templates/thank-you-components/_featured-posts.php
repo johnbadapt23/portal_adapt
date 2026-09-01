@@ -6,7 +6,7 @@
 				<?php $arrow_image = get_sub_field( 'arrow_image' ); ?>
 				<?php if ( $arrow_image ) { ?>
 					<span class="arrow-container">
-						<?php echo wp_get_attachment_image( $arrow_image['ID'], 'full', false, array( 'alt' => $arrow_image['alt'] ) ); ?>
+						<?php echo wp_get_attachment_image( $arrow_image['ID'], 'full', false, [ 'alt' => $arrow_image['alt'] ] ); ?>
 					</span>
 				<?php } ?>
             </div>
@@ -16,19 +16,19 @@
 
                 <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
                 <?php
-                $args = array(
+                $args = [
                     'post_type' => 'post',
                     'posts_per_page' => 4,
                     'paged'=> $paged,
-                    'tax_query' => array(
+                    'tax_query' => [
                         'relation' => 'AND',
-                        array (
+                         [
                             'taxonomy' => 'filter-types',
                             'field' => 'slug',
                             'terms'    => 'tnc'
-                        )
-                    )
-                );
+                        ]
+                    ]
+                ];
 
                 $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
@@ -51,7 +51,7 @@
                                                         <?php
 								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
-									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -60,7 +60,7 @@
                                                     <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                         <span class="opacity-overlay"></span>
                                                     <?php } ?>
-                                                    <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                    <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                     <?php if ($video_link){ ?>
                                                         <span class="video-button">
                                                         </span>
@@ -77,7 +77,7 @@
                                                         <?php
 								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
-									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -103,7 +103,10 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php endif; ?>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -132,7 +135,7 @@
                                                     <?php
 								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
-									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -141,7 +144,7 @@
                                                 <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                     <span class="opacity-overlay"></span>
                                                 <?php } ?>
-                                                <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                 <?php if ($video_link){ ?>
                                                     <span class="video-button">
                                                     </span>
@@ -158,7 +161,7 @@
                                                     <?php
 								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
-									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -182,7 +185,10 @@
                                             }
                                         }?>
                                         <?php if($postTopic){?>
-                                            <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                            <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                            <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                            <?php endif; ?>
                                         <?php } ?>
                                     </span>
                                     <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -221,7 +227,7 @@
                                                             <?php
 								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
-									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -230,7 +236,7 @@
                                                         <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                             <span class="opacity-overlay"></span>
                                                         <?php } ?>
-                                                        <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                        <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                         <?php if ($video_link){ ?>
                                                             <span class="video-button">
                                                             </span>
@@ -247,7 +253,7 @@
                                                             <?php
 								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
-									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -273,7 +279,10 @@
                                                     }
                                                 }?>
                                                 <?php if($postTopic){?>
-                                                    <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                    <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                    <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                    <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                    <?php endif; ?>
                                                 <?php } ?>
                                             </span>
                                             <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -302,7 +311,7 @@
                                                         <?php
 								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
-									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $video_poster_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -311,7 +320,7 @@
                                                     <?php if ( get_field( 'video_opacity_overlay' ) == 'overlay-opacity') { ?>
                                                         <span class="opacity-overlay"></span>
                                                     <?php } ?>
-                                                    <span class="video-play-time"><?php echo get_field( 'video_time' ); ?></span>
+                                                    <span class="video-play-time"><?php echo esc_html( get_field( 'video_time' ) ); ?></span>
                                                     <?php if ($video_link){ ?>
                                                         <span class="video-button">
                                                         </span>
@@ -328,7 +337,7 @@
                                                         <?php
 								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
-									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $featured_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -352,7 +361,10 @@
                                                 }
                                             }?>
                                             <?php if($postTopic){?>
-                                                <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text">/ <?php echo $postTopic->name; ?></a>
+                                                <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                                                <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                                                <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+                                                <?php endif; ?>
                                             <?php } ?>
                                         </span>
                                         <a href="<?php the_permalink(); ?>" class="title label-XXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>

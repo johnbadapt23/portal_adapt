@@ -11,8 +11,8 @@ get_header();
 	<section class="filter-title-block ">
 		<div class="container">
 			<div class="title-container">
-				<h1 class="type-title text-black"><?php echo get_field( 'next_conversation_title', 'options' ); ?></h1>
-				<span class="type-description text-black"><?php echo get_field( 'next_conversation_text', 'options' ); ?></span>
+				<h1 class="type-title text-black"><?php echo esc_html( get_field( 'next_conversation_title', 'options' ) ); ?></h1>
+				<span class="type-description text-black"><?php echo esc_html( get_field( 'next_conversation_text', 'options' ) ); ?></span>
 			</div>
 			<div class="topic-button-container-outer">
 				<div class="topic-button-container filter-button-container">
@@ -27,24 +27,24 @@ get_header();
 		<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 		<div class="container">
 			<div class="grid-wrapper" id="loop">
-				<?php $args = array(
+				<?php $args = [
 					'post_type' => 'post',
 					'posts_per_page' => 9,
 					'paged'=> $paged,
-					'tax_query' => array(
+					'tax_query' => [
 						'relation' => 'AND',
-						array (
+						 [
 							'taxonomy' => 'filter-types',
 							'field' => 'slug',
 							'terms' => 'tnc'
-						),
-						array (
+						],
+						 [
 							'taxonomy' => 'sector-analysis',
 							'field' => 'id', 
-							'terms' => get_terms('sector-analysis', array('fields' => 'ids'))
-						),
-					)
-				);
+							'terms' => get_terms(['taxonomy' => 'sector-analysis', 'fields' => 'ids'])
+						],
+					]
+				];
 				$posts = new WP_Query( $args ); ?>
 				<?php if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
@@ -56,7 +56,7 @@ get_header();
 											<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -66,7 +66,7 @@ get_header();
 										<?php
 								$video_image_attach_id = attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
-									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $video_image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -80,7 +80,7 @@ get_header();
 										<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -115,10 +115,13 @@ get_header();
 									}?>
 									
 									<?php if($postSector){?>
-											<a href="/data-insights/sector-analysis/<?php echo $postSector->slug; ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
-									<?php } ?>                                
+											<a href="/data-insights/sector-analysis/<?php echo esc_attr( $postSector->slug ); ?>" class="topic-filter-text text-black black-tex"><?php echo esc_html( $postSector->name ); ?></a>
+									<?php } ?>
 									<?php if($postTopic){?>
-										<a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-black black-text">/ <?php echo $postTopic->name; ?></a>
+										<?php $postTopic_link = get_term_link( $postTopic ); ?>
+										<?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+										<a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-black black-text">/ <?php echo esc_html( $postTopic->name ); ?></a>
+										<?php endif; ?>
 									<?php } ?>
 								</span>
 								<a href="<?php the_permalink(); ?>" class="title labelXLarge text-black"><?php echo esc_html( get_the_title() ); ?></a>
@@ -128,7 +131,7 @@ get_header();
 				<?php endif;?>
 			</div>
 			<div class="page-navi-container">
-				<?php wp_pagenavi( array( 'query' => $posts ) ); ?>
+				<?php wp_pagenavi( [ 'query' => $posts ] ); ?>
 					<?php wp_reset_postdata(); ?>
 				<?php wp_reset_query(); ?>
 			</div>

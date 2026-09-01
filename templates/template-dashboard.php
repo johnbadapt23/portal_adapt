@@ -5,13 +5,13 @@ if ( 0 == $current_user->ID ) {
     exit;
 } ?>
 <?php $banner_image = get_field( 'dashboard_banner_image', 'options'); ?>
-    <section class="eventsBanner topicBanner dashboardBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+    <section class="eventsBanner topicBanner dashboardBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
         <div class="container">
             <span class="bannerBreadcrumbs">
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><span class="breadcrumb">Interactive Dashboards</span></a>
             </span>
-            <h1><?php echo get_field( 'dashboards_title', 'options' ); ?></h1>
-            <p><?php echo get_field( 'dashboards_sub_title', 'options' ); ?></p>
+            <h1><?php echo esc_html( get_field( 'dashboards_title', 'options' ) ); ?></h1>
+            <p><?php echo esc_html( get_field( 'dashboards_sub_title', 'options' ) ); ?></p>
         </div>
     </section>
 
@@ -21,13 +21,13 @@ if ( 0 == $current_user->ID ) {
                 <?php $counter = -1; ?>
                 <?php
                     $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                    $args = array(
+                    $args = [
                         'post_type' => 'dashboard',
                         'posts_per_page' => -1,
                         'paged'=> $paged ,
                         'orderby'=> 'menu_order',
                         'order'=> 'ASC'
-                    );
+                    ];
 
                     $loop = new WP_Query( $args );
                     if ( $loop->have_posts() ) :
@@ -42,13 +42,13 @@ if ( 0 == $current_user->ID ) {
                                     </span>
                                 </span>
                                 <div class="imageContainer">
-                                    <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                     </div>
                                 </div>
                                 <span class="blogText">
                                     <span class="bottom">
                                         <span class="excerpt">
-                                            <?php echo get_field('short_description_for_listing'); ?>
+                                            <?php echo esc_html( get_field('short_description_for_listing') ); ?>
                                         </span>
                                         <span class="viewAll">Learn More</span>
                                     </span>
@@ -59,7 +59,7 @@ if ( 0 == $current_user->ID ) {
                     <?php } ?>
 
                 <?php endwhile; else : ?>
-                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
                 <?php endif; ?>
 
                 <?php wp_reset_postdata(); wp_reset_query();?>

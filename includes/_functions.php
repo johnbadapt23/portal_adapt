@@ -12,7 +12,7 @@ function current_url() {
 	// custom_add_parent_url_menu_class()'s strstr() comparison against
 	// menu item URLs (those are saved as https:// via home_url()), so
 	// the "active" class never matched absolute-URL menu items.
-	$is_standard_port = in_array( $_SERVER['SERVER_PORT'], array( '80', '443' ), true );
+	$is_standard_port = in_array( $_SERVER['SERVER_PORT'], [ '80', '443' ], true );
 	$url  = is_ssl() ? 'https://' : 'http://';
 	$url .= $_SERVER['SERVER_NAME'];
 	$url .= $is_standard_port ? '' : ':' . $_SERVER['SERVER_PORT'];
@@ -85,7 +85,7 @@ function updateQueryString($key, $value){
 
 // redirect page
 function redirectPage($url){
-	echo '<script type="text/javascript">window.location = "' . $url . '"</script>';
+	echo '<script type="text/javascript">window.location = "' . esc_js( esc_url( $url ) ) . '"</script>';
 }
 
 // Shared by the persona/sector/topic/post filter templates: returns the

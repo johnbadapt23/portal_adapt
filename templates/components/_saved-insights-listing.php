@@ -9,10 +9,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -27,10 +27,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -45,10 +45,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -63,10 +63,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -81,10 +81,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -99,10 +99,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -117,10 +117,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">
@@ -135,10 +135,10 @@
                 <a href="<?php the_permalink(); ?>" class="imageSizeContainer">
                     <div class="bgContainer">
                         <?php $image = get_sub_field('background_image'); ?>
-                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'], 'class' => 'desktop' ) ); ?>
+                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'], 'class' => 'desktop' ] ); ?>
                     </div>
                     <span class="removePost">
-                        <img class="bin" src="<?php echo get_template_directory_uri(); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
+                        <img class="bin" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/bin.svg" width="10" height="13" loading="lazy" decoding="async" alt="Remove Post" />
                     </span>
                 </a>
                 <div class="textContainer">

@@ -20,7 +20,8 @@ function custom_theme_pagination() {
 		 } else {
 			 $format = '&paged=%#%';
 		 }
-		echo '<span class="current">PAGE </span>' . paginate_links(array(
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links() is a core WP function that returns its own pre-escaped HTML.
+		echo '<span class="current">PAGE </span>' . paginate_links([
 			'base'			=> str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'format'		=> $format,
 			'current'		=> max( 1, get_query_var('paged') ),
@@ -29,7 +30,7 @@ function custom_theme_pagination() {
 			'type' 			=> '',//list
 			'prev_text'		=> $prev_arrow,
 			'next_text'		=> $next_arrow,
-		));
+		]);
 	}
 }
 
@@ -57,7 +58,7 @@ function custom_remove_thumbnail_dimensions( $html ) {
 
 // clean navigation
 function custom_wp_nav_menu($var) {
-  return is_array($var) ? array_intersect($var, array(
+  return is_array($var) ? array_intersect($var, [
 		'current_page_item',
 		'current_page_parent',
 		'current_page_ancestor',
@@ -66,7 +67,7 @@ function custom_wp_nav_menu($var) {
 		'last',
 		'vertical',
 		'horizontal'
-		)
+		]
 	) : '';
 }
 
@@ -90,7 +91,7 @@ function custom_nav_id_filter( $id, $item ) {
 	//return strtolower( str_replace( ' ','-',$item->title ) );
 }
 
-function custom_add_parent_url_menu_class( $classes = array(), $item = false ) {
+function custom_add_parent_url_menu_class( $classes = [], $item = false ) {
 	$current_url = current_url();
 
 	if( is_front_page() ) {
@@ -110,7 +111,7 @@ function custom_add_parent_url_menu_class( $classes = array(), $item = false ) {
 // body classes
 function custom_body_classs($classes) {
     global $post;
-	$classes = array();
+	$classes = [];
 
     if (is_home()) {
 		array_push($classes, 'page');
@@ -205,7 +206,7 @@ function custom_form_error_message( $message, $form ) {
 
 // change logo on wp login
 function custom_wp_login_logo() {
-    echo '<style  type="text/css"> h1 a { display:block !important; width: 100% !important; height: 108px !important; background-size: 90% !important; background-image:url(' . get_bloginfo('template_directory') . '/assets/images/logo-admin.png)  !important; } </style>';
+    echo '<style  type="text/css"> h1 a { display:block !important; width: 100% !important; height: 108px !important; background-size: 90% !important; background-image:url(' . esc_url( get_bloginfo('template_directory') ) . '/assets/images/logo-admin.png)  !important; } </style>';
 }
 
 // change url on wp login
@@ -236,7 +237,7 @@ function custom_remove_jquery_migrate( &$scripts) {
         // string (was '1.11.1', from ~2014) - this keeps WordPress core's
         // actual bundled jQuery version and its deps array intact.
         $script = $scripts->registered['jquery'];
-        $script->deps = array_diff( $script->deps, array( 'jquery-migrate' ) );
+        $script->deps = array_diff( $script->deps, [ 'jquery-migrate' ] );
     }
 }
 
@@ -292,7 +293,7 @@ function custom_restrict_rest_user_enumeration( $result ) {
 		return new WP_Error(
 			'rest_forbidden',
 			__( 'Sorry, you are not allowed to do that.', 'portal' ),
-			array( 'status' => rest_authorization_required_code() )
+			[ 'status' => rest_authorization_required_code() ]
 		);
 	}
 
@@ -308,6 +309,7 @@ function custom_block_author_enumeration() {
 		return;
 	}
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET probe check used only to redirect anonymous author-ID enumeration attempts; no state change, and requiring a nonce here would defeat the purpose (a real anonymous visitor won't have one).
 	if ( isset( $_GET['author'] ) && preg_match( '/^\d+$/', wp_unslash( $_GET['author'] ) ) ) {
 		wp_safe_redirect( home_url( '/' ), 301 );
 		exit;

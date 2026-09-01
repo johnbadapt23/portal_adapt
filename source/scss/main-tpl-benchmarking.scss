@@ -1,0 +1,30 @@
+// Exclusive bundle for templates/template-benchmarking.php and
+// templates/template-benchmarks-maturity.php - the only two live consumers
+// of _benchmarking.scss, despite the filename suggesting it's just for
+// benchmarking. Both templates are pure ACF flexible-content pages built
+// entirely from get_template_part() calls into templates/benchmark-components/,
+// templates/benchmarks-maturity-components/, and templates/customer-events-components/
+// (confirmed - neither template references any other component partial or
+// shared "core" markup), and every root-level selector those partials render
+// (section.cards-module, section.two-column, section.comparison-module,
+// section.sticky-heading-cards, section.slide-stack, etc.) is defined inside
+// this one file.
+//
+// _benchmarking.scss also carries a handful of dead selectors scoped under
+// body classes for templates that no longer exist in the codebase
+// (body.template-comparison, body.template-customer-events) or that exist
+// under that name but render completely different markup today
+// (body.template-evr - templates/template-evr.php only ever renders
+// _evr-video/_evr-stages/_evr-fundamentals, none of which share a single
+// class name with this file). Left in as-is rather than pruned - dead CSS
+// that can never match any real page costs nothing at runtime, and isn't
+// this split's concern.
+//
+// Only needs _mixins/_variables in scope (for @include transition/responsive
+// and $color-*/$font-* at compile time) - no $p-font-size/$h3-font-size-style
+// typography vars are referenced, so global/_typography-vars isn't needed
+// here unlike main-core.scss.
+@import 'global/_mixins';
+@import 'global/_variables';
+
+@import 'templates/_benchmarking';

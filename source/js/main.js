@@ -105,7 +105,7 @@
 
 		resize();
 		matchHeightInit();
-		select2();
+		if (typeof select2 === 'function') select2();
 		outsideContainer();
 		scrollMobile();
 
@@ -812,38 +812,6 @@
 			$(this).parents('.partners-help-details').hide();			
 		});
 
-		// Ecosystem team popup 
-
-		$('a.speaker-popup').magnificPopup({
-			type: 'inline',
-			mainClass: 'mfp-speakers',
-			preloader: false,
-			gallery: {
-				enabled: $('a.speaker-popup').length > 1
-			},
-			callbacks: {
-				change: function () {
-				const $about = this.content.find('.about-text');
-				if ($about.length && typeof PerfectScrollbar !== 'undefined') {
-					try {
-						if ($about[0]._perfectScrollbar) {
-							$about[0]._perfectScrollbar.destroy();
-							$about[0]._perfectScrollbar = null;
-						}
-					} catch(e) {}
-					setTimeout(function(){
-						try { $about[0]._perfectScrollbar = new PerfectScrollbar($about[0]); } catch(e) {}
-					}, 1);
-				}
-				},
-				buildControls: function () {
-				if (this.arrowLeft && this.arrowRight) {
-					this.contentContainer.append(this.arrowLeft.add(this.arrowRight));
-				}
-				}
-			}
-			});
-
 
 		// KYC switchers 
 		$('.chapters-container .chapter-selector').on('click', function(e) {
@@ -895,98 +863,6 @@
 			$('.formContainer .categories .more').text('close');
 			$('.formContainer form').addClass('active');
 			$('.formContainer form .categories').addClass('active');
-		});
-
-		// Kits Isotope Filtering
-
-		// init Isotope
-        // Initialize Isotope
-		// Scoped to .kits-listing.grid (template-kit-type.php / template-customer.php)
-		// - a bare .grid selector also matched section.blogWrapper .container
-		// #loop.grid on the insights/blog archive, which has no .kit-item
-		// children. Isotope would still take over that container, lay out
-		// zero items, and force it to height: 0px via inline style, an
-		// inline override no stylesheet clearfix can win against.
-		const grids = document.querySelectorAll('.kits-listing.grid');
-		const isos = [];
-
-		grids.forEach(function(grid) {
-			const iso = new Isotope(grid, {
-				itemSelector: '.kit-item',
-				layoutMode: 'fitRows'
-			});
-
-			isos.push(iso);
-		});
-
-        // filter functions
-        const filterFns = {
-            // show if number is greater than 50
-            numberGreaterThan50: function( itemElem ) {
-                const number = itemElem.querySelector('.number').textContent;
-                return parseInt( number, 10 ) > 50;
-            },
-            // show if name ends with -ium
-            ium: function( itemElem ) {
-                const name = itemElem.querySelector('.name').textContent;
-                return name.match( /ium$/ );
-            }
-        };
-
-       // Bind filter button click for each button group
-		const filterGroups = document.querySelectorAll('.filter-group-listing');
-
-		filterGroups.forEach(function(filtersElem) {
-			filtersElem.addEventListener('click', function(event) {
-				let filterValue;
-				const target = event.target;
-
-				// Find the nearest <a> element by traversing the DOM
-				const anchorElement = target.closest('a');
-
-				if (anchorElement) {
-					filterValue = anchorElement.getAttribute('data-filter');
-
-
-					// Toggle the 'is-checked' class on the clicked <a>
-					anchorElement.classList.toggle('is-checked');
-
-					// Handle the "All" filter
-					if (anchorElement.classList.contains('all-filter')) {
-						// If "All" is clicked, uncheck all other filter buttons
-						document.querySelectorAll('.kit-filter').forEach(function(button) {
-							if (button !== anchorElement) {
-								button.classList.remove('is-checked');
-							}
-						});
-					} else {
-						// If any other filter is clicked, uncheck the "All" filter
-						document.querySelector('.kit-filter.all-filter').classList.remove('is-checked');
-					}
-
-					// Initialize an array to store multiple filter values
-					const filterValues = [];
-
-					// Loop through checked filter buttons to collect filter values
-					const checkedFilterButtons = document.querySelectorAll('.kit-filter.is-checked');
-					checkedFilterButtons.forEach(function(button) {
-						filterValues.push(button.getAttribute('data-filter'));
-					});
-
-					 // If no filters are checked, check the "All" filter
-					if (filterValues.length === 0) {
-						document.querySelector('.kit-filter.all-filter').classList.add('is-checked');
-					}
-
-					// Combine the filter values using a comma to select multiple items
-					filterValue = filterValues.join(', ');
-
-					// Apply filter to each Isotope instance
-					isos.forEach(function(iso) {
-						iso.arrange({ filter: filterValue });
-					});
-				}
-			});
 		});
 
 		// Know your customer slider 
@@ -1080,7 +956,7 @@
 				  }
 				  matchHeightInit();
                   $('#pagination a').removeClass('loading').text('Load More');
-                  if (nextlink != undefined) {
+                  if (nextlink !== undefined) {
                       $('#pagination a').attr('href', nextlink);
                   } else {
                       $('#pagination').remove();
@@ -1531,20 +1407,20 @@
 				let direction;
 				const slideCountZeroBased = slick.slideCount - 1;
 
-				if (nextSlide == currentSlide) {
+				if (nextSlide === currentSlide) {
 					direction = "same";
-				} else if (Math.abs(nextSlide - currentSlide) == 1) {
+				} else if (Math.abs(nextSlide - currentSlide) === 1) {
 					direction = (nextSlide - currentSlide > 0) ? "right" : "left";
 				} else {
 					direction = (nextSlide - currentSlide > 0) ? "left" : "right";
 				}
 
-				if (direction == 'right') {
+				if (direction === 'right') {
 					$('.slick-cloned[data-slick-index="' + (nextSlide + slideCountZeroBased + 1) + '"]', $slickElementKeynote)
 						.addClass('slick-current-clone-animate');
 				}
 
-				if (direction == 'left') {
+				if (direction === 'left') {
 					$('.slick-cloned[data-slick-index="' + (nextSlide - slideCountZeroBased - 1) + '"]', $slickElementKeynote)
 						.addClass('slick-current-clone-animate');
 				}
@@ -1825,7 +1701,7 @@
 			if (e.keyCode === 27) $('span.closeVideo').click();
 		});
 
-		if($("#loop span.results").length == 0) {
+		if($("#loop span.results").length === 0) {
 	  	} else {
 		  $('body.template-insights section.postHeader .filter .formContainer').addClass('results');
 	  	}		
@@ -2050,10 +1926,46 @@ $('.post-filtering-module').each(function(){
     }
 
     // ===============================
-    // BUILD ACTIVE FILTER PILLS
+    // ACTIVE FILTER PILLS
     // ===============================
+    // Bound once, via delegation, rather than per-pill at creation time -
+    // templates that server-render the pills on first paint (see
+    // adapt_render_filter_posts() callers that build $active_filter_pills,
+    // e.g. template-sector-filters.php) need removal clicks to work on
+    // pills this module never built, so a handler tied to a specific pill
+    // element wouldn't reach them. Delegation off the wrapper covers both
+    // the server-rendered pills and any this module builds later.
+    const pillsWrap = $module.find('.active-filter-pills');
+
+    pillsWrap.on('click', '.filter-pill', function(){
+        const filter = $(this).data('filter');
+        const $dropdown = $module.find('.filter-dropdown[data-filter="' + filter + '"]');
+        if (!$dropdown.length) return;
+
+        const $allBtn = $dropdown.find('.filter-button.all');
+        $dropdown.find('.filter-button').removeClass('active');
+        $allBtn.addClass('active');
+        $dropdown.find('.dropdown-title').removeClass('filter-active');
+
+        // The "All" button's data-value carries the full list of
+        // known slugs (used elsewhere to compare against
+        // visibleTerms), not an actual filter selection - sending
+        // it as-is to loadPosts() turns "no constraint" into an
+        // explicit tax_query IN-list, which excludes any post with
+        // no term in that taxonomy at all. "All" should mean empty.
+        // date is the one exception: its "All" button represents a
+        // real default range (last 3 months), not "no constraint".
+        filters[filter] = (filter === 'date') ? normalizeFilterValue($allBtn.data('value')) : [];
+        if(filter === 'date') currentDate = filters[filter];
+        postsPage = 1;
+        loadPosts(1, false);
+        loadFeaturedPostsIfNeeded();
+        updateActiveFilterClasses();
+        // Do NOT push All to URL
+        updateURL(false);
+    });
+
     function buildActiveFilterPills() {
-        const pillsWrap = $module.find('.active-filter-pills');
         const searchLabel = $module.find('.search-results-label');
         if (!pillsWrap.length) return;
 
@@ -2072,25 +1984,9 @@ $('.post-filtering-module').each(function(){
             hasPills = true;
             const label = $activeBtn.text().trim();
 
-            const pill = $('<button type="button" class="filter-pill"><span>' + label + '</span><span class="pill-close">×</span></button>');
-
-            pill.on('click', function(){
-                const $allBtn = $dropdown.find('.filter-button.all');
-                $dropdown.find('.filter-button').removeClass('active');
-                $allBtn.addClass('active');
-                $dropdown.find('.dropdown-title').removeClass('filter-active');
-
-                filters[filter] = normalizeFilterValue($allBtn.data('value'));
-                if(filter === 'date') currentDate = filters[filter];
-                postsPage = 1;
-                loadPosts(1, false);
-                loadFeaturedPostsIfNeeded();
-                updateActiveFilterClasses();
-                // Do NOT push All to URL
-                updateURL(false);
-            });
-
-            pillsWrap.append(pill);
+            pillsWrap.append(
+                '<button type="button" class="filter-pill" data-filter="' + filter + '"><span>' + label + '</span><span class="pill-close">×</span></button>'
+            );
         });
 
         pillsWrap.toggle(hasPills);
@@ -2118,6 +2014,7 @@ $('.post-filtering-module').each(function(){
             }
         }
         url.searchParams.delete('search');
+        url.searchParams.delete('s');
 
         for (const fKey in filters) {
             if (filters.hasOwnProperty(fKey) && queryMap.hasOwnProperty(fKey)) {
@@ -2183,7 +2080,11 @@ $('.post-filtering-module').each(function(){
         if ($activeBtn.length) {
             filters[filter] = normalizeFilterValue($activeBtn.data('value'));
         } else if ($allBtn.length) {
-            filters[filter] = normalizeFilterValue($allBtn.data('value'));
+            // See the pill-removal handler above: the "All" button's
+            // data-value is the full list of known slugs, not an actual
+            // selection - only date's "All" represents a real default
+            // range rather than "no constraint".
+            filters[filter] = (filter === 'date') ? normalizeFilterValue($allBtn.data('value')) : [];
         } else {
             filters[filter] = [];
         }
@@ -2319,9 +2220,41 @@ $('.post-filtering-module').each(function(){
     // ===============================
     // loadPosts(1, false);
 	loader.hide();
-    buildActiveFilterPills();
+    // Templates that have adopted the full first-paint server-render (pills
+    // + empty-filter dimming baked into the dropdown markup itself - see
+    // template-sector-filters.php) set this flag so the JS versions of that
+    // same work don't run redundantly on load; they're pure DOM re-derives
+    // of state the server already read from the same $_GET values, so
+    // running them again would only risk disagreeing with what was just
+    // printed. Templates that haven't adopted it yet (the flag is unset)
+    // keep the original JS-driven behavior unchanged.
+    const firstPaintServerRendered = window.adaptFilterUIServerRendered === true;
+    if (!firstPaintServerRendered) {
+        buildActiveFilterPills();
+    } else {
+        updateActiveFilterClasses();
+    }
 	loader.hide();
-    loadFeaturedPostsIfNeeded();
+    // Some templates (e.g. template-sector-filters.php) now render the
+    // featured-post box server-side on first load, so the initial AJAX
+    // fetch here would just redundantly overwrite it. Only fire it if the
+    // box is still empty - templates that haven't been converted yet
+    // (e.g. template-persona-filters.php) start empty, so this keeps
+    // their existing AJAX-on-load behavior unchanged.
+    const $featuredContainers = $module.find('#featured-post-persona .container, #featured-post-sector .container');
+    const featuredAlreadyRendered = $featuredContainers.length > 0 && $featuredContainers.text().trim() !== '';
+    if (!featuredAlreadyRendered) {
+        loadFeaturedPostsIfNeeded();
+    }
+    // Templates that render the post list server-side (via
+    // adapt_render_filter_posts()) also print window.adaptInitialVisibleTerms
+    // with the same data loadPosts() would return on an AJAX call, so empty
+    // filter buttons can be dimmed from the first paint instead of only
+    // after the visitor's first interaction - unless the calling template
+    // already baked that dimming into the buttons itself (see above).
+    if (typeof window.adaptInitialVisibleTerms !== 'undefined' && !firstPaintServerRendered) {
+        hideEmptyFilters(window.adaptInitialVisibleTerms);
+    }
     // updateURL(false);
 
     // ===============================
@@ -2341,7 +2274,14 @@ $('.post-filtering-module').each(function(){
 			filters.date = currentDate;
 		} else {
 			if ($btn.hasClass('all')) {
-				filters[filter] = normalizeFilterValue($btn.data('value'));
+				// "All"'s data-value is the full list of known slugs for
+				// this taxonomy (used elsewhere to compare against
+				// visibleTerms), not an actual filter selection. Sending
+				// it as-is turns "no constraint" into an explicit
+				// tax_query IN-list, which excludes any post with no term
+				// in that taxonomy - exactly what a fresh page load (with
+				// no explicit filter) does NOT do. "All" means empty.
+				filters[filter] = [];
 			} else {
 				filters[filter] = normalizeFilterValue($btn.data('value'));
 			}
@@ -3209,7 +3149,7 @@ if ($containerPast.length && $buttonPast.length) {
 		$('#user_pass').attr('placeholder', 'Password');
 
 		multipartBreadcrumb();
-		select2();
+		if (typeof select2 === 'function') select2();
 		matchHeightInit();
 		outsideContainer();
 		if($('input[name="redirect_to"]').length ){
@@ -3594,7 +3534,7 @@ if ($containerPast.length && $buttonPast.length) {
 
 	$(window).on('resize',function (){
 		resize();
-		select2();
+		if (typeof select2 === 'function') select2();
 		matchHeightInit();
 		outsideContainer();
 		scrollMobile();
@@ -3735,19 +3675,14 @@ if ($containerPast.length && $buttonPast.length) {
 		$('.megaMenu .column').matchHeight();
 	}
 
-	function select2(){
-		if($('form').hasClass('hs-form')){
-		} else {
-			if($('form').hasClass('mepr-form')){
-				$('select').select2();
-			} else {
-				$('select').select2({minimumResultsForSearch: -1});
-			}
-		}
-	}
+	// select2() itself now lives in source/js/includes/_select2.js, built
+	// separately into assets/js/select2.min.js and only enqueued on
+	// templates with a <select> - see the typeof guards at each of its
+	// three call sites below, needed since window.select2 won't exist at
+	// all on the ~167 templates that don't load that bundle.
 
 	function popupInit() {
-		if(Cookies.get('popup') == 'displayed') {
+		if(Cookies.get('popup') === 'displayed') {
 			// $('.popup-link-init').trigger('click');
 		} else {
 			// ww = $(window).width();

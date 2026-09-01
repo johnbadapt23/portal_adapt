@@ -44,21 +44,21 @@ add_action( 'acf/init', function() {
 		return;
 	}
 
-	$shown_if_enabled = array(
-		array(
-			array(
+	$shown_if_enabled = [
+		[
+			[
 				'field'    => 'field_adapt_welcome_popup_enabled',
 				'operator' => '==',
 				'value'    => '1',
-			),
-		),
-	);
+			],
+		],
+	];
 
-	acf_add_local_field_group( array(
+	acf_add_local_field_group( [
 		'key'    => 'group_adapt_welcome_popup',
 		'title'  => 'Welcome Popup',
-		'fields' => array(
-			array(
+		'fields' => [
+			[
 				'key'           => 'field_adapt_welcome_popup_enabled',
 				'label'         => 'Enabled',
 				'name'          => 'welcome_popup_enabled',
@@ -66,8 +66,8 @@ add_action( 'acf/init', function() {
 				'instructions'  => 'Show a one-time spotlight tooltip pointing at a specific element, to logged-in users who have not seen it yet.',
 				'default_value' => 0,
 				'ui'            => 1,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_welcome_popup_target_selector',
 				'label'             => 'Target element (CSS selector)',
 				'name'              => 'welcome_popup_target_selector',
@@ -75,23 +75,23 @@ add_action( 'acf/init', function() {
 				'instructions'      => 'The element to highlight and point the tooltip at. Defaults to the homepage AI Assistant box - only change this if you want to spotlight something else instead. Use a selector that matches the visible card itself, not an outer wrapper - #customgpt-chat-1 is the CustomGPT widget\'s full container and can be much taller than the visible box, which makes the spotlight cover far more than intended. If the element is not found on a given page (e.g. it has not finished loading, or this page does not have it), the popup silently does not show and the user is not counted as having seen it yet - they will still get it on a page where the element does appear.',
 				'default_value'     => '.cgpt-hero-card',
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_welcome_popup_heading',
 				'label'             => 'Heading',
 				'name'              => 'welcome_popup_heading',
 				'type'              => 'text',
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_welcome_popup_message',
 				'label'             => 'Message',
 				'name'              => 'welcome_popup_message',
 				'type'              => 'textarea',
 				'rows'              => 4,
 				'conditional_logic' => $shown_if_enabled,
-			),
-			array(
+			],
+			[
 				'key'               => 'field_adapt_welcome_popup_force_redisplay',
 				'label'             => 'Show again to everyone',
 				'name'              => 'welcome_popup_force_redisplay',
@@ -100,18 +100,18 @@ add_action( 'acf/init', function() {
 				'default_value'     => 0,
 				'ui'                => 1,
 				'conditional_logic' => $shown_if_enabled,
-			),
-		),
-		'location' => array(
-			array(
-				array(
+			],
+		],
+		'location' => [
+			[
+				[
 					'param'    => 'options_page',
 					'operator' => '==',
 					'value'    => 'acf-options',
-				),
-			),
-		),
-	) );
+				],
+			],
+		],
+	] );
 } );
 
 /**

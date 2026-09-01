@@ -5,11 +5,12 @@
 // either 0 or the total post count. fields => ids skips hydrating full
 // post objects for a query that has no result limit, and post_count
 // gives the same total directly, with no loop needed at all.
-$purchasedargs = array(
+$purchasedargs = [
+    'no_found_rows'  => true,
     'posts_per_page' => -1,
     'post_type' => 'kyc',
     'fields' => 'ids',
-);
+];
 $purchasedLoop = new WP_Query( $purchasedargs );
 $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
 ?>
@@ -23,22 +24,22 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                     <span class="bannerBreadcrumbs">
                         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="breadcrumb">Home</a><span class="divider">/</span><span class="breadcrumb"><?php echo esc_html( get_the_title() ); ?></span>
                     </span>              
-                    <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
-                    <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+                    <h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                    <span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                     <span class="links-container desktop">
                         <?php if ( have_rows( 'button' ) ) : ?>
                             <?php $buttonCounter = 1; ?>
                             <?php while ( have_rows( 'button' ) ) : the_row(); ?>
                                 <?php if(get_sub_field( 'link_type' ) == 'scroll-to') { ?>
-                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo get_sub_field( 'scroll_to_id' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="scroll-to-button stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo esc_attr( get_sub_field( 'scroll_to_id' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } elseif(get_sub_field( 'link_type' ) == 'link')  { ?>
-                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                                    <a class="link stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
                                 <?php } else { ?>
-                                    <?php if($counter <= 0){ ?> 
+                                    <?php if($counter <= 0){ ?>
                                         <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">
-                                            <?php echo get_sub_field( 'form_button' ); ?>
+                                            <?php echo esc_html( get_sub_field( 'form_button' ) ); ?>
                                         </span>
-                                        <span class="popup-formcrafts"><?php echo get_sub_field( 'form_code' ); ?></span>
+                                        <span class="popup-formcrafts"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored raw form-embed markup (FormCrafts) requires unescaped HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></span>
                                     <?php } ?>                                    
                                 <?php } ?>
                                 <?php $buttonCounter++; ?>
@@ -56,11 +57,11 @@ $counter = current_user_can('mepr_auth') ? $purchasedLoop->post_count : 0;
                         <?php $image = get_sub_field('poster_image'); ?>
                         <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                         <?php if ( $poster_image ) { ?>
-                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                            <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                         <?php } ?>  
                         <?php if( get_sub_field( 'vimeo_code' )) { ?>
                             <span class="opacity-overlay"></span>
-                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                            <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                         <?php } ?>
                     </div>
                 </div> 

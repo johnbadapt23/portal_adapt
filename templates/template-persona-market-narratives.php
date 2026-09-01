@@ -4,8 +4,10 @@
  */
 
 get_header();
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
 $persona = $_GET['persona'];
 $keyword = $_GET['searchWords'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 $q = get_queried_object();
 $q_slug = $q->slug ?? '';
 ?>
@@ -36,7 +38,7 @@ $q_slug = $q->slug ?? '';
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Persona Mapping" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if (in_array($q_slug, ['expert-presentations', 'community-interviews', 'workshop-recordings', 'customer'], true)){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span>                       
 						<span class="filtersButtonMobile">                            
@@ -49,25 +51,26 @@ $q_slug = $q->slug ?? '';
 								<select name="persona" id="" onchange="this.form.submit()">
 									<option value="">All Personas</option>
 									<?php
-										$argsFilter = array(
+										$argsFilter = [
+											'no_found_rows'  => true,
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
-											'tax_query'      => array(
+											'tax_query'      => [
 												'relation' => 'AND',
-												array (
+												 [
 													'taxonomy' => 'filter-types',
 													'field' => 'slug',
 													'terms'    => 'market-narratives'
-												),
-												array(
+												],
+												[
 													'taxonomy' => 'market-narratives-subcategories',
 													'field' => 'slug',
 													'terms'    => 'persona-mapping'
-												)
-											),
-										);
+												]
+											],
+										];
 									?>
-									<?php $terms = array(); ?>
+									<?php $terms = []; ?>
 									<?php
 									// This loop only tallies distinct terms for a filter dropdown - it
 									// never reads title/content/ACF fields, so it doesn't need full
@@ -94,7 +97,7 @@ $q_slug = $q->slug ?? '';
 									<?php endif; ?>
 									<?php wp_reset_query(); 
 									// Define the custom order of terms by slug
-										$custom_order = array(
+										$custom_order = [
 											'cio',
 											'ciso',
 											'cdo-digital',
@@ -104,7 +107,7 @@ $q_slug = $q->slug ?? '';
 											'ai-leader',
 											'cdao',
 											'chro'
-										);
+										];
 
 										// Custom sorting function
 										usort($terms, function ($a, $b) use ($custom_order) {
@@ -139,50 +142,51 @@ $q_slug = $q->slug ?? '';
 	            <div id="loop" class="gridWrapper">
 					<?php
 					if($keyword != '') {
-						$args = array(
+						$args = [
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							's' => $keyword,
-							'tax_query'      => array(
+							'tax_query'      => [
 								'relation' => 'AND',
-								array (
+								 [
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
-								)
-							),
-							array(
+								]
+							],
+							[
 								'taxonomy' => 'market-narratives-subcategories',
 								'field' => 'slug',
 								'terms'    => 'persona-mapping'
-							)
-						);
+							]
+						];
 					} else {
-						$args = array(
+						$args = [
+							'no_found_rows'  => true,
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
-							'tax_query'      => array(
+							'tax_query'      => [
 								'relation' => 'AND',
-								array (
+								 [
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
-								),
-								array(
+								],
+								[
 									'taxonomy' => 'market-narratives-subcategories',
 									'field' => 'slug',
 									'terms'    => 'persona-mapping'
-								)								
-							),
-						);
+								]								
+							],
+						];
 					}
 
 					if ($persona != '') {
-						$args['tax_query'][] = array(
+						$args['tax_query'][] = [
 							'taxonomy' => 'persona-mapping',
 							'field'    => 'slug',
 							'terms'    => $persona
-						);
+						];
 					}
 					
 					?>
@@ -217,7 +221,7 @@ $q_slug = $q->slug ?? '';
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
@@ -227,7 +231,7 @@ $q_slug = $q->slug ?? '';
 	                                        <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -285,7 +289,7 @@ $q_slug = $q->slug ?? '';
 	                    <?php } ?>
 
 	                <?php endwhile; else : ?>
-	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 	                <?php endif; ?>
 
 	                <?php wp_reset_postdata(); wp_reset_query();?>
@@ -324,7 +328,7 @@ $q_slug = $q->slug ?? '';
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Persona Mapping" />
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if (in_array($q_slug, ['expert-presentations', 'community-interviews', 'workshop-recordings', 'customer'], true)){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span> 
 						<span class="filtersButtonMobile">                            
@@ -337,25 +341,26 @@ $q_slug = $q->slug ?? '';
 								<select name="persona" id="" onchange="this.form.submit()">
 									<option value="">All Personas</option>
 									<?php
-										$argsFilter = array(
+										$argsFilter = [
+											'no_found_rows'  => true,
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
-											'tax_query'      => array(
+											'tax_query'      => [
 												'relation' => 'AND',
-												array (
+												 [
 													'taxonomy' => 'filter-types',
 													'field' => 'slug',
 													'terms'    => 'market-narratives'
-												),
-												array(
+												],
+												[
 													'taxonomy' => 'market-narratives-subcategories',
 													'field' => 'slug',
 													'terms'    => 'persona-mapping'
-												)
-											),
-										);
+												]
+											],
+										];
 									?>
-									<?php $terms = array(); ?>
+									<?php $terms = []; ?>
 									<?php
 									// This loop only tallies distinct terms for a filter dropdown - it
 									// never reads title/content/ACF fields, so it doesn't need full
@@ -382,7 +387,7 @@ $q_slug = $q->slug ?? '';
 									<?php endif; ?>
 									<?php wp_reset_query(); 
 										// Define the custom order of terms by slug
-										$custom_order = array(
+										$custom_order = [
 											'cio',
 											'ciso',
 											'cdo-digital',
@@ -392,7 +397,7 @@ $q_slug = $q->slug ?? '';
 											'ai-leader',
 											'cdao',
 											'chro'
-										);
+										];
 
 										// Custom sorting function
 										usort($terms, function ($a, $b) use ($custom_order) {
@@ -469,14 +474,14 @@ $q_slug = $q->slug ?? '';
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -499,7 +504,7 @@ $q_slug = $q->slug ?? '';
 																				<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -571,32 +576,33 @@ $q_slug = $q->slug ?? '';
 		 <div class="container">
 			 <div id="loop" class="gridWrapper">
 				 <?php $term_m = 'persona-mapping';
-				  $terms = get_terms( $term_m, array(
+				  $terms = get_terms( [ 'taxonomy' => $term_m,
 					  'hide_empty' => false,
-				  ) );
+				  ] );
 
-				  $personas = array();
+				  $personas = [];
 				  foreach( $terms as $term){
 					  $personas[] = $term->slug;
 				  } ?>
 				 <?php
-				 $args = array(
+				 $args = [
+					 'no_found_rows'  => true,
 					 'post_type'      => 'post',
 					 'posts_per_page' => -1,
-					 'tax_query'      => array(
+					 'tax_query'      => [
 						 'relation' => 'AND',
-						 array (
+						  [
 							 'taxonomy' => 'filter-types',
 							 'field' => 'slug',
 							 'terms'    => 'market-narratives'
-						 ),
-						 array(
+						 ],
+						 [
 							 'taxonomy' => 'market-narratives-subcategories',
 							 'field'    => 'slug',
 							 'terms'    => 'persona-mapping'							
-						 )
-					 ),
-				 );
+						 ]
+					 ],
+				 ];
 				 ?>
 				 <?php $posts = new WP_Query( $args );
 					if( $posts->have_posts() ): ?>
@@ -629,7 +635,7 @@ $q_slug = $q->slug ?? '';
 												<?php // no rows found ?>
 											<?php endif; ?>
 										 <?php endwhile; ?>
-										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
@@ -639,7 +645,7 @@ $q_slug = $q->slug ?? '';
 										 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -691,7 +697,7 @@ $q_slug = $q->slug ?? '';
 					 <?php } ?>
 
 				 <?php endwhile; else : ?>
-					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 				 <?php endif; ?>
 
 				 <?php wp_reset_postdata(); wp_reset_query();?>

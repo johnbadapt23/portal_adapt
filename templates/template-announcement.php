@@ -12,13 +12,13 @@ global $displayed_posts;
 // real query) and its result was never read anywhere in this file - a
 // dead, fully unbounded WP_Query on every load of this template. Removed.
 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-<?php $args = array(
+<?php $args = [
     'post_type' => 'announcement',
     'posts_per_page' => -1,
     'paged'=> $paged,
     'orderby' => 'date',
     'order' => 'DESC'
-); ?>
+]; ?>
 <?php $loop = new WP_Query( $args );
 if ( $loop->have_posts() ) :
     while ( $loop->have_posts() ) : $loop->the_post();
@@ -48,7 +48,7 @@ if ( $loop->have_posts() ) :
 <?php if(current_user_can('mepr-active','memberships:48815')){
     $membershipType = 'tnc';
 } ?>
-<?php $kycMemberships = array('49569', '49567', '49565', '49563', '49561', '49559', '49557'); ?>
+<?php $kycMemberships = ['49569', '49567', '49565', '49563', '49561', '49559', '49557']; ?>
 <?php if(current_user_can('mepr-active','memberships:' .$kycMemberships)){
     $membershipType = 'kyc';
 } ?>
@@ -124,20 +124,20 @@ if (user_can($current_user, 'administrator')) {
 <section class="announcementsContainer">
     <div class="container">
         <div class="introductionTextContainer">
-            <h1><?php echo get_field( 'announcements_title', 'option' ); ?></h1>
+            <h1><?php echo esc_html( get_field( 'announcements_title', 'option' ) ); ?></h1>
             <span class="introductionText">
-                <?php echo get_field( 'announcements_introduction_text', 'option' ); ?>
+                <?php echo esc_html( get_field( 'announcements_introduction_text', 'option' ) ); ?>
             </span>
         </div>
         <div class="announcements-loop">
             <?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
-            <?php $args = array(
+            <?php $args = [
                 'post_type' => 'announcement',
                 'posts_per_page' => -1,
                 'paged'=> $paged,
                 'orderby' => 'date',
                 'order' => 'DESC'
-            ); ?>
+            ]; ?>
             <?php $loop = new WP_Query( $args );
             if ( $loop->have_posts() ) :
                 while ( $loop->have_posts() ) : $loop->the_post();
@@ -154,7 +154,7 @@ if (user_can($current_user, 'administrator')) {
                                 $text = get_field( 'content' );
                                 $trimmed_content = wp_trim_words( $text, $num_words = 40, $more = '...' );
                            ?>
-                           <?php echo $trimmed_content; ?>
+                           <?php echo esc_html( $trimmed_content ); ?>
                        </span>
                        <span class="read-more">Read More</span>
                        <?php if ( have_rows( 'contributors' ) ) : ?>
@@ -178,7 +178,7 @@ if (user_can($current_user, 'administrator')) {
             <?php } ?>
 
             <?php endwhile; else : ?>
-                <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
+                <p><?php esc_html_e( 'Sorry, no posts matched your criteria.', 'portal' ); ?></p>
             <?php endif; ?>
             <?php wp_reset_postdata(); wp_reset_query();?>
         </div>

@@ -60,9 +60,9 @@ if (current_user_can('administrator')) {
                             $attachment_id,
                             'medium', // or 'large', 'medium', custom image size, etc.
                             false,
-                            array(
+                            [
                                 'alt'   => 'Adapt',
-                            )
+                            ]
                         );
                     } else {
                         // Fallback if the URL is not found in the media library.
@@ -71,7 +71,7 @@ if (current_user_can('administrator')) {
 					$inline_img_158_src = get_field( 'logo', 'options' );
 					$inline_img_158_attach_id = $inline_img_158_src ? attachment_url_to_postid( $inline_img_158_src ) : 0;
 					if ( $inline_img_158_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_158_attach_id, 'full', false, array( 'alt' => 'Adapt', 'width' => '300' ) );
+						echo wp_get_attachment_image( $inline_img_158_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '300' ] );
 					} elseif ( $inline_img_158_src ) {
 						echo '<img src="' . esc_url( $inline_img_158_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( 'Adapt' ) . '" />';
 					}
@@ -229,7 +229,7 @@ if (current_user_can('administrator')) {
 	<div class="bottom">
 		<div class="container">
 			<span class="desktopNav <?= esc_attr( $membershipType ); ?> <?= $superAdminView ? 'is_admin': 'is_not'; ?>">
-                <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
+                <?php if (in_array($membershipType, ['tnc', 'kyc'])) { ?>
                     <ul>
                         <?php if ($membershipType == 'kyc') { ?>
                             <li>
@@ -274,7 +274,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -284,7 +284,10 @@ if (current_user_can('administrator')) {
                                                                             <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                             <?php if ( $topic_link_term ): ?>
                                                                                 <li>
-                                                                                    <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                    <?php $topic_link_term_link = get_term_link( $topic_link_term ); ?>
+                                                                                    <?php if ( ! is_wp_error( $topic_link_term_link ) ) : ?>
+                                                                                    <a href="<?php echo esc_url( $topic_link_term_link ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                    <?php endif; ?>
                                                                                 </li>
                                                                             <?php endif; ?>
                                                                         <?php endwhile; ?>
@@ -324,12 +327,13 @@ if (current_user_can('administrator')) {
                                                                             <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                             <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                                 <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                                <?php if ( $type_link_term ): ?>                                                                                    
+                                                                                <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                                <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                     <li>
-                                                                                        <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                        <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                             <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -343,7 +347,7 @@ if (current_user_can('administrator')) {
                                                                                         <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                              <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -424,7 +428,7 @@ if (current_user_can('administrator')) {
 					$inline_img_159_src = $image;
 					$inline_img_159_attach_id = $inline_img_159_src ? attachment_url_to_postid( $inline_img_159_src ) : 0;
 					if ( $inline_img_159_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_159_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_159_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_159_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_159_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -469,7 +473,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -479,7 +483,10 @@ if (current_user_can('administrator')) {
                                                                             <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                             <?php if ( $topic_link_term ): ?>
                                                                                 <li>
-                                                                                    <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                    <?php $topic_link_term_link = get_term_link( $topic_link_term ); ?>
+                                                                                    <?php if ( ! is_wp_error( $topic_link_term_link ) ) : ?>
+                                                                                    <a href="<?php echo esc_url( $topic_link_term_link ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                    <?php endif; ?>
                                                                                 </li>
                                                                             <?php endif; ?>
                                                                         <?php endwhile; ?>
@@ -513,7 +520,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -523,12 +530,13 @@ if (current_user_can('administrator')) {
                                                                             <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                             <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                                 <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                                <?php if ( $type_link_term ): ?>                                                                                    
+                                                                                <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                                <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                     <li>
-                                                                                        <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                        <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                             <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -542,7 +550,7 @@ if (current_user_can('administrator')) {
                                                                                         <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                                 <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -623,7 +631,7 @@ if (current_user_can('administrator')) {
 					$inline_img_160_src = $image;
 					$inline_img_160_attach_id = $inline_img_160_src ? attachment_url_to_postid( $inline_img_160_src ) : 0;
 					if ( $inline_img_160_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_160_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_160_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_160_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_160_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -669,7 +677,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -709,7 +717,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -719,12 +727,13 @@ if (current_user_can('administrator')) {
                                                                             <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                             <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                                 <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                                <?php if ( $type_link_term ): ?>                                                                                    
+                                                                                <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                                <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                     <li>
-                                                                                        <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                        <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                             <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -738,7 +747,7 @@ if (current_user_can('administrator')) {
                                                                                         <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                              <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -813,7 +822,7 @@ if (current_user_can('administrator')) {
 					$inline_img_161_src = $image;
 					$inline_img_161_attach_id = $inline_img_161_src ? attachment_url_to_postid( $inline_img_161_src ) : 0;
 					if ( $inline_img_161_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_161_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_161_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_161_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_161_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -856,7 +865,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -897,7 +906,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -907,12 +916,13 @@ if (current_user_can('administrator')) {
                                                                             <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                             <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                                 <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                                <?php if ( $type_link_term ): ?>                                                                                    
+                                                                                <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                                <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                     <li>
-                                                                                        <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                        <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                             <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -926,7 +936,7 @@ if (current_user_can('administrator')) {
                                                                                         <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                              <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -1001,7 +1011,7 @@ if (current_user_can('administrator')) {
 					$inline_img_162_src = $image;
 					$inline_img_162_attach_id = $inline_img_162_src ? attachment_url_to_postid( $inline_img_162_src ) : 0;
 					if ( $inline_img_162_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_162_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_162_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_162_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_162_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -1044,7 +1054,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="icon-container">
                                                                         <?php $icon = get_sub_field( 'icon' ); ?>
                                                                         <?php if ( $icon ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
@@ -1063,7 +1073,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="image-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
@@ -1113,7 +1123,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="icon-container">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                     <?php } ?>
                                                                 </span>
                                                                 <span class="link-text">
@@ -1154,7 +1164,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="icon-container">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                     <?php } ?>
                                                                 </span>
                                                                 <span class="link-text">
@@ -1193,7 +1203,7 @@ if (current_user_can('administrator')) {
                                                                     <?php $icon = get_sub_field( 'icon' ); ?>
                                                                     <span class="icon-container">
                                                                         <?php if ( $icon ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
@@ -1212,7 +1222,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="image-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
@@ -1455,7 +1465,7 @@ if (current_user_can('administrator')) {
 <nav class="mobileMenu">
     <div class="mobileMenuItems">
         <span class="menuTop">
-                <?php if ($membershipType == 'tnc' || $membershipType == 'kyc') { ?>
+                <?php if (in_array($membershipType, ['tnc', 'kyc'])) { ?>
                 <ul>
                     <?php if ($membershipType == 'kyc') { ?>
                         <li>
@@ -1486,7 +1496,7 @@ if (current_user_can('administrator')) {
                                                             <?php $icon = get_sub_field( 'icon' ); ?>
                                                             <span class="columnTitle">
                                                                 <?php if ( $icon ) { ?>
-                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                 <?php } ?>
                                                                 <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
@@ -1496,7 +1506,10 @@ if (current_user_can('administrator')) {
                                                                         <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                         <?php if ( $topic_link_term ): ?>
                                                                             <li>
-                                                                                <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                <?php $topic_link_term_link = get_term_link( $topic_link_term ); ?>
+                                                                                <?php if ( ! is_wp_error( $topic_link_term_link ) ) : ?>
+                                                                                <a href="<?php echo esc_url( $topic_link_term_link ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                <?php endif; ?>
                                                                             </li>
                                                                         <?php endif; ?>
                                                                     <?php endwhile; ?>
@@ -1531,12 +1544,13 @@ if (current_user_can('administrator')) {
                                                                         <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                         <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                             <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                            <?php if ( $type_link_term ): ?>                                                                                    
+                                                                            <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                            <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                 <li>
-                                                                                    <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                    <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                         <span class="icon-container">
                                                                                             <?php if ( $icon ) { ?>
-                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
                                                                                         <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -1550,7 +1564,7 @@ if (current_user_can('administrator')) {
                                                                                     <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                             <span class="icon-container">
                                                                                             <?php if ( $icon ) { ?>
-                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
                                                                                         <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -1625,7 +1639,7 @@ if (current_user_can('administrator')) {
 					$inline_img_163_src = $image;
 					$inline_img_163_attach_id = $inline_img_163_src ? attachment_url_to_postid( $inline_img_163_src ) : 0;
 					if ( $inline_img_163_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_163_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_163_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_163_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_163_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -1671,7 +1685,7 @@ if (current_user_can('administrator')) {
                                                                     <?php $icon = get_sub_field( 'icon' ); ?>
                                                                     <span class="icon-container">
                                                                         <?php if ( $icon ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
@@ -1710,7 +1724,7 @@ if (current_user_can('administrator')) {
                                                                     <?php $icon = get_sub_field( 'icon' ); ?>
                                                                     <span class="icon-container">
                                                                         <?php if ( $icon ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
@@ -1751,7 +1765,7 @@ if (current_user_can('administrator')) {
                                                                     <?php $icon = get_sub_field( 'icon' ); ?>
                                                                     <span class="icon-container">
                                                                         <?php if ( $icon ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
@@ -1770,7 +1784,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="image-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">
@@ -1819,7 +1833,7 @@ if (current_user_can('administrator')) {
                                                             <?php $icon = get_sub_field( 'icon' ); ?>
                                                             <span class="columnTitle">
                                                                 <?php if ( $icon ) { ?>
-                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                 <?php } ?>
                                                                 <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
@@ -1829,7 +1843,10 @@ if (current_user_can('administrator')) {
                                                                         <?php $topic_link_term = get_sub_field( 'topic_link' ); ?>
                                                                         <?php if ( $topic_link_term ): ?>
                                                                             <li>
-                                                                                <a href="<?php echo esc_url( get_term_link($topic_link_term) ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                <?php $topic_link_term_link = get_term_link( $topic_link_term ); ?>
+                                                                                <?php if ( ! is_wp_error( $topic_link_term_link ) ) : ?>
+                                                                                <a href="<?php echo esc_url( $topic_link_term_link ); ?>"><?php echo esc_html( $topic_link_term->name ); ?></a>
+                                                                                <?php endif; ?>
                                                                             </li>
                                                                         <?php endif; ?>
                                                                     <?php endwhile; ?>
@@ -1857,7 +1874,7 @@ if (current_user_can('administrator')) {
                                                             <?php $icon = get_sub_field( 'icon' ); ?>
                                                             <span class="columnTitle">
                                                                 <?php if ( $icon ) { ?>
-                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                 <?php } ?>
                                                                 <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                             </span>
@@ -1867,12 +1884,13 @@ if (current_user_can('administrator')) {
                                                                         <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                         <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                             <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                            <?php if ( $type_link_term ): ?>                                                                                    
+                                                                            <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                            <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                 <li>
-                                                                                    <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                    <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                         <span class="icon-container">
                                                                                             <?php if ( $icon ) { ?>
-                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
                                                                                         <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -1886,7 +1904,7 @@ if (current_user_can('administrator')) {
                                                                                     <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                             <span class="icon-container">
                                                                                             <?php if ( $icon ) { ?>
-                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                             <?php } ?>
                                                                                         </span>
                                                                                         <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -1961,7 +1979,7 @@ if (current_user_can('administrator')) {
 					$inline_img_164_src = $image;
 					$inline_img_164_attach_id = $inline_img_164_src ? attachment_url_to_postid( $inline_img_164_src ) : 0;
 					if ( $inline_img_164_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_164_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_164_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_164_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_164_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -2008,7 +2026,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -2043,7 +2061,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -2053,12 +2071,13 @@ if (current_user_can('administrator')) {
                                                                             <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                             <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                                 <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                                <?php if ( $type_link_term ): ?>                                                                                    
+                                                                                <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                                <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                     <li>
-                                                                                        <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                        <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                             <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -2072,7 +2091,7 @@ if (current_user_can('administrator')) {
                                                                                         <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                              <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -2147,7 +2166,7 @@ if (current_user_can('administrator')) {
 					$inline_img_165_src = $image;
 					$inline_img_165_attach_id = $inline_img_165_src ? attachment_url_to_postid( $inline_img_165_src ) : 0;
 					if ( $inline_img_165_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_165_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_165_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_165_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_165_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -2192,7 +2211,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -2227,7 +2246,7 @@ if (current_user_can('administrator')) {
                                                                 <?php $icon = get_sub_field( 'icon' ); ?>
                                                                 <span class="columnTitle">
                                                                     <?php if ( $icon ) { ?>
-                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'], 'class' => 'topic-icon' ) ); ?>
+                                                                        <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'], 'class' => 'topic-icon' ] ); ?>
                                                                     <?php } ?>
                                                                     <?php echo esc_html( get_sub_field( 'title' ) ); ?>
                                                                 </span>
@@ -2237,12 +2256,13 @@ if (current_user_can('administrator')) {
                                                                             <?php $icon = get_sub_field( 'icon' ); ?>						
                                                                             <?php if ( get_sub_field( 'type_or_other_link' ) == 'type'){ ?>
                                                                                 <?php $type_link_term = get_sub_field( 'type_link' ); ?>
-                                                                                <?php if ( $type_link_term ): ?>                                                                                    
+                                                                                <?php $type_link_term_link = $type_link_term ? get_term_link( $type_link_term ) : null; ?>
+                                                                                <?php if ( $type_link_term && ! is_wp_error( $type_link_term_link ) ): ?>                                                                                    
                                                                                     <li>
-                                                                                        <a href="<?php echo esc_url( get_term_link($type_link_term) ); ?>" >
+                                                                                        <a href="<?php echo esc_url( $type_link_term_link ); ?>" >
                                                                                             <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $type_link_term->name ); ?></span>
@@ -2256,7 +2276,7 @@ if (current_user_can('administrator')) {
                                                                                         <a href="<?php echo esc_url( get_sub_field( 'other_link' ) ); ?>" >
                                                                                              <span class="icon-container">
                                                                                                 <?php if ( $icon ) { ?>
-                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                                                    <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                                                 <?php } ?>
                                                                                             </span>
                                                                                             <span class="link-text text-black"><?php echo esc_html( $other_link ); ?></span>
@@ -2331,7 +2351,7 @@ if (current_user_can('administrator')) {
 					$inline_img_166_src = $image;
 					$inline_img_166_attach_id = $inline_img_166_src ? attachment_url_to_postid( $inline_img_166_src ) : 0;
 					if ( $inline_img_166_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_166_attach_id, 'article-card', false, array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ) );
+						echo wp_get_attachment_image( $inline_img_166_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_166_src ) {
 						echo '<img class="article-image" src="' . esc_url( $inline_img_166_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -2377,7 +2397,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="icon-container">
                                                                         <?php $icon = get_sub_field( 'icon' ); ?>
                                                                         <?php if ( $icon ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, array( 'alt' => $icon['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text">
@@ -2396,7 +2416,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="image-container">
                                                                         <?php $image = get_sub_field( 'image' ); ?>
                                                                         <?php if ( $image ) { ?>
-                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+                                                                            <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
                                                                         <?php } ?>
                                                                     </span>
                                                                     <span class="link-text-container">

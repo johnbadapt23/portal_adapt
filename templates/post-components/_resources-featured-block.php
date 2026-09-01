@@ -107,8 +107,8 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                             ?>
 
                                             <?php if ( $video == 'yes' ) : ?>
+                                                <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -129,8 +129,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php endif; ?>
                                                             <span class="video-button"></span>
                                                         </span>
-                                                    </span>
+                                                   
                                                 </a>
+                                                 </span>
                                             <?php else : ?>
                                                 <span class="image-container">
                                                     <a href="<?php the_permalink(); ?>">
@@ -243,8 +244,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 ?>
 
                                                 <?php if ( $video == 'yes' ) : ?>
+                                                    <span class="video-container">
                                                     <a href="<?php the_permalink(); ?>">
-                                                        <span class="video-container">
+                                                        
                                                             <span class="bg-container">
                                                                 <?php if ($image) : ?>  
                                                                     <?php
@@ -265,8 +267,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                                 <?php endif; ?>
                                                                 <span class="video-button"></span>
                                                             </span>
-                                                        </span>
+                                                        
                                                     </a>
+                                                    </span>
                                                 <?php else : ?>
                                                     <span class="image-container">
                                                         <a href="<?php the_permalink(); ?>">
@@ -400,8 +403,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 
                                             ?>
                                             <?php if ($video == 'yes'){ ?>
+                                            <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
+                                                    
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -423,8 +427,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <span class="video-button">
                                                             </span>                                                            
                                                         </span>
-                                                    </span>
+                                                    
                                                 </a>
+                                                </span>
                                             <?php } else { ?>
                                                 <span class="image-container">
                                                      <a href="<?php the_permalink(); ?>">
@@ -548,8 +553,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 
                                             ?>
                                             <?php if ($video == 'yes'){ ?>
+                                            <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
+                                                    
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -571,8 +577,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <span class="video-button">
                                                             </span>                                                            
                                                         </span>
-                                                    </span>
+                                                    
                                                 </a>
+                                                </span>
                                             <?php } else { ?>
                                                 <span class="image-container">
                                                      <a href="<?php the_permalink(); ?>">
@@ -692,8 +699,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 
                                             ?>
                                             <?php if ($video == 'yes'){ ?>
+                                            <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
+                                                    
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -715,8 +723,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <span class="video-button">
                                                             </span>                                                            
                                                         </span>
-                                                    </span>
+                                                    
                                                 </a>
+                                                </span>
                                             <?php } else { ?>
                                                 <span class="image-container">
                                                      <a href="<?php the_permalink(); ?>">

@@ -4,8 +4,10 @@
  */
 
 get_header();
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
 $topicFilter = $_GET['topic'];
 $keyword = $_GET['searchWords'];
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 $q = get_queried_object();
 $q_slug = $q->slug ?? '';
 ?>
@@ -21,7 +23,7 @@ $q_slug = $q->slug ?? '';
 	<?php else : ?>
 		<?php // no rows found ?>
 	<?php endif; ?>
-	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo $banner_image['url']; ?>); background-size: cover; background-position: center;">
+	    <section class="eventsBanner topicBanner sectorBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
 	        <div class="container">
 	            <span class="back-to-sectors topicFilter">
 	                <a href="/market-narratives/technology-trends/" target="_self">Technology Trends</a>
@@ -36,11 +38,11 @@ $q_slug = $q->slug ?? '';
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Technology Trends" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if (in_array($q_slug, ['expert-presentations', 'community-interviews', 'workshop-recordings', 'customer'], true)){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span>                        
                         <span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
+							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
                             <span class="filterButtonText">Filter</span>
                         </span>
                         <span class="dropDowns">
@@ -50,26 +52,26 @@ $q_slug = $q->slug ?? '';
 									<option value="">All Topics</option>
 									<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 									 <?php
-										$argsFilter = array(
+										$argsFilter = [
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'paged'=> $paged,
-											'tax_query'      => array(
+											'tax_query'      => [
 												'relation' => 'AND',
-												array (
+												 [
 													'taxonomy' => 'filter-types',
 													'field' => 'slug',
 													'terms'    => 'market-narratives'
-												),
-												array (
+												],
+												 [
 													'taxonomy' => 'market-narratives-subcategories',
 													'field' => 'slug',
 													'terms'    => 'technology-trends'
-												)
-											),
-										);
+												]
+											],
+										];
 										?>
-									<?php $terms = array(); ?>
+									<?php $terms = []; ?>
 									<?php
 									// This loop only tallies distinct terms for a filter dropdown - it
 									// never reads title/content/ACF fields, so it doesn't need full
@@ -119,51 +121,51 @@ $q_slug = $q->slug ?? '';
 					<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 					<?php
 					if($keyword != '') {
-						$args = array(
+						$args = [
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							's' => $keyword,
 							'paged'=> $paged,
-							'tax_query'      => array(
+							'tax_query'      => [
 								'relation' => 'AND',
-								array (
+								 [
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
-								),
-								array (
+								],
+								 [
 									'taxonomy' => 'market-narratives-subcategories',
 									'field' => 'slug',
 									'terms'    => 'technology-trends'
-								)								
-							),
-						);
+								]								
+							],
+						];
 					} else {
-						$args = array(
+						$args = [
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							'paged'=> $paged,
-							'tax_query'      => array(
+							'tax_query'      => [
 								'relation' => 'AND',
-								array (
+								 [
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
-								),
-								array (
+								],
+								 [
 									'taxonomy' => 'market-narratives-subcategories',
 									'field' => 'slug',
 									'terms'    => 'technology-trends'
-								)								
-							),
-						);
+								]								
+							],
+						];
 					}
 					if ($topicFilter != '') {
-						$args['tax_query'][] = array(
+						$args['tax_query'][] = [
 							'taxonomy' => 'topic',
 							'field'    => 'slug',
 							'terms'    => $topicFilter
-						);
+						];
 					}
 					?>
 					<?php $posts = new WP_Query( $args );
@@ -197,17 +199,17 @@ $q_slug = $q->slug ?? '';
 	                                               <?php // no rows found ?>
 	                                           <?php endif; ?>
 	                                        <?php endwhile; ?>
-	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+	                                        <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 	                                        <span class="hover-container">
 	                                            <?php if ($imageCounter) { ?>
-	                                                <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
 	                                        <span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -234,10 +236,16 @@ $q_slug = $q->slug ?? '';
 									   <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 									   <?php if ($topicFilter != '') { ?>
 											<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-											<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+											<?php $term_link = get_term_link( $term ); ?>
+											<?php if ( ! is_wp_error( $term_link ) ) : ?>
+											<a href="<?php echo esc_url( $term_link ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+											<?php endif; ?>
 										<?php } else { ?> 
 											<?php if($postType){?>
-												<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+												<?php $postType_link = get_term_link( $postType ); ?>
+												<?php if ( ! is_wp_error( $postType_link ) ) : ?>
+												<a href="<?php echo esc_url( $postType_link ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+												<?php endif; ?>
 											<?php } ?>
 										<?php } ?>
 	                                </span>
@@ -253,7 +261,7 @@ $q_slug = $q->slug ?? '';
 	                   
 
 	                <?php endwhile; else : ?>
-	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+	                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 	                <?php endif; ?>
 
 	                <?php wp_reset_postdata(); wp_reset_query();?>
@@ -266,7 +274,7 @@ $q_slug = $q->slug ?? '';
 	<?php if ( have_rows( 'banner' ) ) : ?>
 		<?php while ( have_rows( 'banner' ) ) : the_row(); ?>
 			<?php $banner_image = get_sub_field( 'banner_image' ); ?>
-			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo $banner_image['url']; ?>);">
+			<section class="topicBanner sector-topic-banner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>);">
 				<div class="container">
 					<span class="breadcrumb-container">
 						<a class="home-link" href="/" target="_self">Home</a>
@@ -276,7 +284,7 @@ $q_slug = $q->slug ?? '';
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo get_sub_field( 'title' ); ?></h1>
+						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -292,11 +300,11 @@ $q_slug = $q->slug ?? '';
 						<span class="searchField">
                             <span class="search">
                                 <input class="searchInput" type="text" name="searchWords" id="search" placeholder="Find in Technology Trends" <?php if($keyword != '') {?>value="<?php echo esc_attr( $keyword ); ?>"<?php } ?>/>
-                                <input class="searchButton" type="image" alt="Search" <?php if ($q_slug == 'expert-presentations' || $q_slug == 'community-interviews' || $q_slug == 'workshop-recordings' || $q_slug == 'customer'){ ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo get_template_directory_uri(); ?>/assets/images/magnify.svg" <?php }?>/>
+                                <input class="searchButton" type="image" alt="Search" <?php if (in_array($q_slug, ['expert-presentations', 'community-interviews', 'workshop-recordings', 'customer'], true)){ ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" <?php } else { ?>src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/magnify.svg" <?php }?>/>
                             </span>
                         </span>                      
 						<span class="filtersButtonMobile">                            
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
+							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/filters.svg" width="14" height="14" loading="lazy" decoding="async" alt="Filters" />                            
 							<span class="filterButtonText">Filter</span>
 						</span>
 						<span class="dropDowns">
@@ -306,32 +314,32 @@ $q_slug = $q->slug ?? '';
 									<option value="">All Topics</option>
 									<?php $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 									 <?php
-										$argsFilter = array(
+										$argsFilter = [
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'paged'=> $paged,
-											'tax_query'      => array(
+											'tax_query'      => [
 												'relation' => 'AND',
-												array (
+												 [
 													'taxonomy' => 'filter-types',
 													'field' => 'slug',
 													'terms'    => 'market-narratives'
-												),
-												array (
+												],
+												 [
 													'taxonomy' => 'market-narratives-subcategories',
 													'field' => 'slug',
 													'terms'    => 'technology-trends'
-												)
+												]
 												//  array(
 												// 	 'taxonomy' => 'topic',
 												// 	 'field'    => 'slug',
 												// 	 'terms'    => $personas,
 												// 	 'operator' => 'IN'
 												//  )
-											),
-										);
+											],
+										];
 									?>
-									<?php $terms = array(); ?>
+									<?php $terms = []; ?>
 									<?php
 									// This loop only tallies distinct terms for a filter dropdown - it
 									// never reads title/content/ACF fields, so it doesn't need full
@@ -379,12 +387,12 @@ $q_slug = $q->slug ?? '';
 		<section class="explore-section">
 			<div class="container">
 				<?php while ( have_rows( 'topic_buttons' ) ) : the_row(); ?>
-					<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
+					<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 					<div class="button-container">
 						<?php $sectors_terms = get_sub_field( 'topic' ); ?>
 						<?php if ( $sectors_terms ): ?>
 							<?php foreach ( $sectors_terms as $sectors_term ): ?>
-								<a class="sector-button button grey-button" href="/market-narratives/technology-trends/?topic=<?php echo $sectors_term->slug; ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
+								<a class="sector-button button grey-button" href="/market-narratives/technology-trends/?topic=<?php echo esc_attr( $sectors_term->slug ); ?>" target="_self"><?php echo esc_html( $sectors_term->name ); ?></a>
 							<?php endforeach; ?>
 						<?php endif; ?>
 					</div>
@@ -422,14 +430,14 @@ $q_slug = $q->slug ?? '';
 																						<span class="bg-container offset-image-container">
   																						  <?php $offsetimage = get_sub_field( 'image'); ?>
   																						  <?php if ( $offsetimage ) { ?>
-  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+  																							  <?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
   																						  <?php } ?>
   																					  </span>
 																					<?php } else if ($imageCounter == 1){ ?>
 																						<span class="bg-container">
 																						<?php $imageSlideOne = get_sub_field( 'image'); ?>
 																						<?php if (  $imageSlideOne ) { ?>
-																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, array( 'alt' => '' ) ); ?>
+																							<?php echo wp_get_attachment_image( $imageSlideOne['ID'], 'full', false, [ 'alt' => '' ] ); ?>
 																						<?php } ?>
 																					</span>
 																					<?php } $imageCounter++; ?>
@@ -452,7 +460,7 @@ $q_slug = $q->slug ?? '';
 																				<?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
 									echo '<img src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -482,7 +490,7 @@ $q_slug = $q->slug ?? '';
 															}?>
 															<a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 															<?php if($postType){?>
-																<a href="/topic/<?php echo $postType->slug; ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+																<a href="/topic/<?php echo esc_attr( $postType->slug ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
 															<?php } ?>
 							                                </span>
 							                                <a href="<?php the_permalink(); ?>" class="title"><?php echo esc_html( get_the_title($post->ID) ); ?></a>
@@ -490,7 +498,7 @@ $q_slug = $q->slug ?? '';
 							                                <span class="excerpt">
 																<?php if ( have_rows( 'preview_module', $post ) ) : ?>
 												                   <?php while ( have_rows( 'preview_module', $post ) ) : the_row(); ?>
-																	   <?php echo get_sub_field( 'overview_text' ); ?>
+																	   <?php echo esc_html( get_sub_field( 'overview_text' ) ); ?>
 												                    <?php endwhile; ?>
 												                <?php else : ?>
 												                    <?php echo esc_html( wp_trim_words( get_the_excerpt($post->ID), 25, '...' ) );?>
@@ -524,38 +532,39 @@ $q_slug = $q->slug ?? '';
 		 <div class="container">
 			 <div id="loop" class="gridWrapper">
 				 <?php $term_m = 'topic';
-				  $terms = get_terms( $term_m, array(
+				  $terms = get_terms( [ 'taxonomy' => $term_m,
 					  'hide_empty' => false,
-				  ) );
+				  ] );
 
-				  $personas = array();
+				  $personas = [];
 				  foreach( $terms as $term){
 					  $personas[] = $term->slug;
 				  } ?>
 				 <?php
-				 $args = array(
+				 $args = [
+					 'no_found_rows'  => true,
 					 'post_type'      => 'post',
 					 'posts_per_page' => -1,
-					 'tax_query'      => array(
+					 'tax_query'      => [
 						 'relation' => 'AND',
-						 array (
+						  [
 							 'taxonomy' => 'filter-types',
 							 'field' => 'slug',
 							 'terms'    => 'market-narratives'
-						 ),
-						 array (
+						 ],
+						  [
 							 'taxonomy' => 'market-narratives-subcategories',
 							 'field' => 'slug',
 							 'terms'    => 'technology-trends'
-						 )
+						 ]
 						//  array(
 						// 	 'taxonomy' => 'topic',
 						// 	 'field'    => 'slug',
 						// 	 'terms'    => $personas,
 						// 	 'operator' => 'IN'
 						//  )
-					 ),
-				 );
+					 ],
+				 ];
 				 ?>
 				 <?php $posts = new WP_Query( $args );
 					if( $posts->have_posts() ): ?>
@@ -588,17 +597,17 @@ $q_slug = $q->slug ?? '';
 												<?php // no rows found ?>
 											<?php endif; ?>
 										 <?php endwhile; ?>
-										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => '', 'class' => 'desktop' ) ); ?>
+										 <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 										 <span class="hover-container">
 											 <?php if ($imageCounter) { ?>
-												 <span class="slide-counter">1 OF <?php echo $imageCounter; ?></span>
+												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
 										 <span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
@@ -625,10 +634,16 @@ $q_slug = $q->slug ?? '';
 								 <a href="/market-narratives/technology-trends" class="topicFilterText">Technology Trends</a>
 								 <?php if ($topicFilter != '') { ?>
 									<?php $term = get_term_by('slug', $topicFilter, 'topic'); ?>
-									<a href="<?php echo esc_url( get_term_link($term) ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+									<?php $term_link = get_term_link( $term ); ?>
+									<?php if ( ! is_wp_error( $term_link ) ) : ?>
+									<a href="<?php echo esc_url( $term_link ); ?>" class="topicFilterText"><?php echo esc_html( $term->name ); ?></a>
+									<?php endif; ?>
 								<?php } else { ?> 
 									<?php if($postType){?>
-										<a href="<?php echo esc_url( get_term_link($postType) ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										<?php $postType_link = get_term_link( $postType ); ?>
+										<?php if ( ! is_wp_error( $postType_link ) ) : ?>
+										<a href="<?php echo esc_url( $postType_link ); ?>" class="topicFilterText"><?php echo esc_html( $postType->name ); ?></a>
+										<?php endif; ?>
 									<?php } ?>
 								<?php } ?>
 								 </span>
@@ -643,7 +658,7 @@ $q_slug = $q->slug ?? '';
 					 <?php } ?>
 
 				 <?php endwhile; else : ?>
-					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+					 <h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
 				 <?php endif; ?>
 
 				 <?php wp_reset_postdata(); wp_reset_query();?>

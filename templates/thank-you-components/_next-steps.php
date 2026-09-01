@@ -1,7 +1,7 @@
 <section class="partners-cards-module next-steps-block">
 	<div class="container">
 		<div class="top-content">
-			<h2 class="text-black"><?php echo get_sub_field( 'title' ); ?></h2>
+			<h2 class="text-black"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
 		</div>
 		<div class="card-container">
 			<?php if ( have_rows( 'card' ) ) : ?>
@@ -10,19 +10,19 @@
 					<div class="card">
 						<?php $arrow_image = get_sub_field( 'arrow_image' ); ?>
 						<?php if ( $arrow_image ) { ?>
-							<span class="arrow-container"><?php echo wp_get_attachment_image( $arrow_image['ID'], 'full', false, array( 'alt' => $arrow_image['alt'] ) ); ?></span>
+							<span class="arrow-container"><?php echo wp_get_attachment_image( $arrow_image['ID'], 'full', false, [ 'alt' => $arrow_image['alt'] ] ); ?></span>
 						<?php } ?>
 						<span class="content-container">
 							<div class="counter-title-container">
 								<span class="counter-circle-outer">
 									<span class="counter circle-counter">
-										<?php echo $counter ?>
+										<?php echo esc_html( $counter ) ?>
 									</span>
 								</span>
 							</div>
-							<h3 class="black-text"><?php echo get_sub_field( 'title' ); ?></h3>
+							<h3 class="black-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
 							<span class="content-container-bottom">
-								<span class="card-text"><?php echo get_sub_field( 'text' ); ?></span>
+								<span class="card-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
 							</span>
 						</span>
 					</div>

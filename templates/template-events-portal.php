@@ -7,11 +7,12 @@ get_header();
 ?>
 
 <main id="main" role="main" class="events">
+<?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET search param for a bookmarkable, shareable events-listing URL, used only as a WP_Query 's' search term below; no state change. ?>
 <?php $keyword = $_GET['searchWords']; ?>
     <section class="title-banner dark-theme">
         <div class="container">
-            <h1 class="header-large mobile-header-medium"><?php echo get_field( 'title' ); ?></h1>
-            <p><?php echo get_field( 'subtitle' ); ?></p>
+            <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_field( 'title' ) ); ?></h1>
+            <p><?php echo esc_html( get_field( 'subtitle' ) ); ?></p>
         </div>
     </section>
 
@@ -36,7 +37,7 @@ get_header();
                     // WP_Query runs by default to support pagination is pure
                     // overhead on every load - skip it.
                     if($keyword != '') {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             's' => $keyword,
                             'posts_per_page' => -1,
@@ -44,34 +45,34 @@ get_header();
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
                             'no_found_rows' => true,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'event-type',
                                     'field' => 'slug',
                                     'terms'    => 'upcoming-events',
                                     'operator' => 'IN'
-                                )
-                            )
-                        );
+                                ]
+                            ]
+                        ];
                     } else {
-                        $args = array(
+                        $args = [
                             'post_type' => 'event',
                             'posts_per_page' => -1,
                             'paged'=> $paged ,
                             'orderby'=> 'menu_order',
                             'order'=> 'ASC',
                             'no_found_rows' => true,
-                            'tax_query' => array(
+                            'tax_query' => [
                                 'relation' => 'AND',
-                                array (
+                                 [
                                     'taxonomy' => 'event-type',
                                     'field' => 'slug',
                                     'terms'    => 'upcoming-events',
                                     'operator' => 'IN'
-                                )
-                            )
-                        );
+                                ]
+                            ]
+                        ];
                     }
 
                     $loop = new WP_Query( $args );
@@ -91,7 +92,7 @@ get_header();
                     ?>
                     <?php $counter++; ?>
                 <?php endwhile; else : ?>
-                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.' ); ?></h2>
+                	<h2 class="h3"><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h2>
                 <?php endif; ?>
 
                 <?php wp_reset_postdata(); wp_reset_query();?>

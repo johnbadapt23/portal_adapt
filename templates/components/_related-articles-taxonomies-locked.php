@@ -16,32 +16,33 @@
                             // date (uses the normal date index) and shuffling in PHP gives the
                             // same genuinely-randomized-per-request selection without the DB-side
                             // random sort.
-                            $args = array(
+                            $args = [
                                 'post_type'      => $post_type,
                                 'posts_per_page' => 20,
                                 'fields'         => 'ids',
                                 'orderby'        => 'date',
                                 'order'          => 'DESC',
-                                'tax_query'      => array(
-                                    array(
+                                'tax_query'      => [
+                                    [
                                         'taxonomy' => $taxonomy,
                                         'field'    => 'term_id',
                                         'terms'    => $terms,
                                         'operator' => 'IN',
-                                    ),
-                                ),
-                            );
-                            $pool = get_posts( $args );
+                                    ],
+                                ],
+                            ];
+                            $pool = adapt_cached_post_pool( $args );
                             shuffle( $pool );
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
-                            	? new WP_Query( array(
+                            	? new WP_Query( [
+                            		'no_found_rows'  => true,
                             		'post_type'      => $post_type,
                             		'post__in'       => $related_ids,
                             		'orderby'        => 'post__in',
                             		'posts_per_page' => 8,
-                            	) )
-                            	: new WP_Query( array( 'post__in' => array( 0 ) ) );
+                            	] )
+                            	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                              if( $posts->have_posts() ): ?>
                               <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                   <?php if(current_user_can('mepr_auth')) {?>
@@ -228,32 +229,33 @@
                             // date (uses the normal date index) and shuffling in PHP gives the
                             // same genuinely-randomized-per-request selection without the DB-side
                             // random sort.
-                            $args = array(
+                            $args = [
                                 'post_type'      => $post_type,
                                 'posts_per_page' => 20,
                                 'fields'         => 'ids',
                                 'orderby'        => 'date',
                                 'order'          => 'DESC',
-                                'tax_query'      => array(
-                                    array(
+                                'tax_query'      => [
+                                    [
                                         'taxonomy' => $taxonomy,
                                         'field'    => 'term_id',
                                         'terms'    => $terms,
                                         'operator' => 'IN',
-                                    ),
-                                ),
-                            );
-                            $pool = get_posts( $args );
+                                    ],
+                                ],
+                            ];
+                            $pool = adapt_cached_post_pool( $args );
                             shuffle( $pool );
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
-                            	? new WP_Query( array(
+                            	? new WP_Query( [
+                            		'no_found_rows'  => true,
                             		'post_type'      => $post_type,
                             		'post__in'       => $related_ids,
                             		'orderby'        => 'post__in',
                             		'posts_per_page' => 8,
-                            	) )
-                            	: new WP_Query( array( 'post__in' => array( 0 ) ) );
+                            	] )
+                            	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                              if( $posts->have_posts() ): ?>
                               <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                   <?php if(current_user_can('mepr_auth')) {?>
@@ -440,32 +442,33 @@
                             // date (uses the normal date index) and shuffling in PHP gives the
                             // same genuinely-randomized-per-request selection without the DB-side
                             // random sort.
-                            $args = array(
+                            $args = [
                                 'post_type'      => $post_type,
                                 'posts_per_page' => 20,
                                 'fields'         => 'ids',
                                 'orderby'        => 'date',
                                 'order'          => 'DESC',
-                                'tax_query'      => array(
-                                    array(
+                                'tax_query'      => [
+                                    [
                                         'taxonomy' => $taxonomy,
                                         'field'    => 'term_id',
                                         'terms'    => $terms,
                                         'operator' => 'IN',
-                                    ),
-                                ),
-                            );
-                            $pool = get_posts( $args );
+                                    ],
+                                ],
+                            ];
+                            $pool = adapt_cached_post_pool( $args );
                             shuffle( $pool );
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
-                            	? new WP_Query( array(
+                            	? new WP_Query( [
+                            		'no_found_rows'  => true,
                             		'post_type'      => $post_type,
                             		'post__in'       => $related_ids,
                             		'orderby'        => 'post__in',
                             		'posts_per_page' => 8,
-                            	) )
-                            	: new WP_Query( array( 'post__in' => array( 0 ) ) );
+                            	] )
+                            	: new WP_Query( [ 'post__in' => [ 0 ] ] );
                              if( $posts->have_posts() ): ?>
                               <?php while( $posts->have_posts() ) : $posts->the_post(); ?>
                                   <?php if(current_user_can('mepr_auth')) {?>

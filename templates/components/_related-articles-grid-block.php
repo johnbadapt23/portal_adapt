@@ -6,7 +6,7 @@
         <?php $layout = get_sub_field( 'layout' ); ?>
         <?php if ( have_rows( 'related_articles' ) ) : ?>
 
-            <div id="loop" class="<?php if($layout){ echo $layout; } else { ?>grid<?php } ?>">
+            <div id="loop" class="<?php if($layout){ echo esc_attr( $layout ); } else { ?>grid<?php } ?>">
                 <?php $counter = -1; ?>
                 <?php while ( have_rows( 'related_articles' ) ) : the_row(); ?>
                     <?php $post_object = get_sub_field( 'article' ); ?>
@@ -14,31 +14,31 @@
                         <?php $post = $post_object; ?>
                         <?php setup_postdata( $post ); ?>
                             <?php if(current_user_can('mepr_auth')) {?>
-                                <span class="postLink layout<?php echo $counter; ?>">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?>">
                                     <div class="linkWrapper">
                                         <?php if ( get_field ( 'podcast_available' ) == 'yes' ) { ?>
                                             <span class="podcast"></span>
                                         <?php } ?>
                                         <a href="<?php the_permalink(); ?>" class="imageContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                     <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                         <span class="watchIcon"></span>
                                                     <?php } ?>
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                         <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                             <span class="watchIcon"></span>
                                                         <?php } ?>
                                                     </div>
                                                 <?php } else { ?>
                                                     <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                         </div>
                                                     <?php } else { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -132,10 +132,10 @@
                                     </div>
                                 </span>
                             <?php } else { ?>
-                                <span class="postLink layout<?php echo $counter; ?> memberContentLock" target="_self">
+                                <span class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock" target="_self">
                                     <!-- <span class="overlay">
                                         <span class="exclusiveContent">
-                                            <span class="overlayText"><?php echo get_field('member_content_post_overlay_text', 'option'); ?></span>
+                                            <span class="overlayText"><?php echo esc_html( get_field('member_content_post_overlay_text', 'option') ); ?></span>
                                             <span class="registerLogin">
                                                 <a class="registerLink" href="/researchadvisory">Register</a>
                                                 <span>or</span>
@@ -149,24 +149,24 @@
                                         <?php } ?>
                                         <a href="<?php the_permalink(); ?>" class="imageContainer">
                                             <?php if ( get_field( 'listing_image') ) { ?>
-                                                <div class="image" style="background-image: url('<?php echo get_field( 'listing_image' ); ?>');">
+                                                <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_image' ) ); ?>');">
                                                     <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                         <span class="watchIcon"></span>
                                                     <?php } ?>
                                                 </div>
                                             <?php } else { ?>
                                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                                    <div class="image" style="background-image: url('<?php echo get_field( 'video_poster' ); ?>');">
+                                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                                         <?php if( has_term( 'watch', 'article-type' ) ) { ?>
                                                             <span class="watchIcon"></span>
                                                         <?php } ?>
                                                     </div>
                                                 <?php } else { ?>
                                                     <?php if ( get_field ( 'listing_page_grid_image' )) { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'listing_page_grid_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'listing_page_grid_image' ) ); ?>');">
                                                         </div>
                                                     <?php } else { ?>
-                                                        <div class="image" style="background-image: url('<?php echo get_field( 'featured_image' ); ?>');">
+                                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
@@ -277,7 +277,7 @@
         <?php if ( have_rows( 'button_block' ) ) : ?>
             <div class="buttonBlock">
                 <?php while ( have_rows( 'button_block' ) ) : the_row(); ?>
-                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo get_sub_field('link_target'); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
+                    <a href="<?php echo esc_url( get_sub_field('link_url') ); ?>" class="button" target="<?php echo esc_attr( get_sub_field('link_target') ); ?>"><?php echo esc_html( get_sub_field('link_text') ); ?></a>
                 <?php endwhile; ?>
             </div>
         <?php endif; ?>

@@ -29,7 +29,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
     ];
 }
 ?>
-<section class="portal-post-slider portal <?php echo get_sub_field('background_colour'); ?>">
+<section class="portal-post-slider portal <?php echo esc_attr( get_sub_field('background_colour') ); ?>">
     <div class="container">
         <div class="blockTitle">
             <h2 class="headerXsmall text-bold"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
@@ -107,17 +107,17 @@ if ( ! empty( $membership_allowed_ids ) ) {
                     <?php } else if(get_sub_field( 'taxonomy' ) == 'types'){ ?>
                         <?php $type_term = get_sub_field( 'type' ); ?>
                         <?php if ( $type_term ): 
-                            $args = array(
+                            $args = [
                                 'post_type'      => 'post',
                                 'posts_per_page' => 6,
-                                'tax_query'      => array(
-                                    array(
+                                'tax_query'      => [
+                                    [
                                         'taxonomy' => 'filter-types',
                                         'field'    => 'slug',
                                         'terms'    => $type_term->slug,
-                                    )
-                                )
-                            );
+                                    ]
+                                ]
+                            ];
                         
                         endif; ?>
                     <?php } else { ?> 
@@ -140,6 +140,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 }
 
                                 $args = [
+                                    'no_found_rows'  => true,
                                     'post_type'      => 'post',
                                     'posts_per_page' => 6,
                                     'tax_query'      => $tax_query,

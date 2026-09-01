@@ -5,10 +5,12 @@
 
 get_header();
 global $membershipType;
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter params for a bookmarkable, shareable persona-listing URL; each value is sanitized via sanitize_text_field()/wp_unslash() before use, no state change.
 $persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
 $type= isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
 $topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
 $themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 $has_persona_get = ($persona !== '');
 $persona_term = null;
 
@@ -44,10 +46,25 @@ if ($membershipType === 'it-pro') {
     $membership_allowed_ids = $advantage_types_ids;
     $researchLink = $researchLinkAdv;
 } ?>
+<?php
+    // Rendered here (before the filter dropdowns below) rather than inline in
+    // the Results section further down, so adapt_render_filter_posts()'s
+    // visible-terms data is available in time to bake empty-filter dimming
+    // directly into the dropdown buttons, and so the active-filter pills
+    // reflect the exact same state instead of relying on main.js reading it
+    // back out of the DOM after the fact (see buildActiveFilterPills() /
+    // hideEmptyFilters() in main.js - both are now first-paint no-ops here).
+    $active_filter_pills = [];
+    ob_start();
+    adapt_render_filter_posts();
+    $posts_container_html = ob_get_clean();
+    wp_reset_postdata();
+    $adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
+?>
 <section class="title-banner filter-title-banner light-theme">
     <div class="container">
-        <h1 class="header-large mobile-header-medium"><?php echo get_field( 'title' ); ?></h1>
-        <p><?php echo get_field( 'subtitle' ); ?></p>
+        <h1 class="header-large mobile-header-medium"><?php echo esc_html( get_field( 'title' ) ); ?></h1>
+        <p><?php echo esc_html( get_field( 'subtitle' ) ); ?></p>
     </div>
 </section>
 
@@ -183,9 +200,13 @@ if ($membershipType === 'it-pro') {
                                 <a href="#" class="filter-button all <?= $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                 <?php foreach($topic_terms as $term) :
                                     $is_active = $term->slug === $topic;
-                                    if($is_active) $active_found = true;
+                                    if($is_active) {
+                                        $active_found = true;
+                                        $active_filter_pills[] = ['filter' => 'topic', 'label' => $term->name];
+                                    }
+                                    $is_visible = in_array($term->slug, $adapt_visible_terms['topic'] ?? [], true);
                                 ?>
-                                    <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                    <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                 <?php endforeach; ?>
 
                                 <?php if($topic !== '' && !$active_found) : ?>
@@ -211,8 +232,14 @@ if ($membershipType === 'it-pro') {
                             <div class="dropdown-list">
                                 <?php $all_value = !empty($allowed_type_slugs) ? wp_json_encode($allowed_type_slugs) : '[]'; ?>
                                 <a href="#" class="filter-button all <?= empty($type) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                                <?php foreach($type_terms as $term) : ?>
-                                    <a href="#" class="filter-button <?= ($term->slug === ($type ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                <?php foreach($type_terms as $term) :
+                                    $is_active = ($term->slug === ($type ?? ''));
+                                    if ($is_active) {
+                                        $active_filter_pills[] = ['filter' => 'type', 'label' => $term->name];
+                                    }
+                                    $is_visible = in_array($term->slug, $adapt_visible_terms['filter-types'] ?? [], true);
+                                ?>
+                                    <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -255,11 +282,15 @@ if ($membershipType === 'it-pro') {
 
                                     <?php foreach ($persona_terms as $term) :
                                         $is_active = $term->slug === $persona;
-                                        if ($is_active) $persona_active_found = true;
+                                        if ($is_active) {
+                                            $persona_active_found = true;
+                                            $active_filter_pills[] = ['filter' => 'persona', 'label' => $term->name];
+                                        }
+                                        $is_visible = in_array($term->slug, $adapt_visible_terms['persona-mapping'] ?? [], true);
                                     ?>
                                         <a href="#"
                                         class="filter-button <?= $is_active ? 'active' : ''; ?>"
-                                        data-value="<?= esc_attr($term->slug); ?>">
+                                        data-value="<?= esc_attr($term->slug); ?>"<?= $is_visible ? '' : ' style="display:none;"'; ?>>
                                             <?= esc_html($term->name); ?>
                                         </a>
                                     <?php endforeach; ?>
@@ -286,9 +317,13 @@ if ($membershipType === 'it-pro') {
                                     <a href="#" class="filter-button all <?= $themes === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                     <?php foreach($trending_terms as $term) :
                                         $is_active = $term->slug === $themes;
-                                        if($is_active) $active_found = true;
+                                        if($is_active) {
+                                            $active_found = true;
+                                            $active_filter_pills[] = ['filter' => 'trending-themes', 'label' => $term->name];
+                                        }
+                                        $is_visible = in_array($term->slug, $adapt_visible_terms['trending-themes'] ?? [], true);
                                     ?>
-                                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                     <?php endforeach; ?>
 
                                     <?php if($themes !== '' && !$active_found) : ?>
@@ -321,7 +356,7 @@ if ($membershipType === 'it-pro') {
             <div class="filter-search">
                 <form class="post-search-form">
                     <input type="text" class="post-search-input" placeholder="<?php echo esc_attr( get_field('search_help_text') ); ?>">
-                    <input type="image" class="post-search-submit" src="<?= get_template_directory_uri(); ?>/assets/images/magnify-grey.svg" alt="Search">
+                    <input type="image" class="post-search-submit" src="<?= esc_url( get_template_directory_uri() ); ?>/assets/images/magnify-grey.svg" alt="Search">
                 </form>
                 <a class="reset-filters-btn labelSmall text-grey font-bold mobile-hide">Reset</a>
             </div>
@@ -332,13 +367,75 @@ if ($membershipType === 'it-pro') {
 
 
     <!-- Results -->
+    <?php
+        // Featured persona post is now rendered server-side on first load,
+        // matching template-sector-filters.php's #featured-post-sector -
+        // previously this box always started empty and relied on an
+        // unconditional loadFeaturedPostsIfNeeded() AJAX call in main.js's
+        // INITIAL LOAD section. The AJAX path still runs on subsequent
+        // filter changes; see main.js.
+        $featured_post_html = '';
 
+        if ($persona_term && !is_wp_error($persona_term)) {
+
+            // remove_already_displayed_posts (hooked globally on
+            // pre_get_posts) would exclude this post if an earlier
+            // component on the page already linked to it via
+            // get_permalink(), populating $displayed_posts. The AJAX
+            // version of this query (ajax_load_featured_post()) never sees
+            // that exclusion since it runs as its own request with no
+            // prior $displayed_posts, so disable the hook here too so this
+            // query isn't the only one of the two subject to it.
+            remove_action('pre_get_posts', 'remove_already_displayed_posts');
+            $featured_query = new WP_Query([
+                'no_found_rows'  => true,
+                'post_type'      => 'post',
+                'posts_per_page' => 1,
+                'post_status'    => 'publish',
+                'tax_query'      => [
+                    'relation' => 'AND',
+                    [
+                        'taxonomy' => 'filter-types',
+                        'field'    => 'slug',
+                        'terms'    => 'cxo-buyer-persona-profiles',
+                    ],
+                    [
+                        'taxonomy' => 'persona-mapping',
+                        'field'    => 'slug',
+                        'terms'    => $persona_term->slug,
+                    ],
+                ],
+            ]);
+            add_action('pre_get_posts', 'remove_already_displayed_posts');
+
+            if ($featured_query->have_posts()) {
+                ob_start();
+                while ($featured_query->have_posts()) {
+                    $featured_query->the_post();
+                    include locate_template('/templates/components/_featured-article-card.php');
+                }
+                $featured_post_html = ob_get_clean();
+                wp_reset_postdata();
+            }
+        }
+    ?>
 
     <!-- Featured Persona Post -->
-        <section class="featured-persona-post" id="featured-post-persona" style="display:none;">
-            <div class="container"></div>
+        <section class="featured-persona-post" id="featured-post-persona"<?= $featured_post_html === '' ? ' style="display:none;"' : ''; ?>>
+            <div class="container"><?= $featured_post_html; ?></div>
         </section>
-    
+
+    <?php
+        // Built from the active-state each dropdown loop above already
+        // computed, so the pills can never disagree with which buttons are
+        // shown as active.
+        $pills_html = '';
+        foreach ($active_filter_pills as $pill) {
+            $pills_html .= '<button type="button" class="filter-pill" data-filter="' . esc_attr($pill['filter']) . '"><span>' . esc_html($pill['label']) . '</span><span class="pill-close">&times;</span></button>';
+        }
+    ?>
+    <script>window.adaptFilterUIServerRendered = true;</script>
+
     <div class="market-narratives-filter-outer">
         <div class="container">
             <div class="whats-new-container-outer">
@@ -350,7 +447,7 @@ if ($membershipType === 'it-pro') {
                     <div class="sort-pills-container">
                         <div class="results-container">
                             <span class="search-results-label" style="display:none;"></span>
-                            <div class="active-filter-pills" style="display:none;"></div>
+                            <div class="active-filter-pills"<?= empty($active_filter_pills) ? ' style="display:none;"' : ''; ?>><?= $pills_html; ?></div>
                         </div>
                         <div class="sort-dropdown">
                             <div class="filter-dropdown" data-filter="sort" data-allowed="[]">
@@ -373,11 +470,11 @@ if ($membershipType === 'it-pro') {
                         </div>
                     </div>
                     <div class="ajax-loader" style="display: none;">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
+                        <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
                         id="posts-container">
-                    <?php adapt_render_filter_posts(); ?>
+                    <?= $posts_container_html; ?>
                     </div>
 
                     <div class="page-navi-container post-pagination-container">

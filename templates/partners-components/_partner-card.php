@@ -39,7 +39,7 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
 					$inline_img_168_src = $url;
 					$inline_img_168_attach_id = $inline_img_168_src ? attachment_url_to_postid( $inline_img_168_src ) : 0;
 					if ( $inline_img_168_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_168_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)) ) );
+						echo wp_get_attachment_image( $inline_img_168_attach_id, 'full', false, [ 'alt' => esc_attr(get_the_title($post_id)) ] );
 					} elseif ( $inline_img_168_src ) {
 						echo '<img src="' . esc_url( $inline_img_168_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}
@@ -72,7 +72,7 @@ if (is_wp_error($partner_terms) || empty($partner_terms)) {
 					$inline_img_169_src = $url;
 					$inline_img_169_attach_id = $inline_img_169_src ? attachment_url_to_postid( $inline_img_169_src ) : 0;
 					if ( $inline_img_169_attach_id ) {
-						echo wp_get_attachment_image( $inline_img_169_attach_id, 'full', false, array( 'alt' => esc_attr(get_the_title($post_id)) ) );
+						echo wp_get_attachment_image( $inline_img_169_attach_id, 'full', false, [ 'alt' => esc_attr(get_the_title($post_id)) ] );
 					} elseif ( $inline_img_169_src ) {
 						echo '<img src="' . esc_url( $inline_img_169_src ) . '" loading="lazy" decoding="async" alt="' . esc_attr( esc_attr(get_the_title($post_id)) ) . '" />';
 					}

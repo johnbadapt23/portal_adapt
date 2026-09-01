@@ -2,7 +2,7 @@
 <?php if(current_user_can('mepr-active','memberships:48815')){
     $membershipType = 'tnc';
 } ?>
-<?php $kycMemberships = array('49569', '49567', '49565', '49563', '49561', '49559', '49557'); ?>
+<?php $kycMemberships = ['49569', '49567', '49565', '49563', '49561', '49559', '49557']; ?>
 <?php if(current_user_can('mepr-active','memberships:' .$kycMemberships)){
     $membershipType = 'kyc';
 } ?>
@@ -102,7 +102,7 @@ if (user_can($current_user, 'administrator')) {
                     </span>
                     <?php else : ?>
                     <?php if ( $textcontributors ) { ?>
-                        <span class="author">by <span class="authorName"><?php echo $textcontributors; ?></span></span>
+                        <span class="author">by <span class="authorName"><?php echo esc_html( $textcontributors ); ?></span></span>
                     <?php } ?>
                 <?php endif; ?>
                 <span class="dateReadTime"><?php echo esc_html( get_the_date('M j, Y') ); ?></span>
@@ -117,14 +117,14 @@ if (user_can($current_user, 'administrator')) {
                             <?php
 								$image_attach_id = attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
-									echo wp_get_attachment_image( $image_attach_id, 'full', false, array( 'alt' => '', 'class' => 'desktop' ) );
+									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
 									echo '<img class="desktop" src="' . esc_url( $image ) . '" loading="lazy" decoding="async" alt="" />';
 								}
 							?>
                         </div>
                         <?php if ( get_field ( 'image_caption' )) { ?>
-                            <div class="caption"><?php echo get_field ( 'image_caption' ); ?></div>
+                            <div class="caption"><?php echo esc_html( get_field ( 'image_caption' ) ); ?></div>
                         <?php } ?>
                     </div>
                 </div>
@@ -135,13 +135,13 @@ if (user_can($current_user, 'administrator')) {
 <section class="webinar-article announcement-article contained-article bg-white">
     <div class="container">
         <div class="announcement-content">
-            <span class="webinar-content content <?php echo $membershipType; ?>">
+            <span class="webinar-content content <?php echo esc_attr( $membershipType ); ?>">
                 <?php if ($membershipType == 'advantage') { ?>
                 <?php echo wp_kses_post( get_field( 'content' ) ); ?>
-                <?php } ?> 
+                <?php } ?>
                 <?php if ($membershipType == 'it-pro') { ?>
-                    <?php if( get_field('content_it_pro')){ ?> 
-                        <?php echo get_field( 'content_it_pro' ); ?>
+                    <?php if( get_field('content_it_pro')){ ?>
+                        <?php echo wp_kses_post( get_field( 'content_it_pro' ) ); ?>
                     <?php } else { ?>
                         <?php echo wp_kses_post( get_field( 'content' ) ); ?>
                     <?php } ?>
@@ -162,11 +162,11 @@ if (user_can($current_user, 'administrator')) {
             <?php $displayed_posts[] = $currentPostID; ?>
             <?php
                 $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
-                $args = array(
+                $args = [
                     'post_type'      => 'announcement',
                     'posts_per_page' => 3,
                     'paged' => $paged
-                );
+                ];
                 ?>
 
                 <?php $loop = new WP_Query( $args);
@@ -181,7 +181,7 @@ if (user_can($current_user, 'administrator')) {
                                      $text = get_field( 'content' );
                                      $trimmed_content = wp_trim_words( $text, $num_words = 22, $more = '...' );
                                 ?>
-                                <a class="text-dark" href="<?php the_permalink(); ?>"><span class="text-dark excerpt announcement-excerpt"><?php echo $trimmed_content; ?></span></a>
+                                <a class="text-dark" href="<?php the_permalink(); ?>"><span class="text-dark excerpt announcement-excerpt"><?php echo esc_html( $trimmed_content ); ?></span></a>
                             </div>
                         </div>
                     <?php endwhile; ?>

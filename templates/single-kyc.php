@@ -21,12 +21,17 @@
                                 }
                             }
                         ?> 
-                        <a class="kit-back-button" href="<?php echo esc_url( get_term_link($postTopic) ); ?>" target="_self">Back</a>
+                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
+                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                        <a class="kit-back-button" href="<?php echo esc_url( $postTopic_link ); ?>" target="_self">Back</a>
+                        <?php endif; ?>
                         <div class="text-content-inner">
-                            
-                            <span class="subtitle text-red"><a href="<?php echo esc_url( get_term_link($postTopic) ); ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>              
-                            <h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
-                            <span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+
+                            <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
+                            <span class="subtitle text-red"><a href="<?php echo esc_url( $postTopic_link ); ?>"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></a></span>
+                            <?php endif; ?>
+                            <h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+                            <span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                             <span class="links-container">
                                 <!-- Logic for purchased vs non purchased -->
                                 <?php if($purchased == 'yes'){ ?>
@@ -37,16 +42,16 @@
                                         <?php $buttonCounter = 1; ?>
                                         <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
                                             <?php if(get_sub_field( 'button_type' ) == 'video-button') { ?>
-                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo $vimeoCode ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                                                <a class="video-popup popup-vimeo video-link stdBtn red red-button" href="https://vimeo.com/<?php echo esc_attr( $vimeoCode ) ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } elseif(get_sub_field( 'button_type' ) == 'link')  { ?>
-                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                                                <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } else { ?>
                                                 <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">
-                                                    <a class="form-popup popup-modal" href="#talkform"><?php echo get_sub_field( 'form_button' ); ?></a>
+                                                    <a class="form-popup popup-modal" href="#talkform"><?php echo esc_html( get_sub_field( 'form_button' ) ); ?></a>
                                                 </span>
                                                 <div class="formPopup talk-form mfp-hide" id="talkform">
                                                     <a class="popup-modal-dismiss"></a>                                                    
-                                                    <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); ?></div>
+                                                    <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored raw form-embed markup requires unescaped HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                                 </div>
                                             <?php } ?>
                                             <?php $buttonCounter++; ?>
@@ -63,11 +68,11 @@
                             <div class="bg-container">
                                 <?php $poster_image = get_sub_field( 'poster_image' ); ?>
                                 <?php if ( $poster_image ) { ?>
-                                    <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                                    <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                                 <?php } ?>                                                                
                                 <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                     <span class="opacity-overlay"></span>
-                                    <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                                    <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                                 <?php } ?>                                
                             </div>
                         </div> 
@@ -88,7 +93,7 @@
                     <?php $chapterCounter = 1; ?>
                     <?php while ( have_rows( 'kit_content' ) ) : the_row(); ?>
                         <span class="chapter-selector<?php if ($chapterCounter == 1){ ?> active<?php } ?>">
-                            <span class="chapter-title"><?php echo get_sub_field( 'title' ); ?></span>
+                            <span class="chapter-title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                         </span>
                         <?php $chapterCounter++; ?>
                     <?php endwhile; ?>
@@ -107,12 +112,12 @@
                                         <div class="bg-container">
                                             <?php $poster_image = get_sub_field( 'image' ); ?>
                                             <?php if ( $poster_image ) { ?>
-                                                <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, array( 'alt' => $poster_image['alt'] ) ); ?>
+                                                <?php echo wp_get_attachment_image( $poster_image['ID'], 'full', false, [ 'alt' => $poster_image['alt'] ] ); ?>
                                             <?php } ?>
                                             <?php if($purchased == 'yes'){ ?>
                                                 <?php if( get_sub_field( 'vimeo_code' )) { ?>
                                                     <span class="opacity-overlay"></span>
-                                                    <a class="popup-vimeo" href="https://vimeo.com/<?php echo get_sub_field('vimeo_code'); ?>"></a>
+                                                    <a class="popup-vimeo" href="https://vimeo.com/<?php echo esc_attr( get_sub_field('vimeo_code') ); ?>"></a>
                                                 <?php } ?>
                                             <?php } ?>
                                         </div>
@@ -140,11 +145,11 @@
                                     <?php if ( have_rows( 'overview' ) ) : ?>
                                         <div class="overview-content kyc-chapter-content active">
                                             <?php while ( have_rows( 'overview' ) ) : the_row(); ?>
-                                                <span class="overview-title title text-black"><?php echo get_sub_field( 'title' ); ?></span>
+                                                <span class="overview-title title text-black"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
                                                 <?php if($purchased == 'yes'){ ?>
-                                                    <span class="overview-content"><?php echo get_sub_field( 'overview_content' ); ?></span>
+                                                    <span class="overview-content"><?php echo wp_kses_post( get_sub_field( 'overview_content' ) ); ?></span>
                                                 <?php } else { ?> 
-                                                    <span class="overview-excerpt"><?php echo get_sub_field( 'excerpt_text' ); ?></span>
+                                                    <span class="overview-excerpt"><?php echo esc_html( get_sub_field( 'excerpt_text' ) ); ?></span>
                                                 <?php } ?>                                                                                        
                                             <?php endwhile; ?>
                                         </div>
@@ -160,7 +165,7 @@
                                                         <ul class="resources-container">
                                                             <?php while ( have_rows( 'resource' ) ) : the_row(); ?>
                                                                 <li>
-                                                                    <a class="resource-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo get_sub_field( 'title' ); ?></a>                                                                                                                        
+                                                                    <a class="resource-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'title' ) ); ?></a>                                                                                                                        
                                                                 </li>
                                                             <?php endwhile; ?>
                                                         </ul>

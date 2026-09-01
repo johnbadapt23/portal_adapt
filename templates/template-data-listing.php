@@ -33,19 +33,19 @@ get_header();
 							<div class="data-link one-third column">
 								<div class="slide-container">
 									<?php if($buttonLink){?>
-										<a class="imagecontainer-link" href="<?php echo esc_url( $buttonLink ); ?>" target="<?php echo $target; ?>">
+										<a class="imagecontainer-link" href="<?php echo esc_url( $buttonLink ); ?>" target="<?php echo esc_attr( $target ); ?>">
 									<?php } ?>
 										<span class="image-container">
 											<?php $image = get_sub_field( 'image_one' ); ?>
 											<?php $offsetimage = get_sub_field( 'image_two' ); ?>
 											<span class="bg-container offset-image-container">
 												<?php if ( $offsetimage ) { ?>
-													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 											<span class="bg-container">
 												<?php if ( $image ) { ?>
-													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 										</span>
@@ -54,15 +54,15 @@ get_header();
 									<?php } ?>
 								</div>
 								<div class="information-container">
-									<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
-									<span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+									<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+									<span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
 									<span class="button-container">
 										<?php if ( have_rows( 'button' ) ) : ?>
 											<?php while ( have_rows( 'button' ) ) : the_row(); ?>
 											<?php if (get_sub_field('coming_soon') == 1 ){ ?> 
 												<span class="button pink-button no-click coming-soon"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></span>
 											<?php } else { ?>
-												<a class="button black-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+												<a class="button black-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
 											<?php } ?>
 											<?php endwhile; ?>
 										<?php else : ?>
@@ -91,19 +91,19 @@ get_header();
 							<div class="data-link one-third column">
 								<div class="slide-container">
 									<?php if($buttonLink){?>
-										<a class="imagecontainer-link" href="<?php echo esc_url( $buttonLink ); ?>" target="<?php echo $target; ?>">
+										<a class="imagecontainer-link" href="<?php echo esc_url( $buttonLink ); ?>" target="<?php echo esc_attr( $target ); ?>">
 									<?php } ?>
 										<span class="image-container">
 											<?php $image = get_sub_field( 'image_one' ); ?>
 											<?php $offsetimage = get_sub_field( 'image_two' ); ?>
 											<span class="bg-container offset-image-container">
 												<?php if ( $offsetimage ) { ?>
-													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, array( 'alt' => $offsetimage['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $offsetimage['ID'], 'full', false, [ 'alt' => $offsetimage['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 											<span class="bg-container">
 												<?php if ( $image ) { ?>
-													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, array( 'alt' => $image['alt'] ) ); ?>
+													<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => $image['alt'] ] ); ?>
 												<?php } ?>
 											</span>
 										</span>
@@ -112,15 +112,15 @@ get_header();
 									<?php } ?>
 								</div>
 								<div class="information-container">
-									<h2 class="title"><?php echo get_sub_field( 'title' ); ?></h2>
-									<span class="text"><?php echo get_sub_field( 'text' ); ?></span>
+									<h2 class="title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
+									<span class="text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
 									<span class="button-container">
 										<?php if ( have_rows( 'button' ) ) : ?>
 											<?php while ( have_rows( 'button' ) ) : the_row(); ?>
 											<?php if (get_sub_field('coming_soon') == 1 ){ ?> 
 												<span class="button pink-button no-click coming-soon"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></span>
 											<?php } else { ?>
-												<a class="button black-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo get_sub_field( 'link_target' ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+												<a class="button black-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
 											<?php } ?>
 											<?php endwhile; ?>
 										<?php else : ?>

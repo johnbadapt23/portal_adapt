@@ -21,6 +21,7 @@
             <?php if ( get_field('embed')) { ?>
                 <span class="webinar-content content embed-content">
                     <span class="full-screen-scrolldown"><span class="full-screen-icon-container"></span><span class="v-wrap"><span class="v-box">Full Screen mode is recommended <br>for the best experience.</span></span></span>
+                    <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- embed is an admin-authored embed field (iframe/script markup) that wp_kses_post() would strip. ?>
                     <?php echo get_field('embed');?>
                     <span class="full-screen-prompt">View on Full Screen</span>
                 </span>

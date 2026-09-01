@@ -20,7 +20,7 @@ get_header();
 			<div class="login-header-logo">
 				<?php $header_logo = get_field( 'registration_header_logo', 'option' ); ?>
 				<?php if ( $header_logo ) { ?>
-					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, array( 'alt' => $header_logo['alt'], 'width' => '360', 'height' => '20' ) ); ?>
+					<?php echo wp_get_attachment_image( $header_logo['ID'], 'full', false, [ 'alt' => $header_logo['alt'], 'width' => '360', 'height' => '20' ] ); ?>
 				<?php } ?>
 			</div>
 		</div>
@@ -31,7 +31,7 @@ get_header();
 		<div class="container">
 			<div class="login-container-inner register-container-inner">
 				<div class="login-form-container">
-					<span class="form-title"><?php echo get_field( 'login_form_title' ); ?></span>
+					<span class="form-title"><?php echo esc_html( get_field( 'login_form_title' ) ); ?></span>
 					<span class="form">
 						<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			                <?php the_content(); ?>
