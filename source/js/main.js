@@ -2321,7 +2321,7 @@ $('.post-filtering-module').each(function(){
 	loader.hide();
     buildActiveFilterPills();
 	loader.hide();
-    // loadFeaturedPostsIfNeeded();
+    loadFeaturedPostsIfNeeded();
     // updateURL(false);
 
     // ===============================
