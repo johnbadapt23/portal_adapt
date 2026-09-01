@@ -1665,6 +1665,12 @@ function ajax_load_filtered_posts() {
     $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
     $current_user_id = get_current_user_id();
 
+    // Mirrors adapt_render_filter_posts()'s admin bypass so the list a
+    // filter click fetches doesn't shrink relative to what first loaded.
+    // User 584 is an administrator but should still see posts filtered by
+    // their own subscription, not bypass gating like other admins.
+    $is_admin = current_user_can('manage_options') && $current_user_id != 584;
+
     $member = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
     $active_subscriptions = $member?->active_product_subscriptions('ids') ?? [];
     // -------------------------
@@ -1823,8 +1829,8 @@ function ajax_load_filtered_posts() {
         }
     }
 
-    // Subscription filter
-    if (!empty($allowed_subscriptions)) {
+    // Subscription filter — admins bypass entirely (see $is_admin above).
+    if (!$is_admin && !empty($allowed_subscriptions)) {
         $tax_query[] = [
             'taxonomy' => 'subscription',
             'field'    => 'term_id',
@@ -2639,8 +2645,23 @@ function adapt_render_filter_posts() {
     ];
  
     if (!empty($search)) $args['s'] = $search;
- 
-    if ($sort === 'featured') {
+
+    // research_type_order mirrors ajax_load_filtered_posts()'s own check of
+    // the same ACF field (rendered into the page as a hidden input and read
+    // from $_POST there) so the first-load order matches what a subsequent
+    // AJAX filter click would fetch instead of silently re-sorting.
+    if (get_field('research_type_order', $q)) {
+        $args['meta_query'] = [
+            'research_type_order_clause' => [
+                'key'  => 'is_research_type_order',
+                'type' => 'EXISTS',
+            ],
+        ];
+        $args['orderby'] = [
+            'research_type_order_clause' => 'DESC',
+            'date'                       => 'DESC',
+        ];
+    } elseif ($sort === 'featured') {
         $args['meta_query'] = [
             'featured_clause' => ['key' => 'is_featured', 'compare' => 'EXISTS'],
         ];
@@ -2648,7 +2669,7 @@ function adapt_render_filter_posts() {
     } else {
         $args['orderby'] = ['date' => 'DESC'];
     }
- 
+
     // -------------------------
     // Tax query
     // -------------------------
