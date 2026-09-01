@@ -1956,7 +1956,15 @@ $('.post-filtering-module').each(function(){
                 $allBtn.addClass('active');
                 $dropdown.find('.dropdown-title').removeClass('filter-active');
 
-                filters[filter] = normalizeFilterValue($allBtn.data('value'));
+                // The "All" button's data-value carries the full list of
+                // known slugs (used elsewhere to compare against
+                // visibleTerms), not an actual filter selection - sending
+                // it as-is to loadPosts() turns "no constraint" into an
+                // explicit tax_query IN-list, which excludes any post with
+                // no term in that taxonomy at all. "All" should mean empty.
+                // date is the one exception: its "All" button represents a
+                // real default range (last 3 months), not "no constraint".
+                filters[filter] = (filter === 'date') ? normalizeFilterValue($allBtn.data('value')) : [];
                 if(filter === 'date') currentDate = filters[filter];
                 postsPage = 1;
                 loadPosts(1, false);
@@ -2060,7 +2068,11 @@ $('.post-filtering-module').each(function(){
         if ($activeBtn.length) {
             filters[filter] = normalizeFilterValue($activeBtn.data('value'));
         } else if ($allBtn.length) {
-            filters[filter] = normalizeFilterValue($allBtn.data('value'));
+            // See the pill-removal handler above: the "All" button's
+            // data-value is the full list of known slugs, not an actual
+            // selection - only date's "All" represents a real default
+            // range rather than "no constraint".
+            filters[filter] = (filter === 'date') ? normalizeFilterValue($allBtn.data('value')) : [];
         } else {
             filters[filter] = [];
         }
@@ -2236,7 +2248,14 @@ $('.post-filtering-module').each(function(){
 			filters.date = currentDate;
 		} else {
 			if ($btn.hasClass('all')) {
-				filters[filter] = normalizeFilterValue($btn.data('value'));
+				// "All"'s data-value is the full list of known slugs for
+				// this taxonomy (used elsewhere to compare against
+				// visibleTerms), not an actual filter selection. Sending
+				// it as-is turns "no constraint" into an explicit
+				// tax_query IN-list, which excludes any post with no term
+				// in that taxonomy - exactly what a fresh page load (with
+				// no explicit filter) does NOT do. "All" means empty.
+				filters[filter] = [];
 			} else {
 				filters[filter] = normalizeFilterValue($btn.data('value'));
 			}
