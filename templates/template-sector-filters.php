@@ -367,7 +367,12 @@ if ($membershipType === 'it-pro') {
 
     <!-- Results -->
     <?php
-        $featured_post = null;
+        // Featured sector post is rendered server-side on first load (was
+        // previously computed here and discarded, then re-fetched a moment
+        // later via an unconditional loadFeaturedPostsIfNeeded() AJAX call
+        // in main.js - see the INITIAL LOAD section there). The AJAX path
+        // still runs on subsequent filter changes; see main.js.
+        $featured_post_html = '';
 
         if ($sector_term && !is_wp_error($sector_term)) {
 
@@ -375,6 +380,7 @@ if ($membershipType === 'it-pro') {
                 'no_found_rows'  => true,
                 'post_type'      => 'post',
                 'posts_per_page' => 1,
+                'post_status'    => 'publish',
                 'tax_query'      => [
                     'relation' => 'AND',
                     [
@@ -388,22 +394,28 @@ if ($membershipType === 'it-pro') {
                         'terms'    => $sector_term->slug,
                     ],
                     [
-                        'taxonomy' => 'subscription', 
+                        'taxonomy' => 'subscription',
                         'field'    => 'slug',
-                        'terms'    => 'advantage',   
+                        'terms'    => 'advantage',
                     ],
                 ],
             ]);
 
             if ($featured_query->have_posts()) {
-                $featured_post = $featured_query;
+                ob_start();
+                while ($featured_query->have_posts()) {
+                    $featured_query->the_post();
+                    include locate_template('/templates/components/_featured-article-card-sector.php');
+                }
+                $featured_post_html = ob_get_clean();
+                wp_reset_postdata();
             }
         }
         ?>
 <?php if ($sector_term && !is_wp_error($sector_term)) : ?>
     <!-- Featured Persona Post -->
-        <section class="featured-persona-post" id="featured-post-sector" style="display:none;">
-            <div class="container"></div>
+        <section class="featured-persona-post" id="featured-post-sector"<?= $featured_post_html === '' ? ' style="display:none;"' : ''; ?>>
+            <div class="container"><?= $featured_post_html; ?></div>
         </section>
     <div class="market-narratives-filter-outer">
         <div class="container">

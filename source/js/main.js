@@ -2198,7 +2198,17 @@ $('.post-filtering-module').each(function(){
 	loader.hide();
     buildActiveFilterPills();
 	loader.hide();
-    // loadFeaturedPostsIfNeeded();
+    // Some templates (e.g. template-sector-filters.php) now render the
+    // featured-post box server-side on first load, so the initial AJAX
+    // fetch here would just redundantly overwrite it. Only fire it if the
+    // box is still empty - templates that haven't been converted yet
+    // (e.g. template-persona-filters.php) start empty, so this keeps
+    // their existing AJAX-on-load behavior unchanged.
+    const $featuredContainers = $module.find('#featured-post-persona .container, #featured-post-sector .container');
+    const featuredAlreadyRendered = $featuredContainers.length > 0 && $featuredContainers.text().trim() !== '';
+    if (!featuredAlreadyRendered) {
+        loadFeaturedPostsIfNeeded();
+    }
     // updateURL(false);
 
     // ===============================
