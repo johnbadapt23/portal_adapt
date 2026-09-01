@@ -160,6 +160,21 @@ if (
 
 <?php if($q -> parent == 0){ ?>
 <?php $q = adjust_term_name_for_membership($q); ?>
+<?php
+// Rendered here (before the filter dropdowns below) rather than inline in
+// the Results section further down, so adapt_render_filter_posts()'s
+// visible-terms data is available in time to bake empty-filter dimming
+// directly into the dropdown buttons, and so the active-filter pills
+// reflect the exact same state instead of relying on main.js reading it
+// back out of the DOM after the fact (see buildActiveFilterPills() /
+// hideEmptyFilters() in main.js - both are now first-paint no-ops here).
+$active_filter_pills = [];
+ob_start();
+adapt_render_filter_posts();
+$posts_container_html = ob_get_clean();
+wp_reset_postdata();
+$adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
+?>
 <section class="title-banner filter-title-banner light-theme <?php echo esc_attr( $membershipType ); ?>">
     <div class="container">
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
@@ -266,8 +281,9 @@ if (
                                 ?>
                                 <a href="#" class="filter-button all <?php $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                 <?php foreach($topic_terms as $term) :
+                                    $is_visible = in_array($term->slug, $adapt_visible_terms['topic'] ?? [], true);
                                 ?>
-                                    <a href="#" class="filter-button" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                    <a href="#" class="filter-button" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -298,11 +314,15 @@ if (
 
                                 <?php foreach ($type_terms as $term) :
                                     $is_active = (!empty($q) && $term->term_id === $q->term_id);
-                                    if ($is_active) $active_found = true;
+                                    if ($is_active) {
+                                        $active_found = true;
+                                        $active_filter_pills[] = ['filter' => 'type', 'label' => $term->name];
+                                    }
+                                    $is_visible = in_array($term->slug, $adapt_visible_terms['filter-types'] ?? [], true);
                                 ?>
                                     <a href="#"
                                     class="filter-button <?= $is_active ? 'active' : ''; ?>"
-                                    data-value="<?= esc_attr($term->slug); ?>">
+                                    data-value="<?= esc_attr($term->slug); ?>"<?= $is_visible ? '' : ' style="display:none;"'; ?>>
                                         <?= esc_html($term->name); ?>
                                     </a>
                                 <?php endforeach; ?>
@@ -325,9 +345,13 @@ if (
                                     <a href="#" class="filter-button all <?= $themes === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                     <?php foreach($trending_terms as $term) :
                                         $is_active = $term->slug === $themes;
-                                        if($is_active) $active_found = true;
+                                        if($is_active) {
+                                            $active_found = true;
+                                            $active_filter_pills[] = ['filter' => 'trending-themes', 'label' => $term->name];
+                                        }
+                                        $is_visible = in_array($term->slug, $adapt_visible_terms['trending-themes'] ?? [], true);
                                     ?>
-                                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -342,8 +366,14 @@ if (
                                 <div class="dropdown-list">
                                     <?php $all_value = !empty($allowed_persona_slugs) ? wp_json_encode($allowed_persona_slugs) : '[]'; ?>
                                     <a href="#" class="filter-button all <?= empty($persona) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                                    <?php foreach ($persona_terms as $term) : ?>
-                                        <a href="#" class="filter-button <?= ($term->slug === ($persona ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                    <?php foreach ($persona_terms as $term) :
+                                        $is_active = ($term->slug === ($persona ?? ''));
+                                        if ($is_active) {
+                                            $active_filter_pills[] = ['filter' => 'persona', 'label' => $term->name];
+                                        }
+                                        $is_visible = in_array($term->slug, $adapt_visible_terms['persona-mapping'] ?? [], true);
+                                    ?>
+                                        <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                     <?php endforeach; ?>
                                 </div>
                             </div>
@@ -358,8 +388,14 @@ if (
                                     <div class="dropdown-list">
                                         <?php $all_value = !empty($allowed_sector_slugs) ? wp_json_encode($allowed_sector_slugs) : '[]'; ?>
                                         <a href="#" class="filter-button all <?= empty($sector) ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-                                        <?php foreach($sector_terms as $term) : ?>
-                                            <a href="#" class="filter-button <?= ($term->slug === ($sector ?? '')) ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'><?= esc_html($term->name); ?></a>
+                                        <?php foreach($sector_terms as $term) :
+                                            $is_active = ($term->slug === ($sector ?? ''));
+                                            if ($is_active) {
+                                                $active_filter_pills[] = ['filter' => 'sector', 'label' => $term->name];
+                                            }
+                                            $is_visible = in_array($term->slug, $adapt_visible_terms['sector-analysis'] ?? [], true);
+                                        ?>
+                                            <a href="#" class="filter-button <?= $is_active ? 'active' : ''; ?>" data-value='<?= esc_attr($term->slug); ?>'<?= $is_visible ? '' : ' style="display:none;"'; ?>><?= esc_html($term->name); ?></a>
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
@@ -391,6 +427,16 @@ if (
 
 
 
+        <?php
+            // Built from the active-state each dropdown loop above already
+            // computed, so the pills can never disagree with which buttons
+            // are shown as active.
+            $pills_html = '';
+            foreach ($active_filter_pills as $pill) {
+                $pills_html .= '<button type="button" class="filter-pill" data-filter="' . esc_attr($pill['filter']) . '"><span>' . esc_html($pill['label']) . '</span><span class="pill-close">&times;</span></button>';
+            }
+        ?>
+        <script>window.adaptFilterUIServerRendered = true;</script>
         <!-- Results -->
         <div class="container">
             <div class="whats-new-container-outer">
@@ -398,7 +444,7 @@ if (
                     <div class="sort-pills-container">
                         <div class="results-container">
                             <span class="search-results-label" style="display:none;"></span>
-                            <div class="active-filter-pills" style="display:none;"></div>
+                            <div class="active-filter-pills"<?= empty($active_filter_pills) ? ' style="display:none;"' : ''; ?>><?= $pills_html; ?></div>
                         </div>
                         <div class="sort-dropdown">
                             <div class="filter-dropdown" data-filter="sort" data-allowed="[]">
@@ -425,7 +471,7 @@ if (
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
                         id="posts-container">
-                    <?php adapt_render_filter_posts(); ?>
+                    <?= $posts_container_html; ?>
                     </div>
 
                     <div class="page-navi-container post-pagination-container">

@@ -2040,6 +2040,86 @@ add_action('wp_ajax_nopriv_load_featured_post', 'ajax_load_featured_post');
 add_action('wp_ajax_load_favourite_posts', 'ajax_load_favourite_posts');
 add_action('wp_ajax_nopriv_load_favourite_posts', 'ajax_load_favourite_posts');
 
+/**
+ * Shared query + render logic for the Favourites listing, used by BOTH the
+ * first-paint PHP render in template-favourites.php and the AJAX handler
+ * below (ajax_load_favourite_posts()), so the two can never drift into
+ * showing different posts for "the same" filters. Previously the template
+ * called the unrelated adapt_render_filter_posts() directly, which has no
+ * concept of favourites-scoping (no post__in) and would render unfiltered,
+ * site-wide posts on first load instead of the user's favourited posts.
+ *
+ * Deliberately mirrors ajax_load_favourite_posts()'s original query exactly:
+ * no membership/subscription gating and no featured-sort meta_query, since
+ * those only apply to the general filter-listing system, not favourites.
+ */
+function adapt_render_favourite_posts($params = []) {
+    $favorites = get_user_favorites();
+
+    // CRITICAL SAFETY CHECK
+    if (empty($favorites)) {
+        $GLOBALS['adapt_has_more_posts']      = false;
+        $GLOBALS['adapt_favourite_max_pages'] = 0;
+        return;
+    }
+
+    $defaults = [
+        'page'   => 1,
+        'search' => '',
+        'topic'  => '',
+        'type'   => '',
+    ];
+    $params = array_merge($defaults, $params);
+    $page   = max(1, (int) $params['page']);
+
+    $args = [
+        'post_type'      => 'post',
+        'post__in'       => $favorites,
+        'post_status'    => 'publish',
+        'posts_per_page' => 12,
+        'paged'          => $page,
+    ];
+
+    if ($params['search'] !== '') {
+        $args['s'] = $params['search'];
+    }
+
+    $tax_query = [];
+
+    if ($params['topic'] !== '') {
+        $tax_query[] = [
+            'taxonomy' => 'topic',
+            'field'    => 'slug',
+            'terms'    => $params['topic'],
+        ];
+    }
+
+    if ($params['type'] !== '') {
+        $tax_query[] = [
+            'taxonomy' => 'filter-types',
+            'field'    => 'slug',
+            'terms'    => $params['type'],
+        ];
+    }
+
+    if ($tax_query) {
+        $args['tax_query'] = array_merge(['relation' => 'AND'], $tax_query);
+    }
+
+    $query = new WP_Query($args);
+
+    $GLOBALS['adapt_has_more_posts']      = $query->max_num_pages > $page;
+    $GLOBALS['adapt_favourite_max_pages'] = $query->max_num_pages;
+
+    while ($query->have_posts()) {
+        $query->the_post();
+        set_query_var('is_favourites', true);
+        include locate_template('/templates/components/_article-card.php');
+    }
+
+    wp_reset_postdata();
+}
+
 function ajax_load_favourite_posts() {
     check_ajax_referer( 'adapt_ajax_nonce', 'nonce' );
 
@@ -2053,59 +2133,18 @@ function ajax_load_favourite_posts() {
         ]);
     }
 
-    $page   = intval($_POST['page'] ?? 1);
-    $search = sanitize_text_field($_POST['search'] ?? '');
-    $topic  = sanitize_text_field($_POST['topic'] ?? '');
-    $type   = sanitize_text_field($_POST['type'] ?? '');
-    $args = [
-        'post_type'      => 'post',
-        'post__in'       => $favorites,
-        'post_status'    => 'publish',
-        'posts_per_page' => 12,
-        'paged'          => $page,
-    ];
-
-    if ($search) {
-        $args['s'] = $search;
-    }
-
-    $tax_query = [];
-
-    if ($topic) {
-        $tax_query[] = [
-            'taxonomy' => 'topic',
-            'field'    => 'slug',
-            'terms'    => $topic,
-        ];
-    }
-
-    if ($type) {
-        $tax_query[] = [
-            'taxonomy' => 'filter-types',
-            'field'    => 'slug',
-            'terms'    => $type,
-        ];
-    }
-
-    if ($tax_query) {
-        $args['tax_query'] = array_merge(['relation' => 'AND'], $tax_query);
-    }
-
-    $query = new WP_Query($args);
-
     ob_start();
-
-    while ($query->have_posts()) {
-        $query->the_post();
-        set_query_var('is_favourites', true);
-        include locate_template('/templates/components/_article-card.php');
-    }
-
-    wp_reset_postdata();
+    adapt_render_favourite_posts([
+        'page'   => intval($_POST['page'] ?? 1),
+        'search' => sanitize_text_field($_POST['search'] ?? ''),
+        'topic'  => sanitize_text_field($_POST['topic'] ?? ''),
+        'type'   => sanitize_text_field($_POST['type'] ?? ''),
+    ]);
+    $html = ob_get_clean();
 
     wp_send_json_success([
-        'html'      => ob_get_clean(),
-        'max_pages' => $query->max_num_pages,
+        'html'      => $html,
+        'max_pages' => $GLOBALS['adapt_favourite_max_pages'] ?? 0,
     ]);
 }
 

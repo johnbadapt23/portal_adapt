@@ -48,6 +48,19 @@ if ($membershipType === 'it-pro') {
     $membership_allowed_ids = $advantage_types_ids;
 }
 
+// Rendered here (before the filter dropdowns below) rather than inline in
+// the Results section further down, so adapt_render_filter_posts()'s
+// visible-terms data is available in time to bake empty-filter dimming
+// directly into the dropdown buttons, and so the active-filter pills
+// reflect the exact same state instead of relying on main.js reading it
+// back out of the DOM after the fact (see buildActiveFilterPills() /
+// hideEmptyFilters() in main.js - both are now first-paint no-ops here).
+$active_filter_pills = [];
+ob_start();
+adapt_render_filter_posts();
+$posts_container_html = ob_get_clean();
+wp_reset_postdata();
+$adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
 ?>
 
 
@@ -138,10 +151,16 @@ $sort_terms($trending_terms);
     <div class="dropdown-list">
         <?php $all_value = '[]'; ?>
         <a href="#" class="filter-button all <?= $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-        <?php foreach ($topic_terms as $term) : ?>
+        <?php foreach ($topic_terms as $term) :
+            $is_active = $term->slug === $topic;
+            if ($is_active) {
+                $active_filter_pills[] = ['filter' => 'topic', 'label' => $term->name];
+            }
+            $is_visible = in_array($term->slug, $adapt_visible_terms['topic'] ?? [], true);
+        ?>
             <a href="#"
-               class="filter-button <?= $term->slug === $topic ? 'active' : ''; ?>"
-               data-value="<?= esc_attr($term->slug); ?>">
+               class="filter-button <?= $is_active ? 'active' : ''; ?>"
+               data-value="<?= esc_attr($term->slug); ?>"<?= $is_visible ? '' : ' style="display:none;"'; ?>>
                 <?= esc_html($term->name); ?>
             </a>
         <?php endforeach; ?>
@@ -159,10 +178,16 @@ $sort_terms($trending_terms);
             : '[]';
         ?>
         <a href="#" class="filter-button all <?= $type === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
-        <?php foreach ($type_terms as $term) : ?>
+        <?php foreach ($type_terms as $term) :
+            $is_active = $term->slug === $type;
+            if ($is_active) {
+                $active_filter_pills[] = ['filter' => 'type', 'label' => $term->name];
+            }
+            $is_visible = in_array($term->slug, $adapt_visible_terms['filter-types'] ?? [], true);
+        ?>
             <a href="#"
-               class="filter-button <?= $term->slug === $type ? 'active' : ''; ?>"
-               data-value="<?= esc_attr($term->slug); ?>">
+               class="filter-button <?= $is_active ? 'active' : ''; ?>"
+               data-value="<?= esc_attr($term->slug); ?>"<?= $is_visible ? '' : ' style="display:none;"'; ?>>
                 <?= esc_html($term->name); ?>
             </a>
         <?php endforeach; ?>
@@ -220,6 +245,16 @@ $sort_terms($trending_terms);
 </div>
 </div>
 
+<?php
+    // Built from the active-state each dropdown loop above already
+    // computed, so the pills can never disagree with which buttons are
+    // shown as active.
+    $pills_html = '';
+    foreach ($active_filter_pills as $pill) {
+        $pills_html .= '<button type="button" class="filter-pill" data-filter="' . esc_attr($pill['filter']) . '"><span>' . esc_html($pill['label']) . '</span><span class="pill-close">&times;</span></button>';
+    }
+?>
+<script>window.adaptFilterUIServerRendered = true;</script>
 <!-- RESULTS -->
 <div class="container">
 <div class="whats-new-container-outer">
@@ -228,7 +263,7 @@ $sort_terms($trending_terms);
 <div class="sort-pills-container">
 <div class="results-container">
     <span class="search-results-label" style="display:none;"></span>
-    <div class="active-filter-pills" style="display:none;"></div>
+    <div class="active-filter-pills"<?= empty($active_filter_pills) ? ' style="display:none;"' : ''; ?>><?= $pills_html; ?></div>
 </div>
 
 <div class="sort-dropdown">
@@ -248,7 +283,7 @@ $sort_terms($trending_terms);
 
 <div class="whats-new resources-column-container three-column-container gap-16-40"
      id="posts-container">
-    <?php adapt_render_filter_posts(); ?>
+    <?= $posts_container_html; ?>
     </div>
 
 <div class="page-navi-container post-pagination-container">

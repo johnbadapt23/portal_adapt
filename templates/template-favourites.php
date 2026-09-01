@@ -8,6 +8,23 @@ get_header();
 $favorites        = get_user_favorites();
 $favouritesCount  = get_user_favorites_count();
 $filterMin        = get_field('favourite_filtering_minimum', 'options');
+
+// Rendered here (before the filter dropdowns below), same as every other
+// filtering template, via adapt_render_favourite_posts() - NOT
+// adapt_render_filter_posts(), which has no favourites-scoping (no
+// post__in) and would show unfiltered, site-wide posts on first load
+// instead of the user's favourited posts. See adapt_render_favourite_posts()
+// in functions.php, which is shared with ajax_load_favourite_posts() so the
+// two can never drift apart.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET search/filter params for a bookmarkable, shareable favourites URL; sanitized before use, no state change.
+ob_start();
+adapt_render_favourite_posts([
+    'search' => sanitize_text_field(wp_unslash($_GET['search'] ?? '')),
+    'topic'  => sanitize_text_field(wp_unslash($_GET['topic'] ?? '')),
+    'type'   => sanitize_text_field(wp_unslash($_GET['type'] ?? '')),
+]);
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
+$favourite_posts_html = ob_get_clean();
 ?>
 
 <main id="main" role="main" class="default whats-new">
@@ -142,7 +159,7 @@ $filterMin        = get_field('favourite_filtering_minimum', 'options');
                 </div>
                 <div class="whats-new resources-column-container three-column-container gap-16-40"
                      id="posts-container">
-                    <?php adapt_render_filter_posts(); ?>
+                    <?= $favourite_posts_html; ?>
                     </div>
 
                 <div class="page-navi-container post-pagination-container">
