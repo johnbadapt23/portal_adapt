@@ -98,16 +98,19 @@ jobs:
         #
         # IMPORTANT: that git-diff approach can't see changes made by the
         # build step above - assets/css/{global,core,tpl-agenda,tpl-events,tpl-flexible,tpl-home,tpl-portal-flexible,tpl-single-post}.min.css
-        # and assets/js/main.min.js are committed files, but the build
-        # regenerates them in the runner's working directory without
-        # re-committing. A commit that only touches source/scss/*.scss would
-        # show them as unchanged in git diff even though the freshly-built
-        # files on disk are genuinely different, so they'd silently NOT get
-        # re-uploaded. sync-delta-includes below exists specifically for
-        # this - it force-includes all of them in every deploy regardless of
-        # what git diff reports. (CSS used to be one main.min.css bundle;
-        # it's now split per-template so a page only loads what it needs -
-        # see header.php and source/scss/main-core.scss.)
+        # and assets/js/{main,isotope,select2}.min.js are committed files,
+        # but the build regenerates them in the runner's working directory
+        # without re-committing. A commit that only touches
+        # source/scss/*.scss or source/js/includes/*.js would show them as
+        # unchanged in git diff even though the freshly-built files on disk
+        # are genuinely different, so they'd silently NOT get re-uploaded.
+        # sync-delta-includes below exists specifically for this - it
+        # force-includes all of them in every deploy regardless of what git
+        # diff reports. (CSS used to be one main.min.css bundle, and JS used
+        # to be entirely inside main.min.js too; both are now split
+        # per-template/per-feature so a page only loads what it needs - see
+        # header.php, source/scss/main-core.scss, and
+        # source/gulp/tasks/build/scripts.js.)
         uses: milanmk/actions-file-deployer@1.18
         with:
           remote-protocol: sftp
@@ -163,7 +166,7 @@ jobs:
             :!/assets/js/modernizr-2.7.1.min.js
             :!/assets/watch-icon-grey.svg
             :!/assets/js/bkup
-          sync-delta-includes: assets/css/global.min.css,assets/css/core.min.css,assets/css/tpl-agenda.min.css,assets/css/tpl-events.min.css,assets/css/tpl-flexible.min.css,assets/css/tpl-home.min.css,assets/css/tpl-portal-flexible.min.css,assets/css/tpl-single-post.min.css,assets/js/main.min.js
+          sync-delta-includes: assets/css/global.min.css,assets/css/core.min.css,assets/css/tpl-agenda.min.css,assets/css/tpl-events.min.css,assets/css/tpl-flexible.min.css,assets/css/tpl-home.min.css,assets/css/tpl-portal-flexible.min.css,assets/css/tpl-single-post.min.css,assets/js/main.min.js,assets/js/isotope.min.js,assets/js/select2.min.js
           # Mirrors of the excludes above, in lftp's own syntax, for when
           # sync=full - full sync mirrors the actual working directory
           # (everything the build step produced, node_modules included),
