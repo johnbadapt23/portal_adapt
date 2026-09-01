@@ -454,10 +454,12 @@ if ($membershipType === 'it-pro') {
                         <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/ajax-loading.gif" width="200" height="200" loading="lazy" decoding="async" alt="Loading..." />
                     </div>
                     <div class="whats-new resources-column-container three-column-container gap-16-40"
-                        id="posts-container"></div>
+                        id="posts-container">
+                        <?php adapt_render_filter_posts(); ?>
+                    </div>
 
                     <div class="page-navi-container post-pagination-container">
-                        <a class="load-more-btn std-button red-button small-button">Load More</a>
+                        <a class="load-more-btn std-button red-button small-button" <?= $GLOBALS['adapt_has_more_posts'] ? 'style="display: inline;"' : ''; ?>>Load More</a>
                     </div>
                 </div>
             </div>
