@@ -2209,6 +2209,14 @@ $('.post-filtering-module').each(function(){
     if (!featuredAlreadyRendered) {
         loadFeaturedPostsIfNeeded();
     }
+    // Templates that render the post list server-side (via
+    // adapt_render_filter_posts()) also print window.adaptInitialVisibleTerms
+    // with the same data loadPosts() would return on an AJAX call, so empty
+    // filter buttons can be dimmed from the first paint instead of only
+    // after the visitor's first interaction.
+    if (typeof window.adaptInitialVisibleTerms !== 'undefined') {
+        hideEmptyFilters(window.adaptInitialVisibleTerms);
+    }
     // updateURL(false);
 
     // ===============================

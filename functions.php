@@ -1640,6 +1640,78 @@ function get_visible_terms_cache_version() {
     return $version;
 }
 
+// Which taxonomy term slugs (and year-month date buckets) actually have at
+// least one matching post for a given filter query, so the filter UI can
+// dim/hide buttons that would return zero results. Shared by
+// ajax_load_filtered_posts() (every AJAX filter/search/sort/page request)
+// and adapt_render_filter_posts() (the initial PHP-rendered page load) so
+// both compute this identically instead of maintaining separate copies that
+// can drift apart. Cached per unique combination of $args + $membershipType,
+// invalidated via get_visible_terms_cache_version().
+function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
+    $cache_version = get_visible_terms_cache_version();
+    $cache_key     = 'visible_terms_' . $cache_version . '_' . md5( wp_json_encode( [
+        'args'       => $args,
+        'membership' => $membershipType,
+    ] ) );
+
+    $visible_terms = get_transient( $cache_key );
+    if ( is_admin() ) {
+        $visible_terms = false;
+    }
+
+    if ( false === $visible_terms ) {
+        $visible_terms = [];
+        foreach ( $taxonomies as $taxonomy => $_ ) {
+            $visible_terms[ $taxonomy ] = [];
+        }
+        $visible_terms['date'] = [];
+
+        // Lightweight ALL posts query (IDs only)
+        $all_posts_args = $args;
+        unset( $all_posts_args['paged'] );
+        $all_posts_args['fields']                 = 'ids';
+        $all_posts_args['posts_per_page']         = 1000;
+        $all_posts_args['no_found_rows']          = true;
+        $all_posts_args['update_post_meta_cache'] = false;
+        $all_posts_args['update_post_term_cache'] = false;
+
+        $all_ids_query = new WP_Query( $all_posts_args );
+        $post_ids      = $all_ids_query->posts;
+
+        if ( ! empty( $post_ids ) ) {
+            // Taxonomy terms
+            foreach ( array_keys( $taxonomies ) as $taxonomy ) {
+                $terms = get_terms( [
+                    'taxonomy'   => $taxonomy,
+                    'hide_empty' => true,
+                    'object_ids' => $post_ids,
+                    'fields'     => 'slugs',
+                ] );
+                if ( ! is_wp_error( $terms ) ) {
+                    $visible_terms[ $taxonomy ] = $terms;
+                }
+            }
+
+            // Date terms
+            global $wpdb;
+            $dates = $wpdb->get_results( $wpdb->prepare( "
+                SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
+                FROM {$wpdb->posts}
+                WHERE ID IN (" . implode( ',', array_fill( 0, count( $post_ids ), '%d' ) ) . ")
+                ORDER BY y DESC, m DESC
+            ", $post_ids ) );
+            foreach ( $dates as $d ) {
+                $visible_terms['date'][] = sprintf( '%04d-%02d', $d->y, $d->m );
+            }
+        }
+
+        set_transient( $cache_key, $visible_terms, HOUR_IN_SECONDS );
+    }
+
+    return $visible_terms;
+}
+
 // $all_posts = get_posts([
 //     'post_type'      => 'post',
 //     'posts_per_page' => -1,
@@ -1854,61 +1926,7 @@ function ajax_load_filtered_posts() {
     // -------------------------
     // Visible terms caching
     // -------------------------
-    $cache_version = get_visible_terms_cache_version();
-    $cache_key = 'visible_terms_' . $cache_version . '_' . md5(wp_json_encode([
-        'args' => $args,
-        'membership' => $membershipType,
-    ]));
-
-    $visible_terms = get_transient($cache_key);
-    if (is_admin()) {
-        $visible_terms = false;
-    }
-
-    if (false === $visible_terms) {
-        $visible_terms = [];
-        foreach ($taxonomies as $taxonomy => $_) $visible_terms[$taxonomy] = [];
-        $visible_terms['date'] = [];
-
-        // Lightweight ALL posts query (IDs only)
-        $all_posts_args = $args;
-        unset($all_posts_args['paged']);
-        $all_posts_args['fields'] = 'ids';
-        $all_posts_args['posts_per_page'] = 1000;
-        $all_posts_args['no_found_rows'] = true;
-        $all_posts_args['update_post_meta_cache'] = false;
-        $all_posts_args['update_post_term_cache'] = false;
-
-        $all_ids_query = new WP_Query($all_posts_args);
-        $post_ids = $all_ids_query->posts;
-
-        if (!empty($post_ids)) {
-            // Taxonomy terms
-            foreach (array_keys($taxonomies) as $taxonomy) {
-                $terms = get_terms([
-                    'taxonomy'   => $taxonomy,
-                    'hide_empty' => true,
-                    'object_ids' => $post_ids,
-                    'fields'     => 'slugs',
-                ]);
-                if (!is_wp_error($terms)) $visible_terms[$taxonomy] = $terms;
-            }
-
-            // Date terms
-            global $wpdb;
-            $dates = $wpdb->get_results($wpdb->prepare("
-                SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
-                FROM {$wpdb->posts}
-                WHERE ID IN (" . implode(',', array_fill(0, count($post_ids), '%d')) . ")
-                ORDER BY y DESC, m DESC
-            ", $post_ids));
-            foreach ($dates as $d) {
-                $visible_terms['date'][] = sprintf('%04d-%02d', $d->y, $d->m);
-            }
-        }
-
-        set_transient($cache_key, $visible_terms, HOUR_IN_SECONDS);
-    }
+    $visible_terms = adapt_get_visible_terms($args, $taxonomies, $membershipType);
 
     wp_reset_postdata();
 
@@ -2712,10 +2730,15 @@ function adapt_render_filter_posts() {
         $query = new WP_Query($args);
     }
     add_action('pre_get_posts', 'remove_already_displayed_posts');
- 
+
     // If we got 13 results, a next page exists — set global for the template to use.
     $GLOBALS['adapt_has_more_posts'] = $query->post_count > 12;
- 
+
+    // Same visible-terms computation loadPosts() gets back on every AJAX
+    // call, exposed here so the template can dim/hide empty filter buttons
+    // on first paint instead of waiting for the user's first interaction.
+    $GLOBALS['adapt_visible_terms'] = adapt_get_visible_terms($args, $taxonomies, $membershipType);
+
     $rendered = 0;
     while ($query->have_posts() && $rendered < 12) {
         $query->the_post();
@@ -2724,6 +2747,17 @@ function adapt_render_filter_posts() {
         $filtered_topic = $card_filtered_topic;
         include locate_template('/templates/components/_article-card.php');
     }
+
+    // Feeds main.js's hideEmptyFilters() the same data loadPosts() would
+    // hand it after an AJAX call, so filter buttons that would return zero
+    // results are dimmed from the very first paint instead of only after
+    // the visitor's first interaction. Emitted here (rather than in every
+    // calling template) so it can't be forgotten on a template that adopts
+    // this render function later.
+    printf(
+        '<script>window.adaptInitialVisibleTerms = %s;</script>',
+        wp_json_encode( $GLOBALS['adapt_visible_terms'] )
+    );
 }
 
 function adapt_register_agent_tester_role() {
