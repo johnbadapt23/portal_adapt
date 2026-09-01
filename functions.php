@@ -1855,9 +1855,17 @@ function ajax_load_filtered_posts() {
                 'type' => 'EXISTS',
             ],
         ];
+        // ID is a final tiebreaker for posts that tie on date (e.g. bulk
+        // imports sharing the same post_date to the second) - without one,
+        // MySQL's row order for ties isn't guaranteed, and this query's
+        // posts_per_page/LIMIT differs from adapt_render_filter_posts()'s
+        // (12 vs 13), which can be enough for the optimizer to pick a
+        // different plan and therefore a different tie order between the
+        // two, even though the filters are identical.
         $args['orderby'] = [
-            'research_type_order_clause' => 'DESC', 
+            'research_type_order_clause' => 'DESC',
             'date'                       => 'DESC',
+            'ID'                         => 'DESC',
         ];
     } else {
         // Sorting
@@ -1871,9 +1879,10 @@ function ajax_load_filtered_posts() {
             $args['orderby'] = [
                 'featured_clause' => 'DESC',
                 'date'            => 'DESC',
+                'ID'              => 'DESC',
             ];
         } else {
-            $args['orderby'] = ['date' => 'DESC'];
+            $args['orderby'] = ['date' => 'DESC', 'ID' => 'DESC'];
         }
     }
 
@@ -2722,17 +2731,23 @@ function adapt_render_filter_posts() {
                 'type' => 'EXISTS',
             ],
         ];
+        // ID is a final tiebreaker for posts that tie on date - see the
+        // matching comment in ajax_load_filtered_posts(). This query uses
+        // posts_per_page 13 (vs. that function's 12) specifically to detect
+        // a next page, and a LIMIT difference is enough for MySQL to settle
+        // ties differently without an explicit tiebreaker column.
         $args['orderby'] = [
             'research_type_order_clause' => 'DESC',
             'date'                       => 'DESC',
+            'ID'                         => 'DESC',
         ];
     } elseif ($sort === 'featured') {
         $args['meta_query'] = [
             'featured_clause' => ['key' => 'is_featured', 'compare' => 'EXISTS'],
         ];
-        $args['orderby'] = ['featured_clause' => 'DESC', 'date' => 'DESC'];
+        $args['orderby'] = ['featured_clause' => 'DESC', 'date' => 'DESC', 'ID' => 'DESC'];
     } else {
-        $args['orderby'] = ['date' => 'DESC'];
+        $args['orderby'] = ['date' => 'DESC', 'ID' => 'DESC'];
     }
 
     // -------------------------
