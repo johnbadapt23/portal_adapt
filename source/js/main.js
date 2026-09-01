@@ -1926,10 +1926,46 @@ $('.post-filtering-module').each(function(){
     }
 
     // ===============================
-    // BUILD ACTIVE FILTER PILLS
+    // ACTIVE FILTER PILLS
     // ===============================
+    // Bound once, via delegation, rather than per-pill at creation time -
+    // templates that server-render the pills on first paint (see
+    // adapt_render_filter_posts() callers that build $active_filter_pills,
+    // e.g. template-sector-filters.php) need removal clicks to work on
+    // pills this module never built, so a handler tied to a specific pill
+    // element wouldn't reach them. Delegation off the wrapper covers both
+    // the server-rendered pills and any this module builds later.
+    const pillsWrap = $module.find('.active-filter-pills');
+
+    pillsWrap.on('click', '.filter-pill', function(){
+        const filter = $(this).data('filter');
+        const $dropdown = $module.find('.filter-dropdown[data-filter="' + filter + '"]');
+        if (!$dropdown.length) return;
+
+        const $allBtn = $dropdown.find('.filter-button.all');
+        $dropdown.find('.filter-button').removeClass('active');
+        $allBtn.addClass('active');
+        $dropdown.find('.dropdown-title').removeClass('filter-active');
+
+        // The "All" button's data-value carries the full list of
+        // known slugs (used elsewhere to compare against
+        // visibleTerms), not an actual filter selection - sending
+        // it as-is to loadPosts() turns "no constraint" into an
+        // explicit tax_query IN-list, which excludes any post with
+        // no term in that taxonomy at all. "All" should mean empty.
+        // date is the one exception: its "All" button represents a
+        // real default range (last 3 months), not "no constraint".
+        filters[filter] = (filter === 'date') ? normalizeFilterValue($allBtn.data('value')) : [];
+        if(filter === 'date') currentDate = filters[filter];
+        postsPage = 1;
+        loadPosts(1, false);
+        loadFeaturedPostsIfNeeded();
+        updateActiveFilterClasses();
+        // Do NOT push All to URL
+        updateURL(false);
+    });
+
     function buildActiveFilterPills() {
-        const pillsWrap = $module.find('.active-filter-pills');
         const searchLabel = $module.find('.search-results-label');
         if (!pillsWrap.length) return;
 
@@ -1948,33 +1984,9 @@ $('.post-filtering-module').each(function(){
             hasPills = true;
             const label = $activeBtn.text().trim();
 
-            const pill = $('<button type="button" class="filter-pill"><span>' + label + '</span><span class="pill-close">×</span></button>');
-
-            pill.on('click', function(){
-                const $allBtn = $dropdown.find('.filter-button.all');
-                $dropdown.find('.filter-button').removeClass('active');
-                $allBtn.addClass('active');
-                $dropdown.find('.dropdown-title').removeClass('filter-active');
-
-                // The "All" button's data-value carries the full list of
-                // known slugs (used elsewhere to compare against
-                // visibleTerms), not an actual filter selection - sending
-                // it as-is to loadPosts() turns "no constraint" into an
-                // explicit tax_query IN-list, which excludes any post with
-                // no term in that taxonomy at all. "All" should mean empty.
-                // date is the one exception: its "All" button represents a
-                // real default range (last 3 months), not "no constraint".
-                filters[filter] = (filter === 'date') ? normalizeFilterValue($allBtn.data('value')) : [];
-                if(filter === 'date') currentDate = filters[filter];
-                postsPage = 1;
-                loadPosts(1, false);
-                loadFeaturedPostsIfNeeded();
-                updateActiveFilterClasses();
-                // Do NOT push All to URL
-                updateURL(false);
-            });
-
-            pillsWrap.append(pill);
+            pillsWrap.append(
+                '<button type="button" class="filter-pill" data-filter="' + filter + '"><span>' + label + '</span><span class="pill-close">×</span></button>'
+            );
         });
 
         pillsWrap.toggle(hasPills);
@@ -2208,7 +2220,20 @@ $('.post-filtering-module').each(function(){
     // ===============================
     // loadPosts(1, false);
 	loader.hide();
-    buildActiveFilterPills();
+    // Templates that have adopted the full first-paint server-render (pills
+    // + empty-filter dimming baked into the dropdown markup itself - see
+    // template-sector-filters.php) set this flag so the JS versions of that
+    // same work don't run redundantly on load; they're pure DOM re-derives
+    // of state the server already read from the same $_GET values, so
+    // running them again would only risk disagreeing with what was just
+    // printed. Templates that haven't adopted it yet (the flag is unset)
+    // keep the original JS-driven behavior unchanged.
+    const firstPaintServerRendered = window.adaptFilterUIServerRendered === true;
+    if (!firstPaintServerRendered) {
+        buildActiveFilterPills();
+    } else {
+        updateActiveFilterClasses();
+    }
 	loader.hide();
     // Some templates (e.g. template-sector-filters.php) now render the
     // featured-post box server-side on first load, so the initial AJAX
@@ -2225,8 +2250,9 @@ $('.post-filtering-module').each(function(){
     // adapt_render_filter_posts()) also print window.adaptInitialVisibleTerms
     // with the same data loadPosts() would return on an AJAX call, so empty
     // filter buttons can be dimmed from the first paint instead of only
-    // after the visitor's first interaction.
-    if (typeof window.adaptInitialVisibleTerms !== 'undefined') {
+    // after the visitor's first interaction - unless the calling template
+    // already baked that dimming into the buttons itself (see above).
+    if (typeof window.adaptInitialVisibleTerms !== 'undefined' && !firstPaintServerRendered) {
         hideEmptyFilters(window.adaptInitialVisibleTerms);
     }
     // updateURL(false);
