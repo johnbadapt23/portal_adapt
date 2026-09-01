@@ -4874,8 +4874,15 @@ body.template-persona-filters {
         padding-top: 0px;
     }
 
+    // The :not([style*="display:none"]) guard defers to the PHP-rendered
+    // inline style set when there's genuinely no featured post to show
+    // (template-persona-filters.php only adds style="display:none;" when
+    // $featured_post_html is empty) - without it, this !important rule
+    // forced the section visible as an empty box any time the body also
+    // carried filter-active-1/persona-active, regardless of whether a
+    // featured post actually existed.
     &.filter-active-1.persona-active {
-        section.featured-persona-post {
+        section.featured-persona-post:not([style*="display:none"]) {
             display: block!important;
         }
 
@@ -4889,7 +4896,7 @@ body.template-persona-filters {
         }
     }
 
-    
+
 }
 
 body.template-sector-filters {
@@ -4901,8 +4908,11 @@ body.template-sector-filters {
         padding-top: 0px;
     }
 
+    // Same inline-style guard as template-persona-filters above -
+    // template-sector-filters.php uses the identical
+    // style="display:none;"-when-empty pattern for #featured-post-sector.
     &.filter-active-1.sector-active {
-        section.featured-persona-post {
+        section.featured-persona-post:not([style*="display:none"]) {
             display: block !important;
         }
 
