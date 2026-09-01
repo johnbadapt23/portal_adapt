@@ -54,7 +54,7 @@
 						           <?php $counter++; ?>
 						       <?php endwhile; ?>
 						   <?php endif; ?>
-						   <?php if(current_user_can('mepr-active','memberships:' . $members)) { ?>
+						   <?php if( empty(get_field('membership_ids')) || current_user_can('mepr-active','memberships:' . $members)) { ?>
 							   <?php
 							   $date_string = get_field('event_date');
 							   $date = DateTime::createFromFormat('Ymd', $date_string);

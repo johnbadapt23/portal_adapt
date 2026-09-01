@@ -2518,18 +2518,54 @@ function adapt_render_filter_posts() {
     $terms_cache_key = 'filter_types_terms_' . md5(wp_json_encode($membership_allowed_ids));
     $cached_terms    = get_transient($terms_cache_key);
  
-    if ($cached_terms !== false) {
+    // Check if any filter exists in $_GET.
+    $has_get_filters =
+        !empty($_GET['type']) ||
+        !empty($_GET['topic']) ||
+        !empty($_GET['trending']) ||
+        !empty($_GET['persona']) ||
+        !empty($_GET['sector']);
+
+    // Only use cache when there are NO $_GET filters.
+    if ($cached_terms !== false && !$has_get_filters) {
+
         $type_terms     = $cached_terms['types']    ?? [];
         $topic_terms    = $cached_terms['topic']    ?? [];
         $trending_terms = $cached_terms['trending'] ?? [];
         $persona_terms  = $cached_terms['persona']  ?? [];
         $sector_terms   = $cached_terms['sector']   ?? [];
+
     } else {
-        $type_terms     = get_terms(['taxonomy' => 'filter-types',    'hide_empty' => true, 'parent' => 0]);
-        $topic_terms    = get_terms(['taxonomy' => 'topic',           'hide_empty' => true, 'parent' => 0]);
-        $trending_terms = get_terms(['taxonomy' => 'trending-themes', 'hide_empty' => true, 'parent' => 0]);
-        $persona_terms  = get_terms(['taxonomy' => 'persona-mapping', 'hide_empty' => true, 'parent' => 0]);
-        $sector_terms   = get_terms(['taxonomy' => 'sector-analysis', 'hide_empty' => true, 'parent' => 0]);
+
+        $type_terms = get_terms([
+            'taxonomy'   => 'filter-types',
+            'hide_empty' => true,
+            'parent'     => 0,
+        ]);
+
+        $topic_terms = get_terms([
+            'taxonomy'   => 'topic',
+            'hide_empty' => true,
+            'parent'     => 0,
+        ]);
+
+        $trending_terms = get_terms([
+            'taxonomy'   => 'trending-themes',
+            'hide_empty' => true,
+            'parent'     => 0,
+        ]);
+
+        $persona_terms = get_terms([
+            'taxonomy'   => 'persona-mapping',
+            'hide_empty' => true,
+            'parent'     => 0,
+        ]);
+
+        $sector_terms = get_terms([
+            'taxonomy'   => 'sector-analysis',
+            'hide_empty' => true,
+            'parent'     => 0,
+        ]);
     }
  
     // Safe slug extractor

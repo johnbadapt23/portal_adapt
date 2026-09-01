@@ -37,7 +37,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 }
 ?>
 
-<section class="resources-featured featured-module <?php echo esc_attr( $membershipType ); ?>">
+<section class="resources-featured featured-module <?php echo $membershipType; ?>">
     <div class="container">
         <div class="slider-column one-half">
 
@@ -51,11 +51,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
                             <?php
                             $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
 
-                            $args = [
+                            $args = array(
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
-                            ];
+                            );
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
                             }
@@ -107,8 +107,8 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                             ?>
 
                                             <?php if ( $video == 'yes' ) : ?>
+                                                <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -116,7 +116,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_182_attach_id = $inline_img_182_src ? attachment_url_to_postid( $inline_img_182_src ) : 0;
 					if ( $inline_img_182_attach_id ) {
 						$inline_img_182_is_lcp = adapt_is_first_hero_image();
-						$inline_img_182_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_182_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_182_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_182_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_182_is_lcp ) {
 							$inline_img_182_attrs['fetchpriority'] = 'high';
 							$inline_img_182_attrs['loading'] = 'eager';
@@ -129,8 +129,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php endif; ?>
                                                             <span class="video-button"></span>
                                                         </span>
-                                                    </span>
+                                                   
                                                 </a>
+                                                 </span>
                                             <?php else : ?>
                                                 <span class="image-container">
                                                     <a href="<?php the_permalink(); ?>">
@@ -141,7 +142,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_183_attach_id = $inline_img_183_src ? attachment_url_to_postid( $inline_img_183_src ) : 0;
 					if ( $inline_img_183_attach_id ) {
 						$inline_img_183_is_lcp = adapt_is_first_hero_image();
-						$inline_img_183_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_183_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_183_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_183_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_183_is_lcp ) {
 							$inline_img_183_attrs['fetchpriority'] = 'high';
 							$inline_img_183_attrs['loading'] = 'eager';
@@ -169,9 +170,8 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                     }
                                                     ?>
 
-                                                    <?php $postTopic_link = $postTopic ? get_term_link( $postTopic ) : null; ?>
-                                                    <?php if ( $postTopic && ! is_wp_error( $postTopic_link ) ) : ?>
-                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
+                                                    <?php if ( $postTopic ) : ?>
+                                                        <a href="<?php echo esc_url( get_term_link( $postTopic ) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
                                                             <?php echo esc_html( $postTopic->name ); ?>
                                                         </a>
                                                     <?php endif; ?>
@@ -244,8 +244,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 ?>
 
                                                 <?php if ( $video == 'yes' ) : ?>
+                                                    <span class="video-container">
                                                     <a href="<?php the_permalink(); ?>">
-                                                        <span class="video-container">
+                                                        
                                                             <span class="bg-container">
                                                                 <?php if ($image) : ?>  
                                                                     <?php
@@ -253,7 +254,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_184_attach_id = $inline_img_184_src ? attachment_url_to_postid( $inline_img_184_src ) : 0;
 					if ( $inline_img_184_attach_id ) {
 						$inline_img_184_is_lcp = adapt_is_first_hero_image();
-						$inline_img_184_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_184_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_184_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_184_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_184_is_lcp ) {
 							$inline_img_184_attrs['fetchpriority'] = 'high';
 							$inline_img_184_attrs['loading'] = 'eager';
@@ -266,8 +267,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                                 <?php endif; ?>
                                                                 <span class="video-button"></span>
                                                             </span>
-                                                        </span>
+                                                        
                                                     </a>
+                                                    </span>
                                                 <?php else : ?>
                                                     <span class="image-container">
                                                         <a href="<?php the_permalink(); ?>">
@@ -278,7 +280,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_185_attach_id = $inline_img_185_src ? attachment_url_to_postid( $inline_img_185_src ) : 0;
 					if ( $inline_img_185_attach_id ) {
 						$inline_img_185_is_lcp = adapt_is_first_hero_image();
-						$inline_img_185_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_185_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_185_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_185_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_185_is_lcp ) {
 							$inline_img_185_attrs['fetchpriority'] = 'high';
 							$inline_img_185_attrs['loading'] = 'eager';
@@ -306,9 +308,8 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                         ?>
 
-                                                        <?php $postTopic_link = $postTopic ? get_term_link( $postTopic ) : null; ?>
-                                                        <?php if ( $postTopic && ! is_wp_error( $postTopic_link ) ) : ?>
-                                                            <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
+                                                        <?php if ( $postTopic ) : ?>
+                                                            <a href="<?php echo esc_url( get_term_link( $postTopic ) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall">
                                                                 <?php echo esc_html( $postTopic->name ); ?>
                                                             </a>
                                                         <?php endif; ?>
@@ -347,11 +348,11 @@ if ( ! empty( $membership_allowed_ids ) ) {
                         <?php if ( get_sub_field( 'most_recent_or_most_popular' ) === 'most-recent' ) : ?>
 
                             <?php
-                            $args = [
+                            $args = array(
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
-                            ];
+                            );
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
                             }
@@ -402,8 +403,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 
                                             ?>
                                             <?php if ($video == 'yes'){ ?>
+                                            <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
+                                                    
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -411,7 +413,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_186_attach_id = $inline_img_186_src ? attachment_url_to_postid( $inline_img_186_src ) : 0;
 					if ( $inline_img_186_attach_id ) {
 						$inline_img_186_is_lcp = adapt_is_first_hero_image();
-						$inline_img_186_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_186_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_186_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_186_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_186_is_lcp ) {
 							$inline_img_186_attrs['fetchpriority'] = 'high';
 							$inline_img_186_attrs['loading'] = 'eager';
@@ -425,8 +427,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <span class="video-button">
                                                             </span>                                                            
                                                         </span>
-                                                    </span>
+                                                    
                                                 </a>
+                                                </span>
                                             <?php } else { ?>
                                                 <span class="image-container">
                                                      <a href="<?php the_permalink(); ?>">
@@ -437,7 +440,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_187_attach_id = $inline_img_187_src ? attachment_url_to_postid( $inline_img_187_src ) : 0;
 					if ( $inline_img_187_attach_id ) {
 						$inline_img_187_is_lcp = adapt_is_first_hero_image();
-						$inline_img_187_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_187_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_187_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_187_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_187_is_lcp ) {
 							$inline_img_187_attrs['fetchpriority'] = 'high';
 							$inline_img_187_attrs['loading'] = 'eager';
@@ -466,10 +469,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
-                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
-                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
-                                                        <?php endif; ?>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -485,25 +485,24 @@ if ( ! empty( $membership_allowed_ids ) ) {
                             $type_term = get_sub_field( 'type' );                            
                                 if ( $type_term ) {
 
-                                    $tax_query = [
-                                        [
+                                    $tax_query = array(
+                                        array(
                                             'taxonomy' => 'filter-types',
                                             'field'    => 'slug',
                                             'terms'    => $type_term->slug,
-                                        ]
-                                    ];
+                                        )
+                                    );
 
                                     // Merge membership query properly
                                     if ( ! empty( $membership_tax_query ) ) {
                                         $tax_query = array_merge( $tax_query, $membership_tax_query );
                                     }
 
-                                    $args = [
-                                        'no_found_rows'  => true,
+                                    $args = array(
                                         'post_type'      => 'post',
                                         'posts_per_page' => 3,
                                         'tax_query'      => $tax_query,
-                                    ];
+                                    );
 
                                     $sidebar_posts = new WP_Query( $args );
                                 }
@@ -554,8 +553,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 
                                             ?>
                                             <?php if ($video == 'yes'){ ?>
+                                            <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
+                                                    
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -563,7 +563,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_188_attach_id = $inline_img_188_src ? attachment_url_to_postid( $inline_img_188_src ) : 0;
 					if ( $inline_img_188_attach_id ) {
 						$inline_img_188_is_lcp = adapt_is_first_hero_image();
-						$inline_img_188_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_188_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_188_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_188_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_188_is_lcp ) {
 							$inline_img_188_attrs['fetchpriority'] = 'high';
 							$inline_img_188_attrs['loading'] = 'eager';
@@ -577,8 +577,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <span class="video-button">
                                                             </span>                                                            
                                                         </span>
-                                                    </span>
+                                                    
                                                 </a>
+                                                </span>
                                             <?php } else { ?>
                                                 <span class="image-container">
                                                      <a href="<?php the_permalink(); ?>">
@@ -589,7 +590,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_189_attach_id = $inline_img_189_src ? attachment_url_to_postid( $inline_img_189_src ) : 0;
 					if ( $inline_img_189_attach_id ) {
 						$inline_img_189_is_lcp = adapt_is_first_hero_image();
-						$inline_img_189_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_189_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_189_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_189_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_189_is_lcp ) {
 							$inline_img_189_attrs['fetchpriority'] = 'high';
 							$inline_img_189_attrs['loading'] = 'eager';
@@ -618,10 +619,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
-                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
-                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
-                                                        <?php endif; ?>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -635,25 +633,24 @@ if ( ! empty( $membership_allowed_ids ) ) {
                         
                         <?php elseif ( get_sub_field( 'most_recent_or_most_popular' ) === 'tagged-popular' ) : ?>
                             <?php
-                                $tax_query = [
-                                    [
+                                $tax_query = array(
+                                    array(
                                         'taxonomy' => 'most-popular',
                                         'field'    => 'slug',
                                         'terms'    => 'most-popular',
-                                    ]
-                                ];
+                                    )
+                                );
 
                                 // Merge membership query properly
                                 if ( ! empty( $membership_tax_query ) ) {
                                     $tax_query = array_merge( $tax_query, $membership_tax_query );
                                 }
 
-                                $args = [
-                                    'no_found_rows'  => true,
+                                $args = array(
                                     'post_type'      => 'post',
                                     'posts_per_page' => 3,
                                     'tax_query'      => $tax_query,
-                                ];
+                                );
 
                                 $sidebar_posts = new WP_Query( $args );                                                            
                             ?>
@@ -702,8 +699,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                 
                                             ?>
                                             <?php if ($video == 'yes'){ ?>
+                                            <span class="video-container">
                                                 <a href="<?php the_permalink(); ?>">
-                                                    <span class="video-container">
+                                                    
                                                         <span class="bg-container">
                                                             <?php if ($image) : ?>  
                                                                 <?php
@@ -711,7 +709,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_190_attach_id = $inline_img_190_src ? attachment_url_to_postid( $inline_img_190_src ) : 0;
 					if ( $inline_img_190_attach_id ) {
 						$inline_img_190_is_lcp = adapt_is_first_hero_image();
-						$inline_img_190_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_190_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_190_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_190_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_190_is_lcp ) {
 							$inline_img_190_attrs['fetchpriority'] = 'high';
 							$inline_img_190_attrs['loading'] = 'eager';
@@ -725,8 +723,9 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <span class="video-button">
                                                             </span>                                                            
                                                         </span>
-                                                    </span>
+                                                    
                                                 </a>
+                                                </span>
                                             <?php } else { ?>
                                                 <span class="image-container">
                                                      <a href="<?php the_permalink(); ?>">
@@ -737,7 +736,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_191_attach_id = $inline_img_191_src ? attachment_url_to_postid( $inline_img_191_src ) : 0;
 					if ( $inline_img_191_attach_id ) {
 						$inline_img_191_is_lcp = adapt_is_first_hero_image();
-						$inline_img_191_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_191_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_191_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_191_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_191_is_lcp ) {
 							$inline_img_191_attrs['fetchpriority'] = 'high';
 							$inline_img_191_attrs['loading'] = 'eager';
@@ -766,10 +765,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
-                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
-                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
-                                                        <?php endif; ?>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text text-dark-grey labelXXsmall"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
@@ -783,14 +779,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
                         <?php else : ?>
 
                             <?php
-                            $args = [
-                                'no_found_rows'  => true,
+                            $args = array(
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'meta_key'       => 'post_views_count',
                                 'orderby'        => 'meta_value_num',
                                 'order'          => 'DESC',
-                            ];
+                            );
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
                             }
@@ -851,7 +846,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_192_attach_id = $inline_img_192_src ? attachment_url_to_postid( $inline_img_192_src ) : 0;
 					if ( $inline_img_192_attach_id ) {
 						$inline_img_192_is_lcp = adapt_is_first_hero_image();
-						$inline_img_192_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_192_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_192_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_192_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_192_is_lcp ) {
 							$inline_img_192_attrs['fetchpriority'] = 'high';
 							$inline_img_192_attrs['loading'] = 'eager';
@@ -877,7 +872,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 					$inline_img_193_attach_id = $inline_img_193_src ? attachment_url_to_postid( $inline_img_193_src ) : 0;
 					if ( $inline_img_193_attach_id ) {
 						$inline_img_193_is_lcp = adapt_is_first_hero_image();
-						$inline_img_193_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_193_is_lcp ? ' skip-lazy' : '' ) ];
+						$inline_img_193_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_193_is_lcp ? ' skip-lazy' : '' ) );
 						if ( $inline_img_193_is_lcp ) {
 							$inline_img_193_attrs['fetchpriority'] = 'high';
 							$inline_img_193_attrs['loading'] = 'eager';
@@ -906,10 +901,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                         }
                                                     }?>                                                                                                       
                                                     <?php if ( !empty( $postTopic ) ) { ?>
-                                                        <?php $postTopic_link = get_term_link( $postTopic ); ?>
-                                                        <?php if ( ! is_wp_error( $postTopic_link ) ) : ?>
-                                                        <a href="<?php echo esc_url( $postTopic_link ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
-                                                        <?php endif; ?>
+                                                        <a href="<?php echo esc_url( get_term_link($postTopic) ); ?>" class="topic-filter-text labelXXsmall text-dark-grey"><?php echo esc_html( $postTopic->name ); ?></a>
                                                     <?php } ?>
                                                 </span>
                                                 <a href="<?php the_permalink(); ?>" class="title text-black"><h3 class="title text-black labelMedium"><?php echo esc_html( get_the_title() ); ?></h3></a>
