@@ -334,13 +334,64 @@ if ($membershipType === 'it-pro') {
 
 
     <!-- Results -->
+    <?php
+        // Featured persona post is now rendered server-side on first load,
+        // matching template-sector-filters.php's #featured-post-sector -
+        // previously this box always started empty and relied on an
+        // unconditional loadFeaturedPostsIfNeeded() AJAX call in main.js's
+        // INITIAL LOAD section. The AJAX path still runs on subsequent
+        // filter changes; see main.js.
+        $featured_post_html = '';
 
+        if ($persona_term && !is_wp_error($persona_term)) {
+
+            // remove_already_displayed_posts (hooked globally on
+            // pre_get_posts) would exclude this post if an earlier
+            // component on the page already linked to it via
+            // get_permalink(), populating $displayed_posts. The AJAX
+            // version of this query (ajax_load_featured_post()) never sees
+            // that exclusion since it runs as its own request with no
+            // prior $displayed_posts, so disable the hook here too so this
+            // query isn't the only one of the two subject to it.
+            remove_action('pre_get_posts', 'remove_already_displayed_posts');
+            $featured_query = new WP_Query([
+                'no_found_rows'  => true,
+                'post_type'      => 'post',
+                'posts_per_page' => 1,
+                'post_status'    => 'publish',
+                'tax_query'      => [
+                    'relation' => 'AND',
+                    [
+                        'taxonomy' => 'filter-types',
+                        'field'    => 'slug',
+                        'terms'    => 'cxo-buyer-persona-profiles',
+                    ],
+                    [
+                        'taxonomy' => 'persona-mapping',
+                        'field'    => 'slug',
+                        'terms'    => $persona_term->slug,
+                    ],
+                ],
+            ]);
+            add_action('pre_get_posts', 'remove_already_displayed_posts');
+
+            if ($featured_query->have_posts()) {
+                ob_start();
+                while ($featured_query->have_posts()) {
+                    $featured_query->the_post();
+                    include locate_template('/templates/components/_featured-article-card.php');
+                }
+                $featured_post_html = ob_get_clean();
+                wp_reset_postdata();
+            }
+        }
+    ?>
 
     <!-- Featured Persona Post -->
-        <section class="featured-persona-post" id="featured-post-persona" style="display:none;">
-            <div class="container"></div>
+        <section class="featured-persona-post" id="featured-post-persona"<?= $featured_post_html === '' ? ' style="display:none;"' : ''; ?>>
+            <div class="container"><?= $featured_post_html; ?></div>
         </section>
-    
+
     <div class="market-narratives-filter-outer">
         <div class="container">
             <div class="whats-new-container-outer">
