@@ -183,6 +183,23 @@ if ($membershipType === 'it-pro') {
 
                 <div class="mobile-filter-accordion">
                     <div class="mobile-filter-content">
+                        <?php
+                        // Without this, ajax_load_filtered_posts() has no way to
+                        // know this page wants research_type_order sorting -
+                        // loadPosts() only sends the research_type_order flag
+                        // when it finds this exact hidden input in the DOM (see
+                        // main.js). template-persona-filters.php and
+                        // template-post-filters.php already render it;
+                        // this template never did, so every AJAX filter click
+                        // silently fell back to "featured" sorting while the
+                        // first-load PHP render (adapt_render_filter_posts(),
+                        // which reads the same ACF field directly) kept using
+                        // research_type_order sorting - two different orderings
+                        // of the exact same matching posts, which is why the
+                        // grid's contents changed the moment any filter was
+                        // clicked even with no actual filter values changing.
+                        ?>
+                        <input type="hidden" name="research_type_order" value="<?php echo esc_attr( get_field('research_type_order') ? '1' : '0' ); ?>" />
 
                         <!-- Topics -->
                         <?php if ( get_field( 'topics_filter' ) == 1 ) { ?>

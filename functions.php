@@ -1631,82 +1631,60 @@ function get_allowed_subscriptions_for_user($membershipType = null) {
     return []; // fallback → no access
 }
 
-function get_visible_terms_cache_version() {
-    $version = get_option('visible_terms_cache_version');
-    if (!$version) {
-        $version = time();
-        update_option('visible_terms_cache_version', $version);
-    }
-    return $version;
-}
-
 // Which taxonomy term slugs (and year-month date buckets) actually have at
 // least one matching post for a given filter query, so the filter UI can
 // dim/hide buttons that would return zero results. Shared by
 // ajax_load_filtered_posts() (every AJAX filter/search/sort/page request)
 // and adapt_render_filter_posts() (the initial PHP-rendered page load) so
 // both compute this identically instead of maintaining separate copies that
-// can drift apart. Cached per unique combination of $args + $membershipType,
-// invalidated via get_visible_terms_cache_version().
+// can drift apart. Computed fresh on every call - no transient. The site
+// already sits behind WP Rocket's page cache, and an additional PHP-level
+// cache here (that ajax_load_filtered_posts() never shared) was one more
+// way the first-load render and a live AJAX call could end up disagreeing.
 function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
-    $cache_version = get_visible_terms_cache_version();
-    $cache_key     = 'visible_terms_' . $cache_version . '_' . md5( wp_json_encode( [
-        'args'       => $args,
-        'membership' => $membershipType,
-    ] ) );
-
-    $visible_terms = get_transient( $cache_key );
-    if ( is_admin() ) {
-        $visible_terms = false;
+    $visible_terms = [];
+    foreach ( $taxonomies as $taxonomy => $_ ) {
+        $visible_terms[ $taxonomy ] = [];
     }
+    $visible_terms['date'] = [];
 
-    if ( false === $visible_terms ) {
-        $visible_terms = [];
-        foreach ( $taxonomies as $taxonomy => $_ ) {
-            $visible_terms[ $taxonomy ] = [];
-        }
-        $visible_terms['date'] = [];
+    // Lightweight ALL posts query (IDs only)
+    $all_posts_args = $args;
+    unset( $all_posts_args['paged'] );
+    $all_posts_args['fields']                 = 'ids';
+    $all_posts_args['posts_per_page']         = 1000;
+    $all_posts_args['no_found_rows']          = true;
+    $all_posts_args['update_post_meta_cache'] = false;
+    $all_posts_args['update_post_term_cache'] = false;
 
-        // Lightweight ALL posts query (IDs only)
-        $all_posts_args = $args;
-        unset( $all_posts_args['paged'] );
-        $all_posts_args['fields']                 = 'ids';
-        $all_posts_args['posts_per_page']         = 1000;
-        $all_posts_args['no_found_rows']          = true;
-        $all_posts_args['update_post_meta_cache'] = false;
-        $all_posts_args['update_post_term_cache'] = false;
+    $all_ids_query = new WP_Query( $all_posts_args );
+    $post_ids      = $all_ids_query->posts;
 
-        $all_ids_query = new WP_Query( $all_posts_args );
-        $post_ids      = $all_ids_query->posts;
-
-        if ( ! empty( $post_ids ) ) {
-            // Taxonomy terms
-            foreach ( array_keys( $taxonomies ) as $taxonomy ) {
-                $terms = get_terms( [
-                    'taxonomy'   => $taxonomy,
-                    'hide_empty' => true,
-                    'object_ids' => $post_ids,
-                    'fields'     => 'slugs',
-                ] );
-                if ( ! is_wp_error( $terms ) ) {
-                    $visible_terms[ $taxonomy ] = $terms;
-                }
-            }
-
-            // Date terms
-            global $wpdb;
-            $dates = $wpdb->get_results( $wpdb->prepare( "
-                SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
-                FROM {$wpdb->posts}
-                WHERE ID IN (" . implode( ',', array_fill( 0, count( $post_ids ), '%d' ) ) . ")
-                ORDER BY y DESC, m DESC
-            ", $post_ids ) );
-            foreach ( $dates as $d ) {
-                $visible_terms['date'][] = sprintf( '%04d-%02d', $d->y, $d->m );
+    if ( ! empty( $post_ids ) ) {
+        // Taxonomy terms
+        foreach ( array_keys( $taxonomies ) as $taxonomy ) {
+            $terms = get_terms( [
+                'taxonomy'   => $taxonomy,
+                'hide_empty' => true,
+                'object_ids' => $post_ids,
+                'fields'     => 'slugs',
+            ] );
+            if ( ! is_wp_error( $terms ) ) {
+                $visible_terms[ $taxonomy ] = $terms;
             }
         }
 
-        set_transient( $cache_key, $visible_terms, HOUR_IN_SECONDS );
+        // Date terms
+        global $wpdb;
+        $dates = $wpdb->get_results( $wpdb->prepare( "
+            SELECT DISTINCT YEAR(post_date) as y, MONTH(post_date) as m
+            FROM {$wpdb->posts}
+            WHERE ID IN (" . implode( ',', array_fill( 0, count( $post_ids ), '%d' ) ) . ")
+            ORDER BY y DESC, m DESC
+        ", $post_ids ) );
+        foreach ( $dates as $d ) {
+            $visible_terms['date'][] = sprintf( '%04d-%02d', $d->y, $d->m );
+        }
     }
 
     return $visible_terms;
@@ -2292,32 +2270,9 @@ function load_past_sessions_unique() {
 /**
  * Invalidate visible terms cache when posts or terms change
  */
-function invalidate_visible_terms_cache() {
-    global $wpdb;
-
-    // Delete visible_terms_* transients
-    $transients = $wpdb->get_col(
-        $wpdb->prepare(
-            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
-            $wpdb->esc_like( '_transient_visible_terms_' ) . '%'
-        )
-    );
-
-    if ($transients) {
-        foreach ($transients as $transient) {
-            $key = str_replace('_transient_', '', $transient);
-            delete_transient($key);
-        }
-    }
-}
-
-// Clear when posts are saved
-add_action('save_post', 'invalidate_visible_terms_cache');
-
-// Clear when terms are edited/created/deleted
-add_action('created_term', 'invalidate_visible_terms_cache');
-add_action('edited_term', 'invalidate_visible_terms_cache');
-add_action('delete_term', 'invalidate_visible_terms_cache');
+// adapt_get_visible_terms() no longer caches its result (see that function),
+// so there's nothing left for this to invalidate. Removed rather than left
+// as dead weight running on every save_post/term change.
 add_action('mepr-event-transaction-completed', function() {
     delete_transient('membership_ids');
 });
@@ -2455,40 +2410,28 @@ function adapt_render_filter_posts() {
 
     // -------------------------
     // Membership detection
-    // Cached per user for 5 min — avoids repeated MeprUser DB calls.
+    // Computed fresh on every call - no transient here. A cache in this
+    // one path (but not in ajax_load_filtered_posts(), which always
+    // computes this live) is exactly the kind of asymmetry that can make
+    // the first-load render and an AJAX filter click disagree on a
+    // subscription-gated post set. Page-level caching (WP Rocket) already
+    // handles the performance side for anonymous/cacheable requests.
     // -------------------------
-    $current_user_id = get_current_user_id();
-    $mem_cache_key   = 'adapt_render_mem_' . $current_user_id;
-    $mem_cache       = get_transient($mem_cache_key);
- 
-    if ($mem_cache !== false) {
-        $membershipType        = $mem_cache['membershipType'];
-        $allowed_subscriptions = $mem_cache['allowed_subscriptions'];
-        $active_subscriptions  = $mem_cache['active_subscriptions'];
-    } else {
-        $membershipType        = get_membership_type_for_user();
-        $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
-        $member                = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
-        $active_subscriptions  = $member?->active_product_subscriptions('ids') ?? [];
- 
-        set_transient($mem_cache_key, [
-            'membershipType'        => $membershipType,
-            'allowed_subscriptions' => $allowed_subscriptions,
-            'active_subscriptions'  => $active_subscriptions,
-        ], 5 * MINUTE_IN_SECONDS);
-    }
- 
+    $current_user_id       = get_current_user_id();
+    $membershipType        = get_membership_type_for_user();
+    $allowed_subscriptions = get_allowed_subscriptions_for_user($membershipType);
+    $member                = class_exists('MeprUser') ? new MeprUser($current_user_id) : null;
+    $active_subscriptions  = $member?->active_product_subscriptions('ids') ?? [];
+
     // -------------------------
     // Membership allowed IDs + allowed type slugs (server-side, same logic as adapt_render_filter_dropdowns)
     // -------------------------
     $q          = get_queried_object();
     $q_slug     = $q->slug ?? '';
     $q_taxonomy = $q->taxonomy ?? '';
- 
-    $acf_cache_key          = 'filter_types_allowed_ids_' . md5($membershipType);
-    $membership_allowed_ids = $is_admin ? [] : get_transient($acf_cache_key);
- 
-    if (!$is_admin && $membership_allowed_ids === false) {
+
+    $membership_allowed_ids = [];
+    if (!$is_admin) {
         $it_pro_types_ids    = get_field('it_pro_types',    'options') ?: [];
         $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
         $membership_allowed_ids = match ($membershipType) {
@@ -2496,9 +2439,8 @@ function adapt_render_filter_posts() {
             'advantage' => $advantage_types_ids,
             default     => [],
         };
-        set_transient($acf_cache_key, $membership_allowed_ids, HOUR_IN_SECONDS);
     }
- 
+
     // Apply page_allowed_ids intersection (same as template + dropdown function)
     $page_allowed_ids    = [];
     $grouped_types_terms = get_field('grouped_types', $q);
@@ -2521,62 +2463,39 @@ function adapt_render_filter_posts() {
     }
  
     // -------------------------
-    // Load all taxonomy terms (from warm transient when available)
-    // Used to validate page-slug fallbacks AND build allowed_type_slugs
+    // Load all taxonomy terms - computed fresh every call (no transient).
+    // Used to validate page-slug fallbacks AND build allowed_type_slugs.
     // -------------------------
-    $terms_cache_key = 'filter_types_terms_' . md5(wp_json_encode($membership_allowed_ids));
-    $cached_terms    = get_transient($terms_cache_key);
- 
-    // Check if any filter exists in $_GET.
-    $has_get_filters =
-        !empty($_GET['type']) ||
-        !empty($_GET['topic']) ||
-        !empty($_GET['trending']) ||
-        !empty($_GET['persona']) ||
-        !empty($_GET['sector']);
+    $type_terms = get_terms([
+        'taxonomy'   => 'filter-types',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
 
-    // Only use cache when there are NO $_GET filters.
-    if ($cached_terms !== false && !$has_get_filters) {
+    $topic_terms = get_terms([
+        'taxonomy'   => 'topic',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
 
-        $type_terms     = $cached_terms['types']    ?? [];
-        $topic_terms    = $cached_terms['topic']    ?? [];
-        $trending_terms = $cached_terms['trending'] ?? [];
-        $persona_terms  = $cached_terms['persona']  ?? [];
-        $sector_terms   = $cached_terms['sector']   ?? [];
+    $trending_terms = get_terms([
+        'taxonomy'   => 'trending-themes',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
 
-    } else {
+    $persona_terms = get_terms([
+        'taxonomy'   => 'persona-mapping',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
 
-        $type_terms = get_terms([
-            'taxonomy'   => 'filter-types',
-            'hide_empty' => true,
-            'parent'     => 0,
-        ]);
+    $sector_terms = get_terms([
+        'taxonomy'   => 'sector-analysis',
+        'hide_empty' => true,
+        'parent'     => 0,
+    ]);
 
-        $topic_terms = get_terms([
-            'taxonomy'   => 'topic',
-            'hide_empty' => true,
-            'parent'     => 0,
-        ]);
-
-        $trending_terms = get_terms([
-            'taxonomy'   => 'trending-themes',
-            'hide_empty' => true,
-            'parent'     => 0,
-        ]);
-
-        $persona_terms = get_terms([
-            'taxonomy'   => 'persona-mapping',
-            'hide_empty' => true,
-            'parent'     => 0,
-        ]);
-
-        $sector_terms = get_terms([
-            'taxonomy'   => 'sector-analysis',
-            'hide_empty' => true,
-            'parent'     => 0,
-        ]);
-    }
- 
     // Safe slug extractor
     $term_slugs = fn($terms) => (is_array($terms) && !is_wp_error($terms))
         ? array_column($terms, 'slug') : [];
