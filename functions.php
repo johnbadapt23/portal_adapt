@@ -2289,6 +2289,71 @@ add_action('mepr-event-transaction-completed', function() {
     delete_transient('membership_ids');
 });
 
+/**
+ * Cache the result of a get_posts() "candidate pool" query in a short-lived
+ * transient, keyed by the query args themselves.
+ *
+ * Built for the related-article/carousel components (templates/components/
+ * _related-articles-taxonomies.php and _related-articles-taxonomies-locked.php)
+ * that pull a pool of up to 20 posts by taxonomy/post_type ordered by date,
+ * then shuffle a small slice of that pool per-request for a randomized
+ * carousel. This pool query runs on every load of a single-post or topic-
+ * archive page - pages MemberPress's own membership-gating logic keeps out
+ * of WP Rocket's full-page cache entirely (confirmed live: these pages come
+ * back with cache-control: no-store, private, while the homepage - not
+ * membership-gated the same way - is served from cache) - so unlike most of
+ * this theme's other queries, this one pays its full DB cost on every
+ * single visit from every visitor.
+ *
+ * The candidate pool itself doesn't depend on the viewing user though - only
+ * the locked-vs-unlocked render decision made later, per-post, in the
+ * template's own current_user_can('mepr_auth') check does - so the pool is
+ * safe to share across every visitor regardless of membership. shuffle()
+ * still runs fresh on every request against the cached pool (a small
+ * in-memory array, not a query), so visitors still see genuine per-request
+ * variety in which posts surface; only the expensive tax_query JOIN itself
+ * is cached.
+ */
+function adapt_cached_post_pool( $args, $ttl = 10 * MINUTE_IN_SECONDS ) {
+    $cache_key = 'adapt_pool_' . md5( wp_json_encode( $args ) );
+
+    $pool = get_transient( $cache_key );
+    if ( false !== $pool ) {
+        return $pool;
+    }
+
+    $pool = get_posts( $args );
+    set_transient( $cache_key, $pool, $ttl );
+
+    return $pool;
+}
+
+/**
+ * Invalidate every adapt_pool_* transient when posts or terms change - same
+ * pattern as invalidate_visible_terms_cache() above, since get_posts() args
+ * vary per ACF block instance and there's no single predictable cache key
+ * to delete_transient() directly.
+ */
+function adapt_invalidate_pool_cache() {
+    global $wpdb;
+
+    $transients = $wpdb->get_col(
+        $wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like( '_transient_adapt_pool_' ) . '%'
+        )
+    );
+
+    if ( $transients ) {
+        foreach ( $transients as $transient ) {
+            delete_transient( str_replace( '_transient_', '', $transient ) );
+        }
+    }
+}
+add_action( 'save_post', 'adapt_invalidate_pool_cache' );
+add_action( 'created_term', 'adapt_invalidate_pool_cache' );
+add_action( 'edited_term', 'adapt_invalidate_pool_cache' );
+add_action( 'delete_term', 'adapt_invalidate_pool_cache' );
 
 add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment_id, $metadata ) {
     if ( ! $optimize ) {

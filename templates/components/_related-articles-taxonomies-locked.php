@@ -31,7 +31,7 @@
                                     ],
                                 ],
                             ];
-                            $pool = get_posts( $args );
+                            $pool = adapt_cached_post_pool( $args );
                             shuffle( $pool );
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
@@ -244,7 +244,7 @@
                                     ],
                                 ],
                             ];
-                            $pool = get_posts( $args );
+                            $pool = adapt_cached_post_pool( $args );
                             shuffle( $pool );
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
@@ -457,7 +457,7 @@
                                     ],
                                 ],
                             ];
-                            $pool = get_posts( $args );
+                            $pool = adapt_cached_post_pool( $args );
                             shuffle( $pool );
                             $related_ids = array_slice( $pool, 0, 8 );
                             $posts = $related_ids
