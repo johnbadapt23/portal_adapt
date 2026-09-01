@@ -104,7 +104,7 @@ jobs:
         # which only means anything against an actual git working tree.
         #
         # IMPORTANT: that git-diff approach can't see changes made by the
-        # build step above - assets/css/{global,core,tpl-agenda,tpl-events,tpl-flexible,tpl-home,tpl-portal-flexible,tpl-single-post}.min.css
+        # build step above - assets/css/{global,core,tpl-agenda,tpl-benchmarking,tpl-events,tpl-flexible,tpl-home,tpl-portal-flexible,tpl-single-post}.min.css
         # and assets/js/{main,isotope,select2}.min.js are committed files,
         # but the build regenerates them in the runner's working directory
         # without re-committing. A commit that only touches
@@ -173,7 +173,7 @@ jobs:
             :!/assets/js/modernizr-2.7.1.min.js
             :!/assets/watch-icon-grey.svg
             :!/assets/js/bkup
-          sync-delta-includes: assets/css/global.min.css,assets/css/core.min.css,assets/css/tpl-agenda.min.css,assets/css/tpl-events.min.css,assets/css/tpl-flexible.min.css,assets/css/tpl-home.min.css,assets/css/tpl-portal-flexible.min.css,assets/css/tpl-single-post.min.css,assets/js/main.min.js,assets/js/isotope.min.js,assets/js/select2.min.js
+          sync-delta-includes: assets/css/global.min.css,assets/css/core.min.css,assets/css/tpl-agenda.min.css,assets/css/tpl-benchmarking.min.css,assets/css/tpl-events.min.css,assets/css/tpl-flexible.min.css,assets/css/tpl-home.min.css,assets/css/tpl-portal-flexible.min.css,assets/css/tpl-single-post.min.css,assets/js/main.min.js,assets/js/isotope.min.js,assets/js/select2.min.js
           # Mirrors of the excludes above, in lftp's own syntax, for when
           # sync=full - full sync mirrors the actual working directory
           # (everything the build step produced, node_modules included),

@@ -1032,6 +1032,16 @@ function adapt_enqueue_template_styles() {
             [ 'adapt-global' ],
             adapt_asset_version( '/assets/css/tpl-agenda.min.css' )
         );
+    } elseif ( is_page_template( [
+        'templates/template-benchmarking.php',
+        'templates/template-benchmarks-maturity.php',
+    ] ) ) {
+        wp_enqueue_style(
+            'adapt-tpl-benchmarking',
+            $theme_uri . '/assets/css/tpl-benchmarking.min.css',
+            [ 'adapt-global' ],
+            adapt_asset_version( '/assets/css/tpl-benchmarking.min.css' )
+        );
     } elseif ( is_page_template( 'templates/template-events.php' ) ) {
         wp_enqueue_style(
             'adapt-tpl-events',

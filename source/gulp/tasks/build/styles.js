@@ -112,6 +112,10 @@ function buildAgendaStyles() {
     return compileBundle('source/scss/main-tpl-agenda.scss', 'tpl-agenda.min.css');
 }
 
+function buildBenchmarkingStyles() {
+    return compileBundle('source/scss/main-tpl-benchmarking.scss', 'tpl-benchmarking.min.css');
+}
+
 function buildEventsStyles() {
     return compileBundle('source/scss/main-tpl-events.scss', 'tpl-events.min.css');
 }
@@ -136,6 +140,7 @@ gulp.task('build:styles', gulp.parallel(
     buildGlobalStyles,
     buildCoreStyles,
     buildAgendaStyles,
+    buildBenchmarkingStyles,
     buildEventsStyles,
     buildFlexibleStyles,
     buildHomeStyles,
