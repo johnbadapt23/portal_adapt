@@ -622,7 +622,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                     <?php $topics  = [];
 
                         // Get all topic terms once
-                        $all_topics = get_the_terms($post_id, 'topic');
+                        $all_topics = get_the_terms(get_the_ID(), 'topic');
 
                         // Bail early if none
                         if ($all_topics && !is_wp_error($all_topics)) {
