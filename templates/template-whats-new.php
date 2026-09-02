@@ -34,6 +34,21 @@ adapt_render_filter_posts();
 $posts_container_html = ob_get_clean();
 wp_reset_postdata();
 $adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
+
+// $topic/$type are read by the topic/type dropdowns further down (as the
+// "which term is currently selected" comparison) but were never assigned
+// anywhere in this file, so every comparison against them silently always
+// evaluated false (undefined evaluates as null, and no term slug ever
+// equals null) - meaning a deep link like /whats-new/?topicType=x&type=y
+// never actually pre-selected anything, contrary to what the dropdown
+// markup below is built to do. Sibling templates that render the exact
+// same dropdown pattern (template-post-filters.php, template-search.php)
+// already read these from $_GET['topicType']/$_GET['type'] - wiring this
+// page up the same way instead of just silencing the warning.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter params for a bookmarkable, shareable listing URL; no state change results from reading them.
+$topic = isset($_GET['topicType']) ? sanitize_text_field(wp_unslash($_GET['topicType'])) : '';
+$type  = isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
 ?>
 <section class="title-banner light-theme">
     <div class="container">

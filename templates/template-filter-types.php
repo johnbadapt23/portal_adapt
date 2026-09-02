@@ -174,6 +174,23 @@ adapt_render_filter_posts();
 $posts_container_html = ob_get_clean();
 wp_reset_postdata();
 $adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
+
+// $themes is read by the trending-themes dropdown's per-term active-state
+// check further down, but was never assigned in this file - sibling
+// templates rendering the same dropdown (template-post-filters.php,
+// template-search.php) read it from $_GET['theme'], so wiring this page
+// up the same way instead of leaving it undefined.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable listing URL; no state change results from reading it.
+$themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+// $topic is also read once below (the Topics dropdown's "All" button), but
+// that comparison's result is never echoed (missing <?= / echo - a
+// separate, pre-existing dead-code bug left untouched here since fixing
+// it would change visible output, not just silence a warning). Declaring
+// it null preserves that exact no-op behavior while stopping the
+// undefined-variable warning Query Monitor was reporting on every load.
+$topic = null;
 ?>
 <section class="title-banner filter-title-banner light-theme <?php echo esc_attr( $membershipType ); ?>">
     <div class="container">
