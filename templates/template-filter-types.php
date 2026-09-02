@@ -74,7 +74,6 @@ $args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
     'no_found_rows' => true,
-    'paged'=> $paged,
     'fields' => 'ids'
 ]; ?>
 <?php $loop = new WP_Query( $args );

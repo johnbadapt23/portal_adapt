@@ -25,7 +25,6 @@ if ( 0 == $current_user->ID ) {
                         'post_type' => 'dashboard',
                         'posts_per_page' => -1,
                         'no_found_rows' => true,
-                        'paged'=> $paged ,
                         'orderby'=> 'menu_order',
                         'order'=> 'ASC'
                     ];

@@ -56,7 +56,6 @@ $q_slug = $q->slug ?? '';
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'no_found_rows' => true,
-											'paged'=> $paged,
 											'tax_query'      => [
 												'relation' => 'AND',
 												 [
@@ -146,7 +145,6 @@ $q_slug = $q->slug ?? '';
 							'post_type'      => 'post',
 							'posts_per_page' => -1,
 							'no_found_rows' => true,
-							'paged'=> $paged,
 							'tax_query'      => [
 								'relation' => 'AND',
 								 [
@@ -320,7 +318,6 @@ $q_slug = $q->slug ?? '';
 											'post_type'      => 'post',
 											'posts_per_page' => -1,
 											'no_found_rows' => true,
-											'paged'=> $paged,
 											'tax_query'      => [
 												'relation' => 'AND',
 												 [
