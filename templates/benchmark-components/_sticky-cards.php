@@ -41,7 +41,7 @@
                         <div class="text-block-wrapper">
                             <div class="text-block">
                                 <h3 class="header-medium"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
-                                <p class="p-large text-dark-grey"><?php the_sub_field( 'text' ); ?></p>
+                                <p class="p-large text-dark-grey"><?php echo wp_kses_post( get_sub_field( 'text' ) ); ?></p>
                             </div>
                         </div>
                     <?php endwhile; ?>
@@ -71,7 +71,7 @@
                         <div class="text-block-wrapper">
                             <div class="text-block">
                                 <h3 class="header-medium"><?php echo wp_kses_post( get_sub_field( 'title' ) ); ?></h3>
-                                <p class="p-medium text-dark-grey"><?php the_sub_field( 'text' ); ?></p>
+                                <p class="p-medium text-dark-grey"><?php echo wp_kses_post( get_sub_field( 'text' ) ); ?></p>
                             </div>
                         </div>
                         <?php $image = get_sub_field( 'image' ); ?>

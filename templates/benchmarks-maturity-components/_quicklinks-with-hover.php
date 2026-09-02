@@ -11,7 +11,7 @@
                 <?php if ( have_rows( 'quicklinks' ) ) : ?>
                     <?php while ( have_rows( 'quicklinks' ) ) : the_row(); ?>
                         <?php if ( get_sub_field('link_url') !== '' && get_sub_field('link_url') !== null ) { ?>
-                            <a class="card quicklink-link" href="<?php the_sub_field( 'link_url' ); ?>" target="<?php the_sub_field( 'link_target' ); ?>">
+                            <a class="card quicklink-link" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>">
                         <?php } else { ?> 
                             <span class="card span-card">
                         <?php } ?>                        

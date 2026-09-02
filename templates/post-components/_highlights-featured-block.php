@@ -353,7 +353,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                 <?php while ( have_rows( 'side_posts' ) ) : the_row(); ?>
 
                     <div class="recent-sidebar no-border">
-                        <span class="headerXsmall text-bold text-black"><?php the_sub_field( 'title' ); ?></span>
+                        <span class="headerXsmall text-bold text-black"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 
                         <?php if ( get_sub_field( 'most_recent_or_most_popular' ) === 'most-recent' ) : ?>
 
