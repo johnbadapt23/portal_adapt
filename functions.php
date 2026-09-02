@@ -910,6 +910,59 @@ function sync_post_to_contributor_resources($post_id, $post, $update) {
 
 
 /**
+ * Cache the customgpt-chat-widget plugin's own settings API call.
+ *
+ * Query Monitor's "http" panel showed a synchronous, blocking HTTP GET to
+ * https://app.customgpt.ai/api/v1/projects/{id}/settings on every single
+ * page load, taking ~1.2 seconds on its own - a plugin-side call (this
+ * theme has no PHP code that talks to customgpt.ai; the theme's own
+ * CustomGPT integration is entirely client-side JS, deferred until the
+ * chat widget is actually opened - see footer.php's ensureCustomGptInit()).
+ * Since this project's settings (branding, welcome message, etc.) don't
+ * need to be real-time-fresh, short-circuiting the request with a cached
+ * copy via pre_http_request - and populating that cache from the one real
+ * request that does go through - turns every load after the first cold
+ * one into a local cache read instead of a ~1.2s round trip to a
+ * third-party API, without touching the plugin's own files (which would
+ * be overwritten on its next update).
+ */
+function adapt_is_customgpt_settings_request( $url ) {
+    return is_string( $url ) && str_contains( $url, 'app.customgpt.ai/api/v1/projects/' ) && str_contains( $url, '/settings' );
+}
+
+add_filter( 'pre_http_request', function ( $preempt, $args, $url ) {
+    if ( ! adapt_is_customgpt_settings_request( $url ) ) {
+        return $preempt;
+    }
+    $cached = get_transient( 'adapt_cgpt_settings_' . md5( $url ) );
+    return ( false !== $cached ) ? $cached : $preempt;
+}, 10, 3 );
+
+add_action( 'http_api_debug', function ( $response, $context, $class, $args, $url ) {
+    if ( 'response' !== $context || is_wp_error( $response ) || ! adapt_is_customgpt_settings_request( $url ) ) {
+        return;
+    }
+    // Only cache the plain-data fields any normal caller reads via
+    // wp_remote_retrieve_body()/wp_remote_retrieve_response_code()/etc.
+    // Deliberately dropping 'http_response' (a WP_HTTP_Requests_Response
+    // object wrapping the raw transport response/connection) - transients
+    // go through PHP's serialize()/unserialize(), and that object isn't
+    // meant to survive a round trip through storage the way plain arrays
+    // and WP_Http_Cookie's simple data objects are.
+    set_transient(
+        'adapt_cgpt_settings_' . md5( $url ),
+        [
+            'headers'  => $response['headers'] ?? [],
+            'body'     => $response['body'] ?? '',
+            'response' => $response['response'] ?? [ 'code' => 200, 'message' => 'OK' ],
+            'cookies'  => $response['cookies'] ?? [],
+            'filename' => null,
+        ],
+        15 * MINUTE_IN_SECONDS
+    );
+}, 10, 5 );
+
+/**
  * Cached wrapper around attachment_url_to_postid().
  *
  * Core's attachment_url_to_postid() runs a DB query every time it's called
