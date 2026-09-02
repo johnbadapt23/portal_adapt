@@ -18,18 +18,26 @@ body.template-portal-flexible {
 		// without a reservation it grows from 0 to its real height only
 		// once that JS mounts - pushing every component below it (the
 		// homepage's featured-slider hero image among them) down the page
-		// mid-load. Live-measured getBoundingClientRect().height once
-		// hydrated: ~517px at ~530px viewport width, ~547px at 1440px,
-		// ~583px at 375px (mobile) - not a simple function of width, since
-		// the widget's own suggested-prompt buttons wrap differently at
-		// different breakpoints. Values below use the highest measurement
-		// in each bucket plus a small safety margin, so the reservation
-		// only ever needs to shrink (a harmless small gap that closes
-		// itself) rather than grow (which would still shift the page).
-		min-height: 570px;
-
-		@include responsive(767) {
-			min-height: 610px;
+		// mid-load.
+		//
+		// Desktop only (min-width 768px, the exact complement of the
+		// @include responsive(767) breakpoint used everywhere else in this
+		// file) - the reported performance issue this fixes is scoped to
+		// desktop. An earlier version of this rule also applied on mobile
+		// at 610px, but the widget's real mobile height turned out to be
+		// noticeably shorter than that reservation, leaving a large,
+		// visibly awkward empty gap under the widget - worse than the
+		// small layout shift it was meant to prevent. Left unreserved on
+		// mobile for now; revisit with real mobile measurements if mobile
+		// performance becomes a priority.
+		@media only screen and (min-width: $break-mobile) {
+			// Live-measured getBoundingClientRect().height once hydrated:
+			// ~517px at ~530px viewport width, ~547px at 1440px. Using the
+			// higher measurement plus a small safety margin, so the
+			// reservation only ever needs to shrink (a harmless small gap
+			// that closes itself) rather than grow (which would still
+			// shift the page).
+			min-height: 570px;
 		}
 
 		~ main {
