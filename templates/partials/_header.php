@@ -53,7 +53,7 @@ if (current_user_can('administrator')) {
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
                     <?php if ( get_field( 'logo', 'options') ) { ?>
                     <?php 
-                    $attachment_id = attachment_url_to_postid( get_field( 'logo', 'options') );
+                    $attachment_id = adapt_attachment_url_to_postid( get_field( 'logo', 'options') );
 
                     if ( $attachment_id ) {
                         echo wp_get_attachment_image(
@@ -69,7 +69,7 @@ if (current_user_can('administrator')) {
                         ?>
                          <?php
 					$inline_img_158_src = get_field( 'logo', 'options' );
-					$inline_img_158_attach_id = $inline_img_158_src ? attachment_url_to_postid( $inline_img_158_src ) : 0;
+					$inline_img_158_attach_id = $inline_img_158_src ? adapt_attachment_url_to_postid( $inline_img_158_src ) : 0;
 					if ( $inline_img_158_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_158_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '300' ] );
 					} elseif ( $inline_img_158_src ) {
@@ -426,7 +426,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_159_src = $image;
-					$inline_img_159_attach_id = $inline_img_159_src ? attachment_url_to_postid( $inline_img_159_src ) : 0;
+					$inline_img_159_attach_id = $inline_img_159_src ? adapt_attachment_url_to_postid( $inline_img_159_src ) : 0;
 					if ( $inline_img_159_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_159_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_159_src ) {
@@ -629,7 +629,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_160_src = $image;
-					$inline_img_160_attach_id = $inline_img_160_src ? attachment_url_to_postid( $inline_img_160_src ) : 0;
+					$inline_img_160_attach_id = $inline_img_160_src ? adapt_attachment_url_to_postid( $inline_img_160_src ) : 0;
 					if ( $inline_img_160_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_160_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_160_src ) {
@@ -820,7 +820,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_161_src = $image;
-					$inline_img_161_attach_id = $inline_img_161_src ? attachment_url_to_postid( $inline_img_161_src ) : 0;
+					$inline_img_161_attach_id = $inline_img_161_src ? adapt_attachment_url_to_postid( $inline_img_161_src ) : 0;
 					if ( $inline_img_161_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_161_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_161_src ) {
@@ -1009,7 +1009,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_162_src = $image;
-					$inline_img_162_attach_id = $inline_img_162_src ? attachment_url_to_postid( $inline_img_162_src ) : 0;
+					$inline_img_162_attach_id = $inline_img_162_src ? adapt_attachment_url_to_postid( $inline_img_162_src ) : 0;
 					if ( $inline_img_162_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_162_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_162_src ) {
@@ -1637,7 +1637,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="bg-container">
                                                                         <?php
 					$inline_img_163_src = $image;
-					$inline_img_163_attach_id = $inline_img_163_src ? attachment_url_to_postid( $inline_img_163_src ) : 0;
+					$inline_img_163_attach_id = $inline_img_163_src ? adapt_attachment_url_to_postid( $inline_img_163_src ) : 0;
 					if ( $inline_img_163_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_163_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_163_src ) {
@@ -1977,7 +1977,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="bg-container">
                                                                         <?php
 					$inline_img_164_src = $image;
-					$inline_img_164_attach_id = $inline_img_164_src ? attachment_url_to_postid( $inline_img_164_src ) : 0;
+					$inline_img_164_attach_id = $inline_img_164_src ? adapt_attachment_url_to_postid( $inline_img_164_src ) : 0;
 					if ( $inline_img_164_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_164_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_164_src ) {
@@ -2164,7 +2164,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_165_src = $image;
-					$inline_img_165_attach_id = $inline_img_165_src ? attachment_url_to_postid( $inline_img_165_src ) : 0;
+					$inline_img_165_attach_id = $inline_img_165_src ? adapt_attachment_url_to_postid( $inline_img_165_src ) : 0;
 					if ( $inline_img_165_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_165_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_165_src ) {
@@ -2349,7 +2349,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_166_src = $image;
-					$inline_img_166_attach_id = $inline_img_166_src ? attachment_url_to_postid( $inline_img_166_src ) : 0;
+					$inline_img_166_attach_id = $inline_img_166_src ? adapt_attachment_url_to_postid( $inline_img_166_src ) : 0;
 					if ( $inline_img_166_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_166_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_166_src ) {

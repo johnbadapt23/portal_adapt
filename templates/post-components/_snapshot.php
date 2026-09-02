@@ -35,7 +35,7 @@
                         <div class="snapshot-thumb">
                             <?php
 					$inline_img_194_src = $image['sizes']['medium'];
-					$inline_img_194_attach_id = $inline_img_194_src ? attachment_url_to_postid( $inline_img_194_src ) : 0;
+					$inline_img_194_attach_id = $inline_img_194_src ? adapt_attachment_url_to_postid( $inline_img_194_src ) : 0;
 					if ( $inline_img_194_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_194_attach_id, 'full', false, [ 'alt' => $image['alt'] ] );
 					} elseif ( $inline_img_194_src ) {
@@ -58,7 +58,7 @@
                             <div class="snapshot-popup-slide">
                                 <figure>
                                     <?php
-								$url_attach_id = attachment_url_to_postid( $url );
+								$url_attach_id = adapt_attachment_url_to_postid( $url );
 								if ( $url_attach_id ) {
 									echo wp_get_attachment_image( $url_attach_id, 'full', false, [ 'alt' => $image['alt'] ] );
 								} else {

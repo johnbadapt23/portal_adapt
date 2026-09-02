@@ -10,7 +10,7 @@
             		<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
             			<?php
 					$inline_img_157_src = get_field( 'logo','options' );
-					$inline_img_157_attach_id = $inline_img_157_src ? attachment_url_to_postid( $inline_img_157_src ) : 0;
+					$inline_img_157_attach_id = $inline_img_157_src ? adapt_attachment_url_to_postid( $inline_img_157_src ) : 0;
 					if ( $inline_img_157_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_157_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_157_src ) {

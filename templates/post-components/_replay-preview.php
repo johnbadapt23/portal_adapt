@@ -20,7 +20,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                     <?php $video_image = get_field( 'video_image' ); ?>
                     <?php if ( $video_image ) { ?>
                         <?php
-								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								$video_image_attach_id = adapt_attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ) ] );
 								} else {

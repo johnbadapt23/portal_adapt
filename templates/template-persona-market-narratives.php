@@ -229,7 +229,7 @@ $q_slug = $q->slug ?? '';
 	                                        <span>
 	                                    <?php else : ?>
 	                                        <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -502,7 +502,7 @@ $q_slug = $q->slug ?? '';
 																		<span class="bg-container">
 																			<?php if (  $image ) { ?>
 																				<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -643,7 +643,7 @@ $q_slug = $q->slug ?? '';
 										 <span>
 									 <?php else : ?>
 										 <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

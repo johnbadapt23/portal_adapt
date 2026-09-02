@@ -104,7 +104,7 @@
                         <span class="bg-container">
                             <?php
 					$inline_img_152_src = $image;
-					$inline_img_152_attach_id = $inline_img_152_src ? attachment_url_to_postid( $inline_img_152_src ) : 0;
+					$inline_img_152_attach_id = $inline_img_152_src ? adapt_attachment_url_to_postid( $inline_img_152_src ) : 0;
 					if ( $inline_img_152_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_152_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_152_src ) {

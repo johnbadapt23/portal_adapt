@@ -228,7 +228,7 @@ $filtered_topic = $filtered_topic ?? null;
                     <?php if ($image) : ?>
                         <span class="bg-container <?= esc_attr( $articleCounter ); ?>">
                             <?php
-                            $attachment_id = attachment_url_to_postid( $image );
+                            $attachment_id = adapt_attachment_url_to_postid( $image );
 
                             if ( $attachment_id ) {
                                 // adapt_is_first_hero_image() is shared across every
@@ -268,7 +268,7 @@ $filtered_topic = $filtered_topic ?? null;
                                 ?>
                                 <?php
 					$inline_img_149_src = $image;
-					$inline_img_149_attach_id = $inline_img_149_src ? attachment_url_to_postid( $inline_img_149_src ) : 0;
+					$inline_img_149_attach_id = $inline_img_149_src ? adapt_attachment_url_to_postid( $inline_img_149_src ) : 0;
 					if ( $inline_img_149_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_149_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title( $post_id ) ), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_149_src ) {

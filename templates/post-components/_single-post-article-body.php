@@ -321,7 +321,7 @@
                                                         <?php if( get_sub_field( 'infogram_image' )) { ?>
                                                             <?php
 					$inline_img_128_src = get_sub_field( 'infogram_image' );
-					$inline_img_128_attach_id = $inline_img_128_src ? attachment_url_to_postid( $inline_img_128_src ) : 0;
+					$inline_img_128_attach_id = $inline_img_128_src ? adapt_attachment_url_to_postid( $inline_img_128_src ) : 0;
 					if ( $inline_img_128_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_128_attach_id, 'full', false, [ 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ] );
 					} elseif ( $inline_img_128_src ) {
@@ -343,7 +343,7 @@
                                                     <div class="featureBlock">
                                                         <?php
 					$inline_img_129_src = get_sub_field( 'image' );
-					$inline_img_129_attach_id = $inline_img_129_src ? attachment_url_to_postid( $inline_img_129_src ) : 0;
+					$inline_img_129_attach_id = $inline_img_129_src ? adapt_attachment_url_to_postid( $inline_img_129_src ) : 0;
 					if ( $inline_img_129_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_129_attach_id, 'full', false, [ 'alt' => '', 'class' => 'featureImage' ] );
 					} elseif ( $inline_img_129_src ) {
@@ -357,7 +357,7 @@
                                                     </div>
                                                     <?php
 					$inline_img_130_src = get_sub_field( 'infogram_image' );
-					$inline_img_130_attach_id = $inline_img_130_src ? attachment_url_to_postid( $inline_img_130_src ) : 0;
+					$inline_img_130_attach_id = $inline_img_130_src ? adapt_attachment_url_to_postid( $inline_img_130_src ) : 0;
 					if ( $inline_img_130_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_130_attach_id, 'full', false, [ 'alt' => '', 'class' => 'delete-no', 'style' => 'display: none;' ] );
 					} elseif ( $inline_img_130_src ) {
@@ -394,7 +394,7 @@
                                                                         <div class="logoContainer">
                                                                             <?php
 					$inline_img_131_src = get_sub_field( 'logo' );
-					$inline_img_131_attach_id = $inline_img_131_src ? attachment_url_to_postid( $inline_img_131_src ) : 0;
+					$inline_img_131_attach_id = $inline_img_131_src ? adapt_attachment_url_to_postid( $inline_img_131_src ) : 0;
 					if ( $inline_img_131_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_131_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_131_src ) {
@@ -493,7 +493,7 @@
                                                                                 <div class="logoContainer">
                                                                                     <?php
 					$inline_img_132_src = get_field( 'logo' );
-					$inline_img_132_attach_id = $inline_img_132_src ? attachment_url_to_postid( $inline_img_132_src ) : 0;
+					$inline_img_132_attach_id = $inline_img_132_src ? adapt_attachment_url_to_postid( $inline_img_132_src ) : 0;
 					if ( $inline_img_132_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_132_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_132_src ) {
@@ -876,7 +876,7 @@
                                                         <div class="bgContainer">
                                                             <?php
 					$inline_img_133_src = get_sub_field( 'video_poster_image' );
-					$inline_img_133_attach_id = $inline_img_133_src ? attachment_url_to_postid( $inline_img_133_src ) : 0;
+					$inline_img_133_attach_id = $inline_img_133_src ? adapt_attachment_url_to_postid( $inline_img_133_src ) : 0;
 					if ( $inline_img_133_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_133_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 					} elseif ( $inline_img_133_src ) {
@@ -1035,7 +1035,7 @@
                                                     <?php if(get_field('speaker_image')){ ?>
                                                         <?php
 					$inline_img_134_src = get_field( 'speaker_image' );
-					$inline_img_134_attach_id = $inline_img_134_src ? attachment_url_to_postid( $inline_img_134_src ) : 0;
+					$inline_img_134_attach_id = $inline_img_134_src ? adapt_attachment_url_to_postid( $inline_img_134_src ) : 0;
 					if ( $inline_img_134_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_134_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_134_src ) {
@@ -1048,7 +1048,7 @@
                                                         if ($url): ?>
                                                             <?php
 					$inline_img_135_src = $url;
-					$inline_img_135_attach_id = $inline_img_135_src ? attachment_url_to_postid( $inline_img_135_src ) : 0;
+					$inline_img_135_attach_id = $inline_img_135_src ? adapt_attachment_url_to_postid( $inline_img_135_src ) : 0;
 					if ( $inline_img_135_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_135_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_135_src ) {

@@ -54,7 +54,7 @@ $q = get_queried_object();
                                         <?php if ( get_field( 'listing_image') ) { ?>
                                             <?php $image = get_field( 'listing_image'); ?>
                                                 <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -71,7 +71,7 @@ $q = get_queried_object();
                                                 <?php $image = get_field( 'featured_image'); ?>
                                             <?php } ?>
                                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -163,7 +163,7 @@ $q = get_queried_object();
                                             <?php if ( get_field( 'listing_image') ) { ?>
                                                 <?php $image = get_field( 'listing_image'); ?>
                                                     <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -180,7 +180,7 @@ $q = get_queried_object();
                                                     <?php $image = get_field( 'featured_image'); ?>
                                                 <?php } ?>
                                                 <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -280,7 +280,7 @@ $q = get_queried_object();
                                 <?php if ( get_field( 'listing_image') ) { ?>
                                     <?php $image = get_field( 'listing_image'); ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -297,7 +297,7 @@ $q = get_queried_object();
                                         <?php $image = get_field( 'featured_image'); ?>
                                     <?php } ?>
                                     <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

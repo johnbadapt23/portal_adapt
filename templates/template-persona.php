@@ -108,7 +108,7 @@ get_header();
 										<?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
 									<?php else : ?>
 										<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -229,7 +229,7 @@ get_header();
                                         <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
                                     <?php else : ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

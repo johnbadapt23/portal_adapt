@@ -38,7 +38,7 @@ endif;
                                                 <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_icon) { ?>
                                                 <?php
-									$listing_icon_attach_id = attachment_url_to_postid( $listing_icon );
+									$listing_icon_attach_id = adapt_attachment_url_to_postid( $listing_icon );
 									if ( $listing_icon_attach_id ) {
 										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
@@ -58,7 +58,7 @@ endif;
                                                 <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_avatar) { ?>
                                                 <?php
-									$listing_avatar_attach_id = attachment_url_to_postid( $listing_avatar );
+									$listing_avatar_attach_id = adapt_attachment_url_to_postid( $listing_avatar );
 									if ( $listing_avatar_attach_id ) {
 										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
@@ -296,7 +296,7 @@ endif;
                                                             <?php $speaker_image = get_field('speaker_image'); ?>
                                                             <?php if ($speaker_image) { ?>
                                                                 <?php
-								$speaker_image_attach_id = attachment_url_to_postid( $speaker_image );
+								$speaker_image_attach_id = adapt_attachment_url_to_postid( $speaker_image );
 								if ( $speaker_image_attach_id ) {
 									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {

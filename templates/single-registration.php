@@ -218,7 +218,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
 										<span class="speaker-image">
 											<?php
 					$inline_img_136_src = get_field( 'speaker_image' );
-					$inline_img_136_attach_id = $inline_img_136_src ? attachment_url_to_postid( $inline_img_136_src ) : 0;
+					$inline_img_136_attach_id = $inline_img_136_src ? adapt_attachment_url_to_postid( $inline_img_136_src ) : 0;
 					if ( $inline_img_136_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_136_attach_id, 'full', false, [ 'alt' => get_the_title() ] );
 					} elseif ( $inline_img_136_src ) {

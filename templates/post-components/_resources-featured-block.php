@@ -113,7 +113,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_182_src = $image;
-					$inline_img_182_attach_id = $inline_img_182_src ? attachment_url_to_postid( $inline_img_182_src ) : 0;
+					$inline_img_182_attach_id = $inline_img_182_src ? adapt_attachment_url_to_postid( $inline_img_182_src ) : 0;
 					if ( $inline_img_182_attach_id ) {
 						$inline_img_182_is_lcp = adapt_is_first_hero_image();
 						$inline_img_182_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_182_is_lcp ? ' skip-lazy' : '' ) );
@@ -139,7 +139,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_183_src = $image;
-					$inline_img_183_attach_id = $inline_img_183_src ? attachment_url_to_postid( $inline_img_183_src ) : 0;
+					$inline_img_183_attach_id = $inline_img_183_src ? adapt_attachment_url_to_postid( $inline_img_183_src ) : 0;
 					if ( $inline_img_183_attach_id ) {
 						$inline_img_183_is_lcp = adapt_is_first_hero_image();
 						$inline_img_183_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_183_is_lcp ? ' skip-lazy' : '' ) );
@@ -251,7 +251,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                                 <?php if ($image) : ?>  
                                                                     <?php
 					$inline_img_184_src = $image;
-					$inline_img_184_attach_id = $inline_img_184_src ? attachment_url_to_postid( $inline_img_184_src ) : 0;
+					$inline_img_184_attach_id = $inline_img_184_src ? adapt_attachment_url_to_postid( $inline_img_184_src ) : 0;
 					if ( $inline_img_184_attach_id ) {
 						$inline_img_184_is_lcp = adapt_is_first_hero_image();
 						$inline_img_184_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_184_is_lcp ? ' skip-lazy' : '' ) );
@@ -277,7 +277,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                                 <?php if ($image) : ?>  
                                                                     <?php
 					$inline_img_185_src = $image;
-					$inline_img_185_attach_id = $inline_img_185_src ? attachment_url_to_postid( $inline_img_185_src ) : 0;
+					$inline_img_185_attach_id = $inline_img_185_src ? adapt_attachment_url_to_postid( $inline_img_185_src ) : 0;
 					if ( $inline_img_185_attach_id ) {
 						$inline_img_185_is_lcp = adapt_is_first_hero_image();
 						$inline_img_185_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_185_is_lcp ? ' skip-lazy' : '' ) );
@@ -410,7 +410,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_186_src = $image;
-					$inline_img_186_attach_id = $inline_img_186_src ? attachment_url_to_postid( $inline_img_186_src ) : 0;
+					$inline_img_186_attach_id = $inline_img_186_src ? adapt_attachment_url_to_postid( $inline_img_186_src ) : 0;
 					if ( $inline_img_186_attach_id ) {
 						$inline_img_186_is_lcp = adapt_is_first_hero_image();
 						$inline_img_186_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_186_is_lcp ? ' skip-lazy' : '' ) );
@@ -437,7 +437,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_187_src = $image;
-					$inline_img_187_attach_id = $inline_img_187_src ? attachment_url_to_postid( $inline_img_187_src ) : 0;
+					$inline_img_187_attach_id = $inline_img_187_src ? adapt_attachment_url_to_postid( $inline_img_187_src ) : 0;
 					if ( $inline_img_187_attach_id ) {
 						$inline_img_187_is_lcp = adapt_is_first_hero_image();
 						$inline_img_187_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_187_is_lcp ? ' skip-lazy' : '' ) );
@@ -560,7 +560,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_188_src = $image;
-					$inline_img_188_attach_id = $inline_img_188_src ? attachment_url_to_postid( $inline_img_188_src ) : 0;
+					$inline_img_188_attach_id = $inline_img_188_src ? adapt_attachment_url_to_postid( $inline_img_188_src ) : 0;
 					if ( $inline_img_188_attach_id ) {
 						$inline_img_188_is_lcp = adapt_is_first_hero_image();
 						$inline_img_188_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_188_is_lcp ? ' skip-lazy' : '' ) );
@@ -587,7 +587,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_189_src = $image;
-					$inline_img_189_attach_id = $inline_img_189_src ? attachment_url_to_postid( $inline_img_189_src ) : 0;
+					$inline_img_189_attach_id = $inline_img_189_src ? adapt_attachment_url_to_postid( $inline_img_189_src ) : 0;
 					if ( $inline_img_189_attach_id ) {
 						$inline_img_189_is_lcp = adapt_is_first_hero_image();
 						$inline_img_189_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_189_is_lcp ? ' skip-lazy' : '' ) );
@@ -706,7 +706,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_190_src = $image;
-					$inline_img_190_attach_id = $inline_img_190_src ? attachment_url_to_postid( $inline_img_190_src ) : 0;
+					$inline_img_190_attach_id = $inline_img_190_src ? adapt_attachment_url_to_postid( $inline_img_190_src ) : 0;
 					if ( $inline_img_190_attach_id ) {
 						$inline_img_190_is_lcp = adapt_is_first_hero_image();
 						$inline_img_190_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_190_is_lcp ? ' skip-lazy' : '' ) );
@@ -733,7 +733,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_191_src = $image;
-					$inline_img_191_attach_id = $inline_img_191_src ? attachment_url_to_postid( $inline_img_191_src ) : 0;
+					$inline_img_191_attach_id = $inline_img_191_src ? adapt_attachment_url_to_postid( $inline_img_191_src ) : 0;
 					if ( $inline_img_191_attach_id ) {
 						$inline_img_191_is_lcp = adapt_is_first_hero_image();
 						$inline_img_191_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_191_is_lcp ? ' skip-lazy' : '' ) );
@@ -843,7 +843,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_192_src = $image;
-					$inline_img_192_attach_id = $inline_img_192_src ? attachment_url_to_postid( $inline_img_192_src ) : 0;
+					$inline_img_192_attach_id = $inline_img_192_src ? adapt_attachment_url_to_postid( $inline_img_192_src ) : 0;
 					if ( $inline_img_192_attach_id ) {
 						$inline_img_192_is_lcp = adapt_is_first_hero_image();
 						$inline_img_192_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_192_is_lcp ? ' skip-lazy' : '' ) );
@@ -869,7 +869,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_193_src = $image;
-					$inline_img_193_attach_id = $inline_img_193_src ? attachment_url_to_postid( $inline_img_193_src ) : 0;
+					$inline_img_193_attach_id = $inline_img_193_src ? adapt_attachment_url_to_postid( $inline_img_193_src ) : 0;
 					if ( $inline_img_193_attach_id ) {
 						$inline_img_193_is_lcp = adapt_is_first_hero_image();
 						$inline_img_193_attrs = array( 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_193_is_lcp ? ' skip-lazy' : '' ) );

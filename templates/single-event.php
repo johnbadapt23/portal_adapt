@@ -12,7 +12,7 @@
 						<span class="dark-overlay"></span>
 					<?php } ?>
 					<?php
-					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
+					$slide_image_attach_id = adapt_attachment_url_to_postid( $slide['image'] );
 					if ( $slide_image_attach_id ) {
 						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
@@ -29,7 +29,7 @@
 									<div class="image" style="background-image:url(<?php echo esc_url( $slide['inset_image'] ); ?>);">
 									</div>
 									<?php
-					$slide_inset_image_attach_id = attachment_url_to_postid( $slide['inset_image'] );
+					$slide_inset_image_attach_id = adapt_attachment_url_to_postid( $slide['inset_image'] );
 					if ( $slide_inset_image_attach_id ) {
 						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
@@ -358,7 +358,7 @@
 												<div class="logoContainer">
 													<?php
 					$inline_img_45_src = get_field( 'logo' );
-					$inline_img_45_attach_id = $inline_img_45_src ? attachment_url_to_postid( $inline_img_45_src ) : 0;
+					$inline_img_45_attach_id = $inline_img_45_src ? adapt_attachment_url_to_postid( $inline_img_45_src ) : 0;
 					if ( $inline_img_45_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_45_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_45_src ) {
@@ -547,7 +547,7 @@
                                             <div class="logoContainer">
                                                 <?php
 					$inline_img_46_src = get_sub_field( 'logo' );
-					$inline_img_46_attach_id = $inline_img_46_src ? attachment_url_to_postid( $inline_img_46_src ) : 0;
+					$inline_img_46_attach_id = $inline_img_46_src ? adapt_attachment_url_to_postid( $inline_img_46_src ) : 0;
 					if ( $inline_img_46_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_46_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_46_src ) {
