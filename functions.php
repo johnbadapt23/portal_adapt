@@ -1669,11 +1669,37 @@ function get_allowed_subscriptions_for_user($membershipType = null) {
 // ajax_load_filtered_posts() (every AJAX filter/search/sort/page request)
 // and adapt_render_filter_posts() (the initial PHP-rendered page load) so
 // both compute this identically instead of maintaining separate copies that
-// can drift apart. Computed fresh on every call - no transient. The site
-// already sits behind WP Rocket's page cache, and an additional PHP-level
-// cache here (that ajax_load_filtered_posts() never shared) was one more
-// way the first-load render and a live AJAX call could end up disagreeing.
+// can drift apart.
+//
+// Cached here, in the one function both call sites share, keyed on $args +
+// $taxonomies + $membershipType together - so ajax_load_filtered_posts()
+// and adapt_render_filter_posts() always read the exact same cache entry
+// for the same page/filter/membership-tier combination, and a change in
+// any of those three inputs (different taxonomy archive, different filter
+// selection, different subscription tier) gets its own cache bucket rather
+// than reusing someone else's. This is what actually eliminates the first-
+// load-vs-AJAX drift risk a previous version of this function's caching
+// had - that version cached in only one of the two call sites, so the
+// other always computed live and could disagree. A short 5-minute TTL,
+// plus explicit invalidation below on post/term changes, means a newly
+// published or edited post shows up in filter results well within any
+// reasonable expectation of "fresh enough."
+//
+// This was found live: uncached, this function was measured costing 3+
+// seconds of TTFB on a topic archive page (1000-ID WP_Query, then a
+// get_terms() object_ids lookup per taxonomy - 6 of them - each with up to
+// 1000 IDs in its IN-clause, plus a raw SQL date-grouping query on the same
+// 1000 IDs). WP Rocket's page cache only ever absorbed that cost for a
+// first, anonymous, logged-out page load - it never applies to AJAX
+// requests (every filter click, for every visitor) or to a logged-in
+// member's first load, which is most real traffic on a membership site.
 function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
+    $cache_key = 'adapt_visterms_' . md5( wp_json_encode( [ $args, $taxonomies, $membershipType ] ) );
+    $cached    = get_transient( $cache_key );
+    if ( false !== $cached ) {
+        return $cached;
+    }
+
     $visible_terms = [];
     foreach ( $taxonomies as $taxonomy => $_ ) {
         $visible_terms[ $taxonomy ] = [];
@@ -1719,8 +1745,37 @@ function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
         }
     }
 
+    set_transient( $cache_key, $visible_terms, 5 * MINUTE_IN_SECONDS );
+
     return $visible_terms;
 }
+
+/**
+ * Invalidate every adapt_visterms_* transient when posts or terms change -
+ * same LIKE-sweep pattern as adapt_invalidate_pool_cache() below, since
+ * adapt_get_visible_terms()'s cache key varies per page/filter/membership
+ * tier and there's no single predictable key to delete_transient() directly.
+ */
+function adapt_invalidate_visible_terms_cache() {
+    global $wpdb;
+
+    $transients = $wpdb->get_col(
+        $wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like( '_transient_adapt_visterms_' ) . '%'
+        )
+    );
+
+    if ( $transients ) {
+        foreach ( $transients as $transient ) {
+            delete_transient( str_replace( '_transient_', '', $transient ) );
+        }
+    }
+}
+add_action( 'save_post', 'adapt_invalidate_visible_terms_cache' );
+add_action( 'created_term', 'adapt_invalidate_visible_terms_cache' );
+add_action( 'edited_term', 'adapt_invalidate_visible_terms_cache' );
+add_action( 'delete_term', 'adapt_invalidate_visible_terms_cache' );
 
 // $all_posts = get_posts([
 //     'post_type'      => 'post',
@@ -2338,12 +2393,9 @@ function load_past_sessions_unique() {
     wp_die();
 }
 
-/**
- * Invalidate visible terms cache when posts or terms change
- */
-// adapt_get_visible_terms() no longer caches its result (see that function),
-// so there's nothing left for this to invalidate. Removed rather than left
-// as dead weight running on every save_post/term change.
+// adapt_get_visible_terms()'s own cache-invalidation hooks
+// (adapt_invalidate_visible_terms_cache()) now live right next to that
+// function above, not here.
 add_action('mepr-event-transaction-completed', function() {
     delete_transient('membership_ids');
 });
