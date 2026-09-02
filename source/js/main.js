@@ -140,34 +140,50 @@
 		// STANDARD
 		@@include('includes/_maps.js')
 
-		// Deferred one animation frame past here on purpose. Live Long Task
-		// tracing (PerformanceObserver({type: 'longtask'})) on the homepage
-		// showed a ~240ms synchronous block starting right after
-		// DOMContentLoaded, ending right before the browser's second (final)
-		// LCP paint for the resources-featured-slider image above - i.e. the
-		// browser could not paint the slider's slick-initialized layout
-		// (see that block earlier in this same handler) until this entire
-		// ready() callback finished running, no matter how early the slick()
-		// call itself was moved. matchHeightInit() is almost certainly the
+		// Deferred past here on purpose, via setTimeout rather than
+		// requestAnimationFrame - see below for why the first attempt at
+		// this fix used rAF and didn't work. Live Long Task tracing
+		// (PerformanceObserver({type: 'longtask'})) on the homepage showed a
+		// ~240ms synchronous block starting right after DOMContentLoaded,
+		// ending right before the browser's second (final) LCP paint for
+		// the resources-featured-slider image above - i.e. the browser
+		// could not paint the slider's slick-initialized layout (see that
+		// block earlier in this same handler) until this entire ready()
+		// callback finished running, no matter how early the slick() call
+		// itself was moved. matchHeightInit() is almost certainly the
 		// dominant cost in that task: matchHeight forces a synchronous
 		// layout read for every one of its ~32 selector groups sitewide
 		// (cards, kits, footer columns, blog grids, agenda blocks, etc.) -
 		// exactly the kind of work that should never sit ahead of the first
-		// paint. None of resize()/matchHeightInit()/select2()/
-		// outsideContainer()/scrollMobile() write anything any other
-		// synchronous code in this same ready() handler reads before the
-		// next real user interaction - ww/wh (the two outer-scope variables
-		// outsideContainer()/scrollMobile()/resize() set) are only ever read
-		// from inside headerSet()/other event-bound functions elsewhere in
-		// this file, never inline here - so pushing this block one frame
-		// later, after the browser has had a chance to paint, is safe.
-		requestAnimationFrame(function () {
+		// paint.
+		//
+		// First attempt wrapped this block in requestAnimationFrame()
+		// instead of setTimeout() - verified live afterward via the same
+		// Long Task trace and it made no measurable difference. Root cause:
+		// rAF callbacks run as part of the current frame's rendering steps,
+		// *before* that frame's paint, not after it - so a heavy rAF
+		// callback still blocks the very paint it was meant to get out of
+		// the way of, it just starts the block a few milliseconds later.
+		// setTimeout(fn, 0) schedules a real macrotask instead, and the
+		// browser gets a chance to run its rendering pipeline (style,
+		// layout, paint) between the end of the current task and the start
+		// of the timer callback - which is the actual gap this fix needs.
+		//
+		// None of resize()/matchHeightInit()/select2()/outsideContainer()/
+		// scrollMobile() write anything any other synchronous code in this
+		// same ready() handler reads before the next real user interaction
+		// - ww/wh (the two outer-scope variables outsideContainer()/
+		// scrollMobile()/resize() set) are only ever read from inside
+		// headerSet()/other event-bound functions elsewhere in this file,
+		// never inline here - so pushing this block past the next paint is
+		// safe.
+		setTimeout(function () {
 			resize();
 			matchHeightInit();
 			if (typeof select2 === 'function') select2();
 			outsideContainer();
 			scrollMobile();
-		});
+		}, 0);
 
 		if($('.progress-container').length ){
 			scrollProgressBar();
