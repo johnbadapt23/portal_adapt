@@ -182,6 +182,22 @@ $adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
 // up the same way instead of leaving it undefined.
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable listing URL; no state change results from reading it.
 $themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
+
+// $persona/$sector below are read by the Personas/Sectors dropdowns'
+// per-term active-state checks further down, but (like $themes above)
+// were never assigned in this file - every read is guarded with
+// empty()/?? '' so PHP never warns about it, which is why this one went
+// unnoticed by the Query Monitor sweep that caught the $themes/$topic
+// versions of the same bug elsewhere in this file. Confirmed via
+// main.js's queryMap (persona: 'persona', sector: 'sector') that a
+// filter click writes exactly these two query-string keys, matching
+// template-persona-filters.php's/template-sector-filters.php's own
+// $_GET['persona']/$_GET['sector'] reads - so a deep link such as
+// ?persona=cios never pre-selected the matching button on this page,
+// silently, the same real (not just cosmetic) bug already fixed above
+// for topic/type/theme.
+$persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
+$sector = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 // $topic is also read once below (the Topics dropdown's "All" button), but
