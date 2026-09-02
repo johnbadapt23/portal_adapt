@@ -1288,6 +1288,38 @@ function my_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
 /**
+ * Dequeue dashicons on the public-facing site.
+ *
+ * dashicons.min.css was showing up as a render-blocking stylesheet on
+ * every single page (confirmed via Performance/Resource Timing on the
+ * homepage, /settings, /settings?action=subscriptions, and a single-post
+ * article) despite the theme never referencing any .dashicons-* class or
+ * the Dashicons icon font anywhere - confirmed both by grepping the theme
+ * source and, live, by searching each test page's full outerHTML (so this
+ * also covers markup already in the DOM but hidden, e.g. unopened modals)
+ * for any "dashicons-" class name; none were found. Some plugin (not this
+ * theme) registers/enqueues it unconditionally, most likely a leftover
+ * default rather than something its frontend code actually uses here.
+ *
+ * Guarded by !is_admin_bar_showing(): the WP admin toolbar (shown on the
+ * front end to logged-in staff with the "Show Toolbar" option on) uses
+ * dashicons for its own icons, so this only dequeues for visitors who
+ * won't see that toolbar at all - it never touches wp-admin itself, since
+ * this only hooks the front-end wp_enqueue_scripts action.
+ *
+ * Priority 100 (after the default-priority registration most plugins use,
+ * including whichever one enqueues this) so the dequeue actually wins the
+ * race instead of running before dashicons is registered.
+ */
+function adapt_dequeue_dashicons() {
+    if ( ! is_admin_bar_showing() ) {
+        wp_dequeue_style( 'dashicons' );
+        wp_deregister_style( 'dashicons' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'adapt_dequeue_dashicons', 100 );
+
+/**
  * Render a raw HubSpot form embed field, de-duplicating the shared
  * forms/embed/v2.js script tag across multiple embeds on the same page.
  *
