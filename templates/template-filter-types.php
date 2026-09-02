@@ -213,7 +213,7 @@ $topic = null;
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
-            echo (term_description($q->term_id));
+            echo wp_kses_post( term_description( $q->term_id ) );
             ?>
         </p>
     </div>
