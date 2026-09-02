@@ -28,7 +28,7 @@ $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
 $membership_allowed_ids = [];
 $researchLinkAdv = get_field( 'advantage_research_link', 'options' ); 
 $researchLinkIt = get_field( 'it_pro_research_link', 'options' ); 
-$researchLink = '$researchLinkAdv';
+$researchLink = $researchLinkAdv;
 if ($membershipType === 'it-pro') {
     $membership_allowed_ids = $it_pro_types_ids;
     $researchLink = $researchLinkIt;
