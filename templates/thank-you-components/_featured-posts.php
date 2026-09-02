@@ -91,7 +91,13 @@
                                 <div class="item-column content-column one-half">
                                     <span class="item-content-container">
                                         <span class="topic-filter">
-                                            <?php if (yoast_get_primary_term_id('topic')) {
+                                            <?php
+                                            // Reset each iteration - without this, a post with no primary
+                                            // term and no 'topic' terms would silently keep showing the
+                                            // previous post's topic (both branches below only ever assign
+                                            // $postTopic, never clear it).
+                                            $postTopic = null;
+                                            if (yoast_get_primary_term_id('topic')) {
                                                 $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                 $postTopic = get_term( $primary_term_topic_id );
                                             } else {
@@ -173,7 +179,13 @@
                                 <?php } ?>
                                 <span class="item-content-container">
                                     <span class="topic-filter">
-                                        <?php if (yoast_get_primary_term_id('topic')) {
+                                        <?php
+                                        // Reset each iteration - without this, a post with no primary
+                                        // term and no 'topic' terms would silently keep showing the
+                                        // previous post's topic (both branches below only ever assign
+                                        // $postTopic, never clear it).
+                                        $postTopic = null;
+                                        if (yoast_get_primary_term_id('topic')) {
                                             $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                             $postTopic = get_term( $primary_term_topic_id );
                                         } else {
@@ -267,7 +279,13 @@
                                     <div class="item-column content-column one-half">
                                         <span class="item-content-container">
                                             <span class="topic-filter">
-                                                <?php if (yoast_get_primary_term_id('topic')) {
+                                                <?php
+                                                // Reset each iteration - without this, a post with no primary
+                                                // term and no 'topic' terms would silently keep showing the
+                                                // previous post's topic (both branches below only ever assign
+                                                // $postTopic, never clear it).
+                                                $postTopic = null;
+                                                if (yoast_get_primary_term_id('topic')) {
                                                     $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                     $postTopic = get_term( $primary_term_topic_id );
                                                 } else {
@@ -349,7 +367,13 @@
                                     <?php } ?>
                                     <span class="item-content-container">
                                         <span class="topic-filter">
-                                            <?php if (yoast_get_primary_term_id('topic')) {
+                                            <?php
+                                            // Reset each iteration - without this, a post with no primary
+                                            // term and no 'topic' terms would silently keep showing the
+                                            // previous post's topic (both branches below only ever assign
+                                            // $postTopic, never clear it).
+                                            $postTopic = null;
+                                            if (yoast_get_primary_term_id('topic')) {
                                                 $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                 $postTopic = get_term( $primary_term_topic_id );
                                             } else {
