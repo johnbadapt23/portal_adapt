@@ -441,7 +441,7 @@ if ($membershipType === 'it-pro') {
             <div class="whats-new-container-outer">
                 <!-- Persona Title -->
                 <h2 class="headerXsmall text-bold market-narrative-title" style="display: none;">
-                    <?= esc_html($persona_term->name); ?>
+                    <?= esc_html($persona_term?->name ?? ''); ?>
                 </h2>
                 <div class="whats-new-filter-inner">
                     <div class="sort-pills-container">
