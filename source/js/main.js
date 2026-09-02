@@ -2571,8 +2571,16 @@ $(document).on('click', function(e) {
     // ===============================
     // Initial Load
     // ===============================
-    // loadPartners(1, false);
-    // buildActiveFilterPills();
+    // #partners-container is server-rendered directly in
+    // _speakers-module.php (mirrors loadPartners()'s query exactly), so
+    // no AJAX call is needed on init - loadPartners() would just
+    // re-fetch and replace content that's already correct. The active
+    // filter buttons are also server-rendered (based on the preselected
+    // expertise/capability/industry GET params), which is what
+    // currentExpertise/currentIndustry above already read - so building
+    // the pills from that same state is all that's needed to make the
+    // pills match first paint.
+    buildActiveFilterPills();
 	loader.hide();
 
     // ===============================
