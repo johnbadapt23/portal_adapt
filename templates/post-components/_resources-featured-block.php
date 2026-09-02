@@ -64,6 +64,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $posts->have_posts() ) : ?>
                                 <?php while ( $posts->have_posts() ) : $posts->the_post(); ?>
+                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-featured-slide">
                                         <div class="resources-slide-inner">
@@ -198,6 +199,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                         <?php
                                         $post = $post_object;
                                         setup_postdata( $post );
+                                        $post_id = get_the_ID();
                                         ?>
 
                                         <div class="resources-featured-slide">
@@ -361,6 +363,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $sidebar_posts->have_posts() ) : ?>
                                 <?php while ( $sidebar_posts->have_posts() ) : $sidebar_posts->the_post(); ?>
+                                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">
@@ -511,6 +514,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $sidebar_posts->have_posts() ) : ?>
                                 <?php while ( $sidebar_posts->have_posts() ) : $sidebar_posts->the_post(); ?>
+                                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">
@@ -657,6 +661,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $sidebar_posts->have_posts() ) : ?>
                                 <?php while ( $sidebar_posts->have_posts() ) : $sidebar_posts->the_post(); ?>
+                                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">
@@ -795,6 +800,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $popular_posts->have_posts() ) : ?>
                                 <?php while ( $popular_posts->have_posts() ) : $popular_posts->the_post(); ?>
+                                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">

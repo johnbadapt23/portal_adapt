@@ -382,6 +382,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -585,6 +586,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -776,6 +778,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -965,6 +968,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -1593,6 +1597,7 @@ if (current_user_can('administrator')) {
                                                 <?php if ( $post_object ): ?>
                                                     <?php $post = $post_object; ?>
                                                     <?php setup_postdata( $post ); ?> 
+                                                    <?php $post_id = get_the_ID(); ?>
                                                     <a href="<?php the_permalink(); ?>">
                                                         <span class="menu-featured-post">
                                                             <span class="image-container">
@@ -1933,6 +1938,7 @@ if (current_user_can('administrator')) {
                                                 <?php if ( $post_object ): ?>
                                                     <?php $post = $post_object; ?>
                                                     <?php setup_postdata( $post ); ?> 
+                                                    <?php $post_id = get_the_ID(); ?>
                                                     <a href="<?php the_permalink(); ?>">
                                                         <span class="menu-featured-post">
                                                             <span class="image-container">
@@ -2120,6 +2126,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -2305,6 +2312,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
