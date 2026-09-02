@@ -18,16 +18,6 @@ if ($persona !== '') {
     $persona_term = get_term_by('slug', $persona, 'persona-mapping');
 }
 ?>
-<?php if (!empty($persona_from_get) && !is_wp_error($persona_from_get)) : ?>
-<script>
-    // Make the default persona slug available to JS for the featured post AJAX
-    window.personaTerm = '<?= esc_js($persona_from_get->slug); ?>';
-</script>
-<?php else: ?>
-<script>
-    window.personaTerm = '';
-</script>
-<?php endif; ?>
 <main id="main" role="main" class="default whats-new">
 <?php 
 $membershipType = trim($membershipType);
