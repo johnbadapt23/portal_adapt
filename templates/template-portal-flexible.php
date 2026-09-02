@@ -165,6 +165,7 @@ if( $is_agent_tester ){
 		                                            $args = [
 		                                                'post_type'      => 'post',
 		                                                'posts_per_page' => -1,
+		                                                'no_found_rows' => true,
 		                                                'paged'=> $paged,
 		                                                'tax_query'      => [
 		                                                    [

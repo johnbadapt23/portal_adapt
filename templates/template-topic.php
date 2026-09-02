@@ -83,6 +83,7 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 $args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
+    'no_found_rows' => true,
     'paged'=> $paged,
     'fields' => 'ids'
 ]; ?>

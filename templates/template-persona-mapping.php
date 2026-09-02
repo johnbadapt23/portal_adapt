@@ -298,6 +298,7 @@ $post_types =  [];
     $args = [
         'post_type'      => 'post',
         'posts_per_page' => -1,
+        'no_found_rows' => true,
         'paged'=> $paged,
         'fields' => 'ids',
         'tax_query'      => [

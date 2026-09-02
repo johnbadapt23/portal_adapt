@@ -15,6 +15,7 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 <?php $args = [
     'post_type' => 'announcement',
     'posts_per_page' => -1,
+    'no_found_rows' => true,
     'paged'=> $paged,
     'orderby' => 'date',
     'order' => 'DESC'
@@ -134,6 +135,7 @@ if (user_can($current_user, 'administrator')) {
             <?php $args = [
                 'post_type' => 'announcement',
                 'posts_per_page' => -1,
+                'no_found_rows' => true,
                 'paged'=> $paged,
                 'orderby' => 'date',
                 'order' => 'DESC'

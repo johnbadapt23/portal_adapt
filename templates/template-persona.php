@@ -186,6 +186,7 @@ get_header();
 	            <?php $args = [
 	                'post_type' => 'post',
 	                'posts_per_page' => -1,
+	                'no_found_rows' => true,
 	                'paged'=> $paged,
 					'tax_query' => [
 				        [

@@ -55,6 +55,7 @@
                             $args = [
                                 'post_type' => 'event',
                                 'posts_per_page' => -1,
+                                'no_found_rows' => true,
                                 'paged'=> $paged ,
                                 'orderby'=> 'menu_order',
                                 'order'=> 'ASC',
