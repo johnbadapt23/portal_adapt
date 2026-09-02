@@ -81,7 +81,7 @@ $filtered_topic = $filtered_topic ?? null;
         </span>
     <?php endif; ?>
     <?php
-    $terms = get_the_terms($post->ID, 'featured-post');
+    $terms = get_the_terms($post_id, 'featured-post');
     $featured = false;
     if ($terms && ! is_wp_error($terms)) {
         foreach ($terms as $term) {
