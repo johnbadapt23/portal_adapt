@@ -143,7 +143,7 @@ $type  = isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) :
                                     $all_value = !empty($allowed_topic_slugs) ? wp_json_encode($allowed_topic_slugs) : '[]';
                                     $active_found = false;
                                     ?>
-                                    <a href="#" class="filter-button all active" data-value='<?= esc_attr($all_value); ?>'>All</a>
+                                    <a href="#" class="filter-button all<?= $topic === '' ? ' active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                     <?php foreach($topic_terms as $term) :
                                         $is_active = $term->slug === $topic;
                                         if($is_active) {
@@ -178,7 +178,7 @@ $type  = isset($_GET['type']) ? sanitize_text_field(wp_unslash($_GET['type'])) :
         $all_value = !empty($allowed_type_slugs) ? wp_json_encode($allowed_type_slugs) : '[]';
         $active_found = false;
         ?>
-        <a href="#" class="filter-button all active" data-value='<?= esc_attr($all_value); ?>'>All</a>
+        <a href="#" class="filter-button all<?= $type === '' ? ' active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
 
         <?php foreach($type_terms as $term) :
             $is_active = $term->slug === $type;
