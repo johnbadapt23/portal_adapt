@@ -2964,7 +2964,29 @@ body header .user .megaMenu {
 body header .user .megaMenu .userMenuInfo {
 	float: none;
 	clear: both;
-	display: block;
+	display: grid;
+	grid-template-columns: 36px 1fr;
+	column-gap: 10px;
+	align-items: start;
+}
+// userIconMain/userNameMain/userEmailMain are flat sibling spans in the
+// markup (see templates/partials/_header.php) - no wrapper exists around
+// the name+email pair, so a grid (icon spanning both rows in column 1,
+// name/email stacked in column 2) replicates the original float-based
+// layout without any markup changes, unlike a flex row which would put
+// all three side by side instead of icon-left/text-stacked-right.
+body header .user .megaMenu .userMenuInfo .userIconMain {
+	float: none;
+	grid-row: 1 / 3;
+	margin-right: 0;
+}
+body header .user .megaMenu .userMenuInfo .userNameMain {
+	float: none;
+	width: auto;
+}
+body header .user .megaMenu .userMenuInfo .userEmailMain {
+	float: none;
+	width: auto;
 }
 body header .user .megaMenu .userMenuTop {
 	float: none;
@@ -3000,6 +3022,9 @@ body header .user .megaMenu .userMenuBottom span.no-link {
 	float: none;
 	clear: both;
 	display: block;
+}
+header .user .megaMenu .userMenuBottom .userMenuLink:last-child {
+	display: inline-block;
 }
 body header .user .megaMenu .userMenuLogout a {
 	float: none;
