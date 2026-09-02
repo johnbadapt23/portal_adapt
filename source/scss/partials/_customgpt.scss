@@ -11,6 +11,27 @@ body.template-portal-flexible {
 	.customgpt-chat-embed {
 		padding-top: 111px;
 
+		// Reserves the widget's own vertical space before its JS (a React/
+		// Tailwind app - see the "widget-mode embedded-mode" wrapper it
+		// mounts) has hydrated. This container starts empty in the raw
+		// HTML and is in normal document flow (not position: fixed), so
+		// without a reservation it grows from 0 to its real height only
+		// once that JS mounts - pushing every component below it (the
+		// homepage's featured-slider hero image among them) down the page
+		// mid-load. Live-measured getBoundingClientRect().height once
+		// hydrated: ~517px at ~530px viewport width, ~547px at 1440px,
+		// ~583px at 375px (mobile) - not a simple function of width, since
+		// the widget's own suggested-prompt buttons wrap differently at
+		// different breakpoints. Values below use the highest measurement
+		// in each bucket plus a small safety margin, so the reservation
+		// only ever needs to shrink (a harmless small gap that closes
+		// itself) rather than grow (which would still shift the page).
+		min-height: 570px;
+
+		@include responsive(767) {
+			min-height: 610px;
+		}
+
 		~ main {
 			padding-top: 0;
 		}
