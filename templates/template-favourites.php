@@ -66,34 +66,39 @@ $favourite_posts_html = ob_get_clean();
                             ]);
 
                             /**
-                             * Topics (parent only)
+                             * Topics and Types (parent only), batched via a single
+                             * get_terms() per taxonomy instead of calling
+                             * get_the_terms() once per post - $recent_posts comes
+                             * from a fields=>ids query, which never primes the term
+                             * cache, so a per-post loop here would run one
+                             * uncached query per post per taxonomy (2N total).
+                             * object_ids also dedupes across posts for free, same
+                             * as adapt_get_visible_terms() in functions.php.
                              */
-                            $topic_terms = [];
-                            foreach ($recent_posts as $post_id) {
-                                $terms = get_the_terms($post_id, 'topic');
-                                if (is_array($terms)) {
-                                    foreach ($terms as $t) {
-                                        if ((int) $t->parent !== 0) continue;
-                                        $topic_terms[$t->term_id] = $t;
-                                    }
-                                }
-                            }
-                            usort($topic_terms, fn($a, $b) => strcmp($a->name, $b->name));
+                            if (!empty($recent_posts)) {
+                                $topic_terms = get_terms([
+                                    'taxonomy'   => 'topic',
+                                    'object_ids' => $recent_posts,
+                                    'parent'     => 0,
+                                    'hide_empty' => false,
+                                    'orderby'    => 'name',
+                                    'order'      => 'ASC',
+                                ]);
+                                $topic_terms = is_array($topic_terms) ? $topic_terms : [];
 
-                            /**
-                             * Types (parent only)
-                             */
-                            $type_terms = [];
-                            foreach ($recent_posts as $post_id) {
-                                $terms = get_the_terms($post_id, 'filter-types');
-                                if (is_array($terms)) {
-                                    foreach ($terms as $t) {
-                                        if ((int) $t->parent !== 0) continue;
-                                        $type_terms[$t->term_id] = $t;
-                                    }
-                                }
+                                $type_terms = get_terms([
+                                    'taxonomy'   => 'filter-types',
+                                    'object_ids' => $recent_posts,
+                                    'parent'     => 0,
+                                    'hide_empty' => false,
+                                    'orderby'    => 'name',
+                                    'order'      => 'ASC',
+                                ]);
+                                $type_terms = is_array($type_terms) ? $type_terms : [];
+                            } else {
+                                $topic_terms = [];
+                                $type_terms  = [];
                             }
-                            usort($type_terms, fn($a, $b) => strcmp($a->name, $b->name));
                             ?>
 
                             <!-- Topics -->
