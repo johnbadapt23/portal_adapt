@@ -100,6 +100,43 @@
 			}
 		});
 
+		// Resources Feature Slider - initialized first, ahead of every other
+		// carousel in this handler (~16 .slick()/.owlCarousel() calls follow
+		// below for sliders elsewhere on the site). This is the component
+		// whose first slide is this page's LCP image on the homepage (and on
+		// the flexible/single-post/portal-flexible templates that reuse the
+		// same _resources-featured-block.php partial) - see _base.scss's
+		// ":not(.slick-initialized) :not(:first-child) { display: none; }"
+		// FOUC-prevention rule, which only stops hiding the rest of the
+		// slides once slick has actually run. Live LCP tracing (PerformanceObserver
+		// with type: 'largest-contentful-paint') showed the browser logging a
+		// second, later LCP candidate for this same image a few hundred ms
+		// after first paint, timed to right when slick's synchronous init
+		// finally reached this line - previously last among ~16 sequential
+		// carousel initializations, most of which don't even match any
+		// element on a given page (an empty jQuery selection is still a full
+		// DOM query before .slick() no-ops on it) and were running first
+		// regardless of relevance to this page's LCP. Moving this one to the
+		// front removes that queue from its critical path without touching
+		// slick's own timing/config or any other carousel's behavior.
+		$('.resources-featured-slider').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			fade: true,
+			speed: 500,
+	        cssEase: "linear",
+			infinite: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			arrows: false,
+			dots: true,
+			customPaging : function(slider, i) {
+			   const thumb = $(slider.$slides[i]).data();
+			   i = i + 1;
+			   return '<a>0'+i+'</a>';
+		   },
+	   });
+
 		// STANDARD
 		@@include('includes/_maps.js')
 
@@ -1373,27 +1410,7 @@
 				$(mobileRadioIndex).children('label').children('input').prop("checked", true);
 				$('.filter .mobile-form-container').addClass('active');
 			});
-		}	
-		
-		// Resources Feature Slider
-
-		$('.resources-featured-slider').slick({
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			fade: true,
-			speed: 500,
-	        cssEase: "linear",
-			infinite: true,
-			autoplay: true,
-			autoplaySpeed: 3000,
-			arrows: false,
-			dots: true,
-			customPaging : function(slider, i) {
-			   const thumb = $(slider.$slides[i]).data();
-			   i = i + 1;
-			   return '<a>0'+i+'</a>';
-		   },
-	   });
+		}
 
 	   // KEYNOTE SLIDER
 		$('.keynote-slider-module').each(function () {
