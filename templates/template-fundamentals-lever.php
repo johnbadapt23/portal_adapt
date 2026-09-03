@@ -55,8 +55,8 @@ $first_name = $user_info->first_name;
 $interests = $user_info->mepr_interests;
 
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
-$filterType = $_GET['filterby'];
-$keyword = $_GET['searchWords'];
+$filterType = isset( $_GET['filterby'] ) ? sanitize_text_field( wp_unslash( $_GET['filterby'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 ?>
 <?php

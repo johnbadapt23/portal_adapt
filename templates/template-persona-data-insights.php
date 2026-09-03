@@ -5,7 +5,7 @@
 
 get_header();
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable persona-listing URL; used only to look up a taxonomy term by slug below, no state change.
-$persona = $_GET['persona'];
+$persona = isset( $_GET['persona'] ) ? sanitize_text_field( wp_unslash( $_GET['persona'] ) ) : '';
 ?>
 
 
