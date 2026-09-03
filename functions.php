@@ -282,20 +282,34 @@ add_image_size( 'hero-slide-preview', 900, 0 );
  * so a specific registered size can be requested; if that lookup fails
  * (external URL, attachment already deleted from the library, etc.) the
  * original URL is returned unchanged so the image never breaks.
+ *
+ * attachment_url_to_postid() itself isn't cached by core, and at least
+ * one call site (template-insights.php / template-insights-curation-one.php)
+ * loops the same taxonomy terms twice - once for a desktop span, once for
+ * a mobile one - so the exact same button_image URL genuinely gets asked
+ * for twice on one page load. A static, request-scoped memo (not a
+ * persistent object/transient cache, so no staleness risk - it's gone as
+ * soon as the request ends) avoids repeating that lookup.
  */
 function adapt_get_sized_bg_url( $url, $size = 'medium_large' ) {
     if ( ! $url ) {
         return $url;
     }
 
+    static $memo = [];
+    $key = $size . '|' . $url;
+    if ( isset( $memo[ $key ] ) ) {
+        return $memo[ $key ];
+    }
+
     $attachment_id = attachment_url_to_postid( $url );
     if ( ! $attachment_id ) {
-        return $url;
+        return $memo[ $key ] = $url;
     }
 
     $sized_url = wp_get_attachment_image_url( $attachment_id, $size );
 
-    return $sized_url ? $sized_url : $url;
+    return $memo[ $key ] = ( $sized_url ? $sized_url : $url );
 }
 
 add_filter( 'https_ssl_verify', '__return_false' );
