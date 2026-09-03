@@ -293,7 +293,7 @@ $filterBy = [];
                             <span class="radioSlideContainer desktop">
                                 <?php foreach($terms as $term) { ?>
                                     <span class="radioSlide slide <?php echo esc_attr( $term -> slug ); ?>">
-                                        <label style="background-image: url(<?php echo esc_url( get_field( 'button_image', $term ) ); ?>);">
+                                        <label style="background-image: url(<?php echo esc_url( adapt_get_sized_bg_url( get_field( 'button_image', $term ), 'medium' ) ); ?>);">
                                           <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                           <img class="tick" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" decoding="async" alt="Checkmark" />
                                           <span class="overlay"></span>
@@ -425,7 +425,7 @@ $filterBy = [];
                                 <span class="radioSlideContainer mobile">
                                     <?php foreach($terms as $term) { ?>
                                         <span class="radioSlide slide <?php echo esc_attr( $term -> slug ); ?>">
-                                            <label style="background-image: url(<?php echo esc_url( get_field( 'button_image', $term ) ); ?>);">
+                                            <label style="background-image: url(<?php echo esc_url( adapt_get_sized_bg_url( get_field( 'button_image', $term ), 'medium' ) ); ?>);">
                                               <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                               <img class="tick" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/tick.svg" width="25" height="25" loading="lazy" decoding="async" alt="Checkmark" />
                                               <span class="overlay"></span>

@@ -345,7 +345,7 @@
 										<a href="<?php the_permalink(); ?>" class="item">
 											<?php if ( get_field( 'speaker_image') ) { ?>
 												<div class="imageContainer">
-													<div class="image" style="background-image: url(<?php echo esc_url( get_field( 'speaker_image' ) ); ?>);">
+													<div class="image" style="background-image: url(<?php echo esc_url( adapt_get_sized_bg_url( get_field( 'speaker_image' ) ) ); ?>);">
 													</div>
 												</div>
 											<?php } ?>

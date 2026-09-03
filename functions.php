@@ -266,6 +266,38 @@ add_image_size( 'gallery-landscape', 1280, 800, true );
 add_image_size( 'gallery-portrait', 800, 1280, true );
 add_image_size( 'hero-slide-preview', 900, 0 );
 
+/**
+ * Resolve a CSS background-image URL down to a smaller registered size.
+ *
+ * A handful of ACF "Image" fields in this theme are configured to return
+ * a plain URL string (not an array with the attachment ID), and templates
+ * echo that URL straight into style="background-image: url(...)". That
+ * always serves the original, full-resolution upload - fine for a
+ * genuine full-bleed hero banner, but wasteful for anything rendered at
+ * a fraction of that width (a ~300px grid card, a 70px filter icon),
+ * since wp_get_attachment_image() would have auto-generated a srcset for
+ * exactly this case if the field had returned an ID instead of a URL.
+ *
+ * attachment_url_to_postid() resolves the URL back to its attachment ID
+ * so a specific registered size can be requested; if that lookup fails
+ * (external URL, attachment already deleted from the library, etc.) the
+ * original URL is returned unchanged so the image never breaks.
+ */
+function adapt_get_sized_bg_url( $url, $size = 'medium_large' ) {
+    if ( ! $url ) {
+        return $url;
+    }
+
+    $attachment_id = attachment_url_to_postid( $url );
+    if ( ! $attachment_id ) {
+        return $url;
+    }
+
+    $sized_url = wp_get_attachment_image_url( $attachment_id, $size );
+
+    return $sized_url ? $sized_url : $url;
+}
+
 add_filter( 'https_ssl_verify', '__return_false' );
 
 add_action('wp_enqueue_scripts', 'my_register_javascript', 100);
