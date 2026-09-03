@@ -4,6 +4,11 @@
  */
 
 get_header();
+// $q is read further down (persona/sector taxonomy-chip branches inside the
+// post loop) but was never assigned in this file, unlike sibling listing
+// templates that use the same $q->slug pattern -- causing an undefined
+// variable warning on every post render.
+$q = get_queried_object();
 ?>
 
 
