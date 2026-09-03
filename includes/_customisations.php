@@ -320,6 +320,25 @@ function custom_block_author_enumeration() {
 // do not touch script/style loading the way a Content-Security-Policy
 // would, so they will not fight with the HubSpot/Vimeo/GSAP/Google Maps
 // embeds already used throughout the theme).
+//
+// Site Health (Tools > Site Health > Status) flags three more of these as
+// missing: Strict-Transport-Security, X-XSS-Protection, and the
+// "Upgrade Insecure Requests" CSP directive. All three are added below,
+// still within the same no-compatibility-risk philosophy as the three
+// already here:
+// - Strict-Transport-Security / upgrade-insecure-requests only make sense
+//   (and are only sent) once a request has actually arrived over HTTPS -
+//   is_ssl() guards both, so this can never tell a browser to force HTTPS
+//   on a site, or a specific pageview, that isn't already serving it.
+// - upgrade-insecure-requests is sent via the Content-Security-Policy
+//   header, but it is the one CSP directive that does not restrict what
+//   scripts/styles/frames are allowed to load - it only auto-upgrades an
+//   accidental http:// sub-resource reference to https://, so it carries
+//   none of the third-party-embed breakage risk a real CSP would.
+// - X-XSS-Protection is deprecated in current browser engines (Chromium
+//   and Firefox both ignore it), but it is still one of the specific
+//   headers WordPress Core's own Site Health check looks for, it is
+//   harmless to send, and older/other browsers may still honour it.
 function custom_security_headers() {
 	if ( headers_sent() ) {
 		return;
@@ -327,6 +346,12 @@ function custom_security_headers() {
 	header( 'X-Content-Type-Options: nosniff' );
 	header( 'X-Frame-Options: SAMEORIGIN' );
 	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
+	header( 'X-XSS-Protection: 1; mode=block' );
+
+	if ( is_ssl() ) {
+		header( 'Strict-Transport-Security: max-age=31536000' );
+		header( 'Content-Security-Policy: upgrade-insecure-requests' );
+	}
 }
 
 // remove rest api
