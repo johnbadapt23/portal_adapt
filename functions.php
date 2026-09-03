@@ -1340,6 +1340,36 @@ function my_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
+// Resource hints for the two cross-origin hosts my_enqueue_scripts() above
+// actually depends on. Neither was hinted anywhere before this - the
+// browser only discovered these origins once it parsed the <script> tags
+// themselves, paying DNS+TCP+TLS setup cost after the fact instead of in
+// parallel with the rest of <head>.
+// - cdnjs.cloudflare.com (gsap-js/scrolltrigger-js): 'preconnect', since
+//   these are 'defer'-strategy scripts spec-guaranteed to finish executing
+//   before DOMContentLoaded (see the comment above their wp_enqueue_script()
+//   calls) - the connection is needed early, not speculatively.
+// - js.hs-scripts.com (HubSpot): 'dns-prefetch' only, not 'preconnect' -
+//   this loader is intentionally deferred until the visitor's first
+//   click/scroll/mousemove/etc, so a full preconnect here would hold a
+//   connection open for a host that may never end up being used at all on
+//   a given pageview.
+add_filter( 'wp_resource_hints', 'adapt_resource_hints', 10, 2 );
+function adapt_resource_hints( $urls, $relation_type ) {
+    if ( 'preconnect' === $relation_type ) {
+        $urls[] = [
+            'href'        => 'https://cdnjs.cloudflare.com',
+            'crossorigin' => '',
+        ];
+    }
+
+    if ( 'dns-prefetch' === $relation_type ) {
+        $urls[] = '//js.hs-scripts.com';
+    }
+
+    return $urls;
+}
+
 /**
  * Dequeue dashicons on the public-facing site.
  *
