@@ -27,7 +27,11 @@
                             'field' => 'slug',
                             'terms'    => 'tnc'
                         ]
-                    ]
+                    ],
+                    // No pagination UI renders for this thank-you-page block, so skip
+                    // the SQL_CALC_FOUND_ROWS + extra COUNT(*) query WP_Query runs by
+                    // default.
+                    'no_found_rows' => true,
                 ];
 
                 $posts = new WP_Query( $args );

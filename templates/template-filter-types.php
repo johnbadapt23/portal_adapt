@@ -39,6 +39,10 @@ $args = [
             'value'   => $today,
         ],
     ],
+    // This loop only collects IDs into $displayed_posts - no pagination UI
+    // reads found_posts/max_num_pages, so skip the SQL_CALC_FOUND_ROWS +
+    // extra COUNT(*) query WP_Query runs by default.
+    'no_found_rows' => true,
 ];
 global $displayed_posts;
 $displayed_posts =  [];

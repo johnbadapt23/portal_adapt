@@ -64,6 +64,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
+                                // No pagination UI reads found_posts/max_num_pages for this
+                                // block, so skip the SQL_CALC_FOUND_ROWS + extra COUNT(*)
+                                // query WP_Query runs by default.
+                                'no_found_rows'  => true,
                             ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
@@ -362,6 +366,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
+                                // No pagination UI reads found_posts/max_num_pages for this
+                                // block, so skip the SQL_CALC_FOUND_ROWS + extra COUNT(*)
+                                // query WP_Query runs by default.
+                                'no_found_rows'  => true,
                             ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;

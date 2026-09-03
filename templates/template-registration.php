@@ -229,6 +229,11 @@ $args = [
             'value'   => $today,
         ],
     ],
+    // "Load More" pagination here is driven by a manual $shown/offset count
+    // sent to load_past_sessions_unique() via AJAX, not by WP_Query's own
+    // found_posts/max_num_pages, so skip the SQL_CALC_FOUND_ROWS + extra
+    // COUNT(*) query WP_Query runs by default.
+    'no_found_rows'  => true,
 ];
 
 $query = new WP_Query($args);

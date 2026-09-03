@@ -178,7 +178,11 @@ if (user_can($current_user, 'administrator')) {
                 $args = [
                     'post_type'      => 'announcement',
                     'posts_per_page' => 3,
-                    'paged' => $paged
+                    'paged' => $paged,
+                    // No pagination UI renders here (just a static 3-item "Recent
+                    // Announcements" grid), so skip the SQL_CALC_FOUND_ROWS + extra
+                    // COUNT(*) query WP_Query runs by default.
+                    'no_found_rows' => true,
                 ];
                 ?>
 

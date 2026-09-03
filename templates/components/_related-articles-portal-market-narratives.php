@@ -12,6 +12,11 @@
                 'post_type' => 'post',
                 'posts_per_page' => 4,
                 'paged'=> $paged,
+                // No pagination UI renders for this block (no wp_pagenavi()/max_num_pages
+                // call anywhere in this file), so the SQL_CALC_FOUND_ROWS + extra COUNT(*)
+                // query WP_Query runs by default to compute a total-pages figure is pure
+                // overhead here.
+                'no_found_rows' => true,
                 'tax_query' => [
                     'relation' => 'AND',
                      [
