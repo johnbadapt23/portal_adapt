@@ -5,7 +5,7 @@
 
 get_header();
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable listing URL; no state change results from reading it.
-$topic = $_GET['topic'];
+$topic = isset( $_GET['topic'] ) ? sanitize_text_field( wp_unslash( $_GET['topic'] ) ) : '';
 ?>
 
 
@@ -86,7 +86,7 @@ $topic = $_GET['topic'];
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
-	                                        <span>
+	                                        </span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -98,7 +98,7 @@ $topic = $_GET['topic'];
 							?>
 	                                        <span class="hover-container">
 
-	                                        <span>
+	                                        </span>
 	                                    <?php endif; ?>
 	                                </div>
 	                            </a>
@@ -152,7 +152,7 @@ $topic = $_GET['topic'];
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -380,7 +380,7 @@ $topic = $_GET['topic'];
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
-										 <span>
+										 </span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -392,7 +392,7 @@ $topic = $_GET['topic'];
 							?>
 										 <span class="hover-container">
 
-										 <span>
+										 </span>
 									 <?php endif; ?>
 								 </div>
 							 </a>

@@ -5,8 +5,8 @@
 
 get_header();
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
-$sector = $_GET['sector'];
-$keyword = $_GET['searchWords'];
+$sector = isset( $_GET['sector'] ) ? sanitize_text_field( wp_unslash( $_GET['sector'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 $q = get_queried_object();
 $q_slug = $q->slug ?? '';
@@ -199,7 +199,7 @@ $q_slug = $q->slug ?? '';
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
-	                                        <span>
+	                                        </span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -211,14 +211,14 @@ $q_slug = $q->slug ?? '';
 							?>
 	                                        <span class="hover-container">
 
-	                                        <span>
+	                                        </span>
 	                                    <?php endif; ?>
 	                                </div>
 	                            </a>
 	                            <div class="textContainer">
 	                                <span class="topicFilter">
 	                                    <?php if (yoast_get_primary_term_id('sector-analysis')) {
-											$primary_term_topic_id = yoast_get_primary_term_id('persona-analysis');
+											$primary_term_topic_id = yoast_get_primary_term_id('sector-analysis');
 											$sectorTerm = get_term( $primary_term_topic_id );
 										} else {
 											if(get_the_terms( $post->ID, 'sector-analysis' )){
@@ -285,7 +285,7 @@ $q_slug = $q->slug ?? '';
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -587,7 +587,7 @@ $q_slug = $q->slug ?? '';
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
-										 <span>
+										 </span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -599,7 +599,7 @@ $q_slug = $q->slug ?? '';
 							?>
 										 <span class="hover-container">
 
-										 <span>
+										 </span>
 									 <?php endif; ?>
 								 </div>
 							 </a>

@@ -5,7 +5,7 @@
 
 get_header();
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable sector-listing URL; no state change results from reading it.
-$sector = $_GET['sector'];
+$sector = isset( $_GET['sector'] ) ? sanitize_text_field( wp_unslash( $_GET['sector'] ) ) : '';
 ?>
 
 
@@ -86,7 +86,7 @@ $sector = $_GET['sector'];
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
-	                                        <span>
+	                                        </span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -98,7 +98,7 @@ $sector = $_GET['sector'];
 							?>
 	                                        <span class="hover-container">
 
-	                                        <span>
+	                                        </span>
 	                                    <?php endif; ?>
 	                                </div>
 	                            </a>
@@ -166,7 +166,7 @@ $sector = $_GET['sector'];
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -388,7 +388,7 @@ $sector = $_GET['sector'];
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
-										 <span>
+										 </span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -400,7 +400,7 @@ $sector = $_GET['sector'];
 							?>
 										 <span class="hover-container">
 
-										 <span>
+										 </span>
 									 <?php endif; ?>
 								 </div>
 							 </a>

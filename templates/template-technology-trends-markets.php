@@ -5,8 +5,8 @@
 
 get_header();
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
-$topicFilter = $_GET['topic'];
-$keyword = $_GET['searchWords'];
+$topicFilter = isset( $_GET['topic'] ) ? sanitize_text_field( wp_unslash( $_GET['topic'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 $q = get_queried_object();
 $q_slug = $q->slug ?? '';
@@ -204,7 +204,7 @@ $q_slug = $q->slug ?? '';
 	                                            <?php if ($imageCounter) { ?>
 	                                                <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 	                                            <?php } ?>
-	                                        <span>
+	                                        </span>
 	                                    <?php else : ?>
 	                                        <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -216,7 +216,7 @@ $q_slug = $q->slug ?? '';
 							?>
 	                                        <span class="hover-container">
 
-	                                        <span>
+	                                        </span>
 	                                    <?php endif; ?>
 	                                </div>
 	                            </a>
@@ -284,7 +284,7 @@ $q_slug = $q->slug ?? '';
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -602,7 +602,7 @@ $q_slug = $q->slug ?? '';
 											 <?php if ($imageCounter) { ?>
 												 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
 											 <?php } ?>
-										 <span>
+										 </span>
 									 <?php else : ?>
 										 <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -614,7 +614,7 @@ $q_slug = $q->slug ?? '';
 							?>
 										 <span class="hover-container">
 
-										 <span>
+										 </span>
 									 <?php endif; ?>
 								 </div>
 							 </a>
