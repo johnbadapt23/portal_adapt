@@ -1,6 +1,12 @@
 <?php
 $date_string = get_field('replay_event_date');
 $date = DateTime::createFromFormat('Ymd', $date_string);
+// Used below to decide whether the published-date label needs the
+// no-margin-border class (this component has no download button of
+// its own, unlike its _video-preview.php/_slide-preview.php siblings,
+// but still reads the same 'download' sub-field to match their
+// spacing convention when one isn't set).
+$download = get_sub_field('download');
 ?>
 <section class="expertPresentationFeatured bg-black singleResearch">
     <div class="container">
