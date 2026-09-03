@@ -429,6 +429,28 @@ function remove_already_displayed_posts($query) {
  if ( is_admin() ) {
      return;
  }
+ // $displayed_posts is only ever populated from the post_link filter above,
+ // which WordPress core applies exclusively to "post" post-type permalinks
+ // (every other post type gets its own "{$post_type}_link" filter instead -
+ // see get_permalink() in wp-includes/link-template.php). Before this check,
+ // this hook still ran on every WP_Query anywhere on the site (event,
+ // speaker, registration, dashboard, etc.), adding a post__not_in built from
+ // IDs that belong to a completely different post type. Since every post
+ // type shares the same auto-incrementing ID sequence in wp_posts, that
+ // could silently exclude an unrelated event/speaker/etc. from its own
+ // listing purely because its numeric ID collided with an already-displayed
+ // article's ID elsewhere on the page. It already forced three separate
+ // remove_action()/add_action() workarounds elsewhere in this codebase
+ // (ajax_load_filtered_posts(), template-persona-filters.php,
+ // template-sector-filters.php) for queries that DO use post_type=post and
+ // deliberately want to bypass this exclusion for a different reason - this
+ // scoping doesn't affect those, they still need their own workaround.
+ $post_type = $query->get( 'post_type' );
+ if ( ! empty( $post_type ) && $post_type !== 'post'
+     && ( ! is_array( $post_type ) || ! in_array( 'post', $post_type, true ) )
+ ) {
+     return;
+ }
  global $displayed_posts;
  $query->set('post__not_in', $displayed_posts);
 }
@@ -2976,13 +2998,11 @@ function adapt_render_filter_posts() {
     // that AJAX would correctly return — causing a visible mismatch on page load.
     // -------------------------
     remove_action('pre_get_posts', 'remove_already_displayed_posts');
-    if (!empty($search)) {
-        $query = new WP_Query($args);
-        // $query->parse_query($args);
-        // relevanssi_do_query($query);
-    } else {
-        $query = new WP_Query($args);
-    }
+    // Both branches used to differ (a Relevanssi-powered search path vs. a
+    // plain WP_Query), but the Relevanssi calls were already commented out -
+    // $search is passed via $args['s'] above either way, so this is just a
+    // normal WP_Query in both cases.
+    $query = new WP_Query($args);
     add_action('pre_get_posts', 'remove_already_displayed_posts');
 
     // If we got 13 results, a next page exists — set global for the template to use.
