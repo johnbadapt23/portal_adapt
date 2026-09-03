@@ -43,6 +43,17 @@
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
+						<?php
+						// $members was read via string concatenation below without ever
+						// being assigned - same bug already fixed in
+						// template-announcement.php. Reset every post-loop iteration
+						// (not just once outside it), same as this project's other
+						// stale-variable-across-loop-iterations fixes, so a prior
+						// post's membership IDs can never leak into this post's
+						// current_user_can() check when this post has no
+						// membership_ids rows of its own.
+						$members = '';
+						?>
 						<?php if ( have_rows( 'membership_ids' ) ) : ?>
 						        <?php $counter = 0; ?>
 						        <?php while ( have_rows( 'membership_ids' ) ) : the_row(); ?>
@@ -121,6 +132,17 @@
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
+						<?php
+						// $members was read via string concatenation below without ever
+						// being assigned - same bug already fixed in
+						// template-announcement.php. Reset every post-loop iteration
+						// (not just once outside it), same as this project's other
+						// stale-variable-across-loop-iterations fixes, so a prior
+						// post's membership IDs can never leak into this post's
+						// current_user_can() check when this post has no
+						// membership_ids rows of its own.
+						$members = '';
+						?>
 						<?php if ( have_rows( 'membership_ids' ) ) : ?>
 						        <?php $counter = 0; ?>
 						        <?php while ( have_rows( 'membership_ids' ) ) : the_row(); ?>

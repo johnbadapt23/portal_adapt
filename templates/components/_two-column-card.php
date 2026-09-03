@@ -1,5 +1,11 @@
 <?php if ( have_rows( 'membership_content' ) ) : ?>
-    <?php $counter = 0; ?>
+    <?php
+    // $members was read via string concatenation below before ever being
+    // assigned (undefined-variable warning on every render) - same bug
+    // already fixed in template-announcement.php.
+    $counter = 0;
+    $members = '';
+    ?>
         <?php while ( have_rows( 'membership_content' ) ) : the_row(); ?>
             <?php if ( $counter == 0 ) {
                $members = $members . get_sub_field( 'membership_id' );
