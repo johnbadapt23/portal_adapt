@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/preview-toggle params for a bookmarkable, shareable persona URL; no state change results from reading them.
-$filterType = $_GET['type'];
-$preview = $_GET['new'];
+$filterType = isset( $_GET['type'] ) ? sanitize_text_field( wp_unslash( $_GET['type'] ) ) : '';
+$preview = isset( $_GET['new'] ) ? sanitize_text_field( wp_unslash( $_GET['new'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 global $displayed_posts;
 $displayed_posts =  [];
@@ -287,7 +287,7 @@ $post_types =  [];
                 <a href="/persona-mapping/" target="_self">Persona Mapping</a>
             </span>
             <h1><?php echo esc_html( get_field( 'persona_title', $q ) ); ?></h1>
-            <p class="persona-description"><?php echo esc_html( $q->description ); ?></span>
+            <p class="persona-description"><?php echo esc_html( $q->description ); ?></p>
         </div>
     </section>
     <?php
