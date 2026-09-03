@@ -1934,19 +1934,6 @@ add_action( 'created_term', 'adapt_invalidate_visible_terms_cache' );
 add_action( 'edited_term', 'adapt_invalidate_visible_terms_cache' );
 add_action( 'delete_term', 'adapt_invalidate_visible_terms_cache' );
 
-// $all_posts = get_posts([
-//     'post_type'      => 'post',
-//     'posts_per_page' => -1,
-//     'fields'         => 'ids',
-// ]);
-
-// foreach ($all_posts as $id) {
-//     $value = get_post_meta($id, 'is_research_type_order', true);
-//     if ($value === '' || $value === false) { // missing or empty
-//         update_post_meta($id, 'is_research_type_order', 0);
-//     }
-// }
-
 // -------------------------
 // AJAX function
 // -------------------------
