@@ -8,11 +8,14 @@ global $current_user, $first_name, $last_name, $user_email, $membershipType, $ad
 // $member = new MeprUser();
 // $member->ID = $current_user->ID; // Set user ID to the member's ID
 // Get the active subscriptions for this user
+// Declared before the $member check (rather than only inside it) so the
+// in_array() calls below don't read an undefined variable -- and pass a
+// non-array to in_array()'s second parameter, which is a fatal TypeError
+// on PHP 8+ -- for admins visiting while MemberPress is inactive/absent.
+$subscription_ids = [];
+
 if ($member) {
     $active_subscriptions = $member->active_product_subscriptions('ids');
-
-    // Initialize an array to hold the subscription IDs
-    $subscription_ids = [];
 
     foreach ($active_subscriptions as $subscription) {
         $subscription_ids[] = $subscription;
