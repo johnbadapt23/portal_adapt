@@ -92,7 +92,7 @@
 	</section>
 <?php } ?>
 <?php if ( get_field ( 'hidden_vimeo_embed_for_yoast' )) { ?>
-	<span class="hiddenEmbed" style="display: none;"><?php echo get_field ( 'hidden_vimeo_embed_for_yoast' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
+	<span class="hiddenEmbed" style="display: none;"><?php echo adapt_lazy_load_iframe( get_field ( 'hidden_vimeo_embed_for_yoast' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
 <?php } ?>
 
 <?php if ( have_rows( 'navigation_items' ) ) : ?>

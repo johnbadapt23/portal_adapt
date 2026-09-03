@@ -312,6 +312,34 @@ function adapt_get_sized_bg_url( $url, $size = 'medium_large' ) {
     return $memo[ $key ] = ( $sized_url ? $sized_url : $url );
 }
 
+/**
+ * Add loading="lazy" to an admin-pasted <iframe> embed, if it's missing.
+ *
+ * The "Hidden Vimeo Embed (for Yoast)" WYSIWYG fields let an editor paste
+ * raw Vimeo embed code purely so Yoast/schema tooling has a real <iframe>
+ * to read; the markup that wraps it (span.hiddenEmbed) is permanently
+ * display: none - no real visitor ever sees or plays it. Browsers don't
+ * treat display: none as a reason to skip an <iframe>'s network request
+ * though, so without this every page load of these templates was making
+ * a live request to player.vimeo.com for a video no one would ever watch.
+ * loading="lazy" defers that request until the element is near the
+ * viewport, which for a permanently hidden, zero-size element never
+ * actually happens - the request simply never fires. Only ever applied
+ * to this trusted, admin-authored field content, never to arbitrary
+ * user input.
+ */
+function adapt_lazy_load_iframe( $html ) {
+    if ( ! $html || ! str_contains( $html, '<iframe' ) ) {
+        return $html;
+    }
+
+    if ( str_contains( $html, 'loading=' ) ) {
+        return $html;
+    }
+
+    return str_replace( '<iframe', '<iframe loading="lazy"', $html );
+}
+
 add_filter( 'https_ssl_verify', '__return_false' );
 
 add_action('wp_enqueue_scripts', 'my_register_javascript', 100);
