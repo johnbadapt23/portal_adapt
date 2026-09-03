@@ -58,13 +58,25 @@
                     <?php } ?>
                 <?php } ?>
                 <span class="topicFilter">
+                    <?php
+                    // $postTopic/$postType are read below (line ~83/87) even though the
+                    // original assignment markup was HTML-commented out; the <?php ?>
+                    // blocks inside an HTML comment still execute, they just don't print
+                    // visible output. Reset to null here so an undefined-variable warning
+                    // (or, for $postType->slug below, a fatal on a non-object) can't happen
+                    // when this post has neither a Yoast primary term nor any terms at all.
+                    $postTopic = null;
+                    $postType  = null;
+                    ?>
                     <!-- <?php if (yoast_get_primary_term_id('topic')) {
                         $primary_term_topic_id = yoast_get_primary_term_id('topic');
                         $postTopic = get_term( $primary_term_topic_id );
                     } else {
-                        $terms = get_the_terms( $post->ID, 'topic' );
-                        foreach($terms as $term) {
-                            $postTopic = $term;
+                        if ( get_the_terms( $post->ID, 'topic' ) ) {
+                            $terms = get_the_terms( $post->ID, 'topic' );
+                            foreach($terms as $term) {
+                                $postTopic = $term;
+                            }
                         }
                     }?> -->
 
@@ -72,9 +84,11 @@
                         $primary_term_type_id = yoast_get_primary_term_id('filter-types');
                         $postType = get_term( $primary_term_type_id );
                     } else {
-                        $termsType = get_the_terms( $post->ID, 'filter-types' );
-                        foreach($termsType as $type) {
-                            $postType = $type;
+                        if ( get_the_terms( $post->ID, 'filter-types' ) ) {
+                            $termsType = get_the_terms( $post->ID, 'filter-types' );
+                            foreach($termsType as $type) {
+                                $postType = $type;
+                            }
                         }
                     }?> -->
 

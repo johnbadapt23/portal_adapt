@@ -31,6 +31,13 @@
                             </a>
                             <div class="textContainer">
                                 <span class="topicFilter">
+                                    <?php
+                                    // Reset on every iteration so a topic/type from a previous
+                                    // featured post can't leak forward when this post has neither
+                                    // a Yoast primary term nor any terms in the taxonomy.
+                                    $postTopic = null;
+                                    $postType  = null;
+                                    ?>
                                     <?php if (yoast_get_primary_term_id('topic')) {
                                         $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                         $postTopic = get_term( $primary_term_topic_id );
@@ -78,5 +85,4 @@
                 <?php endif; ?>
             </div>
         </div>
-    </div>
 </section>
