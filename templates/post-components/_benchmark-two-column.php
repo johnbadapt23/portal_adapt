@@ -44,13 +44,12 @@
                                         <div class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                     </div>
                                 </div> 
-                            <?php } ?>                     	
-                            <?php $buttonCounter++; ?>
+                            <?php } ?>
                         <?php endwhile; ?>
                     </span>
                 <?php else : ?>
                     <?php // no rows found ?>
-                <?php endif; ?>   
+                <?php endif; ?>
             </div>
             <div class="column image-column">
                 <?php $image = get_sub_field( 'image' ); ?>
@@ -76,16 +75,15 @@
                                         <div class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                     </div>
                                 </div> 
-                            <?php } ?>                     	
-                            <?php $buttonCounter++; ?>
+                            <?php } ?>
                         <?php endwhile; ?>
                     </span>
                 <?php else : ?>
                     <?php // no rows found ?>
-                <?php endif; ?>  
+                <?php endif; ?>
             </div>
         </div>
-    <div>
+    </div>
 </section>
 
 
