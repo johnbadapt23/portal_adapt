@@ -29,12 +29,6 @@ get_header();
         	<?php endwhile; ?>
         </div>
     <?php endif; ?>
-	<?php get_template_part( 'templates/components/_featured-slider-portal' ); ?>
-	<?php get_template_part( 'templates/components/_featured-grid-portal' ); ?>
-	<?php get_template_part( 'templates/components/_topic-grid-portal' ); ?>
-	<?php get_template_part( 'templates/components/_case-studies-featured-article-text-portal' ); ?>
-	<?php get_template_part( 'templates/components/_case-studies-featured-article-video-portal' ); ?>
-	<?php get_template_part( 'templates/components/_event-slider-portal' ); ?>
 
 </main>
 
