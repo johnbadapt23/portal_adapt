@@ -68,7 +68,7 @@ $sector_term = get_sub_field( 'topic' );
                                             <?php if ($imageCounter) { ?>
                                                 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
                                             <?php } ?>
-                                        <span>
+                                        </span>
                                     <?php else : ?>
                                         <?php
 								$image_attach_id = adapt_attachment_url_to_postid( $image );
@@ -79,7 +79,7 @@ $sector_term = get_sub_field( 'topic' );
 								}
 							?>
                                         <span class="hover-container">
-                                        <span>
+                                        </span>
                                     <?php endif; ?>
 
                                 </div>
