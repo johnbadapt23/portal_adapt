@@ -24,7 +24,7 @@ if ( $loop->have_posts() ) :
     while ( $loop->have_posts() ) : $loop->the_post();
 ?>
         <?php if ( have_rows( 'membership_ids' ) ) : ?>
-        <?php $counter = 0; ?>
+        <?php $counter = 0; $members = ''; ?>
             <?php while ( have_rows( 'membership_ids' ) ) : the_row(); ?>
                 <?php if ( $counter == 0 ) {
                     $members = $members . get_sub_field( 'membership_id' );
@@ -53,7 +53,7 @@ if ( $loop->have_posts() ) :
     $membershipType = 'kyc';
 } ?>
 <?php if ( have_rows( 'free_trial_memberships', 'options' ) ) : ?>
-<?php $counter = 0; ?>
+<?php $counter = 0; $membersFree = ''; ?>
     <?php while ( have_rows( 'free_trial_memberships', 'options' ) ) : the_row(); ?>
         <?php if ( $counter == 0 ) {
            $membersFree = $membersFree . get_sub_field( 'membership_id' );
@@ -67,7 +67,7 @@ if ( $loop->have_posts() ) :
     } ?>
 <?php endif; ?>
 <?php if ( have_rows( 'advantage_memberships', 'options' ) ) : ?>
-<?php $counter = 0; ?>
+<?php $counter = 0; $members = ''; ?>
     <?php while ( have_rows( 'advantage_memberships', 'options' ) ) : the_row(); ?>
         <?php if ( $counter == 0 ) {
            $members = $members . get_sub_field( 'membership_id' );
@@ -81,7 +81,7 @@ if ( $loop->have_posts() ) :
     } ?>
 <?php endif; ?>
 <?php if ( have_rows( 'it_pro_memberships', 'options' ) ) : ?>
-<?php $counter = 0; ?>
+<?php $counter = 0; $membersIT = ''; ?>
     <?php while ( have_rows( 'it_pro_memberships', 'options' ) ) : the_row(); ?>
         <?php if ( $counter == 0 ) {
            $membersIT = $membersIT . get_sub_field( 'membership_id' );
