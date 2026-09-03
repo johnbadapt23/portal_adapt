@@ -1088,14 +1088,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
@@ -1237,14 +1251,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
@@ -1800,14 +1828,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
@@ -2435,14 +2477,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>

@@ -12,26 +12,33 @@
                         <?php } else if( get_sub_field( 'link_type' ) =='file') { ?> 
                             <?php $file = get_sub_field( 'file' ); ?>
                             <a class="download-file-button std-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                        <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
-                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#stickyCardFormPopup"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                            <div style="display: none;">         
-                                <div class="preview-cta-form login-form-container" id="stickyCardFormPopup">
+                        <?php } else { ?>
+                            <?php
+                            // A hardcoded id here (formerly the same id on every row) meant
+                            // that with more than one button row, every row's magnificPopup
+                            // trigger (which resolves its target via this href="#id", not a
+                            // relative DOM lookup) opened the FIRST row's modal.
+                            // get_row_index() makes each row's trigger/target pair unique;
+                            // the "top" prefix keeps it unique from the mobile button loop
+                            // further down this same file too.
+                            $popup_id = 'stickyCardFormPopup-top-' . get_row_index();
+                            ?>
+                            <?php if( get_sub_field( 'link_type' ) =='download-form') { ?>
+                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                            <?php } else { ?>
+                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                            <?php } ?>
+                            <div style="display: none;">
+                                <div class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                     <div class="form-container"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                 </div>
-                            </div> 
-                        <?php } else { ?>                                 
-                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#formPopupStickyCards"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                            <div style="display: none;">         
-                                <div class="preview-cta-form login-form-container" id="formPopupStickyCards">
-                                    <div class="form-container"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
-                                </div>
-                            </div> 
-                        <?php } ?>        
+                            </div>
+                        <?php } ?>
                     <?php endwhile; ?>
                 <?php else : ?>
                     <?php // no rows found ?>
                 <?php endif; ?>
-			</span>			
+			</span>
 		</div>
        <div class="sticky-columns-wrapper desktop">
             <!-- TEXT COLUMN -->
@@ -93,27 +100,29 @@
                         <?php } else if( get_sub_field( 'link_type' ) =='file') { ?> 
                             <?php $file = get_sub_field( 'file' ); ?>
                             <a class="download-file-button std-button red-outline-button" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                        <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
-                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#formPopup"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                            <div style="display: none;">         
-                                <div class="preview-cta-form login-form-container" id="formPopup">
+                        <?php } else { ?>
+                            <?php
+                            // Same unique-id fix as the desktop button loop above - "bottom"
+                            // prefix keeps this mobile loop's ids unique from that one too.
+                            $popup_id = 'stickyCardFormPopup-bottom-' . get_row_index();
+                            ?>
+                            <?php if( get_sub_field( 'link_type' ) =='download-form') { ?>
+                            <a class="formPopupHubspot download-file-button stdBtn std-button red-outline-button" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                            <?php } else { ?>
+                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                            <?php } ?>
+                            <div style="display: none;">
+                                <div class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                     <div class="form-container"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                 </div>
-                            </div> 
-                        <?php } else { ?>                                 
-                            <a class="formPopupHubspot stdBtn std-button red-outline-button" href="#formPopup"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                            <div style="display: none;">         
-                                <div class="preview-cta-form login-form-container" id="formPopup">
-                                    <div class="form-container"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
-                                </div>
-                            </div> 
-                        <?php } ?>        
+                            </div>
+                        <?php } ?>
                     <?php endwhile; ?>
                 <?php else : ?>
                     <?php // no rows found ?>
                 <?php endif; ?>
-			</span>		                
-        </div>                       
+			</span>
+        </div>
     </div>
 </section>
 <script>

@@ -57,13 +57,21 @@
                     <?php } else if( get_sub_field( 'link_type' ) == 'scroll_to_id') { ?> 
                         <?php $file = get_sub_field( 'file' ); ?>
                         <a class="scroll-to std-button red-button" href="#<?php echo esc_attr( get_sub_field( 'scroll_to_id' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
-                    <?php } else { ?> 
-                        <a class="formPopupHubspot stdBtn std-button red-button" href="#formPopupSteps"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
-                        <div style="display: none;">         
-                            <div class="preview-cta-form login-form-container" id="formPopupSteps">
+                    <?php } else { ?>
+                        <?php
+                        // A hardcoded id here (formerly the same "formPopupSteps" on every
+                        // row) meant that with more than one button row, every row's
+                        // magnificPopup trigger (which resolves its target via this
+                        // href="#id", not a relative DOM lookup) opened the FIRST row's
+                        // modal. get_row_index() makes each row's trigger/target unique.
+                        $popup_id = 'formPopupSteps-' . get_row_index();
+                        ?>
+                        <a class="formPopupHubspot stdBtn std-button red-button" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                        <div style="display: none;">
+                            <div class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                 <div class="form-container"><?php echo get_sub_field( 'form_embed' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                             </div>
-                        </div>                                                               
+                        </div>
                     <?php } ?>             
                 </div>                
             <?php endwhile; ?>

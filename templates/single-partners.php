@@ -78,9 +78,21 @@ endif;
                                 <?php $title = get_sub_field( 'title' ); ?>
                                 <?php if ( have_rows( 'buttons' ) ) : ?>
                                     <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
-                                        <a class="formPopupPartners stdBtn red red-button" href="#formPopupAdvisor">Request an Introduction</a>
+                                        <?php
+                                        // A hardcoded id here (formerly the same "formPopupAdvisor"
+                                        // on every row) meant that with more than one button row,
+                                        // every row's magnificPopup trigger (which resolves its
+                                        // target via this href="#id", not a relative DOM lookup)
+                                        // opened the FIRST row's modal. get_row_index() makes each
+                                        // row's trigger/target pair unique.
+                                        // Also nested inside an outer "introduction" repeater, so
+                                        // include get_the_ID() in case that outer loop ever has
+                                        // more than one row too.
+                                        $popup_id = 'formPopupAdvisor-' . get_the_ID() . '-' . get_row_index();
+                                        ?>
+                                        <a class="formPopupPartners stdBtn red red-button" href="#<?php echo esc_attr( $popup_id ); ?>">Request an Introduction</a>
                                         <span style="display: none;">
-                                            <span class="form-popup" id="formPopupAdvisor">
+                                            <span class="form-popup" id="<?php echo esc_attr( $popup_id ); ?>">
                                                 <span class="popup-form-container">
                                                     <span class="popup-form-title">Request an Introduction with <?php echo esc_html( $title ); ?></span>
                                                         <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?>

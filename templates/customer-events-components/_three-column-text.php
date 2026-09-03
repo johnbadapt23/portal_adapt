@@ -45,21 +45,27 @@
                     <?php } else if( get_sub_field( 'link_type' ) =='file') { ?> 
                         <?php $file = get_sub_field( 'file' ); ?>
                         <a class="download-file-button std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="<?php echo esc_url( $file['url'] ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                    <?php } else if( get_sub_field( 'link_type' ) =='download-form') { ?>
-                        <a class="formPopupHubspot download-file-button stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#formPopupThreeColumn"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                        <div style="display: none;">         
-                            <div class="preview-cta-form login-form-container" id="formPopupThreeColumn">
+                    <?php } else { ?>
+                        <?php
+                        // A hardcoded id="formPopupThreeColumn" here on every row meant
+                        // that with more than one button row, every row's magnificPopup
+                        // trigger (which resolves its target via this href="#id", not a
+                        // relative DOM lookup) opened the FIRST row's modal. $buttonCounter
+                        // already tracks the row position for the button-color logic above,
+                        // so reuse it to keep each row's trigger/target pair unique.
+                        $popup_id = 'formPopupThreeColumn-' . $buttonCounter;
+                        ?>
+                        <?php if( get_sub_field( 'link_type' ) =='download-form') { ?>
+                        <a class="formPopupHubspot download-file-button stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                        <?php } else { ?>
+                        <a class="formPopupHubspot stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
+                        <?php } ?>
+                        <div style="display: none;">
+                            <div class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                 <div class="form-container"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                             </div>
-                        </div> 
-                    <?php } else { ?>                                 
-                        <a class="formPopupHubspot stdBtn std-button <?php if($buttonCounter == 1){ ?>red-button<?php } else { ?>red-outline-button<?php } ?>" href="#formPopupThreeColumn"><?php echo esc_html( get_sub_field( 'link_text' ) ); ?></a>
-                        <div style="display: none;">         
-                            <div class="preview-cta-form login-form-container" id="formPopupThreeColumn">
-                                <div class="form-container"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot form-embed markup requires raw HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
-                            </div>
-                        </div> 
-                    <?php } ?>                     	
+                        </div>
+                    <?php } ?>
                     <?php $buttonCounter++; ?>
                 <?php endwhile; ?>
             </div>
