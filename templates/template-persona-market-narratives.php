@@ -152,13 +152,13 @@ $q_slug = $q->slug ?? '';
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
+								],
+								[
+									'taxonomy' => 'market-narratives-subcategories',
+									'field' => 'slug',
+									'terms'    => 'persona-mapping'
 								]
 							],
-							[
-								'taxonomy' => 'market-narratives-subcategories',
-								'field' => 'slug',
-								'terms'    => 'persona-mapping'
-							]
 						];
 					} else {
 						$args = [
@@ -312,7 +312,7 @@ $q_slug = $q->slug ?? '';
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>

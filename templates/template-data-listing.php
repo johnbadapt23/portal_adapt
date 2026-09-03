@@ -16,7 +16,7 @@ get_header();
 				<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 			</span>
 			<span class="title-container">
-				<h1 clas="h2-style"><?php echo esc_html( get_the_title() ); ?></h1>
+				<h1 class="h2-style"><?php echo esc_html( get_the_title() ); ?></h1>
 			</span>
 			<?php if ($membershipType == 'advantage') { ?>
 				<div class="links-container advantage">

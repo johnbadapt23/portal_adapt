@@ -44,7 +44,7 @@ if (isset($_GET['partner-search'])) {
 				<span class="title">Ecosystem Partners</span>
 			</span>
 			<span class="title-container">
-				<h1 clas="h2-style">Ecosystem Partners</h1>
+				<h1 class="h2-style">Ecosystem Partners</h1>
 			</span>
 		</div>
 	</section>

@@ -21,7 +21,7 @@ $post_types =  [];
                 <span class="title"><?php echo esc_html( get_field( 'persona_title', $q ) ); ?></span>
             </span>
             <span class="title-container">
-                <h1 clas="h2-style">
+                <h1 class="h2-style">
                     <?php 
                         if ($persona_title === $taxonomy_name) {
                             echo esc_html( get_field( 'persona_title', $q ) );
