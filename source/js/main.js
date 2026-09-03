@@ -9,6 +9,32 @@
 	// having already run earlier (see the ready() callback's call order).
 	let ww, wh;
 
+	// Coalesces a handler so it runs at most once per animation frame no
+	// matter how many raw scroll events fire in between - a scroll gesture
+	// can fire far more of those than the display can actually paint, and
+	// both of this file's window scroll handlers call things like
+	// .offset()/.outerHeight()/.scrollTop() that force a synchronous
+	// layout read, plus one of them calls resize()/scrollMenu()/
+	// scrollMobile() on top of that. Running all of that once per frame
+	// instead of once per raw event avoids paying that layout cost
+	// multiple times for a single frame the user actually sees - a classic
+	// scroll-jank pattern that hurts responsiveness (INP) during scrolling.
+	function rafThrottle(fn) {
+		let ticking = false;
+		return function () {
+			const context = this;
+			const args = arguments;
+			if (ticking) {
+				return;
+			}
+			ticking = true;
+			window.requestAnimationFrame(function () {
+				fn.apply(context, args);
+				ticking = false;
+			});
+		};
+	}
+
 	$(document).ready(function (){
 
 		// Accessibility: slick.js generates prev/next <button> arrows with no
@@ -209,7 +235,7 @@
 		// SCROLL UP TO SEE FULL MENU
 
 		let lastScrollTop = 0;
-		$(window).scroll(function(event){
+		$(window).scroll(rafThrottle(function(event){
 		   const st = $(this).scrollTop();
 		   if (st > lastScrollTop){
 		        $('header').removeClass('scrolledUp');
@@ -217,7 +243,7 @@
 		        $('header').addClass('scrolledUp');
 		   }
 		   lastScrollTop = st;
-		});
+		}));
 
 		function updateUserInterests() {
 			const filter = $('#updateUserInterests');
@@ -3187,7 +3213,7 @@ if ($containerPast.length && $buttonPast.length) {
 		}
 	});
 
-	$(window).scroll(function(){
+	$(window).scroll(rafThrottle(function(){
 		resize();
 		scrollMenu();
 		scrollMobile();
@@ -3196,14 +3222,14 @@ if ($containerPast.length && $buttonPast.length) {
 			if (viewportWidth > 1023) {
 				const targetScroll = $('.post-title-block').offset().top + $('.post-title-block').outerHeight();
 				if($(window).scrollTop() > targetScroll){
-					$('.single-post-sticky').addClass('scrolled');					
+					$('.single-post-sticky').addClass('scrolled');
 				} else {
-					$('.single-post-sticky').removeClass('scrolled');					
+					$('.single-post-sticky').removeClass('scrolled');
 				}
 			}
 		}
 
-	});
+	}));
 
 	$(window).on('load',function (){
 
