@@ -1645,6 +1645,18 @@ function adapt_is_first_hero_image() {
  *   the specific posts that actually embed a table
  * - wordfenceAJAXcss-css: styling for Wordfence's AJAX-loaded admin
  *   notice box, not part of any visitor-facing page content
+ * - dlm-frontend-css (download-monitor's frontend-tailwind.min.css): a
+ *   full Tailwind reset/utility bundle for the plugin's download-button
+ *   markup. PROJECT-HANDOFF.md flagged this as "left alone, not
+ *   investigated in depth" pending confirmation it's actually unused on
+ *   pages that don't need it - grepped the homepage's entire render path
+ *   (template-home-new.php's 6 flexible-content components, header,
+ *   footer, functions.php) for any download-monitor shortcode/class/
+ *   hook and found none, so it's currently pure render-blocking dead
+ *   weight there. Deferring (not dequeuing) keeps it safe site-wide:
+ *   any page that does render a download button still gets the CSS,
+ *   just non-blocking, and download buttons are themselves always
+ *   below-the-fold/interaction UI, never part of first paint.
  *
  * Homepage Lighthouse audit (2026-08-20) flagged 430ms of render-
  * blocking requests; these three were confirmed present via the live
@@ -1664,6 +1676,7 @@ function adapt_defer_noncritical_styles( $html, $handle ) {
         'wp-pagenavi',
         'tablepress-default',
         'wordfenceAJAXcss',
+        'dlm-frontend',
     ];
 
     if ( ! in_array( $handle, $defer_handles, true ) ) {
