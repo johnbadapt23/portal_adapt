@@ -423,7 +423,7 @@ endif;
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">
-                                                            <span class="labelMedium company-title"><?php the_sub_field( 'company_name' ); ?></span>
+                                                            <span class="labelMedium company-title"><?php echo esc_html( get_sub_field( 'company_name' ) ); ?></span>
                                                         </span>
                                                     </span>
                                                 <?php endwhile; ?>
