@@ -266,6 +266,80 @@ add_image_size( 'gallery-landscape', 1280, 800, true );
 add_image_size( 'gallery-portrait', 800, 1280, true );
 add_image_size( 'hero-slide-preview', 900, 0 );
 
+/**
+ * Resolve a CSS background-image URL down to a smaller registered size.
+ *
+ * A handful of ACF "Image" fields in this theme are configured to return
+ * a plain URL string (not an array with the attachment ID), and templates
+ * echo that URL straight into style="background-image: url(...)". That
+ * always serves the original, full-resolution upload - fine for a
+ * genuine full-bleed hero banner, but wasteful for anything rendered at
+ * a fraction of that width (a ~300px grid card, a 70px filter icon),
+ * since wp_get_attachment_image() would have auto-generated a srcset for
+ * exactly this case if the field had returned an ID instead of a URL.
+ *
+ * attachment_url_to_postid() resolves the URL back to its attachment ID
+ * so a specific registered size can be requested; if that lookup fails
+ * (external URL, attachment already deleted from the library, etc.) the
+ * original URL is returned unchanged so the image never breaks.
+ *
+ * attachment_url_to_postid() itself isn't cached by core, and at least
+ * one call site (template-insights.php / template-insights-curation-one.php)
+ * loops the same taxonomy terms twice - once for a desktop span, once for
+ * a mobile one - so the exact same button_image URL genuinely gets asked
+ * for twice on one page load. A static, request-scoped memo (not a
+ * persistent object/transient cache, so no staleness risk - it's gone as
+ * soon as the request ends) avoids repeating that lookup.
+ */
+function adapt_get_sized_bg_url( $url, $size = 'medium_large' ) {
+    if ( ! $url ) {
+        return $url;
+    }
+
+    static $memo = [];
+    $key = $size . '|' . $url;
+    if ( isset( $memo[ $key ] ) ) {
+        return $memo[ $key ];
+    }
+
+    $attachment_id = attachment_url_to_postid( $url );
+    if ( ! $attachment_id ) {
+        return $memo[ $key ] = $url;
+    }
+
+    $sized_url = wp_get_attachment_image_url( $attachment_id, $size );
+
+    return $memo[ $key ] = ( $sized_url ? $sized_url : $url );
+}
+
+/**
+ * Add loading="lazy" to an admin-pasted <iframe> embed, if it's missing.
+ *
+ * The "Hidden Vimeo Embed (for Yoast)" WYSIWYG fields let an editor paste
+ * raw Vimeo embed code purely so Yoast/schema tooling has a real <iframe>
+ * to read; the markup that wraps it (span.hiddenEmbed) is permanently
+ * display: none - no real visitor ever sees or plays it. Browsers don't
+ * treat display: none as a reason to skip an <iframe>'s network request
+ * though, so without this every page load of these templates was making
+ * a live request to player.vimeo.com for a video no one would ever watch.
+ * loading="lazy" defers that request until the element is near the
+ * viewport, which for a permanently hidden, zero-size element never
+ * actually happens - the request simply never fires. Only ever applied
+ * to this trusted, admin-authored field content, never to arbitrary
+ * user input.
+ */
+function adapt_lazy_load_iframe( $html ) {
+    if ( ! $html || ! str_contains( $html, '<iframe' ) ) {
+        return $html;
+    }
+
+    if ( str_contains( $html, 'loading=' ) ) {
+        return $html;
+    }
+
+    return str_replace( '<iframe', '<iframe loading="lazy"', $html );
+}
+
 add_filter( 'https_ssl_verify', '__return_false' );
 
 add_action('wp_enqueue_scripts', 'my_register_javascript', 100);
@@ -353,6 +427,28 @@ function track_displayed_posts($url) {
 
 function remove_already_displayed_posts($query) {
  if ( is_admin() ) {
+     return;
+ }
+ // $displayed_posts is only ever populated from the post_link filter above,
+ // which WordPress core applies exclusively to "post" post-type permalinks
+ // (every other post type gets its own "{$post_type}_link" filter instead -
+ // see get_permalink() in wp-includes/link-template.php). Before this check,
+ // this hook still ran on every WP_Query anywhere on the site (event,
+ // speaker, registration, dashboard, etc.), adding a post__not_in built from
+ // IDs that belong to a completely different post type. Since every post
+ // type shares the same auto-incrementing ID sequence in wp_posts, that
+ // could silently exclude an unrelated event/speaker/etc. from its own
+ // listing purely because its numeric ID collided with an already-displayed
+ // article's ID elsewhere on the page. It already forced three separate
+ // remove_action()/add_action() workarounds elsewhere in this codebase
+ // (ajax_load_filtered_posts(), template-persona-filters.php,
+ // template-sector-filters.php) for queries that DO use post_type=post and
+ // deliberately want to bypass this exclusion for a different reason - this
+ // scoping doesn't affect those, they still need their own workaround.
+ $post_type = $query->get( 'post_type' );
+ if ( ! empty( $post_type ) && $post_type !== 'post'
+     && ( ! is_array( $post_type ) || ! in_array( 'post', $post_type, true ) )
+ ) {
      return;
  }
  global $displayed_posts;
@@ -910,6 +1006,59 @@ function sync_post_to_contributor_resources($post_id, $post, $update) {
 
 
 /**
+ * Cache the customgpt-chat-widget plugin's own settings API call.
+ *
+ * Query Monitor's "http" panel showed a synchronous, blocking HTTP GET to
+ * https://app.customgpt.ai/api/v1/projects/{id}/settings on every single
+ * page load, taking ~1.2 seconds on its own - a plugin-side call (this
+ * theme has no PHP code that talks to customgpt.ai; the theme's own
+ * CustomGPT integration is entirely client-side JS, deferred until the
+ * chat widget is actually opened - see footer.php's ensureCustomGptInit()).
+ * Since this project's settings (branding, welcome message, etc.) don't
+ * need to be real-time-fresh, short-circuiting the request with a cached
+ * copy via pre_http_request - and populating that cache from the one real
+ * request that does go through - turns every load after the first cold
+ * one into a local cache read instead of a ~1.2s round trip to a
+ * third-party API, without touching the plugin's own files (which would
+ * be overwritten on its next update).
+ */
+function adapt_is_customgpt_settings_request( $url ) {
+    return is_string( $url ) && str_contains( $url, 'app.customgpt.ai/api/v1/projects/' ) && str_contains( $url, '/settings' );
+}
+
+add_filter( 'pre_http_request', function ( $preempt, $args, $url ) {
+    if ( ! adapt_is_customgpt_settings_request( $url ) ) {
+        return $preempt;
+    }
+    $cached = get_transient( 'adapt_cgpt_settings_' . md5( $url ) );
+    return ( false !== $cached ) ? $cached : $preempt;
+}, 10, 3 );
+
+add_action( 'http_api_debug', function ( $response, $context, $class, $args, $url ) {
+    if ( 'response' !== $context || is_wp_error( $response ) || ! adapt_is_customgpt_settings_request( $url ) ) {
+        return;
+    }
+    // Only cache the plain-data fields any normal caller reads via
+    // wp_remote_retrieve_body()/wp_remote_retrieve_response_code()/etc.
+    // Deliberately dropping 'http_response' (a WP_HTTP_Requests_Response
+    // object wrapping the raw transport response/connection) - transients
+    // go through PHP's serialize()/unserialize(), and that object isn't
+    // meant to survive a round trip through storage the way plain arrays
+    // and WP_Http_Cookie's simple data objects are.
+    set_transient(
+        'adapt_cgpt_settings_' . md5( $url ),
+        [
+            'headers'  => $response['headers'] ?? [],
+            'body'     => $response['body'] ?? '',
+            'response' => $response['response'] ?? [ 'code' => 200, 'message' => 'OK' ],
+            'cookies'  => $response['cookies'] ?? [],
+            'filename' => null,
+        ],
+        15 * MINUTE_IN_SECONDS
+    );
+}, 10, 5 );
+
+/**
  * Cached wrapper around attachment_url_to_postid().
  *
  * Core's attachment_url_to_postid() runs a DB query every time it's called
@@ -1287,6 +1436,68 @@ function my_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
+// Resource hints for the two cross-origin hosts my_enqueue_scripts() above
+// actually depends on. Neither was hinted anywhere before this - the
+// browser only discovered these origins once it parsed the <script> tags
+// themselves, paying DNS+TCP+TLS setup cost after the fact instead of in
+// parallel with the rest of <head>.
+// - cdnjs.cloudflare.com (gsap-js/scrolltrigger-js): 'preconnect', since
+//   these are 'defer'-strategy scripts spec-guaranteed to finish executing
+//   before DOMContentLoaded (see the comment above their wp_enqueue_script()
+//   calls) - the connection is needed early, not speculatively.
+// - js.hs-scripts.com (HubSpot): 'dns-prefetch' only, not 'preconnect' -
+//   this loader is intentionally deferred until the visitor's first
+//   click/scroll/mousemove/etc, so a full preconnect here would hold a
+//   connection open for a host that may never end up being used at all on
+//   a given pageview.
+add_filter( 'wp_resource_hints', 'adapt_resource_hints', 10, 2 );
+function adapt_resource_hints( $urls, $relation_type ) {
+    if ( 'preconnect' === $relation_type ) {
+        $urls[] = [
+            'href'        => 'https://cdnjs.cloudflare.com',
+            'crossorigin' => '',
+        ];
+    }
+
+    if ( 'dns-prefetch' === $relation_type ) {
+        $urls[] = '//js.hs-scripts.com';
+    }
+
+    return $urls;
+}
+
+/**
+ * Dequeue dashicons on the public-facing site.
+ *
+ * dashicons.min.css was showing up as a render-blocking stylesheet on
+ * every single page (confirmed via Performance/Resource Timing on the
+ * homepage, /settings, /settings?action=subscriptions, and a single-post
+ * article) despite the theme never referencing any .dashicons-* class or
+ * the Dashicons icon font anywhere - confirmed both by grepping the theme
+ * source and, live, by searching each test page's full outerHTML (so this
+ * also covers markup already in the DOM but hidden, e.g. unopened modals)
+ * for any "dashicons-" class name; none were found. Some plugin (not this
+ * theme) registers/enqueues it unconditionally, most likely a leftover
+ * default rather than something its frontend code actually uses here.
+ *
+ * Guarded by !is_admin_bar_showing(): the WP admin toolbar (shown on the
+ * front end to logged-in staff with the "Show Toolbar" option on) uses
+ * dashicons for its own icons, so this only dequeues for visitors who
+ * won't see that toolbar at all - it never touches wp-admin itself, since
+ * this only hooks the front-end wp_enqueue_scripts action.
+ *
+ * Priority 100 (after the default-priority registration most plugins use,
+ * including whichever one enqueues this) so the dequeue actually wins the
+ * race instead of running before dashicons is registered.
+ */
+function adapt_dequeue_dashicons() {
+    if ( ! is_admin_bar_showing() ) {
+        wp_dequeue_style( 'dashicons' );
+        wp_deregister_style( 'dashicons' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'adapt_dequeue_dashicons', 100 );
+
 /**
  * Render a raw HubSpot form embed field, de-duplicating the shared
  * forms/embed/v2.js script tag across multiple embeds on the same page.
@@ -1434,6 +1645,18 @@ function adapt_is_first_hero_image() {
  *   the specific posts that actually embed a table
  * - wordfenceAJAXcss-css: styling for Wordfence's AJAX-loaded admin
  *   notice box, not part of any visitor-facing page content
+ * - dlm-frontend-css (download-monitor's frontend-tailwind.min.css): a
+ *   full Tailwind reset/utility bundle for the plugin's download-button
+ *   markup. PROJECT-HANDOFF.md flagged this as "left alone, not
+ *   investigated in depth" pending confirmation it's actually unused on
+ *   pages that don't need it - grepped the homepage's entire render path
+ *   (template-home-new.php's 6 flexible-content components, header,
+ *   footer, functions.php) for any download-monitor shortcode/class/
+ *   hook and found none, so it's currently pure render-blocking dead
+ *   weight there. Deferring (not dequeuing) keeps it safe site-wide:
+ *   any page that does render a download button still gets the CSS,
+ *   just non-blocking, and download buttons are themselves always
+ *   below-the-fold/interaction UI, never part of first paint.
  *
  * Homepage Lighthouse audit (2026-08-20) flagged 430ms of render-
  * blocking requests; these three were confirmed present via the live
@@ -1453,6 +1676,7 @@ function adapt_defer_noncritical_styles( $html, $handle ) {
         'wp-pagenavi',
         'tablepress-default',
         'wordfenceAJAXcss',
+        'dlm-frontend',
     ];
 
     if ( ! in_array( $handle, $defer_handles, true ) ) {
@@ -1637,11 +1861,37 @@ function get_allowed_subscriptions_for_user($membershipType = null) {
 // ajax_load_filtered_posts() (every AJAX filter/search/sort/page request)
 // and adapt_render_filter_posts() (the initial PHP-rendered page load) so
 // both compute this identically instead of maintaining separate copies that
-// can drift apart. Computed fresh on every call - no transient. The site
-// already sits behind WP Rocket's page cache, and an additional PHP-level
-// cache here (that ajax_load_filtered_posts() never shared) was one more
-// way the first-load render and a live AJAX call could end up disagreeing.
+// can drift apart.
+//
+// Cached here, in the one function both call sites share, keyed on $args +
+// $taxonomies + $membershipType together - so ajax_load_filtered_posts()
+// and adapt_render_filter_posts() always read the exact same cache entry
+// for the same page/filter/membership-tier combination, and a change in
+// any of those three inputs (different taxonomy archive, different filter
+// selection, different subscription tier) gets its own cache bucket rather
+// than reusing someone else's. This is what actually eliminates the first-
+// load-vs-AJAX drift risk a previous version of this function's caching
+// had - that version cached in only one of the two call sites, so the
+// other always computed live and could disagree. A short 5-minute TTL,
+// plus explicit invalidation below on post/term changes, means a newly
+// published or edited post shows up in filter results well within any
+// reasonable expectation of "fresh enough."
+//
+// This was found live: uncached, this function was measured costing 3+
+// seconds of TTFB on a topic archive page (1000-ID WP_Query, then a
+// get_terms() object_ids lookup per taxonomy - 6 of them - each with up to
+// 1000 IDs in its IN-clause, plus a raw SQL date-grouping query on the same
+// 1000 IDs). WP Rocket's page cache only ever absorbed that cost for a
+// first, anonymous, logged-out page load - it never applies to AJAX
+// requests (every filter click, for every visitor) or to a logged-in
+// member's first load, which is most real traffic on a membership site.
 function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
+    $cache_key = 'adapt_visterms_' . md5( wp_json_encode( [ $args, $taxonomies, $membershipType ] ) );
+    $cached    = get_transient( $cache_key );
+    if ( false !== $cached ) {
+        return $cached;
+    }
+
     $visible_terms = [];
     foreach ( $taxonomies as $taxonomy => $_ ) {
         $visible_terms[ $taxonomy ] = [];
@@ -1687,21 +1937,37 @@ function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
         }
     }
 
+    set_transient( $cache_key, $visible_terms, 5 * MINUTE_IN_SECONDS );
+
     return $visible_terms;
 }
 
-// $all_posts = get_posts([
-//     'post_type'      => 'post',
-//     'posts_per_page' => -1,
-//     'fields'         => 'ids',
-// ]);
+/**
+ * Invalidate every adapt_visterms_* transient when posts or terms change -
+ * same LIKE-sweep pattern as adapt_invalidate_pool_cache() below, since
+ * adapt_get_visible_terms()'s cache key varies per page/filter/membership
+ * tier and there's no single predictable key to delete_transient() directly.
+ */
+function adapt_invalidate_visible_terms_cache() {
+    global $wpdb;
 
-// foreach ($all_posts as $id) {
-//     $value = get_post_meta($id, 'is_research_type_order', true);
-//     if ($value === '' || $value === false) { // missing or empty
-//         update_post_meta($id, 'is_research_type_order', 0);
-//     }
-// }
+    $transients = $wpdb->get_col(
+        $wpdb->prepare(
+            "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
+            $wpdb->esc_like( '_transient_adapt_visterms_' ) . '%'
+        )
+    );
+
+    if ( $transients ) {
+        foreach ( $transients as $transient ) {
+            delete_transient( str_replace( '_transient_', '', $transient ) );
+        }
+    }
+}
+add_action( 'save_post', 'adapt_invalidate_visible_terms_cache' );
+add_action( 'created_term', 'adapt_invalidate_visible_terms_cache' );
+add_action( 'edited_term', 'adapt_invalidate_visible_terms_cache' );
+add_action( 'delete_term', 'adapt_invalidate_visible_terms_cache' );
 
 // -------------------------
 // AJAX function
@@ -1960,6 +2226,31 @@ function ajax_load_filtered_posts() {
 
 add_action('wp_ajax_load_filtered_posts', 'ajax_load_filtered_posts');
 add_action('wp_ajax_nopriv_load_filtered_posts', 'ajax_load_filtered_posts');
+
+// Issues a fresh 'adapt_ajax_nonce' on demand. Exists to break the
+// dependency between this nonce and full-page caching: ajaxobject.nonce
+// (localized into the page's own HTML via wp_create_nonce() at render
+// time, see my_enqueue_scripts()) is only ever as fresh as the page's
+// cache - a WP Rocket-cached page older than the nonce's own ~24h
+// rolling validity window bakes in an already-expired value, and every
+// AJAX handler that depends on it (ajax_load_filtered_posts() and the
+// other check_ajax_referer('adapt_ajax_nonce', 'nonce') call sites in
+// this file) then rejects it with wp_die(-1, 403) - regardless of how
+// recently the visitor actually loaded the page. Shortening the cache
+// lifespan (WP Rocket setting) only narrows this window, it can't close
+// it, and a manual cache purge doesn't help anyone hitting a stale page
+// outside business hours. admin-ajax.php requests are never full-page-
+// cached, so a nonce fetched this way is always current no matter how
+// stale the surrounding page's cache is. main.js calls this once, as
+// soon as it runs on every page load, and updates ajaxobject.nonce in
+// place - every AJAX call site in that file reads ajaxobject.nonce live
+// at call time rather than a copied local variable, so this one refresh
+// covers all of them.
+function ajax_refresh_adapt_nonce() {
+    wp_send_json_success( [ 'nonce' => wp_create_nonce( 'adapt_ajax_nonce' ) ] );
+}
+add_action( 'wp_ajax_adapt_refresh_nonce', 'ajax_refresh_adapt_nonce' );
+add_action( 'wp_ajax_nopriv_adapt_refresh_nonce', 'ajax_refresh_adapt_nonce' );
 
 // Persona and Sector Featured
 
@@ -2272,6 +2563,12 @@ function load_past_sessions_unique() {
                 'value'   => $today,
             ],
         ],
+        // Companion AJAX handler for template-registration.php's "Load More" -
+        // pagination here is driven by the manual $offset/$shown count passed
+        // in via POST, not by WP_Query's own found_posts/max_num_pages, so
+        // skip the SQL_CALC_FOUND_ROWS + extra COUNT(*) query WP_Query runs
+        // by default.
+        'no_found_rows' => true,
     ];
 
     $query = new WP_Query($args);
@@ -2306,12 +2603,9 @@ function load_past_sessions_unique() {
     wp_die();
 }
 
-/**
- * Invalidate visible terms cache when posts or terms change
- */
-// adapt_get_visible_terms() no longer caches its result (see that function),
-// so there's nothing left for this to invalidate. Removed rather than left
-// as dead weight running on every save_post/term change.
+// adapt_get_visible_terms()'s own cache-invalidation hooks
+// (adapt_invalidate_visible_terms_cache()) now live right next to that
+// function above, not here.
 add_action('mepr-event-transaction-completed', function() {
     delete_transient('membership_ids');
 });
@@ -2742,13 +3036,11 @@ function adapt_render_filter_posts() {
     // that AJAX would correctly return — causing a visible mismatch on page load.
     // -------------------------
     remove_action('pre_get_posts', 'remove_already_displayed_posts');
-    if (!empty($search)) {
-        $query = new WP_Query($args);
-        // $query->parse_query($args);
-        // relevanssi_do_query($query);
-    } else {
-        $query = new WP_Query($args);
-    }
+    // Both branches used to differ (a Relevanssi-powered search path vs. a
+    // plain WP_Query), but the Relevanssi calls were already commented out -
+    // $search is passed via $args['s'] above either way, so this is just a
+    // normal WP_Query in both cases.
+    $query = new WP_Query($args);
     add_action('pre_get_posts', 'remove_already_displayed_posts');
 
     // If we got 13 results, a next page exists — set global for the template to use.

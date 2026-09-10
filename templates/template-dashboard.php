@@ -3,7 +3,10 @@
 if ( 0 == $current_user->ID ) {
     header("Location: https://research.adapt.com.au/login/");
     exit;
-} ?>
+}
+get_header();
+?>
+<main id="main" role="main" class="dashboard">
 <?php $banner_image = get_field( 'dashboard_banner_image', 'options'); ?>
     <section class="eventsBanner topicBanner dashboardBanner" style="background-image:url(<?php echo esc_url( $banner_image['url'] ); ?>); background-size: cover; background-position: center;">
         <div class="container">
@@ -24,7 +27,7 @@ if ( 0 == $current_user->ID ) {
                     $args = [
                         'post_type' => 'dashboard',
                         'posts_per_page' => -1,
-                        'paged'=> $paged ,
+                        'no_found_rows' => true,
                         'orderby'=> 'menu_order',
                         'order'=> 'ASC'
                     ];

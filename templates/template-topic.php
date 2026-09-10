@@ -63,9 +63,21 @@ $first_name = $user_info->first_name;
 $interests = $user_info->mepr_interests;
 
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
-$filterType = $_GET['filterby'];
-$keyword = $_GET['searchWords'];
+$filterType = $_GET['filterby'] ?? '';
+$keyword = $_GET['searchWords'] ?? '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+// $topic/$type/$themes below are read (never assigned) by the "All" button
+// active-state check in each filter dropdown further down this file. They
+// predate the pill/dimming rewrite (see $active_filter_pills and
+// $adapt_visible_terms usage below), which moved active-state tracking to
+// $active_found instead - these three were left behind unassigned. Declaring
+// them null here preserves the exact current behavior (an undefined
+// variable already evaluates as null in each of those comparisons) while
+// silencing the PHP warnings Query Monitor was reporting on every load.
+$topic  = null;
+$type   = null;
+$themes = null;
 ?>
 <?php
 // A dead $args build used to sit here (an if($keyword)/else block scoped to
@@ -83,7 +95,7 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 $args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
-    'paged'=> $paged,
+    'no_found_rows' => true,
     'fields' => 'ids'
 ]; ?>
 <?php $loop = new WP_Query( $args );
@@ -118,7 +130,7 @@ if ($membershipType === 'it-pro') {
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
-            echo (term_description($q->term_id));
+            echo wp_kses_post( term_description( $q->term_id ) );
             ?>
         </p>
     </div>

@@ -4,6 +4,11 @@
  */
 
 get_header();
+// $q is read further down (persona/sector taxonomy-chip branches inside the
+// post loop) but was never assigned in this file, unlike sibling listing
+// templates that use the same $q->slug pattern -- causing an undefined
+// variable warning on every post render.
+$q = get_queried_object();
 ?>
 
 
@@ -46,7 +51,7 @@ get_header();
 													<?php if ( get_field( 'listing_image') ) { ?>
 														<?php $image = get_field( 'listing_image'); ?>
 															<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -56,7 +61,7 @@ get_header();
 													<?php } elseif ( get_field( 'video_image' )){ ?>
 														<?php $video_image = get_field( 'video_image' ); ?>
 														<?php
-								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								$video_image_attach_id = adapt_attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -70,7 +75,7 @@ get_header();
 															<?php $image = get_field( 'featured_image'); ?>
 														<?php } ?>
 														<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -161,7 +166,7 @@ get_header();
 																					<?php $video_poster_image = get_field( 'video_poster' ); ?>
 																					<?php if ( $video_poster_image ) { ?>
 																						<?php
-								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								$video_poster_image_attach_id = adapt_attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -187,7 +192,7 @@ get_header();
 																					<?php $featured_image = get_field( 'featured_image' ); ?>
 																					<?php if ( $featured_image ) { ?>
 																						<?php
-								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								$featured_image_attach_id = adapt_attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -297,7 +302,7 @@ get_header();
 																<?php if ( get_field( 'listing_image') ) { ?>
 																	<?php $image = get_field( 'listing_image'); ?>
 																		<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -307,7 +312,7 @@ get_header();
 																<?php } elseif ( get_field( 'video_image' )){ ?>
 																	<?php $video_image = get_field( 'video_image' ); ?>
 																	<?php
-								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								$video_image_attach_id = adapt_attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -321,7 +326,7 @@ get_header();
 																		<?php $image = get_field( 'featured_image'); ?>
 																	<?php } ?>
 																	<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -402,7 +407,7 @@ get_header();
 																		<?php $video_poster_image = get_field( 'video_poster' ); ?>
 																		<?php if ( $video_poster_image ) { ?>
 																			<?php
-								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								$video_poster_image_attach_id = adapt_attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -428,7 +433,7 @@ get_header();
 																		<?php $featured_image = get_field( 'featured_image' ); ?>
 																		<?php if ( $featured_image ) { ?>
 																			<?php
-								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								$featured_image_attach_id = adapt_attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -531,7 +536,7 @@ get_header();
 												<?php if ( get_field( 'listing_image') ) { ?>
 													<?php $image = get_field( 'listing_image'); ?>
 														<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -541,7 +546,7 @@ get_header();
 												<?php } elseif ( get_field( 'video_image' )){ ?>
 													<?php $video_image = get_field( 'video_image' ); ?>
 													<?php
-								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								$video_image_attach_id = adapt_attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -555,7 +560,7 @@ get_header();
 														<?php $image = get_field( 'featured_image'); ?>
 													<?php } ?>
 													<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

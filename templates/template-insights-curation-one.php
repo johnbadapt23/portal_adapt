@@ -9,12 +9,12 @@ get_header();
 <main id="main" role="main" class="events">
 <?php
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/sort/search params for a bookmarkable, shareable insights-listing URL; no state change results from reading them.
-$filterTopics = $_GET['topics'];
-$filterType = $_GET['filterType'];
-$keyword = $_GET['searchWords'];
-$sortBy = $_GET['orderby'];
-$sort = $_GET['order'];
-$sortPosts = $_GET['sortPost'];
+$filterTopics = isset( $_GET['topics'] ) ? sanitize_text_field( wp_unslash( $_GET['topics'] ) ) : '';
+$filterType = isset( $_GET['filterType'] ) ? sanitize_text_field( wp_unslash( $_GET['filterType'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
+$sortBy = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : '';
+$sort = isset( $_GET['order'] ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : '';
+$sortPosts = isset( $_GET['sortPost'] ) ? sanitize_text_field( wp_unslash( $_GET['sortPost'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 $filterBy = [];
@@ -296,7 +296,7 @@ $filterBy = [];
                             <span class="radioSlideContainer desktop">
                                 <?php foreach($terms as $term) { ?>
                                     <span class="radioSlide slide <?php echo esc_attr( $term -> slug ); ?>">
-                                        <label style="background-image: url(<?php echo esc_url( get_field( 'button_image', $term ) ); ?>);">
+                                        <label style="background-image: url(<?php echo esc_url( adapt_get_sized_bg_url( get_field( 'button_image', $term ), 'medium' ) ); ?>);">
                                           <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                           <span class="overlay"></span>
                                           <span class="checkbox-text">
@@ -428,7 +428,7 @@ $filterBy = [];
                                 <span class="radioSlideContainer mobile">
                                     <?php foreach($terms as $term) { ?>
                                         <span class="radioSlide slide <?php echo esc_attr( $term -> slug ); ?>">
-                                            <label style="background-image: url(<?php echo esc_url( get_field( 'button_image', $term ) ); ?>);">
+                                            <label style="background-image: url(<?php echo esc_url( adapt_get_sized_bg_url( get_field( 'button_image', $term ), 'medium' ) ); ?>);">
                                               <input type="checkbox" name="topics[]" <?php if($filterTopics == '') { } else { if (in_array( $term -> slug, $filterTopics )) { ?> checked <?php }}?> value="<?php echo esc_attr( $term -> slug ); ?>">
                                               <span class="overlay"></span>
                                               <span class="checkbox-text">
@@ -613,7 +613,7 @@ $filterBy = [];
                         $args = [
                             'post_type' => 'post',
                             'posts_per_page' => -1,
-                            'paged'=> $paged,
+                            'no_found_rows' => true,
                             'tax_query' => [
                                 'relation' => 'AND',
                                  [

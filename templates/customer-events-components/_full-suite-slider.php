@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="title-container">
                     <h2 class="white-text"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h2>
-                    <span class="p-small text dark-grey-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+                    <span class="p-small text dark-grey-text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                 </div>
                 <div class="slider-outer">
                     <?php if ( have_rows( 'slides' ) ) : ?>

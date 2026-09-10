@@ -43,6 +43,17 @@
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
+						<?php
+						// $members was read via string concatenation below without ever
+						// being assigned - same bug already fixed in
+						// template-announcement.php. Reset every post-loop iteration
+						// (not just once outside it), same as this project's other
+						// stale-variable-across-loop-iterations fixes, so a prior
+						// post's membership IDs can never leak into this post's
+						// current_user_can() check when this post has no
+						// membership_ids rows of its own.
+						$members = '';
+						?>
 						<?php if ( have_rows( 'membership_ids' ) ) : ?>
 						        <?php $counter = 0; ?>
 						        <?php while ( have_rows( 'membership_ids' ) ) : the_row(); ?>
@@ -121,6 +132,17 @@
 				<?php $posts = new WP_Query( $args );
 				if( $posts->have_posts() ): ?>
 					<?php while( $posts->have_posts() ) : $posts->the_post(); ?>
+						<?php
+						// $members was read via string concatenation below without ever
+						// being assigned - same bug already fixed in
+						// template-announcement.php. Reset every post-loop iteration
+						// (not just once outside it), same as this project's other
+						// stale-variable-across-loop-iterations fixes, so a prior
+						// post's membership IDs can never leak into this post's
+						// current_user_can() check when this post has no
+						// membership_ids rows of its own.
+						$members = '';
+						?>
 						<?php if ( have_rows( 'membership_ids' ) ) : ?>
 						        <?php $counter = 0; ?>
 						        <?php while ( have_rows( 'membership_ids' ) ) : the_row(); ?>
@@ -174,78 +196,7 @@
 				?>
 			</div>
 		</div>
-		<div class="register-listing-container past-sessions active">
-    <?php
-    $today = wp_date('Ymd');
-    $paged = max( 1, get_query_var('paged') ?: get_query_var('page') );
-
-    $posts_per_page = 18;      // Number of visible posts per page
-    $soft_limit     = $posts_per_page * 3; // Query more to account for locked posts
-
-    $args = [
-        'post_type'      => 'post',
-        'posts_per_page' => $soft_limit,
-        'paged'          => $paged,
-        'meta_key'       => 'replay_event_date',
-        'orderby'        => 'meta_value_num',
-        'order'          => 'DESC',
-        'tax_query'      => [
-            [
-                'taxonomy' => 'filter-types',
-                'field'    => 'slug',
-                'terms'    => 'analyst-market-briefings',
-            ],
-        ],
-        'meta_query' => [
-            [
-                'key'     => 'replay_event_date',
-                'compare' => '<=',
-                'value'   => $today,
-            ],
-        ],
-    ];
-
-    $posts = new WP_Query( $args );
-    $shown = 0; // Count of visible posts
-    ?>
-
-<div class="register-listing-container past-sessions active">
-    <?php
-    $today = wp_date('Ymd');
-    $paged = max( 1, get_query_var('paged') ?: get_query_var('page') );
-    $posts_per_page = 18;
-    $soft_limit = $posts_per_page * 3; // fetch extra to account for MemberPress filtering
-
-    // Query posts
-    $args = [
-        'post_type'      => 'post',
-        'posts_per_page' => $soft_limit,
-        'paged'          => $paged,
-        'meta_key'       => 'replay_event_date',
-        'orderby'        => 'meta_value_num',
-        'order'          => 'DESC',
-        'tax_query'      => [
-            [
-                'taxonomy' => 'filter-types',
-                'field'    => 'slug',
-                'terms'    => 'analyst-market-briefings',
-            ],
-        ],
-        'meta_query' => [
-            [
-                'key'     => 'replay_event_date',
-                'compare' => '<=',
-                'value'   => $today,
-            ],
-        ],
-    ];
-
-    $query = new WP_Query( $args );
-    $shown = 0;
-    ?> 
-
-
-<?php
+		<?php
 // fetch past events
 
 $posts_per_page = 18;
@@ -278,6 +229,11 @@ $args = [
             'value'   => $today,
         ],
     ],
+    // "Load More" pagination here is driven by a manual $shown/offset count
+    // sent to load_past_sessions_unique() via AJAX, not by WP_Query's own
+    // found_posts/max_num_pages, so skip the SQL_CALC_FOUND_ROWS + extra
+    // COUNT(*) query WP_Query runs by default.
+    'no_found_rows'  => true,
 ];
 
 $query = new WP_Query($args);

@@ -20,7 +20,7 @@ get_header();
     						<span class="dark-overlay"></span>
     					<?php } ?>
     					<?php
-					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
+					$slide_image_attach_id = adapt_attachment_url_to_postid( $slide['image'] );
 					if ( $slide_image_attach_id ) {
 						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
@@ -37,7 +37,7 @@ get_header();
     									<div class="image" style="background-image:url(<?php echo esc_url( $slide['inset_image'] ); ?>);">
     									</div>
     									<?php
-					$slide_inset_image_attach_id = attachment_url_to_postid( $slide['inset_image'] );
+					$slide_inset_image_attach_id = adapt_attachment_url_to_postid( $slide['inset_image'] );
 					if ( $slide_inset_image_attach_id ) {
 						echo wp_get_attachment_image( $slide_inset_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
@@ -378,7 +378,7 @@ get_header();
 <section class="printContainer">
     <div class="imageHeader"><?php
 					$inline_img_137_src = get_field( 'print_header' );
-					$inline_img_137_attach_id = $inline_img_137_src ? attachment_url_to_postid( $inline_img_137_src ) : 0;
+					$inline_img_137_attach_id = $inline_img_137_src ? adapt_attachment_url_to_postid( $inline_img_137_src ) : 0;
 					if ( $inline_img_137_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_137_attach_id, 'full', false, [ 'alt' => 'Adapt - ' . get_the_title() ] );
 					} elseif ( $inline_img_137_src ) {
@@ -419,7 +419,7 @@ get_header();
                                                         <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
                                                             <?php
 					$inline_img_138_src = get_sub_field( 'logo' );
-					$inline_img_138_attach_id = $inline_img_138_src ? attachment_url_to_postid( $inline_img_138_src ) : 0;
+					$inline_img_138_attach_id = $inline_img_138_src ? adapt_attachment_url_to_postid( $inline_img_138_src ) : 0;
 					if ( $inline_img_138_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_138_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '100' ] );
 					} elseif ( $inline_img_138_src ) {
@@ -520,7 +520,7 @@ get_header();
                                                                         <?php while ( have_rows( 'logos' ) ) : the_row(); ?>
                                                                             <?php
 					$inline_img_139_src = get_sub_field( 'logo' );
-					$inline_img_139_attach_id = $inline_img_139_src ? attachment_url_to_postid( $inline_img_139_src ) : 0;
+					$inline_img_139_attach_id = $inline_img_139_src ? adapt_attachment_url_to_postid( $inline_img_139_src ) : 0;
 					if ( $inline_img_139_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_139_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '100' ] );
 					} elseif ( $inline_img_139_src ) {
@@ -567,7 +567,7 @@ get_header();
                                                                         <?php while ( have_rows( 'logos_track_two' ) ) : the_row(); ?>
                                                                             <?php
 					$inline_img_140_src = get_sub_field( 'logo' );
-					$inline_img_140_attach_id = $inline_img_140_src ? attachment_url_to_postid( $inline_img_140_src ) : 0;
+					$inline_img_140_attach_id = $inline_img_140_src ? adapt_attachment_url_to_postid( $inline_img_140_src ) : 0;
 					if ( $inline_img_140_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_140_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '100' ] );
 					} elseif ( $inline_img_140_src ) {

@@ -36,7 +36,7 @@ get_header();
 							<span class="dark-overlay"></span>
 						<?php } ?>
 						<?php
-					$slide_image_attach_id = attachment_url_to_postid( $slide['image'] );
+					$slide_image_attach_id = adapt_attachment_url_to_postid( $slide['image'] );
 					if ( $slide_image_attach_id ) {
 						echo wp_get_attachment_image( $slide_image_attach_id, 'full', false, [
 							'alt'   => 'Adapt - ' . get_the_title(),
@@ -117,7 +117,7 @@ get_header();
 		</section>
 	<?php } ?>
 	<?php if ( get_field ( 'hidden_vimeo_embed_for_yoast_home' )) { ?>
-		<span class="hiddenEmbed" style="display: none;"><?php echo get_field ( 'hidden_vimeo_embed_for_yoast_home' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
+		<span class="hiddenEmbed" style="display: none;"><?php echo adapt_lazy_load_iframe( get_field ( 'hidden_vimeo_embed_for_yoast_home' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
 	<?php } ?>
 
 	<?php if ( have_rows( 'content_blocks' ) ): ?>
@@ -192,7 +192,7 @@ get_header();
 							 <div class="featureBlock">
 								 <?php
 					$inline_img_148_src = get_sub_field( 'image' );
-					$inline_img_148_attach_id = $inline_img_148_src ? attachment_url_to_postid( $inline_img_148_src ) : 0;
+					$inline_img_148_attach_id = $inline_img_148_src ? adapt_attachment_url_to_postid( $inline_img_148_src ) : 0;
 					if ( $inline_img_148_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_148_attach_id, 'full', false, [ 'alt' => '', 'class' => 'featureImage' ] );
 					} elseif ( $inline_img_148_src ) {

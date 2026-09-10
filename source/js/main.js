@@ -9,6 +9,55 @@
 	// having already run earlier (see the ready() callback's call order).
 	let ww, wh;
 
+	// Coalesces a handler so it runs at most once per animation frame no
+	// matter how many raw scroll events fire in between - a scroll gesture
+	// can fire far more of those than the display can actually paint, and
+	// both of this file's window scroll handlers call things like
+	// .offset()/.outerHeight()/.scrollTop() that force a synchronous
+	// layout read, plus one of them calls resize()/scrollMenu()/
+	// scrollMobile() on top of that. Running all of that once per frame
+	// instead of once per raw event avoids paying that layout cost
+	// multiple times for a single frame the user actually sees - a classic
+	// scroll-jank pattern that hurts responsiveness (INP) during scrolling.
+	function rafThrottle(fn) {
+		let ticking = false;
+		return function () {
+			const context = this;
+			const args = arguments;
+			if (ticking) {
+				return;
+			}
+			ticking = true;
+			window.requestAnimationFrame(function () {
+				fn.apply(context, args);
+				ticking = false;
+			});
+		};
+	}
+
+	// ajaxobject.nonce is localized into this page's own HTML at render
+	// time (wp_create_nonce('adapt_ajax_nonce') in functions.php's
+	// my_enqueue_scripts()), which means it's only ever as fresh as
+	// whatever cached copy of the page a visitor happens to be served -
+	// WP Rocket's full-page cache can serve a page well past the nonce's
+	// own ~24h rolling validity window, baking in an already-expired
+	// value no matter how recently the visitor actually opened the page.
+	// Refresh it here via a normal AJAX call (admin-ajax.php requests are
+	// never full-page-cached, so this is always current) as soon as this
+	// script runs, well before a human could realistically click a "Load
+	// More"/filter control that depends on it. Every AJAX call site below
+	// reads ajaxobject.nonce live at call time rather than a copied local
+	// variable, so updating it in place here is enough to cover all of
+	// them without touching each call site individually.
+	if (typeof ajaxobject !== 'undefined' && ajaxobject.ajax_url) {
+		$.post(ajaxobject.ajax_url, { action: 'adapt_refresh_nonce' })
+			.done(function (response) {
+				if (response && response.success && response.data && response.data.nonce) {
+					ajaxobject.nonce = response.data.nonce;
+				}
+			});
+	}
+
 	$(document).ready(function (){
 
 		// Accessibility: slick.js generates prev/next <button> arrows with no
@@ -100,14 +149,90 @@
 			}
 		});
 
+		// Resources Feature Slider - initialized first, ahead of every other
+		// carousel in this handler (~16 .slick()/.owlCarousel() calls follow
+		// below for sliders elsewhere on the site). This is the component
+		// whose first slide is this page's LCP image on the homepage (and on
+		// the flexible/single-post/portal-flexible templates that reuse the
+		// same _resources-featured-block.php partial) - see _base.scss's
+		// ":not(.slick-initialized) :not(:first-child) { display: none; }"
+		// FOUC-prevention rule, which only stops hiding the rest of the
+		// slides once slick has actually run. Live LCP tracing (PerformanceObserver
+		// with type: 'largest-contentful-paint') showed the browser logging a
+		// second, later LCP candidate for this same image a few hundred ms
+		// after first paint, timed to right when slick's synchronous init
+		// finally reached this line - previously last among ~16 sequential
+		// carousel initializations, most of which don't even match any
+		// element on a given page (an empty jQuery selection is still a full
+		// DOM query before .slick() no-ops on it) and were running first
+		// regardless of relevance to this page's LCP. Moving this one to the
+		// front removes that queue from its critical path without touching
+		// slick's own timing/config or any other carousel's behavior.
+		$('.resources-featured-slider').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			fade: true,
+			speed: 500,
+	        cssEase: "linear",
+			infinite: true,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			arrows: false,
+			dots: true,
+			customPaging : function(slider, i) {
+			   const thumb = $(slider.$slides[i]).data();
+			   i = i + 1;
+			   return '<a>0'+i+'</a>';
+		   },
+	   });
+
 		// STANDARD
 		@@include('includes/_maps.js')
 
-		resize();
-		matchHeightInit();
-		if (typeof select2 === 'function') select2();
-		outsideContainer();
-		scrollMobile();
+		// Deferred past here on purpose, via setTimeout rather than
+		// requestAnimationFrame - see below for why the first attempt at
+		// this fix used rAF and didn't work. Live Long Task tracing
+		// (PerformanceObserver({type: 'longtask'})) on the homepage showed a
+		// ~240ms synchronous block starting right after DOMContentLoaded,
+		// ending right before the browser's second (final) LCP paint for
+		// the resources-featured-slider image above - i.e. the browser
+		// could not paint the slider's slick-initialized layout (see that
+		// block earlier in this same handler) until this entire ready()
+		// callback finished running, no matter how early the slick() call
+		// itself was moved. matchHeightInit() is almost certainly the
+		// dominant cost in that task: matchHeight forces a synchronous
+		// layout read for every one of its ~32 selector groups sitewide
+		// (cards, kits, footer columns, blog grids, agenda blocks, etc.) -
+		// exactly the kind of work that should never sit ahead of the first
+		// paint.
+		//
+		// First attempt wrapped this block in requestAnimationFrame()
+		// instead of setTimeout() - verified live afterward via the same
+		// Long Task trace and it made no measurable difference. Root cause:
+		// rAF callbacks run as part of the current frame's rendering steps,
+		// *before* that frame's paint, not after it - so a heavy rAF
+		// callback still blocks the very paint it was meant to get out of
+		// the way of, it just starts the block a few milliseconds later.
+		// setTimeout(fn, 0) schedules a real macrotask instead, and the
+		// browser gets a chance to run its rendering pipeline (style,
+		// layout, paint) between the end of the current task and the start
+		// of the timer callback - which is the actual gap this fix needs.
+		//
+		// None of resize()/matchHeightInit()/select2()/outsideContainer()/
+		// scrollMobile() write anything any other synchronous code in this
+		// same ready() handler reads before the next real user interaction
+		// - ww/wh (the two outer-scope variables outsideContainer()/
+		// scrollMobile()/resize() set) are only ever read from inside
+		// headerSet()/other event-bound functions elsewhere in this file,
+		// never inline here - so pushing this block past the next paint is
+		// safe.
+		setTimeout(function () {
+			resize();
+			matchHeightInit();
+			if (typeof select2 === 'function') select2();
+			outsideContainer();
+			scrollMobile();
+		}, 0);
 
 		if($('.progress-container').length ){
 			scrollProgressBar();
@@ -133,7 +258,7 @@
 		// SCROLL UP TO SEE FULL MENU
 
 		let lastScrollTop = 0;
-		$(window).scroll(function(event){
+		$(window).scroll(rafThrottle(function(event){
 		   const st = $(this).scrollTop();
 		   if (st > lastScrollTop){
 		        $('header').removeClass('scrolledUp');
@@ -141,7 +266,7 @@
 		        $('header').addClass('scrolledUp');
 		   }
 		   lastScrollTop = st;
-		});
+		}));
 
 		function updateUserInterests() {
 			const filter = $('#updateUserInterests');
@@ -1373,27 +1498,7 @@
 				$(mobileRadioIndex).children('label').children('input').prop("checked", true);
 				$('.filter .mobile-form-container').addClass('active');
 			});
-		}	
-		
-		// Resources Feature Slider
-
-		$('.resources-featured-slider').slick({
-			slidesToShow: 1,
-			slidesToScroll: 1,
-			fade: true,
-			speed: 500,
-	        cssEase: "linear",
-			infinite: true,
-			autoplay: true,
-			autoplaySpeed: 3000,
-			arrows: false,
-			dots: true,
-			customPaging : function(slider, i) {
-			   const thumb = $(slider.$slides[i]).data();
-			   i = i + 1;
-			   return '<a>0'+i+'</a>';
-		   },
-	   });
+		}
 
 	   // KEYNOTE SLIDER
 		$('.keynote-slider-module').each(function () {
@@ -2571,8 +2676,16 @@ $(document).on('click', function(e) {
     // ===============================
     // Initial Load
     // ===============================
-    // loadPartners(1, false);
-    // buildActiveFilterPills();
+    // #partners-container is server-rendered directly in
+    // _speakers-module.php (mirrors loadPartners()'s query exactly), so
+    // no AJAX call is needed on init - loadPartners() would just
+    // re-fetch and replace content that's already correct. The active
+    // filter buttons are also server-rendered (based on the preselected
+    // expertise/capability/industry GET params), which is what
+    // currentExpertise/currentIndustry above already read - so building
+    // the pills from that same state is all that's needed to make the
+    // pills match first paint.
+    buildActiveFilterPills();
 	loader.hide();
 
     // ===============================
@@ -3123,7 +3236,7 @@ if ($containerPast.length && $buttonPast.length) {
 		}
 	});
 
-	$(window).scroll(function(){
+	$(window).scroll(rafThrottle(function(){
 		resize();
 		scrollMenu();
 		scrollMobile();
@@ -3132,14 +3245,14 @@ if ($containerPast.length && $buttonPast.length) {
 			if (viewportWidth > 1023) {
 				const targetScroll = $('.post-title-block').offset().top + $('.post-title-block').outerHeight();
 				if($(window).scrollTop() > targetScroll){
-					$('.single-post-sticky').addClass('scrolled');					
+					$('.single-post-sticky').addClass('scrolled');
 				} else {
-					$('.single-post-sticky').removeClass('scrolled');					
+					$('.single-post-sticky').removeClass('scrolled');
 				}
 			}
 		}
 
-	});
+	}));
 
 	$(window).on('load',function (){
 

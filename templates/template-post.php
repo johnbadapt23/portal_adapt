@@ -1,9 +1,9 @@
 <section class="postHeader post-insights">
     <div class="container">
         <div class="headerWrapper">
-            <h1><?php the_field( 'title_text', 'option' ); ?></h1>
+            <h1><?php echo esc_html( get_field( 'title_text', 'option' ) ); ?></h1>
             <span class="subTitle">
-                <?php the_field( 'sub_title', 'option' ); ?>
+                <?php echo esc_html( get_field( 'sub_title', 'option' ) ); ?>
             </span>
             <?php if(current_user_can('mepr-active','membership:26')) { ?>
             <?php } else { ?>
@@ -64,10 +64,10 @@
                                 <?php } ?>
                                 <a href="<?php the_permalink(); ?>" class="imageContainer">
                                     <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                        <div class="image" style="background-image: url('<?php the_field( 'video_poster' ); ?>');">
+                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                         </div>
                                     <?php } else { ?>
-                                        <div class="image" style="background-image: url('<?php the_field( 'featured_image' ); ?>');">
+                                        <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                         </div>
                                     <?php } ?>
                                 </a>
@@ -78,7 +78,7 @@
                                                 <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                             </span>
                                             <span class="readTime">
-                                                <?php the_field( 'read_time' ); ?>
+                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                             </span>
                                         </span>
                                     </span>
@@ -107,7 +107,7 @@
                         <span href="<?php the_permalink(); ?>" class="postLink layout<?php echo esc_attr( $counter ); ?> memberContentLock" target="_self">
                             <span class="overlay">
                                 <span class="exclusiveContent">
-                                    <span class="overlayText"><?php the_field('member_content_post_overlay_text', 'option'); ?></span>
+                                    <span class="overlayText"><?php echo wp_kses_post( get_field('member_content_post_overlay_text', 'option') ); ?></span>
                                     <span class="registerLogin">
                                         <a class="registerLink" href="/members">Register</a>
                                         <span>or</span>
@@ -121,10 +121,10 @@
                                 <?php } ?>
                                 <div class="imageContainer">
                                     <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php the_field( 'video_poster' ); ?>');">
+                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                         </a>
                                     <?php } else { ?>
-                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php the_field( 'featured_image' ); ?>');">
+                                        <a href="<?php the_permalink(); ?>" class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                         </a>
                                     <?php } ?>
                                 </div>
@@ -135,7 +135,7 @@
                                                 <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                             </span>
                                             <span class="readTime">
-                                                <?php the_field( 'read_time' ); ?>
+                                                <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                             </span>
                                         </span>
                                     </span>
@@ -175,10 +175,10 @@
                             <?php } ?>
                             <a href="<?php the_permalink(); ?>" class="imageContainer">
                                 <?php if ( get_field ( 'featured_image_or_video' ) == 'video' ) { ?>
-                                    <div class="image" style="background-image: url('<?php the_field( 'video_poster' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'video_poster' ) ); ?>');">
                                     </div>
                                 <?php } else { ?>
-                                    <div class="image" style="background-image: url('<?php the_field( 'featured_image' ); ?>');">
+                                    <div class="image" style="background-image: url('<?php echo esc_url( get_field( 'featured_image' ) ); ?>');">
                                     </div>
                                 <?php } ?>
                             </a>
@@ -189,7 +189,7 @@
                                             <?php echo esc_html( get_the_date('d.m.Y') ); ?>
                                         </span>
                                         <span class="readTime">
-                                            <?php the_field( 'read_time' ); ?>
+                                            <?php echo esc_html( get_field( 'read_time' ) ); ?>
                                         </span>
                                     </span>
                                 </span>
@@ -230,16 +230,16 @@
 
         <div class="formTrigger">
             <?php if ( get_field ( 'form_title', 'option' ) ) { ?>
-                <h2><?php the_field( 'form_title', 'option' ); ?></h2>
+                <h2><?php echo esc_html( get_field( 'form_title', 'option' ) ); ?></h2>
             <?php } ?>
             <?php if ( get_field ( 'form_subtitle', 'option' ) ) { ?>
-                <h3><?php the_field( 'form_subtitle', 'option' ); ?></h3>
+                <h3><?php echo esc_html( get_field( 'form_subtitle', 'option' ) ); ?></h3>
             <?php } ?>
             <?php if ( get_field ( 'call_to_action_text', 'option' ) ) { ?>
-                <h4><?php the_field( 'call_to_action_text', 'option' ); ?></h4>
+                <h4><?php echo esc_html( get_field( 'call_to_action_text', 'option' ) ); ?></h4>
             <?php } ?>
 
-            <a class="logoBlockLink button popup-modal" href="#form"><?php the_field( 'button_text', 'option' ); ?></a>
+            <a class="logoBlockLink button popup-modal" href="#form"><?php echo esc_html( get_field( 'button_text', 'option' ) ); ?></a>
         </div>
 
     </div>

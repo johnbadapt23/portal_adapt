@@ -797,7 +797,7 @@
                         ?>
                     <?php } else { ?>
                         <span>No posts</span>
-                    <? }?>
+                    <?php } ?>
 
             </div>
 

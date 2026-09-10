@@ -49,7 +49,7 @@ get_header();
 		</section>
 	<?php } ?>
 	<?php if ( get_field ( 'hidden_vimeo_embed_for_yoast' )) { ?>
-		<span class="hiddenEmbed" style="display: none;"><?php echo get_field ( 'hidden_vimeo_embed_for_yoast' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
+		<span class="hiddenEmbed" style="display: none;"><?php echo adapt_lazy_load_iframe( get_field ( 'hidden_vimeo_embed_for_yoast' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored Vimeo iframe embed code requires raw HTML output; wp_kses_post() would strip the <iframe> tag the embed needs to function. ?></span>
 	<?php } ?>
 	<?php if ( get_field ( 'fixed_menu_select' ) == 'yes' ) { ?>
 		<?php if ( have_rows( 'fixed_menu' ) ) : ?>
@@ -115,7 +115,7 @@ get_header();
 							 <div class="featureBlock">
 								 <?php
 					$inline_img_144_src = get_sub_field( 'image' );
-					$inline_img_144_attach_id = $inline_img_144_src ? attachment_url_to_postid( $inline_img_144_src ) : 0;
+					$inline_img_144_attach_id = $inline_img_144_src ? adapt_attachment_url_to_postid( $inline_img_144_src ) : 0;
 					if ( $inline_img_144_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_144_attach_id, 'full', false, [ 'alt' => '', 'class' => 'featureImage' ] );
 					} elseif ( $inline_img_144_src ) {
@@ -645,7 +645,7 @@ get_header();
 												<a href="<?php the_permalink(); ?>" class="item">
 													<?php if ( get_field( 'speaker_image') ) { ?>
 														<div class="imageContainer">
-															<div class="image" style="background-image: url(<?php echo esc_url( get_field( 'speaker_image' ) ); ?>);">
+															<div class="image" style="background-image: url(<?php echo esc_url( adapt_get_sized_bg_url( get_field( 'speaker_image' ) ) ); ?>);">
 															</div>
 														</div>
 													<?php } ?>
@@ -658,7 +658,7 @@ get_header();
 														<div class="logoContainer">
 															<?php
 					$inline_img_145_src = get_field( 'logo' );
-					$inline_img_145_attach_id = $inline_img_145_src ? attachment_url_to_postid( $inline_img_145_src ) : 0;
+					$inline_img_145_attach_id = $inline_img_145_src ? adapt_attachment_url_to_postid( $inline_img_145_src ) : 0;
 					if ( $inline_img_145_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_145_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_145_src ) {
@@ -795,7 +795,7 @@ get_header();
 												<div class="logoContainer">
 													<?php
 					$inline_img_146_src = get_sub_field( 'logo' );
-					$inline_img_146_attach_id = $inline_img_146_src ? attachment_url_to_postid( $inline_img_146_src ) : 0;
+					$inline_img_146_attach_id = $inline_img_146_src ? adapt_attachment_url_to_postid( $inline_img_146_src ) : 0;
 					if ( $inline_img_146_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_146_attach_id, 'full', false, [ 'alt' => 'Adapt' ] );
 					} elseif ( $inline_img_146_src ) {

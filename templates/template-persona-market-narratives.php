@@ -5,8 +5,8 @@
 
 get_header();
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
-$persona = $_GET['persona'];
-$keyword = $_GET['searchWords'];
+$persona = isset( $_GET['persona'] ) ? sanitize_text_field( wp_unslash( $_GET['persona'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 $q = get_queried_object();
 $q_slug = $q->slug ?? '';
@@ -152,13 +152,13 @@ $q_slug = $q->slug ?? '';
 									'taxonomy' => 'filter-types',
 									'field' => 'slug',
 									'terms'    => 'market-narratives'
+								],
+								[
+									'taxonomy' => 'market-narratives-subcategories',
+									'field' => 'slug',
+									'terms'    => 'persona-mapping'
 								]
 							],
-							[
-								'taxonomy' => 'market-narratives-subcategories',
-								'field' => 'slug',
-								'terms'    => 'persona-mapping'
-							]
 						];
 					} else {
 						$args = [
@@ -229,7 +229,7 @@ $q_slug = $q->slug ?? '';
 	                                        <span>
 	                                    <?php else : ?>
 	                                        <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -312,7 +312,7 @@ $q_slug = $q->slug ?? '';
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -502,7 +502,7 @@ $q_slug = $q->slug ?? '';
 																		<span class="bg-container">
 																			<?php if (  $image ) { ?>
 																				<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -643,7 +643,7 @@ $q_slug = $q->slug ?? '';
 										 <span>
 									 <?php else : ?>
 										 <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

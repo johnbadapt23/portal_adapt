@@ -68,10 +68,10 @@ $sector_term = get_sub_field( 'topic' );
                                             <?php if ($imageCounter) { ?>
                                                 <span class="slide-counter">1 OF <?php echo esc_html( $imageCounter ); ?></span>
                                             <?php } ?>
-                                        <span>
+                                        </span>
                                     <?php else : ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
@@ -79,7 +79,7 @@ $sector_term = get_sub_field( 'topic' );
 								}
 							?>
                                         <span class="hover-container">
-                                        <span>
+                                        </span>
                                     <?php endif; ?>
 
                                 </div>

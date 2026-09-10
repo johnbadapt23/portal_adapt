@@ -30,7 +30,7 @@
                                             <?php } ?>
                                         <?php } ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
@@ -42,6 +42,13 @@
                                 </a>
                                 <div class="textContainer">
                                     <span class="topicFilter">
+                                        <?php
+                                        // Reset on every iteration so a topic/type from a previous
+                                        // card can't leak forward when this post has neither a
+                                        // Yoast primary term nor any terms in the taxonomy.
+                                        $postTopic = null;
+                                        $postType  = null;
+                                        ?>
                                         <?php if (yoast_get_primary_term_id('topic')) {
                                             $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                             $postTopic = get_term( $primary_term_topic_id );
@@ -115,7 +122,7 @@
                                             <?php } ?>
                                         <?php } ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ), 'class' => 'desktop' ] );
 								} else {
@@ -127,6 +134,13 @@
                                 </a>
                                 <div class="textContainer">
                                     <span class="topicFilter">
+                                        <?php
+                                        // Reset on every iteration so a topic/type from a previous
+                                        // card can't leak forward when this post has neither a
+                                        // Yoast primary term nor any terms in the taxonomy.
+                                        $postTopic = null;
+                                        $postType  = null;
+                                        ?>
                                         <?php if (yoast_get_primary_term_id('topic')) {
                                             $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                             $postTopic = get_term( $primary_term_topic_id );

@@ -18,16 +18,6 @@ if ($persona !== '') {
     $persona_term = get_term_by('slug', $persona, 'persona-mapping');
 }
 ?>
-<?php if (!empty($persona_from_get) && !is_wp_error($persona_from_get)) : ?>
-<script>
-    // Make the default persona slug available to JS for the featured post AJAX
-    window.personaTerm = '<?= esc_js($persona_from_get->slug); ?>';
-</script>
-<?php else: ?>
-<script>
-    window.personaTerm = '';
-</script>
-<?php endif; ?>
 <main id="main" role="main" class="default whats-new">
 <?php 
 $membershipType = trim($membershipType);
@@ -38,7 +28,7 @@ $advantage_types_ids = get_field('advantage_types', 'options') ?: [];
 $membership_allowed_ids = [];
 $researchLinkAdv = get_field( 'advantage_research_link', 'options' ); 
 $researchLinkIt = get_field( 'it_pro_research_link', 'options' ); 
-$researchLink = '$researchLinkAdv';
+$researchLink = $researchLinkAdv;
 if ($membershipType === 'it-pro') {
     $membership_allowed_ids = $it_pro_types_ids;
     $researchLink = $researchLinkIt;
@@ -441,7 +431,7 @@ if ($membershipType === 'it-pro') {
             <div class="whats-new-container-outer">
                 <!-- Persona Title -->
                 <h2 class="headerXsmall text-bold market-narrative-title" style="display: none;">
-                    <?= esc_html($persona_term->name); ?>
+                    <?= esc_html($persona_term?->name ?? ''); ?>
                 </h2>
                 <div class="whats-new-filter-inner">
                     <div class="sort-pills-container">

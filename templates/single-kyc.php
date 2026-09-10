@@ -46,11 +46,23 @@
                                             <?php } elseif(get_sub_field( 'button_type' ) == 'link')  { ?>
                                                 <a class="link stdBtn red-outline-button" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                             <?php } else { ?>
+                                                <?php
+                                                // A hardcoded id="talkform" here (same on every row)
+                                                // meant that with more than one button row, every
+                                                // row's magnificPopup trigger (which resolves its
+                                                // target via this href="#id", not a relative DOM
+                                                // lookup) opened the FIRST row's modal.
+                                                // $buttonCounter already tracks the row position for
+                                                // the button-color logic above, and this whole block
+                                                // also sits inside an outer "introduction" repeater,
+                                                // so include get_the_ID() too.
+                                                $popup_id = 'talkform-' . get_the_ID() . '-' . $buttonCounter;
+                                                ?>
                                                 <span class="form-popup-button-container stdBtn <?php if($buttonCounter == 1){?>red red-button<?php } else { ?>red-outline-button<?php } ?>">
-                                                    <a class="form-popup popup-modal" href="#talkform"><?php echo esc_html( get_sub_field( 'form_button' ) ); ?></a>
+                                                    <a class="form-popup popup-modal" href="#<?php echo esc_attr( $popup_id ); ?>"><?php echo esc_html( get_sub_field( 'form_button' ) ); ?></a>
                                                 </span>
-                                                <div class="formPopup talk-form mfp-hide" id="talkform">
-                                                    <a class="popup-modal-dismiss"></a>                                                    
+                                                <div class="formPopup talk-form mfp-hide" id="<?php echo esc_attr( $popup_id ); ?>">
+                                                    <a class="popup-modal-dismiss"></a>
                                                     <div class="formWrapper register"><?php echo get_sub_field( 'form_code' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored raw form-embed markup requires unescaped HTML/script output; wp_kses_post() would strip the tags the embed needs to function. ?></div>
                                                 </div>
                                             <?php } ?>

@@ -55,7 +55,7 @@
                             $args = [
                                 'post_type' => 'event',
                                 'posts_per_page' => -1,
-                                'paged'=> $paged ,
+                                'no_found_rows' => true,
                                 'orderby'=> 'menu_order',
                                 'order'=> 'ASC',
                                 'tax_query' => [
@@ -80,7 +80,6 @@
                                 $extra_classes = 'dark-theme';
                                 include locate_template('/templates/components/_event-card-image.php');
                             ?>
-                            <?php $counter++; ?>
                         <?php endwhile; else : ?>
                             <h3><?php esc_html_e( 'Sorry, no results found.', 'portal' ); ?></h3>
                         <?php endif; ?>

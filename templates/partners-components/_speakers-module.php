@@ -21,8 +21,14 @@ $preselected_industry   = isset($_GET['industry']) ? sanitize_text_field($_GET['
                            <?php
 $expertise_terms = [];
 
+// Shared by both the Expertise and Industry dropdowns below - one
+// get_posts() call for this partner type instead of two identical
+// ones. fields=>ids never primes the term cache, so the per-taxonomy
+// term lookups further down are batched via get_terms(object_ids=>...)
+// (one query each) rather than looping get_the_terms() per post.
+$partner_posts = [];
+
 if ($partner_type_id) {
-    // Get all partner posts for this type
     $partner_posts = get_posts([
         'post_type'      => 'partners',
         'posts_per_page' => -1,
@@ -34,27 +40,16 @@ if ($partner_type_id) {
         ]],
     ]);
 
-    // Collect all capabilities from these posts
-    foreach ($partner_posts as $post_id) {
-        $terms = get_the_terms($post_id, 'capabilities');
-
-        if (!empty($terms) && is_array($terms)) {
-            foreach ($terms as $term) {
-                // Use term ID as key to avoid duplicates
-                $expertise_terms[$term->term_id] = $term;
-            }
-        }
+    if (!empty($partner_posts)) {
+        $expertise_terms = get_terms([
+            'taxonomy'   => 'capabilities',
+            'object_ids' => $partner_posts,
+            'hide_empty' => true,
+            'orderby'    => 'name',
+            'order'      => 'ASC',
+        ]);
+        $expertise_terms = is_array($expertise_terms) ? $expertise_terms : [];
     }
-
-    // Remove any terms with zero count (optional safety)
-    $expertise_terms = array_filter($expertise_terms, function($term) {
-        return $term->count > 0;
-    });
-
-    // Sort terms alphabetically by name
-    usort($expertise_terms, function($a, $b) {
-        return strcmp($a->name, $b->name);
-    });
 }
 ?>
 
@@ -89,42 +84,19 @@ if ($partner_type_id) {
                             <!-- Industry Filter -->
                             <?php
                            
+                    // Reuses $partner_posts fetched above for the Expertise
+                    // dropdown - same partner type, no need to query again.
                     $industry_terms_filtered = [];
 
-                    if ($partner_type_id) {
-                        // Get all partner posts for this type
-                        $partner_posts = get_posts([
-                            'post_type'      => 'partners',
-                            'posts_per_page' => -1,
-                            'fields'         => 'ids',
-                            'tax_query'      => [[
-                                'taxonomy' => 'partner-type',
-                                'field'    => 'term_id',
-                                'terms'    => $partner_type_id,
-                            ]],
+                    if (!empty($partner_posts)) {
+                        $industry_terms_filtered = get_terms([
+                            'taxonomy'   => 'industries',
+                            'object_ids' => $partner_posts,
+                            'hide_empty' => true,
+                            'orderby'    => 'name',
+                            'order'      => 'ASC',
                         ]);
-
-                        // Collect all industries from these posts
-                        foreach ($partner_posts as $post_id) {
-                            $terms = get_the_terms($post_id, 'industries');
-
-                            if (!empty($terms) && is_array($terms)) {
-                                foreach ($terms as $term) {
-                                    // Use term ID as key to avoid duplicates
-                                    $industry_terms_filtered[$term->term_id] = $term;
-                                }
-                            }
-                        }
-
-                        // Remove any terms with zero count (optional safety)
-                        $industry_terms_filtered = array_filter($industry_terms_filtered, function($term) {
-                            return $term->count > 0;
-                        });
-
-                        // Sort terms alphabetically by name
-                        usort($industry_terms_filtered, function($a, $b) {
-                            return strcmp($a->name, $b->name);
-                        });
+                        $industry_terms_filtered = is_array($industry_terms_filtered) ? $industry_terms_filtered : [];
                     }
                     ?>
 

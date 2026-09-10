@@ -1,4 +1,17 @@
-<?php global $membershipType; ?>
+<?php
+// $current_user was read below ($current_user->ID, user_can($current_user, ...))
+// without ever being assigned - every sibling file (template-announcement.php,
+// header.php) sets this explicitly, since get_template_part()'s
+// require() runs inside load_template()'s own function scope, so a plain
+// (non-global-declared) $current_user here is not the same variable
+// header.php populated in its own scope, however early WordPress itself
+// sets the underlying global. Left unset, $current_user->ID silently
+// evaluated against null and user_can(null, 'administrator') always
+// returned false, breaking the admin fallback below for every admin
+// viewing a single announcement.
+$current_user = wp_get_current_user();
+global $membershipType;
+?>
 <?php if(current_user_can('mepr-active','memberships:48815')){
     $membershipType = 'tnc';
 } ?>
@@ -7,7 +20,7 @@
     $membershipType = 'kyc';
 } ?>
 <?php if ( have_rows( 'free_trial_memberships', 'options' ) ) : ?>
-<?php $counter = 0; ?>
+<?php $counter = 0; $membersFree = ''; ?>
     <?php while ( have_rows( 'free_trial_memberships', 'options' ) ) : the_row(); ?>
         <?php if ( $counter == 0 ) {
            $membersFree = $membersFree . get_sub_field( 'membership_id' );
@@ -21,7 +34,7 @@
     } ?>
 <?php endif; ?>
 <?php if ( have_rows( 'advantage_memberships', 'options' ) ) : ?>
-<?php $counter = 0; ?>
+<?php $counter = 0; $members = ''; ?>
     <?php while ( have_rows( 'advantage_memberships', 'options' ) ) : the_row(); ?>
         <?php if ( $counter == 0 ) {
            $members = $members . get_sub_field( 'membership_id' );
@@ -35,7 +48,7 @@
     } ?>
 <?php endif; ?>
 <?php if ( have_rows( 'it_pro_memberships', 'options' ) ) : ?>
-<?php $counter = 0; ?>
+<?php $counter = 0; $membersIT = ''; ?>
     <?php while ( have_rows( 'it_pro_memberships', 'options' ) ) : the_row(); ?>
         <?php if ( $counter == 0 ) {
            $membersIT = $membersIT . get_sub_field( 'membership_id' );
@@ -115,7 +128,7 @@ if (user_can($current_user, 'administrator')) {
                         <div class="bgContainer">
                             <?php $image = get_field( 'listing_image'); ?>
                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -165,7 +178,11 @@ if (user_can($current_user, 'administrator')) {
                 $args = [
                     'post_type'      => 'announcement',
                     'posts_per_page' => 3,
-                    'paged' => $paged
+                    'paged' => $paged,
+                    // No pagination UI renders here (just a static 3-item "Recent
+                    // Announcements" grid), so skip the SQL_CALC_FOUND_ROWS + extra
+                    // COUNT(*) query WP_Query runs by default.
+                    'no_found_rows' => true,
                 ];
                 ?>
 

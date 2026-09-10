@@ -55,8 +55,8 @@ $first_name = $user_info->first_name;
 $interests = $user_info->mepr_interests;
 
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/search params for a bookmarkable, shareable listing URL; no state change results from reading them.
-$filterType = $_GET['filterby'];
-$keyword = $_GET['searchWords'];
+$filterType = isset( $_GET['filterby'] ) ? sanitize_text_field( wp_unslash( $_GET['filterby'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 ?>
 <?php
@@ -75,7 +75,7 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 $args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
-    'paged'=> $paged,
+    'no_found_rows' => true,
     'fields' => 'ids'
 ]; ?>
 <?php $loop = new WP_Query( $args );
@@ -301,7 +301,7 @@ if ( $loop->have_posts() ) :
                                     <?php if ( get_field( 'listing_image') ) { ?>
                                         <?php $image = get_field( 'listing_image'); ?>
                                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -318,7 +318,7 @@ if ( $loop->have_posts() ) :
                                             <?php $image = get_field( 'featured_image'); ?>
                                         <?php } ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -425,7 +425,7 @@ if ( $loop->have_posts() ) :
                                                     <?php if ( get_field( 'listing_image') ) { ?>
                                                         <?php $image = get_field( 'listing_image'); ?>
                                                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -442,7 +442,7 @@ if ( $loop->have_posts() ) :
                                                             <?php $image = get_field( 'featured_image'); ?>
                                                         <?php } ?>
                                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -553,7 +553,7 @@ if ( $loop->have_posts() ) :
                                         <?php if ( get_field( 'listing_image') ) { ?>
                                             <?php $image = get_field( 'listing_image'); ?>
                                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -570,7 +570,7 @@ if ( $loop->have_posts() ) :
                                                 <?php $image = get_field( 'featured_image'); ?>
                                             <?php } ?>
                                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

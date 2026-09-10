@@ -38,7 +38,7 @@ endif;
                                                 <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_icon) { ?>
                                                 <?php
-									$listing_icon_attach_id = attachment_url_to_postid( $listing_icon );
+									$listing_icon_attach_id = adapt_attachment_url_to_postid( $listing_icon );
 									if ( $listing_icon_attach_id ) {
 										echo wp_get_attachment_image( $listing_icon_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
@@ -58,7 +58,7 @@ endif;
                                                 <?php echo wp_get_attachment_image( $head_shot['ID'], 'full', false, [ 'alt' => $head_shot['alt'] ] ); ?>
                                             <?php } else if($listing_avatar) { ?>
                                                 <?php
-									$listing_avatar_attach_id = attachment_url_to_postid( $listing_avatar );
+									$listing_avatar_attach_id = adapt_attachment_url_to_postid( $listing_avatar );
 									if ( $listing_avatar_attach_id ) {
 										echo wp_get_attachment_image( $listing_avatar_attach_id, 'full', false, [ 'alt' => get_sub_field( 'title' ) ] );
 									} else {
@@ -78,9 +78,21 @@ endif;
                                 <?php $title = get_sub_field( 'title' ); ?>
                                 <?php if ( have_rows( 'buttons' ) ) : ?>
                                     <?php while ( have_rows( 'buttons' ) ) : the_row(); ?>
-                                        <a class="formPopupPartners stdBtn red red-button" href="#formPopupAdvisor">Request an Introduction</a>
+                                        <?php
+                                        // A hardcoded id here (formerly the same "formPopupAdvisor"
+                                        // on every row) meant that with more than one button row,
+                                        // every row's magnificPopup trigger (which resolves its
+                                        // target via this href="#id", not a relative DOM lookup)
+                                        // opened the FIRST row's modal. get_row_index() makes each
+                                        // row's trigger/target pair unique.
+                                        // Also nested inside an outer "introduction" repeater, so
+                                        // include get_the_ID() in case that outer loop ever has
+                                        // more than one row too.
+                                        $popup_id = 'formPopupAdvisor-' . get_the_ID() . '-' . get_row_index();
+                                        ?>
+                                        <a class="formPopupPartners stdBtn red red-button" href="#<?php echo esc_attr( $popup_id ); ?>">Request an Introduction</a>
                                         <span style="display: none;">
-                                            <span class="form-popup" id="formPopupAdvisor">
+                                            <span class="form-popup" id="<?php echo esc_attr( $popup_id ); ?>">
                                                 <span class="popup-form-container">
                                                     <span class="popup-form-title">Request an Introduction with <?php echo esc_html( $title ); ?></span>
                                                         <?php echo adapt_render_hubspot_embed( get_sub_field( 'form_embed_code' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?>
@@ -296,7 +308,7 @@ endif;
                                                             <?php $speaker_image = get_field('speaker_image'); ?>
                                                             <?php if ($speaker_image) { ?>
                                                                 <?php
-								$speaker_image_attach_id = attachment_url_to_postid( $speaker_image );
+								$speaker_image_attach_id = adapt_attachment_url_to_postid( $speaker_image );
 								if ( $speaker_image_attach_id ) {
 									echo wp_get_attachment_image( $speaker_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -411,7 +423,7 @@ endif;
                                                             <?php } ?>
                                                         </span>
                                                         <span class="title-container">
-                                                            <span class="labelMedium company-title"><?php the_sub_field( 'company_name' ); ?></span>
+                                                            <span class="labelMedium company-title"><?php echo esc_html( get_sub_field( 'company_name' ) ); ?></span>
                                                         </span>
                                                     </span>
                                                 <?php endwhile; ?>

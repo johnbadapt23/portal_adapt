@@ -1,6 +1,12 @@
 <?php
 $date_string = get_field('replay_event_date');
 $date = DateTime::createFromFormat('Ymd', $date_string);
+// Used below to decide whether the published-date label needs the
+// no-margin-border class (this component has no download button of
+// its own, unlike its _video-preview.php/_slide-preview.php siblings,
+// but still reads the same 'download' sub-field to match their
+// spacing convention when one isn't set).
+$download = get_sub_field('download');
 ?>
 <section class="expertPresentationFeatured bg-black singleResearch">
     <div class="container">
@@ -20,7 +26,7 @@ $date = DateTime::createFromFormat('Ymd', $date_string);
                     <?php $video_image = get_field( 'video_image' ); ?>
                     <?php if ( $video_image ) { ?>
                         <?php
-								$video_image_attach_id = attachment_url_to_postid( $video_image );
+								$video_image_attach_id = adapt_attachment_url_to_postid( $video_image );
 								if ( $video_image_attach_id ) {
 									echo wp_get_attachment_image( $video_image_attach_id, 'full', false, [ 'alt' => esc_attr( get_the_title() ) ] );
 								} else {

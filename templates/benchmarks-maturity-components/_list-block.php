@@ -10,60 +10,60 @@
                 <?php while ( have_rows( 'list_items' ) ) : the_row(); ?>
                     <?php $icon = get_sub_field( 'icon' ); ?>
                     <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                        <a class="item link mobile-hide" href="<?php the_sub_field( 'link_url' ); ?>" target="<?php the_sub_field( 'link_target' ); ?>">
-                            <span class="column">    
+                        <a class="item link mobile-hide" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>">
+                            <span class="column">
                                 <?php if ( $icon ) { ?>
                                     <span class="icon">
                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                     </span>
                                 <?php } ?>
                                 <span class="title label-XL text-white">
-                                    <?php the_sub_field( 'title' ); ?>
+                                    <?php echo wp_kses_post( get_sub_field( 'title' ) ); ?>
                                 </span>
                             </span>
                             <span class="column">
                                 <span class="p-xsmall medium-grey">
-                                    <?php the_sub_field( 'text' ); ?>
+                                    <?php echo wp_kses_post( get_sub_field( 'text' ) ); ?>
                                 </span>
                             </span>
                         </a>
                         <span class="item link desktop-hide">
-                            <span class="column title-column">    
+                            <span class="column title-column">
                                 <?php if ( $icon ) { ?>
                                     <span class="icon">
                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                     </span>
                                 <?php } ?>
                                 <span class="title label-XL text-white">
-                                    <?php the_sub_field( 'title' ); ?>
+                                    <?php echo wp_kses_post( get_sub_field( 'title' ) ); ?>
                                 </span>
                                 <span class="expand"></span>
                             </span>
                             <span class="column more-info">
                                 <span class="p-xsmall medium-grey">
-                                    <?php the_sub_field( 'text' ); ?>
+                                    <?php echo wp_kses_post( get_sub_field( 'text' ) ); ?>
                                 </span>
                                 <span class="text-link-container">
-                                    <a class="red-text external-link text-link red-underline-link" href="<?php the_sub_field( 'link_url' ); ?>" target="<?php the_sub_field( 'link_target' ); ?>">Learn more</a>
+                                    <a class="red-text external-link text-link red-underline-link" href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>" target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>">Learn more</a>
                                 </span>
                             </span>
                         </span>
                     <?php } else { ?>
                         <span class="item">
-                            <span class="column title-column">    
+                            <span class="column title-column">
                                 <?php if ( $icon ) { ?>
                                     <span class="icon">
                                         <?php echo wp_get_attachment_image( $icon['ID'], 'full', false, [ 'alt' => $icon['alt'] ] ); ?>
                                     </span>
                                 <?php } ?>
                                 <span class="title label-XL text-white">
-                                    <?php the_sub_field( 'title' ); ?>
+                                    <?php echo wp_kses_post( get_sub_field( 'title' ) ); ?>
                                 </span>
                                 <span class="expand"></span>
                             </span>
                             <span class="column more-info">
                                 <span class="p-xsmall medium-grey">
-                                    <?php the_sub_field( 'text' ); ?>
+                                    <?php echo wp_kses_post( get_sub_field( 'text' ) ); ?>
                                 </span>
                             </span>
                         </span>

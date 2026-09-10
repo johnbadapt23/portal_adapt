@@ -9,13 +9,13 @@ get_header();
 <main id="main" role="main" class="events">
 <?php
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/sort/search params for a bookmarkable, shareable insights-listing URL; no state change results from reading them.
-$filterCat = $_GET['categories'];
-$filterType = $_GET['types'];
-$filterEvent = $_GET['events'];
-$filterDuration = $_GET['duration'];
-$keyword = $_GET['searchWords'];
-$sortBy = $_GET['orderby'];
-$sort = $_GET['order'];
+$filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : '';
+$filterType = isset( $_GET['types'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['types'] ) ) : '';
+$filterEvent = isset( $_GET['events'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['events'] ) ) : '';
+$filterDuration = isset( $_GET['duration'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['duration'] ) ) : '';
+$keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : '';
+$sortBy = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : '';
+$sort = isset( $_GET['order'] ) ? sanitize_text_field( wp_unslash( $_GET['order'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 ?>

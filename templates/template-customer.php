@@ -81,9 +81,14 @@ get_header();
 					while ( $purchasedLoop->have_posts() ) : $purchasedLoop->the_post(); ?>
 					<?php if(current_user_can('mepr_auth')) {?>
 						<?php if ( get_field( 'this_older_version' ) == 0 ) { ?>
-							<?php if (get_the_terms($post->ID, 'kit-type')) {
-								$termsType = get_the_terms($post->ID, 'kit-type');
-								$kitType = ''; 
+							<?php
+							// Reset every iteration (not just when terms exist) so a
+							// prior post's kit-type classes can't leak onto a post with
+							// no kit-type terms of its own. get_the_terms() is called
+							// once and reused, not twice, to avoid a redundant query.
+							$kitType = '';
+							$termsType = get_the_terms($post->ID, 'kit-type');
+							if ($termsType) {
 								foreach ($termsType as $index => $type) {
 									if ($type->parent !== 0) {
 										if ($index > 0) {
@@ -91,7 +96,7 @@ get_header();
 										}
 										$kitType .= $type->slug;
 									}
-								}							
+								}
 							}
 							?>
 							<?php if (get_field( 'older_version_question' ) == 'no') { ?> 
@@ -176,9 +181,14 @@ get_header();
 				if ( $nonpurchasedLoop->have_posts() ) :
 					$counter = 0;
 					while ( $nonpurchasedLoop->have_posts() ) : $nonpurchasedLoop->the_post(); ?>
-					<?php if (get_the_terms($post->ID, 'kit-type')) {
-						$termsType = get_the_terms($post->ID, 'kit-type');
-						$kitType = ''; 
+					<?php
+					// Reset every iteration (not just when terms exist) so a prior
+					// post's kit-type classes can't leak onto a post with no
+					// kit-type terms of its own. get_the_terms() is called once
+					// and reused, not twice, to avoid a redundant query.
+					$kitType = '';
+					$termsType = get_the_terms($post->ID, 'kit-type');
+					if ($termsType) {
 						foreach ($termsType as $index => $type) {
 							if ($type->parent !== 0) {
 								if ($index > 0) {
@@ -186,7 +196,7 @@ get_header();
 								}
 								$kitType .= $type->slug;
 							}
-						}							
+						}
 					}
 					?>
 					<?php if(current_user_can('mepr_auth')) {?>

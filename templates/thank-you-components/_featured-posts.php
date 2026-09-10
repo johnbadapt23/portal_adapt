@@ -27,7 +27,11 @@
                             'field' => 'slug',
                             'terms'    => 'tnc'
                         ]
-                    ]
+                    ],
+                    // No pagination UI renders for this thank-you-page block, so skip
+                    // the SQL_CALC_FOUND_ROWS + extra COUNT(*) query WP_Query runs by
+                    // default.
+                    'no_found_rows' => true,
                 ];
 
                 $posts = new WP_Query( $args );
@@ -49,7 +53,7 @@
                                                     <?php $video_poster_image = get_field( 'video_poster' ); ?>
                                                     <?php if ( $video_poster_image ) { ?>
                                                         <?php
-								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								$video_poster_image_attach_id = adapt_attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -75,7 +79,7 @@
                                                     <?php $featured_image = get_field( 'featured_image' ); ?>
                                                     <?php if ( $featured_image ) { ?>
                                                         <?php
-								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								$featured_image_attach_id = adapt_attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -91,7 +95,13 @@
                                 <div class="item-column content-column one-half">
                                     <span class="item-content-container">
                                         <span class="topic-filter">
-                                            <?php if (yoast_get_primary_term_id('topic')) {
+                                            <?php
+                                            // Reset each iteration - without this, a post with no primary
+                                            // term and no 'topic' terms would silently keep showing the
+                                            // previous post's topic (both branches below only ever assign
+                                            // $postTopic, never clear it).
+                                            $postTopic = null;
+                                            if (yoast_get_primary_term_id('topic')) {
                                                 $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                 $postTopic = get_term( $primary_term_topic_id );
                                             } else {
@@ -133,7 +143,7 @@
                                                 <?php $video_poster_image = get_field( 'video_poster' ); ?>
                                                 <?php if ( $video_poster_image ) { ?>
                                                     <?php
-								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								$video_poster_image_attach_id = adapt_attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -159,7 +169,7 @@
                                                 <?php $featured_image = get_field( 'featured_image' ); ?>
                                                 <?php if ( $featured_image ) { ?>
                                                     <?php
-								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								$featured_image_attach_id = adapt_attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -173,7 +183,13 @@
                                 <?php } ?>
                                 <span class="item-content-container">
                                     <span class="topic-filter">
-                                        <?php if (yoast_get_primary_term_id('topic')) {
+                                        <?php
+                                        // Reset each iteration - without this, a post with no primary
+                                        // term and no 'topic' terms would silently keep showing the
+                                        // previous post's topic (both branches below only ever assign
+                                        // $postTopic, never clear it).
+                                        $postTopic = null;
+                                        if (yoast_get_primary_term_id('topic')) {
                                             $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                             $postTopic = get_term( $primary_term_topic_id );
                                         } else {
@@ -225,7 +241,7 @@
                                                         <?php $video_poster_image = get_field( 'video_poster' ); ?>
                                                         <?php if ( $video_poster_image ) { ?>
                                                             <?php
-								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								$video_poster_image_attach_id = adapt_attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -251,7 +267,7 @@
                                                         <?php $featured_image = get_field( 'featured_image' ); ?>
                                                         <?php if ( $featured_image ) { ?>
                                                             <?php
-								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								$featured_image_attach_id = adapt_attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -267,7 +283,13 @@
                                     <div class="item-column content-column one-half">
                                         <span class="item-content-container">
                                             <span class="topic-filter">
-                                                <?php if (yoast_get_primary_term_id('topic')) {
+                                                <?php
+                                                // Reset each iteration - without this, a post with no primary
+                                                // term and no 'topic' terms would silently keep showing the
+                                                // previous post's topic (both branches below only ever assign
+                                                // $postTopic, never clear it).
+                                                $postTopic = null;
+                                                if (yoast_get_primary_term_id('topic')) {
                                                     $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                     $postTopic = get_term( $primary_term_topic_id );
                                                 } else {
@@ -309,7 +331,7 @@
                                                     <?php $video_poster_image = get_field( 'video_poster' ); ?>
                                                     <?php if ( $video_poster_image ) { ?>
                                                         <?php
-								$video_poster_image_attach_id = attachment_url_to_postid( $video_poster_image );
+								$video_poster_image_attach_id = adapt_attachment_url_to_postid( $video_poster_image );
 								if ( $video_poster_image_attach_id ) {
 									echo wp_get_attachment_image( $video_poster_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -335,7 +357,7 @@
                                                     <?php $featured_image = get_field( 'featured_image' ); ?>
                                                     <?php if ( $featured_image ) { ?>
                                                         <?php
-								$featured_image_attach_id = attachment_url_to_postid( $featured_image );
+								$featured_image_attach_id = adapt_attachment_url_to_postid( $featured_image );
 								if ( $featured_image_attach_id ) {
 									echo wp_get_attachment_image( $featured_image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -349,7 +371,13 @@
                                     <?php } ?>
                                     <span class="item-content-container">
                                         <span class="topic-filter">
-                                            <?php if (yoast_get_primary_term_id('topic')) {
+                                            <?php
+                                            // Reset each iteration - without this, a post with no primary
+                                            // term and no 'topic' terms would silently keep showing the
+                                            // previous post's topic (both branches below only ever assign
+                                            // $postTopic, never clear it).
+                                            $postTopic = null;
+                                            if (yoast_get_primary_term_id('topic')) {
                                                 $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                 $postTopic = get_term( $primary_term_topic_id );
                                             } else {

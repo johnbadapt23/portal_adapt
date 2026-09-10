@@ -39,6 +39,10 @@ $args = [
             'value'   => $today,
         ],
     ],
+    // This loop only collects IDs into $displayed_posts - no pagination UI
+    // reads found_posts/max_num_pages, so skip the SQL_CALC_FOUND_ROWS +
+    // extra COUNT(*) query WP_Query runs by default.
+    'no_found_rows' => true,
 ];
 global $displayed_posts;
 $displayed_posts =  [];
@@ -73,7 +77,7 @@ $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1; ?>
 $args = [
     'post_type' => 'post',
     'posts_per_page' => -1,
-    'paged'=> $paged,
+    'no_found_rows' => true,
     'fields' => 'ids'
 ]; ?>
 <?php $loop = new WP_Query( $args );
@@ -174,13 +178,46 @@ adapt_render_filter_posts();
 $posts_container_html = ob_get_clean();
 wp_reset_postdata();
 $adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
+
+// $themes is read by the trending-themes dropdown's per-term active-state
+// check further down, but was never assigned in this file - sibling
+// templates rendering the same dropdown (template-post-filters.php,
+// template-search.php) read it from $_GET['theme'], so wiring this page
+// up the same way instead of leaving it undefined.
+// phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable listing URL; no state change results from reading it.
+$themes = isset($_GET['theme']) ? sanitize_text_field(wp_unslash($_GET['theme'])) : '';
+
+// $persona/$sector below are read by the Personas/Sectors dropdowns'
+// per-term active-state checks further down, but (like $themes above)
+// were never assigned in this file - every read is guarded with
+// empty()/?? '' so PHP never warns about it, which is why this one went
+// unnoticed by the Query Monitor sweep that caught the $themes/$topic
+// versions of the same bug elsewhere in this file. Confirmed via
+// main.js's queryMap (persona: 'persona', sector: 'sector') that a
+// filter click writes exactly these two query-string keys, matching
+// template-persona-filters.php's/template-sector-filters.php's own
+// $_GET['persona']/$_GET['sector'] reads - so a deep link such as
+// ?persona=cios never pre-selected the matching button on this page,
+// silently, the same real (not just cosmetic) bug already fixed above
+// for topic/type/theme.
+$persona = isset($_GET['persona']) ? sanitize_text_field(wp_unslash($_GET['persona'])) : '';
+$sector = isset($_GET['sector']) ? sanitize_text_field(wp_unslash($_GET['sector'])) : '';
+// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+// $topic is also read once below (the Topics dropdown's "All" button), but
+// that comparison's result is never echoed (missing <?= / echo - a
+// separate, pre-existing dead-code bug left untouched here since fixing
+// it would change visible output, not just silence a warning). Declaring
+// it null preserves that exact no-op behavior while stopping the
+// undefined-variable warning Query Monitor was reporting on every load.
+$topic = null;
 ?>
 <section class="title-banner filter-title-banner light-theme <?php echo esc_attr( $membershipType ); ?>">
     <div class="container">
         <h1 class="header-large mobile-header-medium"><?php echo esc_html( $q->name ); ?></h1>
         <p>
             <?php 
-            echo (term_description($q->term_id));
+            echo wp_kses_post( term_description( $q->term_id ) );
             ?>
         </p>
     </div>
@@ -279,7 +316,7 @@ $adapt_visible_terms = $GLOBALS['adapt_visible_terms'] ?? [];
                                 $all_value = !empty($allowed_topic_slugs) ? wp_json_encode($allowed_topic_slugs) : '[]';
                                 $active_found = false;
                                 ?>
-                                <a href="#" class="filter-button all <?php $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
+                                <a href="#" class="filter-button all <?= $topic === '' ? 'active' : ''; ?>" data-value='<?= esc_attr($all_value); ?>'>All</a>
                                 <?php foreach($topic_terms as $term) :
                                     $is_visible = in_array($term->slug, $adapt_visible_terms['topic'] ?? [], true);
                                 ?>

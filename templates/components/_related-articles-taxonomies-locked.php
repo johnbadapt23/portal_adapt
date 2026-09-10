@@ -644,7 +644,7 @@
                         ?>
                     <?php } else { ?>
                         <span>No posts</span>
-                    <? }?>
+                    <?php } ?>
                 </div>
             </div>
             <?php if ( have_rows( 'button_block' ) ) : ?>

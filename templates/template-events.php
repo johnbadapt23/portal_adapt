@@ -8,7 +8,7 @@ get_header();
 
 <main id="main" role="main" class="events">
 <?php // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET search param for a bookmarkable, shareable events-listing URL (method="get" form below); echoed only via esc_attr(). ?>
-<?php $keyword = $_GET['searchWords']; ?>
+<?php $keyword = isset( $_GET['searchWords'] ) ? sanitize_text_field( wp_unslash( $_GET['searchWords'] ) ) : ''; ?>
     <section class="postHeader post-events">
         <div class="container">
             <div class="headerWrapper">
@@ -30,7 +30,7 @@ get_header();
                             <?php
                             $term_m = 'event-category';
                             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
-                            $filterCat = $_GET['categories'];
+                            $filterCat = isset( $_GET['categories'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['categories'] ) ) : '';
                             ?>
                             <?php
                             $terms = get_terms( [ 'taxonomy' => $term_m,
@@ -54,7 +54,7 @@ get_header();
                             <?php
                             $term_m = 'event-type';
                             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
-                            $filterType = $_GET['types'];
+                            $filterType = isset( $_GET['types'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['types'] ) ) : '';
                             ?>
                             <?php
                             $terms = get_terms( [ 'taxonomy' => $term_m,
@@ -75,7 +75,7 @@ get_header();
                             <?php
                             $term_m = 'event-duration';
                             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param, same bookmarkable events-listing URL; only used for checkbox pre-check comparison below.
-                            $filterDuration = $_GET['duration'];
+                            $filterDuration = isset( $_GET['duration'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_GET['duration'] ) ) : '';
                             ?>
                             <?php
                             $terms = get_terms( [ 'taxonomy' => $term_m,

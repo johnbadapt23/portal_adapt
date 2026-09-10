@@ -64,6 +64,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
+                                // No pagination UI reads found_posts/max_num_pages for this
+                                // block, so skip the SQL_CALC_FOUND_ROWS + extra COUNT(*)
+                                // query WP_Query runs by default.
+                                'no_found_rows'  => true,
                             ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
@@ -73,6 +77,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $posts->have_posts() ) : ?>
                                 <?php while ( $posts->have_posts() ) : $posts->the_post(); ?>
+                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-featured-slide">
                                         <div class="resources-slide-inner">
@@ -122,7 +127,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_172_src = $image;
-					$inline_img_172_attach_id = $inline_img_172_src ? attachment_url_to_postid( $inline_img_172_src ) : 0;
+					$inline_img_172_attach_id = $inline_img_172_src ? adapt_attachment_url_to_postid( $inline_img_172_src ) : 0;
 					if ( $inline_img_172_attach_id ) {
 						$inline_img_172_is_lcp = adapt_is_first_hero_image();
 						$inline_img_172_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_172_is_lcp ? ' skip-lazy' : '' ) ];
@@ -147,7 +152,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_173_src = $image;
-					$inline_img_173_attach_id = $inline_img_173_src ? attachment_url_to_postid( $inline_img_173_src ) : 0;
+					$inline_img_173_attach_id = $inline_img_173_src ? adapt_attachment_url_to_postid( $inline_img_173_src ) : 0;
 					if ( $inline_img_173_attach_id ) {
 						$inline_img_173_is_lcp = adapt_is_first_hero_image();
 						$inline_img_173_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_173_is_lcp ? ' skip-lazy' : '' ) ];
@@ -207,6 +212,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                         <?php
                                         $post = $post_object;
                                         setup_postdata( $post );
+                                        $post_id = get_the_ID();
                                         ?>
 
                                         <div class="resources-featured-slide">
@@ -259,7 +265,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                                 <?php if ($image) : ?>  
                                                                     <?php
 					$inline_img_174_src = $image;
-					$inline_img_174_attach_id = $inline_img_174_src ? attachment_url_to_postid( $inline_img_174_src ) : 0;
+					$inline_img_174_attach_id = $inline_img_174_src ? adapt_attachment_url_to_postid( $inline_img_174_src ) : 0;
 					if ( $inline_img_174_attach_id ) {
 						$inline_img_174_is_lcp = adapt_is_first_hero_image();
 						$inline_img_174_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_174_is_lcp ? ' skip-lazy' : '' ) ];
@@ -284,7 +290,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                                 <?php if ($image) : ?>  
                                                                     <?php
 					$inline_img_175_src = $image;
-					$inline_img_175_attach_id = $inline_img_175_src ? attachment_url_to_postid( $inline_img_175_src ) : 0;
+					$inline_img_175_attach_id = $inline_img_175_src ? adapt_attachment_url_to_postid( $inline_img_175_src ) : 0;
 					if ( $inline_img_175_attach_id ) {
 						$inline_img_175_is_lcp = adapt_is_first_hero_image();
 						$inline_img_175_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_175_is_lcp ? ' skip-lazy' : '' ) ];
@@ -351,7 +357,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                 <?php while ( have_rows( 'side_posts' ) ) : the_row(); ?>
 
                     <div class="recent-sidebar no-border">
-                        <span class="headerXsmall text-bold text-black"><?php the_sub_field( 'title' ); ?></span>
+                        <span class="headerXsmall text-bold text-black"><?php echo esc_html( get_sub_field( 'title' ) ); ?></span>
 
                         <?php if ( get_sub_field( 'most_recent_or_most_popular' ) === 'most-recent' ) : ?>
 
@@ -360,6 +366,10 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                 'post_type'      => 'post',
                                 'posts_per_page' => 3,
                                 'paged'          => $paged,
+                                // No pagination UI reads found_posts/max_num_pages for this
+                                // block, so skip the SQL_CALC_FOUND_ROWS + extra COUNT(*)
+                                // query WP_Query runs by default.
+                                'no_found_rows'  => true,
                             ];
                             if ( ! empty( $membership_tax_query ) ) {
                                 $args['tax_query'] = $membership_tax_query;
@@ -369,6 +379,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $sidebar_posts->have_posts() ) : ?>
                                 <?php while ( $sidebar_posts->have_posts() ) : $sidebar_posts->the_post(); ?>
+                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">
@@ -417,7 +428,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_176_src = $image;
-					$inline_img_176_attach_id = $inline_img_176_src ? attachment_url_to_postid( $inline_img_176_src ) : 0;
+					$inline_img_176_attach_id = $inline_img_176_src ? adapt_attachment_url_to_postid( $inline_img_176_src ) : 0;
 					if ( $inline_img_176_attach_id ) {
 						$inline_img_176_is_lcp = adapt_is_first_hero_image();
 						$inline_img_176_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_176_is_lcp ? ' skip-lazy' : '' ) ];
@@ -443,7 +454,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_177_src = $image;
-					$inline_img_177_attach_id = $inline_img_177_src ? attachment_url_to_postid( $inline_img_177_src ) : 0;
+					$inline_img_177_attach_id = $inline_img_177_src ? adapt_attachment_url_to_postid( $inline_img_177_src ) : 0;
 					if ( $inline_img_177_attach_id ) {
 						$inline_img_177_is_lcp = adapt_is_first_hero_image();
 						$inline_img_177_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_177_is_lcp ? ' skip-lazy' : '' ) ];
@@ -463,7 +474,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                             <?php } ?>
                                             <div class="post-content-container">
                                                 <span class="topic-filter">
-                                                    <?php if (yoast_get_primary_term_id('topic')) {
+                                                    <?php
+                                                    // Reset each iteration - without this, a post with no
+                                                    // primary term and no 'topic' terms would silently keep
+                                                    // showing the previous post's topic (both branches below
+                                                    // only ever assign $postTopic, never clear it).
+                                                    $postTopic = null;
+                                                    if (yoast_get_primary_term_id('topic')) {
                                                         $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                         $postTopic = get_term( $primary_term_topic_id );
                                                     } else {
@@ -522,6 +539,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $sidebar_posts->have_posts() ) : ?>
                                 <?php while ( $sidebar_posts->have_posts() ) : $sidebar_posts->the_post(); ?>
+                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">
@@ -570,7 +588,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_178_src = $image;
-					$inline_img_178_attach_id = $inline_img_178_src ? attachment_url_to_postid( $inline_img_178_src ) : 0;
+					$inline_img_178_attach_id = $inline_img_178_src ? adapt_attachment_url_to_postid( $inline_img_178_src ) : 0;
 					if ( $inline_img_178_attach_id ) {
 						$inline_img_178_is_lcp = adapt_is_first_hero_image();
 						$inline_img_178_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_178_is_lcp ? ' skip-lazy' : '' ) ];
@@ -596,7 +614,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_179_src = $image;
-					$inline_img_179_attach_id = $inline_img_179_src ? attachment_url_to_postid( $inline_img_179_src ) : 0;
+					$inline_img_179_attach_id = $inline_img_179_src ? adapt_attachment_url_to_postid( $inline_img_179_src ) : 0;
 					if ( $inline_img_179_attach_id ) {
 						$inline_img_179_is_lcp = adapt_is_first_hero_image();
 						$inline_img_179_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_179_is_lcp ? ' skip-lazy' : '' ) ];
@@ -616,7 +634,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                             <?php } ?>
                                             <div class="post-content-container">
                                                 <span class="topic-filter">
-                                                    <?php if (yoast_get_primary_term_id('topic')) {
+                                                    <?php
+                                                    // Reset each iteration - without this, a post with no
+                                                    // primary term and no 'topic' terms would silently keep
+                                                    // showing the previous post's topic (both branches below
+                                                    // only ever assign $postTopic, never clear it).
+                                                    $postTopic = null;
+                                                    if (yoast_get_primary_term_id('topic')) {
                                                         $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                         $postTopic = get_term( $primary_term_topic_id );
                                                     } else {
@@ -661,6 +685,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
 
                             <?php if ( $popular_posts->have_posts() ) : ?>
                                 <?php while ( $popular_posts->have_posts() ) : $popular_posts->the_post(); ?>
+                                    <?php $post_id = get_the_ID(); ?>
 
                                     <div class="resources-side-posts">
                                         <div class="resources-side-posts-inner">
@@ -709,7 +734,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_180_src = $image;
-					$inline_img_180_attach_id = $inline_img_180_src ? attachment_url_to_postid( $inline_img_180_src ) : 0;
+					$inline_img_180_attach_id = $inline_img_180_src ? adapt_attachment_url_to_postid( $inline_img_180_src ) : 0;
 					if ( $inline_img_180_attach_id ) {
 						$inline_img_180_is_lcp = adapt_is_first_hero_image();
 						$inline_img_180_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_180_is_lcp ? ' skip-lazy' : '' ) ];
@@ -735,7 +760,7 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                                             <?php if ($image) : ?>  
                                                                 <?php
 					$inline_img_181_src = $image;
-					$inline_img_181_attach_id = $inline_img_181_src ? attachment_url_to_postid( $inline_img_181_src ) : 0;
+					$inline_img_181_attach_id = $inline_img_181_src ? adapt_attachment_url_to_postid( $inline_img_181_src ) : 0;
 					if ( $inline_img_181_attach_id ) {
 						$inline_img_181_is_lcp = adapt_is_first_hero_image();
 						$inline_img_181_attrs = [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' . ( $inline_img_181_is_lcp ? ' skip-lazy' : '' ) ];
@@ -755,7 +780,13 @@ if ( ! empty( $membership_allowed_ids ) ) {
                                             <?php } ?>
                                             <div class="post-content-container">
                                                 <span class="topic-filter">
-                                                    <?php if (yoast_get_primary_term_id('topic')) {
+                                                    <?php
+                                                    // Reset each iteration - without this, a post with no
+                                                    // primary term and no 'topic' terms would silently keep
+                                                    // showing the previous post's topic (both branches below
+                                                    // only ever assign $postTopic, never clear it).
+                                                    $postTopic = null;
+                                                    if (yoast_get_primary_term_id('topic')) {
                                                         $primary_term_topic_id = yoast_get_primary_term_id('topic');
                                                         $postTopic = get_term( $primary_term_topic_id );
                                                     } else {

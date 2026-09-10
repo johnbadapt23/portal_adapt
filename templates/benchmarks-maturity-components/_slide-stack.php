@@ -34,12 +34,12 @@
                                         </span>
                                     <?php } ?>
                                     <span class="text">
-                                        <h3 class="labelMedium"><?php the_sub_field( 'title' ); ?></h3>
+                                        <h3 class="labelMedium"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
                                         <?php if ( get_sub_field ( 'link_url' ) ) { ?>
-                                            <a href="<?php the_sub_field( 'link_url' ); ?>"
+                                            <a href="<?php echo esc_url( get_sub_field( 'link_url' ) ); ?>"
                                             class="red-text text-link red-underline-link external-link"
-                                            target="<?php the_sub_field( 'link_target' ); ?>">
-                                            <?php the_sub_field( 'link_text' ); ?>
+                                            target="<?php echo esc_attr( get_sub_field( 'link_target' ) ); ?>">
+                                            <?php echo esc_html( get_sub_field( 'link_text' ) ); ?>
                                             </a>
                                         <?php } ?>
                                     </span>

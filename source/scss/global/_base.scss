@@ -137,7 +137,30 @@
 }
 
 html {
-	font-family: $font-base;
+	// !important on both font-family declarations in this block: the
+	// customgpt-chat-widget plugin's own CSS bundle
+	// (customgpt-widget.b16.min.css) ships an unscoped "body, html {
+	// font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif; }"
+	// rule with no containing selector of its own, so it applies to the
+	// entire document, not just the widget's UI. It loads after the
+	// theme's own CSS with the same specificity (element selectors only),
+	// so without !important it silently wins the tie and overrides this
+	// rule sitewide. Confirmed live via getComputedStyle(document.
+	// documentElement).fontFamily reporting "Inter, ..." instead of
+	// $font-base, and traced this to being the actual cause of a reported
+	// homepage LCP delay: Inter is a Google-hosted web font with no local
+	// fallback rendering, so every page load has to download it before any
+	// text relying on this inherited font-family can render in its final
+	// font; once that download completes mid-page-load, the resulting
+	// reflow was shown (live Resource Timing + LargestContentfulPaint
+	// correlation) to resize the resources-featured-slider's column via
+	// its aspect-ratio padding-top trick, well after first paint. $font-base
+	// itself is a plain system font stack (Helvetica Neue/Helvetica/Arial/
+	// sans-serif) with nothing to download, so restoring it removes the
+	// web-font dependency entirely rather than just changing which one
+	// wins a race. This project already uses !important for the same
+	// "defend against third-party plugin CSS" reason in _forms.scss.
+	font-family: $font-base !important;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	-webkit-tap-highlight-color: transparent;
 	-webkit-font-smoothing: antialiased;
@@ -148,7 +171,7 @@ html {
 
 body,
 html {
-	font-family: $font-base;
+	font-family: $font-base !important;
 	width: 100%;
 	min-height: 100%;
 	min-width: $site-min-width;

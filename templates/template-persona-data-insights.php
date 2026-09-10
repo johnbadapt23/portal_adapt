@@ -5,7 +5,7 @@
 
 get_header();
 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only GET filter param for a bookmarkable, shareable persona-listing URL; used only to look up a taxonomy term by slug below, no state change.
-$persona = $_GET['persona'];
+$persona = isset( $_GET['persona'] ) ? sanitize_text_field( wp_unslash( $_GET['persona'] ) ) : '';
 ?>
 
 
@@ -89,7 +89,7 @@ $persona = $_GET['persona'];
 	                                        <span>
 	                                    <?php else : ?>
 	                                        <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -166,7 +166,7 @@ $persona = $_GET['persona'];
 						<span class="title"><?php echo esc_html( get_the_title() ); ?></span>
 					</span>
 					<span class="title-container">
-						<h1 clas="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
+						<h1 class="h2-style"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h1>
 						<span class="subtitle"><?php echo esc_html( get_sub_field( 'sub_title' ) ); ?></span>
 					</span>
 				</div>
@@ -250,7 +250,7 @@ $persona = $_GET['persona'];
 																		<span class="bg-container">
 																			<?php if (  $image ) { ?>
 																				<?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -391,7 +391,7 @@ $persona = $_GET['persona'];
 										 <span>
 									 <?php else : ?>
 										 <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

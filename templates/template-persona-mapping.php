@@ -1,7 +1,7 @@
 <?php
 // phpcs:disable WordPress.Security.NonceVerification.Recommended -- read-only GET filter/preview-toggle params for a bookmarkable, shareable persona URL; no state change results from reading them.
-$filterType = $_GET['type'];
-$preview = $_GET['new'];
+$filterType = isset( $_GET['type'] ) ? sanitize_text_field( wp_unslash( $_GET['type'] ) ) : '';
+$preview = isset( $_GET['new'] ) ? sanitize_text_field( wp_unslash( $_GET['new'] ) ) : '';
 // phpcs:enable WordPress.Security.NonceVerification.Recommended
 global $displayed_posts;
 $displayed_posts =  [];
@@ -21,7 +21,7 @@ $post_types =  [];
                 <span class="title"><?php echo esc_html( get_field( 'persona_title', $q ) ); ?></span>
             </span>
             <span class="title-container">
-                <h1 clas="h2-style">
+                <h1 class="h2-style">
                     <?php 
                         if ($persona_title === $taxonomy_name) {
                             echo esc_html( get_field( 'persona_title', $q ) );
@@ -84,7 +84,7 @@ $post_types =  [];
                                                         <span class="bg-container">
                                                             <?php if (  $image ) { ?>
                                                                 <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '' ] );
 								} else {
@@ -190,7 +190,7 @@ $post_types =  [];
                                                     <?php if ( get_field( 'listing_image') ) { ?>
                                                         <?php $image = get_field( 'listing_image'); ?>
                                                             <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -207,7 +207,7 @@ $post_types =  [];
                                                             <?php $image = get_field( 'featured_image'); ?>
                                                         <?php } ?>
                                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {
@@ -287,7 +287,7 @@ $post_types =  [];
                 <a href="/persona-mapping/" target="_self">Persona Mapping</a>
             </span>
             <h1><?php echo esc_html( get_field( 'persona_title', $q ) ); ?></h1>
-            <p class="persona-description"><?php echo esc_html( $q->description ); ?></span>
+            <p class="persona-description"><?php echo esc_html( $q->description ); ?></p>
         </div>
     </section>
     <?php
@@ -298,7 +298,7 @@ $post_types =  [];
     $args = [
         'post_type'      => 'post',
         'posts_per_page' => -1,
-        'paged'=> $paged,
+        'no_found_rows' => true,
         'fields' => 'ids',
         'tax_query'      => [
             'relation' => 'AND',
@@ -473,7 +473,7 @@ $post_types =  [];
                                         <?php echo wp_get_attachment_image( $image['ID'], 'full', false, [ 'alt' => '', 'class' => 'desktop' ] ); ?>
                                     <?php else : ?>
                                         <?php
-								$image_attach_id = attachment_url_to_postid( $image );
+								$image_attach_id = adapt_attachment_url_to_postid( $image );
 								if ( $image_attach_id ) {
 									echo wp_get_attachment_image( $image_attach_id, 'full', false, [ 'alt' => '', 'class' => 'desktop' ] );
 								} else {

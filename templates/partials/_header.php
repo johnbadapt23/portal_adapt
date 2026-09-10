@@ -8,11 +8,14 @@ global $current_user, $first_name, $last_name, $user_email, $membershipType, $ad
 // $member = new MeprUser();
 // $member->ID = $current_user->ID; // Set user ID to the member's ID
 // Get the active subscriptions for this user
+// Declared before the $member check (rather than only inside it) so the
+// in_array() calls below don't read an undefined variable -- and pass a
+// non-array to in_array()'s second parameter, which is a fatal TypeError
+// on PHP 8+ -- for admins visiting while MemberPress is inactive/absent.
+$subscription_ids = [];
+
 if ($member) {
     $active_subscriptions = $member->active_product_subscriptions('ids');
-
-    // Initialize an array to hold the subscription IDs
-    $subscription_ids = [];
 
     foreach ($active_subscriptions as $subscription) {
         $subscription_ids[] = $subscription;
@@ -53,7 +56,7 @@ if (current_user_can('administrator')) {
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
                     <?php if ( get_field( 'logo', 'options') ) { ?>
                     <?php 
-                    $attachment_id = attachment_url_to_postid( get_field( 'logo', 'options') );
+                    $attachment_id = adapt_attachment_url_to_postid( get_field( 'logo', 'options') );
 
                     if ( $attachment_id ) {
                         echo wp_get_attachment_image(
@@ -69,7 +72,7 @@ if (current_user_can('administrator')) {
                         ?>
                          <?php
 					$inline_img_158_src = get_field( 'logo', 'options' );
-					$inline_img_158_attach_id = $inline_img_158_src ? attachment_url_to_postid( $inline_img_158_src ) : 0;
+					$inline_img_158_attach_id = $inline_img_158_src ? adapt_attachment_url_to_postid( $inline_img_158_src ) : 0;
 					if ( $inline_img_158_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_158_attach_id, 'full', false, [ 'alt' => 'Adapt', 'width' => '300' ] );
 					} elseif ( $inline_img_158_src ) {
@@ -382,6 +385,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -426,7 +430,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_159_src = $image;
-					$inline_img_159_attach_id = $inline_img_159_src ? attachment_url_to_postid( $inline_img_159_src ) : 0;
+					$inline_img_159_attach_id = $inline_img_159_src ? adapt_attachment_url_to_postid( $inline_img_159_src ) : 0;
 					if ( $inline_img_159_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_159_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_159_src ) {
@@ -585,6 +589,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -629,7 +634,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_160_src = $image;
-					$inline_img_160_attach_id = $inline_img_160_src ? attachment_url_to_postid( $inline_img_160_src ) : 0;
+					$inline_img_160_attach_id = $inline_img_160_src ? adapt_attachment_url_to_postid( $inline_img_160_src ) : 0;
 					if ( $inline_img_160_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_160_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_160_src ) {
@@ -776,6 +781,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -820,7 +826,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_161_src = $image;
-					$inline_img_161_attach_id = $inline_img_161_src ? attachment_url_to_postid( $inline_img_161_src ) : 0;
+					$inline_img_161_attach_id = $inline_img_161_src ? adapt_attachment_url_to_postid( $inline_img_161_src ) : 0;
 					if ( $inline_img_161_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_161_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_161_src ) {
@@ -965,6 +971,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -1009,7 +1016,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_162_src = $image;
-					$inline_img_162_attach_id = $inline_img_162_src ? attachment_url_to_postid( $inline_img_162_src ) : 0;
+					$inline_img_162_attach_id = $inline_img_162_src ? adapt_attachment_url_to_postid( $inline_img_162_src ) : 0;
 					if ( $inline_img_162_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_162_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_162_src ) {
@@ -1081,14 +1088,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
@@ -1230,14 +1251,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
@@ -1593,6 +1628,7 @@ if (current_user_can('administrator')) {
                                                 <?php if ( $post_object ): ?>
                                                     <?php $post = $post_object; ?>
                                                     <?php setup_postdata( $post ); ?> 
+                                                    <?php $post_id = get_the_ID(); ?>
                                                     <a href="<?php the_permalink(); ?>">
                                                         <span class="menu-featured-post">
                                                             <span class="image-container">
@@ -1637,7 +1673,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="bg-container">
                                                                         <?php
 					$inline_img_163_src = $image;
-					$inline_img_163_attach_id = $inline_img_163_src ? attachment_url_to_postid( $inline_img_163_src ) : 0;
+					$inline_img_163_attach_id = $inline_img_163_src ? adapt_attachment_url_to_postid( $inline_img_163_src ) : 0;
 					if ( $inline_img_163_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_163_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_163_src ) {
@@ -1792,14 +1828,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
@@ -1933,6 +1983,7 @@ if (current_user_can('administrator')) {
                                                 <?php if ( $post_object ): ?>
                                                     <?php $post = $post_object; ?>
                                                     <?php setup_postdata( $post ); ?> 
+                                                    <?php $post_id = get_the_ID(); ?>
                                                     <a href="<?php the_permalink(); ?>">
                                                         <span class="menu-featured-post">
                                                             <span class="image-container">
@@ -1977,7 +2028,7 @@ if (current_user_can('administrator')) {
                                                                     <span class="bg-container">
                                                                         <?php
 					$inline_img_164_src = $image;
-					$inline_img_164_attach_id = $inline_img_164_src ? attachment_url_to_postid( $inline_img_164_src ) : 0;
+					$inline_img_164_attach_id = $inline_img_164_src ? adapt_attachment_url_to_postid( $inline_img_164_src ) : 0;
 					if ( $inline_img_164_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_164_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_164_src ) {
@@ -2120,6 +2171,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -2164,7 +2216,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_165_src = $image;
-					$inline_img_165_attach_id = $inline_img_165_src ? attachment_url_to_postid( $inline_img_165_src ) : 0;
+					$inline_img_165_attach_id = $inline_img_165_src ? adapt_attachment_url_to_postid( $inline_img_165_src ) : 0;
 					if ( $inline_img_165_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_165_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_165_src ) {
@@ -2305,6 +2357,7 @@ if (current_user_can('administrator')) {
                                                     <?php if ( $post_object ): ?>
                                                         <?php $post = $post_object; ?>
                                                         <?php setup_postdata( $post ); ?> 
+                                                        <?php $post_id = get_the_ID(); ?>
                                                         <a href="<?php the_permalink(); ?>">
                                                             <span class="menu-featured-post">
                                                                 <span class="image-container">
@@ -2349,7 +2402,7 @@ if (current_user_can('administrator')) {
                                                                         <span class="bg-container">
                                                                             <?php
 					$inline_img_166_src = $image;
-					$inline_img_166_attach_id = $inline_img_166_src ? attachment_url_to_postid( $inline_img_166_src ) : 0;
+					$inline_img_166_attach_id = $inline_img_166_src ? adapt_attachment_url_to_postid( $inline_img_166_src ) : 0;
 					if ( $inline_img_166_attach_id ) {
 						echo wp_get_attachment_image( $inline_img_166_attach_id, 'article-card', false, [ 'alt' => esc_attr(get_the_title($post_id)), 'class' => 'article-image' ] );
 					} elseif ( $inline_img_166_src ) {
@@ -2424,14 +2477,28 @@ if (current_user_can('administrator')) {
                                                                         <span class="link-container">
                                                                             <?php if(get_sub_field( 'link_type' ) == 'link'){ ?> 
                                                                                 <a class="text-link red-text-link uppercase arrow-link" href="<?php echo esc_url( get_sub_field( 'link' ) ); ?>" target="_self">Download</a>
-                                                                            <?php } else { ?> 
-                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#downloadCalendarLink" target="_self">Download</a>
-                                                                                    <span style="display: none;">         
-                                                                                        <span class="preview-cta-form login-form-container" id="downloadCalendarLink">
+                                                                            <?php } else { ?>
+                                                                                <?php
+                                                                                // A hardcoded id="downloadCalendarLink" here (the same id
+                                                                                // repeated in 4 separate mega-menu sections in this file,
+                                                                                // each with its own events_calendar repeater) meant every
+                                                                                // trigger anywhere on the page - across all 4 menus, and
+                                                                                // across every row if any menu's repeater has more than
+                                                                                // one row - opened the very FIRST one's modal, since
+                                                                                // magnificPopup resolves its target via this href="#id",
+                                                                                // not a relative DOM lookup. __LINE__ is a distinct
+                                                                                // compile-time constant at each of the 4 source locations,
+                                                                                // and get_row_index() keeps each row within a single
+                                                                                // location's loop unique too.
+                                                                                $popup_id = 'downloadCalendarLink-' . __LINE__ . '-' . get_row_index();
+                                                                                ?>
+                                                                                <a class="text-link red-text-link uppercase arrow-link formPopupHubspot" href="#<?php echo esc_attr( $popup_id ); ?>" target="_self">Download</a>
+                                                                                    <span style="display: none;">
+                                                                                        <span class="preview-cta-form login-form-container" id="<?php echo esc_attr( $popup_id ); ?>">
                                                                                             <span class="form-container"><?php echo adapt_render_hubspot_embed( get_sub_field( 'hubspot_embed' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin-authored HubSpot embed markup requires raw <script> output; wp_kses_post() would strip the tag the embed needs to function. ?></span>
                                                                                         </span>
                                                                                     </span>
-                                                                            <?php } ?>                                                                                
+                                                                            <?php } ?>
                                                                         </span> 
                                                                     </span>                                                                   
                                                                 </span>
