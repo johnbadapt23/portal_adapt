@@ -35,6 +35,29 @@
 		};
 	}
 
+	// ajaxobject.nonce is localized into this page's own HTML at render
+	// time (wp_create_nonce('adapt_ajax_nonce') in functions.php's
+	// my_enqueue_scripts()), which means it's only ever as fresh as
+	// whatever cached copy of the page a visitor happens to be served -
+	// WP Rocket's full-page cache can serve a page well past the nonce's
+	// own ~24h rolling validity window, baking in an already-expired
+	// value no matter how recently the visitor actually opened the page.
+	// Refresh it here via a normal AJAX call (admin-ajax.php requests are
+	// never full-page-cached, so this is always current) as soon as this
+	// script runs, well before a human could realistically click a "Load
+	// More"/filter control that depends on it. Every AJAX call site below
+	// reads ajaxobject.nonce live at call time rather than a copied local
+	// variable, so updating it in place here is enough to cover all of
+	// them without touching each call site individually.
+	if (typeof ajaxobject !== 'undefined' && ajaxobject.ajax_url) {
+		$.post(ajaxobject.ajax_url, { action: 'adapt_refresh_nonce' })
+			.done(function (response) {
+				if (response && response.success && response.data && response.data.nonce) {
+					ajaxobject.nonce = response.data.nonce;
+				}
+			});
+	}
+
 	$(document).ready(function (){
 
 		// Accessibility: slick.js generates prev/next <button> arrows with no

@@ -2227,6 +2227,31 @@ function ajax_load_filtered_posts() {
 add_action('wp_ajax_load_filtered_posts', 'ajax_load_filtered_posts');
 add_action('wp_ajax_nopriv_load_filtered_posts', 'ajax_load_filtered_posts');
 
+// Issues a fresh 'adapt_ajax_nonce' on demand. Exists to break the
+// dependency between this nonce and full-page caching: ajaxobject.nonce
+// (localized into the page's own HTML via wp_create_nonce() at render
+// time, see my_enqueue_scripts()) is only ever as fresh as the page's
+// cache - a WP Rocket-cached page older than the nonce's own ~24h
+// rolling validity window bakes in an already-expired value, and every
+// AJAX handler that depends on it (ajax_load_filtered_posts() and the
+// other check_ajax_referer('adapt_ajax_nonce', 'nonce') call sites in
+// this file) then rejects it with wp_die(-1, 403) - regardless of how
+// recently the visitor actually loaded the page. Shortening the cache
+// lifespan (WP Rocket setting) only narrows this window, it can't close
+// it, and a manual cache purge doesn't help anyone hitting a stale page
+// outside business hours. admin-ajax.php requests are never full-page-
+// cached, so a nonce fetched this way is always current no matter how
+// stale the surrounding page's cache is. main.js calls this once, as
+// soon as it runs on every page load, and updates ajaxobject.nonce in
+// place - every AJAX call site in that file reads ajaxobject.nonce live
+// at call time rather than a copied local variable, so this one refresh
+// covers all of them.
+function ajax_refresh_adapt_nonce() {
+    wp_send_json_success( [ 'nonce' => wp_create_nonce( 'adapt_ajax_nonce' ) ] );
+}
+add_action( 'wp_ajax_adapt_refresh_nonce', 'ajax_refresh_adapt_nonce' );
+add_action( 'wp_ajax_nopriv_adapt_refresh_nonce', 'ajax_refresh_adapt_nonce' );
+
 // Persona and Sector Featured
 
 function ajax_load_featured_post() {
