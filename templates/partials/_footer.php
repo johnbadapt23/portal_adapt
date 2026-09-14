@@ -271,7 +271,7 @@
                             <p><?php echo get_field( 'members_only_text', 'option' ); ?></p>
                             <div class="image-content-mobile">
                                 <?php $members_only_image_mobile = get_field( 'members_only_image_mobile', 'option' ); ?>
-                                <span class="image-container">
+                                <span class="image-container" style="height: 100%;">
                                     <span class="bg-container">
                                         <?php if ( $members_only_image_mobile ) { ?>
                                             <?php echo wp_get_attachment_image( $members_only_image_mobile['ID'], 'full', false, [ 'alt' => $members_only_image_mobile['alt'] ] ); ?>
