@@ -2805,13 +2805,13 @@ a.post-popup {
 		}
 
 		.members-popup-inner {
-			float: left;
+			display: flex;
+			flex-wrap: wrap;
 			width: 100%;
 			text-align: left;
 			position: relative;
 
 			.members-popup-content {
-				float: left;
 				width: 58%;
 
 				@include responsive(767) {
@@ -2880,7 +2880,6 @@ a.post-popup {
 			}
 
 			.members-popup-image-content {
-				float: left;
 				width: 42%;
 				padding-left: 30px;
 
@@ -3575,11 +3574,6 @@ body .labelXSmall {
 	display: block;
 }
 body .topic-filter .labelXXsmall {
-	float: none;
-	clear: both;
-	display: block;
-}
-body .mfp-members .mfp-content .members-popup-inner {
 	float: none;
 	clear: both;
 	display: block;

@@ -267,11 +267,11 @@
                 <div class="members-popup" id="membersPopup">
                     <div class="members-popup-inner">
                         <div class="members-popup-content">
-                            <h3><?php echo esc_html( get_field( 'members_only_title', 'option' ) ); ?></h3>
-                            <p><?php echo esc_html( get_field( 'members_only_text', 'option' ) ); ?></p>
+                            <h3><?php echo get_field( 'members_only_title', 'option' ); ?></h3>
+                            <p><?php echo get_field( 'members_only_text', 'option' ); ?></p>
                             <div class="image-content-mobile">
                                 <?php $members_only_image_mobile = get_field( 'members_only_image_mobile', 'option' ); ?>
-                                <span class="image-container">
+                                <span class="image-container" style="height: 100%;">
                                     <span class="bg-container">
                                         <?php if ( $members_only_image_mobile ) { ?>
                                             <?php echo wp_get_attachment_image( $members_only_image_mobile['ID'], 'full', false, [ 'alt' => $members_only_image_mobile['alt'] ] ); ?>
@@ -290,7 +290,7 @@
                         </div>
                         <div class="members-popup-image-content desktop-image">
                             <?php $members_only_image = get_field( 'members_only_image', 'option' ); ?>
-                            <span class="image-container">
+                            <span class="image-container" style="height: 100%;">
                                 <span class="bg-container">
                                     <?php if ( $members_only_image ) { ?>
                                         <?php echo wp_get_attachment_image( $members_only_image['ID'], 'full', false, [ 'alt' => $members_only_image['alt'] ] ); ?>
