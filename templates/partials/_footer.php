@@ -290,7 +290,7 @@
                         </div>
                         <div class="members-popup-image-content desktop-image">
                             <?php $members_only_image = get_field( 'members_only_image', 'option' ); ?>
-                            <span class="image-container">
+                            <span class="image-container" style="height: 100%;">
                                 <span class="bg-container">
                                     <?php if ( $members_only_image ) { ?>
                                         <?php echo wp_get_attachment_image( $members_only_image['ID'], 'full', false, [ 'alt' => $members_only_image['alt'] ] ); ?>
