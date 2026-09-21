@@ -8,7 +8,25 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
 <?php if( $is_agent_tester ) : ?>
 <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
 <script>
-	window.__cgptConfig = { p_id: '98865', p_key: 'f12d51cc482847f28a6333cf7f6a5c9d' };
+	window.__cgptConfig = {
+		p_id: '98865',
+		p_key: 'f12d51cc482847f28a6333cf7f6a5c9d'
+		<?php
+		// Same "Identify Logged-In Users" setting as the main CustomGPT
+		// Chat Widget plugin's own settings page (Settings -> CustomGPT
+		// Chat Widget), read through the plugin's exported
+		// customgpt_widget_get_external_id() helper so this stays in
+		// sync with that setting automatically rather than duplicating
+		// its logic here. Only sent for logged-in visitors when that
+		// setting isn't "Don't identify users"; '' otherwise.
+		$cgpt_agent_tester_external_id = function_exists( 'customgpt_widget_get_external_id' )
+			? customgpt_widget_get_external_id()
+			: '';
+		?>
+		<?php if ( '' !== $cgpt_agent_tester_external_id ) : ?>
+		, external_id: '<?php echo esc_js( $cgpt_agent_tester_external_id ); ?>'
+		<?php endif; ?>
+	};
 </script>
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'98043', p_key:'8c7e9ac540d9dd825d6cf4eab0ade038' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'97474', p_key:'b53f0fe49da7c1843edb69e542282c3d' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
