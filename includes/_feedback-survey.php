@@ -290,20 +290,28 @@ function adapt_get_feedback_survey_start_date_for_user( $user_id ) {
  * Whether the current request should even attempt to render the survey:
  * logged in, feature enabled, a form shortcode is configured, today is
  * on/after this user's resolved start date (global, or a per-role override
- * - see adapt_get_feedback_survey_start_date_for_user()), this user has
- * already dismissed the welcome popup (i.e. actually encountered the AI
- * Assistant box, not just logged in), and this user hasn't already
- * submitted the survey itself (unless exempted - see below). Note there's
- * no "already dismissed the survey" check here on purpose - closing it
- * without submitting is not persisted anywhere, so it's simply asked again
- * on the next page load.
+ * - see adapt_get_feedback_survey_start_date_for_user()), and this user
+ * hasn't already submitted the survey itself (unless exempted - see below).
+ * Note there's no "already dismissed the survey" check here on purpose -
+ * closing it without submitting is not persisted anywhere, so it's simply
+ * asked again on the next page load.
  *
- * Administrators always see it regardless of the welcome-popup-seen
- * requirement or a past submission (debugging/QA convenience, same
- * exemption already used for the welcome popup). The "Show again to
- * everyone" field does the same for the survey's own submitted check, for
- * every logged-in user - an admin-controlled, non-destructive override for
- * bringing the survey back without bulk-deleting submitted user meta.
+ * Deliberately independent of the welcome popup - this used to also require
+ * adapt_welcome_popup_seen user meta (i.e. the user must have already
+ * dismissed the welcome popup first), but that meant a user could go
+ * without ever seeing the survey simply by leaving the welcome popup open/
+ * unclosed, or if the welcome popup was disabled entirely. Once this
+ * feature is enabled it should show for every valid user regardless of
+ * whether they've seen or closed the welcome popup - the two popups no
+ * longer gate each other; see adapt_should_show_welcome_popup()'s own
+ * early-return for the other half of that relationship.
+ *
+ * Administrators always see it regardless of a past submission
+ * (debugging/QA convenience, same exemption already used for the welcome
+ * popup). The "Show again to everyone" field does the same for the
+ * survey's own submitted check, for every logged-in user - an
+ * admin-controlled, non-destructive override for bringing the survey back
+ * without bulk-deleting submitted user meta.
  */
 function adapt_should_show_feedback_survey() {
 	if ( ! is_user_logged_in() ) {
@@ -318,16 +326,6 @@ function adapt_should_show_feedback_survey() {
 	}
 	$start_date = adapt_get_feedback_survey_start_date_for_user( get_current_user_id() );
 	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
-		return false;
-	}
-	// Only ask people who actually closed the welcome popup - i.e. actually
-	// encountered the AI Assistant box it points at - not everyone who is
-	// merely logged in. Uses the same adapt_welcome_popup_seen meta the
-	// welcome popup already sets on dismissal (see includes/_welcome-popup.php),
-	// rather than a second flag, so this stays accurate even if that popup
-	// gets disabled or re-enabled later - it directly reflects what actually
-	// happened, not a separate tracked copy of it.
-	if ( ! current_user_can( 'administrator' ) && ! get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
 		return false;
 	}
 	$bypass_submitted_check = get_field( 'feedback_survey_force_redisplay', 'option' ) || current_user_can( 'administrator' );
