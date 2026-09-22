@@ -76,11 +76,29 @@ add_action( 'acf/init', function() {
 				'label'             => 'Start showing from',
 				'name'              => 'feedback_survey_start_date',
 				'type'              => 'date_picker',
-				'instructions'      => 'The popup will not appear before this date, even if enabled. Defaults to 2 weeks out from when this feature was built.',
+				'instructions'      => 'The default start date, used for any role with no override in "Per-role start dates" below. The popup will not appear before this date, even if enabled. Defaults to 2 weeks out from when this feature was built.',
 				'display_format'    => 'd/m/Y',
 				'return_format'     => 'Ymd',
 				'first_day'         => 1,
 				'default_value'     => '20260827',
+				'conditional_logic' => $shown_if_enabled,
+			],
+			[
+				'key'               => 'field_adapt_feedback_survey_role_start_dates',
+				'label'             => 'Per-role start dates',
+				'name'              => 'feedback_survey_role_start_dates',
+				'type'              => 'textarea',
+				'rows'              => 4,
+				// Plain "role: date" lines rather than a repeater field -
+				// repeater/flexible-content are ACF PRO-only and nothing
+				// else in this codebase uses them (grepped every ACF field
+				// group here: only text/textarea/true_false/date_picker
+				// appear), so this stays usable regardless of which ACF
+				// tier is actually licensed on this install. See
+				// adapt_parse_feedback_survey_role_start_dates() for the
+				// parser and adapt_get_feedback_survey_start_date_for_user()
+				// for how it's resolved per user.
+				'instructions'      => 'Optional per-role overrides for the start date above - e.g. show it to subscribers today but hold off on agent_tester for two more weeks. One "role_slug: YYYY-MM-DD" pair per line, such as:' . "\n" . 'subscriber: 2026-09-01' . "\n" . 'agent_tester: 2026-10-06' . "\n\n" . 'A role not listed here still uses the start date field above. If a user holds more than one role listed here, the earliest of their matching dates applies. Lines that don\'t match this exact "role: YYYY-MM-DD" format are silently ignored, so a typo just falls back to the default above rather than breaking the popup for everyone. Currently registered role slugs: ' . implode( ', ', array_keys( wp_roles()->get_names() ) ) . '.',
 				'conditional_logic' => $shown_if_enabled,
 			],
 			[
@@ -203,14 +221,82 @@ add_action( 'wp', function() {
 } );
 
 /**
+ * Parses the "Per-role start dates" textarea (field_adapt_feedback_survey_role_start_dates)
+ * into a [ role_slug => Ymd ] map, memoized per request since it's read on
+ * every adapt_should_show_feedback_survey() call. Deliberately tolerant of
+ * bad input - a line that isn't exactly "role: YYYY-MM-DD" (typo'd role,
+ * wrong date shape, stray blank line) is skipped rather than fataling, so a
+ * mistake in one line only costs that one role its override, never breaks
+ * the field for everyone else or the global fallback date.
+ */
+function adapt_parse_feedback_survey_role_start_dates() {
+	static $parsed = null;
+	if ( null !== $parsed ) {
+		return $parsed;
+	}
+	$parsed = [];
+	$raw = (string) get_field( 'feedback_survey_role_start_dates', 'option' );
+	foreach ( preg_split( '/\r\n|\r|\n/', $raw ) as $line ) {
+		$line = trim( $line );
+		if ( '' === $line || false === strpos( $line, ':' ) ) {
+			continue;
+		}
+		list( $role, $date ) = array_map( 'trim', explode( ':', $line, 2 ) );
+		$role = sanitize_key( $role );
+		if ( '' === $role || ! preg_match( '/^(\d{4})-(\d{2})-(\d{2})$/', $date, $m ) ) {
+			continue;
+		}
+		$parsed[ $role ] = $m[1] . $m[2] . $m[3]; // Ymd, matching current_time('Ymd') comparisons below.
+	}
+	return $parsed;
+}
+
+/**
+ * Resolves the effective survey start date for one specific user: the
+ * earliest per-role override (see adapt_parse_feedback_survey_role_start_dates())
+ * among the roles this user actually holds, or the global
+ * feedback_survey_start_date field when none of their roles has an
+ * override (including when the textarea is empty entirely - the original,
+ * global-only behavior). "Earliest of their roles" rather than "first role
+ * matched" or "latest": a user who holds both an already-open role and a
+ * still-scheduled one should get the survey now via the role that's
+ * already open, not be held back by the other one they also happen to
+ * hold.
+ */
+function adapt_get_feedback_survey_start_date_for_user( $user_id ) {
+	$global_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string, or falsy.
+	$user = get_userdata( $user_id );
+	if ( ! $user ) {
+		return $global_date;
+	}
+	$role_dates = adapt_parse_feedback_survey_role_start_dates();
+	if ( empty( $role_dates ) ) {
+		return $global_date;
+	}
+	$matches = [];
+	foreach ( (array) $user->roles as $role ) {
+		if ( isset( $role_dates[ $role ] ) ) {
+			$matches[] = $role_dates[ $role ];
+		}
+	}
+	if ( empty( $matches ) ) {
+		return $global_date;
+	}
+	sort( $matches ); // Ymd strings sort chronologically as plain strings.
+	return $matches[0];
+}
+
+/**
  * Whether the current request should even attempt to render the survey:
  * logged in, feature enabled, a form shortcode is configured, today is
- * on/after the configured start date, this user has already dismissed the
- * welcome popup (i.e. actually encountered the AI Assistant box, not just
- * logged in), and this user hasn't already submitted the survey itself
- * (unless exempted - see below). Note there's no "already dismissed the
- * survey" check here on purpose - closing it without submitting is not
- * persisted anywhere, so it's simply asked again on the next page load.
+ * on/after this user's resolved start date (global, or a per-role override
+ * - see adapt_get_feedback_survey_start_date_for_user()), this user has
+ * already dismissed the welcome popup (i.e. actually encountered the AI
+ * Assistant box, not just logged in), and this user hasn't already
+ * submitted the survey itself (unless exempted - see below). Note there's
+ * no "already dismissed the survey" check here on purpose - closing it
+ * without submitting is not persisted anywhere, so it's simply asked again
+ * on the next page load.
  *
  * Administrators always see it regardless of the welcome-popup-seen
  * requirement or a past submission (debugging/QA convenience, same
@@ -230,7 +316,7 @@ function adapt_should_show_feedback_survey() {
 	if ( ! $shortcode ) {
 		return false; // Nothing configured to embed.
 	}
-	$start_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string.
+	$start_date = adapt_get_feedback_survey_start_date_for_user( get_current_user_id() );
 	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
 		return false;
 	}
