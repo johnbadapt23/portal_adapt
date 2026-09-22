@@ -76,7 +76,7 @@ add_action( 'acf/init', function() {
 				'label'             => 'Start showing from',
 				'name'              => 'feedback_survey_start_date',
 				'type'              => 'date_picker',
-				'instructions'      => 'The default start date, used for any role with no override in "Per-role start dates" below. The popup will not appear before this date, even if enabled. Defaults to 2 weeks out from when this feature was built.',
+				'instructions'      => 'The start date for agent_tester (the default, built-in audience for this survey) unless overridden below, and for any other role added in "Per-role start dates" that has no date of its own. The popup will not appear before this date, even if enabled. Defaults to 2 weeks out from when this feature was built.',
 				'display_format'    => 'd/m/Y',
 				'return_format'     => 'Ymd',
 				'first_day'         => 1,
@@ -98,7 +98,7 @@ add_action( 'acf/init', function() {
 				// adapt_parse_feedback_survey_role_start_dates() for the
 				// parser and adapt_get_feedback_survey_start_date_for_user()
 				// for how it's resolved per user.
-				'instructions'      => 'Optional per-role overrides for the start date above - e.g. show it to subscribers today but hold off on agent_tester for two more weeks. Use "+ Add role override" below to pick a role and a date per row. A role not listed here still uses the start date field above. If a user holds more than one role listed here, the earliest of their matching dates applies. Under the hood this is stored as one "role_slug: YYYY-MM-DD" pair per line - "Edit as plain text" below the rows exposes that directly, handy for pasting several at once; lines that don\'t match that exact format are silently ignored there too, so a typo just falls back to the default above rather than breaking the popup for everyone. Currently registered role slugs: ' . implode( ', ', array_keys( wp_roles()->get_names() ) ) . '.',
+				'instructions'      => 'agent_tester is always eligible for this survey by default (using the start date above, unless you add a row for it below with its own date). Adding a row for any OTHER role is what makes that role eligible too, starting from that row\'s date - a role with no row here never sees the survey at all, no matter how far past the start date above. So this list isn\'t just timing, it\'s also who\'s allowed in. If a user holds more than one eligible role, the earliest of their matching dates applies. Under the hood this is stored as one "role_slug: YYYY-MM-DD" pair per line - "Edit as plain text" below the rows exposes that directly, handy for pasting several at once; lines that don\'t match that exact format are silently ignored there too. Currently registered role slugs: ' . implode( ', ', array_keys( wp_roles()->get_names() ) ) . '.',
 				'conditional_logic' => $shown_if_enabled,
 			],
 			[
@@ -468,16 +468,57 @@ function adapt_parse_feedback_survey_role_start_dates() {
 }
 
 /**
+ * Which roles are allowed to see the survey at all: always 'agent_tester'
+ * (the original, effectively-hardcoded audience this feature was built
+ * for - see adapt_feedback_survey_user_has_eligible_role() below), plus
+ * whatever roles have their own row in "Per-role start dates". Adding a
+ * row for a role doesn't just set that role's date - it's what opts that
+ * role into the survey in the first place. A role that's never had a row
+ * never sees the survey, no matter how far past the global start date it
+ * is; the global date only governs *when* an already-eligible role sees
+ * it, not *whether* it does.
+ */
+function adapt_get_feedback_survey_eligible_roles() {
+	return array_unique( array_merge( [ 'agent_tester' ], array_keys( adapt_parse_feedback_survey_role_start_dates() ) ) );
+}
+
+/**
+ * Whether this user holds a role allowed to see the survey at all (see
+ * adapt_get_feedback_survey_eligible_roles()). Administrators always pass,
+ * same debugging/QA convenience used everywhere else in this feature -
+ * without it, testing this as an admin would require actually holding
+ * agent_tester or adding a throwaway row for the admin's own role.
+ */
+function adapt_feedback_survey_user_has_eligible_role( $user_id ) {
+	if ( current_user_can( 'administrator' ) ) {
+		return true;
+	}
+	$user = get_userdata( $user_id );
+	if ( ! $user ) {
+		return false;
+	}
+	return (bool) array_intersect( (array) $user->roles, adapt_get_feedback_survey_eligible_roles() );
+}
+
+/**
  * Resolves the effective survey start date for one specific user: the
  * earliest per-role override (see adapt_parse_feedback_survey_role_start_dates())
  * among the roles this user actually holds, or the global
  * feedback_survey_start_date field when none of their roles has an
- * override (including when the textarea is empty entirely - the original,
- * global-only behavior). "Earliest of their roles" rather than "first role
- * matched" or "latest": a user who holds both an already-open role and a
- * still-scheduled one should get the survey now via the role that's
- * already open, not be held back by the other one they also happen to
- * hold.
+ * explicit override. agent_tester is always considered "in the running"
+ * even without its own row - since it's always an eligible role (see
+ * adapt_get_feedback_survey_eligible_roles()), it needs *some* date to
+ * resolve to, and the global field is that date until an explicit
+ * agent_tester row overrides it, same as it always has. "Earliest of
+ * their roles" rather than "first role matched" or "latest": a user who
+ * holds both an already-open role and a still-scheduled one should get
+ * the survey now via the role that's already open, not be held back by
+ * the other one they also happen to hold.
+ *
+ * Only meaningful for a user who actually has an eligible role in the
+ * first place - adapt_should_show_feedback_survey() checks
+ * adapt_feedback_survey_user_has_eligible_role() separately and first, so
+ * an ineligible user never reaches this function's result at all.
  */
 function adapt_get_feedback_survey_start_date_for_user( $user_id ) {
 	$global_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string, or falsy.
@@ -486,13 +527,12 @@ function adapt_get_feedback_survey_start_date_for_user( $user_id ) {
 		return $global_date;
 	}
 	$role_dates = adapt_parse_feedback_survey_role_start_dates();
-	if ( empty( $role_dates ) ) {
-		return $global_date;
-	}
 	$matches = [];
 	foreach ( (array) $user->roles as $role ) {
 		if ( isset( $role_dates[ $role ] ) ) {
 			$matches[] = $role_dates[ $role ];
+		} elseif ( 'agent_tester' === $role ) {
+			$matches[] = $global_date;
 		}
 	}
 	if ( empty( $matches ) ) {
@@ -504,30 +544,32 @@ function adapt_get_feedback_survey_start_date_for_user( $user_id ) {
 
 /**
  * Whether the current request should even attempt to render the survey:
- * logged in, feature enabled, a form shortcode is configured, today is
- * on/after this user's resolved start date (global, or a per-role override
- * - see adapt_get_feedback_survey_start_date_for_user()), and this user
- * hasn't already submitted the survey itself (unless exempted - see below).
- * Note there's no "already dismissed the survey" check here on purpose -
- * closing it without submitting is not persisted anywhere, so it's simply
- * asked again on the next page load.
+ * logged in, feature enabled, a form shortcode is configured, this user
+ * holds an eligible role (agent_tester by default, plus anything added via
+ * "Per-role start dates" - see adapt_feedback_survey_user_has_eligible_role()),
+ * today is on/after this user's resolved start date (global, or a
+ * per-role override - see adapt_get_feedback_survey_start_date_for_user()),
+ * and this user hasn't already submitted the survey itself (unless
+ * exempted - see below). Note there's no "already dismissed the survey"
+ * check here on purpose - closing it without submitting is not persisted
+ * anywhere, so it's simply asked again on the next page load.
  *
  * Deliberately independent of the welcome popup - this used to also require
  * adapt_welcome_popup_seen user meta (i.e. the user must have already
  * dismissed the welcome popup first), but that meant a user could go
  * without ever seeing the survey simply by leaving the welcome popup open/
  * unclosed, or if the welcome popup was disabled entirely. Once this
- * feature is enabled it should show for every valid user regardless of
+ * feature is enabled it should show for every eligible user regardless of
  * whether they've seen or closed the welcome popup - the two popups no
  * longer gate each other; see adapt_should_show_welcome_popup()'s own
  * early-return for the other half of that relationship.
  *
- * Administrators always see it regardless of a past submission
- * (debugging/QA convenience, same exemption already used for the welcome
- * popup). The "Show again to everyone" field does the same for the
- * survey's own submitted check, for every logged-in user - an
- * admin-controlled, non-destructive override for bringing the survey back
- * without bulk-deleting submitted user meta.
+ * Administrators always see it regardless of role, the welcome popup, or a
+ * past submission (debugging/QA convenience, same exemption already used
+ * for the welcome popup). The "Show again to everyone" field does the same
+ * for the survey's own submitted check, for every eligible logged-in user
+ * - an admin-controlled, non-destructive override for bringing the survey
+ * back without bulk-deleting submitted user meta.
  */
 function adapt_should_show_feedback_survey() {
 	if ( ! is_user_logged_in() ) {
@@ -539,6 +581,9 @@ function adapt_should_show_feedback_survey() {
 	$shortcode = trim( (string) get_field( 'feedback_survey_shortcode', 'option' ) );
 	if ( ! $shortcode ) {
 		return false; // Nothing configured to embed.
+	}
+	if ( ! adapt_feedback_survey_user_has_eligible_role( get_current_user_id() ) ) {
+		return false;
 	}
 	$start_date = adapt_get_feedback_survey_start_date_for_user( get_current_user_id() );
 	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
