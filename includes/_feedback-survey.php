@@ -98,7 +98,7 @@ add_action( 'acf/init', function() {
 				// adapt_parse_feedback_survey_role_start_dates() for the
 				// parser and adapt_get_feedback_survey_start_date_for_user()
 				// for how it's resolved per user.
-				'instructions'      => 'Optional per-role overrides for the start date above - e.g. show it to subscribers today but hold off on agent_tester for two more weeks. One "role_slug: YYYY-MM-DD" pair per line, such as:' . "\n" . 'subscriber: 2026-09-01' . "\n" . 'agent_tester: 2026-10-06' . "\n\n" . 'A role not listed here still uses the start date field above. If a user holds more than one role listed here, the earliest of their matching dates applies. Lines that don\'t match this exact "role: YYYY-MM-DD" format are silently ignored, so a typo just falls back to the default above rather than breaking the popup for everyone. Currently registered role slugs: ' . implode( ', ', array_keys( wp_roles()->get_names() ) ) . '.',
+				'instructions'      => 'Optional per-role overrides for the start date above - e.g. show it to subscribers today but hold off on agent_tester for two more weeks. Use "+ Add role override" below to pick a role and a date per row. A role not listed here still uses the start date field above. If a user holds more than one role listed here, the earliest of their matching dates applies. Under the hood this is stored as one "role_slug: YYYY-MM-DD" pair per line - "Edit as plain text" below the rows exposes that directly, handy for pasting several at once; lines that don\'t match that exact format are silently ignored there too, so a typo just falls back to the default above rather than breaking the popup for everyone. Currently registered role slugs: ' . implode( ', ', array_keys( wp_roles()->get_names() ) ) . '.',
 				'conditional_logic' => $shown_if_enabled,
 			],
 			[
@@ -157,6 +157,222 @@ add_action( 'acf/init', function() {
 		],
 	] );
 } );
+
+/**
+ * Friendlier admin UI for "Per-role start dates" - a role dropdown + native
+ * date picker per row, with add/remove buttons, laid out under the plain
+ * textarea ACF actually renders (see the field's own comment above for why
+ * it's a textarea and not a real ACF repeater: no ACF PRO confirmed on this
+ * install). This is presentation only - the textarea stays the field ACF
+ * saves, so adapt_parse_feedback_survey_role_start_dates() needed no
+ * changes at all; the rows UI just reads/writes that same "role: YYYY-MM-DD"
+ * text underneath it, keeping the low-risk plain-text format as the actual
+ * source of truth.
+ *
+ * The raw textarea itself is moved (not removed - moving it, rather than
+ * hiding it in place, keeps it right where someone expanding "Edit as plain
+ * text" below would expect to find it) into a collapsible details/summary
+ * under the row UI, so bulk edits (pasting several lines at once) are still
+ * possible without clicking "+ Add role override" repeatedly - editing it
+ * there re-parses back into rows automatically, same as loading the page
+ * with existing values already in it.
+ */
+add_action( 'acf/render_field/key=field_adapt_feedback_survey_role_start_dates', 'adapt_render_feedback_survey_role_dates_ui' );
+function adapt_render_feedback_survey_role_dates_ui( $field ) {
+	$roles = wp_roles()->get_names(); // role_slug => Display Name.
+	?>
+	<div class="adapt-frs-role-dates" data-roles="<?php echo esc_attr( wp_json_encode( $roles ) ); ?>">
+		<table class="adapt-frs-role-dates-table widefat">
+			<tbody></tbody>
+		</table>
+		<button type="button" class="button adapt-frs-add-row"><?php esc_html_e( '+ Add role override', 'adapt' ); ?></button>
+	</div>
+	<?php
+	// Print the shared CSS/JS once no matter how many times this specific
+	// field renders on the page (ACF options pages only render each field
+	// once, but this guards against that changing without anyone noticing).
+	static $printed_assets = false;
+	if ( $printed_assets ) {
+		return;
+	}
+	$printed_assets = true;
+	?>
+	<style>
+		.adapt-frs-role-dates-table { max-width: 480px; margin-bottom: 8px; border-collapse: collapse; }
+		.adapt-frs-role-dates-table td { padding: 4px 8px 4px 0; vertical-align: top; }
+		.adapt-frs-role-dates-table select { max-width: 220px; }
+		.adapt-frs-dupe-note { font-size: 11px; color: #b32d2e; margin-top: 2px; max-width: 200px; }
+		.adapt-frs-raw-toggle { margin-top: 10px; }
+		.adapt-frs-raw-toggle summary { cursor: pointer; color: #2271b1; font-size: 12px; }
+	</style>
+	<script>
+	( function() {
+		// One-line role/date pairs, tolerant of the same malformed input the
+		// PHP-side parser silently skips - kept in sync with
+		// adapt_parse_feedback_survey_role_start_dates() on purpose so a row
+		// this UI would show is exactly a row the PHP side will actually use.
+		function parseLines( raw ) {
+			var rows = [];
+			( raw || '' ).split( /\r\n|\r|\n/ ).forEach( function( line ) {
+				line = line.trim();
+				var sep = line.indexOf( ':' );
+				if ( ! line || sep === -1 ) {
+					return;
+				}
+				var role = line.slice( 0, sep ).trim();
+				var date = line.slice( sep + 1 ).trim();
+				if ( ! role || ! /^\d{4}-\d{2}-\d{2}$/.test( date ) ) {
+					return;
+				}
+				rows.push( { role: role, date: date } );
+			} );
+			return rows;
+		}
+
+		function serializeRows( rows ) {
+			return rows
+				.filter( function( r ) { return r.role && r.date; } )
+				.map( function( r ) { return r.role + ': ' + r.date; } )
+				.join( '\n' );
+		}
+
+		function initOne( container ) {
+			var acfInput = container.closest( '.acf-input' );
+			var textarea = acfInput ? acfInput.querySelector( 'textarea' ) : null;
+			if ( ! textarea ) {
+				return; // Nothing to enhance - leave the field as plain ACF renders it.
+			}
+
+			var roles = {};
+			try {
+				roles = JSON.parse( container.getAttribute( 'data-roles' ) || '{}' );
+			} catch ( e ) {}
+
+			var tbody   = container.querySelector( '.adapt-frs-role-dates-table tbody' );
+			var addBtn  = container.querySelector( '.adapt-frs-add-row' );
+			var syncing = false; // Guards against our own sync() re-triggering rebuildRowsFromTextarea() below.
+
+			function roleOptionsHtml( selected ) {
+				var html = '';
+				Object.keys( roles ).forEach( function( slug ) {
+					html += '<option value="' + slug + '"' + ( slug === selected ? ' selected' : '' ) + '>' + roles[ slug ] + '</option>';
+				} );
+				return html;
+			}
+
+			function markDuplicates() {
+				var counts = {};
+				tbody.querySelectorAll( 'select' ).forEach( function( s ) {
+					counts[ s.value ] = ( counts[ s.value ] || 0 ) + 1;
+				} );
+				tbody.querySelectorAll( 'tr' ).forEach( function( tr ) {
+					var select = tr.querySelector( 'select' );
+					var note   = tr.querySelector( '.adapt-frs-dupe-note' );
+					note.style.display = ( select.value && counts[ select.value ] > 1 ) ? '' : 'none';
+				} );
+			}
+
+			function sync() {
+				syncing = true;
+				var rows = [];
+				tbody.querySelectorAll( 'tr' ).forEach( function( tr ) {
+					rows.push( {
+						role: tr.querySelector( 'select' ).value,
+						date: tr.querySelector( 'input[type="date"]' ).value
+					} );
+				} );
+				textarea.value = serializeRows( rows );
+				// Real events, not just a value assignment - so ACF's own
+				// "unsaved changes" tracking (bound to this textarea like any
+				// other field) still notices the edit, same as if someone had
+				// typed directly into the box.
+				textarea.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+				textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+				syncing = false;
+				markDuplicates();
+			}
+
+			function addRow( role, date ) {
+				var tr = document.createElement( 'tr' );
+				var tdRole = document.createElement( 'td' );
+				tdRole.innerHTML = '<select>' + roleOptionsHtml( role ) + '</select>';
+				var tdDate = document.createElement( 'td' );
+				var dateInput = document.createElement( 'input' );
+				dateInput.type = 'date';
+				dateInput.value = date || '';
+				tdDate.appendChild( dateInput );
+				var tdRemove = document.createElement( 'td' );
+				var removeBtn = document.createElement( 'button' );
+				removeBtn.type = 'button';
+				removeBtn.className = 'button-link';
+				removeBtn.setAttribute( 'aria-label', <?php echo wp_json_encode( __( 'Remove' ) ); ?> );
+				removeBtn.innerHTML = '<span class="dashicons dashicons-no-alt"></span>';
+				var dupeNote = document.createElement( 'div' );
+				dupeNote.className = 'adapt-frs-dupe-note';
+				dupeNote.style.display = 'none';
+				dupeNote.textContent = <?php echo wp_json_encode( __( 'Another row already overrides this role - the last one wins.' ) ); ?>;
+				tdRemove.appendChild( removeBtn );
+				tdRemove.appendChild( dupeNote );
+				tr.appendChild( tdRole );
+				tr.appendChild( tdDate );
+				tr.appendChild( tdRemove );
+				tbody.appendChild( tr );
+
+				tdRole.querySelector( 'select' ).addEventListener( 'change', sync );
+				dateInput.addEventListener( 'change', sync );
+				removeBtn.addEventListener( 'click', function() {
+					tr.remove();
+					sync();
+				} );
+			}
+
+			function rebuildRowsFromTextarea() {
+				tbody.innerHTML = '';
+				parseLines( textarea.value ).forEach( function( r ) { addRow( r.role, r.date ); } );
+				markDuplicates();
+			}
+
+			textarea.addEventListener( 'input', function() {
+				if ( syncing ) {
+					return;
+				}
+				rebuildRowsFromTextarea();
+			} );
+
+			rebuildRowsFromTextarea();
+
+			addBtn.addEventListener( 'click', function() {
+				addRow( Object.keys( roles )[ 0 ] || '', '' );
+				sync();
+			} );
+
+			// Move (not hide-in-place) the actual field ACF saves into a
+			// collapsed "edit as text" section under the rows, so bulk-pasting
+			// several lines at once is still possible without fighting the
+			// row UI - collapsed by default since the rows above are the
+			// normal path.
+			var details = document.createElement( 'details' );
+			details.className = 'adapt-frs-raw-toggle';
+			var summary = document.createElement( 'summary' );
+			summary.textContent = <?php echo wp_json_encode( __( 'Edit as plain text' ) ); ?>;
+			details.appendChild( summary );
+			details.appendChild( textarea );
+			container.appendChild( details );
+		}
+
+		function init() {
+			document.querySelectorAll( '.adapt-frs-role-dates' ).forEach( initOne );
+		}
+
+		if ( document.readyState === 'loading' ) {
+			document.addEventListener( 'DOMContentLoaded', init );
+		} else {
+			init();
+		}
+	} )();
+	</script>
+	<?php
+}
 
 /**
  * Renders (once, memoized) and returns the survey's configured shortcode
