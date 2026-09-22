@@ -476,11 +476,12 @@ add_action( 'wp_footer', function() {
 		// ::-moz-range-progress) - paint the "already selected" portion via
 		// a JS-computed --feedbackSurveyRangeFill percentage instead (see
 		// the matching CSS in _feedback-survey.scss), updated live as the
-		// visitor drags. Also shows the slider's min/max values as labels
-		// below it, read straight off the input's own min/max attributes
-		// (whatever the field is configured to in WPForms, etc.) rather
-		// than hardcoded - can't be done in pure CSS since browsers don't
-		// render ::before/::after on <input> elements at all.
+		// visitor drags. Also shows a label under every step value (not
+		// just the two ends), read straight off the input's own
+		// min/max/step attributes (whatever the field is configured to in
+		// WPForms, etc.) rather than hardcoded - can't be done in pure CSS
+		// since browsers don't render ::before/::after on <input> elements
+		// at all.
 		//
 		// The labels are appended to formWrap itself and positioned via
 		// measured geometry, deliberately NOT inserted into the slider's
@@ -504,32 +505,72 @@ add_action( 'wp_footer', function() {
 							formWrap.style.position = 'relative';
 						}
 
-						var minLabel = document.createElement('span');
-						minLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--min';
-						minLabel.textContent = min;
+						var minNum = parseFloat(min);
+						var maxNum = parseFloat(max);
+						var stepAttr = slider.getAttribute('step');
+						var stepNum = (stepAttr && stepAttr !== 'any') ? parseFloat(stepAttr) : 1;
+						if (!stepNum || isNaN(stepNum) || stepNum <= 0) stepNum = 1;
 
-						var maxLabel = document.createElement('span');
-						maxLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--max';
-						maxLabel.textContent = max;
+						// One label per step value (1, 2, 3, 4, 5 - not just
+						// the two ends) so the visitor can see where the
+						// thumb sits relative to every option, not just how
+						// far it is from the extremes. Capped so a finely-
+						// stepped range (e.g. step="0.1") can't cram dozens
+						// of overlapping labels under the track - falls back
+						// to just the two end labels past that point, same
+						// as this used to always do.
+						var values = [minNum, maxNum];
+						if (!isNaN(minNum) && !isNaN(maxNum) && maxNum > minNum) {
+							var maxLabels = 11;
+							var stepCount = Math.round((maxNum - minNum) / stepNum);
+							if (stepCount > 1 && stepCount <= maxLabels - 1) {
+								// Built by index (minNum + i*stepNum), not by
+								// accumulating stepNum in a loop condition -
+								// floating-point drift there (e.g. repeated
+								// += 0.1) can land just under maxNum on the
+								// final lap and emit a duplicate end label.
+								// First/last are the input's own min/max
+								// attribute values verbatim either way, so a
+								// non-evenly-divisible step (e.g. 0-1 by 0.3)
+								// still ends exactly on the real max rather
+								// than the last grid point short of it.
+								values = [minNum];
+								for (var i = 1; i < stepCount; i++) {
+									values.push(Math.round((minNum + i * stepNum) * 1000) / 1000);
+								}
+								values.push(maxNum);
+							}
+						}
 
-						formWrap.appendChild(minLabel);
-						formWrap.appendChild(maxLabel);
+						var rangeLabels = [];
+						for (var vi = 0; vi < values.length; vi++) {
+							var modifier = vi === 0
+								? 'feedbackSurvey-rangeLabel--min'
+								: (vi === values.length - 1 ? 'feedbackSurvey-rangeLabel--max' : 'feedbackSurvey-rangeLabel--mid');
+							var labelEl = document.createElement('span');
+							labelEl.className = 'feedbackSurvey-rangeLabel ' + modifier;
+							labelEl.textContent = values[vi];
+							formWrap.appendChild(labelEl);
+							rangeLabels.push({ el: labelEl, value: values[vi] });
+						}
 
 						var positionLabels = function() {
 							var sliderRect = slider.getBoundingClientRect();
 							var wrapRect = formWrap.getBoundingClientRect();
 							var top = sliderRect.bottom - wrapRect.top + 4;
-							minLabel.style.top  = top + 'px';
-							minLabel.style.left = (sliderRect.left - wrapRect.left) + 'px';
-							maxLabel.style.top  = top + 'px';
-							maxLabel.style.left = (sliderRect.right - wrapRect.left) + 'px';
+							var span = maxNum - minNum;
+							for (var pi = 0; pi < rangeLabels.length; pi++) {
+								var fraction = span > 0 ? (rangeLabels[pi].value - minNum) / span : 0;
+								rangeLabels[pi].el.style.top  = top + 'px';
+								rangeLabels[pi].el.style.left = (sliderRect.left - wrapRect.left + sliderRect.width * fraction) + 'px';
+							}
 						};
 						// Not called immediately here - the popup is still
 						// display:none at this point (shown later, from
 						// showFor()'s setTimeout, which is what actually
 						// calls this the first time), so
 						// getBoundingClientRect() would only ever measure
-						// an all-zero rect and misplace both labels.
+						// an all-zero rect and misplace every label.
 						window.addEventListener('resize', positionLabels);
 						rangeLabelRepositionFns.push(positionLabels);
 					}
