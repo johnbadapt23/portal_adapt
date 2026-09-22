@@ -166,14 +166,18 @@ add_action( 'wp_footer', function() {
 		return;
 	}
 
-	// If the feedback survey also qualifies to show on this same request
-	// (e.g. an admin testing both, or "Show again to everyone" toggled on
-	// for this popup after a user already dismissed it and became eligible
-	// for the survey too), let the survey take priority and skip this
-	// popup entirely rather than stacking both dialogs on top of each
-	// other. includes/_feedback-survey.php is loaded alongside this file
-	// regardless of include order, so the function is always defined by
-	// the time this callback actually runs at wp_footer.
+	// The feedback survey deliberately overpowers this popup: whenever it
+	// also qualifies to show on this request, skip this popup entirely
+	// rather than stacking both dialogs on top of each other. This used to
+	// be a rare edge case (the survey required adapt_welcome_popup_seen, so
+	// both could only qualify together for admins/force-redisplay), but
+	// adapt_should_show_feedback_survey() no longer depends on this popup
+	// at all - it's now the common path: once the survey is enabled, every
+	// qualifying user gets it straight away and never sees this popup,
+	// whether or not they've ever encountered it before. includes/_feedback-survey.php
+	// is loaded alongside this file regardless of include order, so the
+	// function is always defined by the time this callback actually runs
+	// at wp_footer.
 	if ( function_exists( 'adapt_should_show_feedback_survey' ) && adapt_should_show_feedback_survey() ) {
 		return;
 	}

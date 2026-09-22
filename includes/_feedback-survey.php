@@ -76,11 +76,29 @@ add_action( 'acf/init', function() {
 				'label'             => 'Start showing from',
 				'name'              => 'feedback_survey_start_date',
 				'type'              => 'date_picker',
-				'instructions'      => 'The popup will not appear before this date, even if enabled. Defaults to 2 weeks out from when this feature was built.',
+				'instructions'      => 'The start date for agent_tester (the default, built-in audience for this survey) unless overridden below, and for any other role added in "Per-role start dates" that has no date of its own. The popup will not appear before this date, even if enabled. Defaults to 2 weeks out from when this feature was built.',
 				'display_format'    => 'd/m/Y',
 				'return_format'     => 'Ymd',
 				'first_day'         => 1,
 				'default_value'     => '20260827',
+				'conditional_logic' => $shown_if_enabled,
+			],
+			[
+				'key'               => 'field_adapt_feedback_survey_role_start_dates',
+				'label'             => 'Per-role start dates',
+				'name'              => 'feedback_survey_role_start_dates',
+				'type'              => 'textarea',
+				'rows'              => 4,
+				// Plain "role: date" lines rather than a repeater field -
+				// repeater/flexible-content are ACF PRO-only and nothing
+				// else in this codebase uses them (grepped every ACF field
+				// group here: only text/textarea/true_false/date_picker
+				// appear), so this stays usable regardless of which ACF
+				// tier is actually licensed on this install. See
+				// adapt_parse_feedback_survey_role_start_dates() for the
+				// parser and adapt_get_feedback_survey_start_date_for_user()
+				// for how it's resolved per user.
+				'instructions'      => 'agent_tester is always eligible for this survey by default (using the start date above, unless you add a row for it below with its own date). Adding a row for any OTHER role is what makes that role eligible too, starting from that row\'s date - a role with no row here never sees the survey at all, no matter how far past the start date above. So this list isn\'t just timing, it\'s also who\'s allowed in. If a user holds more than one eligible role, the earliest of their matching dates applies. Under the hood this is stored as one "role_slug: YYYY-MM-DD" pair per line - "Edit as plain text" below the rows exposes that directly, handy for pasting several at once; lines that don\'t match that exact format are silently ignored there too. Currently registered role slugs: ' . implode( ', ', array_keys( wp_roles()->get_names() ) ) . '.',
 				'conditional_logic' => $shown_if_enabled,
 			],
 			[
@@ -139,6 +157,222 @@ add_action( 'acf/init', function() {
 		],
 	] );
 } );
+
+/**
+ * Friendlier admin UI for "Per-role start dates" - a role dropdown + native
+ * date picker per row, with add/remove buttons, laid out under the plain
+ * textarea ACF actually renders (see the field's own comment above for why
+ * it's a textarea and not a real ACF repeater: no ACF PRO confirmed on this
+ * install). This is presentation only - the textarea stays the field ACF
+ * saves, so adapt_parse_feedback_survey_role_start_dates() needed no
+ * changes at all; the rows UI just reads/writes that same "role: YYYY-MM-DD"
+ * text underneath it, keeping the low-risk plain-text format as the actual
+ * source of truth.
+ *
+ * The raw textarea itself is moved (not removed - moving it, rather than
+ * hiding it in place, keeps it right where someone expanding "Edit as plain
+ * text" below would expect to find it) into a collapsible details/summary
+ * under the row UI, so bulk edits (pasting several lines at once) are still
+ * possible without clicking "+ Add role override" repeatedly - editing it
+ * there re-parses back into rows automatically, same as loading the page
+ * with existing values already in it.
+ */
+add_action( 'acf/render_field/key=field_adapt_feedback_survey_role_start_dates', 'adapt_render_feedback_survey_role_dates_ui' );
+function adapt_render_feedback_survey_role_dates_ui( $field ) {
+	$roles = wp_roles()->get_names(); // role_slug => Display Name.
+	?>
+	<div class="adapt-frs-role-dates" data-roles="<?php echo esc_attr( wp_json_encode( $roles ) ); ?>">
+		<table class="adapt-frs-role-dates-table widefat">
+			<tbody></tbody>
+		</table>
+		<button type="button" class="button adapt-frs-add-row"><?php esc_html_e( '+ Add role override', 'adapt' ); ?></button>
+	</div>
+	<?php
+	// Print the shared CSS/JS once no matter how many times this specific
+	// field renders on the page (ACF options pages only render each field
+	// once, but this guards against that changing without anyone noticing).
+	static $printed_assets = false;
+	if ( $printed_assets ) {
+		return;
+	}
+	$printed_assets = true;
+	?>
+	<style>
+		.adapt-frs-role-dates-table { max-width: 480px; margin-bottom: 8px; border-collapse: collapse; }
+		.adapt-frs-role-dates-table td { padding: 4px 8px 4px 0; vertical-align: top; }
+		.adapt-frs-role-dates-table select { max-width: 220px; }
+		.adapt-frs-dupe-note { font-size: 11px; color: #b32d2e; margin-top: 2px; max-width: 200px; }
+		.adapt-frs-raw-toggle { margin-top: 10px; }
+		.adapt-frs-raw-toggle summary { cursor: pointer; color: #2271b1; font-size: 12px; }
+	</style>
+	<script>
+	( function() {
+		// One-line role/date pairs, tolerant of the same malformed input the
+		// PHP-side parser silently skips - kept in sync with
+		// adapt_parse_feedback_survey_role_start_dates() on purpose so a row
+		// this UI would show is exactly a row the PHP side will actually use.
+		function parseLines( raw ) {
+			var rows = [];
+			( raw || '' ).split( /\r\n|\r|\n/ ).forEach( function( line ) {
+				line = line.trim();
+				var sep = line.indexOf( ':' );
+				if ( ! line || sep === -1 ) {
+					return;
+				}
+				var role = line.slice( 0, sep ).trim();
+				var date = line.slice( sep + 1 ).trim();
+				if ( ! role || ! /^\d{4}-\d{2}-\d{2}$/.test( date ) ) {
+					return;
+				}
+				rows.push( { role: role, date: date } );
+			} );
+			return rows;
+		}
+
+		function serializeRows( rows ) {
+			return rows
+				.filter( function( r ) { return r.role && r.date; } )
+				.map( function( r ) { return r.role + ': ' + r.date; } )
+				.join( '\n' );
+		}
+
+		function initOne( container ) {
+			var acfInput = container.closest( '.acf-input' );
+			var textarea = acfInput ? acfInput.querySelector( 'textarea' ) : null;
+			if ( ! textarea ) {
+				return; // Nothing to enhance - leave the field as plain ACF renders it.
+			}
+
+			var roles = {};
+			try {
+				roles = JSON.parse( container.getAttribute( 'data-roles' ) || '{}' );
+			} catch ( e ) {}
+
+			var tbody   = container.querySelector( '.adapt-frs-role-dates-table tbody' );
+			var addBtn  = container.querySelector( '.adapt-frs-add-row' );
+			var syncing = false; // Guards against our own sync() re-triggering rebuildRowsFromTextarea() below.
+
+			function roleOptionsHtml( selected ) {
+				var html = '';
+				Object.keys( roles ).forEach( function( slug ) {
+					html += '<option value="' + slug + '"' + ( slug === selected ? ' selected' : '' ) + '>' + roles[ slug ] + '</option>';
+				} );
+				return html;
+			}
+
+			function markDuplicates() {
+				var counts = {};
+				tbody.querySelectorAll( 'select' ).forEach( function( s ) {
+					counts[ s.value ] = ( counts[ s.value ] || 0 ) + 1;
+				} );
+				tbody.querySelectorAll( 'tr' ).forEach( function( tr ) {
+					var select = tr.querySelector( 'select' );
+					var note   = tr.querySelector( '.adapt-frs-dupe-note' );
+					note.style.display = ( select.value && counts[ select.value ] > 1 ) ? '' : 'none';
+				} );
+			}
+
+			function sync() {
+				syncing = true;
+				var rows = [];
+				tbody.querySelectorAll( 'tr' ).forEach( function( tr ) {
+					rows.push( {
+						role: tr.querySelector( 'select' ).value,
+						date: tr.querySelector( 'input[type="date"]' ).value
+					} );
+				} );
+				textarea.value = serializeRows( rows );
+				// Real events, not just a value assignment - so ACF's own
+				// "unsaved changes" tracking (bound to this textarea like any
+				// other field) still notices the edit, same as if someone had
+				// typed directly into the box.
+				textarea.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+				textarea.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+				syncing = false;
+				markDuplicates();
+			}
+
+			function addRow( role, date ) {
+				var tr = document.createElement( 'tr' );
+				var tdRole = document.createElement( 'td' );
+				tdRole.innerHTML = '<select>' + roleOptionsHtml( role ) + '</select>';
+				var tdDate = document.createElement( 'td' );
+				var dateInput = document.createElement( 'input' );
+				dateInput.type = 'date';
+				dateInput.value = date || '';
+				tdDate.appendChild( dateInput );
+				var tdRemove = document.createElement( 'td' );
+				var removeBtn = document.createElement( 'button' );
+				removeBtn.type = 'button';
+				removeBtn.className = 'button-link';
+				removeBtn.setAttribute( 'aria-label', <?php echo wp_json_encode( __( 'Remove' ) ); ?> );
+				removeBtn.innerHTML = '<span class="dashicons dashicons-no-alt"></span>';
+				var dupeNote = document.createElement( 'div' );
+				dupeNote.className = 'adapt-frs-dupe-note';
+				dupeNote.style.display = 'none';
+				dupeNote.textContent = <?php echo wp_json_encode( __( 'Another row already overrides this role - the last one wins.' ) ); ?>;
+				tdRemove.appendChild( removeBtn );
+				tdRemove.appendChild( dupeNote );
+				tr.appendChild( tdRole );
+				tr.appendChild( tdDate );
+				tr.appendChild( tdRemove );
+				tbody.appendChild( tr );
+
+				tdRole.querySelector( 'select' ).addEventListener( 'change', sync );
+				dateInput.addEventListener( 'change', sync );
+				removeBtn.addEventListener( 'click', function() {
+					tr.remove();
+					sync();
+				} );
+			}
+
+			function rebuildRowsFromTextarea() {
+				tbody.innerHTML = '';
+				parseLines( textarea.value ).forEach( function( r ) { addRow( r.role, r.date ); } );
+				markDuplicates();
+			}
+
+			textarea.addEventListener( 'input', function() {
+				if ( syncing ) {
+					return;
+				}
+				rebuildRowsFromTextarea();
+			} );
+
+			rebuildRowsFromTextarea();
+
+			addBtn.addEventListener( 'click', function() {
+				addRow( Object.keys( roles )[ 0 ] || '', '' );
+				sync();
+			} );
+
+			// Move (not hide-in-place) the actual field ACF saves into a
+			// collapsed "edit as text" section under the rows, so bulk-pasting
+			// several lines at once is still possible without fighting the
+			// row UI - collapsed by default since the rows above are the
+			// normal path.
+			var details = document.createElement( 'details' );
+			details.className = 'adapt-frs-raw-toggle';
+			var summary = document.createElement( 'summary' );
+			summary.textContent = <?php echo wp_json_encode( __( 'Edit as plain text' ) ); ?>;
+			details.appendChild( summary );
+			details.appendChild( textarea );
+			container.appendChild( details );
+		}
+
+		function init() {
+			document.querySelectorAll( '.adapt-frs-role-dates' ).forEach( initOne );
+		}
+
+		if ( document.readyState === 'loading' ) {
+			document.addEventListener( 'DOMContentLoaded', init );
+		} else {
+			init();
+		}
+	} )();
+	</script>
+	<?php
+}
 
 /**
  * Renders (once, memoized) and returns the survey's configured shortcode
@@ -203,21 +437,139 @@ add_action( 'wp', function() {
 } );
 
 /**
- * Whether the current request should even attempt to render the survey:
- * logged in, feature enabled, a form shortcode is configured, today is
- * on/after the configured start date, this user has already dismissed the
- * welcome popup (i.e. actually encountered the AI Assistant box, not just
- * logged in), and this user hasn't already submitted the survey itself
- * (unless exempted - see below). Note there's no "already dismissed the
- * survey" check here on purpose - closing it without submitting is not
- * persisted anywhere, so it's simply asked again on the next page load.
+ * Parses the "Per-role start dates" textarea (field_adapt_feedback_survey_role_start_dates)
+ * into a [ role_slug => Ymd ] map, memoized per request since it's read on
+ * every adapt_should_show_feedback_survey() call. Deliberately tolerant of
+ * bad input - a line that isn't exactly "role: YYYY-MM-DD" (typo'd role,
+ * wrong date shape, stray blank line) is skipped rather than fataling, so a
+ * mistake in one line only costs that one role its override, never breaks
+ * the field for everyone else or the global fallback date.
+ */
+function adapt_parse_feedback_survey_role_start_dates() {
+	static $parsed = null;
+	if ( null !== $parsed ) {
+		return $parsed;
+	}
+	$parsed = [];
+	$raw = (string) get_field( 'feedback_survey_role_start_dates', 'option' );
+	foreach ( preg_split( '/\r\n|\r|\n/', $raw ) as $line ) {
+		$line = trim( $line );
+		if ( '' === $line || false === strpos( $line, ':' ) ) {
+			continue;
+		}
+		list( $role, $date ) = array_map( 'trim', explode( ':', $line, 2 ) );
+		$role = sanitize_key( $role );
+		if ( '' === $role || ! preg_match( '/^(\d{4})-(\d{2})-(\d{2})$/', $date, $m ) ) {
+			continue;
+		}
+		$parsed[ $role ] = $m[1] . $m[2] . $m[3]; // Ymd, matching current_time('Ymd') comparisons below.
+	}
+	return $parsed;
+}
+
+/**
+ * Which roles are allowed to see the survey at all: always 'agent_tester'
+ * (the original, effectively-hardcoded audience this feature was built
+ * for - see adapt_feedback_survey_user_has_eligible_role() below), plus
+ * whatever roles have their own row in "Per-role start dates". Adding a
+ * row for a role doesn't just set that role's date - it's what opts that
+ * role into the survey in the first place. A role that's never had a row
+ * never sees the survey, no matter how far past the global start date it
+ * is; the global date only governs *when* an already-eligible role sees
+ * it, not *whether* it does.
+ */
+function adapt_get_feedback_survey_eligible_roles() {
+	return array_unique( array_merge( [ 'agent_tester' ], array_keys( adapt_parse_feedback_survey_role_start_dates() ) ) );
+}
+
+/**
+ * Whether this user holds a role allowed to see the survey at all (see
+ * adapt_get_feedback_survey_eligible_roles()). Administrators always pass,
+ * same debugging/QA convenience used everywhere else in this feature -
+ * without it, testing this as an admin would require actually holding
+ * agent_tester or adding a throwaway row for the admin's own role.
+ */
+function adapt_feedback_survey_user_has_eligible_role( $user_id ) {
+	if ( current_user_can( 'administrator' ) ) {
+		return true;
+	}
+	$user = get_userdata( $user_id );
+	if ( ! $user ) {
+		return false;
+	}
+	return (bool) array_intersect( (array) $user->roles, adapt_get_feedback_survey_eligible_roles() );
+}
+
+/**
+ * Resolves the effective survey start date for one specific user: the
+ * earliest per-role override (see adapt_parse_feedback_survey_role_start_dates())
+ * among the roles this user actually holds, or the global
+ * feedback_survey_start_date field when none of their roles has an
+ * explicit override. agent_tester is always considered "in the running"
+ * even without its own row - since it's always an eligible role (see
+ * adapt_get_feedback_survey_eligible_roles()), it needs *some* date to
+ * resolve to, and the global field is that date until an explicit
+ * agent_tester row overrides it, same as it always has. "Earliest of
+ * their roles" rather than "first role matched" or "latest": a user who
+ * holds both an already-open role and a still-scheduled one should get
+ * the survey now via the role that's already open, not be held back by
+ * the other one they also happen to hold.
  *
- * Administrators always see it regardless of the welcome-popup-seen
- * requirement or a past submission (debugging/QA convenience, same
- * exemption already used for the welcome popup). The "Show again to
- * everyone" field does the same for the survey's own submitted check, for
- * every logged-in user - an admin-controlled, non-destructive override for
- * bringing the survey back without bulk-deleting submitted user meta.
+ * Only meaningful for a user who actually has an eligible role in the
+ * first place - adapt_should_show_feedback_survey() checks
+ * adapt_feedback_survey_user_has_eligible_role() separately and first, so
+ * an ineligible user never reaches this function's result at all.
+ */
+function adapt_get_feedback_survey_start_date_for_user( $user_id ) {
+	$global_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string, or falsy.
+	$user = get_userdata( $user_id );
+	if ( ! $user ) {
+		return $global_date;
+	}
+	$role_dates = adapt_parse_feedback_survey_role_start_dates();
+	$matches = [];
+	foreach ( (array) $user->roles as $role ) {
+		if ( isset( $role_dates[ $role ] ) ) {
+			$matches[] = $role_dates[ $role ];
+		} elseif ( 'agent_tester' === $role ) {
+			$matches[] = $global_date;
+		}
+	}
+	if ( empty( $matches ) ) {
+		return $global_date;
+	}
+	sort( $matches ); // Ymd strings sort chronologically as plain strings.
+	return $matches[0];
+}
+
+/**
+ * Whether the current request should even attempt to render the survey:
+ * logged in, feature enabled, a form shortcode is configured, this user
+ * holds an eligible role (agent_tester by default, plus anything added via
+ * "Per-role start dates" - see adapt_feedback_survey_user_has_eligible_role()),
+ * today is on/after this user's resolved start date (global, or a
+ * per-role override - see adapt_get_feedback_survey_start_date_for_user()),
+ * and this user hasn't already submitted the survey itself (unless
+ * exempted - see below). Note there's no "already dismissed the survey"
+ * check here on purpose - closing it without submitting is not persisted
+ * anywhere, so it's simply asked again on the next page load.
+ *
+ * Deliberately independent of the welcome popup - this used to also require
+ * adapt_welcome_popup_seen user meta (i.e. the user must have already
+ * dismissed the welcome popup first), but that meant a user could go
+ * without ever seeing the survey simply by leaving the welcome popup open/
+ * unclosed, or if the welcome popup was disabled entirely. Once this
+ * feature is enabled it should show for every eligible user regardless of
+ * whether they've seen or closed the welcome popup - the two popups no
+ * longer gate each other; see adapt_should_show_welcome_popup()'s own
+ * early-return for the other half of that relationship.
+ *
+ * Administrators always see it regardless of role, the welcome popup, or a
+ * past submission (debugging/QA convenience, same exemption already used
+ * for the welcome popup). The "Show again to everyone" field does the same
+ * for the survey's own submitted check, for every eligible logged-in user
+ * - an admin-controlled, non-destructive override for bringing the survey
+ * back without bulk-deleting submitted user meta.
  */
 function adapt_should_show_feedback_survey() {
 	if ( ! is_user_logged_in() ) {
@@ -230,18 +582,11 @@ function adapt_should_show_feedback_survey() {
 	if ( ! $shortcode ) {
 		return false; // Nothing configured to embed.
 	}
-	$start_date = get_field( 'feedback_survey_start_date', 'option' ); // Ymd string.
-	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
+	if ( ! adapt_feedback_survey_user_has_eligible_role( get_current_user_id() ) ) {
 		return false;
 	}
-	// Only ask people who actually closed the welcome popup - i.e. actually
-	// encountered the AI Assistant box it points at - not everyone who is
-	// merely logged in. Uses the same adapt_welcome_popup_seen meta the
-	// welcome popup already sets on dismissal (see includes/_welcome-popup.php),
-	// rather than a second flag, so this stays accurate even if that popup
-	// gets disabled or re-enabled later - it directly reflects what actually
-	// happened, not a separate tracked copy of it.
-	if ( ! current_user_can( 'administrator' ) && ! get_user_meta( get_current_user_id(), 'adapt_welcome_popup_seen', true ) ) {
+	$start_date = adapt_get_feedback_survey_start_date_for_user( get_current_user_id() );
+	if ( $start_date && current_time( 'Ymd' ) < $start_date ) {
 		return false;
 	}
 	$bypass_submitted_check = get_field( 'feedback_survey_force_redisplay', 'option' ) || current_user_can( 'administrator' );
@@ -298,6 +643,7 @@ add_action( 'wp_footer', function() {
 		var targetSelector = <?php echo wp_json_encode( $target ); ?>;
 		var submittedMarked = false;
 		var rangeLabelRepositionFns = [];
+		var rangeLabelResizeObserver = null;
 
 		// Only ever called on a detected successful submission (see the
 		// plugin integrations below) - never on a plain close, so closing
@@ -321,6 +667,7 @@ add_action( 'wp_footer', function() {
 			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
 				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
 			}
+			if (rangeLabelResizeObserver) rangeLabelResizeObserver.disconnect();
 			document.removeEventListener('keydown', onKeydown);
 			detachSubmissionWatchers();
 		}
@@ -437,6 +784,7 @@ add_action( 'wp_footer', function() {
 			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
 				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
 			}
+			if (rangeLabelResizeObserver) rangeLabelResizeObserver.disconnect();
 			detachSubmissionWatchers();
 		}
 
@@ -473,11 +821,12 @@ add_action( 'wp_footer', function() {
 		// ::-moz-range-progress) - paint the "already selected" portion via
 		// a JS-computed --feedbackSurveyRangeFill percentage instead (see
 		// the matching CSS in _feedback-survey.scss), updated live as the
-		// visitor drags. Also shows the slider's min/max values as labels
-		// below it, read straight off the input's own min/max attributes
-		// (whatever the field is configured to in WPForms, etc.) rather
-		// than hardcoded - can't be done in pure CSS since browsers don't
-		// render ::before/::after on <input> elements at all.
+		// visitor drags. Also shows a label under every step value (not
+		// just the two ends), read straight off the input's own
+		// min/max/step attributes (whatever the field is configured to in
+		// WPForms, etc.) rather than hardcoded - can't be done in pure CSS
+		// since browsers don't render ::before/::after on <input> elements
+		// at all.
 		//
 		// The labels are appended to formWrap itself and positioned via
 		// measured geometry, deliberately NOT inserted into the slider's
@@ -501,32 +850,72 @@ add_action( 'wp_footer', function() {
 							formWrap.style.position = 'relative';
 						}
 
-						var minLabel = document.createElement('span');
-						minLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--min';
-						minLabel.textContent = min;
+						var minNum = parseFloat(min);
+						var maxNum = parseFloat(max);
+						var stepAttr = slider.getAttribute('step');
+						var stepNum = (stepAttr && stepAttr !== 'any') ? parseFloat(stepAttr) : 1;
+						if (!stepNum || isNaN(stepNum) || stepNum <= 0) stepNum = 1;
 
-						var maxLabel = document.createElement('span');
-						maxLabel.className = 'feedbackSurvey-rangeLabel feedbackSurvey-rangeLabel--max';
-						maxLabel.textContent = max;
+						// One label per step value (1, 2, 3, 4, 5 - not just
+						// the two ends) so the visitor can see where the
+						// thumb sits relative to every option, not just how
+						// far it is from the extremes. Capped so a finely-
+						// stepped range (e.g. step="0.1") can't cram dozens
+						// of overlapping labels under the track - falls back
+						// to just the two end labels past that point, same
+						// as this used to always do.
+						var values = [minNum, maxNum];
+						if (!isNaN(minNum) && !isNaN(maxNum) && maxNum > minNum) {
+							var maxLabels = 11;
+							var stepCount = Math.round((maxNum - minNum) / stepNum);
+							if (stepCount > 1 && stepCount <= maxLabels - 1) {
+								// Built by index (minNum + i*stepNum), not by
+								// accumulating stepNum in a loop condition -
+								// floating-point drift there (e.g. repeated
+								// += 0.1) can land just under maxNum on the
+								// final lap and emit a duplicate end label.
+								// First/last are the input's own min/max
+								// attribute values verbatim either way, so a
+								// non-evenly-divisible step (e.g. 0-1 by 0.3)
+								// still ends exactly on the real max rather
+								// than the last grid point short of it.
+								values = [minNum];
+								for (var i = 1; i < stepCount; i++) {
+									values.push(Math.round((minNum + i * stepNum) * 1000) / 1000);
+								}
+								values.push(maxNum);
+							}
+						}
 
-						formWrap.appendChild(minLabel);
-						formWrap.appendChild(maxLabel);
+						var rangeLabels = [];
+						for (var vi = 0; vi < values.length; vi++) {
+							var modifier = vi === 0
+								? 'feedbackSurvey-rangeLabel--min'
+								: (vi === values.length - 1 ? 'feedbackSurvey-rangeLabel--max' : 'feedbackSurvey-rangeLabel--mid');
+							var labelEl = document.createElement('span');
+							labelEl.className = 'feedbackSurvey-rangeLabel ' + modifier;
+							labelEl.textContent = values[vi];
+							formWrap.appendChild(labelEl);
+							rangeLabels.push({ el: labelEl, value: values[vi] });
+						}
 
 						var positionLabels = function() {
 							var sliderRect = slider.getBoundingClientRect();
 							var wrapRect = formWrap.getBoundingClientRect();
 							var top = sliderRect.bottom - wrapRect.top + 4;
-							minLabel.style.top  = top + 'px';
-							minLabel.style.left = (sliderRect.left - wrapRect.left) + 'px';
-							maxLabel.style.top  = top + 'px';
-							maxLabel.style.left = (sliderRect.right - wrapRect.left) + 'px';
+							var span = maxNum - minNum;
+							for (var pi = 0; pi < rangeLabels.length; pi++) {
+								var fraction = span > 0 ? (rangeLabels[pi].value - minNum) / span : 0;
+								rangeLabels[pi].el.style.top  = top + 'px';
+								rangeLabels[pi].el.style.left = (sliderRect.left - wrapRect.left + sliderRect.width * fraction) + 'px';
+							}
 						};
 						// Not called immediately here - the popup is still
 						// display:none at this point (shown later, from
 						// showFor()'s setTimeout, which is what actually
 						// calls this the first time), so
 						// getBoundingClientRect() would only ever measure
-						// an all-zero rect and misplace both labels.
+						// an all-zero rect and misplace every label.
 						window.addEventListener('resize', positionLabels);
 						rangeLabelRepositionFns.push(positionLabels);
 					}
@@ -542,6 +931,27 @@ add_action( 'wp_footer', function() {
 					slider.addEventListener('input', paintFill);
 					paintFill();
 				})(sliders[s]);
+			}
+
+			// positionLabels() above is only re-run on window resize, but the
+			// very first run (triggered by showFor()'s setTimeout, ~400ms
+			// after the popup unhides) can land before formWrap has actually
+			// finished settling - e.g. a form field the plugin hides via its
+			// own conditional-logic JS is still visibly taking up space at
+			// that point, pushing formWrap taller/shorter than its final
+			// layout. That shifts formWrap's own getBoundingClientRect(),
+			// which throws off the top/left math above, and nothing was
+			// re-measuring it afterward since no window resize necessarily
+			// follows. Observing formWrap directly catches that (and any
+			// other later reflow inside it - webfont swap, etc.) regardless
+			// of whether the viewport itself ever resizes.
+			if (formWrap && rangeLabelRepositionFns.length && window.ResizeObserver) {
+				rangeLabelResizeObserver = new ResizeObserver(function() {
+					for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+						rangeLabelRepositionFns[r]();
+					}
+				});
+				rangeLabelResizeObserver.observe(formWrap);
 			}
 		}
 

@@ -149,13 +149,14 @@
 		}
 	}
 
-	// Min/max end labels for a range slider, appended to .feedbackSurvey-form
-	// by the inline script and positioned via measured geometry (top/left
-	// set inline via JS, same reasoning as the highlight/dialog positioning
-	// above - the slider can be any width, so this isn't attempted in CSS
-	// alone). Deliberately absolutely positioned rather than inserted into
-	// the slider's own DOM neighborhood - see the inline script's comment
-	// for why that broke WPForms' own hint-text updater.
+	// One label per step value for a range slider (not just the two ends),
+	// appended to .feedbackSurvey-form by the inline script and positioned
+	// via measured geometry (top/left set inline via JS, same reasoning as
+	// the highlight/dialog positioning above - the slider can be any width,
+	// so this isn't attempted in CSS alone). Deliberately absolutely
+	// positioned rather than inserted into the slider's own DOM
+	// neighborhood - see the inline script's comment for why that broke
+	// WPForms' own hint-text updater.
 	&-rangeLabel {
 		position: absolute;
 		font-size: 13px;
@@ -171,6 +172,13 @@
 		// with the end of the track rather than starting from it.
 		&--max {
 			transform: translate(-100%, 2px);
+		}
+
+		// Every value between the two ends - centered on its own point
+		// along the track (set by the inline script) rather than flush to
+		// either edge.
+		&--mid {
+			transform: translate(-50%, 2px);
 		}
 	}
 
