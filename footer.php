@@ -1,10 +1,21 @@
 <?php get_template_part('templates/partials/_footer'); ?>
 <?php wp_footer(); ?>
-<?php
-$user = wp_get_current_user();
-$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
-?>
 
+<?php
+// Was: hardcoded to the 'agent_tester' role only, completely separate
+// from the CustomGPT Chat Widget plugin's own "Who Can See The Widget"
+// setting (Settings -> CustomGPT Chat Widget), so changing that setting
+// had no effect here at all. Now reads through the plugin's exported
+// customgpt_widget_current_user_can_see_widget() helper - same pattern
+// as the external_id helper further down this script - so this script
+// and the plugin's own [customgpt_chat] shortcode always agree on who
+// can see the widget, controlled from the one settings page. Falls
+// back to the old hardcoded check only if the plugin isn't active.
+$user             = wp_get_current_user();
+$is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widget' )
+	? customgpt_widget_current_user_can_see_widget()
+	: in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
+?>
 <?php if( $is_agent_tester ) : ?>
 <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
 <script>
@@ -222,7 +233,6 @@ $is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| 
 })(jQuery);
 <?php endif; ?>
 </script>
-
 
 
 </body>
