@@ -298,6 +298,7 @@ add_action( 'wp_footer', function() {
 		var targetSelector = <?php echo wp_json_encode( $target ); ?>;
 		var submittedMarked = false;
 		var rangeLabelRepositionFns = [];
+		var rangeLabelResizeObserver = null;
 
 		// Only ever called on a detected successful submission (see the
 		// plugin integrations below) - never on a plain close, so closing
@@ -321,6 +322,7 @@ add_action( 'wp_footer', function() {
 			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
 				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
 			}
+			if (rangeLabelResizeObserver) rangeLabelResizeObserver.disconnect();
 			document.removeEventListener('keydown', onKeydown);
 			detachSubmissionWatchers();
 		}
@@ -437,6 +439,7 @@ add_action( 'wp_footer', function() {
 			for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
 				window.removeEventListener('resize', rangeLabelRepositionFns[r]);
 			}
+			if (rangeLabelResizeObserver) rangeLabelResizeObserver.disconnect();
 			detachSubmissionWatchers();
 		}
 
@@ -542,6 +545,27 @@ add_action( 'wp_footer', function() {
 					slider.addEventListener('input', paintFill);
 					paintFill();
 				})(sliders[s]);
+			}
+
+			// positionLabels() above is only re-run on window resize, but the
+			// very first run (triggered by showFor()'s setTimeout, ~400ms
+			// after the popup unhides) can land before formWrap has actually
+			// finished settling - e.g. a form field the plugin hides via its
+			// own conditional-logic JS is still visibly taking up space at
+			// that point, pushing formWrap taller/shorter than its final
+			// layout. That shifts formWrap's own getBoundingClientRect(),
+			// which throws off the top/left math above, and nothing was
+			// re-measuring it afterward since no window resize necessarily
+			// follows. Observing formWrap directly catches that (and any
+			// other later reflow inside it - webfont swap, etc.) regardless
+			// of whether the viewport itself ever resizes.
+			if (formWrap && rangeLabelRepositionFns.length && window.ResizeObserver) {
+				rangeLabelResizeObserver = new ResizeObserver(function() {
+					for (var r = 0; r < rangeLabelRepositionFns.length; r++) {
+						rangeLabelRepositionFns[r]();
+					}
+				});
+				rangeLabelResizeObserver.observe(formWrap);
 			}
 		}
 
