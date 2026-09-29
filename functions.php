@@ -3185,3 +3185,40 @@ function adapt_remove_agent_tester_role_once() {
     update_option( 'adapt_agent_tester_role_removed', 1 );
 }
 // add_action( 'init', 'adapt_remove_agent_tester_role_once', 20 );
+
+
+/**
+ * Whether the current user can see the Market Narratives menu item.
+ *
+ * Mirrors the desktop main-menu rule in templates/partials/_header.php
+ * (the Research dropdown and the Market Narratives link):
+ * - TNC and KYC members get their own short menu, so never.
+ * - Advantage members, yes.
+ * - Administrators with no active MemberPress subscription (the header's
+ *   $superAdminView), yes.
+ *
+ * Relies on the global $membershipType set on the wp hook and adjusted for
+ * administrators in _header.php, so call it after get_header() has run.
+ *
+ * @return bool
+ */
+function adapt_can_view_market_narratives(): bool {
+    global $membershipType, $member;
+
+    $type = is_string( $membershipType ) ? trim( $membershipType ) : '';
+
+    if ( in_array( $type, [ 'tnc', 'kyc' ], true ) ) {
+        return false;
+    }
+
+    if ( 'advantage' === $type ) {
+        return true;
+    }
+
+    if ( current_user_can( 'administrator' ) ) {
+        $subscription_ids = $member ? (array) $member->active_product_subscriptions( 'ids' ) : [];
+        return empty( $subscription_ids );
+    }
+
+    return false;
+}

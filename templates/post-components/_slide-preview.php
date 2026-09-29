@@ -675,10 +675,13 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                             }
                         }
                         
-                        // Data & Insights ID => 15775
-                        if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775, 'filter-types', get_the_ID()) ){
-                            // market narrative ID  => 16145
-                            $postType = get_term(16145, 'filter-types');
+                        // Articles tagged with both Data & Insights (15775) and
+                        // Market Narratives (16145): show Market Narratives only to
+                        // users who can see that menu item in the header, otherwise
+                        // Data & Insights, so the Yoast primary term or term order
+                        // no longer decides which label wins.
+                        if ( has_term( 15775, 'filter-types', get_the_ID() ) && has_term( 16145, 'filter-types', get_the_ID() ) ) {
+                            $postType = get_term( adapt_can_view_market_narratives() ? 16145 : 15775, 'filter-types' );
                         }
                     ?>
                     <?php if ( !empty( $postType ) ) { ?>

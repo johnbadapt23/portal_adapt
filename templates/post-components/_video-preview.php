@@ -14,6 +14,8 @@ $advantagePlus = "no";
     ) {
         $advantagePlus = "yes";
     }
+
+$post_id = get_the_ID();
 ?>
 <section class="expertPresentationFeatured bg-black singleResearch">
     <div class="container">  

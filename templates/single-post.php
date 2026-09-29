@@ -381,7 +381,7 @@ if (
         <?php } else { ?> 
             <?php
             $allowed_host = 'researchstaging1.adapt.com.au';
-            $host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+            $host = parse_url($_SERVER['HTTP_REFERER'] ?? '', PHP_URL_HOST) ?: '';
             if(substr($host, 0 - strlen($allowed_host)) == $allowed_host) { ?>
                 <script>
 

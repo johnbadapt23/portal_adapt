@@ -14,6 +14,8 @@
     ) {
         $advantagePlus = "yes";
     }
+
+$post_id = get_the_ID();
 ?>
 <section class="researchArticleTextHeader bg-white">
     <div class="container">                        
