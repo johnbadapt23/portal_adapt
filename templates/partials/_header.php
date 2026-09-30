@@ -32,7 +32,12 @@ if (user_can($current_user, 'administrator')) {
 } 
 
 $user = wp_get_current_user();
-$is_agent_tester = in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
+// Follows the CustomGPT Chat Widget plugin's "Who Can See The Widget"
+// setting (Settings -> CustomGPT Chat Widget), same as footer.php. Falls
+// back to the old hardcoded agent_tester check only if the plugin isn't active.
+$is_agent_tester = function_exists( 'customgpt_widget_current_user_can_see_widget' )
+	? customgpt_widget_current_user_can_see_widget()
+	: in_array( 'agent_tester', (array) $user->roles, true ); //|| current_user_can('administrator')
 
 
 $superAdminView = false;
