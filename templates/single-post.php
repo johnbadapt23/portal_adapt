@@ -318,6 +318,17 @@ global $membershipType;
                     update_user_meta($user_id, 'mepr_buyer_persona_profiles_views', $post_count_buyer_persona_profiles);
                 }
 
+
+                if($postFilterType -> slug == 'edge-presentations' || $postFilterType -> slug == 'edge-snapshots'){
+                    $post_count_edge_presentations = (int) get_user_meta($user_id, 'mepr_edge_presentations_views', true);                
+                    if (!is_numeric($post_count_edge_presentations)) {
+                        $post_count_edge_presentations = 1;
+                    } else {
+                        $post_count_edge_presentations++;
+                    }
+                    update_user_meta($user_id, 'mepr_edge_presentations_views', $post_count_edge_presentations);
+                }
+
             }
             do_action('profile_update', $user_id, $current_user);
         }        
