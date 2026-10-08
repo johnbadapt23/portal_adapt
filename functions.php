@@ -2866,6 +2866,29 @@ function adapt_render_filter_posts() {
             'slug'
         );
     }
+
+    // Page's own filter-types restriction (from the page's 'all_types'/'types'
+    // ACF fields, already resolved into $page_allowed_ids above), independent
+    // of membership/admin status. This is a structural "which types does this
+    // page show" setting, not a subscription gate - it must still apply when
+    // the current user is an Administrator. $allowed_type_slugs above is
+    // intentionally admin-gated (it only ever encodes the membership
+    // restriction), so for admins it stays empty, and the $type fallback
+    // below for Page-based templates then had nothing to fall back to -
+    // silently dropping the filter-types constraint and showing every type
+    // (e.g. an Administrator on /edge-presentations/ seeing Community
+    // Interviews / Data & Insights posts alongside Edge Presentations ones,
+    // even on a plain page load with no search or filter applied). The
+    // template's own dropdown-rendering code computes its $allowed_type_slugs
+    // separately and is NOT admin-gated, which is why the Types dropdown UI
+    // itself already looked correctly scoped while the post list didn't.
+    $page_allowed_type_slugs = [];
+    if (!empty($page_allowed_ids) && is_array($type_terms) && !is_wp_error($type_terms)) {
+        $page_allowed_type_slugs = array_column(
+            array_filter($type_terms, fn($t) => in_array($t->term_id, $page_allowed_ids, true)),
+            'slug'
+        );
+    }
  
     // Valid slugs per taxonomy — used to validate whether the page slug qualifies as a filter
     $valid_topic_slugs    = $term_slugs($topic_terms);
@@ -2904,7 +2927,7 @@ function adapt_render_filter_posts() {
     // fall back to the page's own $allowed_type_slugs instead, which is
     // exactly the restriction just derived above from that page's
     // 'all_types'/'types' fields.
-    $type            = (array) ($_GET['type']            ?? ($q_is_term ? $page_slug_filter('filter-types', $allowed_type_slugs ?: $term_slugs($type_terms)) : $allowed_type_slugs));
+    $type            = (array) ($_GET['type']            ?? ($q_is_term ? $page_slug_filter('filter-types', $allowed_type_slugs ?: $term_slugs($type_terms)) : ($allowed_type_slugs ?: $page_allowed_type_slugs)));
     $persona         = (array) ($_GET['persona']         ?? $page_slug_filter('persona-mapping', $valid_persona_slugs));
     $sector          = (array) ($_GET['sector']          ?? $page_slug_filter('sector-analysis', $valid_sector_slugs));
     $trending_themes = (array) ($_GET['trending_themes'] ?? $page_slug_filter('trending-themes', $valid_trending_slugs));
