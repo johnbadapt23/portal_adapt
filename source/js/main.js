@@ -2198,6 +2198,36 @@ $('.post-filtering-module').each(function(){
     // ===============================
     // AJAX LOAD POSTS
     // ===============================
+    // Each filter-dropdown's data-allowed attribute carries that page's
+    // actual restriction for this taxonomy (e.g. just Edge Presentations /
+    // Edge Snapshots on /edge-presentations/) - the same list the server
+    // already used to build that dropdown's own buttons. filters[]
+    // deliberately drops this when the "All" button is active (see the
+    // comment above the pill-removal handler) because on an unrestricted
+    // page that "All" value is every term in the taxonomy, and sending it
+    // as an explicit tax_query IN-list would wrongly exclude posts with no
+    // term at all. But ajax_load_filtered_posts() has no server-side way to
+    // know which page a given AJAX request came from - admin-ajax.php has
+    // no front-end URL/queried-object to derive it from, unlike the first,
+    // server-rendered load - so without sending this separately, any page
+    // that DOES restrict a taxonomy loses that restriction the moment a
+    // search or filter click fires an AJAX request: the response comes back
+    // with results from every type/topic/etc., not just the ones this page
+    // is scoped to. allowed_type/allowed_topic/etc. carry that restriction
+    // through explicitly; ajax_load_filtered_posts() already reads them (as
+    // the "allowed" fallback normalize_filter() applies whenever the
+    // matching type/topic/etc. filter itself is empty) - they just weren't
+    // being sent.
+    function getAllowedFor(filterKey) {
+        const $dropdown = $module.find('.filter-dropdown[data-filter="' + filterKey + '"]');
+        if (!$dropdown.length) return [];
+        let allowed = $dropdown.attr('data-allowed');
+        if (typeof allowed === 'string') {
+            try { allowed = JSON.parse(allowed); } catch (e) { allowed = []; }
+        }
+        return Array.isArray(allowed) ? allowed : [];
+    }
+
     function loadPosts(page, append) {
         if (loading) return;
         loading = true;
@@ -2215,7 +2245,13 @@ $('.post-filtering-module').each(function(){
 			persona: filters.persona,
 			sector: filters.sector,
 			search: currentSearch,
-			sort: currentSort
+			sort: currentSort,
+			allowed_topic: getAllowedFor('topic'),
+			allowed_type: getAllowedFor('type'),
+			allowed_trending: getAllowedFor('trending-themes'),
+			allowed_event: getAllowedFor('event'),
+			allowed_persona: getAllowedFor('persona'),
+			allowed_sector: getAllowedFor('sector')
 		};
 		// Add research_type_order only if the input exists
 		const $researchInput = $module.find('input[name="research_type_order"]');
