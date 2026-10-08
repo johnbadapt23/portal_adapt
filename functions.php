@@ -2760,6 +2760,7 @@ function adapt_render_filter_posts() {
     // Membership allowed IDs + allowed type slugs (server-side, same logic as adapt_render_filter_dropdowns)
     // -------------------------
     $q          = get_queried_object();
+    $q_is_term  = $q instanceof WP_Term;
     $q_slug     = $q->slug ?? '';
     $q_taxonomy = $q->taxonomy ?? '';
 
@@ -2775,15 +2776,39 @@ function adapt_render_filter_posts() {
     }
 
     // Apply page_allowed_ids intersection (same as template + dropdown function)
-    $page_allowed_ids    = [];
-    $grouped_types_terms = get_field('grouped_types', $q);
-    if (is_array($grouped_types_terms)) {
-        $page_allowed_ids = array_map(function ($term) {
-            return is_object($term) && isset($term->term_id) ? (int) $term->term_id : (int) $term;
-        }, $grouped_types_terms);
-    }
-    if (!empty($q) && isset($q->term_id)) {
+    //
+    // Two different kinds of pages call this function, and they store
+    // "which filter-types does this page show" differently:
+    //  - A real filter-types term archive (template-filter-types.php): $q is
+    //    a WP_Term, and the allowed types are that term itself plus whatever
+    //    the term's own 'grouped_types' field adds.
+    //  - A Page using one of the generic filter templates
+    //    (template-post-filters.php, template-persona-filters.php,
+    //    template-sector-filters.php): $q is a WP_Post, which has no
+    //    term_id/slug/taxonomy, so none of the WP_Term-based logic below
+    //    ever matched it. These pages store their restriction directly via
+    //    their own 'all_types'/'types' fields - the same fields the calling
+    //    template reads to build its Types filter dropdown. Without reading
+    //    them here too, $page_allowed_ids silently stayed empty for every
+    //    such page, which dropped the filter-types constraint from the
+    //    query entirely and showed posts of every type (e.g. /edge-presentations/
+    //    showing Data & Insights / Market Narratives posts).
+    $page_allowed_ids = [];
+    if ($q_is_term) {
+        $grouped_types_terms = get_field('grouped_types', $q);
+        if (is_array($grouped_types_terms)) {
+            $page_allowed_ids = array_map(function ($term) {
+                return is_object($term) && isset($term->term_id) ? (int) $term->term_id : (int) $term;
+            }, $grouped_types_terms);
+        }
         $page_allowed_ids[] = (int) $q->term_id;
+    } elseif (get_field('all_types', $q) != 1) {
+        $page_types_terms = get_field('types', $q);
+        if (is_array($page_types_terms)) {
+            $page_allowed_ids = array_map(function ($term) {
+                return is_object($term) && isset($term->term_id) ? (int) $term->term_id : (int) $term;
+            }, $page_types_terms);
+        }
     }
     $page_allowed_ids = array_unique($page_allowed_ids);
  
@@ -2872,7 +2897,14 @@ function adapt_render_filter_posts() {
     // Optional filters from GET — fall back to page slug only when it's a valid filter term
     // -------------------------
     $topic           = (array) ($_GET['topicType']      ?? $page_slug_filter('topic',           $valid_topic_slugs));
-    $type            = (array) ($_GET['type']            ?? $page_slug_filter('filter-types',    $allowed_type_slugs ?: $term_slugs($type_terms)));
+    // page_slug_filter()'s "does the current page's own slug/taxonomy match"
+    // fallback only makes sense when $q is the term itself (a real
+    // filter-types archive). On a Page-based filter template $q has no
+    // taxonomy to match against, so that helper always returned [] there -
+    // fall back to the page's own $allowed_type_slugs instead, which is
+    // exactly the restriction just derived above from that page's
+    // 'all_types'/'types' fields.
+    $type            = (array) ($_GET['type']            ?? ($q_is_term ? $page_slug_filter('filter-types', $allowed_type_slugs ?: $term_slugs($type_terms)) : $allowed_type_slugs));
     $persona         = (array) ($_GET['persona']         ?? $page_slug_filter('persona-mapping', $valid_persona_slugs));
     $sector          = (array) ($_GET['sector']          ?? $page_slug_filter('sector-analysis', $valid_sector_slugs));
     $trending_themes = (array) ($_GET['trending_themes'] ?? $page_slug_filter('trending-themes', $valid_trending_slugs));
