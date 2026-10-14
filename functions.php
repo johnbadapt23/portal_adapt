@@ -8,6 +8,7 @@ require('includes/_functions.php');
 require('includes/_customisations.php');
 require('includes/_welcome-popup.php');
 require('includes/_feedback-survey.php');
+require('includes/_permalinks-customizer-bulk-edit-fix.php');
 
 function cc_mime_types($mimes) {
   $mimes['json'] = 'text/plain';
@@ -1006,28 +1007,47 @@ function sync_post_to_contributor_resources($post_id, $post, $update) {
 
 
 /**
- * Cache the customgpt-chat-widget plugin's own settings API call.
+ * Cache the customgpt-chat-widget plugin's own project-info API calls.
  *
- * Query Monitor's "http" panel showed a synchronous, blocking HTTP GET to
- * https://app.customgpt.ai/api/v1/projects/{id}/settings on every single
- * page load, taking ~1.2 seconds on its own - a plugin-side call (this
- * theme has no PHP code that talks to customgpt.ai; the theme's own
- * CustomGPT integration is entirely client-side JS, deferred until the
- * chat widget is actually opened - see footer.php's ensureCustomGptInit()).
- * Since this project's settings (branding, welcome message, etc.) don't
- * need to be real-time-fresh, short-circuiting the request with a cached
+ * Query Monitor's "http" panel showed TWO synchronous, blocking HTTP GETs
+ * on every page load once this plugin's own cache goes cold (roughly every
+ * 15 minutes, matching the TTL below):
+ *   https://app.customgpt.ai/api/v1/projects/{id}/settings
+ *   https://app.customgpt.ai/api/v1/projects/{id}
+ * ~1.1s each, ~2.3s combined - 56% of a 4.0s page render on the homepage
+ * when both happened to be cold at once (confirmed live via
+ * window.QueryMonitorData.data.http/.overview across repeated loads).
+ * Both are plugin-side calls (this theme has no PHP code that talks to
+ * customgpt.ai; the theme's own CustomGPT integration is entirely
+ * client-side JS, deferred until the chat widget is actually opened - see
+ * footer.php's ensureCustomGptInit()) and both are read-only project-info
+ * lookups, not a chat message exchange (those happen client-side, straight
+ * from the browser to customgpt.ai, never through this server). Since
+ * neither needs to be real-time-fresh, short-circuiting both with a cached
  * copy via pre_http_request - and populating that cache from the one real
- * request that does go through - turns every load after the first cold
- * one into a local cache read instead of a ~1.2s round trip to a
- * third-party API, without touching the plugin's own files (which would
+ * request that does go through for each - turns every load after the
+ * first cold one into a local cache read instead of a ~1.1s round trip to
+ * a third-party API, without touching the plugin's own files (which would
  * be overwritten on its next update).
+ *
+ * Matched narrowly on purpose: only these two exact endpoints (optionally
+ * with a query string), and only GET requests - never a deeper sub-path
+ * like .../projects/{id}/conversations, and never anything non-GET, so a
+ * real-time call this plugin might add later is never accidentally
+ * replayed from a stale cache.
  */
-function adapt_is_customgpt_settings_request( $url ) {
-    return is_string( $url ) && str_contains( $url, 'app.customgpt.ai/api/v1/projects/' ) && str_contains( $url, '/settings' );
+function adapt_is_customgpt_settings_request( $url, $args = null ) {
+    if ( ! is_string( $url ) || ! preg_match( '#^https://app\.customgpt\.ai/api/v1/projects/\d+(?:/settings)?(?:\?.*)?$#', $url ) ) {
+        return false;
+    }
+    if ( is_array( $args ) && isset( $args['method'] ) && 'GET' !== strtoupper( $args['method'] ) ) {
+        return false;
+    }
+    return true;
 }
 
 add_filter( 'pre_http_request', function ( $preempt, $args, $url ) {
-    if ( ! adapt_is_customgpt_settings_request( $url ) ) {
+    if ( ! adapt_is_customgpt_settings_request( $url, $args ) ) {
         return $preempt;
     }
     $cached = get_transient( 'adapt_cgpt_settings_' . md5( $url ) );
@@ -1035,7 +1055,7 @@ add_filter( 'pre_http_request', function ( $preempt, $args, $url ) {
 }, 10, 3 );
 
 add_action( 'http_api_debug', function ( $response, $context, $class, $args, $url ) {
-    if ( 'response' !== $context || is_wp_error( $response ) || ! adapt_is_customgpt_settings_request( $url ) ) {
+    if ( 'response' !== $context || is_wp_error( $response ) || ! adapt_is_customgpt_settings_request( $url, $args ) ) {
         return;
     }
     // Only cache the plain-data fields any normal caller reads via
@@ -2675,7 +2695,6 @@ add_action( 'save_post', 'adapt_invalidate_pool_cache' );
 add_action( 'created_term', 'adapt_invalidate_pool_cache' );
 add_action( 'edited_term', 'adapt_invalidate_pool_cache' );
 add_action( 'delete_term', 'adapt_invalidate_pool_cache' );
-
 add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment_id, $metadata ) {
     if ( ! $optimize ) {
         return false;
