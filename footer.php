@@ -47,8 +47,14 @@ $is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widg
 
     // CustomGPT.init() fires several admin-ajax proxy calls (project info,
     // settings, conversation create) that each take multiple seconds. It used
-    // to run unconditionally on window load for every page view; now it only
-    // runs the first time the user actually opens the chat toggle.
+    // to run unconditionally on window load for every page view. Now it runs
+    // once, the first time any of these happen: the user interacts with the
+    // page at all (see the first-interaction listeners below), the chat
+    // toggle is clicked directly, or - off the front page's own eager-init
+    // case below - whichever comes first. Letting any interaction trigger it
+    // (not just a direct click on the toggle) means the few seconds of proxy
+    // calls are usually already done in the background by the time the user
+    // actually opens the widget, instead of only starting then.
     function ensureCustomGptInit(onReady) {
         if (typeof CustomGPT === 'undefined' || !window.__cgptConfig) {
             onReady();
@@ -75,6 +81,8 @@ $is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widg
         }, 300);
     }
 
+    function noop() {}
+
     <?php if( !is_front_page() ) : ?>
     // Eager init off the front page: the front page has its own always-
     // eager embedded AI panel (.cgpt-hero-card, rendered by chat.js itself
@@ -82,15 +90,32 @@ $is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widg
     // handling below), so triggering our own CustomGPT.init() there too
     // would be a redundant second init on top of that panel's own auto-
     // render. Shares cgptInitStarted with ensureCustomGptInit above, so
-    // whichever fires first - this eager call, or an early click on the
-    // header toggle - wins and the other is a no-op, never a double init.
-    function noop() {}
+    // whichever fires first - this eager call, the first-interaction
+    // listeners below, or an early click on the header toggle - wins and
+    // the others are a no-op, never a double init.
     if (document.readyState === 'complete') {
         ensureCustomGptInit(noop);
     } else {
         window.addEventListener('load', function () { ensureCustomGptInit(noop); });
     }
     <?php endif; ?>
+
+    // Also kick off CustomGPT.init() on the user's first interaction with
+    // the page at all - not just a direct click on the chat toggle -
+    // because on pages where init isn't already eager (see above), waiting
+    // for a toggle click to even START the multi-second init made the
+    // widget feel slow the first time someone actually opened it. Any one
+    // of scroll, click/tap, keypress, or touch counts as "the user is here
+    // and interacting", so start warming up the widget right then.
+    // Deliberately NOT mousemove: some browsers fire a synthetic mousemove
+    // on load even with no real movement, which would defeat the point of
+    // waiting for a real interaction. Each listener is { once: true }, so
+    // it removes itself after firing; cgptInitStarted (inside
+    // ensureCustomGptInit) makes every other path here a no-op once any one
+    // of them has already run the real init.
+    ['scroll', 'click', 'keydown', 'touchstart', 'pointerdown'].forEach(function (evt) {
+        window.addEventListener(evt, function () { ensureCustomGptInit(noop); }, { once: true, passive: true });
+    });
 
     function openCustomGptWidget() {
         if (document.body.classList.contains('portal-home-2')) {
