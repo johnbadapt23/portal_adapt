@@ -9,6 +9,7 @@ require('includes/_customisations.php');
 require('includes/_welcome-popup.php');
 require('includes/_feedback-survey.php');
 require('includes/_permalinks-customizer-bulk-edit-fix.php');
+require('includes/_memberpress-rocket-cache-fix.php');
 
 function cc_mime_types($mimes) {
   $mimes['json'] = 'text/plain';
