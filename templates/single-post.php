@@ -455,7 +455,7 @@ if (
                                            
                     </span>
                 <?php } ?>
-                <?php if( get_field( 'number_of_speakers' ) == 'one') { ?>
+                <?php if( get_field( 'number_of_speakers' ) == '_one') { ?>
                     <?php $post_object = get_field( 'speaker' ); ?>
                     <?php if ( $post_object ): ?>
                         <?php $post = $post_object; ?>
@@ -499,7 +499,7 @@ if (
             </div>
         </div>
     </article>
-    <?php if( get_field( 'number_of_speakers' ) == 'more-than-one') { ?>
+    <?php if( get_field( 'number_of_speakers' ) == 'more-than-one' || get_field( 'number_of_speakers' ) == 'one' ) { ?>
         <section class="webinar-speaker-block bg-lightest">
             <div class="container">
                 <?php if ( have_rows( 'webinar_speakers' ) ) : ?>

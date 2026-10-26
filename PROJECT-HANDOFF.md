@@ -455,6 +455,51 @@ A full repo-wide grep for `the_field()`/`the_sub_field()` (the echoing ACF helpe
 
 `ajaxobject.nonce` was baked into page HTML at render time, so a WP Rocket-cached page older than the nonce's ~24-hour window served an already-expired nonce, failing every dependent AJAX call (`load_filtered_posts`, etc.) with `wp_die(-1, 403)` regardless of how recently the visitor actually loaded the page. Added an `adapt_refresh_nonce` AJAX endpoint (never cached) that issues a live nonce on demand; `main.js` calls it on load and updates `ajaxobject.nonce` in place, covering every call site since they all read it live. Rebuilt `main.min.js`.
 
+## CustomGPT widget fixes + MemberPress/WP-Rocket per-user cache-purge fix (commits `1004194`, `a487d56`, `6d10d62`) — both `dev`/staging and `main`/production confirmed live
+
+**Sync check performed for this update (2026-10-26)**: local working copy confirmed byte-for-byte in sync with `origin/dev` — both at `6d10d62` — before writing this section. `origin/main` is at `870428d` (ahead of what this section describes being merged into — these three commits were deployed to production directly, see below, not yet via a `dev`→`main` merge, so don't expect to find them by diffing `main` against `dev`'s older history).
+
+### IMPORTANT for anyone continuing this from a different Claude account/session
+
+Everything in this section's title commits is in git and travels with a `git pull`. **One load-bearing part of the actual fix is not in git at all**: two WP Rocket admin settings, changed directly through the `wp-admin` UI on both sites, not through any file in this repo. If you ever rebuild either site's WP Rocket config from scratch, or move to a new WP Rocket install, re-apply this by hand or the widget-click bug (see below) comes back even though the code is untouched:
+
+- **Settings → WP Rocket → File Optimization → Delay JavaScript Execution → Excluded Delay JavaScript Files** (`delay_js_exclusions`): add `cdn.customgpt.ai`.
+- **Settings → WP Rocket → File Optimization → Minify JavaScript files → Excluded JavaScript Files** (`exclude_js`): also add `cdn.customgpt.ai`. This second one is the one that's easy to miss — see the root-cause explanation below for why both are required, not just the Delay JS one.
+
+Applied and confirmed persisted on both `https://researchstaging1.adapt.com.au` and `https://research.adapt.com.au` as of this update.
+
+### `1004194` — Cache both CustomGPT project-info API calls, not just `/settings`
+
+CustomGPT.init() was re-fetching the widget's project-info admin-ajax proxy call on every page load even though the response is effectively static; only the `/settings` call was being cached, not the sibling project-info call. Widened the existing transient cache to cover both.
+
+### `a487d56` — Start CustomGPT init on first user interaction, not just a toggle click
+
+`footer.php`'s `ensureCustomGptInit()` used to only run the first time someone clicked the `.customgpt-toggle` element (or, off the front page, unconditionally on window `load`). Added a `{ once: true, passive: true }` listener set for `scroll`, `click`, `keydown`, `touchstart`, `pointerdown` (deliberately not `mousemove` — some browsers fire a synthetic one on load with no real movement, which would reintroduce the always-on-load problem this was trying to avoid) that also calls `ensureCustomGptInit()`, so the multi-second admin-ajax init sequence starts warming up on the user's first real interaction with the page instead of waiting for them to specifically find and click the chat toggle.
+
+### `6d10d62` — Purge a member's WP Rocket cache the moment MemberPress access changes
+
+**Reported bug**: a member sometimes saw a login/no-access prompt on a `/topic/*` listing page despite being logged in with a valid membership, and clearing their own browser cache didn't fix it.
+
+**Root cause**: WP Rocket's "Cache Logged-in Users" (`cache_logged_user`, enabled on both sites) caches a separate copy of every page per logged-in user ID. Any page whose content depends on MemberPress access level gets that member's access decision frozen into their personal cache entry. If their actual MemberPress entitlement changes afterward (renewal completes, upgrade, a previously-failing payment goes through), WP Rocket has no way to know — the member keeps being served their own stale cached page until the cache entry's 6-hour lifespan expires or the whole cache is purged manually.
+
+**Fix**: new `includes/_memberpress-rocket-cache-fix.php`, required from `functions.php`. Hooks the single catch-all `mepr-event-create` action (fires for every event MemberPress records — transactions, subscriptions, signups, logins — rather than the many individually-named `mepr-event-*` hooks, so a future MemberPress event type is covered automatically) and calls WP Rocket's public `rocket_clean_user( $user_id )` for the affected user, extracted via `MeprTransaction`/`MeprSubscription`'s `->user()` or a plain WP_User payload's `->ID`/`->user_id`. The extra purge calls for events that don't actually change access (e.g. a plain login) are cheap and harmless.
+
+**End-to-end verification performed on staging**: created a real MemberPress transaction (ID `2991`, "ADAPT Staff" membership, status Complete, gateway Manual/$0 — no Stripe involved) against the already-logged-in `John.Ruben@adapt.com.au` admin account, with explicit authorization to use that account for this. Query Monitor's hooks trace for that exact request confirms `mepr-event-create` fired with our closure registered at `_memberpress-rocket-cache-fix.php:82`, immediately followed by WP Rocket's own internal `before_rocket_clean_user`/`after_rocket_clean_user` hooks (one of `after_rocket_clean_user`'s registered callbacks is WP Rocket's own Sucuri-addon firewall-cache subscriber — unambiguous proof this is the real `rocket_clean_user()` code path executing, not just our closure being registered) — and no PHP errors traced to our file anywhere in that request. This is as close to ground-truth confirmation as this project's tooling allows (no WP-CLI/DB access, same constraint noted in the autoloaded-options section above).
+
+**Open item**: transaction `2991` was left in place on staging (John Ruben's account now actually holds the "ADAPT Staff" membership there) rather than deleted, since it's harmless/arguably correct for that account's real role. Delete it via MemberPress → Transactions if you want that account reset to its pre-test state.
+
+**Deployed to both environments** — confirmed `_memberpress-rocket-cache-fix.php` returns 200 on `research.adapt.com.au` directly, and `functions.php`'s `require` line and WP Rocket's `cache_logged_user` setting both match staging.
+
+### Second, unrelated bug found and fixed on top of the above: the widget needing a click to appear, prod-only
+
+**Reported bug**: on production (not staging), the CustomGPT widget only appeared after clicking something on the page, even on pages where `a487d56` above should have made it eager-load.
+
+**Root cause** (took two passes to find — the first pass concluded "probably just Delay-JS/mousemove timing, nothing to fix," which the user correctly pushed back on): WP Rocket's **JS Minification** feature (separate setting from Delay JS) was rewriting `chat.js`'s served URL from `https://cdn.customgpt.ai/js/chat.js` to a locally-served minified copy at `/wp-content/cache/min/1/js/chat.js?ver=...`. The Delay-JS exclusion pattern (`cdn.customgpt.ai`, added first) only matched the *original* domain, which no longer appeared anywhere in the rendered HTML once minification had already rewritten it — so the script stayed wrapped in `type="text/rocketlazyloadscript"` and never loaded until a real click/scroll/keypress released it. Confirmed via raw-HTML fetch, not just DOM inspection (DOM inspection alone gave a false "looks fixed" read the first time).
+
+**Fix**: added `cdn.customgpt.ai` to the Minify JS exclusion list too (see the two-settings note at the top of this section), so the script is never rewritten in the first place and the original Delay-JS exclusion can match it as intended.
+
+**Verified** on both environments after the fix, via raw HTML fetch (plain `<script defer src="https://cdn.customgpt.ai/js/chat.js">`, no `rocketlazyloadscript` wrapping, no local minified-path rewrite) and a genuinely zero-interaction load timing test (no synthetic click/scroll/keypress at all) on both a listing page and the front page — widget visible in 0.3–0.5s on production, both page types. Also checked Lighthouse/performance impact specifically since this removes the script from delay-gating: an anonymous/logged-out fetch (`credentials: 'omit'`) of the same page shows `chat.js` isn't in the HTML at all for that audience (the whole block is gated behind the widget's own "Who Can See The Widget" role check), so this change has zero effect on any public Lighthouse/PageSpeed score; for the one audience that does get the script (agent_tester/staff roles), the browser classifies it `renderBlocking: "non-blocking"` (it's `defer`red) with ~26ms load time and 0ms of long-task time attributable to it.
+
 ## If you want to keep using a task list to track continuation work
 
 This session's task list has 179 completed items (#1–179, #23 was deleted/never used). Recommend starting fresh numbering for new work rather than trying to continue the same sequence from a different account/session, since task-list state doesn't appear to be shared across accounts.
