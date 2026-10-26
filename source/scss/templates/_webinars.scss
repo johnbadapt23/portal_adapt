@@ -757,7 +757,30 @@ section.webinar-speaker-block {
         }
 
         .speaker-container {
-            float: left;
+            // Was float:left;width:100% with no clearfix - since this is
+            // the only/full-width child of .container (after
+            // .webinar-subtitle, also float:left;width:100%), that part
+            // was the safe pure-single-column pattern described in the
+            // float->flex/grid cleanup pass below. But .speaker-container
+            // itself wraps the genuine side-by-side .one-half pair for the
+            // 2-speaker layout (that pass explicitly deferred this one),
+            // and THAT inner float also had no clearfix, so
+            // .speaker-container collapsed to 0 height around its own
+            // floated children, which in turn made .container collapse
+            // around .speaker-container - the floated .column/
+            // .speaker-column-flex children (and the speaker photos/bios
+            // inside them) rendered entirely outside this section's own
+            // bg-lightest background box as a result. float:none;clear:both
+            // fixes the outer collapse (matches the established safe
+            // pattern used throughout this file); display:flex fixes the
+            // inner one - children's width/padding-based spacing (the
+            // .one-half nth-child left/right padding pair below) is
+            // unchanged by this, since float is simply inert on flex items
+            // per spec, so no other values here needed to change.
+            float: none;
+            clear: both;
+            display: flex;
+            flex-wrap: wrap;
             width: 100%;
 
             .column,
