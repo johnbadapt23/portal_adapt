@@ -39,7 +39,22 @@ section.webinar-register-form {
     .container {
         .column,
         .speaker-column-flex {
-            float: left;
+            // float:left here (and float:right on .right-column below) is
+            // inert everywhere this selector actually matches a real
+            // element: section.webinarBanner and section.webinar-faq both
+            // get display:flex on their own .container below (float
+            // computes to none on a flex item per spec regardless of what
+            // it's set to); section.webinar-speaker-block's .column/
+            // .speaker-column-flex live one level deeper, inside
+            // .speaker-container, which already got the same flex
+            // treatment above; and section.webinar-register-form never
+            // matches anything in the first place - that block is always
+            // rendered as a <div class="webinar-register-form">, never a
+            // <section>, so this whole arm of the selector is dead CSS
+            // regardless of float. Left as float:none (not removed)
+            // so it's obvious at a glance this was a deliberate, checked
+            // decision and not an oversight.
+            float: none;
 
             &.first-column {
                 width: calc(100% - 400px);
@@ -70,11 +85,19 @@ section.webinar-register-form {
                 }
 
                 &.right-column {
-                    float: right;
-
-                    @include responsive(767) {
-                        float: left;
-                    }
+                    // Was float:right (float:left again at 767, so it
+                    // dropped below .first-column in the stacked single-
+                    // column mobile layout instead of switching sides).
+                    // section.webinar-faq .container below is now
+                    // display:flex;flex-direction:row-reverse (visually
+                    // reversing this pair's DOM order - the image markup
+                    // comes first, .first-column's FAQ content second -
+                    // so .right-column still ends up on the right exactly
+                    // like float:right did), switching to a plain
+                    // flex-direction:column at 767, which stacks both
+                    // in DOM order - image first, same as float:left did.
+                    // No float needed on this side either.
+                    float: none;
                 }
             }
 
@@ -130,6 +153,50 @@ section.webinar-register-form {
 
         @include responsive(767) {
             font-size: 18px;
+        }
+    }
+}
+
+// Flex parents for the two real section.webinarBanner/section.webinar-faq
+// contexts above that still needed one (see the float:none comments on
+// the shared .column/.speaker-column-flex rule above) - same collapse bug
+// as .speaker-container had: no clearfix around a floated child/children,
+// so .container (and with it the section's own background/box) collapsed
+// to 0 height around them. display:flex fixes the collapse the same way
+// it did there; every width/padding value on .first-column/.second-column
+// is unchanged by this, since float simply has no effect on flex items.
+section.webinarBanner {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+section.webinar-faq {
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        // .second-column.right-column (the overlay image) is first in the
+        // DOM, .first-column (the FAQ content) second - the original
+        // float:right/float:left pair put the image on the right and the
+        // content on the left despite that DOM order; row-reverse
+        // reproduces the same visual order from flex's normal
+        // (DOM-order) layout instead of relying on opposite float
+        // directions. Matches the row-reverse pattern already used for
+        // this identical image-right/content-left shape in
+        // section.webinar-article's .column-container above.
+        flex-direction: row-reverse;
+
+        @include responsive(767) {
+            // Was float:left on .right-column at this breakpoint too
+            // (both sides stack in DOM order - image, then content).
+            // row-reverse would still visually swap a wrapped pair at
+            // this width (the "safe" case only works when every item is
+            // exactly 100% wide with no partial-row ambiguity); switching
+            // to plain column direction stacks both in DOM order,
+            // unambiguously matching that previous behavior instead of
+            // relying on how row-reverse happens to interact with wrap.
+            flex-direction: column;
         }
     }
 }
