@@ -5483,6 +5483,27 @@
                     "parent_repeater": "field_69a0cd2befa63"
                 }
             ]
+        },
+        {
+            "key": "field_6ae2f5b8de59c",
+            "label": "Members Only Request Download Form",
+            "name": "members_only_request_download_form",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Sitewide default HubSpot embed shown in the \"Request to Download\" popup (#requestdownload) for any research post that does not set its own \"Members Only Request Download Form\" field. Paste the full embed snippet (script tag + hbspt.forms.create call).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
         }
     ],
     "location": [
@@ -5508,5 +5529,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787539920
+    "modified": 1793258996
 }
