@@ -7342,7 +7342,23 @@ section.conversation-cta {
 
             .form-container-inner {
                 padding: 0px;
-                
+
+                // Clearfix: .hbspt-form/.hs-form below are float:left so
+                // HubSpot's injected markup lays out correctly, but nothing
+                // was containing that float - this collapsed to 0 height
+                // (and so did .preview-cta-form above it), which is why the
+                // popup rendered with no visible white card even once its
+                // CSS was loading correctly. Containing the float here only
+                // (not touching .hbspt-form/.hs-form's own float, per the
+                // existing caution below about not fighting HubSpot's
+                // runtime styles) fixes the collapse without touching
+                // HubSpot's own markup/classes.
+                &::after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+
                 .hbspt-form,
                 .hs-form {
                     float: left;
