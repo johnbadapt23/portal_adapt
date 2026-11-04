@@ -20,8 +20,8 @@ $is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widg
 <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
 <script>
 	window.__cgptConfig = {
-		p_id: '98865',
-		p_key: 'f12d51cc482847f28a6333cf7f6a5c9d'
+		p_id: '<?php echo esc_js( function_exists( 'customgpt_widget_get_agent_id' ) ? customgpt_widget_get_agent_id() : '' ); ?>',
+		p_key: '<?php echo esc_js( get_option( 'customgpt_widget_floating_p_key', '' ) ); ?>'
 		<?php
 		// Same "Identify Logged-In Users" setting as the main CustomGPT
 		// Chat Widget plugin's own settings page (Settings -> CustomGPT
