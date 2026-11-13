@@ -20,7 +20,7 @@ $is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widg
 <script defer src="https://cdn.customgpt.ai/js/chat.js"></script>
 <script>
 	window.__cgptConfig = {
-		p_id: '<?php echo esc_js( function_exists( 'customgpt_widget_get_agent_id' ) ? customgpt_widget_get_agent_id() : '' ); ?>',
+		p_id: '<?php echo esc_js( get_option( 'customgpt_widget_agent_id', get_option( 'customgpt_widget_floating_p_id', '' ) ) ); ?>',
 		p_key: '<?php echo esc_js( get_option( 'customgpt_widget_floating_p_key', '' ) ); ?>'
 		<?php
 		// Same "Identify Logged-In Users" setting as the main CustomGPT
@@ -38,36 +38,6 @@ $is_agent_tester  = function_exists( 'customgpt_widget_current_user_can_see_widg
 		, external_id: '<?php echo esc_js( $cgpt_agent_tester_external_id ); ?>'
 		<?php endif; ?>
 	};
-
-	// Usage tracking: counts an interaction with this embed widget toward
-	// the same mepr_customgpt_counter user meta that the main plugin's
-	// [customgpt_chat] shortcode and its own floating-widget option use.
-	// Reuses the plugin's existing customgpt_record_floating_usage AJAX
-	// action (registered in customgpt-chat-widget.php v2.20.2+) so there is
-	// one shared counter regardless of which embed method rendered the
-	// widget on a given page. Fires at most once per browser conversation,
-	// since CustomGPT's chat.js only posts "update-conversation-session-id"
-	// once when a conversation is created or resumed, not per message
-	// (confirmed via live testing on researchstaging1, 2026-11-13).
-	( function () {
-		var usageTracking = {
-			ajaxUrl: '<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>',
-			nonce: '<?php echo esc_js( wp_create_nonce( 'customgpt_floating_usage' ) ); ?>'
-		};
-		window.addEventListener( 'message', function ( event ) {
-			if ( event.origin !== 'https://app.customgpt.ai' ) {
-				return;
-			}
-			var data = event.data;
-			if ( ! data || 'update-conversation-session-id' !== data.action ) {
-				return;
-			}
-			var body = new FormData();
-			body.append( 'action', 'customgpt_record_floating_usage' );
-			body.append( 'nonce', usageTracking.nonce );
-			fetch( usageTracking.ajaxUrl, { method: 'POST', body: body, credentials: 'same-origin', keepalive: true } );
-		} );
-	} )();
 </script>
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'98043', p_key:'8c7e9ac540d9dd825d6cf4eab0ade038' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
 <!-- <script defer src="https://cdn.customgpt.ai/js/chat.js"></script> <script defer> (function(){ function init(){ CustomGPT.init({ p_id:'97474', p_key:'b53f0fe49da7c1843edb69e542282c3d' }) } document.readyState === 'complete' ? init() : window.addEventListener('load', init); })(); </script>  -->
