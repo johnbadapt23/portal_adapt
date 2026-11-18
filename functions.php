@@ -1970,6 +1970,16 @@ function adapt_get_visible_terms( $args, $taxonomies, $membershipType ) {
  * tier and there's no single predictable key to delete_transient() directly.
  */
 function adapt_invalidate_visible_terms_cache() {
+    // When a persistent object cache is active, set_transient()/get_transient()
+    // store values directly in the 'transient' cache group (e.g. Redis) instead
+    // of wp_options, so the LIKE-sweep below never finds anything to delete in
+    // that mode. Flush that cache group first to cover that case, then still
+    // run the wp_options sweep so this also works correctly when there's no
+    // persistent object cache (transients stored as real wp_options rows).
+    if ( wp_using_ext_object_cache() && function_exists( 'wp_cache_flush_group' ) ) {
+        wp_cache_flush_group( 'transient' );
+    }
+
     global $wpdb;
 
     $transients = $wpdb->get_col(
@@ -2677,6 +2687,13 @@ function adapt_cached_post_pool( $args, $ttl = 10 * MINUTE_IN_SECONDS ) {
  * to delete_transient() directly.
  */
 function adapt_invalidate_pool_cache() {
+    // See adapt_invalidate_visible_terms_cache() above for why this flush is
+    // needed: set_transient() stores in the 'transient' object-cache group
+    // when a persistent cache is active, bypassing wp_options entirely.
+    if ( wp_using_ext_object_cache() && function_exists( 'wp_cache_flush_group' ) ) {
+        wp_cache_flush_group( 'transient' );
+    }
+
     global $wpdb;
 
     $transients = $wpdb->get_col(
