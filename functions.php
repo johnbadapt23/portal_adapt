@@ -2828,6 +2828,91 @@ function adapt_gated_download_handler() {
     exit;
 }
 
+/**
+ * Keep report downloads out of the public uploads tree automatically.
+ *
+ * Some report files are intentionally public, so we can't blanket-deny every
+ * document in uploads/ - instead, whenever a post is saved, relocate any file
+ * attached through the two gated-download fields (download_link's plain URL,
+ * or slide_preview_module's ACF file field) into uploads/protected-reports/,
+ * which is denied direct HTTP access by .htaccess. adapt_gated_download_handler()
+ * is the only thing that can still read it (after its own membership check).
+ *
+ * Also used directly (not just as a save hook) to do a one-time pass over
+ * every existing post that already has one of these fields set, so this one
+ * function is the single code path for both the ongoing and the one-off fix.
+ */
+add_action( 'acf/save_post', 'adapt_relocate_gated_downloads', 20 );
+function adapt_relocate_gated_downloads( $post_id ) {
+    if ( ! is_numeric( $post_id ) || wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+        return;
+    }
+
+    $upload_dir    = wp_get_upload_dir();
+    $protected_dir = $upload_dir['basedir'] . '/protected-reports';
+    $protected_url = $upload_dir['baseurl'] . '/protected-reports';
+
+    if ( ! file_exists( $protected_dir ) ) {
+        wp_mkdir_p( $protected_dir );
+    }
+
+    // Path 1: 'download_link' repeater's plain text URL field.
+    if ( have_rows( 'download_link', $post_id ) ) {
+        $row_index = 0;
+        while ( have_rows( 'download_link', $post_id ) ) {
+            the_row();
+            $file_url = get_sub_field( 'download_url', $post_id );
+
+            if ( $file_url && strpos( $file_url, '/protected-reports/' ) === false ) {
+                $relative = str_replace( $upload_dir['baseurl'], '', $file_url );
+                $src      = $upload_dir['basedir'] . $relative;
+
+                if ( file_exists( $src ) ) {
+                    $basename = basename( $src );
+                    $dest     = $protected_dir . '/' . $basename;
+                    if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
+                        $dest = $protected_dir . '/' . $post_id . '_' . $basename;
+                    }
+
+                    if ( @rename( $src, $dest ) ) {
+                        update_post_meta( $post_id, 'download_link_' . $row_index . '_download_url', $protected_url . '/' . basename( $dest ) );
+                    } else {
+                        error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for post {$post_id}" );
+                    }
+                }
+            }
+            $row_index++;
+        }
+    }
+
+    // Path 2: 'slide_preview_module' repeater's 'download' file field (ACF attachment).
+    if ( have_rows( 'slide_preview_module', $post_id ) ) {
+        while ( have_rows( 'slide_preview_module', $post_id ) ) {
+            the_row();
+            $download = get_sub_field( 'download', $post_id );
+
+            if ( $download && ! empty( $download['ID'] ) ) {
+                $attachment_id = $download['ID'];
+                $src           = get_attached_file( $attachment_id );
+
+                if ( $src && file_exists( $src ) && strpos( $src, '/protected-reports/' ) === false ) {
+                    $basename = basename( $src );
+                    $dest     = $protected_dir . '/' . $basename;
+                    if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
+                        $dest = $protected_dir . '/' . $attachment_id . '_' . $basename;
+                    }
+
+                    if ( @rename( $src, $dest ) ) {
+                        update_attached_file( $attachment_id, $dest );
+                    } else {
+                        error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for attachment {$attachment_id} (post {$post_id})" );
+                    }
+                }
+            }
+        }
+    }
+}
+
 add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment_id, $metadata ) {
     if ( ! $optimize ) {
         return false;
