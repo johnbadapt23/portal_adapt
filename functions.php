@@ -2780,15 +2780,26 @@ function adapt_gated_download_handler() {
         }
     }
 
-    // Path 2: 'slide_preview_module' repeater's 'download' file field
-    // (ACF attachment), used by _article-title.php / _slide-preview.php /
-    // _video-preview.php / _single-research-text-header-block.php.
-    // Those templates gate this field on current_user_can('memberpress_authorized')
+    // Path 2 / Path 3: 'slide_preview_module' (most posts) and
+    // 'preview_module' (data-insights / market-narratives / persona-profiles
+    // taxonomy) repeaters' 'download' file field (ACF attachment). Both are
+    // rendered by the SAME shared template (_slide-preview.php, also
+    // _article-title.php / _video-preview.php / _single-research-text-header-block.php
+    // for slide_preview_module), gated on current_user_can('memberpress_authorized')
     // alone, EXCEPT for sector-outlooks / cxo-buyer-persona-profiles posts
     // flagged as advantageType, where only advantagePlus members (or admins)
     // get a real link - everyone else sees a "Request Access" placeholder
-    // with no file at all. Replicate that exactly rather than the Path 1 rule.
-    if ( ! $file_path && have_rows( 'slide_preview_module', $post_id ) ) {
+    // with no file at all. advantagePlus is standardized here on the wider
+    // product list (49140, 9811, 41272) used by _slide-preview.php /
+    // single-post.php, not the narrower 49140-only list that
+    // _article-title.php / _video-preview.php used before being aligned to it.
+    //
+    // _slide-preview.php also has an $allowMarketNarratives flag that used to
+    // let anonymous users through for Data & Insights content - that bypass
+    // was a bug (contradicts "everything requires login + membership") and
+    // has been removed from the template, so it is intentionally NOT
+    // replicated here either.
+    if ( ! $file_path ) {
         $current_user_obj = wp_get_current_user();
         $mepr_member       = new MeprUser( $current_user_obj->ID );
         $active_subs       = $mepr_member->active_product_subscriptions( 'ids' );
@@ -2799,17 +2810,26 @@ function adapt_gated_download_handler() {
             in_array( 36884, $active_subs ) ||
             in_array( 41272, $active_subs )
         );
-        $advantage_plus_ok = current_user_can( 'administrator' ) || ( current_user_can( 'mepr-active' ) && in_array( 49140, $active_subs ) );
+        $advantage_plus_ok = current_user_can( 'administrator' ) || ( current_user_can( 'mepr-active' ) && (
+            in_array( 49140, $active_subs ) ||
+            in_array( 9811, $active_subs ) ||
+            in_array( 41272, $active_subs )
+        ) );
         $is_gated_sector_post = has_term( [ 'sector-outlooks', 'cxo-buyer-persona-profiles' ], 'filter-types', $post_id ) && $advantage_type_ok;
-        $slide_authorized = current_user_can( 'memberpress_authorized' ) && ( ! $is_gated_sector_post || $advantage_plus_ok );
+        $preview_authorized = current_user_can( 'memberpress_authorized' ) && ( ! $is_gated_sector_post || $advantage_plus_ok );
 
-        if ( $slide_authorized ) {
-            the_row();
-            $download = get_sub_field( 'download', $post_id );
-            if ( $download && ! empty( $download['ID'] ) ) {
-                $candidate = get_attached_file( $download['ID'] );
-                if ( $candidate && file_exists( $candidate ) ) {
-                    $file_path = $candidate;
+        if ( $preview_authorized ) {
+            foreach ( [ 'slide_preview_module', 'preview_module' ] as $repeater_name ) {
+                if ( $file_path || ! have_rows( $repeater_name, $post_id ) ) {
+                    continue;
+                }
+                the_row();
+                $download = get_sub_field( 'download', $post_id );
+                if ( $download && ! empty( $download['ID'] ) ) {
+                    $candidate = get_attached_file( $download['ID'] );
+                    if ( $candidate && file_exists( $candidate ) ) {
+                        $file_path = $candidate;
+                    }
                 }
             }
         }
@@ -2885,9 +2905,14 @@ function adapt_relocate_gated_downloads( $post_id ) {
         }
     }
 
-    // Path 2: 'slide_preview_module' repeater's 'download' file field (ACF attachment).
-    if ( have_rows( 'slide_preview_module', $post_id ) ) {
-        while ( have_rows( 'slide_preview_module', $post_id ) ) {
+    // Path 2 / Path 3: 'slide_preview_module' and 'preview_module' repeaters'
+    // 'download' file field (ACF attachment) - same sub-field name, two
+    // different parent repeaters depending on content/taxonomy.
+    foreach ( [ 'slide_preview_module', 'preview_module' ] as $repeater_name ) {
+        if ( ! have_rows( $repeater_name, $post_id ) ) {
+            continue;
+        }
+        while ( have_rows( $repeater_name, $post_id ) ) {
             the_row();
             $download = get_sub_field( 'download', $post_id );
 
@@ -2909,6 +2934,43 @@ function adapt_relocate_gated_downloads( $post_id ) {
                     }
                 }
             }
+        }
+    }
+
+    // Path 4 / Path 5: 'share' and 'dataset_share' repeaters' 'share_download_url'
+    // plain text URL field. Nothing currently renders these as a clickable link
+    // on the frontend (verified: no theme template echoes this field), but the
+    // raw file they point at is just as publicly fetchable as download_link's
+    // was, so it gets the same relocation treatment regardless of whether a UI
+    // exists for it yet.
+    foreach ( [ 'share', 'dataset_share' ] as $repeater_name ) {
+        if ( ! have_rows( $repeater_name, $post_id ) ) {
+            continue;
+        }
+        $row_index = 0;
+        while ( have_rows( $repeater_name, $post_id ) ) {
+            the_row();
+            $file_url = get_sub_field( 'share_download_url', $post_id );
+
+            if ( $file_url && strpos( $file_url, '/protected-reports/' ) === false ) {
+                $relative = str_replace( $upload_dir['baseurl'], '', $file_url );
+                $src      = $upload_dir['basedir'] . $relative;
+
+                if ( file_exists( $src ) ) {
+                    $basename = basename( $src );
+                    $dest     = $protected_dir . '/' . $basename;
+                    if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
+                        $dest = $protected_dir . '/' . $post_id . '_' . $basename;
+                    }
+
+                    if ( @rename( $src, $dest ) ) {
+                        update_post_meta( $post_id, $repeater_name . '_' . $row_index . '_share_download_url', $protected_url . '/' . basename( $dest ) );
+                    } else {
+                        error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for post {$post_id} ({$repeater_name})" );
+                    }
+                }
+            }
+            $row_index++;
         }
     }
 }

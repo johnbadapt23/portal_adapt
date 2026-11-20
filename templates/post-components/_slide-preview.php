@@ -562,7 +562,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                 
             <?php } ?>
             <div class="textContainer">                
-                <?php if(current_user_can('memberpress_authorized') || $allowMarketNarratives ) { ?>
+                <?php if(current_user_can('memberpress_authorized')) { // $allowMarketNarratives no longer bypasses login - it still relabels the postType badge above, but no longer grants anonymous access to the real download ?>
                     <?php if ( has_term( ['sector-outlooks', 'cxo-buyer-persona-profiles' ], 'filter-types' ) && $advantageType == 'yes' ) { ?>
                         <?php if( $advantagePlus == 'yes') { ?> 
                             <?php $download = get_sub_field( 'download' ); ?>
