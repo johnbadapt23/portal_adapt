@@ -567,7 +567,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                         <?php if( $advantagePlus == 'yes') { ?> 
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['cxo-buyer-persona-profiles' ], 'filter-types' )){ ?>
@@ -585,7 +585,7 @@ if( !current_user_can('memberpress_authorized', get_the_ID()) && has_term(15775,
                     <?php } else { ?> 
                         <?php $download = get_sub_field( 'download' ); ?>
                         <?php if ( $download ) { ?>
-                            <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
+                            <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>">Download</a>                                             
                         <?php } ?>
                     <?php } ?>                                        
                 <?php } else { ?>
