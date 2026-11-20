@@ -2743,51 +2743,81 @@ function adapt_gated_download_handler() {
         exit;
     }
 
-    $members = '';
-    $counter = 0;
-    if ( have_rows( 'membership_ids_for_download', 'option' ) ) {
-        while ( have_rows( 'membership_ids_for_download', 'option' ) ) {
-            the_row();
-            $members .= ( $counter === 0 ? '' : ',' ) . get_sub_field( 'membership_id' );
-            $counter++;
-        }
-    }
-
-    if ( ! is_user_logged_in() || ! current_user_can( 'mepr-active', 'memberships:' . $members ) ) {
+    if ( ! is_user_logged_in() ) {
         status_header( 403 );
         wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
     }
 
     $file_path = false;
 
-    // Path 1: 'download_link' repeater (plain text URL field).
+    // Path 1: 'download_link' repeater (plain text URL field), used by
+    // single-post.php / _single-post-article-body.php. Gated by the
+    // specific membership list in the 'membership_ids_for_download'
+    // option - this is the narrower, per-post access list.
     if ( have_rows( 'download_link', $post_id ) ) {
-        the_row();
-        $file_url = get_sub_field( 'download_url', $post_id );
-        if ( $file_url ) {
-            $upload_dir = wp_get_upload_dir();
-            $candidate  = $upload_dir['basedir'] . str_replace( $upload_dir['baseurl'], '', $file_url );
-            if ( file_exists( $candidate ) ) {
-                $file_path = $candidate;
+        $members = '';
+        $counter = 0;
+        if ( have_rows( 'membership_ids_for_download', 'option' ) ) {
+            while ( have_rows( 'membership_ids_for_download', 'option' ) ) {
+                the_row();
+                $members .= ( $counter === 0 ? '' : ',' ) . get_sub_field( 'membership_id' );
+                $counter++;
+            }
+        }
+
+        if ( current_user_can( 'mepr-active', 'memberships:' . $members ) ) {
+            if ( have_rows( 'download_link', $post_id ) ) {
+                the_row();
+                $file_url = get_sub_field( 'download_url', $post_id );
+                if ( $file_url ) {
+                    $upload_dir = wp_get_upload_dir();
+                    $candidate  = $upload_dir['basedir'] . str_replace( $upload_dir['baseurl'], '', $file_url );
+                    if ( file_exists( $candidate ) ) {
+                        $file_path = $candidate;
+                    }
+                }
             }
         }
     }
 
-    // Path 2: 'slide_preview_module' repeater's 'download' file field (ACF attachment).
+    // Path 2: 'slide_preview_module' repeater's 'download' file field
+    // (ACF attachment), used by _article-title.php / _slide-preview.php /
+    // _video-preview.php / _single-research-text-header-block.php.
+    // Those templates gate this field on current_user_can('memberpress_authorized')
+    // alone, EXCEPT for sector-outlooks / cxo-buyer-persona-profiles posts
+    // flagged as advantageType, where only advantagePlus members (or admins)
+    // get a real link - everyone else sees a "Request Access" placeholder
+    // with no file at all. Replicate that exactly rather than the Path 1 rule.
     if ( ! $file_path && have_rows( 'slide_preview_module', $post_id ) ) {
-        the_row();
-        $download = get_sub_field( 'download', $post_id );
-        if ( $download && ! empty( $download['ID'] ) ) {
-            $candidate = get_attached_file( $download['ID'] );
-            if ( $candidate && file_exists( $candidate ) ) {
-                $file_path = $candidate;
+        $current_user_obj = wp_get_current_user();
+        $mepr_member       = new MeprUser( $current_user_obj->ID );
+        $active_subs       = $mepr_member->active_product_subscriptions( 'ids' );
+
+        $advantage_type_ok = current_user_can( 'mepr-active' ) && (
+            in_array( 49140, $active_subs ) ||
+            in_array( 3829, $active_subs ) ||
+            in_array( 36884, $active_subs ) ||
+            in_array( 41272, $active_subs )
+        );
+        $advantage_plus_ok = current_user_can( 'administrator' ) || ( current_user_can( 'mepr-active' ) && in_array( 49140, $active_subs ) );
+        $is_gated_sector_post = has_term( [ 'sector-outlooks', 'cxo-buyer-persona-profiles' ], 'filter-types', $post_id ) && $advantage_type_ok;
+        $slide_authorized = current_user_can( 'memberpress_authorized' ) && ( ! $is_gated_sector_post || $advantage_plus_ok );
+
+        if ( $slide_authorized ) {
+            the_row();
+            $download = get_sub_field( 'download', $post_id );
+            if ( $download && ! empty( $download['ID'] ) ) {
+                $candidate = get_attached_file( $download['ID'] );
+                if ( $candidate && file_exists( $candidate ) ) {
+                    $file_path = $candidate;
+                }
             }
         }
     }
 
     if ( ! $file_path ) {
-        status_header( 404 );
-        exit;
+        status_header( 403 );
+        wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
     }
 
     header( 'Content-Type: application/octet-stream' );
