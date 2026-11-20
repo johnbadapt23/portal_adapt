@@ -2713,6 +2713,74 @@ add_action( 'save_post', 'adapt_invalidate_pool_cache' );
 add_action( 'created_term', 'adapt_invalidate_pool_cache' );
 add_action( 'edited_term', 'adapt_invalidate_pool_cache' );
 add_action( 'delete_term', 'adapt_invalidate_pool_cache' );
+
+/**
+ * Gated download handler.
+ *
+ * Reports linked from the "download" ACF repeater used to be served as a
+ * plain static wp-content/uploads URL - the membership check only ran once,
+ * to decide whether to print the <a href> button at all, never again when
+ * that URL was actually requested. Anyone who obtained the link (a member
+ * sharing it, a search engine indexing it, etc.) could download the file
+ * forever afterwards with no membership check at all.
+ *
+ * This handler re-runs the exact same current_user_can('mepr-active', ...)
+ * check the template already uses, against the specific post being
+ * requested, and only then streams the file from disk. The real files now
+ * live in wp-content/uploads/protected-reports/, which has its own
+ * .htaccess denying direct web access - so the only way to reach them is
+ * through this gate.
+ */
+add_action( 'template_redirect', 'adapt_gated_download_handler' );
+function adapt_gated_download_handler() {
+    if ( ! isset( $_GET['adapt_download'] ) ) {
+        return;
+    }
+
+    $post_id = absint( $_GET['adapt_download'] );
+    if ( ! $post_id || get_post_status( $post_id ) !== 'publish' ) {
+        status_header( 404 );
+        exit;
+    }
+
+    $members = '';
+    $counter = 0;
+    if ( have_rows( 'membership_ids_for_download', 'option' ) ) {
+        while ( have_rows( 'membership_ids_for_download', 'option' ) ) {
+            the_row();
+            $members .= ( $counter === 0 ? '' : ',' ) . get_sub_field( 'membership_id' );
+            $counter++;
+        }
+    }
+
+    if ( ! is_user_logged_in() || ! current_user_can( 'mepr-active', 'memberships:' . $members ) ) {
+        status_header( 403 );
+        wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
+    }
+
+    if ( ! have_rows( 'download_link', $post_id ) ) {
+        status_header( 404 );
+        exit;
+    }
+    the_row();
+    $file_url = get_sub_field( 'download_url', $post_id );
+
+    $upload_dir = wp_get_upload_dir();
+    $file_path  = $upload_dir['basedir'] . str_replace( $upload_dir['baseurl'], '', $file_url );
+
+    if ( ! file_exists( $file_path ) ) {
+        status_header( 404 );
+        exit;
+    }
+
+    header( 'Content-Type: application/octet-stream' );
+    header( 'Content-Disposition: attachment; filename="' . basename( $file_path ) . '"' );
+    header( 'Content-Length: ' . filesize( $file_path ) );
+    header( 'X-Content-Type-Options: nosniff' );
+    readfile( $file_path );
+    exit;
+}
+
 add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment_id, $metadata ) {
     if ( ! $optimize ) {
         return false;
