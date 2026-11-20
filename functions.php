@@ -2758,17 +2758,34 @@ function adapt_gated_download_handler() {
         wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
     }
 
-    if ( ! have_rows( 'download_link', $post_id ) ) {
-        status_header( 404 );
-        exit;
+    $file_path = false;
+
+    // Path 1: 'download_link' repeater (plain text URL field).
+    if ( have_rows( 'download_link', $post_id ) ) {
+        the_row();
+        $file_url = get_sub_field( 'download_url', $post_id );
+        if ( $file_url ) {
+            $upload_dir = wp_get_upload_dir();
+            $candidate  = $upload_dir['basedir'] . str_replace( $upload_dir['baseurl'], '', $file_url );
+            if ( file_exists( $candidate ) ) {
+                $file_path = $candidate;
+            }
+        }
     }
-    the_row();
-    $file_url = get_sub_field( 'download_url', $post_id );
 
-    $upload_dir = wp_get_upload_dir();
-    $file_path  = $upload_dir['basedir'] . str_replace( $upload_dir['baseurl'], '', $file_url );
+    // Path 2: 'slide_preview_module' repeater's 'download' file field (ACF attachment).
+    if ( ! $file_path && have_rows( 'slide_preview_module', $post_id ) ) {
+        the_row();
+        $download = get_sub_field( 'download', $post_id );
+        if ( $download && ! empty( $download['ID'] ) ) {
+            $candidate = get_attached_file( $download['ID'] );
+            if ( $candidate && file_exists( $candidate ) ) {
+                $file_path = $candidate;
+            }
+        }
+    }
 
-    if ( ! file_exists( $file_path ) ) {
+    if ( ! $file_path ) {
         status_header( 404 );
         exit;
     }
