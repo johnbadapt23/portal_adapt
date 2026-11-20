@@ -9,7 +9,9 @@ $advantagePlus = "no";
     if (
         current_user_can('administrator') ||
         ( current_user_can('mepr-active') && (
-            in_array(49140, $active_subscriptions) 
+            in_array(49140, $active_subscriptions) ||
+            in_array(9811, $active_subscriptions) ||
+            in_array(41272, $active_subscriptions)
         ))
     ) {
         $advantagePlus = "yes";
