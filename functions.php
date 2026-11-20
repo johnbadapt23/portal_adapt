@@ -2731,7 +2731,7 @@ add_action( 'delete_term', 'adapt_invalidate_pool_cache' );
  * .htaccess denying direct web access - so the only way to reach them is
  * through this gate.
  */
-add_action( 'template_redirect', 'adapt_gated_download_handler' );
+add_action( 'init', 'adapt_gated_download_handler' );
 function adapt_gated_download_handler() {
     if ( ! isset( $_GET['adapt_download'] ) ) {
         return;
