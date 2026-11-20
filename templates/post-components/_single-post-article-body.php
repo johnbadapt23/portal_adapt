@@ -1172,7 +1172,7 @@
                                                                 <?php if (get_sub_field( 'text' )) { ?>
                                                                     <span class="shareText download mobile"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                                 <?php } ?>
-                                                                <a id="downloadButton" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), home_url( '/' ) ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                                                                <a id="downloadButton" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                             <?php endwhile; ?>
                                                         </div>
                                                     <?php else : ?>
@@ -1216,7 +1216,7 @@
                                                             <?php if (get_sub_field( 'text' )) { ?>
                                                                 <span class="shareText download mobile"><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
                                                             <?php } ?>
-                                                            <a id="downloadButton" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), home_url( '/' ) ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
+                                                            <a id="downloadButton" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>" target="_blank" rel="noopener noreferrer" class="button redOutline"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a>
                                                         <?php endwhile; ?>
                                                     </div>
                                                 <?php else : ?>
