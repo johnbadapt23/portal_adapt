@@ -3070,7 +3070,7 @@ function adapt_enqueue_download_modal() {
             '.adapt-dl-modal-logo{background:#000;padding:16px 0;text-align:center;}' +
             '.adapt-dl-modal-logo img{max-height:32px;width:auto;}' +
             '.adapt-dl-modal-body{padding:40px 36px 44px;text-align:center;box-sizing:border-box;}' +
-            '.adapt-dl-modal-body p{font-size:17px;color:#333;line-height:1.5;margin:0 0 28px;}' +
+            '.adapt-dl-modal-body p{font-size:14px;color:#333;line-height:1.5;margin:0 0 28px;}' +
             '.adapt-dl-modal-body a.stdBtn{float:none;display:inline-block;width:100%;box-sizing:border-box;}' +
             '.adapt-dl-modal-close{position:absolute;top:10px;right:14px;background:none;border:none;font-size:24px;line-height:1;color:#999;cursor:pointer;padding:4px;}';
         document.head.appendChild( style );
