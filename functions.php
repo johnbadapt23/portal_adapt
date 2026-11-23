@@ -3040,12 +3040,29 @@ function adapt_enqueue_download_modal() {
     wp_register_script( 'adapt-download-modal', '', [], null, true );
     wp_enqueue_script( 'adapt-download-modal' );
 
+    // A logged-out visitor never sees our real download link at all - the
+    // template swaps in a separate "Request to Download" HubSpot CTA for
+    // them instead (confirmed by fetching a gated post as an anonymous
+    // visitor: it renders a[href="#requestdownload"], never
+    // ?adapt_download=). So there is no click for the delegated handler
+    // below to ever catch on a gated post for a logged-out visitor - if we
+    // want them to see the access-denied popup at all, it has to be shown
+    // up front on page load rather than waiting for a click that will
+    // never come.
+    $gated_post_id      = is_singular() ? get_queried_object_id() : 0;
+    $has_gated_download = $gated_post_id && (
+        have_rows( 'download_link', $gated_post_id ) ||
+        have_rows( 'slide_preview_module', $gated_post_id ) ||
+        have_rows( 'preview_module', $gated_post_id )
+    );
+
     wp_localize_script( 'adapt-download-modal', 'adaptDownloadModal', [
-        'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
-        'nonce'    => wp_create_nonce( 'adapt_check_download' ),
-        'loginUrl' => wp_login_url(),
-        'homeUrl'  => home_url( '/' ),
-        'logoUrl'  => get_field( 'logo', 'option' ) ?: '',
+        'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
+        'nonce'           => wp_create_nonce( 'adapt_check_download' ),
+        'loginUrl'        => wp_login_url(),
+        'homeUrl'         => home_url( '/' ),
+        'logoUrl'         => get_field( 'logo', 'option' ) ?: '',
+        'showImmediately' => ( $has_gated_download && ! is_user_logged_in() ),
     ] );
 
     $js = <<<'JS'
@@ -3104,6 +3121,15 @@ function adapt_enqueue_download_modal() {
         document.body.appendChild( overlay );
     }
 
+    function showLoginModal() {
+        var redirectTo = cfg.loginUrl + ( cfg.loginUrl.indexOf( '?' ) > -1 ? '&' : '?' ) + 'redirect_to=' + encodeURIComponent( window.location.href );
+        showModal( 'Please login to gain access to this content.', 'Log In', redirectTo );
+    }
+
+    function showDeniedModal() {
+        showModal( 'You do not have access to this download.', 'Return to Homepage', cfg.homeUrl );
+    }
+
     document.addEventListener( 'click', function ( e ) {
         var link = e.target.closest ? e.target.closest( 'a[href*="adapt_download="]' ) : null;
         if ( ! link || link.dataset.adaptChecking === '1' ) { return; }
@@ -3128,10 +3154,9 @@ function adapt_enqueue_download_modal() {
             }
 
             if ( data && data.success && data.data && ! data.data.loggedIn ) {
-                var redirectTo = cfg.loginUrl + ( cfg.loginUrl.indexOf( '?' ) > -1 ? '&' : '?' ) + 'redirect_to=' + encodeURIComponent( window.location.href );
-                showModal( 'Please login to gain access to this content.', 'Log In', redirectTo );
+                showLoginModal();
             } else {
-                showModal( 'You do not have access to this download.', 'Return to Homepage', cfg.homeUrl );
+                showDeniedModal();
             }
         };
         xhr.onerror = function () {
@@ -3140,6 +3165,18 @@ function adapt_enqueue_download_modal() {
         };
         xhr.send( 'action=adapt_check_download&post_id=' + encodeURIComponent( postId ) + '&nonce=' + encodeURIComponent( cfg.nonce ) );
     } );
+
+    // A gated post with no logged-in visitor: show the same access-denied
+    // popup immediately, since this visitor will never be shown (let alone
+    // click) a real download link to trigger the handler above - see the
+    // comment beside showImmediately in adapt_enqueue_download_modal().
+    if ( cfg.showImmediately ) {
+        if ( document.readyState === 'loading' ) {
+            document.addEventListener( 'DOMContentLoaded', showLoginModal );
+        } else {
+            showLoginModal();
+        }
+    }
 })();
 JS;
 
