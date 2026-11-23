@@ -2778,7 +2778,10 @@ function adapt_gated_download_handler() {
 
     if ( ! is_user_logged_in() ) {
         status_header( 403 );
-        wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
+        $login_url = wp_login_url( home_url( add_query_arg( null, null ) ) );
+        $message   = '<p>You do not have access to this download.</p>' .
+            '<p><a href="' . esc_url( $login_url ) . '" style="display:inline-block;padding:10px 24px;background:#1a1a1a;color:#fff;text-decoration:none;border-radius:4px;font-family:sans-serif;">Log In</a></p>';
+        wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
     }
 
     $file_path = false;
@@ -2870,7 +2873,9 @@ function adapt_gated_download_handler() {
 
     if ( ! $file_path ) {
         status_header( 403 );
-        wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
+        $message = '<p>You do not have access to this download.</p>' .
+            '<p><a href="' . esc_url( home_url( '/' ) ) . '" style="display:inline-block;padding:10px 24px;background:#1a1a1a;color:#fff;text-decoration:none;border-radius:4px;font-family:sans-serif;">Return to Homepage</a></p>';
+        wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
     }
 
     header( 'Content-Type: application/octet-stream' );
