@@ -11258,6 +11258,17 @@ body .article {
                         text-align: center;
                         padding-top: 10px;
                         padding-bottom: 10px;
+                        // This column is only ~360px wide once the 150px
+                        // thumbnail and container padding are accounted for -
+                        // two real labels measured at 210px + 146px + the 8px
+                        // gap = 364px against a 358px box, 6px short, just
+                        // enough to trigger button-container's flex-wrap and
+                        // stack them instead of sitting side by side.
+                        // Dropping to 12px recovers enough width for these
+                        // (and reasonably longer) labels to fit on one row;
+                        // flex-wrap stays on as a fallback for whatever
+                        // doesn't fit even at this size.
+                        font-size: 12px;
                     }
                 }
             }
@@ -11299,6 +11310,9 @@ body .article {
                         text-align: center;
                         padding-top: 10px;
                         padding-bottom: 10px;
+                        // Same font-size tweak as .preview-cta-container's
+                        // button-container above - see the comment there.
+                        font-size: 12px;
                     }
                 }
             }
