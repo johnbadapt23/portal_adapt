@@ -2777,31 +2777,14 @@ function adapt_gated_download_handler() {
     }
 
     if ( ! is_user_logged_in() ) {
-        status_header( 403 );
-        $login_url = wp_login_url( home_url( add_query_arg( null, null ) ) );
-        $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
-        $logo_url  = get_field( 'logo', 'option' );
-        $logo_html = $logo_url
-            ? '<div class="ad-card__logo"><img src="' . esc_url( $logo_url ) . '" alt="ADAPT"></div>'
-            : '';
-        $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
-            '<style>' .
-                '.ad-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;font-family:sans-serif;margin:0;}' .
-                '.ad-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.08);max-width:380px;width:100%;}' .
-                '.ad-card__logo{background:#000;padding:16px 0;text-align:center;}' .
-                '.ad-card__logo img{max-height:32px;width:auto;}' .
-                '.ad-card__body{padding:40px 36px 44px;text-align:center;box-sizing:border-box;}' .
-                '.ad-card__body p{font-size:17px;color:#333;line-height:1.5;margin:0 0 28px;}' .
-                '.ad-card__body a.stdBtn{float:none;display:inline-block;width:100%;box-sizing:border-box;}' .
-            '</style>' .
-            '<div class="ad-wrap"><div class="ad-card">' .
-                $logo_html .
-                '<div class="ad-card__body">' .
-                    '<p>Please login to gain access to this content.</p>' .
-                    '<a class="stdBtn red" href="' . esc_url( $login_url ) . '">Log In</a>' .
-                '</div>' .
-            '</div></div>';
-        wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
+        // Previously wp_die()'d into a standalone fallback page here. Now
+        // we deliberately do nothing and return: with no exit, WordPress
+        // carries on past init exactly as if ?adapt_download= wasn't in
+        // the URL at all, so the actual post page renders normally.
+        // adapt_enqueue_download_modal()'s showImmediately flag detects
+        // this same situation (gated download + logged out) and pops the
+        // "Please login..." modal over that rendered page automatically.
+        return;
     }
 
     $file_path = false;
@@ -2892,30 +2875,13 @@ function adapt_gated_download_handler() {
     }
 
     if ( ! $file_path ) {
-        status_header( 403 );
-        $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
-        $logo_url  = get_field( 'logo', 'option' );
-        $logo_html = $logo_url
-            ? '<div class="ad-card__logo"><img src="' . esc_url( $logo_url ) . '" alt="ADAPT"></div>'
-            : '';
-        $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
-            '<style>' .
-                '.ad-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;font-family:sans-serif;margin:0;}' .
-                '.ad-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.08);max-width:380px;width:100%;}' .
-                '.ad-card__logo{background:#000;padding:16px 0;text-align:center;}' .
-                '.ad-card__logo img{max-height:32px;width:auto;}' .
-                '.ad-card__body{padding:40px 36px 44px;text-align:center;box-sizing:border-box;}' .
-                '.ad-card__body p{font-size:17px;color:#333;line-height:1.5;margin:0 0 28px;}' .
-                '.ad-card__body a.stdBtn{float:none;display:inline-block;width:100%;box-sizing:border-box;}' .
-            '</style>' .
-            '<div class="ad-wrap"><div class="ad-card">' .
-                $logo_html .
-                '<div class="ad-card__body">' .
-                    '<p>You do not have access to this download.</p>' .
-                    '<a class="stdBtn red" href="' . esc_url( home_url( '/' ) ) . '">Return to Homepage</a>' .
-                '</div>' .
-            '</div></div>';
-        wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
+        // Logged in, but no authorized path matched - same change as the
+        // logged-out branch above: let the real post page render normally
+        // instead of a standalone fallback, and let
+        // adapt_enqueue_download_modal()'s showImmediately flag (which
+        // re-checks authorization itself via adapt_user_can_download_quick())
+        // pop the "You do not have access..." modal over it.
+        return;
     }
 
     header( 'Content-Type: application/octet-stream' );
@@ -3056,13 +3022,32 @@ function adapt_enqueue_download_modal() {
         have_rows( 'preview_module', $gated_post_id )
     );
 
+    // adapt_gated_download_handler() no longer wp_die()s an unauthorized
+    // ?adapt_download= request - it lets this same page render normally
+    // instead (see its two early returns). So a shared/bookmarked download
+    // link now lands here too, and needs the same immediate popup as the
+    // logged-out case above, this time for a logged-in visitor on the
+    // wrong membership plan.
+    $requested_download_id   = isset( $_GET['adapt_download'] ) ? absint( $_GET['adapt_download'] ) : 0;
+    $download_requested_here = $gated_post_id && $requested_download_id === $gated_post_id;
+
+    $show_immediately = false;
+    if ( $has_gated_download ) {
+        if ( ! is_user_logged_in() ) {
+            $show_immediately = true;
+        } elseif ( $download_requested_here && ! adapt_user_can_download_quick( $gated_post_id ) ) {
+            $show_immediately = true;
+        }
+    }
+
     wp_localize_script( 'adapt-download-modal', 'adaptDownloadModal', [
         'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
         'nonce'           => wp_create_nonce( 'adapt_check_download' ),
         'loginUrl'        => wp_login_url(),
         'homeUrl'         => home_url( '/' ),
         'logoUrl'         => get_field( 'logo', 'option' ) ?: '',
-        'showImmediately' => ( $has_gated_download && ! is_user_logged_in() ),
+        'showImmediately' => $show_immediately,
+        'deniedImmediately' => ( $show_immediately && is_user_logged_in() ),
     ] );
 
     $js = <<<'JS'
@@ -3166,15 +3151,21 @@ function adapt_enqueue_download_modal() {
         xhr.send( 'action=adapt_check_download&post_id=' + encodeURIComponent( postId ) + '&nonce=' + encodeURIComponent( cfg.nonce ) );
     } );
 
-    // A gated post with no logged-in visitor: show the same access-denied
-    // popup immediately, since this visitor will never be shown (let alone
-    // click) a real download link to trigger the handler above - see the
-    // comment beside showImmediately in adapt_enqueue_download_modal().
+    // Either a logged-out visitor on a gated post (who is never shown a
+    // real download link to click at all), or a logged-in visitor on the
+    // wrong membership plan who arrived carrying ?adapt_download= in the
+    // URL (e.g. a link shared by someone who IS authorized) - in both
+    // cases the real handler now lets this page render normally instead
+    // of its own standalone fallback, so show the matching popup
+    // immediately here instead of waiting for a click that may never
+    // come. See showImmediately / deniedImmediately in
+    // adapt_enqueue_download_modal().
     if ( cfg.showImmediately ) {
+        var showImmediateModal = cfg.deniedImmediately ? showDeniedModal : showLoginModal;
         if ( document.readyState === 'loading' ) {
-            document.addEventListener( 'DOMContentLoaded', showLoginModal );
+            document.addEventListener( 'DOMContentLoaded', showImmediateModal );
         } else {
-            showLoginModal();
+            showImmediateModal();
         }
     }
 })();
