@@ -2798,7 +2798,7 @@ function adapt_gated_download_handler() {
             }
         }
 
-        if ( current_user_can( 'mepr-active', 'memberships:' . $members ) ) {
+        if ( current_user_can( 'administrator' ) || current_user_can( 'mepr-active', 'memberships:' . $members ) ) {
             if ( have_rows( 'download_link', $post_id ) ) {
                 the_row();
                 $file_url = get_sub_field( 'download_url', $post_id );
@@ -2849,7 +2849,7 @@ function adapt_gated_download_handler() {
             in_array( 41272, $active_subs )
         ) );
         $is_gated_sector_post = has_term( [ 'sector-outlooks', 'cxo-buyer-persona-profiles' ], 'filter-types', $post_id ) && $advantage_type_ok;
-        $preview_authorized = current_user_can( 'memberpress_authorized' ) && ( ! $is_gated_sector_post || $advantage_plus_ok );
+        $preview_authorized = current_user_can( 'administrator' ) || ( current_user_can( 'memberpress_authorized' ) && ( ! $is_gated_sector_post || $advantage_plus_ok ) );
 
         if ( $preview_authorized ) {
             foreach ( [ 'slide_preview_module', 'preview_module' ] as $repeater_name ) {
