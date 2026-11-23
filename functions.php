@@ -3006,39 +3006,21 @@ function adapt_enqueue_download_modal() {
     wp_register_script( 'adapt-download-modal', '', [], null, true );
     wp_enqueue_script( 'adapt-download-modal' );
 
-    // A logged-out visitor never sees our real download link at all - the
-    // template swaps in a separate "Request to Download" HubSpot CTA for
-    // them instead (confirmed by fetching a gated post as an anonymous
-    // visitor: it renders a[href="#requestdownload"], never
-    // ?adapt_download=). So there is no click for the delegated handler
-    // below to ever catch on a gated post for a logged-out visitor - if we
-    // want them to see the access-denied popup at all, it has to be shown
-    // up front on page load rather than waiting for a click that will
-    // never come.
-    $gated_post_id      = is_singular() ? get_queried_object_id() : 0;
-    $has_gated_download = $gated_post_id && (
-        have_rows( 'download_link', $gated_post_id ) ||
-        have_rows( 'slide_preview_module', $gated_post_id ) ||
-        have_rows( 'preview_module', $gated_post_id )
-    );
-
     // adapt_gated_download_handler() no longer wp_die()s an unauthorized
     // ?adapt_download= request - it lets this same page render normally
-    // instead (see its two early returns). So a shared/bookmarked download
-    // link now lands here too, and needs the same immediate popup as the
-    // logged-out case above, this time for a logged-in visitor on the
-    // wrong membership plan.
-    $requested_download_id   = isset( $_GET['adapt_download'] ) ? absint( $_GET['adapt_download'] ) : 0;
-    $download_requested_here = $gated_post_id && $requested_download_id === $gated_post_id;
-
-    $show_immediately = false;
-    if ( $has_gated_download ) {
-        if ( ! is_user_logged_in() ) {
-            $show_immediately = true;
-        } elseif ( $download_requested_here && ! adapt_user_can_download_quick( $gated_post_id ) ) {
-            $show_immediately = true;
-        }
-    }
+    // instead (see its two early returns). So the popup only needs to show
+    // up front, without a click, when the visitor actually arrived
+    // carrying ?adapt_download= for this post and isn't authorized -
+    // whether that's a logged-out visitor (who is never shown a real
+    // download link to click in the first place) or a logged-in visitor on
+    // the wrong membership plan (e.g. a link shared by someone who IS
+    // authorized). Browsing the page normally, with no query string,
+    // leaves the usual click-to-check flow further down as the only
+    // trigger.
+    $gated_post_id            = is_singular() ? get_queried_object_id() : 0;
+    $requested_download_id    = isset( $_GET['adapt_download'] ) ? absint( $_GET['adapt_download'] ) : 0;
+    $download_requested_here  = $gated_post_id && $requested_download_id === $gated_post_id;
+    $show_immediately         = $download_requested_here && ! adapt_user_can_download_quick( $gated_post_id );
 
     wp_localize_script( 'adapt-download-modal', 'adaptDownloadModal', [
         'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
