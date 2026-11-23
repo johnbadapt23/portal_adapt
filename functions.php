@@ -2962,17 +2962,29 @@ function adapt_relocate_gated_downloads( $post_id ) {
                 $attachment_id = $download['ID'];
                 $src           = get_attached_file( $attachment_id );
 
-                if ( $src && file_exists( $src ) && strpos( $src, '/protected-reports/' ) === false ) {
+                if ( $src && strpos( $src, '/protected-reports/' ) === false ) {
                     $basename = basename( $src );
-                    $dest     = $protected_dir . '/' . $basename;
-                    if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
-                        $dest = $protected_dir . '/' . $attachment_id . '_' . $basename;
-                    }
 
-                    if ( @rename( $src, $dest ) ) {
-                        update_attached_file( $attachment_id, $dest );
-                    } else {
-                        error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for attachment {$attachment_id} (post {$post_id})" );
+                    if ( file_exists( $src ) ) {
+                        $dest = $protected_dir . '/' . $basename;
+                        if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
+                            $dest = $protected_dir . '/' . $attachment_id . '_' . $basename;
+                        }
+
+                        if ( @rename( $src, $dest ) ) {
+                            update_attached_file( $attachment_id, $dest );
+                        } else {
+                            error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for attachment {$attachment_id} (post {$post_id})" );
+                        }
+                    } elseif ( file_exists( $protected_dir . '/' . $basename ) ) {
+                        // Source is already gone. Most likely this physical file is
+                        // shared by more than one attachment ID (a duplicate media
+                        // library entry, common in this site's import history) and
+                        // another attachment's relocation already moved it and
+                        // updated ITS OWN _wp_attached_file - this attachment's meta
+                        // was simply never touched. Nothing left to move; just point
+                        // this attachment's own record at where the file actually is.
+                        update_attached_file( $attachment_id, $protected_dir . '/' . $basename );
                     }
                 }
             }
