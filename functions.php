@@ -2919,17 +2919,27 @@ function adapt_relocate_gated_downloads( $post_id ) {
             if ( $file_url && strpos( $file_url, '/protected-reports/' ) === false ) {
                 $src = adapt_resolve_upload_path_from_url( $file_url, $upload_dir );
 
-                if ( $src && file_exists( $src ) ) {
+                if ( $src ) {
                     $basename = basename( $src );
-                    $dest     = $protected_dir . '/' . $basename;
-                    if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
-                        $dest = $protected_dir . '/' . $post_id . '_' . $basename;
-                    }
 
-                    if ( @rename( $src, $dest ) ) {
-                        update_post_meta( $post_id, 'download_link_' . $row_index . '_download_url', $protected_url . '/' . basename( $dest ) );
-                    } else {
-                        error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for post {$post_id}" );
+                    if ( file_exists( $src ) ) {
+                        $dest = $protected_dir . '/' . $basename;
+                        if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
+                            $dest = $protected_dir . '/' . $post_id . '_' . $basename;
+                        }
+
+                        if ( @rename( $src, $dest ) ) {
+                            update_post_meta( $post_id, 'download_link_' . $row_index . '_download_url', $protected_url . '/' . basename( $dest ) );
+                        } else {
+                            error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for post {$post_id}" );
+                        }
+                    } elseif ( file_exists( $protected_dir . '/' . $basename ) ) {
+                        // Source is already gone - most likely this same physical
+                        // file was already relocated via a different field on this
+                        // (or another) post that happens to point at it too (e.g.
+                        // download_link and share referencing the identical upload).
+                        // Nothing left to move; just repoint this field's stale URL.
+                        update_post_meta( $post_id, 'download_link_' . $row_index . '_download_url', $protected_url . '/' . $basename );
                     }
                 }
             }
@@ -2987,17 +2997,26 @@ function adapt_relocate_gated_downloads( $post_id ) {
             if ( $file_url && strpos( $file_url, '/protected-reports/' ) === false ) {
                 $src = adapt_resolve_upload_path_from_url( $file_url, $upload_dir );
 
-                if ( $src && file_exists( $src ) ) {
+                if ( $src ) {
                     $basename = basename( $src );
-                    $dest     = $protected_dir . '/' . $basename;
-                    if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
-                        $dest = $protected_dir . '/' . $post_id . '_' . $basename;
-                    }
 
-                    if ( @rename( $src, $dest ) ) {
-                        update_post_meta( $post_id, $repeater_name . '_' . $row_index . '_share_download_url', $protected_url . '/' . basename( $dest ) );
-                    } else {
-                        error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for post {$post_id} ({$repeater_name})" );
+                    if ( file_exists( $src ) ) {
+                        $dest = $protected_dir . '/' . $basename;
+                        if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
+                            $dest = $protected_dir . '/' . $post_id . '_' . $basename;
+                        }
+
+                        if ( @rename( $src, $dest ) ) {
+                            update_post_meta( $post_id, $repeater_name . '_' . $row_index . '_share_download_url', $protected_url . '/' . basename( $dest ) );
+                        } else {
+                            error_log( "adapt_relocate_gated_downloads: failed to move {$src} to {$dest} for post {$post_id} ({$repeater_name})" );
+                        }
+                    } elseif ( file_exists( $protected_dir . '/' . $basename ) ) {
+                        // Same situation as the download_link path above: this file
+                        // was already relocated via a different field (often the
+                        // same post's own download_link pointing at the identical
+                        // upload). Just repoint this field's stale URL.
+                        update_post_meta( $post_id, $repeater_name . '_' . $row_index . '_share_download_url', $protected_url . '/' . $basename );
                     }
                 }
             }
