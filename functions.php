@@ -2780,8 +2780,11 @@ function adapt_gated_download_handler() {
         status_header( 403 );
         $login_url = wp_login_url( home_url( add_query_arg( null, null ) ) );
         $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
+        $logo_url  = get_field( 'logo', 'option' );
+        $logo_html = $logo_url ? '<img src="' . esc_url( $logo_url ) . '" alt="ADAPT" style="max-width:180px;">' : '';
         $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
             '<div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;font-family:sans-serif;">' .
+            $logo_html .
             '<p style="font-size:18px;color:#1a1a1a;margin:0;">You do not have access to this download.</p>' .
             '<a class="stdBtn red" href="' . esc_url( $login_url ) . '">Log In</a>' .
             '</div>';
@@ -2878,8 +2881,11 @@ function adapt_gated_download_handler() {
     if ( ! $file_path ) {
         status_header( 403 );
         $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
+        $logo_url  = get_field( 'logo', 'option' );
+        $logo_html = $logo_url ? '<img src="' . esc_url( $logo_url ) . '" alt="ADAPT" style="max-width:180px;">' : '';
         $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
             '<div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;font-family:sans-serif;">' .
+            $logo_html .
             '<p style="font-size:18px;color:#1a1a1a;margin:0;">You do not have access to this download.</p>' .
             '<a class="stdBtn red" href="' . esc_url( home_url( '/' ) ) . '">Return to Homepage</a>' .
             '</div>';
