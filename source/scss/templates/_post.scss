@@ -11230,44 +11230,19 @@ body .article {
                     clear: both;
                     display: flex;
                     align-items: center;
-                    flex-wrap: wrap;
 
                     a.stdBtn {
                         float: none;
                         clear: both;
                         // The two buttons here (admin-entered labels via ACF
-                        // button_text - e.g. "Request to Download" / "Talk to
-                        // Sales") don't always fit this column's width on one
-                        // line. The base a.stdBtn rule (global/_styles.scss)
-                        // is height:50px + line-height:46px, sized only for a
-                        // single line - when a label wraps to two lines here,
-                        // the box itself doesn't grow, so the second line
-                        // rendered outside the button's own background/border
-                        // (and was nearly invisible for .red buttons, since
-                        // that line fell on this section's pink background
-                        // with the button's white text color). Switching to
-                        // an auto-height flex box that centers its own label
-                        // fixes both one-line and two-line labels without
-                        // touching the shared base rule other contexts rely on.
-                        height: auto;
-                        min-height: 50px;
-                        line-height: 1.3;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        text-align: center;
-                        padding-top: 10px;
-                        padding-bottom: 10px;
-                        // This column is only ~360px wide once the 150px
-                        // thumbnail and container padding are accounted for -
-                        // two real labels measured at 210px + 146px + the 8px
-                        // gap = 364px against a 358px box, 6px short, just
-                        // enough to trigger button-container's flex-wrap and
-                        // stack them instead of sitting side by side.
-                        // Dropping to 12px recovers enough width for these
-                        // (and reasonably longer) labels to fit on one row;
-                        // flex-wrap stays on as a fallback for whatever
-                        // doesn't fit even at this size.
+                        // button_text - e.g. 'Request to Download' / 'Talk to
+                        // Sales') didn't always fit this column's width on
+                        // one line at the sitewide 13px - 210px + 146px +
+                        // the 8px gap = 364px against a 358px box, 6px
+                        // short. Dropping to 12px recovers enough width for
+                        // these (and reasonably longer) labels to fit on one
+                        // row, same box/padding/height as everywhere else
+                        // a.stdBtn is used.
                         font-size: 12px;
                     }
                 }
@@ -11294,22 +11269,10 @@ body .article {
                     clear: both;
                     display: flex;
                     align-items: center;
-                    flex-wrap: wrap;
 
                     a.stdBtn {
                         float: none;
                         clear: both;
-                        // Same fix as .preview-cta-container's button-container
-                        // above - see the comment there.
-                        height: auto;
-                        min-height: 50px;
-                        line-height: 1.3;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        text-align: center;
-                        padding-top: 10px;
-                        padding-bottom: 10px;
                         // Same font-size tweak as .preview-cta-container's
                         // button-container above - see the comment there.
                         font-size: 12px;
