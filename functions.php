@@ -2927,6 +2927,226 @@ function adapt_gated_download_handler() {
 }
 
 /**
+ * Lightweight access check for the gated-download buttons, used by the
+ * in-page "you don't have access" popup (adapt_enqueue_download_modal()
+ * below) so clicking an unauthorized download link shows a message on the
+ * current page instead of popping a blank new tab open to the real
+ * handler's wp_die() page.
+ *
+ * This is a READ-ONLY mirror of the two authorization paths in
+ * adapt_gated_download_handler() above - it deliberately does not call
+ * into or modify that function (the actual, tested, security-enforcing
+ * code path) to avoid any risk of regressing it. If either path's gating
+ * logic changes there, mirror the change here too.
+ *
+ * Unlike the real handler, this does not resolve or check for the actual
+ * file on disk - it only answers whether this user's membership is one
+ * that this post's download fields would authorize, which is enough for
+ * the popup. The real handler still re-verifies everything from scratch
+ * (including that a file actually exists) the moment the now-authorized
+ * link is actually opened.
+ */
+function adapt_user_can_download_quick( $post_id ) {
+    if ( ! is_user_logged_in() || ! $post_id || get_post_status( $post_id ) !== 'publish' ) {
+        return false;
+    }
+
+    $is_admin = current_user_can( 'administrator' );
+
+    // Path 1: 'download_link' repeater - narrow, per-post membership list.
+    if ( have_rows( 'download_link', $post_id ) ) {
+        $members = '';
+        $counter = 0;
+        if ( have_rows( 'membership_ids_for_download', 'option' ) ) {
+            while ( have_rows( 'membership_ids_for_download', 'option' ) ) {
+                the_row();
+                $members .= ( $counter === 0 ? '' : ',' ) . get_sub_field( 'membership_id' );
+                $counter++;
+            }
+        }
+        if ( $is_admin || current_user_can( 'mepr-active', 'memberships:' . $members ) ) {
+            return true;
+        }
+    }
+
+    // Path 2/3: 'slide_preview_module' / 'preview_module'.
+    if ( have_rows( 'slide_preview_module', $post_id ) || have_rows( 'preview_module', $post_id ) ) {
+        $current_user_obj = wp_get_current_user();
+        $mepr_member       = new MeprUser( $current_user_obj->ID );
+        $active_subs       = $mepr_member->active_product_subscriptions( 'ids' );
+
+        $advantage_type_ok = current_user_can( 'mepr-active' ) && (
+            in_array( 49140, $active_subs ) ||
+            in_array( 3829, $active_subs ) ||
+            in_array( 36884, $active_subs ) ||
+            in_array( 41272, $active_subs )
+        );
+        $advantage_plus_ok = $is_admin || ( current_user_can( 'mepr-active' ) && (
+            in_array( 49140, $active_subs ) ||
+            in_array( 9811, $active_subs ) ||
+            in_array( 41272, $active_subs )
+        ) );
+        $is_gated_sector_post = has_term( [ 'sector-outlooks', 'cxo-buyer-persona-profiles' ], 'filter-types', $post_id ) && $advantage_type_ok;
+
+        if ( $is_admin || ( current_user_can( 'memberpress_authorized' ) && ( ! $is_gated_sector_post || $advantage_plus_ok ) ) ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * AJAX endpoint backing the download-access popup: answers whether the
+ * current user is authorized for a given post's gated download, without
+ * serving the file itself. See adapt_user_can_download_quick() above.
+ */
+add_action( 'wp_ajax_adapt_check_download', 'adapt_check_download_access' );
+add_action( 'wp_ajax_nopriv_adapt_check_download', 'adapt_check_download_access' );
+function adapt_check_download_access() {
+    check_ajax_referer( 'adapt_check_download', 'nonce' );
+
+    $post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+
+    wp_send_json_success( [
+        'allowed'  => $post_id ? adapt_user_can_download_quick( $post_id ) : false,
+        'loggedIn' => is_user_logged_in(),
+    ] );
+}
+
+/**
+ * Show an in-page popup instead of a blank new tab when a visitor clicks a
+ * gated-download button they are not authorized for. Every download button
+ * across the theme (single-post.php, _article-title.php, _slide-preview.php,
+ * _video-preview.php, _single-research-text-header-block.php,
+ * _single-post-article-body.php) already shares the same
+ * ?adapt_download=<post_id> href with target="_blank" - rather than editing
+ * each template, this registers one click-delegated script that intercepts
+ * any a[href*="adapt_download="] click, asks adapt_check_download_access()
+ * first, and either lets the real download proceed (opens the href in a new
+ * tab, same as before) or shows a themed popup on the current page instead.
+ *
+ * This never changes what is or is not authorized -
+ * adapt_gated_download_handler() remains the real, final check every time a
+ * file is actually requested; this script only decides whether to show that
+ * result as an in-page popup or let the original new-tab flow happen.
+ */
+add_action( 'wp_enqueue_scripts', 'adapt_enqueue_download_modal' );
+function adapt_enqueue_download_modal() {
+    if ( is_admin() ) {
+        return;
+    }
+
+    wp_register_script( 'adapt-download-modal', '', [], null, true );
+    wp_enqueue_script( 'adapt-download-modal' );
+
+    wp_localize_script( 'adapt-download-modal', 'adaptDownloadModal', [
+        'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+        'nonce'    => wp_create_nonce( 'adapt_check_download' ),
+        'loginUrl' => wp_login_url(),
+        'homeUrl'  => home_url( '/' ),
+        'logoUrl'  => get_field( 'logo', 'option' ) ?: '',
+    ] );
+
+    $js = <<<'JS'
+(function () {
+    var cfg = window.adaptDownloadModal;
+    if ( ! cfg ) { return; }
+
+    function getPostId( href ) {
+        var match = href.match( /[?&]adapt_download=(\d+)/ );
+        return match ? match[1] : null;
+    }
+
+    function ensureStyles() {
+        if ( document.getElementById( 'adapt-download-modal-styles' ) ) { return; }
+        var style = document.createElement( 'style' );
+        style.id = 'adapt-download-modal-styles';
+        style.textContent =
+            '.adapt-dl-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:sans-serif;}' +
+            '.adapt-dl-modal-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.3);max-width:380px;width:90%;position:relative;}' +
+            '.adapt-dl-modal-logo{background:#000;padding:16px 0;text-align:center;}' +
+            '.adapt-dl-modal-logo img{max-height:32px;width:auto;}' +
+            '.adapt-dl-modal-body{padding:40px 36px 44px;text-align:center;box-sizing:border-box;}' +
+            '.adapt-dl-modal-body p{font-size:17px;color:#333;line-height:1.5;margin:0 0 28px;}' +
+            '.adapt-dl-modal-body a.stdBtn{float:none;display:inline-block;width:100%;box-sizing:border-box;}' +
+            '.adapt-dl-modal-close{position:absolute;top:10px;right:14px;background:none;border:none;font-size:24px;line-height:1;color:#999;cursor:pointer;padding:4px;}';
+        document.head.appendChild( style );
+    }
+
+    function showModal( message, buttonText, buttonHref ) {
+        ensureStyles();
+        var overlay = document.createElement( 'div' );
+        overlay.className = 'adapt-dl-modal-overlay';
+        overlay.innerHTML =
+            '<div class="adapt-dl-modal-card">' +
+                ( cfg.logoUrl ? '<div class="adapt-dl-modal-logo"><img src="' + cfg.logoUrl + '" alt="ADAPT"></div>' : '' ) +
+                '<button type="button" class="adapt-dl-modal-close" aria-label="Close">&times;</button>' +
+                '<div class="adapt-dl-modal-body">' +
+                    '<p></p>' +
+                    '<a class="stdBtn red"></a>' +
+                '</div>' +
+            '</div>';
+        overlay.querySelector( 'p' ).textContent = message;
+        var link = overlay.querySelector( 'a.stdBtn' );
+        link.href = buttonHref;
+        link.textContent = buttonText;
+
+        function close() { overlay.remove(); document.removeEventListener( 'keydown', onKey ); }
+        function onKey( e ) { if ( e.key === 'Escape' ) { close(); } }
+
+        overlay.addEventListener( 'click', function ( e ) {
+            if ( e.target === overlay || e.target.classList.contains( 'adapt-dl-modal-close' ) ) {
+                close();
+            }
+        } );
+        document.addEventListener( 'keydown', onKey );
+        document.body.appendChild( overlay );
+    }
+
+    document.addEventListener( 'click', function ( e ) {
+        var link = e.target.closest ? e.target.closest( 'a[href*="adapt_download="]' ) : null;
+        if ( ! link || link.dataset.adaptChecking === '1' ) { return; }
+
+        var postId = getPostId( link.href );
+        if ( ! postId ) { return; }
+
+        e.preventDefault();
+        link.dataset.adaptChecking = '1';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open( 'POST', cfg.ajaxUrl, true );
+        xhr.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+        xhr.onload = function () {
+            link.dataset.adaptChecking = '0';
+            var data = null;
+            try { data = JSON.parse( xhr.responseText ); } catch ( err ) {}
+
+            if ( data && data.success && data.data && data.data.allowed ) {
+                window.open( link.href, '_blank' );
+                return;
+            }
+
+            if ( data && data.success && data.data && ! data.data.loggedIn ) {
+                var redirectTo = cfg.loginUrl + ( cfg.loginUrl.indexOf( '?' ) > -1 ? '&' : '?' ) + 'redirect_to=' + encodeURIComponent( window.location.href );
+                showModal( 'Please login to gain access to this content.', 'Log In', redirectTo );
+            } else {
+                showModal( 'You do not have access to this download.', 'Return to Homepage', cfg.homeUrl );
+            }
+        };
+        xhr.onerror = function () {
+            link.dataset.adaptChecking = '0';
+            window.open( link.href, '_blank' );
+        };
+        xhr.send( 'action=adapt_check_download&post_id=' + encodeURIComponent( postId ) + '&nonce=' + encodeURIComponent( cfg.nonce ) );
+    } );
+})();
+JS;
+
+    wp_add_inline_script( 'adapt-download-modal', $js );
+}
+
+/**
  * Keep report downloads out of the public uploads tree automatically.
  *
  * Some report files are intentionally public, so we can't blanket-deny every
