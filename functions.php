@@ -2779,8 +2779,12 @@ function adapt_gated_download_handler() {
     if ( ! is_user_logged_in() ) {
         status_header( 403 );
         $login_url = wp_login_url( home_url( add_query_arg( null, null ) ) );
-        $message   = '<p>You do not have access to this download.</p>' .
-            '<p><a href="' . esc_url( $login_url ) . '" style="display:inline-block;padding:10px 24px;background:#1a1a1a;color:#fff;text-decoration:none;border-radius:4px;font-family:sans-serif;">Log In</a></p>';
+        $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
+        $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
+            '<div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;font-family:sans-serif;">' .
+            '<p style="font-size:18px;color:#1a1a1a;margin:0;">You do not have access to this download.</p>' .
+            '<a class="stdBtn red" href="' . esc_url( $login_url ) . '">Log In</a>' .
+            '</div>';
         wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
     }
 
@@ -2873,8 +2877,12 @@ function adapt_gated_download_handler() {
 
     if ( ! $file_path ) {
         status_header( 403 );
-        $message = '<p>You do not have access to this download.</p>' .
-            '<p><a href="' . esc_url( home_url( '/' ) ) . '" style="display:inline-block;padding:10px 24px;background:#1a1a1a;color:#fff;text-decoration:none;border-radius:4px;font-family:sans-serif;">Return to Homepage</a></p>';
+        $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
+        $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
+            '<div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;font-family:sans-serif;">' .
+            '<p style="font-size:18px;color:#1a1a1a;margin:0;">You do not have access to this download.</p>' .
+            '<a class="stdBtn red" href="' . esc_url( home_url( '/' ) ) . '">Return to Homepage</a>' .
+            '</div>';
         wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
     }
 
