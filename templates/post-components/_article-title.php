@@ -9,7 +9,9 @@
     if (
         current_user_can('administrator') ||
         ( current_user_can('mepr-active') && (
-            in_array(49140, $active_subscriptions) 
+            in_array(49140, $active_subscriptions) ||
+            in_array(9811, $active_subscriptions) ||
+            in_array(41272, $active_subscriptions)
         ))
     ) {
         $advantagePlus = "yes";
@@ -54,7 +56,7 @@ $post_id = get_the_ID();
                             <?php $download = get_sub_field( 'download' ); ?>
                             <?php if ( $download ) { ?>
                                 <?php $noMargin = 'no'; ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( $download['url'] ); ?>">Download</a>                                             
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>">Download</a>                                             
                             <?php } ?>
                         <?php } else { ?> 
                             <?php if ( has_term( ['cxo-buyer-persona-profiles' ], 'filter-types' )){ ?>
@@ -76,7 +78,7 @@ $post_id = get_the_ID();
                             <?php $download = 'yes'; ?>
                             <?php $noMargin = 'no'; ?>
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a> 
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a> 
                             <?php endwhile; ?>                            
                         <?php else : ?>
                             <?php // no rows found ?>
