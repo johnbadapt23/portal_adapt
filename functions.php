@@ -2731,6 +2731,39 @@ add_action( 'delete_term', 'adapt_invalidate_pool_cache' );
  * .htaccess denying direct web access - so the only way to reach them is
  * through this gate.
  */
+/**
+ * Resolve a stored ACF "download URL" (download_link / share / dataset_share)
+ * to a local filesystem path, without depending on an exact string match
+ * against wp_get_upload_dir()['baseurl'].
+ *
+ * Historically this did str_replace($upload_dir['baseurl'], '', $file_url),
+ * which silently fails (and does nothing - no error, no log) whenever the
+ * stored URL's scheme or host doesn't exactly match the current site's
+ * uploads baseurl. That happens for legitimate reasons on this site: the
+ * "Site Address" setting has changed between http/https over time, and
+ * some posts were synced into staging directly from production's database
+ * (bypassing normal WP save hooks) and still carry the literal
+ * research.adapt.com.au production domain in their stored URL.
+ *
+ * Instead, this ignores scheme and host entirely and looks for the
+ * '/wp-content/uploads' marker in the URL's path, so it resolves correctly
+ * regardless of which domain/scheme the URL happens to use, as long as the
+ * relative path under uploads is correct for THIS server.
+ */
+function adapt_resolve_upload_path_from_url( $file_url, $upload_dir ) {
+	$parsed = wp_parse_url( $file_url );
+	$path   = isset( $parsed['path'] ) ? $parsed['path'] : $file_url;
+
+	$marker = '/wp-content/uploads';
+	$pos    = strpos( $path, $marker );
+	if ( false === $pos ) {
+		return false;
+	}
+
+	$relative = substr( $path, $pos + strlen( $marker ) );
+	return $upload_dir['basedir'] . $relative;
+}
+
 add_action( 'init', 'adapt_gated_download_handler' );
 function adapt_gated_download_handler() {
     if ( ! isset( $_GET['adapt_download'] ) ) {
@@ -2771,7 +2804,7 @@ function adapt_gated_download_handler() {
                 $file_url = get_sub_field( 'download_url', $post_id );
                 if ( $file_url ) {
                     $upload_dir = wp_get_upload_dir();
-                    $candidate  = $upload_dir['basedir'] . str_replace( $upload_dir['baseurl'], '', $file_url );
+                    $candidate  = adapt_resolve_upload_path_from_url( $file_url, $upload_dir );
                     if ( file_exists( $candidate ) ) {
                         $file_path = $candidate;
                     }
@@ -2884,10 +2917,9 @@ function adapt_relocate_gated_downloads( $post_id ) {
             $file_url = get_sub_field( 'download_url', $post_id );
 
             if ( $file_url && strpos( $file_url, '/protected-reports/' ) === false ) {
-                $relative = str_replace( $upload_dir['baseurl'], '', $file_url );
-                $src      = $upload_dir['basedir'] . $relative;
+                $src = adapt_resolve_upload_path_from_url( $file_url, $upload_dir );
 
-                if ( file_exists( $src ) ) {
+                if ( $src && file_exists( $src ) ) {
                     $basename = basename( $src );
                     $dest     = $protected_dir . '/' . $basename;
                     if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
@@ -2953,10 +2985,9 @@ function adapt_relocate_gated_downloads( $post_id ) {
             $file_url = get_sub_field( 'share_download_url', $post_id );
 
             if ( $file_url && strpos( $file_url, '/protected-reports/' ) === false ) {
-                $relative = str_replace( $upload_dir['baseurl'], '', $file_url );
-                $src      = $upload_dir['basedir'] . $relative;
+                $src = adapt_resolve_upload_path_from_url( $file_url, $upload_dir );
 
-                if ( file_exists( $src ) ) {
+                if ( $src && file_exists( $src ) ) {
                     $basename = basename( $src );
                     $dest     = $protected_dir . '/' . $basename;
                     if ( file_exists( $dest ) && realpath( $dest ) !== realpath( $src ) ) {
