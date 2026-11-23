@@ -2781,13 +2781,26 @@ function adapt_gated_download_handler() {
         $login_url = wp_login_url( home_url( add_query_arg( null, null ) ) );
         $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
         $logo_url  = get_field( 'logo', 'option' );
-        $logo_html = $logo_url ? '<img src="' . esc_url( $logo_url ) . '" alt="ADAPT" style="max-width:180px;">' : '';
+        $logo_html = $logo_url
+            ? '<div class="ad-card__logo"><img src="' . esc_url( $logo_url ) . '" alt="ADAPT"></div>'
+            : '';
         $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
-            '<div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;font-family:sans-serif;">' .
-            $logo_html .
-            '<p style="font-size:18px;color:#1a1a1a;margin:0;">You do not have access to this download.</p>' .
-            '<a class="stdBtn red" href="' . esc_url( $login_url ) . '">Log In</a>' .
-            '</div>';
+            '<style>' .
+                '.ad-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;font-family:sans-serif;margin:0;}' .
+                '.ad-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.08);max-width:380px;width:100%;}' .
+                '.ad-card__logo{background:#000;padding:16px 0;text-align:center;}' .
+                '.ad-card__logo img{max-height:32px;width:auto;}' .
+                '.ad-card__body{padding:40px 36px 44px;text-align:center;box-sizing:border-box;}' .
+                '.ad-card__body p{font-size:17px;color:#333;line-height:1.5;margin:0 0 28px;}' .
+                '.ad-card__body a.stdBtn{float:none;display:inline-block;width:100%;box-sizing:border-box;}' .
+            '</style>' .
+            '<div class="ad-wrap"><div class="ad-card">' .
+                $logo_html .
+                '<div class="ad-card__body">' .
+                    '<p>Please login to gain access to this content.</p>' .
+                    '<a class="stdBtn red" href="' . esc_url( $login_url ) . '">Log In</a>' .
+                '</div>' .
+            '</div></div>';
         wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
     }
 
@@ -2882,13 +2895,26 @@ function adapt_gated_download_handler() {
         status_header( 403 );
         $theme_css = get_template_directory_uri() . '/assets/css/global.min.css';
         $logo_url  = get_field( 'logo', 'option' );
-        $logo_html = $logo_url ? '<img src="' . esc_url( $logo_url ) . '" alt="ADAPT" style="max-width:180px;">' : '';
+        $logo_html = $logo_url
+            ? '<div class="ad-card__logo"><img src="' . esc_url( $logo_url ) . '" alt="ADAPT"></div>'
+            : '';
         $message   = '<link rel="stylesheet" href="' . esc_url( $theme_css ) . '">' .
-            '<div style="min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;font-family:sans-serif;">' .
-            $logo_html .
-            '<p style="font-size:18px;color:#1a1a1a;margin:0;">You do not have access to this download.</p>' .
-            '<a class="stdBtn red" href="' . esc_url( home_url( '/' ) ) . '">Return to Homepage</a>' .
-            '</div>';
+            '<style>' .
+                '.ad-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f5f5f5;font-family:sans-serif;margin:0;}' .
+                '.ad-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.08);max-width:380px;width:100%;}' .
+                '.ad-card__logo{background:#000;padding:16px 0;text-align:center;}' .
+                '.ad-card__logo img{max-height:32px;width:auto;}' .
+                '.ad-card__body{padding:40px 36px 44px;text-align:center;box-sizing:border-box;}' .
+                '.ad-card__body p{font-size:17px;color:#333;line-height:1.5;margin:0 0 28px;}' .
+                '.ad-card__body a.stdBtn{float:none;display:inline-block;width:100%;box-sizing:border-box;}' .
+            '</style>' .
+            '<div class="ad-wrap"><div class="ad-card">' .
+                $logo_html .
+                '<div class="ad-card__body">' .
+                    '<p>You do not have access to this download.</p>' .
+                    '<a class="stdBtn red" href="' . esc_url( home_url( '/' ) ) . '">Return to Homepage</a>' .
+                '</div>' .
+            '</div></div>';
         wp_die( $message, 'Access Denied', [ 'response' => 403 ] );
     }
 
