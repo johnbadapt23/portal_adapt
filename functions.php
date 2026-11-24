@@ -2777,10 +2777,6 @@ function adapt_gated_download_handler() {
     }
 
     if ( ! is_user_logged_in() ) {
-<<<<<<< HEAD
-        status_header( 403 );
-        wp_die( 'You do not have access to this download.', 'Access Denied', [ 'response' => 403 ] );
-=======
         // Previously wp_die()'d into a standalone fallback page here. Now
         // we deliberately do nothing and return: with no exit, WordPress
         // carries on past init exactly as if ?adapt_download= wasn't in
@@ -2789,7 +2785,6 @@ function adapt_gated_download_handler() {
         // this same situation (gated download + logged out) and pops the
         // "Please login..." modal over that rendered page automatically.
         return;
->>>>>>> 188b482d15a4920d7bd92a0d5de8552b3bc44e9c
     }
 
     $file_path = false;
