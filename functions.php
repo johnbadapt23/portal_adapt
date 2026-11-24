@@ -3312,6 +3312,277 @@ function adapt_relocate_gated_downloads( $post_id ) {
     }
 }
 
+/**
+ * Signed, time-limited "preview token" system for gated report files.
+ *
+ * Problem this solves: third-party viewers (Microsoft's Office Online Viewer
+ * at view.officeapps.live.com, and similar) fetch the document URL from
+ * THEIR OWN servers, never from the visitor's browser - so they can never
+ * carry the visitor's WordPress login cookie, and adapt_gated_download_handler()
+ * above (which requires is_user_logged_in()) can never authorize them no
+ * matter what URL or parameters are used.
+ *
+ * Instead: the authorized visitor's OWN browser (which does have their real
+ * session) calls adapt_mint_preview_token() first, which re-runs the exact
+ * same membership check as adapt_user_can_download_quick() and, if
+ * authorized, returns a short-lived signed URL. That URL is what gets handed
+ * to the external viewer - the signature (verified in
+ * adapt_gated_preview_handler() below) is the credential at that point, not
+ * a cookie, and it expires in 10 minutes and is scoped to one post only.
+ *
+ * This deliberately mirrors (does not refactor/touch) the existing,
+ * already-tested adapt_gated_download_handler() / adapt_user_can_download_quick()
+ * above, same convention as that function's own doc comment explains -
+ * avoids any risk of regressing the real download gate while adding this.
+ */
+
+/**
+ * Reverse lookup: given a gated file's path/URL/filename, find the post_id
+ * whose download_link / slide_preview_module / preview_module field
+ * actually serves it. Needed because the widget only has the file's URL
+ * (from the CustomGPT citation), not the post_id.
+ *
+ * Scoped to the same two fields adapt_gated_download_handler() actually
+ * serves from (Path 1 and Path 2/3) - deliberately does NOT look at
+ * share / dataset_share, since nothing serves those as a real download
+ * today either (see adapt_relocate_gated_downloads()'s own comment on them).
+ */
+function adapt_resolve_post_id_from_gated_file_path( $file_path ) {
+    global $wpdb;
+
+    $basename = basename( wp_parse_url( $file_path, PHP_URL_PATH ) ?: $file_path );
+    if ( ! $basename ) {
+        return 0;
+    }
+
+    // Path 1: 'download_link' repeater's plain text URL field - the file
+    // URL is stored directly on the post's own postmeta.
+    $post_id = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT post_id FROM {$wpdb->postmeta}
+             WHERE meta_key LIKE %s AND meta_value LIKE %s
+             LIMIT 1",
+            $wpdb->esc_like( 'download_link_' ) . '%' . $wpdb->esc_like( '_download_url' ),
+            '%' . $wpdb->esc_like( $basename )
+        )
+    );
+    if ( $post_id ) {
+        return absint( $post_id );
+    }
+
+    // Path 2/3: resolve the attachment ID from its current (relocated)
+    // _wp_attached_file path, then find which post's repeater references
+    // that attachment ID.
+    $relative = 'protected-reports/' . $basename;
+    $attachment_id = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT post_id FROM {$wpdb->postmeta}
+             WHERE meta_key = '_wp_attached_file' AND meta_value LIKE %s
+             LIMIT 1",
+            '%' . $wpdb->esc_like( $relative )
+        )
+    );
+    if ( ! $attachment_id ) {
+        return 0;
+    }
+
+    $post_id = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT post_id FROM {$wpdb->postmeta}
+             WHERE ( meta_key LIKE %s OR meta_key LIKE %s ) AND meta_value = %s
+             LIMIT 1",
+            $wpdb->esc_like( 'slide_preview_module_' ) . '%' . $wpdb->esc_like( '_download' ),
+            $wpdb->esc_like( 'preview_module_' ) . '%' . $wpdb->esc_like( '_download' ),
+            $attachment_id
+        )
+    );
+
+    return absint( $post_id );
+}
+
+/**
+ * Same file-resolution logic as adapt_gated_download_handler()'s two paths,
+ * but called ONLY after authorization has already been confirmed (by
+ * adapt_mint_preview_token() at mint time, or re-checked here for Path 1's
+ * narrower per-post membership list, which can change between mint and
+ * fetch on a long-lived token - 10 minutes is short enough this is mostly
+ * belt-and-braces). Kept as its own copy rather than a shared refactor of
+ * the real handler, same reasoning as adapt_user_can_download_quick()
+ * above: don't touch the tested, security-enforcing code path.
+ */
+function adapt_resolve_gated_file_path_for_preview( $post_id ) {
+    if ( have_rows( 'download_link', $post_id ) ) {
+        the_row();
+        $file_url = get_sub_field( 'download_url', $post_id );
+        if ( $file_url ) {
+            $upload_dir = wp_get_upload_dir();
+            $candidate  = adapt_resolve_upload_path_from_url( $file_url, $upload_dir );
+            if ( $candidate && file_exists( $candidate ) ) {
+                return $candidate;
+            }
+        }
+    }
+
+    foreach ( [ 'slide_preview_module', 'preview_module' ] as $repeater_name ) {
+        if ( ! have_rows( $repeater_name, $post_id ) ) {
+            continue;
+        }
+        the_row();
+        $download = get_sub_field( 'download', $post_id );
+        if ( $download && ! empty( $download['ID'] ) ) {
+            $candidate = get_attached_file( $download['ID'] );
+            if ( $candidate && file_exists( $candidate ) ) {
+                return $candidate;
+            }
+        }
+    }
+
+    return false;
+}
+
+/**
+ * AJAX endpoint: mint a short-lived signed preview URL for one gated
+ * report, for the ADAPT Intelligence widget to use in place of the raw
+ * (now .htaccess-blocked) protected-reports URL when building a preview
+ * (e.g. the view.officeapps.live.com src= param, or a PDF viewer src).
+ *
+ * Deliberately no wp_ajax_nopriv_ variant registered - logged-out visitors
+ * get no token, full stop, same as the real download handler.
+ *
+ * Expected POST params: nonce (from wp_create_nonce('adapt_mint_preview')),
+ * and either post_id OR file_path (whichever the widget has on hand - it
+ * can pass the exact citation URL/filename it already has and this
+ * resolves the post_id itself).
+ *
+ * Response: { success: true, data: { url, expires } } on success,
+ * or { success: false, data: { message } } with the described HTTP code.
+ */
+add_action( 'wp_ajax_adapt_mint_preview_token', 'adapt_mint_preview_token' );
+function adapt_mint_preview_token() {
+    check_ajax_referer( 'adapt_mint_preview', 'nonce' );
+
+    if ( ! is_user_logged_in() ) {
+        wp_send_json_error( [ 'message' => 'Not logged in' ], 401 );
+    }
+
+    $post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+
+    if ( ! $post_id && ! empty( $_POST['file_path'] ) ) {
+        $post_id = adapt_resolve_post_id_from_gated_file_path( sanitize_text_field( wp_unslash( $_POST['file_path'] ) ) );
+    }
+
+    if ( ! $post_id || get_post_status( $post_id ) !== 'publish' ) {
+        wp_send_json_error( [ 'message' => 'Unknown report' ], 404 );
+    }
+
+    if ( ! adapt_user_can_download_quick( $post_id ) ) {
+        wp_send_json_error( [ 'message' => 'Not authorized' ], 403 );
+    }
+
+    $expires = time() + 10 * MINUTE_IN_SECONDS;
+    $secret  = wp_salt( 'auth' );
+    $sig     = hash_hmac( 'sha256', $post_id . '|' . $expires, $secret );
+
+    $url = add_query_arg(
+        [
+            'adapt_preview' => $post_id,
+            'exp'           => $expires,
+            'sig'           => $sig,
+        ],
+        home_url( '/' )
+    );
+
+    wp_send_json_success( [ 'url' => $url, 'expires' => $expires ] );
+}
+
+/**
+ * Serves the file inline (so third-party viewers can render it) for a
+ * valid, unexpired signed preview URL minted by adapt_mint_preview_token()
+ * above. Deliberately does NOT check is_user_logged_in() - the whole point
+ * is this gets fetched by a third party (e.g. Microsoft's Office Online
+ * Viewer) that never has the visitor's cookie. The HMAC signature, only
+ * ever issued after the real membership check above, is the credential
+ * here instead - it can't be forged without wp_salt('auth'), and it stops
+ * working 10 minutes after being minted regardless.
+ */
+add_action( 'init', 'adapt_gated_preview_handler' );
+function adapt_gated_preview_handler() {
+    if ( ! isset( $_GET['adapt_preview'], $_GET['exp'], $_GET['sig'] ) ) {
+        return;
+    }
+
+    $post_id = absint( $_GET['adapt_preview'] );
+    $expires = absint( $_GET['exp'] );
+    $sig     = sanitize_text_field( wp_unslash( $_GET['sig'] ) );
+
+    if ( ! $post_id || ! $expires || ! $sig ) {
+        status_header( 400 );
+        exit;
+    }
+
+    if ( time() > $expires ) {
+        status_header( 410 ); // Gone - token expired, mint a fresh one.
+        exit;
+    }
+
+    $secret   = wp_salt( 'auth' );
+    $expected = hash_hmac( 'sha256', $post_id . '|' . $expires, $secret );
+
+    if ( ! hash_equals( $expected, $sig ) ) {
+        status_header( 403 );
+        exit;
+    }
+
+    if ( get_post_status( $post_id ) !== 'publish' ) {
+        status_header( 404 );
+        exit;
+    }
+
+    $file_path = adapt_resolve_gated_file_path_for_preview( $post_id );
+    if ( ! $file_path ) {
+        status_header( 404 );
+        exit;
+    }
+
+    $filetype = wp_check_filetype( $file_path );
+    $mime     = $filetype['type'] ?: 'application/octet-stream';
+
+    header( 'Content-Type: ' . $mime );
+    header( 'Content-Disposition: inline; filename="' . basename( $file_path ) . '"' );
+    header( 'Content-Length: ' . filesize( $file_path ) );
+    header( 'X-Content-Type-Options: nosniff' );
+    header( 'Cache-Control: private, max-age=0, no-store' );
+    readfile( $file_path );
+    exit;
+}
+
+/**
+ * Exposes the AJAX URL + nonce the widget needs to call
+ * adapt_mint_preview_token() above, as a small JS global - same pattern as
+ * the usage-tracking script further up this file. Only for logged-in
+ * visitors; logged-out visitors get no nonce and can't call the endpoint
+ * (it would reject them anyway, but no point handing out a working nonce
+ * to someone who can never use it).
+ */
+add_action( 'wp_enqueue_scripts', 'adapt_enqueue_preview_token_config' );
+function adapt_enqueue_preview_token_config() {
+    if ( ! is_user_logged_in() ) {
+        return;
+    }
+
+    wp_register_script( 'adapt-preview-token-config', '', [], null, true );
+    wp_enqueue_script( 'adapt-preview-token-config' );
+    wp_add_inline_script(
+        'adapt-preview-token-config',
+        'window.__adaptPreviewAuth = ' . wp_json_encode(
+            [
+                'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+                'nonce'   => wp_create_nonce( 'adapt_mint_preview' ),
+            ]
+        ) . ';'
+    );
+}
+
 add_filter( 'imagify_auto_optimize_attachment', function( $optimize, $attachment_id, $metadata ) {
     if ( ! $optimize ) {
         return false;
