@@ -11234,6 +11234,16 @@ body .article {
                     a.stdBtn {
                         float: none;
                         clear: both;
+                        // The two buttons here (admin-entered labels via ACF
+                        // button_text - e.g. 'Request to Download' / 'Talk to
+                        // Sales') didn't always fit this column's width on
+                        // one line at the sitewide 13px - 210px + 146px +
+                        // the 8px gap = 364px against a 358px box, 6px
+                        // short. Dropping to 12px recovers enough width for
+                        // these (and reasonably longer) labels to fit on one
+                        // row, same box/padding/height as everywhere else
+                        // a.stdBtn is used.
+                        font-size: 12px;
                     }
                 }
             }
@@ -11263,6 +11273,9 @@ body .article {
                     a.stdBtn {
                         float: none;
                         clear: both;
+                        // Same font-size tweak as .preview-cta-container's
+                        // button-container above - see the comment there.
+                        font-size: 12px;
                     }
                 }
             }

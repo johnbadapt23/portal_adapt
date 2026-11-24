@@ -78,7 +78,7 @@ $post_id = get_the_ID();
                             <?php $download = 'yes'; ?>
                             <?php $noMargin = 'no'; ?>
                             <?php while ( have_rows( 'download_link' ) ) : the_row(); ?>
-                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_sub_field( 'download_url' ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a> 
+                                <a class="download button red-button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( add_query_arg( 'adapt_download', get_the_ID(), get_permalink() ) ); ?>"><?php echo esc_html( get_sub_field( 'button_text' ) ); ?></a> 
                             <?php endwhile; ?>                            
                         <?php else : ?>
                             <?php // no rows found ?>
